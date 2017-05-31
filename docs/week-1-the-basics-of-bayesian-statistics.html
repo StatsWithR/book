@@ -162,20 +162,18 @@ We can rewrite this conditional probability in terms of ‘regular’ probabilit
 \end{split}
 \end{multline*}\]</span>
 <p>It turns out this relationship holds true for any conditional probability and is known as Bayes’ rule:</p>
-<table style="width:54%;">
-<colgroup>
-<col width="54%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td align="left"><strong>Bayes’ Rule</strong> The conditional probability of the event <span class="math inline">\(A\)</span> conditional on the event <span class="math inline">\(B\)</span> is given by <span class="math display">\[
-P(A \mid B) = \frac{P(A \,\&amp;\, B)}{P(B)}.
-\]</span></td>
-</tr>
-</tbody>
-</table>
-<p><strong>EXAMPLE: What is the probability that an 18-29 year old from Table <a href="week-1-the-basics-of-bayesian-statistics.html#tab:2015gallupDating">1.1</a> uses online dating sites?</strong></p>
-<p>Note that the question asks a question about 18-29 year olds. Therefore, it conditions on being 18-29 years old. Bayes’ rule provides a way to compute the required conditional probability:</p>
+
+<div class="definition">
+<p><span id="def:unnamed-chunk-2" class="definition"><strong>Definition 1.1  (Bayes’ Rule)  </strong></span>The conditional probability of the event <span class="math inline">\(A\)</span> conditional on the event <span class="math inline">\(B\)</span> is given by</p>
+<span class="math display">\[
+  P(A \mid B) = \frac{P(A \,\&amp;\, B)}{P(B)}.
+\]</span>
+</div>
+
+
+<div class="example">
+<p><span id="ex:unnamed-chunk-3" class="example"><strong>Example 1.1  ()  </strong></span>What is the probability that an 18-29 year old from Table <a href="week-1-the-basics-of-bayesian-statistics.html#tab:2015gallupDating">1.1</a> uses online dating sites?**</p>
+<p>Note that the question asks a question about 18-29 year olds. Therefore, it conditions on being 18-29 years old. Bayes’ rule provides a way to compute this conditional probability:</p>
 <span class="math display">\[\begin{multline*}
     P(\text{using an online dating site} \mid \text{in age group 18-29}) \\
 \begin{split}
@@ -184,6 +182,8 @@ P(A \mid B) = \frac{P(A \,\&amp;\, B)}{P(B)}.
     &amp;= \frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number in age group 18-29}} = \frac{60}{315} \approx 19\%.
 \end{split}
 \end{multline*}\]</span>
+</div>
+
 </div>
 <div id="diagnostic-testing" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Bayes’ Rule and Diagnostic Testing</h3>
@@ -327,8 +327,8 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": null,
-"text": null
+"link": "https://github.com/statswithr/book/edit/master/01_week1.Rmd",
+"text": "Edit"
 },
 "download": null,
 "toc": {

@@ -1,22 +1,3 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
-
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-options(dplyr.print_min = 6, dplyr.print_max = 6)
-```
-
-
 
 # Week 1: The Basics of Bayesian Statistics
 
@@ -24,17 +5,14 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 ### Conditional Probabilities & Bayes' Rule {#bayes-rule}
 
-```{r 2015gallupDating, echo = FALSE}
-temp <- matrix(c(60, 86, 58, 21, 225, 255, 426, 450, 382, 1513, 316, 512, 508, 403, 1738), nrow = 3, byrow = TRUE)
-rownames(temp) <- c('Used online dating site', 'Did not use online dating site', 'Total')
-colnames(temp) <- c('18-29', '30-49', '50-64', '65+', 'Total')
 
-knitr::kable(
-  x = temp,
-  booktabs = TRUE,
-  caption = 'Results from a 2015 Gallup poll on the use of online dating sites by age group'
-)
-```
+Table: (\#tab:2015gallupDating)Results from a 2015 Gallup poll on the use of online dating sites by age group
+
+                                  18-29   30-49   50-64   65+   Total
+-------------------------------  ------  ------  ------  ----  ------
+Used online dating site              60      86      58    21     225
+Did not use online dating site      255     426     450   382    1513
+Total                               316     512     508   403    1738
 
 Consider Table \@ref(tab:2015gallupDating).
 It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities. For instance, the probability of an adult American using an online dating site can be calculated as
@@ -62,20 +40,17 @@ We can rewrite this conditional probability in terms of 'regular' probabilities 
 \end{multline*}
 It turns out this relationship holds true for any conditional probability and is known as Bayes' rule:
 
----------------------------------------
-**Bayes' Rule**
-The conditional probability of the event $A$ conditional on the event $B$ is given by
+\BeginKnitrBlock{definition}\iffalse{-91-66-97-121-101-115-39-32-82-117-108-101-93-}\fi{}<div class="definition"><span class="definition" id="def:unnamed-chunk-2"><strong>(\#def:unnamed-chunk-2) \iffalse (Bayes' Rule) \fi{} </strong></span>The conditional probability of the event $A$ conditional on the event $B$ is given by
+
 \[
   P(A \mid B) = \frac{P(A \,\&\, B)}{P(B)}.
-\]
-
----------------------------------------
+\]</div>\EndKnitrBlock{definition}
 
 
-**EXAMPLE: What is the probability that an 18-29 year old from Table \@ref(tab:2015gallupDating) uses online dating sites?**
+\BeginKnitrBlock{example}\iffalse{-91-93-}\fi{}<div class="example"><span class="example" id="ex:unnamed-chunk-3"><strong>(\#ex:unnamed-chunk-3) \iffalse () \fi{} </strong></span>What is the probability that an 18-29 year old from Table \@ref(tab:2015gallupDating) uses online dating sites?**
 
 Note that the question asks a question about 18-29 year olds. Therefore, it conditions on being 18-29 years old.
-Bayes' rule provides a way to compute the required conditional probability:
+Bayes' rule provides a way to compute this conditional probability:
 
 \begin{multline*}
 	P(\text{using an online dating site} \mid \text{in age group 18-29}) \\
@@ -84,7 +59,7 @@ Bayes' rule provides a way to compute the required conditional probability:
 	&= \frac{\frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number of people in the poll}}}{\frac{\text{Total number in age group 18-29}}{\text{Total number of people in the poll}}} \\
 	&= \frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number in age group 18-29}} = \frac{60}{315} \approx 19\%.
 \end{split}
-\end{multline*}
+\end{multline*}</div>\EndKnitrBlock{example}
 
 
 ### Bayes' Rule and Diagnostic Testing {#diagnostic-testing}
