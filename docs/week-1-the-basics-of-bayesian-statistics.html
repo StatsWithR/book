@@ -49,7 +49,6 @@
 
 
 
-<link rel="stylesheet" href="r4ds.css" type="text/css" />
 </head>
 
 <body>
@@ -62,9 +61,6 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><strong><a href="./">Bayesian Statistics</a></strong></li>
-
-<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="1" data-path="week-1-the-basics-of-bayesian-statistics.html"><a href="week-1-the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> Week 1: The Basics of Bayesian Statistics</a><ul>
 <li class="chapter" data-level="1.1" data-path="week-1-the-basics-of-bayesian-statistics.html"><a href="week-1-the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
@@ -320,7 +316,16 @@ Analogous to what we did in this section, we can use Bayes’ updating for this.
 <script>
 require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": false,
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
 "fontsettings": {
 "theme": "white",
 "family": "sans",
@@ -332,7 +337,7 @@ gitbook.start({
 },
 "download": null,
 "toc": {
-"collapse": "section"
+"collapse": "subsection"
 }
 });
 });
