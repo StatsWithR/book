@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bayesian Statistics</title>
+  <meta name="description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization.">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Bayesian Statistics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://www.coursera.org/learn/bayesian/home/info/" />
+  <meta property="og:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+  <meta property="og:description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Bayesian Statistics" />
+  
+  <meta name="twitter:description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="twitter:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+
+<meta name="author" content="Willem van den Boom">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="r4ds.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">Bayesian Statistics</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="week-1-the-basics-of-bayesian-statistics.html"><a href="week-1-the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> Week 1: The Basics of Bayesian Statistics</a><ul>
+<li class="chapter" data-level="1.1" data-path="week-1-the-basics-of-bayesian-statistics.html"><a href="week-1-the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="week-1-the-basics-of-bayesian-statistics.html"><a href="week-1-the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
+<li class="chapter" data-level="1.1.2" data-path="week-1-the-basics-of-bayesian-statistics.html"><a href="week-1-the-basics-of-bayesian-statistics.html#diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
+<li class="chapter" data-level="1.1.3" data-path="week-1-the-basics-of-bayesian-statistics.html"><a href="week-1-the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
+<li class="chapter" data-level="1.1.4" data-path="week-1-the-basics-of-bayesian-statistics.html"><a href="week-1-the-basics-of-bayesian-statistics.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="week-1-the-basics-of-bayesian-statistics.html"><a href="week-1-the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a></li>
+<li class="chapter" data-level="1.3" data-path="week-1-the-basics-of-bayesian-statistics.html"><a href="week-1-the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a></li>
+<li class="chapter" data-level="1.4" data-path="week-1-the-basics-of-bayesian-statistics.html"><a href="week-1-the-basics-of-bayesian-statistics.html#exercises"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week-1-the-basics-of-bayesian-statistics" class="section level1">
+<h1><span class="header-section-number">1</span> Week 1: The Basics of Bayesian Statistics</h1>
+<div id="bayes-rule" class="section level2">
+<h2><span class="header-section-number">1.1</span> Bayes’ Rule</h2>
+<div id="bayes-rule" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Conditional Probabilities &amp; Bayes’ Rule</h3>
+<table>
+<caption><span id="tab:2015gallupDating">Table 1.1: </span>Results from a 2015 Gallup poll on the use of online dating sites by age group</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">18-29</th>
+<th align="right">30-49</th>
+<th align="right">50-64</th>
+<th align="right">65+</th>
+<th align="right">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Used online dating site</td>
+<td align="right">60</td>
+<td align="right">86</td>
+<td align="right">58</td>
+<td align="right">21</td>
+<td align="right">225</td>
+</tr>
+<tr class="even">
+<td>Did not use online dating site</td>
+<td align="right">255</td>
+<td align="right">426</td>
+<td align="right">450</td>
+<td align="right">382</td>
+<td align="right">1513</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td align="right">316</td>
+<td align="right">512</td>
+<td align="right">508</td>
+<td align="right">403</td>
+<td align="right">1738</td>
+</tr>
+</tbody>
+</table>
+Consider Table <a href="week-1-the-basics-of-bayesian-statistics.html#tab:2015gallupDating">1.1</a>. It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities. For instance, the probability of an adult American using an online dating site can be calculated as
+<span class="math display">\[\begin{multline*}
+    P(\text{using an online dating site}) = \\
+    \frac{\text{Number that indicated they used an online dating site}}{\text{Total number of people in the poll}}
+    = \frac{225}{1738} \approx 13\%.
+\end{multline*}\]</span>
+This is the overall probability of using an online dating site. Say, we are now interested in the probability of using an online dating site if one falls in the age group 30-49. Similar to the above, we have
+<span class="math display">\[\begin{multline*}
+    P(\text{using an online dating site} \mid \text{in age group 30-49}) = \\
+    \frac{\text{Number in age group 30-49 that indicated they used an online dating site}}{\text{Total number in age group 30-49}}
+    = \frac{86}{512} \approx 17\%.
+\end{multline*}\]</span>
+<p>Here, the pipe symbol `|’ means <em>conditional on</em>. This is a <em>conditional probability</em> as one can consider it the probability of using an online dating site conditional on being in age group 30-49.</p>
+We can rewrite this conditional probability in terms of ‘regular’ probabilities by dividing both numerator and the denominator by the total number of people in the poll. That is,
+<span class="math display">\[\begin{multline*}
+    P(\text{using an online dating site} \mid \text{in age group 30-49}) \\
+\begin{split}
+    &amp;= \frac{\text{Number in age group 30-49 that indicated they used an online dating site}}{\text{Total number in age group 30-49}} \\
+    &amp;= \frac{\frac{\text{Number in age group 30-49 that indicated they used an online dating site}}{\text{Total number of people in the poll}}}{\frac{\text{Total number in age group 30-49}}{\text{Total number of people in the poll}}} \\
+    &amp;= \frac{P(\text{using an online dating site &amp; falling in age group 30-49})}{P(\text{Falling in age group 30-49})}.
+\end{split}
+\end{multline*}\]</span>
+<p>It turns out this relationship holds true for any conditional probability and is known as Bayes’ rule:</p>
+<table style="width:54%;">
+<colgroup>
+<col width="54%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Bayes’ Rule</strong> The conditional probability of the event <span class="math inline">\(A\)</span> conditional on the event <span class="math inline">\(B\)</span> is given by <span class="math display">\[
+P(A \mid B) = \frac{P(A \,\&amp;\, B)}{P(B)}.
+\]</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>EXAMPLE: What is the probability that an 18-29 year old from Table <a href="week-1-the-basics-of-bayesian-statistics.html#tab:2015gallupDating">1.1</a> uses online dating sites?</strong></p>
+<p>Note that the question asks a question about 18-29 year olds. Therefore, it conditions on being 18-29 years old. Bayes’ rule provides a way to compute the required conditional probability:</p>
+<span class="math display">\[\begin{multline*}
+    P(\text{using an online dating site} \mid \text{in age group 18-29}) \\
+\begin{split}
+    &amp;= \frac{P(\text{using an online dating site &amp; falling in age group 18-29})}{P(\text{Falling in age group 18-29})} \\
+    &amp;= \frac{\frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number of people in the poll}}}{\frac{\text{Total number in age group 18-29}}{\text{Total number of people in the poll}}} \\
+    &amp;= \frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number in age group 18-29}} = \frac{60}{315} \approx 19\%.
+\end{split}
+\end{multline*}\]</span>
+</div>
+<div id="diagnostic-testing" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Bayes’ Rule and Diagnostic Testing</h3>
+<p>To better understand conditional probabilities and their importance, let us consider an example involving the human immunodeficiency virus (HIV). In the early 1980s, HIV had just been discovered and was rapidly expanding. There was major concern with the safety of the blood supply. Also, virtually no cure existed making an HIV diagnosis basically a death sentence, in addition to the stigma that was attached to the disease.</p>
+<p>These made false positives and false negatives in HIV testing highly undesirable. A <em>false positive</em> is when a test returns postive while the truth is negative. That would for instance be that someone without HIV is wrongly diagnosed with HIV, wrongly telling that person they are going to die and casting the stigma on them. A <em>false negative</em> is when a test returns negative while the truth is positive. That is when someone with HIV undergoes an HIV test which wrongly comes back negative. The latter poses a threat to the blood supply if that person is about to donate blood.</p>
+<p>The probability of a false positive if the truth is negative is called the false positive rate. Similarly, the false negative rate is the probability of a false negative if the truth is positive. Note that both these rates are conditional probabilities: The false positive rate of an HIV test is the probability of a positive result <em>conditional on</em> the person tested having no HIV.</p>
+The HIV test we consider is an enzyme-linked immunosorbent assay, commonly known as an ELISA. We would like to know the probability that someone (in the early 1980s) has HIV if ELISA tests positive. For this, we need the following information. ELISA’s true positive rate (one minus the false negative rate), also referred to as sensitivity, recall, or probability of detection, is estimated as <span class="math display">\[
+  P(\text{ELISA is positive} \mid \text{Person tested has HIV}) = 93\% = 0.93.
+\]</span> Its true negative rate (one minus the false positive rate), also referred to as specificity, is estimated as <span class="math display">\[
+  P(\text{ELISA is negative} \mid \text{Person tested has no HIV}) = 99\% = 0.99.
+\]</span> Also relevant to our question is the prevalence of HIV in the overall population, which is estimated to be 1.48 out of every 1000 American adults. We therefore assume
+<span class="math display" id="eq:HIVpositive">\[\begin{equation}
+  P(\text{Person tested has HIV}) = \frac{1.48}{1000} = 0.00148.
+  \tag{1.1}
+\end{equation}\]</span>
+<p>Note that the above numbers are estimates. For our purposes, however, we will treat them as if they were exact.</p>
+Our goal is to compute the probability of HIV if ELISA is positive, that is <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span>. In none of the above numbers did we condition on the outcome of ELISA. Fortunately, Bayes’ rule allows is to use the above numbers to compute the probability we seek. Bayes’ rule states that
+<span class="math display" id="eq:HIVconditional">\[\begin{multline*}
+  P(\text{Person tested has HIV} \mid \text{ELISA is positive}) \\
+  = \frac{P(\text{Person tested has HIV} \,\&amp;\, \text{ELISA is positive})}{P(\text{ELISA is positive})}.
+  \tag{1.2}
+\end{multline*}\]</span>
+The can be derived as follows. For someone to test positive and be HIV positive, that person first needs to be HIV positive and then seconldy test positive. The probability of the first thing happening is <span class="math inline">\(P(\text{HIV positive}) = 0.00148\)</span>. The probability of then testing positive is <span class="math inline">\(P(\text{ELISA is positive} \mid \text{Person tested has HIV}) = 0.93\)</span>, the true positive rate. This yields for the numerator
+<span class="math display" id="eq:HIVjoint">\[\begin{multline*}
+  P(\text{Person tested has HIV} \,\&amp;\, \text{ELISA is positive}) \\
+  \begin{split}
+  &amp;= P(\text{Person tested has HIV}) P(\text{ELISA is positive} \mid \text{Person tested has HIV}) \\
+  &amp;= 0.00148 \cdot 0.93
+  = 0.0013764.
+  \end{split}
+  \tag{1.3}
+\end{multline*}\]</span>
+<p>The first step in the above equation is implied by Bayes’ rule: By multiplying the left- and right-hand side of Bayes’ rule as presented in Section <a href="week-1-the-basics-of-bayesian-statistics.html#bayes-rule">1.1</a> by <span class="math inline">\(P(B)\)</span>, we obtain <span class="math display">\[
+  P(A \mid B) P(B) = P(A \,\&amp;\, B).
+\]</span></p>
+The denominator in <a href="week-1-the-basics-of-bayesian-statistics.html#eq:HIVconditional">(1.2)</a> can be expanded as
+<span class="math display">\[\begin{multline*}
+  P(\text{ELISA is positive}) \\
+  \begin{split}
+  &amp;= P(\text{Person tested has HIV} \,\&amp;\, \text{ELISA is positive})
+  + P(\text{Person tested has no HIV} \,\&amp;\, \text{ELISA is positive}) \\
+  &amp;= 0.0013764 + 0.0099852 = 0.0113616
+  \end{split}
+\end{multline*}\]</span>
+where we used <a href="week-1-the-basics-of-bayesian-statistics.html#eq:HIVjoint">(1.3)</a> and
+
+Putting this all together and inserting into <a href="week-1-the-basics-of-bayesian-statistics.html#eq:HIVconditional">(1.2)</a> reveals
+<span class="math display" id="eq:HIVresult">\[\begin{equation}
+  P(\text{Person tested has HIV} \mid \text{ELISA is positive}) = \frac{0.0013764}{0.0113616} \approx 0.12.
+  \tag{1.4}
+\end{equation}\]</span>
+<p>So even when the ELISA returns positive, the probability of having HIV is only 12%. An important reason why this number is so low is due to the prevalence of HIV. Before testing, one’s probability of HIV was 0.148%, so the positive test changes that probability dramatically, but it is still below 50%. That is, it is more likely that one is HIV negative rather than positive after one positive ELISA test.</p>
+<p>Questions like the one we just answered (What is the probability of a disease if a test returns positive?) are crucial to make medical diagnoses. As we saw, just the true positive and true negative rates of a test do not tell the full story, but also a disease’s prevalence plays a role. Bayes’ rule is a tool to synthesize such numbers into a more useful probability of having a disease after a test result.</p>
+<p><strong>EXAMPLE: What is the probability that someone who tests positive does not actually have HIV?</strong></p>
+<p>We found in <a href="week-1-the-basics-of-bayesian-statistics.html#eq:HIVresult">(1.4)</a> that someone who tests positive has a <span class="math inline">\(0.12\)</span> probability of having HIV. That implies that the same person has a <span class="math inline">\(1-0.12=0.88\)</span> probability of not having HIV, despite testing positive.</p>
+<p><strong>EXAMPLE: If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?</strong></p>
+<p>If the person has a priori a higher risk for HIV and tests positive, then the probability of having HIV must be higher than for someone not at increased risk who also tests positive. Therefore, <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &gt; 0.12\)</span> where <span class="math inline">\(0.12\)</span> comes from <a href="week-1-the-basics-of-bayesian-statistics.html#eq:HIVresult">(1.4)</a>.</p>
+<p>One can derive this mathematically by plugging in a larger number in <a href="week-1-the-basics-of-bayesian-statistics.html#eq:HIVpositive">(1.1)</a> than 0.00148, as that number represents the prior risk of HIV. Changing the calculations accordingly shows <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &gt; 0.12\)</span>.</p>
+<p><strong>EXAMPLE: If the false positive rate of the test is higher than 1%, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?</strong></p>
+<p>If the false positive rate increases, the probability of a wrong positive result increases. That means that a positive test result is more likely to be wrong and thus less indicative of HIV. Therefore, the probability of HIV after a positive ELISA goes down such that <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &lt; 0.12\)</span>.</p>
+</div>
+<div id="bayes-updating" class="section level3">
+<h3><span class="header-section-number">1.1.3</span> Bayes Updating</h3>
+<p>In the previous section, we saw that one positive ELISA test yields a probability of having HIV of 12%. To obtain a more convincing probability, one might want to do a second ELISA test after a first one comes up positive. What is the probability of being HIV positive of also the second ELISA test comes back positive?</p>
+<p>To solve this problem, we will assume that the correctness of this second test is not influenced by the first ELISA, that is, the tests are independent from each other. This assumption probably does not hold true as it is plausible that if the first test was a false positive, it is more likely that the second one will be one as well. Nonetheless, we stick with the independence assumption for simplicity.</p>
+<p>In the last section, we used <span class="math inline">\(P(\text{Person tested has HIV}) = 0.00148\)</span>, see <a href="week-1-the-basics-of-bayesian-statistics.html#eq:HIVpositive">(1.1)</a>, to compute the probability of HIV after one positive test. If we repeat those steps but now with <span class="math inline">\(P(\text{Person tested has HIV}) = 0.12\)</span>, the probability that a person with one positive test has HIV, we exactly obtain the probability of HIV after two positive tests. Repeating the maths from the previous section, involving Bayes’ rule, gives</p>
+<span class="math display" id="eq:Bayes-updating">\[\begin{multline*}
+  P(\text{Person tested has HIV} \mid \text{Second ELISA is also positive}) \\
+  \begin{split}
+  &amp;= \frac{P(\text{Person tested has HIV}) P(\text{Second ELISA is positive} \mid \text{Person tested has HIV})}{P(\text{Second ELISA is also positive})} \\
+  &amp;= \frac{0.12 \cdot 0.93}{
+  \begin{split}
+  &amp;P(\text{Person tested has HIV}) P(\text{Second ELISA is positive} \mid \text{Has HIV}) \\
+  + &amp;P(\text{Person tested has no HIV}) P(\text{Second ELISA is positive} \mid \text{Has no HIV})
+  \end{split}
+  } \\
+  &amp;= \frac{0.1116}{0.12 \cdot 0.93 + (1 - 0.12)\cdot (1 - 0.99)} \approx 0.93.
+  \end{split}
+  \tag{1.5}
+\end{multline*}\]</span>
+<p>Since we are considering the same ELISA test, we used the same true positive and true negative rates as in Section <a href="week-1-the-basics-of-bayesian-statistics.html#diagnostic-testing">1.1.2</a>. We see that two positive tests makes it much more probable for someone to have HIV than when only one test comes up positive.</p>
+<p>This process, of using Bayes’ rule to update a probability based on an event affecting it, is called Bayes’ updating. More generally, the what one tries to update can be considered ‘prior’ information, sometimes simply called the <em>prior</em>. The event providing information about this can also be data. Then, updating this prior using Bayes’ rule gives the information conditional on the data, also known as the <em>posterior</em>, as in the information <em>after</em> having seen the data. Going from the prior to the posterior is Bayes updating.</p>
+<p>The probability of HIV after one positive ELISA, 0.12, was the posterior in the previous section as it was an update of the overall prevalence of HIV, <a href="week-1-the-basics-of-bayesian-statistics.html#eq:HIVpositive">(1.1)</a>. However, in this section we answered a question where we used this posterior information as the prior. This process of using a posterior as prior in a new problem is natural in the Bayesian framework of updating knowledge based on the data.</p>
+<p><strong>EXAMPLE: What is the probability that one actually has HIV after testing positive 3 times on the ELISA? Again, assume that all three ELISAs are independent</strong></p>
+Analogous to what we did in this section, we can use Bayes’ updating for this. However, now the prior is the probability of HIV after two positive ELISAs, that is <span class="math inline">\(P(\text{Person tested has HIV}) = 0.93\)</span>. Analogous to <a href="week-1-the-basics-of-bayesian-statistics.html#eq:Bayes-updating">(1.5)</a>, the answer follows as
+<span class="math display">\[\begin{multline*}
+  P(\text{Person tested has HIV} \mid \text{Third ELISA is also positive}) \\
+  \begin{split}
+  &amp;= \frac{P(\text{Person tested has HIV}) P(\text{Third ELISA is positive} \mid \text{Person tested has HIV})}{P(\text{Third ELISA is also positive})} \\
+  &amp;= \frac{0.93 \cdot 0.93}{\begin{split}
+  &amp;P(\text{Person tested has HIV}) P(\text{Third ELISA is positive} \mid \text{Has HIV}) \\
+  + &amp;P(\text{Person tested has no HIV}) P(\text{Third ELISA is positive} \mid \text{Has no HIV})
+  \end{split}} \\
+  &amp;= \frac{0.8649}{0.93 \cdot 0.93 + (1 - 0.93)\cdot (1 - 0.99)} \approx 0.999.
+  \end{split}
+\end{multline*}\]</span>
+</div>
+<div id="bayesian-vs.frequentist-definitions-of-probability" class="section level3">
+<h3><span class="header-section-number">1.1.4</span> Bayesian vs. Frequentist Definitions of Probability</h3>
+</div>
+</div>
+<div id="inference-for-a-proportion" class="section level2">
+<h2><span class="header-section-number">1.2</span> Inference for a Proportion</h2>
+</div>
+<div id="frequentist-vs.bayesian-inference" class="section level2">
+<h2><span class="header-section-number">1.3</span> Frequentist vs. Bayesian Inference</h2>
+</div>
+<div id="exercises" class="section level2">
+<h2><span class="header-section-number">1.4</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li><p><strong>Conditioning on dating site usage.</strong> Recall Table <a href="week-1-the-basics-of-bayesian-statistics.html#tab:2015gallupDating">1.1</a>. What is the probability that an online dating site user from this sample is 18-29 years old?</p></li>
+<li><p><strong>Probability of no HIV.</strong> Consider the ELISA test from Section <a href="week-1-the-basics-of-bayesian-statistics.html#diagnostic-testing">1.1.2</a>. What is the probability that someone has no HIV if that person has a negative ELISA result? How does this compare to the probability of having no HIV before any test was done?</p></li>
+<li><p><strong>Probability of no HIV after contradictive tests.</strong> Consider the ELISA test from Section <a href="week-1-the-basics-of-bayesian-statistics.html#diagnostic-testing">1.1.2</a>. What is the probability that someone has no HIV if that person first tests positive on the ELISA and secondly test negative? Assume that the tests are independent from each other.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

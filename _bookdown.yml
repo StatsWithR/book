@@ -1,0 +1,10 @@
+new_session: yes
+
+rmd_files: [
+  "index.Rmd",
+  "week1.Rmd",
+]
+
+before_chapter_script: "_common.R"
+
+output_dir: "docs"
