@@ -3,7 +3,7 @@
 knit: "bookdown::render_book"
 title: "Bayesian Statistics"
 subtitle: "A Companion to the Statistics with R Coursera Course"
-date: "Last built on 2017-05-30"
+date: "Last built on 2017-05-31"
 author: ["Willem van den Boom"]
 description: "This book is a written companion for the Course Course 'Bayesian Statistics' from the Statistics with R specialization."
 url: 'http\://www.coursera.org/learn/bayesian/home/info/'

@@ -6,7 +6,7 @@
 ### Conditional Probabilities & Bayes' Rule {#bayes-rule}
 
 
-Table: (\#tab:2015gallupDating)Results from a 2015 Gallup poll on the use of online dating sites by age group
+Table: Results from a 2015 Gallup poll on the use of online dating sites by age group
 
                                   18-29   30-49   50-64   65+   Total
 -------------------------------  ------  ------  ------  ----  ------
@@ -40,14 +40,19 @@ We can rewrite this conditional probability in terms of 'regular' probabilities 
 \end{multline*}
 It turns out this relationship holds true for any conditional probability and is known as Bayes' rule:
 
-\BeginKnitrBlock{definition}\iffalse{-91-66-97-121-101-115-39-32-82-117-108-101-93-}\fi{}<div class="definition"><span class="definition" id="def:unnamed-chunk-2"><strong>(\#def:unnamed-chunk-2) \iffalse (Bayes' Rule) \fi{} </strong></span>The conditional probability of the event $A$ conditional on the event $B$ is given by
+
+```definition
+The conditional probability of the event $A$ conditional on the event $B$ is given by
 
 \[
   P(A \mid B) = \frac{P(A \,\&\, B)}{P(B)}.
-\]</div>\EndKnitrBlock{definition}
+\]
+```
 
 
-\BeginKnitrBlock{example}\iffalse{-91-93-}\fi{}<div class="example"><span class="example" id="ex:unnamed-chunk-3"><strong>(\#ex:unnamed-chunk-3) \iffalse () \fi{} </strong></span>What is the probability that an 18-29 year old from Table \@ref(tab:2015gallupDating) uses online dating sites?**
+
+```example
+What is the probability that an 18-29 year old from Table \@ref(tab:2015gallupDating) uses online dating sites?**
 
 Note that the question asks a question about 18-29 year olds. Therefore, it conditions on being 18-29 years old.
 Bayes' rule provides a way to compute this conditional probability:
@@ -59,7 +64,8 @@ Bayes' rule provides a way to compute this conditional probability:
 	&= \frac{\frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number of people in the poll}}}{\frac{\text{Total number in age group 18-29}}{\text{Total number of people in the poll}}} \\
 	&= \frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number in age group 18-29}} = \frac{60}{315} \approx 19\%.
 \end{split}
-\end{multline*}</div>\EndKnitrBlock{example}
+\end{multline*}
+```
 
 
 ### Bayes' Rule and Diagnostic Testing {#diagnostic-testing}
