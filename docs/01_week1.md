@@ -209,7 +209,34 @@ Analogous to what we did in this section, we can use Bayes' updating for this. H
 
 ### Bayesian vs. Frequentist Definitions of Probability
 
+The frequentist definition of probability is based on observation of a large number of trials. The probability for an event $E$ to occur is $P(E)$, and assume we get $n_E$ successes out of $n$ trials. Then we have
+\begin{equation}
+P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
+\end{equation}
 
+On the other hand, the Bayesian definition of probability $P(E)$ reflects our prior beliefs, so $P(E)$ is actually a probability distribution.
+
+The two implications result in different methods of inference. Using the frequentist approach, we describe the confidence level as the proportion of random samples from the same population that produced confidence intervals that contain the true population parameter. For example, if we generated 100 random samples from the population, and 95 of the samples contain the true parameter, then the confidence level is 95\%. Note that each sample either contains the true parameter or does not, so the confidence level is NOT the probability of a given interval includes the true population parameter.
+
+**EXAMPLE: Based on a 2015 Pew Research poll on 1,500 adults: "We are 95% confident that 60% to 64% of Americans think the federal government does not do enough for middle class people."**
+
+The correct interpretation is: 95% of random samples of 1,500 adults will produce
+confidence intervals that contain the true proportion of Americans who think the federal government does not do enough for middle class people.
+
+Here are two common misconceptions:
+
+* There is a 95% chance that this confidence interval includes the true population proportion.
+
+* The true population proportion is in this interval 95% of the time.
+
+However, the probability that a given confidence interval captures the true parameter, is either zero or one. The only problem is that we can't know whether the probability that this given interval captures the true parameter is zero or one. 
+
+The Bayesian version is the credible interval, which has a definition easier to interpret. Since the prior and posterior distribution measure our belief towards the unknown true probability, we can make probabilistic statements about the parameter falling within that range.
+
+**EXAMPLE: "The posterior distribution yields a 95% credible interval of 60% to 64% for the proportion of Americans who think the federal government does not do enough for middle
+class people."**
+
+We can say that there is a 95% probability of the proportion to be between 60% and 64% because this is a **credible** interval, and more details will be introduced later in the course.
 
 ## Inference for a Proportion
 
