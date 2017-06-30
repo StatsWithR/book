@@ -380,9 +380,13 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <h2><span class="header-section-number">1.2</span> Inference for a Proportion</h2>
 <div id="inference-for-a-proportion-frequentist-approach" class="section level3">
 <h3><span class="header-section-number">1.2.1</span> Inference for a Proportion: Frequentist Approach</h3>
-<p><strong>EXAMPLE: RU-486 is claimed to be an effective “morning after” contraceptive pill, but is it really effective? </strong></p>
-<p><strong>DATA: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.</strong></p>
-<p><strong>QUESTION: How strongly do these data indicate that the treatment is more effective than the control?</strong></p>
+
+<div class="example">
+<span id="ex:unnamed-chunk-9" class="example"><strong>Example 1.8 </strong></span>RU-486 is claimed to be an effective “morning after” contraceptive pill, but is it really effective?
+</div>
+<p></p>
+<p><strong>Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.</strong></p>
+<p><strong>Question: How strongly do these data indicate that the treatment is more effective than the control?</strong></p>
 <p>To simplify the framework, let’s make it a one proportion problem and just consider the 20 total pregnancies because the two groups have the same sample size. If the treatment and control are equally effective, then the probability that a pregnancy comes from the treatment group (<span class="math inline">\(p\)</span>) should be 0.5. If RU-486 is more effective, then the probability that a pregnancy comes from the treatment group (<span class="math inline">\(p\)</span>) should be less than 0.5.</p>
 <p>Therefore, we can form the hypotheses as below:</p>
 <ul>
@@ -411,7 +415,7 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <td align="right">0.1000</td>
 <td align="right">0.2000</td>
 <td align="right">0.3000</td>
-<td align="right">0.400</td>
+<td align="right">0.4000</td>
 <td align="right">0.5000</td>
 <td align="right">6e-01</td>
 <td align="right">0.70</td>
@@ -423,7 +427,7 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <td align="right">0.0600</td>
 <td align="right">0.0600</td>
 <td align="right">0.0600</td>
-<td align="right">0.060</td>
+<td align="right">0.0600</td>
 <td align="right">0.5200</td>
 <td align="right">6e-02</td>
 <td align="right">0.06</td>
@@ -431,13 +435,37 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <td align="right">0.06</td>
 </tr>
 <tr class="odd">
-<td align="left">Likelihood <span class="math inline">\(P(data | model)\)</span></td>
+<td align="left">Likelihood <span class="math inline">\(P(data|model)\)</span></td>
 <td align="right">0.0898</td>
 <td align="right">0.2182</td>
 <td align="right">0.1304</td>
-<td align="right">0.035</td>
+<td align="right">0.0350</td>
 <td align="right">0.0046</td>
 <td align="right">3e-04</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(P(data|model)\)</span> x <span class="math inline">\(P(model)\)</span></td>
+<td align="right">0.0054</td>
+<td align="right">0.0131</td>
+<td align="right">0.0078</td>
+<td align="right">0.0021</td>
+<td align="right">0.0024</td>
+<td align="right">0e+00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Posterior <span class="math inline">\(P(model|data)\)</span></td>
+<td align="right">0.1748</td>
+<td align="right">0.4248</td>
+<td align="right">0.2539</td>
+<td align="right">0.0681</td>
+<td align="right">0.0780</td>
+<td align="right">5e-04</td>
 <td align="right">0.00</td>
 <td align="right">0.00</td>
 <td align="right">0.00</td>
@@ -446,8 +474,15 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 </table>
 <p>This prior incorporates two beliefs: the probability of <span class="math inline">\(p = 0.5\)</span> is highest, and the benefit of the treatment is symmetric. The second belief means that the treatment is equally likely to be better or worse than the standard treatment. Now it is natural to ask how I came up with this prior, and the specification will be discussed in detail later in the course.</p>
 <p>Next, let’s calculate the likelihood – the probability of observed data for each model considered. In mathematical terms, we have</p>
-<p><span class="math display">\[ P(\text{data } | \text{ model}) = P(k = 4 | n = 20, p)\]</span></p>
+<p><span class="math display">\[ P(\text{data}|\text{model}) = P(k = 4 | n = 20, p)\]</span></p>
 <p>The likelihood can be computed as a binomial with 4 successes and 20 trials with <span class="math inline">\(p\)</span> is equal to the assumed value in each model. The values are listed in Table <a href="the-basics-of-bayesian-statistics.html#tab:RU-486prior">1.2</a>.</p>
+<p>After setting up the prior and computing the likelihood, we are ready to calculate the posterior using the Bayes’ rule, that is,</p>
+<p><span class="math display">\[P(\text{model}|\text{data}) = \frac{P(\text{model})P(\text{data}|\text{model})}{P(\text{data})}\]</span></p>
+<p>The posterior probability values are also listed in Table <a href="the-basics-of-bayesian-statistics.html#tab:RU-486prior">1.2</a>, and the highest probability occurs at <span class="math inline">\(p=0.2\)</span>, which is 42.48%. Note that the priors and posteriors across all models both sum to 1.</p>
+<p>In decision making, we choose the model with the highest posterior probability, which is <span class="math inline">\(p=0.2\)</span>. In comparison, the highest prior probability is at <span class="math inline">\(p=0.5\)</span> with 52%, and the posterior probability of <span class="math inline">\(p=0.5\)</span> drops to 7.8%. This demonstrates how we update our beliefs based on observed data. Note that the calculation of posterior, likelihood, and prior is unrelated to the frequentist concept (data “at least as extreme as observed”).</p>
+<p>Here are the histograms of the prior, the likelihood, and the posterior probabilities:</p>
+<p><img src="bookdown-demo_files/figure-html/RU-486plot-1.png" width="960" /></p>
+<p>We started with the high prior at <span class="math inline">\(p=0.5\)</span>, but the data likelihood peaks at <span class="math inline">\(p=0.2\)</span>. And we updated our prior based on observed data to find the posterior. The Bayesian paradigm, unlike the frequentist approach, allows us to make direct probability statements about our models. For example, we can calculate the probability that RU-486, the treatment, is more effective than the control as the sum of the posteriors of the models where <span class="math inline">\(p&lt;0.5\)</span>. Adding up the relevant posterior probabilities in Table <a href="the-basics-of-bayesian-statistics.html#tab:RU-486prior">1.2</a>, we get the chance that the treatment is more effective than the control is 92.16%.</p>
 </div>
 <div id="effect-of-sample-size-on-the-posterior" class="section level3">
 <h3><span class="header-section-number">1.2.3</span> Effect of Sample Size on the Posterior</h3>

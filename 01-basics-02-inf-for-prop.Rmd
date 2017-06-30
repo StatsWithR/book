@@ -2,11 +2,13 @@
 
 ### Inference for a Proportion: Frequentist Approach
 
-**EXAMPLE: RU-486 is claimed to be an effective "morning after" contraceptive pill, but is it really effective? ** 
+```{example}
+RU-486 is claimed to be an effective "morning after" contraceptive pill, but is it really effective?
+```
 
-**DATA: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.**
+**Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.**
 
-**QUESTION: How strongly do these data indicate that the treatment is more effective than the control?**
+**Question: How strongly do these data indicate that the treatment is more effective than the control?**
 
 To simplify the framework, let's make it a one proportion problem and just consider the 20 total pregnancies because the two groups have the same sample size. If the treatment and control are equally effective, then the probability that a pregnancy comes from the treatment group ($p$) should be 0.5. If RU-486 is more effective, then the probability that a pregnancy comes from the treatment group ($p$) should be less than 0.5.
 
@@ -42,7 +44,7 @@ Table \@ref(tab:RU-486prior) specifies the prior probabilities that we want to a
 
 ```{r RU-486prior, echo = FALSE}
 
-p <- seq(0.1, 0.9, 0.1)
+p <- seq(from=0.1, to=0.9, by=0.1)
 prior <- c(rep(0.06, 4), 0.52, rep(0.06, 4))
 likelihood <- dbinom(4, size = 20, prob = p)
 
@@ -54,10 +56,14 @@ posterior <- numerator / denominator
 
 temp <- matrix(c(p,
                  prior,
-                 likelihood), 
-               nrow = 3, byrow = TRUE)
+                 likelihood,
+                 numerator,
+                 posterior), 
+               nrow = 5, byrow = TRUE)
 rownames(temp) <- c("Model ($p$)", "Prior $P(model)$", 
-                    "Likelihood $P(data | model)$")
+                    "Likelihood $P(data|model)$",
+                    "$P(data|model)$ x $P(model)$",
+                    "Posterior $P(model|data)$")
 
 knitr::kable(
   x = temp,
@@ -71,15 +77,29 @@ This prior incorporates two beliefs: the probability of $p = 0.5$ is highest, an
 
 Next, let's calculate the likelihood -- the probability of observed data for each model considered. In mathematical terms, we have
 
-$$ P(\text{data } | \text{ model}) = P(k = 4 | n = 20, p)$$
+$$ P(\text{data}|\text{model}) = P(k = 4 | n = 20, p)$$
 
 The likelihood can be computed as a binomial with 4 successes and 20 trials with $p$ is equal to the assumed value in each model. The values are listed in Table \@ref(tab:RU-486prior).
 
-```{r progress, echo=FALSE}
-# Now on slide #6, video 2:03.
-# Lots of problems with the table settings!
+After setting up the prior and computing the likelihood, we are ready to calculate the posterior using the Bayes' rule, that is,
+
+$$P(\text{model}|\text{data}) = \frac{P(\text{model})P(\text{data}|\text{model})}{P(\text{data})}$$
+
+The posterior probability values are also listed in Table \@ref(tab:RU-486prior), and the highest probability occurs at $p=0.2$, which is 42.48%. Note that the priors and posteriors across all models both sum to 1.
+
+In decision making, we choose the model with the highest posterior probability, which is $p=0.2$. In comparison, the highest prior probability is at $p=0.5$ with 52%, and the posterior probability of $p=0.5$ drops to 7.8%. This demonstrates how we update our beliefs based on observed data. Note that the calculation of posterior, likelihood, and prior is unrelated to the frequentist concept (data "at least as extreme as observed").
+
+
+Here are the histograms of the prior, the likelihood, and the posterior probabilities:
+
+```{r RU-486plot, fig.width=10, fig.height=3, echo = FALSE}
+par(mfrow = c(1,3), bg = NA)
+barplot(prior, names.arg = p, las = 2, main = "Prior")
+barplot(likelihood, names.arg = p, las = 2, main = "Likelihood")
+barplot(posterior, names.arg = p, las = 2, main = "Posterior")
 ```
 
+We started with the high prior at $p=0.5$, but the data likelihood peaks at $p=0.2$. And we updated our prior based on observed data to find the posterior. The Bayesian paradigm, unlike the frequentist approach, allows us to make direct probability statements about our models. For example, we can calculate the probability that RU-486, the treatment, is more effective than the control as the sum of the posteriors of the models where $p<0.5$. Adding up the relevant posterior probabilities in Table \@ref(tab:RU-486prior), we get the chance that the treatment is more effective than the control is 92.16%. 
 
 ### Effect of Sample Size on the Posterior
 
