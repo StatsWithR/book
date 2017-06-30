@@ -3,6 +3,7 @@
 ### Conditional Probabilities & Bayes' Rule {#bayes-rule}
 
 Consider Table \@ref(tab:2015gallupDating).
+It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities.
 
 ```{r 2015gallupDating, echo = FALSE}
 temp <- matrix(c(60, 86, 58, 21, 225, 255, 426, 450, 382, 1513, 316, 512, 508, 403, 1738), nrow = 3, byrow = TRUE)
@@ -16,8 +17,7 @@ knitr::kable(
 )
 ```
 
-Consider Table \@ref(tab:2015gallupDating).
-It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities. For instance, the probability of an adult American using an online dating site can be calculated as
+For instance, the probability of an adult American using an online dating site can be calculated as
 \begin{multline*}
 	P(\text{using an online dating site}) = \\
 	\frac{\text{Number that indicated they used an online dating site}}{\text{Total number of people in the poll}}
