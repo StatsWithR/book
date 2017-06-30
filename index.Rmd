@@ -1,15 +1,18 @@
----
-knit: "bookdown::render_book"
+--- 
 title: "Bayesian Statistics"
 subtitle: "A Companion to the Statistics with R Coursera Course"
-date: "Last built on `r Sys.Date()`"
-author: ["Willem van den Boom"]
+author: ["Christine Chai"]
 description: "This book is a written companion for the Course Course 'Bayesian Statistics' from the Statistics with R specialization."
-url: 'http\://www.coursera.org/learn/bayesian/home/info/'
-cover-image: cover.png
+date: "Last built on `r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: StatsWithR/book
+cover-image: cover.png
+url: 'http\://www.coursera.org/learn/bayesian/home/info/'
 ---
 
 # Welcome {-}

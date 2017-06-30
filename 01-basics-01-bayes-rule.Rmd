@@ -1,24 +1,20 @@
-
-
-# Week 1: The Basics of Bayesian Statistics
-
 ## Bayes' Rule
 
 ### Conditional Probabilities & Bayes' Rule {#bayes-rule}
 
 Consider Table \@ref(tab:2015gallupDating).
 
+```{r 2015gallupDating, echo = FALSE}
+temp <- matrix(c(60, 86, 58, 21, 225, 255, 426, 450, 382, 1513, 316, 512, 508, 403, 1738), nrow = 3, byrow = TRUE)
+rownames(temp) <- c('Used online dating site', 'Did not use online dating site', 'Total')
+colnames(temp) <- c('18-29', '30-49', '50-64', '65+', 'Total')
 
-
-
-
-Table: Results from a 2015 Gallup poll on the use of online dating sites by age group
-
-                                  18-29   30-49   50-64   65+   Total
--------------------------------  ------  ------  ------  ----  ------
-Used online dating site              60      86      58    21     225
-Did not use online dating site      255     426     450   382    1513
-Total                               316     512     508   403    1738
+knitr::kable(
+  x = temp,
+  booktabs = TRUE,
+  caption = 'Results from a 2015 Gallup poll on the use of online dating sites by age group'
+)
+```
 
 Consider Table \@ref(tab:2015gallupDating).
 It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities. For instance, the probability of an adult American using an online dating site can be calculated as
@@ -46,14 +42,17 @@ We can rewrite this conditional probability in terms of 'regular' probabilities 
 \end{multline*}
 It turns out this relationship holds true for any conditional probability and is known as Bayes' rule:
 
-\BeginKnitrBlock{definition}\iffalse{-91-66-97-121-101-115-39-32-82-117-108-101-93-}\fi{}<div class="definition"><span class="definition" id="def:unnamed-chunk-4"><strong>(\#def:unnamed-chunk-4) \iffalse (Bayes' Rule) \fi{} </strong></span>The conditional probability of the event $A$ conditional on the event $B$ is given by
+```{definition, name="Bayes' Rule"}
+The conditional probability of the event $A$ conditional on the event $B$ is given by
 
 \[
   P(A \mid B) = \frac{P(A \,\&\, B)}{P(B)}.
-\]</div>\EndKnitrBlock{definition}
+\]
+```
 
 
-\BeginKnitrBlock{example}\iffalse{-91-93-}\fi{}<div class="example"><span class="example" id="ex:unnamed-chunk-5"><strong>(\#ex:unnamed-chunk-5) \iffalse () \fi{} </strong></span>What is the probability that an 18-29 year old from Table \@ref(tab:2015gallupDating) uses online dating sites?**
+```{example}
+What is the probability that an 18-29 year old from Table \@ref(tab:2015gallupDating) uses online dating sites?
 
 Note that the question asks a question about 18-29 year olds. Therefore, it conditions on being 18-29 years old.
 Bayes' rule provides a way to compute this conditional probability:
@@ -65,7 +64,8 @@ Bayes' rule provides a way to compute this conditional probability:
 	&= \frac{\frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number of people in the poll}}}{\frac{\text{Total number in age group 18-29}}{\text{Total number of people in the poll}}} \\
 	&= \frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number in age group 18-29}} = \frac{60}{315} \approx 19\%.
 \end{split}
-\end{multline*}</div>\EndKnitrBlock{example}
+\end{multline*}
+```
 
 
 ### Bayes' Rule and Diagnostic Testing {#diagnostic-testing}
@@ -142,20 +142,25 @@ So even when the ELISA returns positive, the probability of having HIV is only 1
 
 Questions like the one we just answered (What is the probability of a disease if a test returns positive?) are crucial to make medical diagnoses. As we saw, just the true positive and true negative rates of a test do not tell the full story, but also a disease's prevalence plays a role. Bayes' rule is a tool to synthesize such numbers into a more useful probability of having a disease after a test result.
 
+If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?
 
-**EXAMPLE: What is the probability that someone who tests positive does not actually have HIV?**
+```{example}
+What is the probability that someone who tests positive does not actually have HIV?
+```
 
 We found in \@ref(eq:HIVresult) that someone who tests positive has a $0.12$ probability of having HIV. That implies that the same person has a $1-0.12=0.88$ probability of not having HIV, despite testing positive.
 
-
-**EXAMPLE: If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?**
+```{example}
+If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?
+```
 
 If the person has a priori a higher risk for HIV and tests positive, then the probability of having HIV must be higher than for someone not at increased risk who also tests positive. Therefore, $P(\text{Person tested has HIV} \mid \text{ELISA is positive}) > 0.12$ where $0.12$ comes from \@ref(eq:HIVresult).
 
 One can derive this mathematically by plugging in a larger number in \@ref(eq:HIVpositive) than 0.00148, as that number represents the prior risk of HIV. Changing the calculations accordingly shows $P(\text{Person tested has HIV} \mid \text{ELISA is positive}) > 0.12$.
 
-
-**EXAMPLE: If the false positive rate of the test is higher than 1%, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?**
+```{example}
+If the false positive rate of the test is higher than 1%, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?
+```
 
 If the false positive rate increases, the probability of a wrong positive result increases. That means that a positive test result is more likely to be wrong and thus less indicative of HIV. Therefore, the probability of HIV after a positive ELISA goes down such that $P(\text{Person tested has HIV} \mid \text{ELISA is positive}) < 0.12$.
 
@@ -190,8 +195,9 @@ This process, of using Bayes' rule to update a probability based on an event aff
 
 The probability of HIV after one positive ELISA, 0.12, was the posterior in the previous section as it was an update of the overall prevalence of HIV, \@ref(eq:HIVpositive). However, in this section we answered a question where we used this posterior information as the prior. This process of using a posterior as prior in a new problem is natural in the Bayesian framework of updating knowledge based on the data.
 
-
-**EXAMPLE: What is the probability that one actually has HIV after testing positive 3 times on the ELISA? Again, assume that all three ELISAs are independent**
+```{example}
+What is the probability that one actually has HIV after testing positive 3 times on the ELISA? Again, assume that all three ELISAs are independent.
+```
 
 Analogous to what we did in this section, we can use Bayes' updating for this. However, now the prior is the probability of HIV after two positive ELISAs, that is $P(\text{Person tested has HIV}) = 0.93$. Analogous to \@ref(eq:Bayes-updating), the answer follows as
 \begin{multline*}
@@ -218,7 +224,9 @@ On the other hand, the Bayesian definition of probability $P(E)$ reflects our pr
 
 The two definitions result in different methods of inference. Using the frequentist approach, we describe the confidence level as the proportion of random samples from the same population that produced confidence intervals which contain the true population parameter. For example, if we generated 100 random samples from the population, and 95 of the samples contain the true parameter, then the confidence level is 95%. Note that each sample either contains the true parameter or does not, so the confidence level is NOT the probability that a given interval includes the true population parameter.
 
-**EXAMPLE: Based on a 2015 Pew Research poll on 1,500 adults: "We are 95% confident that 60% to 64% of Americans think the federal government does not do enough for middle class people."**
+```{example}
+Based on a 2015 Pew Research poll on 1,500 adults: "We are 95% confident that 60% to 64% of Americans think the federal government does not do enough for middle class people.
+```
 
 The correct interpretation is: 95% of random samples of 1,500 adults will produce
 confidence intervals that contain the true proportion of Americans who think the federal government does not do enough for middle class people.
@@ -235,89 +243,8 @@ The second (incorrect) statement sounds like the true proportion is a value that
 
 The Bayesian alternative is the credible interval, which has a definition that is easier to interpret. Since a Bayesian is allowed to express uncertainty in terms of probability, a Bayesian credible interval is a range for which the Bayesian thinks that the probability of including the true value is, say, 0.95.  Thus a Bayesian can say that there is a 95% chance that the credible interval contains the true parameter value.
 
-**EXAMPLE: "The posterior distribution yields a 95% credible interval of 60% to 64% for the proportion of Americans who think the federal government does not do enough for middle
-class people."**
-
-We can say that there is a 95% probability that the proportion is between 60% and 64% because this is a **credible** interval, and more details will be introduced later in the course.
-
-## Inference for a Proportion
-
-### Inference for a Proportion: Frequentist Approach
-
-**EXAMPLE: RU-486 is claimed to be an effective "morning after" contraceptive pill, but is it really effective? ** 
-
-**DATA: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.**
-
-**QUESTION: How strongly do these data indicate that the treatment is more effective than the control?**
-
-To simplify the framework, let's make it a one proportion problem and just consider the 20 total pregnancies because the two groups have the same sample size. If the treatment and control are equally effective, then the probability that a pregnancy comes from the treatment group ($p$) should be 0.5. If RU-486 is more effective, then the probability that a pregnancy comes from the treatment group ($p$) should be less than 0.5.
-
-Therefore, we can form the hypotheses as below:
-
-* $p =$ probability that a given pregnancy comes from the treatment group
-
-* $H_0: p = 0.5$ (no difference, a pregnancy is equally likely to come from the treatment or control group)
-
-* $H_A: p < 0.5$ (treatment is more effective, a pregnancy is less likely to come from the treatment group)
- 
-A p-value is needed to make an inference decision with the frequentist approach. The definition of p-value is the probability of observing something *at least* as extreme as the data, given that the null hypothesis ($H_0$) is true. "More extreme" means in the direction of the alternative hypothesis ($H_A$).
-
-Since $H_0$ states that the probability of success (pregnancy) is 0.5, we can calculate the p-value from 20 independent Bernoulli trials where the probability of success is 0.5. The outcome of this experiment is 4 successes in 20 trials, so the goal is to obtain 4 or fewer successes in the 20 Bernoulli trials. 
-
-This probability can be calculated exactly from a binomial distribution with $n=20$ trials and success probability $p=0.5$. Assume $k$ is the actual number of successes observed, the p-value is 
-
-$$P(k \leq 4) = P(k = 0) + P(k = 1) + P(k = 2) + P(k = 3) + P(k = 4)$$.
-
-
-```r
-sum(dbinom(0:4, size = 20, p = 0.5))
-#> [1] 0.00591
+```{example}
+The posterior distribution yields a 95% credible interval of 60% to 64% for the proportion of Americans who think the federal government does not do enough for middle class people.
 ```
 
-According to $\mathsf{R}$, the probability of getting 4 or fewer successes in 20 trials is 0.0059. Therefore, given that pregnancy is equally likely in the two groups, we get the chance of observing 4 or fewer preganancy in the treatment group is 0.0059. With such a small probability, we reject the null hypothesis and conclude that the data provide convincing evidence for the treatment being more effective than the control. 
-
-### Inference for a Proportion: Bayesian Approach
-
-This section uses the same example, but this time we make the inference for the proportion from a Bayesian approach. Recall that we still consider only the 20 total pregnancies, 4 of which come from the treatment group. The question we would like to answer is that how likely is for 4 pregnancies to occur in the treatment group. Also remember that if the treatment and control are equally effective, and the sample sizes for the two groups are the same, then the probability ($p$) that the pregnancy comes from the treatment group is 0.5. 
-
-Within the Bayesian framework, we need to make some assumptions on the models which generated the data. First, $p$ is a probability, so it can take on any value between 0 and 1. However, let's simplify by using discrete cases -- assume $p$, the chance of a pregnancy comes from the treatment group, can take on nine values, from 10%, 20%, 30%, up to 90%. For example, $p = 20%$ means that among 10 pregnancies, it is expected that 2 of them will occur in the treatment group. Note that we consider all nine models, compared with the frequentist paradigm that whe consider only one model. 
-
-Table \@ref(tab:RU-486prior) specifies the prior probabilities that we want to assign to our assumption. There is no unique correct prior, but any prior probability should reflect our beliefs prior to the experiement. The prior probabilities should incorporate the information from all relevant research before we perform the current experiement.
-
-
-Table: Prior, likelihood, and posterior probabilities for each of the 9 models
-
------------------------------  -------  ------  -----  ------  -------  ------  -----  -----  -----
-Model ($p$)                     0.1000   0.200   0.30   0.400   0.5000   6e-01   0.70   0.80   0.90
-Prior $P(model)$                0.0600   0.060   0.06   0.060   0.5200   6e-02   0.06   0.06   0.06
-Likelihood $P(data | model)$    0.0898   0.218   0.13   0.035   0.0046   3e-04   0.00   0.00   0.00
------------------------------  -------  ------  -----  ------  -------  ------  -----  -----  -----
-
-This prior incorporates two beliefs: the probability of $p = 0.5$ is highest, and the benefit of the treatment is symmetric. The second belief means that the treatment is equally likely to be better or worse than the standard treatment. Now it is natural to ask how I came up with this prior, and the specification will be discussed in detail later in the course.
-
-Next, let's calculate the likelihood -- the probability of observed data for each model considered. In mathematical terms, we have
-
-$$ P(\text{data } | \text{ model}) = P(k = 4 | n = 20, p)$$
-
-The likelihood can be computed as a binomial with 4 successes and 20 trials with $p$ is equal to the assumed value in each model. The values are listed in Table \@ref(tab:RU-486prior).
-
-
-
-
-### Effect of Sample Size on the Posterior
-
-
-## Frequentist vs. Bayesian Inference
-
-### Frequentist vs. Bayesian Inference
-
-## Exercises
-
-1. **Conditioning on dating site usage.**
-Recall Table \@ref(tab:2015gallupDating). What is the probability that an online dating site user from this sample is 18-29 years old?
-
-2. **Probability of no HIV.**
-Consider the ELISA test from Section \@ref(diagnostic-testing). What is the probability that someone has no HIV if that person has a negative ELISA result? How does this compare to the probability of having no HIV before any test was done?
-
-3. **Probability of no HIV after contradictive tests.**
-Consider the ELISA test from Section \@ref(diagnostic-testing). What is the probability that someone has no HIV if that person first tests positive on the ELISA and secondly test negative? Assume that the tests are independent from each other.
+We can say that there is a 95% probability that the proportion is between 60% and 64% because this is a **credible** interval, and more details will be introduced later in the course.
