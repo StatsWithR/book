@@ -538,17 +538,76 @@ Remark: Remember that the cost of making a wrong decision is high, so you want t
 <li><p>Hypothesis: <span class="math inline">\(H_0\)</span> is 10% yellow M&amp;Ms, and <span class="math inline">\(H_A\)</span> is &gt;10% yellow M&amp;Ms.</p></li>
 <li><p>Significance level: <span class="math inline">\(\alpha = 0.05\)</span>.</p></li>
 <li><p>Sample: red, green, <strong>yellow</strong>, blue, orange</p></li>
-<li><p>Observed data</p></li>
-<li><p>P-value</p></li>
+<li><p>Observed data: <span class="math inline">\(k=1, n=5\)</span></p></li>
+<li><p>P-value: <span class="math inline">\(P(k \geq 1 | n=5, p=0.10) = 1 - P(k=0 | n=5, p=0.10) = 1 - 0.90^5 \approx 0.41\)</span></p></li>
 </ul>
+<p>Note that the p-value is the probability of observed or more extreme outcome given that the null hypothesis is true.</p>
+<p>Therefore, we fail to reject <span class="math inline">\(H_0\)</span> and conclude that the data do not provide convincing evidence that the proportion of yellow M&amp;M’s is greater than 10%. This means that if we had to pick between 10% and 20% for the proportion of M&amp;M’s, even though this hypothesis testing procedure does not actually confirm the null hypothesis, we would likely stick with 10% since we couldn’t find evidence that the proportion of yellow M&amp;M’s is greater than 10%.</p>
 <p>The Bayesian inference works differently as below.</p>
 <ul>
-<li><p>Hypotheses</p></li>
-<li><p>Prior</p></li>
-<li><p>Sample</p></li>
-<li><p>Observed data</p></li>
-<li><p>Likelihood Posterior</p></li>
+<li><p>Hypotheses: <span class="math inline">\(H_1\)</span> is 10% yellow M&amp;Ms, and <span class="math inline">\(H_2\)</span> is 20% yellow M&amp;Ms.</p></li>
+<li><p>Prior: <span class="math inline">\(P(H_1) = P(H_2) = 0.5\)</span></p></li>
+<li><p>Sample: red, green, <strong>yellow</strong>, blue, orange</p></li>
+<li><p>Observed data: <span class="math inline">\(k=1, n=5\)</span></p></li>
+<li><p>Likelihood:</p></li>
 </ul>
+<p><span class="math display">\[\begin{align}
+P(k=1 | H_1) &amp;= \left( \begin{array}{c} 5 \\ 1 \end{array} \right) \times 0.10 \times 0.90^4 \approx 0.33 \\
+P(k=1 | H_2) &amp;= \left( \begin{array}{c} 5 \\ 1 \end{array} \right) \times 0.20 \times 0.80^4 \approx 0.41
+\end{align}\]</span></p>
+<ul>
+<li>Posterior</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+P(H_1 | k=1) &amp;= \frac{P(H_1)P(k=1 | H_1)}{P(k=1)} = \frac{0.5 \times 0.33}{0.5 \times 0.33 + 0.5 \times 0.41} \approx 0.45 \\
+P(H_2 | k=1) &amp;= 1 - 0.45 = 0.55
+\end{align}\]</span></p>
+<p>The posterior probabilities of whether <span class="math inline">\(H_1\)</span> or <span class="math inline">\(H_2\)</span> is correct are close to each other. As a result, with equal priors and a low sample size, it is difficult to make a decision with a strong confidence, given the observed data. However, <span class="math inline">\(H_2\)</span> has a higher posterior probability than <span class="math inline">\(H_1\)</span>, so if we had to make a decision at this point, we should pick <span class="math inline">\(H_2\)</span>, i.e., the proportion of yellow M&amp;Ms is 20%. Note that this decision contradicts with the decision based on the frequentist approach.</p>
+<p>Table <a href="the-basics-of-bayesian-statistics.html#tab:freq-vs-bayes">1.3</a> summarizes what the results would look like if we had chosen larger sample sizes. Under each of these scenarios, the frequentist method yields a higher p-value than our significance level, so we would fail to reject the null hypothesis with any of these samples. On the other hand, the Bayesian method always yields a higher posterior for the second model where <span class="math inline">\(p\)</span> is equal to 0.20. So the decisions that we would make are contradictory to each other.</p>
+<table>
+<caption><span id="tab:freq-vs-bayes">Table 1.3: </span>Frequentist and Bayesian probabilities for larger sample sizes</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">Frequentist</th>
+<th align="left">Bayesian H_1</th>
+<th align="left">Bayesian H_2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Observed Data</td>
+<td align="left">P(k or more | 10% yellow)</td>
+<td align="left">P(10% yellow | n, k)</td>
+<td align="left">P(20% yellow | n, k)</td>
+</tr>
+<tr class="even">
+<td>n = 5, k = 1</td>
+<td align="left">0.41</td>
+<td align="left">0.45</td>
+<td align="left">0.55</td>
+</tr>
+<tr class="odd">
+<td>n = 10, k = 2</td>
+<td align="left">0.26</td>
+<td align="left">0.39</td>
+<td align="left">0.61</td>
+</tr>
+<tr class="even">
+<td>n = 15, k = 3</td>
+<td align="left">0.18</td>
+<td align="left">0.34</td>
+<td align="left">0.66</td>
+</tr>
+<tr class="odd">
+<td>n = 20, k = 4</td>
+<td align="left">0.13</td>
+<td align="left">0.29</td>
+<td align="left">0.71</td>
+</tr>
+</tbody>
+</table>
+<p>However, if we had set up our framework differently in the frequentist method and set our null hypothesis to be <span class="math inline">\(p = 0.20\)</span> and our alternative to be <span class="math inline">\(p &lt; 0.20\)</span>, we would obtain different results. This shows that <strong>the frequentist method is highly sensitive to the null hypothesis</strong>, while in the Bayesian method, our results would be the same regardless of which order we evaluate our models.</p>
 
 </div>
 </div>
