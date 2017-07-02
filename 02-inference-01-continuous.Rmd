@@ -1,0 +1,9 @@
+## Continuous Variables and Eliciting Probability Distributions
+
+### From the Discrete to the Continuous
+
+### Elicitation
+
+### Conjugacy
+
+

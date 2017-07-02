@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="index.html">
-
+<link rel="next" href="bayesian-inference.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,8 +115,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.2.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
 <li class="chapter" data-level="1.2.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a></li>
+<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
+</ul></li>
 <li class="chapter" data-level="1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#exercises"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#continuous-variables-and-eliciting-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#from-the-discrete-to-the-continuous"><i class="fa fa-check"></i><b>2.1.1</b> From the Discrete to the Continuous</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#elicitation"><i class="fa fa-check"></i><b>2.1.2</b> Elicitation</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#conjugacy"><i class="fa fa-check"></i><b>2.1.3</b> Conjugacy</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -140,7 +149,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="the-basics-of-bayesian-statistics" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> The Basics of Bayesian Statistics</h1>
-<p>This week has some intro stuffs on basics, SAY MORE HERE.</p>
+<p>Bayesian statistics mostly involves <strong>conditional probability</strong>, which is the the probability of an event A given event B, and it can be calculated using the Bayes’ rule. The concept of conditional probability is widely used in medical testing, in which false positive and false negatives may occur. A false positive can be defined a positive outcome on a medical test when the patient does not actually have the disease they are being tested for. In other words, it’s the probability of testing positive given no disease. Similarly, a false negative can be defined as a negative outcome on a medical test when the patient does have the disease. In other words, testing negative given disease. Both indicators are critical for any medical decisions.</p>
+<p>For how the Bayes’ rule is applied, we can set up a prior, then calculate posterior probabilities based on a prior and likelihood. That is to say, the prior probabilities are updated through an iterative process of data collection.</p>
 
 <div id="bayes-rule" class="section level2">
 <h2><span class="header-section-number">1.1</span> Bayes’ Rule</h2>
@@ -382,9 +392,9 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <h3><span class="header-section-number">1.2.1</span> Inference for a Proportion: Frequentist Approach</h3>
 
 <div class="example">
-<p><span id="ex:unnamed-chunk-9" class="example"><strong>Example 1.8 </strong></span>RU-486 is claimed to be an effective “morning after” contraceptive pill, but is it really effective?</p>
-<p><strong>Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.</strong></p>
-<strong>Question: How strongly do these data indicate that the treatment is more effective than the control?</strong>
+<p><span id="ex:RU-486" class="example"><strong>Example 1.8 </strong></span>RU-486 is claimed to be an effective “morning after” contraceptive pill, but is it really effective?</p>
+<p>Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.**</p>
+Question: How strongly do these data indicate that the treatment is more effective than the control?**
 </div>
 <p></p>
 <p>To simplify the framework, let’s make it a one proportion problem and just consider the 20 total pregnancies because the two groups have the same sample size. If the treatment and control are equally effective, then the probability that a pregnancy comes from the treatment group (<span class="math inline">\(p\)</span>) should be 0.5. If RU-486 is more effective, then the probability that a pregnancy comes from the treatment group (<span class="math inline">\(p\)</span>) should be less than 0.5.</p>
@@ -481,17 +491,66 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <p>The posterior probability values are also listed in Table <a href="the-basics-of-bayesian-statistics.html#tab:RU-486prior">1.2</a>, and the highest probability occurs at <span class="math inline">\(p=0.2\)</span>, which is 42.48%. Note that the priors and posteriors across all models both sum to 1.</p>
 <p>In decision making, we choose the model with the highest posterior probability, which is <span class="math inline">\(p=0.2\)</span>. In comparison, the highest prior probability is at <span class="math inline">\(p=0.5\)</span> with 52%, and the posterior probability of <span class="math inline">\(p=0.5\)</span> drops to 7.8%. This demonstrates how we update our beliefs based on observed data. Note that the calculation of posterior, likelihood, and prior is unrelated to the frequentist concept (data “at least as extreme as observed”).</p>
 <p>Here are the histograms of the prior, the likelihood, and the posterior probabilities:</p>
-<p><img src="bookdown-demo_files/figure-html/RU-486plot-1.png" width="960" /></p>
+<div class="figure"><span id="fig:RU-486plot"></span>
+<img src="bookdown-demo_files/figure-html/RU-486plot-1.png" alt="Original: sample size $n=20$ and number of successes $k=4$" width="960" />
+<p class="caption">
+Figure 1.1: Original: sample size <span class="math inline">\(n=20\)</span> and number of successes <span class="math inline">\(k=4\)</span>
+</p>
+</div>
 <p>We started with the high prior at <span class="math inline">\(p=0.5\)</span>, but the data likelihood peaks at <span class="math inline">\(p=0.2\)</span>. And we updated our prior based on observed data to find the posterior. The Bayesian paradigm, unlike the frequentist approach, allows us to make direct probability statements about our models. For example, we can calculate the probability that RU-486, the treatment, is more effective than the control as the sum of the posteriors of the models where <span class="math inline">\(p&lt;0.5\)</span>. Adding up the relevant posterior probabilities in Table <a href="the-basics-of-bayesian-statistics.html#tab:RU-486prior">1.2</a>, we get the chance that the treatment is more effective than the control is 92.16%.</p>
 </div>
 <div id="effect-of-sample-size-on-the-posterior" class="section level3">
 <h3><span class="header-section-number">1.2.3</span> Effect of Sample Size on the Posterior</h3>
+<p>The RU-486 example is summarized in Figure <a href="the-basics-of-bayesian-statistics.html#fig:RU-486plot">1.1</a>, and let’s look at what the posterior distribution would look like if we had more data.</p>
+<div class="figure"><span id="fig:RU-486plotX2"></span>
+<img src="bookdown-demo_files/figure-html/RU-486plotX2-1.png" alt="More data: sample size $n=40$ and number of successes $k=8$" width="960" />
+<p class="caption">
+Figure 1.2: More data: sample size <span class="math inline">\(n=40\)</span> and number of successes <span class="math inline">\(k=8\)</span>
+</p>
+</div>
+<p>Suppose our sample size was 40 instead of 20, and the number of successes was 8 instead of 4. Note that the ratio between the sample size and the number of successes is still 20%. We will start with the same prior distribution. Then calculate the likelihood of the data which is also centered at 0.20, but is less variable than the original likelihood we had with the smaller sample size. And finally put these two together to obtain the posterior distribution. The posterior also has a peak at p is equal to 0.20, but the peak is taller, as shown in Figure <a href="the-basics-of-bayesian-statistics.html#fig:RU-486plotX2">1.2</a>. In other words, there is more mass on that model, and less on the others.</p>
+<div class="figure"><span id="fig:RU-486plotX10"></span>
+<img src="bookdown-demo_files/figure-html/RU-486plotX10-1.png" alt="More data: sample size $n=200$ and number of successes $k=40$" width="960" />
+<p class="caption">
+Figure 1.3: More data: sample size <span class="math inline">\(n=200\)</span> and number of successes <span class="math inline">\(k=40\)</span>
+</p>
+</div>
+<p>To illustrate the effect of the sample size even further, we’re going to keep increasing our sample size, but still maintain the the 20% ratio between the sample size and the number of successes. So let’s consider a sample with 200 observations and 40 successes. Once again, we’re going to use the same prior and the likelihood is again centered at 20% and almost all of the probability mass in the posterior is at p is equal to 0.20. The other models do not have zero probability mass, but they’re posterior probabilities are very close to zero.</p>
+<p>Figure <a href="the-basics-of-bayesian-statistics.html#fig:RU-486plotX10">1.3</a> demonstrates that <strong>as more data are collected, the likelihood ends up dominating the prior</strong>. This is why, while a good prior helps, a bad prior can be overcome with a large sample. However, it’s important to note that this will only work as long as we don’t place a zero probability mass on any of the models in the prior.</p>
 
 </div>
 </div>
 <div id="frequentist-vs.bayesian-inference" class="section level2">
 <h2><span class="header-section-number">1.3</span> Frequentist vs. Bayesian Inference</h2>
+<div id="frequentist-vs.bayesian-inference-1" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Frequentist vs. Bayesian Inference</h3>
+<p>In this section, we will solve a simple inference problem using both frequentist and Bayesian approaches. Then we will compare our results based on decisions based on the two methods, to see whether we get the same answer or not. If we do not, we will discuss why that happens.</p>
 
+<div class="example">
+<p><span id="ex:MM" class="example"><strong>Example 1.9 </strong></span>We have a population of M&amp;M’s, and in this population the percentage of yellow M&amp;M’s is either 10% or 20%. You’ve been hired as a statistical consultant to decide whether the true percentage of yellow M&amp;M’s is 10% or 20%.</p>
+<p>Payoffs/losses: You are being asked to make a decision, and there are associated payoff/losses that you should consider. If you make the correct decision, your boss gives you a bonus. On the other hand, if you make the wrong decision, you lose your job.</p>
+<p>Data: You can “buy” a random sample from the population – You pay $200 for each M&amp;M, and you must buy in $1,000 increments (5 M&amp;Ms at a time). You have a total of $4,000 to spend, i.e., you may buy 5, 10, 15, or 20 M&amp;Ms.</p>
+Remark: Remember that the cost of making a wrong decision is high, so you want to be fairly confident of your decision. At the same time, though, data collection is also costly, so you don’t want to pay for a sample larger than you need. If you believe that you could actually make a correct decision using a smaller sample size, you might choose to do so and save money and resources.
+</div>
+<p></p>
+<p>Let’s start with the frequentist inference.</p>
+<ul>
+<li><p>Hypothesis: <span class="math inline">\(H_0\)</span> is 10% yellow M&amp;Ms, and <span class="math inline">\(H_A\)</span> is &gt;10% yellow M&amp;Ms.</p></li>
+<li><p>Significance level: <span class="math inline">\(\alpha = 0.05\)</span>.</p></li>
+<li><p>Sample: red, green, <strong>yellow</strong>, blue, orange</p></li>
+<li><p>Observed data</p></li>
+<li><p>P-value</p></li>
+</ul>
+<p>The Bayesian inference works differently as below.</p>
+<ul>
+<li><p>Hypotheses</p></li>
+<li><p>Prior</p></li>
+<li><p>Sample</p></li>
+<li><p>Observed data</p></li>
+<li><p>Likelihood Posterior</p></li>
+</ul>
+
+</div>
 </div>
 <div id="exercises" class="section level2">
 <h2><span class="header-section-number">1.4</span> Exercises</h2>
@@ -508,8 +567,8 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bayesian-inference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

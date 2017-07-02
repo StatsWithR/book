@@ -2,12 +2,12 @@
 
 ### Inference for a Proportion: Frequentist Approach
 
-```{example}
+```{example, label="RU-486"}
 RU-486 is claimed to be an effective "morning after" contraceptive pill, but is it really effective?
 
-**Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.**
+Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.**
 
-**Question: How strongly do these data indicate that the treatment is more effective than the control?**
+Question: How strongly do these data indicate that the treatment is more effective than the control?**
 ```
 
 To simplify the framework, let's make it a one proportion problem and just consider the 20 total pregnancies because the two groups have the same sample size. If the treatment and control are equally effective, then the probability that a pregnancy comes from the treatment group ($p$) should be 0.5. If RU-486 is more effective, then the probability that a pregnancy comes from the treatment group ($p$) should be less than 0.5.
@@ -92,7 +92,7 @@ In decision making, we choose the model with the highest posterior probability, 
 
 Here are the histograms of the prior, the likelihood, and the posterior probabilities:
 
-```{r RU-486plot, fig.width=10, fig.height=3, echo = FALSE}
+```{r RU-486plot, fig.width=10, fig.height=3, fig.cap="Original: sample size $n=20$ and number of successes $k=4$", echo = FALSE}
 par(mfrow = c(1,3), bg = NA)
 barplot(prior, names.arg = p, las = 2, main = "Prior")
 barplot(likelihood, names.arg = p, las = 2, main = "Likelihood")
@@ -103,4 +103,40 @@ We started with the high prior at $p=0.5$, but the data likelihood peaks at $p=0
 
 ### Effect of Sample Size on the Posterior
 
+The RU-486 example is summarized in Figure \@ref(fig:RU-486plot), and let's look at what the posterior distribution would look like if we had more data.
 
+```{r RU-486plotX2, fig.width=10, fig.height=3, fig.cap="More data: sample size $n=40$ and number of successes $k=8$", echo = FALSE}
+# Use the same prior in this example
+
+# more data: x2 -----------------------------------------------------
+likelihood <- dbinom(4*2, size = 20*2, prob = p)
+numerator <- prior * likelihood
+denominator <- sum(numerator)
+posterior <- numerator / denominator
+
+par(mfrow = c(1,3), bg = NA)
+barplot(prior, names.arg = p, las = 2, main = "Prior")
+barplot(likelihood, names.arg = p, las = 2, main = "Likelihood")
+barplot(posterior, names.arg = p, las = 2, main = "Posterior")
+```
+
+Suppose our sample size was 40 instead of 20, and the number of successes was 8 instead of 4. Note that the ratio between the sample size and the number of successes is still 20%. We will start with the same prior distribution. Then calculate the likelihood of the data which is also centered at 0.20, but is less variable than the original likelihood we had with the smaller sample size. And finally put these two together to obtain the posterior distribution. The posterior also has a peak at p is equal to 0.20, but the peak is taller, as shown in Figure \@ref(fig:RU-486plotX2). In other words, there is more mass on that model, and less on the others. 
+
+```{r RU-486plotX10, fig.width=10, fig.height=3, fig.cap="More data: sample size $n=200$ and number of successes $k=40$", echo = FALSE}
+# Use the same prior in this example
+
+# more data: x10 ----------------------------------------------------
+likelihood <- dbinom(4*10, size = 20*10, prob = p)
+numerator <- prior * likelihood
+denominator <- sum(numerator)
+posterior <- numerator / denominator
+
+par(mfrow = c(1,3), bg = NA)
+barplot(prior, names.arg = p, las = 2, main = "Prior")
+barplot(likelihood, names.arg = p, las = 2, main = "Likelihood")
+barplot(posterior, names.arg = p, las = 2, main = "Posterior")
+```
+
+To illustrate the effect of the sample size even further, we're going to keep increasing our sample size, but still maintain the the 20% ratio between the sample size and the number of successes. So let's consider a sample with 200 observations and 40 successes. Once again, we're going to use the same prior and the likelihood is again centered at 20% and almost all of the probability mass in the posterior is at p is equal to 0.20. The other models do not have zero probability mass, but they're posterior probabilities are very close to zero. 
+
+Figure \@ref(fig:RU-486plotX10) demonstrates that **as more data are collected, the likelihood ends up dominating the prior**. This is why, while a good prior helps, a bad prior can be overcome with a large sample. However, it's important to note that this will only work as long as we don't place a zero probability mass on any of the models in the prior. 
