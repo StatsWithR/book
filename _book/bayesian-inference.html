@@ -126,6 +126,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.1.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#elicitation"><i class="fa fa-check"></i><b>2.1.2</b> Elicitation</a></li>
 <li class="chapter" data-level="2.1.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#conjugacy"><i class="fa fa-check"></i><b>2.1.3</b> Conjugacy</a></li>
 </ul></li>
+<li class="chapter" data-level="2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#three-conjugate-families"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#inference-on-a-binomial-proportion"><i class="fa fa-check"></i><b>2.2.1</b> Inference on a Binomial Proportion</a></li>
+<li class="chapter" data-level="2.2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#the-gamma-poisson-conjugate-families"><i class="fa fa-check"></i><b>2.2.2</b> The Gamma-Poisson Conjugate Families</a></li>
+<li class="chapter" data-level="2.2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#the-normal-normal-conjugate-families"><i class="fa fa-check"></i><b>2.2.3</b> The Normal-Normal Conjugate Families</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals-and-predictive-inference"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#non-conjugate-priors"><i class="fa fa-check"></i><b>2.3.1</b> Non-Conjugate Priors</a></li>
+<li class="chapter" data-level="2.3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals"><i class="fa fa-check"></i><b>2.3.2</b> Credible Intervals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#predictive-inference"><i class="fa fa-check"></i><b>2.3.3</b> Predictive Inference</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -149,18 +159,56 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="bayesian-inference" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Bayesian Inference</h1>
-<p>Write something HERE.</p>
+<p>This chapter is focused on the continuous version of Bayes’ rule and how to use it in a conjugate family. The RU-486 example will allow us to discuss Bayesian modeling in a concrete way. It also leads naturally to a Bayesian analysis without conjugacy. For the non-conjugate case, there’s usually no simple mathematical expression, and one must resort to computation. Finally, we discuss credible intervals, i.e., the Bayesian analog of frequentist confidence intervals, and Bayesian estimation and prediction.</p>
+<p>It is assumed that the readers have mastered the concept of conditional probability and the Bayes’ rule for discrete random variables. Calculus is not required for this chapter; however, for those who do, we shall briefly look at an integral.</p>
 
 <div id="continuous-variables-and-eliciting-probability-distributions" class="section level2">
 <h2><span class="header-section-number">2.1</span> Continuous Variables and Eliciting Probability Distributions</h2>
 <div id="from-the-discrete-to-the-continuous" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> From the Discrete to the Continuous</h3>
+<p>This section leads the reader from the discrete random variable to continuous random variables. Let’s start with the binomial random variable such as the number of heads in ten coin tosses, can only take a discrete number of values – 0, 1, 2, up to 10.</p>
+<p>When the probability of a coin landing heads is <span class="math inline">\(p\)</span>, the chance of getting <span class="math inline">\(k\)</span> heads in <span class="math inline">\(n\)</span> tosses is</p>
+<p><span class="math display">\[P(X = k) = \left( \begin{array}{c} n \\ k \end{array} \right) p^k (1-p)^{n-k}\]</span>.</p>
+<p>This formula is called the <strong>probability mass function</strong> (pmf) for the binomial.</p>
+<p>The probability mass function can be visualized as a histogram in Figure <a href="#fig:histogram"><strong>??</strong></a>. The area under the histogram is one, and the area of each bar is the probability of seeing a binomial random variable, whose value is equal to the x-value at the center of the bars base.</p>
+<p><img src="bookdown-demo_files/figure-html/histogram-1.png" width="288" style="display: block; margin: auto;" /></p>
+<p>In contrast, the normal distribution, a.k.a. Gaussian distribution or the bell-shaped curve, can take any numerical value in <span class="math inline">\((-\infty,+\infty)\)</span>. A random variable generated from a normal distribution because it can take a continuum of values.</p>
+<p>In general, if the set of possible values a random variable can take are separated points, it is a discrete random variable. But if it can take any value in some (possibly infinite) interval, then it is a continuous random variable.</p>
+<p>When the random variable is <strong>discrete</strong>, it has a <strong>probability mass function</strong> or pmf. That pmf tells us the probability that the random variable takes each of the possible values. But when the random variable is continuous, it has probability zero of taking any single value. (Hence probability zero does not equal to impossible, an event of probabilty zero can still happen.)</p>
+<p>We can only talk about the probability of a continuous random variable lined within some interval. For example, suppose that heights are approximately normally distributed. The probability of finding someone who is exactly 6 feet tall at 0.0000 inches tall for an infinite number of 0s after the decimal point is 0. But we can easily calculate the probability of finding someone who is between 5’11&quot; inches tall and 6’1&quot; inches tall.</p>
+<p>A <strong>continuous</strong> random variable has a <strong>probability density function</strong> or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5’11&quot; and 6’1&quot; is the area under the pdf curve for height between those two values.</p>
 </div>
 <div id="elicitation" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Elicitation</h3>
 </div>
 <div id="conjugacy" class="section level3">
 <h3><span class="header-section-number">2.1.3</span> Conjugacy</h3>
+
+</div>
+</div>
+<div id="three-conjugate-families" class="section level2">
+<h2><span class="header-section-number">2.2</span> Three Conjugate Families</h2>
+<div id="inference-on-a-binomial-proportion" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Inference on a Binomial Proportion</h3>
+</div>
+<div id="the-gamma-poisson-conjugate-families" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> The Gamma-Poisson Conjugate Families</h3>
+</div>
+<div id="the-normal-normal-conjugate-families" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> The Normal-Normal Conjugate Families</h3>
+
+</div>
+</div>
+<div id="credible-intervals-and-predictive-inference" class="section level2">
+<h2><span class="header-section-number">2.3</span> Credible Intervals and Predictive Inference</h2>
+<div id="non-conjugate-priors" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Non-Conjugate Priors</h3>
+</div>
+<div id="credible-intervals" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Credible Intervals</h3>
+</div>
+<div id="predictive-inference" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Predictive Inference</h3>
 
 </div>
 </div>

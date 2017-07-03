@@ -2,6 +2,41 @@
 
 ### From the Discrete to the Continuous
 
+This section leads the reader from the discrete random variable to continuous random variables. Let's start with the binomial random variable such as the number of heads in ten coin tosses, can only take a discrete number of values -- 0, 1, 2, up to 10.
+
+When the probability of a coin landing heads is $p$, the chance of getting $k$ heads in $n$ tosses is
+
+$$P(X = k) = \left( \begin{array}{c} n \\ k \end{array} \right) p^k (1-p)^{n-k}$$.
+
+This formula is called the **probability mass function** (pmf) for the binomial.
+
+The probability mass function can be visualized as a histogram in Figure \@ref(fig:histogram). The area under the histogram is one, and the area of each bar is the probability of seeing a binomial random variable, whose value is equal to the x-value at the center of the bars base. 
+
+```{r histogram, fig.height=3, fig.width=3, fig.align='center', echo=FALSE, message=FALSE}
+trials = c(0,1,1,1,2,2,2,3)
+data = data.frame(trials)
+library(ggplot2)
+library(scales)
+# library(plotly)
+hist.temp = ggplot(data, aes(data$trials)) + 
+  geom_histogram(aes(y=..count../sum(..count..))) +
+  xlab("") + ylab("")
+hist.temp
+# ggplotly(hist.temp)
+```
+
+
+In contrast, the normal distribution, a.k.a. Gaussian distribution or the bell-shaped curve, can take any numerical value in $(-\infty,+\infty)$. A random variable generated from a normal distribution because it can take a continuum of values. 
+
+In general, if the set of possible values a random variable can take are separated points, it is a discrete random variable. But if it can take any value in some (possibly infinite) interval, then it is a continuous random variable. 
+
+When the random variable is **discrete**, it has a **probability mass function** or pmf. That pmf tells us the probability that the random variable takes each of the possible values. But when the random variable is continuous, it has probability zero of taking any single value. (Hence probability zero does not equal to impossible, an event of probabilty zero can still happen.)
+
+We can only talk about the probability of a continuous random variable lined within some interval. For example, suppose that heights are approximately normally distributed. The probability of finding someone who is exactly 6 feet tall at 0.0000 inches tall for an infinite number of 0s after the decimal point is 0. But we can easily calculate the probability of finding someone who is between 5'11" inches tall and 6'1" inches tall. 
+
+A **continuous** random variable has a **probability density function** or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5'11" and 6'1" is the area under the pdf curve for height between those two values. 
+
+
 ### Elicitation
 
 ### Conjugacy

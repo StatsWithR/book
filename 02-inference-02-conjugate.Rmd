@@ -1,0 +1,7 @@
+## Three Conjugate Families
+
+### Inference on a Binomial Proportion
+
+### The Gamma-Poisson Conjugate Families
+
+### The Normal-Normal Conjugate Families
