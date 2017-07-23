@@ -253,6 +253,40 @@ Figure 2.2: Beta family
 </div>
 <div id="conjugacy" class="section level3">
 <h3><span class="header-section-number">2.1.3</span> Conjugacy</h3>
+<p>Next, let’s introduce the concept of conjugacy in Bayesian statistics.</p>
+<p>Suppose we have the prior beliefs about the data as below:</p>
+<ul>
+<li><p>Binomial distribution <span class="math inline">\(\text{Bin}(n,p)\)</span> with <span class="math inline">\(n\)</span> known and <span class="math inline">\(p\)</span> unknown</p></li>
+<li><p>Prior belief about <span class="math inline">\(p\)</span> is <span class="math inline">\(\text{beta}(\alpha,\beta)\)</span></p></li>
+</ul>
+<p>Then we observe <span class="math inline">\(x\)</span> success in <span class="math inline">\(n\)</span> trials, and it turns out the Bayes’ rule implies that our new belief about the probability density of <span class="math inline">\(p\)</span> is also the beta distribution, but with different parameters. In mathematical terms,</p>
+<span class="math display" id="eq:beta-binomial">\[\begin{equation}
+p|x \sim \text{beta}(\alpha+x, \beta+n-x).
+\tag{2.1}
+\end{equation}\]</span>
+<p>This is an example of conjugacy. Conjugacy occurs when the <strong>posterior distribution</strong> is in the <strong>same family</strong> of probability density functions as the prior belief, but with <strong>new parameter values</strong>, which have been updated to reflect what we have learned from the data.</p>
+<p>Why are the beta binomial families conjugate? Here is a mathematical explanation.</p>
+<p>Recall the discrete form of the Bayes’ rule:</p>
+<p><span class="math display">\[P(A_i|B) = \frac{P(B|A_i)P(A_i)}{\sum^n_{j=1}P(B|A_j)P(A_j)}\]</span></p>
+<p>However, this formula does not apply to continuous random variables, such as the <span class="math inline">\(p\)</span> which follows a beta distribution, because the denominator sums over all possible values (must be finitely many) of the random variable.</p>
+<p>But the good news is that the <span class="math inline">\(p\)</span> has a finite range – it can tak any value <strong>only</strong> between 0 and 1. Hence we can perform integration, which is a generalization of the summation. The Bayes’ rule can also be written in continuous form as:</p>
+<p><span class="math display">\[\pi^*(p|x) = \frac{P(x|p)\pi(p)}{\int^1_0 P(x|p)\pi(p) dp}.\]</span></p>
+<p>This is analogus to the discrete form, since the integral in the denominator will also be equal to some constant, just like a summation. This constant ensures that the total area under the curve, i.e. the posterior density function, equals 1.</p>
+<p>Note that in the numerator, the first term, <span class="math inline">\(P(x|p)\)</span>, is the data likelihood – the probability of observing the data given a specific value of <span class="math inline">\(p\)</span>. The second term, <span class="math inline">\(\pi(p)\)</span>, is the probability density function that reflects the prior belief about <span class="math inline">\(p\)</span>.</p>
+<p>In the beta-binomial case, we have <span class="math inline">\(P(x|p)=\text{Bin}(n,p)\)</span> and <span class="math inline">\(\pi(p)=\text{beta}(\alpha,\beta)\)</span>.</p>
+<p>Plugging in these distributions, we get</p>
+<p><span class="math display">\[\begin{align}
+\pi^*(p|x) &amp;= \frac{1}{\text{some number}} \times P(x|p)\pi(p) \\
+&amp;= \frac{1}{\text{some number}} [\left( \begin{array}{c} n \\ x \end{array} \right) p^x (1-p)^{n-x}] [\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{\alpha-1} (1-p)^{\beta-1}] \\
+&amp;= \frac{\Gamma(\alpha+\beta+n)}{\Gamma(\alpha+x)\Gamma(\beta+n-x)} \times p^{\alpha+x-1} (1-p)^{\beta+n-x-1}
+\end{align}\]</span></p>
+<p>Let <span class="math inline">\(\alpha^* = \alpha + x\)</span> and <span class="math inline">\(\beta^* = \beta+n-x\)</span>, and we get</p>
+<p><span class="math display">\[\pi^*(p|x) = \text{beta}(\alpha^*,\beta^*) = \text{beta}(\alpha+x, \beta+n-x),\]</span></p>
+<p>same as the posterior formula in Equation <a href="bayesian-inference.html#eq:beta-binomial">(2.1)</a>.</p>
+<p>We can recognize the posterior distribution from the numerator <span class="math inline">\(p^{\alpha+x-1}\)</span> and <span class="math inline">\((1-p)^{\beta+n-x-1}\)</span>. Everything else are just constants, and they must take the unique value, which is needed to ensure that the area under the curve between 0 and 1 equals 1. So they have to take the values of the beta, which has parameters <span class="math inline">\(\alpha+x\)</span> and <span class="math inline">\(\beta+n-x\)</span>.</p>
+<p>This is a cute trick. We can find the answer without doing the integral simply by looking at form of the numerator.</p>
+<p>Without conjugacy, one has to do the integral. Often, the integral is impossible to evaluate. That obstacle is the primary reason that most statistical theory in the 20th century was not Bayesian. The situation didn’t change until modern computing allowed researchers to compute integrals numerically.</p>
+<p>In summary, some pairs of distributions are conjugate. If your prior is in one and your data comes from the other, then your posterior is in the same family as the prior, but with new parameters. We explored this in the context of the beta-binomial conjugate families. And we saw that conjugacy meant that we could apply the continuous version of Bayes’ rule without having to do any integration.</p>
 
 </div>
 </div>

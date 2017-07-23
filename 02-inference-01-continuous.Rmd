@@ -147,4 +147,59 @@ Here is a summary of the key ideas in this section:
 
 ### Conjugacy
 
+Next, let's introduce the concept of conjugacy in Bayesian statistics. 
 
+Suppose we have the prior beliefs about the data as below:
+
+* Binomial distribution $\text{Bin}(n,p)$ with $n$ known and $p$ unknown
+
+* Prior belief about $p$ is $\text{beta}(\alpha,\beta)$
+
+Then we observe $x$ success in $n$ trials, and it turns out the Bayes' rule implies that our new belief about the probability density of $p$ is also the beta distribution, but with different parameters. In mathematical terms,
+
+\begin{equation}
+p|x \sim \text{beta}(\alpha+x, \beta+n-x).
+(\#eq:beta-binomial)
+\end{equation}
+
+This is an example of conjugacy. Conjugacy occurs when the **posterior distribution** is in the **same family** of probability density functions as the prior belief, but with **new parameter values**, which have been updated to reflect what we have learned from the data. 
+
+Why are the beta binomial families conjugate? Here is a mathematical explanation.
+
+Recall the discrete form of the Bayes' rule:
+
+$$P(A_i|B) = \frac{P(B|A_i)P(A_i)}{\sum^n_{j=1}P(B|A_j)P(A_j)}$$
+
+However, this formula does not apply to continuous random variables, such as the $p$ which follows a beta distribution, because the denominator sums over all possible values (must be finitely many) of the random variable. 
+
+But the good news is that the $p$ has a finite range -- it can tak any value **only** between 0 and 1. Hence we can perform integration, which is a generalization of the summation. The Bayes' rule can also be written in continuous form as:
+
+$$\pi^*(p|x) = \frac{P(x|p)\pi(p)}{\int^1_0 P(x|p)\pi(p) dp}.$$
+
+This is analogus to the discrete form, since the integral in the denominator will also be equal to some constant, just like a summation. This constant ensures that the total area under the curve, i.e. the posterior density function, equals 1.
+
+Note that in the numerator, the first term, $P(x|p)$, is the data likelihood -- the probability of observing the data given a specific value of $p$. The second term, $\pi(p)$, is the probability density function that reflects the prior belief about $p$.
+
+In the beta-binomial case, we have $P(x|p)=\text{Bin}(n,p)$ and $\pi(p)=\text{beta}(\alpha,\beta)$.
+
+Plugging in these distributions, we get
+
+$$\begin{align}
+\pi^*(p|x) &= \frac{1}{\text{some number}} \times P(x|p)\pi(p) \\
+&= \frac{1}{\text{some number}} [\left( \begin{array}{c} n \\ x \end{array} \right) p^x (1-p)^{n-x}] [\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{\alpha-1} (1-p)^{\beta-1}] \\
+&= \frac{\Gamma(\alpha+\beta+n)}{\Gamma(\alpha+x)\Gamma(\beta+n-x)} \times p^{\alpha+x-1} (1-p)^{\beta+n-x-1}
+\end{align}$$
+
+Let $\alpha^* = \alpha + x$ and $\beta^* = \beta+n-x$, and we get
+
+$$\pi^*(p|x) = \text{beta}(\alpha^*,\beta^*) = \text{beta}(\alpha+x, \beta+n-x),$$
+
+same as the posterior formula in Equation \@ref(eq:beta-binomial).
+
+We can recognize the posterior distribution from the numerator $p^{\alpha+x-1}$ and $(1-p)^{\beta+n-x-1}$. Everything else are just constants, and they must take the unique value, which is needed to ensure that the area under the curve between 0 and 1 equals 1. So they have to take the values of the beta, which has parameters $\alpha+x$ and $\beta+n-x$.
+
+This is a cute trick. We can find the answer without doing the integral simply by looking at form of the numerator. 
+
+Without conjugacy, one has to do the integral. Often, the integral is impossible to evaluate. That obstacle is the primary reason that most statistical theory in the 20th century was not Bayesian. The situation didn't change until modern computing allowed researchers to compute integrals numerically. 
+
+In summary, some pairs of distributions are conjugate. If your prior is in one and your data comes from the other, then your posterior is in the same family as the prior, but with new parameters. We explored this in the context of the beta-binomial conjugate families. And we saw that conjugacy meant that we could apply the continuous version of Bayes' rule without having to do any integration. 
