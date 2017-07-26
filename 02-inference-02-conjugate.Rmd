@@ -89,7 +89,7 @@ And, the gamma family is pretty flexible, one can see a wide range of gamma shap
 
 NEED TO GET THE GAMMA PLOT HERE
 
-The probability density function for the gamma is indexed by shape $k$ and scale $\theta$, denoted as $\text{Ga}(k,\theta)$ with $k,\theta > 0$. The mathematical form of the distribution is 
+The probability density function for the gamma is indexed by shape $k$ and scale $\theta$, denoted as $\text{Gamma}(k,\theta)$ with $k,\theta > 0$. The mathematical form of the distribution is 
 
 $$f(x) = \dfrac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta},$$
 where
@@ -104,5 +104,90 @@ $$f(x) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$$
 
 In the supplementary material, we go with the $k$-$\theta$ parameterization, but you should always check which parameterization is being used. For example, $\mathsf{R}$ uses the $\alpha$-$\beta$ parameterization.
 
+For our parameterization, the mean of $\text{Gamma}(k,\theta)$ is $k\theta$, and the variance is $k\theta^2$. We can get the general's prior as below:
+
+$$\begin{align}
+\text{Mean} &= k\theta = 0.75 \\
+\text{Standard deviation} &= \theta\sqrt{k} = 1
+\end{align}$$
+
+Hence
+$$k = \frac{9}{16} \text{ and } \theta = \frac{4}{3}$$
+
+For the gamma Poisson conjugate family, suppose we observed data $x_1, x_2, \cdots, x_n$ that follow a Poisson distribution.Then similar to the previous section, we would recognize the kernel of the gamma when using the gamma-Poisson family. The posterior $\text{Gamma}(k^*, \theta^*)$ has parameters
+
+$$k^* = k + \sum^n_{i=1} x_i \text{ and } \theta^* = \frac{\theta}{(n\theta+1)}.$$
+
+For this dataset, $N = 15 \times 20 = 300$ observations, and the number of casualities is 200. Therefore, the general now thinks that the average number of Prussian cavalry officers who die at the hoofs of their horses follows a gamma distribution with the parameters below:
+
+$$\begin{align}
+k^* &= k + \sum^n_{i=1} x_i = \frac{9}{16} + 200 = 200.5625 \\
+\theta^* = \frac{\theta}{(n\theta+1)} &= \frac{4/3}{300\times(4/3)} = 0.0033
+\end{align}$$
+
+How the general has changed his mind is described in Table \@ref(tab:before-after). After seeing the data, his uncertainty about lambda, expressed as a standard deviation, shrunk from 1 to 0.047.
+
+```{r before-after, echo = FALSE}
+temp <- matrix(c(0.75, 1, 0.67, 0.047), nrow = 2, byrow = TRUE)
+rownames(temp) <- c('Before', 'After')
+colnames(temp) <- c('lambda', 'Standard Deviation')
+
+knitr::kable(
+  x = temp,
+  booktabs = TRUE,
+  caption = 'Before and after seeing the data'
+)
+```
+
+In summary, we learned about the Poisson and gamma distributions; we also knew that the gamma-Poisson families are conjugate. Moreover, we learned the updating fomula, and applied it to a classical dataset.
 
 ### The Normal-Normal Conjugate Families
+
+There are other conjugate families, and one is the normal-normal pair. If your data come from a normal distribution with known standard deviation $\sigma$ but unknown mean $\mu$, and if your prior on the mean $\mu$, has a normal distribution with self-elicited mean $\nu$ and self-elicited standard deviation $\tau$, then your posterior density for the mean, after seeing a sample of size $n$ with sample mean $\bar{x}$, is also normal. In mathematical notation, we have
+
+$$\begin{align}
+x|\mu &\sim N(\mu,\sigma) \\
+\mu &\sim N(\nu, \tau)
+\end{align}$$
+
+As a practical matter, one often does not know sigma, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family. But there are cases in which it is reasonable to treat the $\sigma$ as known. 
+
+```{example, label="chemist"}
+An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.
+
+Note that this normal-normal assumption made by the anayltical chemist is technically wrong, but still reasonable.
+
+1. The normal family puts some probability on all possible values between $(-\infty,+\infty)$. But the mass on the balance can **never** be negative. However, the normal prior on the unknown mass is usually so concentrated on positive values that the normal distribution is still a good approximation.
+
+2. Even if the chemist has repeatedly calibrated her balance with standards from the National Institute of Standards and Technology, she still will not know its standard deviation precisely. However, if she has done it often and well, it is probably a sufficiently good approximation to assume that the standard deviation is known.
+```
+
+For the normal-normal conjugate families, assume the prior on the unknown mean follows a normal distribution, i.e. $\mu \sim N(\nu, \tau)$. We also assume that the data $x_1,x_2,\cdots,x_n$ are independent and come from a normal with standard deviation $\sigma$.
+
+Then the posterior distribution of $\mu$ is also normal, with mean as a weighted average of the prior mean and the sample mean. We have
+
+$$\mu|x_1,x_2,\cdots,x_n \sim N(\nu^*, \tau^*),$$
+
+where
+
+$$\nu^* = \frac{\nu\sigma^2 + n\bar{x}\tau^2}{\sigma^2 + n\tau^2} \text{ and } \tau^* = \sqrt{\frac{\sigma^2\tau^2}{\sigma^2 + n\tau^2}}.$$
+
+Let's continue from Example \@ref(ex:chemist), and suppose she wants to measure the mass of a sample of ammonium nitrate. 
+
+Her balance has a known standard deviation of 0.2 milligrams. By looking at the sample, she thinks this mass is about 10 milligrams and based on her previous experience in estimating masses, her guess has the standard deviation of 2. So she decides that her prior for the mass of the sample is a normal distribution with mean, 10 milligrams, and standard deviation, 2 milligrams. 
+
+Now she collects five measurements on the sample and finds that the average of those is 10.5. By conjugacy of the normal-normal family, our posterior belief about the mass of the sample has the normal distribution. 
+
+The new mean of that posterior normal is found by plugging into the formula:
+
+$$\begin{align}
+\mu &\sim N(\nu=10, \tau=2) \\
+\nu^*  &= \frac{\nu\sigma^2 + n\bar{x}\tau^2}{\sigma^2 + n\tau^2} = \frac{10\times(0.2)^2+5\times10.5\times2^2}{(0.2)^2+5\times2^2} = 10.499\\
+\tau^* &= \sqrt{\frac{\sigma^2\tau^2}{\sigma^2 + n\tau^2}} = \sqrt{(0.2)^2\times2^2}{(0.2)^2+5\times2^2} = 0.089.
+\end{align}$$
+
+Before seeing the data, the Bayesian analytical chemist thinks the ammonium nitrate has mass 10 mg and uncertainty (standard deviation) 2 mg. After seeing the data, she thinks the mass is 10.499 mg and standard deviation 0.089 mg. Her posterior mean has shifted quite a bit and her uncertainty has dropped by a lot. That's exactly what an analytical chemist wants. 
+
+This is the last of the three examples of conjugate families. There are many more, but they do not suffice for every situation one might have. 
+
+We learned several things in this lecture. First, we learned the new pair of conjugate families and the relevant updating formula. Also, we worked a realistic example problem that can arise in practical situations. 

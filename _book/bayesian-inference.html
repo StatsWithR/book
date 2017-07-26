@@ -350,16 +350,86 @@ One can imagine that a Prussian general might want to estimate <span class="math
 <p>Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of lambda in the Poisson can take any non-negative value so this fits.</p>
 <p>And, the gamma family is pretty flexible, one can see a wide range of gamma shapes.</p>
 <p>NEED TO GET THE GAMMA PLOT HERE</p>
-<p>The probability density function for the gamma is indexed by shape <span class="math inline">\(k\)</span> and scale <span class="math inline">\(\theta\)</span>, denoted as <span class="math inline">\(\text{Ga}(k,\theta)\)</span> with <span class="math inline">\(k,\theta &gt; 0\)</span>. The mathematical form of the distribution is</p>
+<p>The probability density function for the gamma is indexed by shape <span class="math inline">\(k\)</span> and scale <span class="math inline">\(\theta\)</span>, denoted as <span class="math inline">\(\text{Gamma}(k,\theta)\)</span> with <span class="math inline">\(k,\theta &gt; 0\)</span>. The mathematical form of the distribution is</p>
 <p><span class="math display">\[f(x) = \dfrac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta},\]</span> where</p>
 <p><span class="math display">\[\Gamma(z) = \int^{\infty}_0 x^{z-1} e^{-x} dx.\]</span></p>
 <p><span class="math inline">\(\Gamma(z)\)</span>, the gamma function, is simply a constant that ensures the area under curve between 0 and 1 sums to 1, just like in the beta probability distribution case of Equation <a href="bayesian-inference.html#eq:beta">(2.1)</a>. A special case is that <span class="math inline">\(\Gamma(n) = (n-1)!\)</span> when <span class="math inline">\(n\)</span> is a positive integer.</p>
 <p>However, some books parameterize the gamma distribution in a slightly different way with shape <span class="math inline">\(\alpha = k\)</span> and rate (inverse scale) <span class="math inline">\(\beta=1/\theta\)</span>:</p>
 <p><span class="math display">\[f(x) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}\]</span></p>
 <p>In the supplementary material, we go with the <span class="math inline">\(k\)</span>-<span class="math inline">\(\theta\)</span> parameterization, but you should always check which parameterization is being used. For example, <span class="math inline">\(\mathsf{R}\)</span> uses the <span class="math inline">\(\alpha\)</span>-<span class="math inline">\(\beta\)</span> parameterization.</p>
+<p>For our parameterization, the mean of <span class="math inline">\(\text{Gamma}(k,\theta)\)</span> is <span class="math inline">\(k\theta\)</span>, and the variance is <span class="math inline">\(k\theta^2\)</span>. We can get the general’s prior as below:</p>
+<p><span class="math display">\[\begin{align}
+\text{Mean} &amp;= k\theta = 0.75 \\
+\text{Standard deviation} &amp;= \theta\sqrt{k} = 1
+\end{align}\]</span></p>
+<p>Hence <span class="math display">\[k = \frac{9}{16} \text{ and } \theta = \frac{4}{3}\]</span></p>
+<p>For the gamma Poisson conjugate family, suppose we observed data <span class="math inline">\(x_1, x_2, \cdots, x_n\)</span> that follow a Poisson distribution.Then similar to the previous section, we would recognize the kernel of the gamma when using the gamma-Poisson family. The posterior <span class="math inline">\(\text{Gamma}(k^*, \theta^*)\)</span> has parameters</p>
+<p><span class="math display">\[k^* = k + \sum^n_{i=1} x_i \text{ and } \theta^* = \frac{\theta}{(n\theta+1)}.\]</span></p>
+<p>For this dataset, <span class="math inline">\(N = 15 \times 20 = 300\)</span> observations, and the number of casualities is 200. Therefore, the general now thinks that the average number of Prussian cavalry officers who die at the hoofs of their horses follows a gamma distribution with the parameters below:</p>
+<p><span class="math display">\[\begin{align}
+k^* &amp;= k + \sum^n_{i=1} x_i = \frac{9}{16} + 200 = 200.5625 \\
+\theta^* = \frac{\theta}{(n\theta+1)} &amp;= \frac{4/3}{300\times(4/3)} = 0.0033
+\end{align}\]</span></p>
+<p>How the general has changed his mind is described in Table <a href="bayesian-inference.html#tab:before-after">2.1</a>. After seeing the data, his uncertainty about lambda, expressed as a standard deviation, shrunk from 1 to 0.047.</p>
+<table>
+<caption><span id="tab:before-after">Table 2.1: </span>Before and after seeing the data</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">lambda</th>
+<th align="right">Standard Deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Before</td>
+<td align="right">0.75</td>
+<td align="right">1.000</td>
+</tr>
+<tr class="even">
+<td>After</td>
+<td align="right">0.67</td>
+<td align="right">0.047</td>
+</tr>
+</tbody>
+</table>
+<p>In summary, we learned about the Poisson and gamma distributions; we also knew that the gamma-Poisson families are conjugate. Moreover, we learned the updating fomula, and applied it to a classical dataset.</p>
 </div>
 <div id="the-normal-normal-conjugate-families" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> The Normal-Normal Conjugate Families</h3>
+<p>There are other conjugate families, and one is the normal-normal pair. If your data come from a normal distribution with known standard deviation <span class="math inline">\(\sigma\)</span> but unknown mean <span class="math inline">\(\mu\)</span>, and if your prior on the mean <span class="math inline">\(\mu\)</span>, has a normal distribution with self-elicited mean <span class="math inline">\(\nu\)</span> and self-elicited standard deviation <span class="math inline">\(\tau\)</span>, then your posterior density for the mean, after seeing a sample of size <span class="math inline">\(n\)</span> with sample mean <span class="math inline">\(\bar{x}\)</span>, is also normal. In mathematical notation, we have</p>
+<p><span class="math display">\[\begin{align}
+x|\mu &amp;\sim N(\mu,\sigma) \\
+\mu &amp;\sim N(\nu, \tau)
+\end{align}\]</span></p>
+<p>As a practical matter, one often does not know sigma, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family. But there are cases in which it is reasonable to treat the <span class="math inline">\(\sigma\)</span> as known.</p>
+
+<div class="example">
+<p><span id="ex:chemist" class="example"><strong>Example 2.7 </strong></span>An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.</p>
+<p>Note that this normal-normal assumption made by the anayltical chemist is technically wrong, but still reasonable.</p>
+<ol style="list-style-type: decimal">
+<li><p>The normal family puts some probability on all possible values between <span class="math inline">\((-\infty,+\infty)\)</span>. But the mass on the balance can <strong>never</strong> be negative. However, the normal prior on the unknown mass is usually so concentrated on positive values that the normal distribution is still a good approximation.</p></li>
+<li>Even if the chemist has repeatedly calibrated her balance with standards from the National Institute of Standards and Technology, she still will not know its standard deviation precisely. However, if she has done it often and well, it is probably a sufficiently good approximation to assume that the standard deviation is known.
+</div>
+<p></p></li>
+</ol>
+<p>For the normal-normal conjugate families, assume the prior on the unknown mean follows a normal distribution, i.e. <span class="math inline">\(\mu \sim N(\nu, \tau)\)</span>. We also assume that the data <span class="math inline">\(x_1,x_2,\cdots,x_n\)</span> are independent and come from a normal with standard deviation <span class="math inline">\(\sigma\)</span>.</p>
+<p>Then the posterior distribution of <span class="math inline">\(\mu\)</span> is also normal, with mean as a weighted average of the prior mean and the sample mean. We have</p>
+<p><span class="math display">\[\mu|x_1,x_2,\cdots,x_n \sim N(\nu^*, \tau^*),\]</span></p>
+<p>where</p>
+<p><span class="math display">\[\nu^* = \frac{\nu\sigma^2 + n\bar{x}\tau^2}{\sigma^2 + n\tau^2} \text{ and } \tau^* = \sqrt{\frac{\sigma^2\tau^2}{\sigma^2 + n\tau^2}}.\]</span></p>
+<p>Let’s continue from Example <a href="bayesian-inference.html#ex:chemist">2.7</a>, and suppose she wants to measure the mass of a sample of ammonium nitrate.</p>
+<p>Her balance has a known standard deviation of 0.2 milligrams. By looking at the sample, she thinks this mass is about 10 milligrams and based on her previous experience in estimating masses, her guess has the standard deviation of 2. So she decides that her prior for the mass of the sample is a normal distribution with mean, 10 milligrams, and standard deviation, 2 milligrams.</p>
+<p>Now she collects five measurements on the sample and finds that the average of those is 10.5. By conjugacy of the normal-normal family, our posterior belief about the mass of the sample has the normal distribution.</p>
+<p>The new mean of that posterior normal is found by plugging into the formula:</p>
+<p><span class="math display">\[\begin{align}
+\mu &amp;\sim N(\nu=10, \tau=2) \\
+\nu^*  &amp;= \frac{\nu\sigma^2 + n\bar{x}\tau^2}{\sigma^2 + n\tau^2} = \frac{10\times(0.2)^2+5\times10.5\times2^2}{(0.2)^2+5\times2^2} = 10.499\\
+\tau^* &amp;= \sqrt{\frac{\sigma^2\tau^2}{\sigma^2 + n\tau^2}} = \sqrt{(0.2)^2\times2^2}{(0.2)^2+5\times2^2} = 0.089.
+\end{align}\]</span></p>
+<p>Before seeing the data, the Bayesian analytical chemist thinks the ammonium nitrate has mass 10 mg and uncertainty (standard deviation) 2 mg. After seeing the data, she thinks the mass is 10.499 mg and standard deviation 0.089 mg. Her posterior mean has shifted quite a bit and her uncertainty has dropped by a lot. That’s exactly what an analytical chemist wants.</p>
+<p>This is the last of the three examples of conjugate families. There are many more, but they do not suffice for every situation one might have.</p>
+<p>We learned several things in this lecture. First, we learned the new pair of conjugate families and the relevant updating formula. Also, we worked a realistic example problem that can arise in practical situations.</p>
 
 </div>
 </div>
