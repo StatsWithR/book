@@ -226,7 +226,10 @@ Figure 2.1: Histogram of binomial random variable
 </div>
 <p></p>
 <p>So a base angle sits to express their belief about the value of <span class="math inline">\(p\)</span> through a probability distribution, and a very flexible family of distributions for this purpose is the <strong>beta family</strong>. A member of the beta family is specified by two parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>; we denote this as <span class="math inline">\(p \sim \text{beta}(\alpha, \beta)\)</span>. The probability density function is</p>
-<p><span class="math display">\[f(p) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{\alpha-1} (1-p)^{\beta-1},\]</span></p>
+<span class="math display" id="eq:beta">\[\begin{equation}
+f(p) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{\alpha-1} (1-p)^{\beta-1},
+\tag{2.1}
+\end{equation}\]</span>
 <p>where <span class="math inline">\(0 \leq p \leq 1, \alpha&gt;0, \beta&gt;0\)</span>, and <span class="math inline">\(\Gamma\)</span> is a factorial:</p>
 <p><span class="math display">\[\Gamma(n) = (n-1)! = (n-1) \times (n-2) \times \cdots \times 1\]</span></p>
 <p>When <span class="math inline">\(\alpha=\beta=1\)</span>, the beta distribution becomes a uniform distribution, i.e. the probabilty density function is a flat line. In other words, the uniform distribution is a special case of the beta family.</p>
@@ -262,7 +265,7 @@ Figure 2.2: Beta family
 <p>Then we observe <span class="math inline">\(x\)</span> success in <span class="math inline">\(n\)</span> trials, and it turns out the Bayes’ rule implies that our new belief about the probability density of <span class="math inline">\(p\)</span> is also the beta distribution, but with different parameters. In mathematical terms,</p>
 <span class="math display" id="eq:beta-binomial">\[\begin{equation}
 p|x \sim \text{beta}(\alpha+x, \beta+n-x).
-\tag{2.1}
+\tag{2.2}
 \end{equation}\]</span>
 <p>This is an example of conjugacy. Conjugacy occurs when the <strong>posterior distribution</strong> is in the <strong>same family</strong> of probability density functions as the prior belief, but with <strong>new parameter values</strong>, which have been updated to reflect what we have learned from the data.</p>
 <p>Why are the beta binomial families conjugate? Here is a mathematical explanation.</p>
@@ -282,7 +285,7 @@ p|x \sim \text{beta}(\alpha+x, \beta+n-x).
 \end{align}\]</span></p>
 <p>Let <span class="math inline">\(\alpha^* = \alpha + x\)</span> and <span class="math inline">\(\beta^* = \beta+n-x\)</span>, and we get</p>
 <p><span class="math display">\[\pi^*(p|x) = \text{beta}(\alpha^*,\beta^*) = \text{beta}(\alpha+x, \beta+n-x),\]</span></p>
-<p>same as the posterior formula in Equation <a href="bayesian-inference.html#eq:beta-binomial">(2.1)</a>.</p>
+<p>same as the posterior formula in Equation <a href="bayesian-inference.html#eq:beta-binomial">(2.2)</a>.</p>
 <p>We can recognize the posterior distribution from the numerator <span class="math inline">\(p^{\alpha+x-1}\)</span> and <span class="math inline">\((1-p)^{\beta+n-x-1}\)</span>. Everything else are just constants, and they must take the unique value, which is needed to ensure that the area under the curve between 0 and 1 equals 1. So they have to take the values of the beta, which has parameters <span class="math inline">\(\alpha+x\)</span> and <span class="math inline">\(\beta+n-x\)</span>.</p>
 <p>This is a cute trick. We can find the answer without doing the integral simply by looking at form of the numerator.</p>
 <p>Without conjugacy, one has to do the integral. Often, the integral is impossible to evaluate. That obstacle is the primary reason that most statistical theory in the 20th century was not Bayesian. The situation didn’t change until modern computing allowed researchers to compute integrals numerically.</p>
@@ -294,9 +297,66 @@ p|x \sim \text{beta}(\alpha+x, \beta+n-x).
 <h2><span class="header-section-number">2.2</span> Three Conjugate Families</h2>
 <div id="inference-on-a-binomial-proportion" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Inference on a Binomial Proportion</h3>
+
+<div class="example">
+<p><span id="ex:RU-486more" class="example"><strong>Example 2.5 </strong></span>Recall Example <a href="the-basics-of-bayesian-statistics.html#ex:RU-486">1.8</a>, a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception.</p>
+Half of these women were randomly assigned to the standard contraceptive, a large dose of estrogen and progesterone. And half of the women were assigned RU-486. Among the RU-486 group, there were no pregnancies. Among those receiving the standard therapy, four became pregnant.
+</div>
+<p></p>
+<p>Statistically, one can model these data as coming from a binomial distribution. Imagine a coin with two sides. One side is labeled standard therapy and the other is labeled RU-486. The coin was tossed four times, and each time it landed with the standard therapy side face up.</p>
+<p>A frequentist would analyze the problem as below:</p>
+<ul>
+<li><p>The parameter <span class="math inline">\(p\)</span> is the probability of a preganancy comes from the standard treatment.</p></li>
+<li><p><span class="math inline">\(H_0: p \geq 0.5\)</span> and <span class="math inline">\(H_A: p &lt; 0.5\)</span></p></li>
+<li><p>The p-value is <span class="math inline">\(0.5^4 = 0.0625 &gt; 0.05\)</span></p></li>
+</ul>
+<p>Therefore, the frequentist fails to reject the null hypothesis, and will not conclude that RU-486 is superior to standard therapy.</p>
+<p>Remark: The significance probability, or p-value, is the chance of observing data that are as or more supportive of the alternative hypothesis than the data that were collected, when the null hypothesis is true.</p>
+<p>Now suppose a Bayesian performed the analysis. She may set her beliefs about the drug and decide that she has no prior knowledge about the efficacy of RU-486 at all. This would be reasonable if, for example, it were the first clinical trial of the drug. In that case, she would be using the uniform distribution on the interval from 0 to 1, which corresponds to the <span class="math inline">\(\text{beta}(1,1)\)</span> density. In mathematical terms,</p>
+<p><span class="math display">\[p \sim \text{Unif}(0,1) = \text{beta}(1,1).\]</span></p>
+<p>From conjugacy, we know that since there were four failures for RU-486 and no successes, that her posterior probability of an RU-486 child is</p>
+<p><span class="math display">\[p|x \sim \text{beta}(1+0,1+4) = \text{beta}(1,5).\]</span></p>
+<p>This is a beta that has much more area near <span class="math inline">\(p\)</span> equal to 0. The mean of <span class="math inline">\(\text{beta}(\alpha,\beta)\)</span> is <span class="math inline">\(\frac{\alpha}{\alpha+\beta}\)</span>. So this Bayesian now believes that the unknown <span class="math inline">\(p\)</span>, the probability of an RU-468 child, is about 1 over 6.</p>
+<p>The standard deviation of a beta distribution with parameters in alpha and beta also has a closed form:</p>
+<p><span class="math display">\[p \sim \text{beta}(\alpha,\beta) \Rightarrow \text{Standard deviation} = \sqrt{\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}}\]</span></p>
+<p>Before she saw the data, the Bayesian’s uncertainty expressed by her standard deviation was 0.71. After seeing the data, it was much reduced – her posterior standard deviation is just 0.13.</p>
+<p>We promised not to do much calculus, so I hope you will trust me to tell you that this Bayesian now believes that her posterior probability that <span class="math inline">\(p &lt; 0.5\)</span> is 0.96875. She thought there was a 50-50 chance that RU-486 is better. But now she thinks there’s about a 97% chance that RU-486 is better.</p>
+<p>Suppose a fifth child were born, also to a mother who received standard chip therapy. Now the Bayesian’s prior is beta(1, 5) and the additional data point further updates her to a new posterior beta of 1 and 6. <strong>As data comes in, the Bayesian’s previous posterior becomes her new prior, so learning is self-consistent.</strong></p>
+<p>This example has taught us several things:</p>
+<ol style="list-style-type: decimal">
+<li><p>We saw how to build a statistical model for an applied problem.</p></li>
+<li><p>We could compare the frequentist and Bayesian approaches to inference and see large differences in the conclusions.</p></li>
+<li><p>We saw how the data changed the Bayesian’s opinion with a new mean for p and less uncertainty.</p></li>
+<li><p>We learned that Bayesian’s continually update as new data arrive. <strong>Yesterday’s posterior is today’s prior.</strong></p></li>
+</ol>
 </div>
 <div id="the-gamma-poisson-conjugate-families" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> The Gamma-Poisson Conjugate Families</h3>
+<p>A second important case is the gamma-Poisson conjugate families. In this case the data come from a Poisson distribution, and the prior and posterior are both gamma distributions.</p>
+<p>The Poisson random variable can take any <strong>non-negative integer value</strong> all the way up to infinity. It is used in describing <strong>count data</strong>, where one counts the number of independent events that occur in a fixed amount of time, a fixed area, or a fixed volume.</p>
+<p>Moreover, the Poisson distribution has been used to describe the number of phone calls one receives in an hour. Or, the number of pediatric cancer cases in the city, for example, to see if pollution has elevated the cancer rate above that of in previous years or for similar cities. It is also used in medical screening for diseases, such as HIV, where one can count the number of T-cells in the tissue sample.</p>
+<p>The Poisson distribution has a single parameter <span class="math inline">\(\lambda\)</span>, and it is denoted as <span class="math inline">\(X \sim \text{Pois}(\lambda)\)</span> with <span class="math inline">\(\lambda&gt;0\)</span>. The probability mass function is</p>
+<p><span class="math display">\[P(X=k) = \frac{\lambda^k}{k!} \exp^{-\lambda} \text{ for } k=0,1,\cdots,\]</span></p>
+<p>where <span class="math inline">\(k! = k \times (k-1) \times \cdots \times 1\)</span>. This gives the probability of observing a random variable equal to <span class="math inline">\(k\)</span>.</p>
+<p>Note that <span class="math inline">\(\lambda\)</span> is both the mean and the variance of the Poisson random variable. It is obvious that <span class="math inline">\(\lambda\)</span> must be greater than zero, because it represents the mean number of counts, and the variance should be greater than zero (except for constants, which have zero variance).</p>
+
+<div class="example">
+<p><span id="ex:Poisson" class="example"><strong>Example 2.6 </strong></span>Famously, von Bortkiewicz used the Poisson distribution to study the number of Prussian cavalrymen who were kicked to death by a horse each year. This is count data over the course of a year, and the events are probably independent, so the Poisson model makes sense.</p>
+<p>He had data on 15 cavalry units for the 20 years between 1875 and 1894, inclusive. The total number of cavalrymen who died by horse kick was 200.</p>
+One can imagine that a Prussian general might want to estimate <span class="math inline">\(\lambda\)</span>. The average number per year, per unit. Perhaps in order to see whether some educational campaign about best practices for equine safety would make a difference.
+</div>
+<p></p>
+<p>Suppose the Prussian general is a Bayesian. Introspective elicitation leads him to think that <span class="math inline">\(\lambda=0.75\)</span> and standard deviation 1.</p>
+<p>Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of lambda in the Poisson can take any non-negative value so this fits.</p>
+<p>And, the gamma family is pretty flexible, one can see a wide range of gamma shapes.</p>
+<p>NEED TO GET THE GAMMA PLOT HERE</p>
+<p>The probability density function for the gamma is indexed by shape <span class="math inline">\(k\)</span> and scale <span class="math inline">\(\theta\)</span>, denoted as <span class="math inline">\(\text{Ga}(k,\theta)\)</span> with <span class="math inline">\(k,\theta &gt; 0\)</span>. The mathematical form of the distribution is</p>
+<p><span class="math display">\[f(x) = \dfrac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta},\]</span> where</p>
+<p><span class="math display">\[\Gamma(z) = \int^{\infty}_0 x^{z-1} e^{-x} dx.\]</span></p>
+<p><span class="math inline">\(\Gamma(z)\)</span>, the gamma function, is simply a constant that ensures the area under curve between 0 and 1 sums to 1, just like in the beta probability distribution case of Equation <a href="bayesian-inference.html#eq:beta">(2.1)</a>. A special case is that <span class="math inline">\(\Gamma(n) = (n-1)!\)</span> when <span class="math inline">\(n\)</span> is a positive integer.</p>
+<p>However, some books parameterize the gamma distribution in a slightly different way with shape <span class="math inline">\(\alpha = k\)</span> and rate (inverse scale) <span class="math inline">\(\beta=1/\theta\)</span>:</p>
+<p><span class="math display">\[f(x) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}\]</span></p>
+<p>In the supplementary material, we go with the <span class="math inline">\(k\)</span>-<span class="math inline">\(\theta\)</span> parameterization, but you should always check which parameterization is being used. For example, <span class="math inline">\(\mathsf{R}\)</span> uses the <span class="math inline">\(\alpha\)</span>-<span class="math inline">\(\beta\)</span> parameterization.</p>
 </div>
 <div id="the-normal-normal-conjugate-families" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> The Normal-Normal Conjugate Families</h3>

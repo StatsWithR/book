@@ -2,6 +2,107 @@
 
 ### Inference on a Binomial Proportion
 
+```{example, label="RU-486more"}
+Recall Example \@ref(ex:RU-486), a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception. 
+
+Half of these women were randomly assigned to the standard contraceptive, a large dose of estrogen and progesterone. And half of the women were assigned RU-486. Among the RU-486 group, there were no pregnancies. Among those receiving the standard therapy, four became pregnant. 
+```
+
+Statistically, one can model these data as coming from a binomial distribution. Imagine a coin with two sides. One side is labeled standard therapy and the other is labeled RU-486. The coin was tossed four times, and each time it landed with the standard therapy side face up.
+
+A frequentist would analyze the problem as below:
+
+* The parameter $p$ is the probability of a preganancy comes from the standard treatment.
+
+* $H_0: p \geq 0.5$ and $H_A: p < 0.5$
+
+* The p-value is $0.5^4 = 0.0625 > 0.05$ 
+
+Therefore, the frequentist fails to reject the null hypothesis, and will not conclude that RU-486 is superior to standard therapy.
+
+Remark: The significance probability, or p-value, is the chance of observing
+data that are as or more supportive of the alternative hypothesis than
+the data that were collected, when the null hypothesis is true.
+
+Now suppose a Bayesian performed the analysis. She may set her beliefs about the drug and decide that she has no prior knowledge about the efficacy of RU-486 at all. This would be reasonable if, for example, it were the first clinical trial of the drug. In that case, she would be using the uniform distribution on the interval from 0 to 1, which corresponds to the $\text{beta}(1,1)$ density. In mathematical terms,
+
+$$p \sim \text{Unif}(0,1) = \text{beta}(1,1).$$
+
+From conjugacy, we know that since there were four failures for RU-486 and no successes, that her posterior probability of an RU-486 child is 
+
+$$p|x \sim \text{beta}(1+0,1+4) = \text{beta}(1,5).$$
+
+This is a beta that has much more area near $p$ equal to 0. The mean of $\text{beta}(\alpha,\beta)$ is $\frac{\alpha}{\alpha+\beta}$. So this Bayesian now believes that the unknown $p$, the probability of an RU-468 child, is about 1 over 6. 
+
+The standard deviation of a beta distribution with parameters in alpha and beta also has a closed form:
+
+$$p \sim \text{beta}(\alpha,\beta) \Rightarrow \text{Standard deviation} = \sqrt{\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}}$$
+
+Before she saw the data, the Bayesian's uncertainty expressed by her standard deviation was 0.71. After seeing the data, it was much reduced -- her posterior standard deviation is just 0.13. 
+
+We promised not to do much calculus, so I hope you will trust me to tell you that this Bayesian now believes that her posterior probability that $p < 0.5$ is 0.96875. She thought there was a 50-50 chance that RU-486 is better. But now she thinks there's about a 97% chance that RU-486 is better. 
+
+Suppose a fifth child were born, also to a mother who received standard chip therapy. Now the Bayesian's prior is beta(1, 5) and the additional data point further updates her to a new posterior beta of 1 and 6. **As data comes in, the Bayesian's previous posterior becomes her new prior, so learning is self-consistent.** 
+
+This example has taught us several things: 
+
+1. We saw how to build a statistical model for an applied problem. 
+
+2. We could compare the frequentist and Bayesian approaches to inference and see large differences in the conclusions. 
+
+3. We saw how the data changed the Bayesian's opinion with a new mean for p and less uncertainty. 
+
+4. We learned that Bayesian's continually update as new data arrive. **Yesterday's posterior is today's prior.** 
+
 ### The Gamma-Poisson Conjugate Families
+
+A second important case is the gamma-Poisson conjugate families. In this case the data come from a Poisson distribution, and the prior and posterior are both gamma distributions. 
+
+The Poisson random variable can take any **non-negative integer value** all the way up to infinity. It is used in describing **count data**, where one counts the number of independent events that occur in a fixed amount of time, a fixed area, or a fixed volume. 
+
+Moreover, the Poisson distribution has been used to describe the number of phone calls one receives in an hour. Or, the number of pediatric cancer cases in the city, for example, to see if pollution has elevated the cancer rate above that of in previous years or for similar cities. It is also used in medical screening for diseases, such as HIV, where one can count the number of T-cells in the tissue sample. 
+
+
+The Poisson distribution has a single parameter $\lambda$, and it is denoted as $X \sim \text{Pois}(\lambda)$ with $\lambda>0$. The probability mass function is
+
+$$P(X=k) = \frac{\lambda^k}{k!} \exp^{-\lambda} \text{ for } k=0,1,\cdots,$$
+
+where $k! = k \times (k-1) \times \cdots \times 1$. This gives the probability of observing a random variable equal to $k$. 
+
+Note that $\lambda$ is both the mean and the variance of the Poisson random variable. It is obvious that $\lambda$ must be greater than zero, because it represents the mean number of counts, and the variance should be greater than zero (except for constants, which have zero variance).
+
+
+```{example, label="Poisson"}
+Famously, von Bortkiewicz used the Poisson distribution to study the number of Prussian cavalrymen who were kicked to death by a horse each year. This is count data over the course of a year, and the events are probably independent, so the Poisson model makes sense.
+
+He had data on 15 cavalry units for the 20 years between 1875 and 1894, inclusive. The total number of cavalrymen who died by horse kick was 200. 
+
+One can imagine that a Prussian general might want to estimate $\lambda$. The average number per year, per unit. Perhaps in order to see whether some educational campaign about best practices for equine safety would make a difference.
+```
+
+Suppose the Prussian general is a Bayesian. Introspective elicitation leads him to think that $\lambda=0.75$ and standard deviation 1.
+
+Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of lambda in the Poisson can take any non-negative value so this fits. 
+
+
+And, the gamma family is pretty flexible, one can see a wide range of gamma shapes. 
+
+NEED TO GET THE GAMMA PLOT HERE
+
+The probability density function for the gamma is indexed by shape $k$ and scale $\theta$, denoted as $\text{Ga}(k,\theta)$ with $k,\theta > 0$. The mathematical form of the distribution is 
+
+$$f(x) = \dfrac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta},$$
+where
+
+$$\Gamma(z) = \int^{\infty}_0 x^{z-1} e^{-x} dx.$$
+
+$\Gamma(z)$, the gamma function, is simply a constant that ensures the area under curve between 0 and 1 sums to 1, just like in the beta probability distribution case of Equation \@ref(eq:beta). A special case is that $\Gamma(n) = (n-1)!$ when $n$ is a positive integer.
+
+However, some books parameterize the gamma distribution in a slightly different way with shape $\alpha = k$ and rate (inverse scale) $\beta=1/\theta$:
+
+$$f(x) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$$
+
+In the supplementary material, we go with the $k$-$\theta$ parameterization, but you should always check which parameterization is being used. For example, $\mathsf{R}$ uses the $\alpha$-$\beta$ parameterization.
+
 
 ### The Normal-Normal Conjugate Families
