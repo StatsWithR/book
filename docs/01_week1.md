@@ -47,7 +47,7 @@ It turns out this relationship holds true for any conditional probability and is
 \]</div>\EndKnitrBlock{definition}
 
 
-\BeginKnitrBlock{example}\iffalse{-91-93-}\fi{}<div class="example"><span class="example" id="ex:unnamed-chunk-3"><strong>(\#ex:unnamed-chunk-3) \iffalse () \fi{} </strong></span>What is the probability that an 18-29 year old from Table \@ref(tab:2015gallupDating) uses online dating sites?**
+\BeginKnitrBlock{example}\iffalse{-91-97-98-99-93-}\fi{}<div class="example"><span class="example" id="ex:unnamed-chunk-3"><strong>(\#ex:unnamed-chunk-3) \iffalse (abc) \fi{} </strong></span>What is the probability that an 18-29 year old from Table \@ref(tab:2015gallupDating) uses online dating sites?**
 
 Note that the question asks a question about 18-29 year olds. Therefore, it conditions on being 18-29 years old.
 Bayes' rule provides a way to compute this conditional probability:
