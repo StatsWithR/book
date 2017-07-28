@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bayesian Statistics</title>
+  <meta name="description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization.">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Bayesian Statistics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://www.coursera.org/learn/bayesian/home/info/" />
+  <meta property="og:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+  <meta property="og:description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="github-repo" content="StatsWithR/book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Bayesian Statistics" />
+  
+  <meta name="twitter:description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="twitter:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+
+<meta name="author" content="Christine Chai">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="bayesian-inference.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
+<li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
+<li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
+<li class="chapter" data-level="1.1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
+<li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-frequentist-approach"><i class="fa fa-check"></i><b>1.2.1</b> Inference for a Proportion: Frequentist Approach</a></li>
+<li class="chapter" data-level="1.2.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
+<li class="chapter" data-level="1.2.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#exercises"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#continuous-variables-and-eliciting-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#from-the-discrete-to-the-continuous"><i class="fa fa-check"></i><b>2.1.1</b> From the Discrete to the Continuous</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#elicitation"><i class="fa fa-check"></i><b>2.1.2</b> Elicitation</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#conjugacy"><i class="fa fa-check"></i><b>2.1.3</b> Conjugacy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#three-conjugate-families"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#inference-on-a-binomial-proportion"><i class="fa fa-check"></i><b>2.2.1</b> Inference on a Binomial Proportion</a></li>
+<li class="chapter" data-level="2.2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#the-gamma-poisson-conjugate-families"><i class="fa fa-check"></i><b>2.2.2</b> The Gamma-Poisson Conjugate Families</a></li>
+<li class="chapter" data-level="2.2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#the-normal-normal-conjugate-families"><i class="fa fa-check"></i><b>2.2.3</b> The Normal-Normal Conjugate Families</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals-and-predictive-inference"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#non-conjugate-priors"><i class="fa fa-check"></i><b>2.3.1</b> Non-Conjugate Priors</a></li>
+<li class="chapter" data-level="2.3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals"><i class="fa fa-check"></i><b>2.3.2</b> Credible Intervals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#predictive-inference"><i class="fa fa-check"></i><b>2.3.3</b> Predictive Inference</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-basics-of-bayesian-statistics" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> The Basics of Bayesian Statistics</h1>
+<p>Bayesian statistics mostly involves <strong>conditional probability</strong>, which is the the probability of an event A given event B, and it can be calculated using the Bayes’ rule. The concept of conditional probability is widely used in medical testing, in which false positives and false negatives may occur. A false positive can be defined as a positive outcome on a medical test when the patient does not actually have the disease they are being tested for. In other words, it’s the probability of testing positive given no disease. Similarly, a false negative can be defined as a negative outcome on a medical test when the patient does have the disease. In other words, testing negative given disease. Both indicators are critical for any medical decisions.</p>
+<p>For how the Bayes’ rule is applied, we can set up a prior, then calculate posterior probabilities based on a prior and likelihood. That is to say, the prior probabilities are updated through an iterative process of data collection.</p>
+
+<div id="bayes-rule" class="section level2">
+<h2><span class="header-section-number">1.1</span> Bayes’ Rule</h2>
+<div id="bayes-rule" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Conditional Probabilities &amp; Bayes’ Rule</h3>
+<p>Consider Table <a href="the-basics-of-bayesian-statistics.html#tab:2015gallupDating">1.1</a>. It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities.</p>
+<table>
+<caption><span id="tab:2015gallupDating">Table 1.1: </span>Results from a 2015 Gallup poll on the use of online dating sites by age group</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">18-29</th>
+<th align="right">30-49</th>
+<th align="right">50-64</th>
+<th align="right">65+</th>
+<th align="right">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Used online dating site</td>
+<td align="right">60</td>
+<td align="right">86</td>
+<td align="right">58</td>
+<td align="right">21</td>
+<td align="right">225</td>
+</tr>
+<tr class="even">
+<td>Did not use online dating site</td>
+<td align="right">255</td>
+<td align="right">426</td>
+<td align="right">450</td>
+<td align="right">382</td>
+<td align="right">1513</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td align="right">316</td>
+<td align="right">512</td>
+<td align="right">508</td>
+<td align="right">403</td>
+<td align="right">1738</td>
+</tr>
+</tbody>
+</table>
+For instance, the probability of an adult American using an online dating site can be calculated as
+<span class="math display">\[\begin{multline*}
+    P(\text{using an online dating site}) = \\
+    \frac{\text{Number that indicated they used an online dating site}}{\text{Total number of people in the poll}}
+    = \frac{225}{1738} \approx 13\%.
+\end{multline*}\]</span>
+This is the overall probability of using an online dating site. Say, we are now interested in the probability of using an online dating site if one falls in the age group 30-49. Similar to the above, we have
+<span class="math display">\[\begin{multline*}
+    P(\text{using an online dating site} \mid \text{in age group 30-49}) = \\
+    \frac{\text{Number in age group 30-49 that indicated they used an online dating site}}{\text{Total number in age group 30-49}}
+    = \frac{86}{512} \approx 17\%.
+\end{multline*}\]</span>
+<p>Here, the pipe symbol `|’ means <em>conditional on</em>. This is a <em>conditional probability</em> as one can consider it the probability of using an online dating site conditional on being in age group 30-49.</p>
+We can rewrite this conditional probability in terms of ‘regular’ probabilities by dividing both numerator and the denominator by the total number of people in the poll. That is,
+<span class="math display">\[\begin{multline*}
+    P(\text{using an online dating site} \mid \text{in age group 30-49}) \\
+\begin{split}
+    &amp;= \frac{\text{Number in age group 30-49 that indicated they used an online dating site}}{\text{Total number in age group 30-49}} \\
+    &amp;= \frac{\frac{\text{Number in age group 30-49 that indicated they used an online dating site}}{\text{Total number of people in the poll}}}{\frac{\text{Total number in age group 30-49}}{\text{Total number of people in the poll}}} \\
+    &amp;= \frac{P(\text{using an online dating site &amp; falling in age group 30-49})}{P(\text{Falling in age group 30-49})}.
+\end{split}
+\end{multline*}\]</span>
+<p>It turns out this relationship holds true for any conditional probability and is known as Bayes’ rule:</p>
+
+<div class="definition">
+<p><span id="def:unnamed-chunk-1" class="definition"><strong>Definition 1.1  (Bayes’ Rule)  </strong></span>The conditional probability of the event <span class="math inline">\(A\)</span> conditional on the event <span class="math inline">\(B\)</span> is given by</p>
+<span class="math display">\[
+  P(A \mid B) = \frac{P(A \,\&amp;\, B)}{P(B)}.
+\]</span>
+</div>
+<p></p>
+
+<div class="example">
+<p><span id="ex:unnamed-chunk-2" class="example"><strong>Example 1.1 </strong></span>What is the probability that an 18-29 year old from Table <a href="the-basics-of-bayesian-statistics.html#tab:2015gallupDating">1.1</a> uses online dating sites?</p>
+<p>Note that the question asks a question about 18-29 year olds. Therefore, it conditions on being 18-29 years old. Bayes’ rule provides a way to compute this conditional probability:</p>
+<span class="math display">\[\begin{multline*}
+    P(\text{using an online dating site} \mid \text{in age group 18-29}) \\
+\begin{split}
+    &amp;= \frac{P(\text{using an online dating site &amp; falling in age group 18-29})}{P(\text{Falling in age group 18-29})} \\
+    &amp;= \frac{\frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number of people in the poll}}}{\frac{\text{Total number in age group 18-29}}{\text{Total number of people in the poll}}} \\
+    &amp;= \frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number in age group 18-29}} = \frac{60}{315} \approx 19\%.
+\end{split}
+\end{multline*}\]</span>
+</div>
+<p></p>
+</div>
+<div id="diagnostic-testing" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Bayes’ Rule and Diagnostic Testing</h3>
+<p>To better understand conditional probabilities and their importance, let us consider an example involving the human immunodeficiency virus (HIV). In the early 1980s, HIV had just been discovered and was rapidly expanding. There was major concern with the safety of the blood supply. Also, virtually no cure existed making an HIV diagnosis basically a death sentence, in addition to the stigma that was attached to the disease.</p>
+<p>These made false positives and false negatives in HIV testing highly undesirable. A <em>false positive</em> is when a test returns postive while the truth is negative. That would for instance be that someone without HIV is wrongly diagnosed with HIV, wrongly telling that person they are going to die and casting the stigma on them. A <em>false negative</em> is when a test returns negative while the truth is positive. That is when someone with HIV undergoes an HIV test which wrongly comes back negative. The latter poses a threat to the blood supply if that person is about to donate blood.</p>
+<p>The probability of a false positive if the truth is negative is called the false positive rate. Similarly, the false negative rate is the probability of a false negative if the truth is positive. Note that both these rates are conditional probabilities: The false positive rate of an HIV test is the probability of a positive result <em>conditional on</em> the person tested having no HIV.</p>
+The HIV test we consider is an enzyme-linked immunosorbent assay, commonly known as an ELISA. We would like to know the probability that someone (in the early 1980s) has HIV if ELISA tests positive. For this, we need the following information. ELISA’s true positive rate (one minus the false negative rate), also referred to as sensitivity, recall, or probability of detection, is estimated as <span class="math display">\[
+  P(\text{ELISA is positive} \mid \text{Person tested has HIV}) = 93\% = 0.93.
+\]</span> Its true negative rate (one minus the false positive rate), also referred to as specificity, is estimated as <span class="math display">\[
+  P(\text{ELISA is negative} \mid \text{Person tested has no HIV}) = 99\% = 0.99.
+\]</span> Also relevant to our question is the prevalence of HIV in the overall population, which is estimated to be 1.48 out of every 1000 American adults. We therefore assume
+<span class="math display" id="eq:HIVpositive">\[\begin{equation}
+  P(\text{Person tested has HIV}) = \frac{1.48}{1000} = 0.00148.
+  \tag{1.1}
+\end{equation}\]</span>
+<p>Note that the above numbers are estimates. For our purposes, however, we will treat them as if they were exact.</p>
+Our goal is to compute the probability of HIV if ELISA is positive, that is <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span>. In none of the above numbers did we condition on the outcome of ELISA. Fortunately, Bayes’ rule allows is to use the above numbers to compute the probability we seek. Bayes’ rule states that
+<span class="math display" id="eq:HIVconditional">\[\begin{multline*}
+  P(\text{Person tested has HIV} \mid \text{ELISA is positive}) \\
+  = \frac{P(\text{Person tested has HIV} \,\&amp;\, \text{ELISA is positive})}{P(\text{ELISA is positive})}.
+  \tag{1.2}
+\end{multline*}\]</span>
+The can be derived as follows. For someone to test positive and be HIV positive, that person first needs to be HIV positive and then seconldy test positive. The probability of the first thing happening is <span class="math inline">\(P(\text{HIV positive}) = 0.00148\)</span>. The probability of then testing positive is <span class="math inline">\(P(\text{ELISA is positive} \mid \text{Person tested has HIV}) = 0.93\)</span>, the true positive rate. This yields for the numerator
+<span class="math display" id="eq:HIVjoint">\[\begin{multline*}
+  P(\text{Person tested has HIV} \,\&amp;\, \text{ELISA is positive}) \\
+  \begin{split}
+  &amp;= P(\text{Person tested has HIV}) P(\text{ELISA is positive} \mid \text{Person tested has HIV}) \\
+  &amp;= 0.00148 \cdot 0.93
+  = 0.0013764.
+  \end{split}
+  \tag{1.3}
+\end{multline*}\]</span>
+<p>The first step in the above equation is implied by Bayes’ rule: By multiplying the left- and right-hand side of Bayes’ rule as presented in Section <a href="the-basics-of-bayesian-statistics.html#bayes-rule">1.1</a> by <span class="math inline">\(P(B)\)</span>, we obtain <span class="math display">\[
+  P(A \mid B) P(B) = P(A \,\&amp;\, B).
+\]</span></p>
+The denominator in <a href="the-basics-of-bayesian-statistics.html#eq:HIVconditional">(1.2)</a> can be expanded as
+<span class="math display">\[\begin{multline*}
+  P(\text{ELISA is positive}) \\
+  \begin{split}
+  &amp;= P(\text{Person tested has HIV} \,\&amp;\, \text{ELISA is positive})
+  + P(\text{Person tested has no HIV} \,\&amp;\, \text{ELISA is positive}) \\
+  &amp;= 0.0013764 + 0.0099852 = 0.0113616
+  \end{split}
+\end{multline*}\]</span>
+where we used <a href="the-basics-of-bayesian-statistics.html#eq:HIVjoint">(1.3)</a> and
+
+Putting this all together and inserting into <a href="the-basics-of-bayesian-statistics.html#eq:HIVconditional">(1.2)</a> reveals
+<span class="math display" id="eq:HIVresult">\[\begin{equation}
+  P(\text{Person tested has HIV} \mid \text{ELISA is positive}) = \frac{0.0013764}{0.0113616} \approx 0.12.
+  \tag{1.4}
+\end{equation}\]</span>
+<p>So even when the ELISA returns positive, the probability of having HIV is only 12%. An important reason why this number is so low is due to the prevalence of HIV. Before testing, one’s probability of HIV was 0.148%, so the positive test changes that probability dramatically, but it is still below 50%. That is, it is more likely that one is HIV negative rather than positive after one positive ELISA test.</p>
+<p>Questions like the one we just answered (What is the probability of a disease if a test returns positive?) are crucial to make medical diagnoses. As we saw, just the true positive and true negative rates of a test do not tell the full story, but also a disease’s prevalence plays a role. Bayes’ rule is a tool to synthesize such numbers into a more useful probability of having a disease after a test result.</p>
+<p>If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?</p>
+
+<div class="example">
+<span id="ex:unnamed-chunk-3" class="example"><strong>Example 1.2 </strong></span>What is the probability that someone who tests positive does not actually have HIV?
+</div>
+<p></p>
+<p>We found in <a href="the-basics-of-bayesian-statistics.html#eq:HIVresult">(1.4)</a> that someone who tests positive has a <span class="math inline">\(0.12\)</span> probability of having HIV. That implies that the same person has a <span class="math inline">\(1-0.12=0.88\)</span> probability of not having HIV, despite testing positive.</p>
+
+<div class="example">
+<span id="ex:unnamed-chunk-4" class="example"><strong>Example 1.3 </strong></span>If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?
+</div>
+<p></p>
+<p>If the person has a priori a higher risk for HIV and tests positive, then the probability of having HIV must be higher than for someone not at increased risk who also tests positive. Therefore, <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &gt; 0.12\)</span> where <span class="math inline">\(0.12\)</span> comes from <a href="the-basics-of-bayesian-statistics.html#eq:HIVresult">(1.4)</a>.</p>
+<p>One can derive this mathematically by plugging in a larger number in <a href="the-basics-of-bayesian-statistics.html#eq:HIVpositive">(1.1)</a> than 0.00148, as that number represents the prior risk of HIV. Changing the calculations accordingly shows <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &gt; 0.12\)</span>.</p>
+
+<div class="example">
+<span id="ex:unnamed-chunk-5" class="example"><strong>Example 1.4 </strong></span>If the false positive rate of the test is higher than 1%, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?
+</div>
+<p></p>
+<p>If the false positive rate increases, the probability of a wrong positive result increases. That means that a positive test result is more likely to be wrong and thus less indicative of HIV. Therefore, the probability of HIV after a positive ELISA goes down such that <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &lt; 0.12\)</span>.</p>
+</div>
+<div id="bayes-updating" class="section level3">
+<h3><span class="header-section-number">1.1.3</span> Bayes Updating</h3>
+<p>In the previous section, we saw that one positive ELISA test yields a probability of having HIV of 12%. To obtain a more convincing probability, one might want to do a second ELISA test after a first one comes up positive. What is the probability of being HIV positive of also the second ELISA test comes back positive?</p>
+<p>To solve this problem, we will assume that the correctness of this second test is not influenced by the first ELISA, that is, the tests are independent from each other. This assumption probably does not hold true as it is plausible that if the first test was a false positive, it is more likely that the second one will be one as well. Nonetheless, we stick with the independence assumption for simplicity.</p>
+<p>In the last section, we used <span class="math inline">\(P(\text{Person tested has HIV}) = 0.00148\)</span>, see <a href="the-basics-of-bayesian-statistics.html#eq:HIVpositive">(1.1)</a>, to compute the probability of HIV after one positive test. If we repeat those steps but now with <span class="math inline">\(P(\text{Person tested has HIV}) = 0.12\)</span>, the probability that a person with one positive test has HIV, we exactly obtain the probability of HIV after two positive tests. Repeating the maths from the previous section, involving Bayes’ rule, gives</p>
+<span class="math display" id="eq:Bayes-updating">\[\begin{multline*}
+  P(\text{Person tested has HIV} \mid \text{Second ELISA is also positive}) \\
+  \begin{split}
+  &amp;= \frac{P(\text{Person tested has HIV}) P(\text{Second ELISA is positive} \mid \text{Person tested has HIV})}{P(\text{Second ELISA is also positive})} \\
+  &amp;= \frac{0.12 \cdot 0.93}{
+  \begin{split}
+  &amp;P(\text{Person tested has HIV}) P(\text{Second ELISA is positive} \mid \text{Has HIV}) \\
+  + &amp;P(\text{Person tested has no HIV}) P(\text{Second ELISA is positive} \mid \text{Has no HIV})
+  \end{split}
+  } \\
+  &amp;= \frac{0.1116}{0.12 \cdot 0.93 + (1 - 0.12)\cdot (1 - 0.99)} \approx 0.93.
+  \end{split}
+  \tag{1.5}
+\end{multline*}\]</span>
+<p>Since we are considering the same ELISA test, we used the same true positive and true negative rates as in Section <a href="the-basics-of-bayesian-statistics.html#diagnostic-testing">1.1.2</a>. We see that two positive tests makes it much more probable for someone to have HIV than when only one test comes up positive.</p>
+<p>This process, of using Bayes’ rule to update a probability based on an event affecting it, is called Bayes’ updating. More generally, the what one tries to update can be considered ‘prior’ information, sometimes simply called the <em>prior</em>. The event providing information about this can also be data. Then, updating this prior using Bayes’ rule gives the information conditional on the data, also known as the <em>posterior</em>, as in the information <em>after</em> having seen the data. Going from the prior to the posterior is Bayes updating.</p>
+<p>The probability of HIV after one positive ELISA, 0.12, was the posterior in the previous section as it was an update of the overall prevalence of HIV, <a href="the-basics-of-bayesian-statistics.html#eq:HIVpositive">(1.1)</a>. However, in this section we answered a question where we used this posterior information as the prior. This process of using a posterior as prior in a new problem is natural in the Bayesian framework of updating knowledge based on the data.</p>
+
+<div class="example">
+<span id="ex:unnamed-chunk-6" class="example"><strong>Example 1.5 </strong></span>What is the probability that one actually has HIV after testing positive 3 times on the ELISA? Again, assume that all three ELISAs are independent.
+</div>
+<p></p>
+Analogous to what we did in this section, we can use Bayes’ updating for this. However, now the prior is the probability of HIV after two positive ELISAs, that is <span class="math inline">\(P(\text{Person tested has HIV}) = 0.93\)</span>. Analogous to <a href="the-basics-of-bayesian-statistics.html#eq:Bayes-updating">(1.5)</a>, the answer follows as
+<span class="math display">\[\begin{multline*}
+  P(\text{Person tested has HIV} \mid \text{Third ELISA is also positive}) \\
+  \begin{split}
+  &amp;= \frac{P(\text{Person tested has HIV}) P(\text{Third ELISA is positive} \mid \text{Person tested has HIV})}{P(\text{Third ELISA is also positive})} \\
+  &amp;= \frac{0.93 \cdot 0.93}{\begin{split}
+  &amp;P(\text{Person tested has HIV}) P(\text{Third ELISA is positive} \mid \text{Has HIV}) \\
+  + &amp;P(\text{Person tested has no HIV}) P(\text{Third ELISA is positive} \mid \text{Has no HIV})
+  \end{split}} \\
+  &amp;= \frac{0.8649}{0.93 \cdot 0.93 + (1 - 0.93)\cdot (1 - 0.99)} \approx 0.999.
+  \end{split}
+\end{multline*}\]</span>
+</div>
+<div id="bayesian-vs.frequentist-definitions-of-probability" class="section level3">
+<h3><span class="header-section-number">1.1.4</span> Bayesian vs. Frequentist Definitions of Probability</h3>
+The frequentist definition of probability is based on observation of a large number of trials. The probability for an event <span class="math inline">\(E\)</span> to occur is <span class="math inline">\(P(E)\)</span>, and assume we get <span class="math inline">\(n_E\)</span> successes out of <span class="math inline">\(n\)</span> trials. Then we have
+<span class="math display">\[\begin{equation}
+P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
+\end{equation}\]</span>
+<p>On the other hand, the Bayesian definition of probability <span class="math inline">\(P(E)\)</span> reflects our prior beliefs, so <span class="math inline">\(P(E)\)</span> can be any probability distribution, provided that it is consistent with all of our beliefs. (For example, we cannot believe that the probability of a coin landing heads is 0.7 and that the probability of getting tails is 0.8, because they are inconsistent.)</p>
+<p>The two definitions result in different methods of inference. Using the frequentist approach, we describe the confidence level as the proportion of random samples from the same population that produced confidence intervals which contain the true population parameter. For example, if we generated 100 random samples from the population, and 95 of the samples contain the true parameter, then the confidence level is 95%. Note that each sample either contains the true parameter or does not, so the confidence level is NOT the probability that a given interval includes the true population parameter.</p>
+
+<div class="example">
+<span id="ex:unnamed-chunk-7" class="example"><strong>Example 1.6 </strong></span>Based on a 2015 Pew Research poll on 1,500 adults: “We are 95% confident that 60% to 64% of Americans think the federal government does not do enough for middle class people.
+</div>
+<p></p>
+<p>The correct interpretation is: 95% of random samples of 1,500 adults will produce confidence intervals that contain the true proportion of Americans who think the federal government does not do enough for middle class people.</p>
+<p>Here are two common misconceptions:</p>
+<ul>
+<li><p>There is a 95% chance that this confidence interval includes the true population proportion.</p></li>
+<li><p>The true population proportion is in this interval 95% of the time.</p></li>
+</ul>
+<p>The probability that a given confidence interval captures the true parameter is either zero or one. To a frequentist, the problem is that one never knows whether a specific interval contains the true value with probability zero or one. So a frequentist says that “95% of similarly constructed intervals contain the true value”.</p>
+<p>The second (incorrect) statement sounds like the true proportion is a value that moves around that is sometimes in the given interval and sometimes not in it. Actually the true proportion is constant, it’s the various intervals constructed based on new samples that are different.</p>
+<p>The Bayesian alternative is the credible interval, which has a definition that is easier to interpret. Since a Bayesian is allowed to express uncertainty in terms of probability, a Bayesian credible interval is a range for which the Bayesian thinks that the probability of including the true value is, say, 0.95. Thus a Bayesian can say that there is a 95% chance that the credible interval contains the true parameter value.</p>
+
+<div class="example">
+<span id="ex:unnamed-chunk-8" class="example"><strong>Example 1.7 </strong></span>The posterior distribution yields a 95% credible interval of 60% to 64% for the proportion of Americans who think the federal government does not do enough for middle class people.
+</div>
+<p></p>
+<p>We can say that there is a 95% probability that the proportion is between 60% and 64% because this is a <strong>credible</strong> interval, and more details will be introduced later in the course.</p>
+
+</div>
+</div>
+<div id="inference-for-a-proportion" class="section level2">
+<h2><span class="header-section-number">1.2</span> Inference for a Proportion</h2>
+<div id="inference-for-a-proportion-frequentist-approach" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Inference for a Proportion: Frequentist Approach</h3>
+
+<div class="example">
+<p><span id="ex:RU-486" class="example"><strong>Example 1.8 </strong></span>RU-486 is claimed to be an effective “morning after” contraceptive pill, but is it really effective?</p>
+<p>Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.</p>
+Question: How strongly do these data indicate that the treatment is more effective than the control?
+</div>
+<p></p>
+<p>To simplify the framework, let’s make it a one proportion problem and just consider the 20 total pregnancies because the two groups have the same sample size. If the treatment and control are equally effective, then the probability that a pregnancy comes from the treatment group (<span class="math inline">\(p\)</span>) should be 0.5. If RU-486 is more effective, then the probability that a pregnancy comes from the treatment group (<span class="math inline">\(p\)</span>) should be less than 0.5.</p>
+<p>Therefore, we can form the hypotheses as below:</p>
+<ul>
+<li><p><span class="math inline">\(p =\)</span> probability that a given pregnancy comes from the treatment group</p></li>
+<li><p><span class="math inline">\(H_0: p = 0.5\)</span> (no difference, a pregnancy is equally likely to come from the treatment or control group)</p></li>
+<li><p><span class="math inline">\(H_A: p &lt; 0.5\)</span> (treatment is more effective, a pregnancy is less likely to come from the treatment group)</p></li>
+</ul>
+<p>A p-value is needed to make an inference decision with the frequentist approach. The definition of p-value is the probability of observing something <em>at least</em> as extreme as the data, given that the null hypothesis (<span class="math inline">\(H_0\)</span>) is true. “More extreme” means in the direction of the alternative hypothesis (<span class="math inline">\(H_A\)</span>).</p>
+<p>Since <span class="math inline">\(H_0\)</span> states that the probability of success (pregnancy) is 0.5, we can calculate the p-value from 20 independent Bernoulli trials where the probability of success is 0.5. The outcome of this experiment is 4 successes in 20 trials, so the goal is to obtain 4 or fewer successes in the 20 Bernoulli trials.</p>
+<p>This probability can be calculated exactly from a binomial distribution with <span class="math inline">\(n=20\)</span> trials and success probability <span class="math inline">\(p=0.5\)</span>. Assume <span class="math inline">\(k\)</span> is the actual number of successes observed, the p-value is</p>
+<p><span class="math display">\[P(k \leq 4) = P(k = 0) + P(k = 1) + P(k = 2) + P(k = 3) + P(k = 4)\]</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">dbinom</span>(<span class="dv">0</span>:<span class="dv">4</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">p =</span> <span class="fl">0.5</span>))</code></pre></div>
+<pre><code>## [1] 0.005908966</code></pre>
+<p>According to <span class="math inline">\(\mathsf{R}\)</span>, the probability of getting 4 or fewer successes in 20 trials is 0.0059. Therefore, given that pregnancy is equally likely in the two groups, we get the chance of observing 4 or fewer preganancy in the treatment group is 0.0059. With such a small probability, we reject the null hypothesis and conclude that the data provide convincing evidence for the treatment being more effective than the control.</p>
+</div>
+<div id="inference-for-a-proportion-bayesian-approach" class="section level3">
+<h3><span class="header-section-number">1.2.2</span> Inference for a Proportion: Bayesian Approach</h3>
+<p>This section uses the same example, but this time we make the inference for the proportion from a Bayesian approach. Recall that we still consider only the 20 total pregnancies, 4 of which come from the treatment group. The question we would like to answer is that how likely is for 4 pregnancies to occur in the treatment group. Also remember that if the treatment and control are equally effective, and the sample sizes for the two groups are the same, then the probability (<span class="math inline">\(p\)</span>) that the pregnancy comes from the treatment group is 0.5.</p>
+<p>Within the Bayesian framework, we need to make some assumptions on the models which generated the data. First, <span class="math inline">\(p\)</span> is a probability, so it can take on any value between 0 and 1. However, let’s simplify by using discrete cases – assume <span class="math inline">\(p\)</span>, the chance of a pregnancy comes from the treatment group, can take on nine values, from 10%, 20%, 30%, up to 90%. For example, <span class="math inline">\(p = 20%\)</span> means that among 10 pregnancies, it is expected that 2 of them will occur in the treatment group. Note that we consider all nine models, compared with the frequentist paradigm that whe consider only one model.</p>
+<p>Table <a href="the-basics-of-bayesian-statistics.html#tab:RU-486prior">1.2</a> specifies the prior probabilities that we want to assign to our assumption. There is no unique correct prior, but any prior probability should reflect our beliefs prior to the experiement. The prior probabilities should incorporate the information from all relevant research before we perform the current experiement.</p>
+<table>
+<caption><span id="tab:RU-486prior">Table 1.2: </span>Prior, likelihood, and posterior probabilities for each of the 9 models</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Model (<span class="math inline">\(p\)</span>)</td>
+<td align="right">0.1000</td>
+<td align="right">0.2000</td>
+<td align="right">0.3000</td>
+<td align="right">0.4000</td>
+<td align="right">0.5000</td>
+<td align="right">6e-01</td>
+<td align="right">0.70</td>
+<td align="right">0.80</td>
+<td align="right">0.90</td>
+</tr>
+<tr class="even">
+<td align="left">Prior <span class="math inline">\(P(model)\)</span></td>
+<td align="right">0.0600</td>
+<td align="right">0.0600</td>
+<td align="right">0.0600</td>
+<td align="right">0.0600</td>
+<td align="right">0.5200</td>
+<td align="right">6e-02</td>
+<td align="right">0.06</td>
+<td align="right">0.06</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="odd">
+<td align="left">Likelihood <span class="math inline">\(P(data|model)\)</span></td>
+<td align="right">0.0898</td>
+<td align="right">0.2182</td>
+<td align="right">0.1304</td>
+<td align="right">0.0350</td>
+<td align="right">0.0046</td>
+<td align="right">3e-04</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(P(data|model)\)</span> x <span class="math inline">\(P(model)\)</span></td>
+<td align="right">0.0054</td>
+<td align="right">0.0131</td>
+<td align="right">0.0078</td>
+<td align="right">0.0021</td>
+<td align="right">0.0024</td>
+<td align="right">0e+00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Posterior <span class="math inline">\(P(model|data)\)</span></td>
+<td align="right">0.1748</td>
+<td align="right">0.4248</td>
+<td align="right">0.2539</td>
+<td align="right">0.0681</td>
+<td align="right">0.0780</td>
+<td align="right">5e-04</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table>
+<p>This prior incorporates two beliefs: the probability of <span class="math inline">\(p = 0.5\)</span> is highest, and the benefit of the treatment is symmetric. The second belief means that the treatment is equally likely to be better or worse than the standard treatment. Now it is natural to ask how I came up with this prior, and the specification will be discussed in detail later in the course.</p>
+<p>Next, let’s calculate the likelihood – the probability of observed data for each model considered. In mathematical terms, we have</p>
+<p><span class="math display">\[ P(\text{data}|\text{model}) = P(k = 4 | n = 20, p)\]</span></p>
+<p>The likelihood can be computed as a binomial with 4 successes and 20 trials with <span class="math inline">\(p\)</span> is equal to the assumed value in each model. The values are listed in Table <a href="the-basics-of-bayesian-statistics.html#tab:RU-486prior">1.2</a>.</p>
+<p>After setting up the prior and computing the likelihood, we are ready to calculate the posterior using the Bayes’ rule, that is,</p>
+<p><span class="math display">\[P(\text{model}|\text{data}) = \frac{P(\text{model})P(\text{data}|\text{model})}{P(\text{data})}\]</span></p>
+<p>The posterior probability values are also listed in Table <a href="the-basics-of-bayesian-statistics.html#tab:RU-486prior">1.2</a>, and the highest probability occurs at <span class="math inline">\(p=0.2\)</span>, which is 42.48%. Note that the priors and posteriors across all models both sum to 1.</p>
+<p>In decision making, we choose the model with the highest posterior probability, which is <span class="math inline">\(p=0.2\)</span>. In comparison, the highest prior probability is at <span class="math inline">\(p=0.5\)</span> with 52%, and the posterior probability of <span class="math inline">\(p=0.5\)</span> drops to 7.8%. This demonstrates how we update our beliefs based on observed data. Note that the calculation of posterior, likelihood, and prior is unrelated to the frequentist concept (data “at least as extreme as observed”).</p>
+<p>Here are the histograms of the prior, the likelihood, and the posterior probabilities:</p>
+<div class="figure"><span id="fig:RU-486plot"></span>
+<img src="bookdown-demo_files/figure-html/RU-486plot-1.png" alt="Original: sample size $n=20$ and number of successes $k=4$" width="960" />
+<p class="caption">
+Figure 1.1: Original: sample size <span class="math inline">\(n=20\)</span> and number of successes <span class="math inline">\(k=4\)</span>
+</p>
+</div>
+<p>We started with the high prior at <span class="math inline">\(p=0.5\)</span>, but the data likelihood peaks at <span class="math inline">\(p=0.2\)</span>. And we updated our prior based on observed data to find the posterior. The Bayesian paradigm, unlike the frequentist approach, allows us to make direct probability statements about our models. For example, we can calculate the probability that RU-486, the treatment, is more effective than the control as the sum of the posteriors of the models where <span class="math inline">\(p&lt;0.5\)</span>. Adding up the relevant posterior probabilities in Table <a href="the-basics-of-bayesian-statistics.html#tab:RU-486prior">1.2</a>, we get the chance that the treatment is more effective than the control is 92.16%.</p>
+</div>
+<div id="effect-of-sample-size-on-the-posterior" class="section level3">
+<h3><span class="header-section-number">1.2.3</span> Effect of Sample Size on the Posterior</h3>
+<p>The RU-486 example is summarized in Figure <a href="the-basics-of-bayesian-statistics.html#fig:RU-486plot">1.1</a>, and let’s look at what the posterior distribution would look like if we had more data.</p>
+<div class="figure"><span id="fig:RU-486plotX2"></span>
+<img src="bookdown-demo_files/figure-html/RU-486plotX2-1.png" alt="More data: sample size $n=40$ and number of successes $k=8$" width="960" />
+<p class="caption">
+Figure 1.2: More data: sample size <span class="math inline">\(n=40\)</span> and number of successes <span class="math inline">\(k=8\)</span>
+</p>
+</div>
+<p>Suppose our sample size was 40 instead of 20, and the number of successes was 8 instead of 4. Note that the ratio between the sample size and the number of successes is still 20%. We will start with the same prior distribution. Then calculate the likelihood of the data which is also centered at 0.20, but is less variable than the original likelihood we had with the smaller sample size. And finally put these two together to obtain the posterior distribution. The posterior also has a peak at p is equal to 0.20, but the peak is taller, as shown in Figure <a href="the-basics-of-bayesian-statistics.html#fig:RU-486plotX2">1.2</a>. In other words, there is more mass on that model, and less on the others.</p>
+<div class="figure"><span id="fig:RU-486plotX10"></span>
+<img src="bookdown-demo_files/figure-html/RU-486plotX10-1.png" alt="More data: sample size $n=200$ and number of successes $k=40$" width="960" />
+<p class="caption">
+Figure 1.3: More data: sample size <span class="math inline">\(n=200\)</span> and number of successes <span class="math inline">\(k=40\)</span>
+</p>
+</div>
+<p>To illustrate the effect of the sample size even further, we’re going to keep increasing our sample size, but still maintain the the 20% ratio between the sample size and the number of successes. So let’s consider a sample with 200 observations and 40 successes. Once again, we’re going to use the same prior and the likelihood is again centered at 20% and almost all of the probability mass in the posterior is at p is equal to 0.20. The other models do not have zero probability mass, but they’re posterior probabilities are very close to zero.</p>
+<p>Figure <a href="the-basics-of-bayesian-statistics.html#fig:RU-486plotX10">1.3</a> demonstrates that <strong>as more data are collected, the likelihood ends up dominating the prior</strong>. This is why, while a good prior helps, a bad prior can be overcome with a large sample. However, it’s important to note that this will only work as long as we don’t place a zero probability mass on any of the models in the prior.</p>
+
+</div>
+</div>
+<div id="frequentist-vs.bayesian-inference" class="section level2">
+<h2><span class="header-section-number">1.3</span> Frequentist vs. Bayesian Inference</h2>
+<div id="frequentist-vs.bayesian-inference-1" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Frequentist vs. Bayesian Inference</h3>
+<p>In this section, we will solve a simple inference problem using both frequentist and Bayesian approaches. Then we will compare our results based on decisions based on the two methods, to see whether we get the same answer or not. If we do not, we will discuss why that happens.</p>
+
+<div class="example">
+<p><span id="ex:MM" class="example"><strong>Example 1.9 </strong></span>We have a population of M&amp;M’s, and in this population the percentage of yellow M&amp;M’s is either 10% or 20%. You’ve been hired as a statistical consultant to decide whether the true percentage of yellow M&amp;M’s is 10% or 20%.</p>
+<p>Payoffs/losses: You are being asked to make a decision, and there are associated payoff/losses that you should consider. If you make the correct decision, your boss gives you a bonus. On the other hand, if you make the wrong decision, you lose your job.</p>
+<p>Data: You can “buy” a random sample from the population – You pay $200 for each M&amp;M, and you must buy in $1,000 increments (5 M&amp;Ms at a time). You have a total of $4,000 to spend, i.e., you may buy 5, 10, 15, or 20 M&amp;Ms.</p>
+Remark: Remember that the cost of making a wrong decision is high, so you want to be fairly confident of your decision. At the same time, though, data collection is also costly, so you don’t want to pay for a sample larger than you need. If you believe that you could actually make a correct decision using a smaller sample size, you might choose to do so and save money and resources.
+</div>
+<p></p>
+<p>Let’s start with the frequentist inference.</p>
+<ul>
+<li><p>Hypothesis: <span class="math inline">\(H_0\)</span> is 10% yellow M&amp;Ms, and <span class="math inline">\(H_A\)</span> is &gt;10% yellow M&amp;Ms.</p></li>
+<li><p>Significance level: <span class="math inline">\(\alpha = 0.05\)</span>.</p></li>
+<li><p>Sample: red, green, <strong>yellow</strong>, blue, orange</p></li>
+<li><p>Observed data: <span class="math inline">\(k=1, n=5\)</span></p></li>
+<li><p>P-value: <span class="math inline">\(P(k \geq 1 | n=5, p=0.10) = 1 - P(k=0 | n=5, p=0.10) = 1 - 0.90^5 \approx 0.41\)</span></p></li>
+</ul>
+<p>Note that the p-value is the probability of observed or more extreme outcome given that the null hypothesis is true.</p>
+<p>Therefore, we fail to reject <span class="math inline">\(H_0\)</span> and conclude that the data do not provide convincing evidence that the proportion of yellow M&amp;M’s is greater than 10%. This means that if we had to pick between 10% and 20% for the proportion of M&amp;M’s, even though this hypothesis testing procedure does not actually confirm the null hypothesis, we would likely stick with 10% since we couldn’t find evidence that the proportion of yellow M&amp;M’s is greater than 10%.</p>
+<p>The Bayesian inference works differently as below.</p>
+<ul>
+<li><p>Hypotheses: <span class="math inline">\(H_1\)</span> is 10% yellow M&amp;Ms, and <span class="math inline">\(H_2\)</span> is 20% yellow M&amp;Ms.</p></li>
+<li><p>Prior: <span class="math inline">\(P(H_1) = P(H_2) = 0.5\)</span></p></li>
+<li><p>Sample: red, green, <strong>yellow</strong>, blue, orange</p></li>
+<li><p>Observed data: <span class="math inline">\(k=1, n=5\)</span></p></li>
+<li><p>Likelihood:</p></li>
+</ul>
+<p><span class="math display">\[\begin{align}
+P(k=1 | H_1) &amp;= \left( \begin{array}{c} 5 \\ 1 \end{array} \right) \times 0.10 \times 0.90^4 \approx 0.33 \\
+P(k=1 | H_2) &amp;= \left( \begin{array}{c} 5 \\ 1 \end{array} \right) \times 0.20 \times 0.80^4 \approx 0.41
+\end{align}\]</span></p>
+<ul>
+<li>Posterior</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+P(H_1 | k=1) &amp;= \frac{P(H_1)P(k=1 | H_1)}{P(k=1)} = \frac{0.5 \times 0.33}{0.5 \times 0.33 + 0.5 \times 0.41} \approx 0.45 \\
+P(H_2 | k=1) &amp;= 1 - 0.45 = 0.55
+\end{align}\]</span></p>
+<p>The posterior probabilities of whether <span class="math inline">\(H_1\)</span> or <span class="math inline">\(H_2\)</span> is correct are close to each other. As a result, with equal priors and a low sample size, it is difficult to make a decision with a strong confidence, given the observed data. However, <span class="math inline">\(H_2\)</span> has a higher posterior probability than <span class="math inline">\(H_1\)</span>, so if we had to make a decision at this point, we should pick <span class="math inline">\(H_2\)</span>, i.e., the proportion of yellow M&amp;Ms is 20%. Note that this decision contradicts with the decision based on the frequentist approach.</p>
+<p>Table <a href="the-basics-of-bayesian-statistics.html#tab:freq-vs-bayes">1.3</a> summarizes what the results would look like if we had chosen larger sample sizes. Under each of these scenarios, the frequentist method yields a higher p-value than our significance level, so we would fail to reject the null hypothesis with any of these samples. On the other hand, the Bayesian method always yields a higher posterior for the second model where <span class="math inline">\(p\)</span> is equal to 0.20. So the decisions that we would make are contradictory to each other.</p>
+<table>
+<caption><span id="tab:freq-vs-bayes">Table 1.3: </span>Frequentist and Bayesian probabilities for larger sample sizes</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">Frequentist</th>
+<th align="left">Bayesian H_1</th>
+<th align="left">Bayesian H_2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Observed Data</td>
+<td align="left">P(k or more | 10% yellow)</td>
+<td align="left">P(10% yellow | n, k)</td>
+<td align="left">P(20% yellow | n, k)</td>
+</tr>
+<tr class="even">
+<td>n = 5, k = 1</td>
+<td align="left">0.41</td>
+<td align="left">0.45</td>
+<td align="left">0.55</td>
+</tr>
+<tr class="odd">
+<td>n = 10, k = 2</td>
+<td align="left">0.26</td>
+<td align="left">0.39</td>
+<td align="left">0.61</td>
+</tr>
+<tr class="even">
+<td>n = 15, k = 3</td>
+<td align="left">0.18</td>
+<td align="left">0.34</td>
+<td align="left">0.66</td>
+</tr>
+<tr class="odd">
+<td>n = 20, k = 4</td>
+<td align="left">0.13</td>
+<td align="left">0.29</td>
+<td align="left">0.71</td>
+</tr>
+</tbody>
+</table>
+<p>However, if we had set up our framework differently in the frequentist method and set our null hypothesis to be <span class="math inline">\(p = 0.20\)</span> and our alternative to be <span class="math inline">\(p &lt; 0.20\)</span>, we would obtain different results. This shows that <strong>the frequentist method is highly sensitive to the null hypothesis</strong>, while in the Bayesian method, our results would be the same regardless of which order we evaluate our models.</p>
+
+</div>
+</div>
+<div id="exercises" class="section level2">
+<h2><span class="header-section-number">1.4</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li><p><strong>Conditioning on dating site usage.</strong> Recall Table <a href="the-basics-of-bayesian-statistics.html#tab:2015gallupDating">1.1</a>. What is the probability that an online dating site user from this sample is 18-29 years old?</p></li>
+<li><p><strong>Probability of no HIV.</strong> Consider the ELISA test from Section <a href="the-basics-of-bayesian-statistics.html#diagnostic-testing">1.1.2</a>. What is the probability that someone has no HIV if that person has a negative ELISA result? How does this compare to the probability of having no HIV before any test was done?</p></li>
+<li><p><strong>Probability of no HIV after contradictive tests.</strong> Consider the ELISA test from Section <a href="the-basics-of-bayesian-statistics.html#diagnostic-testing">1.1.2</a>. What is the probability that someone has no HIV if that person first tests positive on the ELISA and secondly test negative? Assume that the tests are independent from each other.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bayesian-inference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-basics-00-intro.Rmd",
+"text": "Edit"
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

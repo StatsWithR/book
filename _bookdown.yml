@@ -1,26 +1,4 @@
-new_session: yes
-
-rmd_files: [
-  "index.Rmd",
-  "01_week1.Rmd"
-]
-
-before_chapter_script: "_common.R"
-
-output_dir: "docs"
-
-edit: "https://github.com/statswithr/book/edit/master/%s"
-
-output:
-  bookdown::gitbook:
-    includes:
-      after_body: disqus.html
-      config:
-    toc:
-      collapse: section
-      before: |
-        <li><strong><a href="./">Bayesian Statistics</a></strong></li>
-    sharing: no
-  css: r4ds.css
-  bookdown::pdf_book:
-    latex_engine: "xelatex"
+book_filename: "bookdown-demo"
+language:
+  ui:
+    chapter_name: "Chapter "
