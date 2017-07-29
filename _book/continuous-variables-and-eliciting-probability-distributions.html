@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bayesian Statistics</title>
+  <meta name="description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization.">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Bayesian Statistics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://www.coursera.org/learn/bayesian/home/info/" />
+  <meta property="og:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+  <meta property="og:description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="github-repo" content="StatsWithR/book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Bayesian Statistics" />
+  
+  <meta name="twitter:description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="twitter:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+
+<meta name="author" content="Christine Chai">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="bayesian-inference.html">
+<link rel="next" href="three-conjugate-families.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bayesian Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
+<li class="chapter" data-level="1.1" data-path="bayes-rule.html"><a href="bayes-rule.html"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="bayes-rule.html"><a href="bayes-rule.html#bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
+<li class="chapter" data-level="1.1.2" data-path="bayes-rule.html"><a href="bayes-rule.html#diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
+<li class="chapter" data-level="1.1.3" data-path="bayes-rule.html"><a href="bayes-rule.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
+<li class="chapter" data-level="1.1.4" data-path="bayes-rule.html"><a href="bayes-rule.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="inference-for-a-proportion.html"><a href="inference-for-a-proportion.html"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="inference-for-a-proportion.html"><a href="inference-for-a-proportion.html#inference-for-a-proportion-frequentist-approach"><i class="fa fa-check"></i><b>1.2.1</b> Inference for a Proportion: Frequentist Approach</a></li>
+<li class="chapter" data-level="1.2.2" data-path="inference-for-a-proportion.html"><a href="inference-for-a-proportion.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
+<li class="chapter" data-level="1.2.3" data-path="inference-for-a-proportion.html"><a href="inference-for-a-proportion.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="frequentist-vs-bayesian-inference.html"><a href="frequentist-vs-bayesian-inference.html"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="frequentist-vs-bayesian-inference.html"><a href="frequentist-vs-bayesian-inference.html#frequentist-vs.bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="2.1" data-path="continuous-variables-and-eliciting-probability-distributions.html"><a href="continuous-variables-and-eliciting-probability-distributions.html"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="continuous-variables-and-eliciting-probability-distributions.html"><a href="continuous-variables-and-eliciting-probability-distributions.html#from-the-discrete-to-the-continuous"><i class="fa fa-check"></i><b>2.1.1</b> From the Discrete to the Continuous</a></li>
+<li class="chapter" data-level="2.1.2" data-path="continuous-variables-and-eliciting-probability-distributions.html"><a href="continuous-variables-and-eliciting-probability-distributions.html#elicitation"><i class="fa fa-check"></i><b>2.1.2</b> Elicitation</a></li>
+<li class="chapter" data-level="2.1.3" data-path="continuous-variables-and-eliciting-probability-distributions.html"><a href="continuous-variables-and-eliciting-probability-distributions.html#conjugacy"><i class="fa fa-check"></i><b>2.1.3</b> Conjugacy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="three-conjugate-families.html"><a href="three-conjugate-families.html"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="three-conjugate-families.html"><a href="three-conjugate-families.html#inference-on-a-binomial-proportion"><i class="fa fa-check"></i><b>2.2.1</b> Inference on a Binomial Proportion</a></li>
+<li class="chapter" data-level="2.2.2" data-path="three-conjugate-families.html"><a href="three-conjugate-families.html#the-gamma-poisson-conjugate-families"><i class="fa fa-check"></i><b>2.2.2</b> The Gamma-Poisson Conjugate Families</a></li>
+<li class="chapter" data-level="2.2.3" data-path="three-conjugate-families.html"><a href="three-conjugate-families.html#the-normal-normal-conjugate-families"><i class="fa fa-check"></i><b>2.2.3</b> The Normal-Normal Conjugate Families</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="credible-intervals-and-predictive-inference.html"><a href="credible-intervals-and-predictive-inference.html"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="credible-intervals-and-predictive-inference.html"><a href="credible-intervals-and-predictive-inference.html#non-conjugate-priors"><i class="fa fa-check"></i><b>2.3.1</b> Non-Conjugate Priors</a></li>
+<li class="chapter" data-level="2.3.2" data-path="credible-intervals-and-predictive-inference.html"><a href="credible-intervals-and-predictive-inference.html#credible-intervals"><i class="fa fa-check"></i><b>2.3.2</b> Credible Intervals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="credible-intervals-and-predictive-inference.html"><a href="credible-intervals-and-predictive-inference.html#predictive-inference"><i class="fa fa-check"></i><b>2.3.3</b> Predictive Inference</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html"><i class="fa fa-check"></i><b>3</b> Losses and Decision-making</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="losses-and-decision-making-1.html"><a href="losses-and-decision-making-1.html"><i class="fa fa-check"></i><b>3.2</b> Losses and Decision Making</a></li>
+<li class="chapter" data-level="3.3" data-path="working-with-loss-functions.html"><a href="working-with-loss-functions.html"><i class="fa fa-check"></i><b>3.3</b> Working with Loss Functions</a></li>
+<li class="chapter" data-level="3.4" data-path="minimizing-expectated-loss-for-hypothesis-testing.html"><a href="minimizing-expectated-loss-for-hypothesis-testing.html"><i class="fa fa-check"></i><b>3.4</b> Minimizing Expectated Loss for Hypothesis Testing</a></li>
+<li class="chapter" data-level="3.5" data-path="posterior-probabilities-of-hypotheses-and-bayes-factors.html"><a href="posterior-probabilities-of-hypotheses-and-bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Posterior Probabilities of Hypotheses and Bayes Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inference-for-multiple-parameters.html"><a href="inference-for-multiple-parameters.html"><i class="fa fa-check"></i><b>4</b> Inference for Multiple Parameters</a><ul>
+<li class="chapter" data-level="4.1" data-path="conjugate-prior-for-normal-population-with-unknown-mean-and-variance.html"><a href="conjugate-prior-for-normal-population-with-unknown-mean-and-variance.html"><i class="fa fa-check"></i><b>4.1</b> Conjugate Prior for Normal Population with Unknown Mean and Variance</a></li>
+<li class="chapter" data-level="4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>4.2</b> Monte Carlo Simulation</a></li>
+<li class="chapter" data-level="4.3" data-path="predictive-distributions.html"><a href="predictive-distributions.html"><i class="fa fa-check"></i><b>4.3</b> Predictive Distributions</a></li>
+<li class="chapter" data-level="4.4" data-path="beyond-conjugate-priors.html"><a href="beyond-conjugate-priors.html"><i class="fa fa-check"></i><b>4.4</b> Beyond Conjugate Priors</a></li>
+<li class="chapter" data-level="4.5" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>4.5</b> Markov Chain Monte Carlo</a></li>
+<li class="chapter" data-level="4.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>4.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hypothesis-testing-for-one-and-two-normal-samples.html"><a href="hypothesis-testing-for-one-and-two-normal-samples.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Testing for One and Two Normal Samples</a><ul>
+<li class="chapter" data-level="5.1" data-path="bayes-factors-for-testing-a-normal-mean-variance-known.html"><a href="bayes-factors-for-testing-a-normal-mean-variance-known.html"><i class="fa fa-check"></i><b>5.1</b> Bayes Factors for Testing a Normal Mean: Variance Known</a></li>
+<li class="chapter" data-level="5.2" data-path="bayes-factors-for-testing-a-normal-mean-variance-unknown.html"><a href="bayes-factors-for-testing-a-normal-mean-variance-unknown.html"><i class="fa fa-check"></i><b>5.2</b> Bayes Factors for Testing a Normal Mean: Variance Unknown</a></li>
+<li class="chapter" data-level="5.3" data-path="bayes-factors-for-hypotheses-about-means-in-two-groups.html"><a href="bayes-factors-for-hypotheses-about-means-in-two-groups.html"><i class="fa fa-check"></i><b>5.3</b> Bayes Factors for Hypotheses about Means in Two Groups</a></li>
+<li class="chapter" data-level="5.4" data-path="credible-intervals-after-hypothesis-testing.html"><a href="credible-intervals-after-hypothesis-testing.html"><i class="fa fa-check"></i><b>5.4</b> Credible Intervals after Hypothesis Testing</a></li>
+<li class="chapter" data-level="5.5" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="continuous-variables-and-eliciting-probability-distributions" class="section level2">
+<h2><span class="header-section-number">2.1</span> Continuous Variables and Eliciting Probability Distributions</h2>
+<div id="from-the-discrete-to-the-continuous" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> From the Discrete to the Continuous</h3>
+<p>This section leads the reader from the discrete random variable to continuous random variables. Let’s start with the binomial random variable such as the number of heads in ten coin tosses, can only take a discrete number of values – 0, 1, 2, up to 10.</p>
+<p>When the probability of a coin landing heads is <span class="math inline">\(p\)</span>, the chance of getting <span class="math inline">\(k\)</span> heads in <span class="math inline">\(n\)</span> tosses is</p>
+<p><span class="math display">\[P(X = k) = \left( \begin{array}{c} n \\ k \end{array} \right) p^k (1-p)^{n-k}\]</span>.</p>
+<p>This formula is called the <strong>probability mass function</strong> (pmf) for the binomial.</p>
+<p>The probability mass function can be visualized as a histogram in Figure <a href="continuous-variables-and-eliciting-probability-distributions.html#fig:histogram">2.1</a>. The area under the histogram is one, and the area of each bar is the probability of seeing a binomial random variable, whose value is equal to the x-value at the center of the bars base.</p>
+<div class="figure" style="text-align: center"><span id="fig:histogram"></span>
+<img src="02-inference-01-continuous_files/figure-html/histogram-1.png" alt="Histogram of binomial random variable" width="288" />
+<p class="caption">
+Figure 2.1: Histogram of binomial random variable
+</p>
+</div>
+<p>In contrast, the normal distribution, a.k.a. Gaussian distribution or the bell-shaped curve, can take any numerical value in <span class="math inline">\((-\infty,+\infty)\)</span>. A random variable generated from a normal distribution because it can take a continuum of values.</p>
+<p>In general, if the set of possible values a random variable can take are separated points, it is a discrete random variable. But if it can take any value in some (possibly infinite) interval, then it is a continuous random variable.</p>
+<p>When the random variable is <strong>discrete</strong>, it has a <strong>probability mass function</strong> or pmf. That pmf tells us the probability that the random variable takes each of the possible values. But when the random variable is continuous, it has probability zero of taking any single value. (Hence probability zero does not equal to impossible, an event of probabilty zero can still happen.)</p>
+<p>We can only talk about the probability of a continuous random variable lined within some interval. For example, suppose that heights are approximately normally distributed. The probability of finding someone who is exactly 6 feet tall at 0.0000 inches tall for an infinite number of 0s after the decimal point is 0. But we can easily calculate the probability of finding someone who is between 5’11&quot; inches tall and 6’1&quot; inches tall.</p>
+<p>A <strong>continuous</strong> random variable has a <strong>probability density function</strong> or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5’11&quot; and 6’1&quot; is the area under the pdf curve for height between those two values.</p>
+<p>NEED TO GET THE PLOTS HERE</p>
+<p>For example, a normal distribution with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span> (i.e., variance <span class="math inline">\(\sigma^2\)</span>) is defined as</p>
+<p><span class="math display">\[f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp[-\frac{1}{2\sigma^2}(x-\mu)^2],\]</span></p>
+<p>where <span class="math inline">\(x\)</span> is any value the random variable <span class="math inline">\(X\)</span> can take. This is denoted as <span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span>, where <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> are the parameters of the normal distribution.</p>
+<p>Recall that a probability mass function assigns the probability that a random variable takes a specific value for the discrete set of possible values. The sum of those probabilities over all possible values must equal one.</p>
+<p>Similarly, a probability density function is any <span class="math inline">\(f(x)\)</span> that is non-negative and has area one underneath its curve. The pdf can be regarded as the limit of histograms made from its sample data. As the sample size becomes infinitely large, the bin width of the histogram shrinks to zero.</p>
+<p>There are infinite number of pmf’s and an infinite number of pdf’s. Some distributions are so important that they have been given names:</p>
+<ul>
+<li><p>Continuous: normal, uniform, beta, gamma</p></li>
+<li><p>Discrete: binomial, Poisson</p></li>
+</ul>
+<p>Here is a summary of the key ideas in this section:</p>
+<ol style="list-style-type: decimal">
+<li><p>Continuous random variables exist and they can take any value within some possibly infinite range.</p></li>
+<li><p>The probability that a continuous random variable takes a specific value is zero.</p></li>
+<li><p>Probabilities from a continuous random variable are determined by the density function with this non-negative and the area beneath it is one.</p></li>
+<li><p>We can find the probability that a random variable lies between two values (<span class="math inline">\(c\)</span> and <span class="math inline">\(d\)</span>) as the area under the density function that lies between them.</p></li>
+</ol>
+</div>
+<div id="elicitation" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Elicitation</h3>
+<p>Next, we introduce the concept of prior elicitation in base and statistics. Often, one has a belief about the distribution of one’s data. You may think that your data come from a binomial distribution and in that case you typically know the <span class="math inline">\(n\)</span>, the number of trials but you usually do not know <span class="math inline">\(p\)</span>, the probability of success. Or you may think that your data come from a normal distribution. But you do not know the mean <span class="math inline">\(\mu\)</span> or the standard deviation <span class="math inline">\(\sigma\)</span> of the normal. Beside to knowing the distribution of one’s data, you may also have beliefs about the unknown <span class="math inline">\(p\)</span> in the binomial or the unknown mean <span class="math inline">\(\mu\)</span> in the normal.</p>
+<p>Bayesians express their belief in terms of personal probabilities. These personal probabilities encapsulate everything a Bayesian knows or believes about the problem. But these beliefs must obey the laws of probability, and be consistent with everything else the Bayesian knows.</p>
+
+<div class="example">
+<span id="ex:unnamed-chunk-1" class="example"><strong>Example 2.1 </strong></span>You cannot say that your probability of passing this course is 200%, no matter how confident you are. A probability value must be between zero and one. (If you still think you have a probability of 200% to pass the course, you are definitely not going to pass it.)
+</div>
+
+
+<div class="example">
+<span id="ex:unnamed-chunk-2" class="example"><strong>Example 1.1 </strong></span>You may know nothing at all about the value of <span class="math inline">\(p\)</span> that generated some binomial data. In which case any value between zero and one is equally likely, you may want to make an inference on the proportion of people who would buy a new band of toothpaste. If you have industry experience, you may have a strong belief about the value of <span class="math inline">\(p\)</span>, but if you are new to the industry you would do nothing about <span class="math inline">\(p\)</span>. In any value between zero and one seems equally like a deal. This major personal probability is the uniform distribution whose probably density function is flat, denoted as <span class="math inline">\(\text{Unif}(0,1)\)</span>.
+</div>
+
+
+<div class="example">
+<span id="ex:unnamed-chunk-3" class="example"><strong>Example 1.2 </strong></span>If you were tossing a coin, most people believed that the probability of heads is pretty close to half. They know that some coin are loaded and they know that some coins may have two heads or two tails. And they probably also know that coins are not perfectly balanced. Nonetheless, before they start to collect data by tossing the coin and counting the number of heads their belief is that values of <span class="math inline">\(p\)</span> near 0.5 are very likely, where’s values of <span class="math inline">\(p\)</span> near 0 or 1 are very unlikely.
+</div>
+
+
+<div class="example">
+<span id="ex:unnamed-chunk-4" class="example"><strong>Example 1.3 </strong></span>In real life, here are two ways to elicit a probability that you cousin will get married. A frequentist might go to the U.S. Census records and determine what proportion of people get married (or, better, what proportion of people of your cousin’s ethnicity, education level, religion, and age cohort are married). In contrast, a Bayesian might think “My cousin is brilliant, attractive, and fun. The probability that my cousin gets married is really high – probably around 0.97.”
+</div>
+
+<p>So a base angle sits to express their belief about the value of <span class="math inline">\(p\)</span> through a probability distribution, and a very flexible family of distributions for this purpose is the <strong>beta family</strong>. A member of the beta family is specified by two parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>; we denote this as <span class="math inline">\(p \sim \text{beta}(\alpha, \beta)\)</span>. The probability density function is</p>
+<span class="math display" id="eq:beta">\[\begin{equation}
+f(p) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{\alpha-1} (1-p)^{\beta-1},
+\tag{2.1}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(0 \leq p \leq 1, \alpha&gt;0, \beta&gt;0\)</span>, and <span class="math inline">\(\Gamma\)</span> is a factorial:</p>
+<p><span class="math display">\[\Gamma(n) = (n-1)! = (n-1) \times (n-2) \times \cdots \times 1\]</span></p>
+<p>When <span class="math inline">\(\alpha=\beta=1\)</span>, the beta distribution becomes a uniform distribution, i.e. the probabilty density function is a flat line. In other words, the uniform distribution is a special case of the beta family.</p>
+<p>The expected value of <span class="math inline">\(p\)</span> is <span class="math inline">\(\frac{\alpha}{\alpha+\beta}\)</span>, so <span class="math inline">\(\alpha\)</span> can be regarded as the prior number of successes, and <span class="math inline">\(\beta\)</span> the prior number of failures. When <span class="math inline">\(\alpha=\beta\)</span>, then one gets a symmetrical pdf around 0.5. For large but equal values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, the area under the beta probability density near 0.5 is very large. Figure <a href="continuous-variables-and-eliciting-probability-distributions.html#fig:beta">2.2</a> compares the beta distribution with different parameter values.</p>
+<div class="figure"><span id="fig:beta"></span>
+<img src="02-inference-01-continuous_files/figure-html/beta-1.png" alt="Beta family" width="672" />
+<p class="caption">
+Figure 2.2: Beta family
+</p>
+</div>
+<p>These kinds of priors are probably appropriate if you want to infer the probability of getting heads in a coin toss. The beta family also includes skewed densities, which is appropriate if you think that <span class="math inline">\(p\)</span> the probability of success in ths binomial trial is close to zero or one.</p>
+<p>Bayes’ rule is a machine to turn one’s prior beliefs into posterior beliefs. With binomial data you start with whatever beliefs you may have about <span class="math inline">\(p\)</span>, then you observe data in the form of the number of head, say 20 tosses of a coin with 15 heads.</p>
+<p>Next, Bayes’ rule tells you how the data changes your opinion about <span class="math inline">\(p\)</span>. The same principle applies to all other inferences. You start with your prior probability distribution over some parameter, then you use data to update that distribution to become the posterior distribution that expresses your new belief.</p>
+<p>These rules ensure that the change in distributions from prior to posterior is the uniquely rational solution. So, as long as you begin with the prior distribution that reflects your true opinion, you can hardly go wrong.</p>
+<p>However, expressing that prior can be difficult. There are proofs and methods whereby a rational and coherent thinker can self-illicit their true prior distribution, but these are impractical and people are rarely rational and coherent.</p>
+<p>The good news is that with the few simple conditions no matter what part distribution you choose. If enough data are observed, you will converge to an accurate posterior distribution. So, two bayesians, say the reference Thomas Bayes and the agnostic Ajay Good can start with different priors but, observe the same data. As the amount of data increases, they will converge to the same posterior distribution.</p>
+<p>Here is a summary of the key ideas in this section:</p>
+<ol style="list-style-type: decimal">
+<li><p>Bayesians express their uncertainty through probability distributions.</p></li>
+<li><p>One can think about the situation and self-elicit a probability distribution that approximately reflects his/her personal probability.</p></li>
+<li><p>One’s personal probability should change according Bayes’ rule, as new data are observed.</p></li>
+<li><p>The beta family of distribution can describe a wide range of prior beliefs.</p></li>
+</ol>
+</div>
+<div id="conjugacy" class="section level3">
+<h3><span class="header-section-number">2.1.3</span> Conjugacy</h3>
+<p>Next, let’s introduce the concept of conjugacy in Bayesian statistics.</p>
+<p>Suppose we have the prior beliefs about the data as below:</p>
+<ul>
+<li><p>Binomial distribution <span class="math inline">\(\text{Bin}(n,p)\)</span> with <span class="math inline">\(n\)</span> known and <span class="math inline">\(p\)</span> unknown</p></li>
+<li><p>Prior belief about <span class="math inline">\(p\)</span> is <span class="math inline">\(\text{beta}(\alpha,\beta)\)</span></p></li>
+</ul>
+<p>Then we observe <span class="math inline">\(x\)</span> success in <span class="math inline">\(n\)</span> trials, and it turns out the Bayes’ rule implies that our new belief about the probability density of <span class="math inline">\(p\)</span> is also the beta distribution, but with different parameters. In mathematical terms,</p>
+<span class="math display" id="eq:beta-binomial">\[\begin{equation}
+p|x \sim \text{beta}(\alpha+x, \beta+n-x).
+\tag{2.2}
+\end{equation}\]</span>
+<p>This is an example of conjugacy. Conjugacy occurs when the <strong>posterior distribution</strong> is in the <strong>same family</strong> of probability density functions as the prior belief, but with <strong>new parameter values</strong>, which have been updated to reflect what we have learned from the data.</p>
+<p>Why are the beta binomial families conjugate? Here is a mathematical explanation.</p>
+<p>Recall the discrete form of the Bayes’ rule:</p>
+<p><span class="math display">\[P(A_i|B) = \frac{P(B|A_i)P(A_i)}{\sum^n_{j=1}P(B|A_j)P(A_j)}\]</span></p>
+<p>However, this formula does not apply to continuous random variables, such as the <span class="math inline">\(p\)</span> which follows a beta distribution, because the denominator sums over all possible values (must be finitely many) of the random variable.</p>
+<p>But the good news is that the <span class="math inline">\(p\)</span> has a finite range – it can tak any value <strong>only</strong> between 0 and 1. Hence we can perform integration, which is a generalization of the summation. The Bayes’ rule can also be written in continuous form as:</p>
+<p><span class="math display">\[\pi^*(p|x) = \frac{P(x|p)\pi(p)}{\int^1_0 P(x|p)\pi(p) dp}.\]</span></p>
+<p>This is analogus to the discrete form, since the integral in the denominator will also be equal to some constant, just like a summation. This constant ensures that the total area under the curve, i.e. the posterior density function, equals 1.</p>
+<p>Note that in the numerator, the first term, <span class="math inline">\(P(x|p)\)</span>, is the data likelihood – the probability of observing the data given a specific value of <span class="math inline">\(p\)</span>. The second term, <span class="math inline">\(\pi(p)\)</span>, is the probability density function that reflects the prior belief about <span class="math inline">\(p\)</span>.</p>
+<p>In the beta-binomial case, we have <span class="math inline">\(P(x|p)=\text{Bin}(n,p)\)</span> and <span class="math inline">\(\pi(p)=\text{beta}(\alpha,\beta)\)</span>.</p>
+<p>Plugging in these distributions, we get</p>
+<p><span class="math display">\[\begin{align}
+\pi^*(p|x) &amp;= \frac{1}{\text{some number}} \times P(x|p)\pi(p) \\
+&amp;= \frac{1}{\text{some number}} [\left( \begin{array}{c} n \\ x \end{array} \right) p^x (1-p)^{n-x}] [\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{\alpha-1} (1-p)^{\beta-1}] \\
+&amp;= \frac{\Gamma(\alpha+\beta+n)}{\Gamma(\alpha+x)\Gamma(\beta+n-x)} \times p^{\alpha+x-1} (1-p)^{\beta+n-x-1}
+\end{align}\]</span></p>
+<p>Let <span class="math inline">\(\alpha^* = \alpha + x\)</span> and <span class="math inline">\(\beta^* = \beta+n-x\)</span>, and we get</p>
+<p><span class="math display">\[\pi^*(p|x) = \text{beta}(\alpha^*,\beta^*) = \text{beta}(\alpha+x, \beta+n-x),\]</span></p>
+<p>same as the posterior formula in Equation <a href="continuous-variables-and-eliciting-probability-distributions.html#eq:beta-binomial">(2.2)</a>.</p>
+<p>We can recognize the posterior distribution from the numerator <span class="math inline">\(p^{\alpha+x-1}\)</span> and <span class="math inline">\((1-p)^{\beta+n-x-1}\)</span>. Everything else are just constants, and they must take the unique value, which is needed to ensure that the area under the curve between 0 and 1 equals 1. So they have to take the values of the beta, which has parameters <span class="math inline">\(\alpha+x\)</span> and <span class="math inline">\(\beta+n-x\)</span>.</p>
+<p>This is a cute trick. We can find the answer without doing the integral simply by looking at form of the numerator.</p>
+<p>Without conjugacy, one has to do the integral. Often, the integral is impossible to evaluate. That obstacle is the primary reason that most statistical theory in the 20th century was not Bayesian. The situation didn’t change until modern computing allowed researchers to compute integrals numerically.</p>
+<p>In summary, some pairs of distributions are conjugate. If your prior is in one and your data comes from the other, then your posterior is in the same family as the prior, but with new parameters. We explored this in the context of the beta-binomial conjugate families. And we saw that conjugacy meant that we could apply the continuous version of Bayes’ rule without having to do any integration.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bayesian-inference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="three-conjugate-families.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-inference-01-continuous.Rmd",
+"text": "Edit"
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
