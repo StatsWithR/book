@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bayesian Statistics</title>
+  <meta name="description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization.">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Bayesian Statistics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://www.coursera.org/learn/bayesian/home/info/" />
+  <meta property="og:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+  <meta property="og:description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="github-repo" content="StatsWithR/book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Bayesian Statistics" />
+  
+  <meta name="twitter:description" content="This book is a written companion for the Course Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="twitter:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+
+<meta name="author" content="Christine Chai">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="continuous-variables-and-eliciting-probability-distributions.html">
+<link rel="next" href="credible-intervals-and-predictive-inference.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bayesian Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
+<li class="chapter" data-level="1.1" data-path="bayes-rule.html"><a href="bayes-rule.html"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="bayes-rule.html"><a href="bayes-rule.html#bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
+<li class="chapter" data-level="1.1.2" data-path="bayes-rule.html"><a href="bayes-rule.html#diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
+<li class="chapter" data-level="1.1.3" data-path="bayes-rule.html"><a href="bayes-rule.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
+<li class="chapter" data-level="1.1.4" data-path="bayes-rule.html"><a href="bayes-rule.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="inference-for-a-proportion.html"><a href="inference-for-a-proportion.html"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="inference-for-a-proportion.html"><a href="inference-for-a-proportion.html#inference-for-a-proportion-frequentist-approach"><i class="fa fa-check"></i><b>1.2.1</b> Inference for a Proportion: Frequentist Approach</a></li>
+<li class="chapter" data-level="1.2.2" data-path="inference-for-a-proportion.html"><a href="inference-for-a-proportion.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
+<li class="chapter" data-level="1.2.3" data-path="inference-for-a-proportion.html"><a href="inference-for-a-proportion.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="frequentist-vs-bayesian-inference.html"><a href="frequentist-vs-bayesian-inference.html"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="frequentist-vs-bayesian-inference.html"><a href="frequentist-vs-bayesian-inference.html#frequentist-vs.bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="2.1" data-path="continuous-variables-and-eliciting-probability-distributions.html"><a href="continuous-variables-and-eliciting-probability-distributions.html"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="continuous-variables-and-eliciting-probability-distributions.html"><a href="continuous-variables-and-eliciting-probability-distributions.html#from-the-discrete-to-the-continuous"><i class="fa fa-check"></i><b>2.1.1</b> From the Discrete to the Continuous</a></li>
+<li class="chapter" data-level="2.1.2" data-path="continuous-variables-and-eliciting-probability-distributions.html"><a href="continuous-variables-and-eliciting-probability-distributions.html#elicitation"><i class="fa fa-check"></i><b>2.1.2</b> Elicitation</a></li>
+<li class="chapter" data-level="2.1.3" data-path="continuous-variables-and-eliciting-probability-distributions.html"><a href="continuous-variables-and-eliciting-probability-distributions.html#conjugacy"><i class="fa fa-check"></i><b>2.1.3</b> Conjugacy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="three-conjugate-families.html"><a href="three-conjugate-families.html"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="three-conjugate-families.html"><a href="three-conjugate-families.html#inference-on-a-binomial-proportion"><i class="fa fa-check"></i><b>2.2.1</b> Inference on a Binomial Proportion</a></li>
+<li class="chapter" data-level="2.2.2" data-path="three-conjugate-families.html"><a href="three-conjugate-families.html#the-gamma-poisson-conjugate-families"><i class="fa fa-check"></i><b>2.2.2</b> The Gamma-Poisson Conjugate Families</a></li>
+<li class="chapter" data-level="2.2.3" data-path="three-conjugate-families.html"><a href="three-conjugate-families.html#the-normal-normal-conjugate-families"><i class="fa fa-check"></i><b>2.2.3</b> The Normal-Normal Conjugate Families</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="credible-intervals-and-predictive-inference.html"><a href="credible-intervals-and-predictive-inference.html"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="credible-intervals-and-predictive-inference.html"><a href="credible-intervals-and-predictive-inference.html#non-conjugate-priors"><i class="fa fa-check"></i><b>2.3.1</b> Non-Conjugate Priors</a></li>
+<li class="chapter" data-level="2.3.2" data-path="credible-intervals-and-predictive-inference.html"><a href="credible-intervals-and-predictive-inference.html#credible-intervals"><i class="fa fa-check"></i><b>2.3.2</b> Credible Intervals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="credible-intervals-and-predictive-inference.html"><a href="credible-intervals-and-predictive-inference.html#predictive-inference"><i class="fa fa-check"></i><b>2.3.3</b> Predictive Inference</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html"><i class="fa fa-check"></i><b>3</b> Losses and Decision-making</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="losses-and-decision-making-1.html"><a href="losses-and-decision-making-1.html"><i class="fa fa-check"></i><b>3.2</b> Losses and Decision Making</a></li>
+<li class="chapter" data-level="3.3" data-path="working-with-loss-functions.html"><a href="working-with-loss-functions.html"><i class="fa fa-check"></i><b>3.3</b> Working with Loss Functions</a></li>
+<li class="chapter" data-level="3.4" data-path="minimizing-expectated-loss-for-hypothesis-testing.html"><a href="minimizing-expectated-loss-for-hypothesis-testing.html"><i class="fa fa-check"></i><b>3.4</b> Minimizing Expectated Loss for Hypothesis Testing</a></li>
+<li class="chapter" data-level="3.5" data-path="posterior-probabilities-of-hypotheses-and-bayes-factors.html"><a href="posterior-probabilities-of-hypotheses-and-bayes-factors.html"><i class="fa fa-check"></i><b>3.5</b> Posterior Probabilities of Hypotheses and Bayes Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inference-for-multiple-parameters.html"><a href="inference-for-multiple-parameters.html"><i class="fa fa-check"></i><b>4</b> Inference for Multiple Parameters</a><ul>
+<li class="chapter" data-level="4.1" data-path="conjugate-prior-for-normal-population-with-unknown-mean-and-variance.html"><a href="conjugate-prior-for-normal-population-with-unknown-mean-and-variance.html"><i class="fa fa-check"></i><b>4.1</b> Conjugate Prior for Normal Population with Unknown Mean and Variance</a></li>
+<li class="chapter" data-level="4.2" data-path="monte-carlo-simulation.html"><a href="monte-carlo-simulation.html"><i class="fa fa-check"></i><b>4.2</b> Monte Carlo Simulation</a></li>
+<li class="chapter" data-level="4.3" data-path="predictive-distributions.html"><a href="predictive-distributions.html"><i class="fa fa-check"></i><b>4.3</b> Predictive Distributions</a></li>
+<li class="chapter" data-level="4.4" data-path="beyond-conjugate-priors.html"><a href="beyond-conjugate-priors.html"><i class="fa fa-check"></i><b>4.4</b> Beyond Conjugate Priors</a></li>
+<li class="chapter" data-level="4.5" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>4.5</b> Markov Chain Monte Carlo</a></li>
+<li class="chapter" data-level="4.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>4.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hypothesis-testing-for-one-and-two-normal-samples.html"><a href="hypothesis-testing-for-one-and-two-normal-samples.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Testing for One and Two Normal Samples</a><ul>
+<li class="chapter" data-level="5.1" data-path="bayes-factors-for-testing-a-normal-mean-variance-known.html"><a href="bayes-factors-for-testing-a-normal-mean-variance-known.html"><i class="fa fa-check"></i><b>5.1</b> Bayes Factors for Testing a Normal Mean: Variance Known</a></li>
+<li class="chapter" data-level="5.2" data-path="bayes-factors-for-testing-a-normal-mean-variance-unknown.html"><a href="bayes-factors-for-testing-a-normal-mean-variance-unknown.html"><i class="fa fa-check"></i><b>5.2</b> Bayes Factors for Testing a Normal Mean: Variance Unknown</a></li>
+<li class="chapter" data-level="5.3" data-path="bayes-factors-for-hypotheses-about-means-in-two-groups.html"><a href="bayes-factors-for-hypotheses-about-means-in-two-groups.html"><i class="fa fa-check"></i><b>5.3</b> Bayes Factors for Hypotheses about Means in Two Groups</a></li>
+<li class="chapter" data-level="5.4" data-path="credible-intervals-after-hypothesis-testing.html"><a href="credible-intervals-after-hypothesis-testing.html"><i class="fa fa-check"></i><b>5.4</b> Credible Intervals after Hypothesis Testing</a></li>
+<li class="chapter" data-level="5.5" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="three-conjugate-families" class="section level2">
+<h2><span class="header-section-number">2.2</span> Three Conjugate Families</h2>
+<div id="inference-on-a-binomial-proportion" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Inference on a Binomial Proportion</h3>
+
+<div class="example">
+<p><span id="ex:RU-486more" class="example"><strong>Example 2.2 </strong></span>Recall Example <a href="inference-for-a-proportion.html#ex:RU-486">1.8</a>, a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception.</p>
+Half of these women were randomly assigned to the standard contraceptive, a large dose of estrogen and progesterone. And half of the women were assigned RU-486. Among the RU-486 group, there were no pregnancies. Among those receiving the standard therapy, four became pregnant.
+</div>
+
+<p>Statistically, one can model these data as coming from a binomial distribution. Imagine a coin with two sides. One side is labeled standard therapy and the other is labeled RU-486. The coin was tossed four times, and each time it landed with the standard therapy side face up.</p>
+<p>A frequentist would analyze the problem as below:</p>
+<ul>
+<li><p>The parameter <span class="math inline">\(p\)</span> is the probability of a preganancy comes from the standard treatment.</p></li>
+<li><p><span class="math inline">\(H_0: p \geq 0.5\)</span> and <span class="math inline">\(H_A: p &lt; 0.5\)</span></p></li>
+<li><p>The p-value is <span class="math inline">\(0.5^4 = 0.0625 &gt; 0.05\)</span></p></li>
+</ul>
+<p>Therefore, the frequentist fails to reject the null hypothesis, and will not conclude that RU-486 is superior to standard therapy.</p>
+<p>Remark: The significance probability, or p-value, is the chance of observing data that are as or more supportive of the alternative hypothesis than the data that were collected, when the null hypothesis is true.</p>
+<p>Now suppose a Bayesian performed the analysis. She may set her beliefs about the drug and decide that she has no prior knowledge about the efficacy of RU-486 at all. This would be reasonable if, for example, it were the first clinical trial of the drug. In that case, she would be using the uniform distribution on the interval from 0 to 1, which corresponds to the <span class="math inline">\(\text{beta}(1,1)\)</span> density. In mathematical terms,</p>
+<p><span class="math display">\[p \sim \text{Unif}(0,1) = \text{beta}(1,1).\]</span></p>
+<p>From conjugacy, we know that since there were four failures for RU-486 and no successes, that her posterior probability of an RU-486 child is</p>
+<p><span class="math display">\[p|x \sim \text{beta}(1+0,1+4) = \text{beta}(1,5).\]</span></p>
+<p>This is a beta that has much more area near <span class="math inline">\(p\)</span> equal to 0. The mean of <span class="math inline">\(\text{beta}(\alpha,\beta)\)</span> is <span class="math inline">\(\frac{\alpha}{\alpha+\beta}\)</span>. So this Bayesian now believes that the unknown <span class="math inline">\(p\)</span>, the probability of an RU-468 child, is about 1 over 6.</p>
+<p>The standard deviation of a beta distribution with parameters in alpha and beta also has a closed form:</p>
+<p><span class="math display">\[p \sim \text{beta}(\alpha,\beta) \Rightarrow \text{Standard deviation} = \sqrt{\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}}\]</span></p>
+<p>Before she saw the data, the Bayesian’s uncertainty expressed by her standard deviation was 0.71. After seeing the data, it was much reduced – her posterior standard deviation is just 0.13.</p>
+<p>We promised not to do much calculus, so I hope you will trust me to tell you that this Bayesian now believes that her posterior probability that <span class="math inline">\(p &lt; 0.5\)</span> is 0.96875. She thought there was a 50-50 chance that RU-486 is better. But now she thinks there’s about a 97% chance that RU-486 is better.</p>
+<p>Suppose a fifth child were born, also to a mother who received standard chip therapy. Now the Bayesian’s prior is beta(1, 5) and the additional data point further updates her to a new posterior beta of 1 and 6. <strong>As data comes in, the Bayesian’s previous posterior becomes her new prior, so learning is self-consistent.</strong></p>
+<p>This example has taught us several things:</p>
+<ol style="list-style-type: decimal">
+<li><p>We saw how to build a statistical model for an applied problem.</p></li>
+<li><p>We could compare the frequentist and Bayesian approaches to inference and see large differences in the conclusions.</p></li>
+<li><p>We saw how the data changed the Bayesian’s opinion with a new mean for p and less uncertainty.</p></li>
+<li><p>We learned that Bayesian’s continually update as new data arrive. <strong>Yesterday’s posterior is today’s prior.</strong></p></li>
+</ol>
+</div>
+<div id="the-gamma-poisson-conjugate-families" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> The Gamma-Poisson Conjugate Families</h3>
+<p>A second important case is the gamma-Poisson conjugate families. In this case the data come from a Poisson distribution, and the prior and posterior are both gamma distributions.</p>
+<p>The Poisson random variable can take any <strong>non-negative integer value</strong> all the way up to infinity. It is used in describing <strong>count data</strong>, where one counts the number of independent events that occur in a fixed amount of time, a fixed area, or a fixed volume.</p>
+<p>Moreover, the Poisson distribution has been used to describe the number of phone calls one receives in an hour. Or, the number of pediatric cancer cases in the city, for example, to see if pollution has elevated the cancer rate above that of in previous years or for similar cities. It is also used in medical screening for diseases, such as HIV, where one can count the number of T-cells in the tissue sample.</p>
+<p>The Poisson distribution has a single parameter <span class="math inline">\(\lambda\)</span>, and it is denoted as <span class="math inline">\(X \sim \text{Pois}(\lambda)\)</span> with <span class="math inline">\(\lambda&gt;0\)</span>. The probability mass function is</p>
+<p><span class="math display">\[P(X=k) = \frac{\lambda^k}{k!} \exp^{-\lambda} \text{ for } k=0,1,\cdots,\]</span></p>
+<p>where <span class="math inline">\(k! = k \times (k-1) \times \cdots \times 1\)</span>. This gives the probability of observing a random variable equal to <span class="math inline">\(k\)</span>.</p>
+<p>Note that <span class="math inline">\(\lambda\)</span> is both the mean and the variance of the Poisson random variable. It is obvious that <span class="math inline">\(\lambda\)</span> must be greater than zero, because it represents the mean number of counts, and the variance should be greater than zero (except for constants, which have zero variance).</p>
+
+<div class="example">
+<p><span id="ex:Poisson" class="example"><strong>Example 2.3 </strong></span>Famously, von Bortkiewicz used the Poisson distribution to study the number of Prussian cavalrymen who were kicked to death by a horse each year. This is count data over the course of a year, and the events are probably independent, so the Poisson model makes sense.</p>
+<p>He had data on 15 cavalry units for the 20 years between 1875 and 1894, inclusive. The total number of cavalrymen who died by horse kick was 200.</p>
+One can imagine that a Prussian general might want to estimate <span class="math inline">\(\lambda\)</span>. The average number per year, per unit. Perhaps in order to see whether some educational campaign about best practices for equine safety would make a difference.
+</div>
+
+<p>Suppose the Prussian general is a Bayesian. Introspective elicitation leads him to think that <span class="math inline">\(\lambda=0.75\)</span> and standard deviation 1.</p>
+<p>Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of lambda in the Poisson can take any non-negative value so this fits.</p>
+<p>And, the gamma family is pretty flexible, one can see a wide range of gamma shapes.</p>
+<p>NEED TO GET THE GAMMA PLOT HERE</p>
+<p>The probability density function for the gamma is indexed by shape <span class="math inline">\(k\)</span> and scale <span class="math inline">\(\theta\)</span>, denoted as <span class="math inline">\(\text{Gamma}(k,\theta)\)</span> with <span class="math inline">\(k,\theta &gt; 0\)</span>. The mathematical form of the distribution is</p>
+<p><span class="math display">\[f(x) = \dfrac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta},\]</span> where</p>
+<p><span class="math display">\[\Gamma(z) = \int^{\infty}_0 x^{z-1} e^{-x} dx.\]</span></p>
+<p><span class="math inline">\(\Gamma(z)\)</span>, the gamma function, is simply a constant that ensures the area under curve between 0 and 1 sums to 1, just like in the beta probability distribution case of Equation <a href="continuous-variables-and-eliciting-probability-distributions.html#eq:beta">(2.1)</a>. A special case is that <span class="math inline">\(\Gamma(n) = (n-1)!\)</span> when <span class="math inline">\(n\)</span> is a positive integer.</p>
+<p>However, some books parameterize the gamma distribution in a slightly different way with shape <span class="math inline">\(\alpha = k\)</span> and rate (inverse scale) <span class="math inline">\(\beta=1/\theta\)</span>:</p>
+<p><span class="math display">\[f(x) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}\]</span></p>
+<p>In the supplementary material, we go with the <span class="math inline">\(k\)</span>-<span class="math inline">\(\theta\)</span> parameterization, but you should always check which parameterization is being used. For example, <span class="math inline">\(\mathsf{R}\)</span> uses the <span class="math inline">\(\alpha\)</span>-<span class="math inline">\(\beta\)</span> parameterization.</p>
+<p>For our parameterization, the mean of <span class="math inline">\(\text{Gamma}(k,\theta)\)</span> is <span class="math inline">\(k\theta\)</span>, and the variance is <span class="math inline">\(k\theta^2\)</span>. We can get the general’s prior as below:</p>
+<p><span class="math display">\[\begin{align}
+\text{Mean} &amp;= k\theta = 0.75 \\
+\text{Standard deviation} &amp;= \theta\sqrt{k} = 1
+\end{align}\]</span></p>
+<p>Hence <span class="math display">\[k = \frac{9}{16} \text{ and } \theta = \frac{4}{3}\]</span></p>
+<p>For the gamma Poisson conjugate family, suppose we observed data <span class="math inline">\(x_1, x_2, \cdots, x_n\)</span> that follow a Poisson distribution.Then similar to the previous section, we would recognize the kernel of the gamma when using the gamma-Poisson family. The posterior <span class="math inline">\(\text{Gamma}(k^*, \theta^*)\)</span> has parameters</p>
+<p><span class="math display">\[k^* = k + \sum^n_{i=1} x_i \text{ and } \theta^* = \frac{\theta}{(n\theta+1)}.\]</span></p>
+<p>For this dataset, <span class="math inline">\(N = 15 \times 20 = 300\)</span> observations, and the number of casualities is 200. Therefore, the general now thinks that the average number of Prussian cavalry officers who die at the hoofs of their horses follows a gamma distribution with the parameters below:</p>
+<p><span class="math display">\[\begin{align}
+k^* &amp;= k + \sum^n_{i=1} x_i = \frac{9}{16} + 200 = 200.5625 \\
+\theta^* = \frac{\theta}{(n\theta+1)} &amp;= \frac{4/3}{300\times(4/3)} = 0.0033
+\end{align}\]</span></p>
+<p>How the general has changed his mind is described in Table <a href="three-conjugate-families.html#tab:before-after">2.1</a>. After seeing the data, his uncertainty about lambda, expressed as a standard deviation, shrunk from 1 to 0.047.</p>
+<table>
+<caption><span id="tab:before-after">Table 2.1: </span>Before and after seeing the data</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">lambda</th>
+<th align="right">Standard Deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Before</td>
+<td align="right">0.75</td>
+<td align="right">1.000</td>
+</tr>
+<tr class="even">
+<td>After</td>
+<td align="right">0.67</td>
+<td align="right">0.047</td>
+</tr>
+</tbody>
+</table>
+<p>In summary, we learned about the Poisson and gamma distributions; we also knew that the gamma-Poisson families are conjugate. Moreover, we learned the updating fomula, and applied it to a classical dataset.</p>
+</div>
+<div id="the-normal-normal-conjugate-families" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> The Normal-Normal Conjugate Families</h3>
+<p>There are other conjugate families, and one is the normal-normal pair. If your data come from a normal distribution with known standard deviation <span class="math inline">\(\sigma\)</span> but unknown mean <span class="math inline">\(\mu\)</span>, and if your prior on the mean <span class="math inline">\(\mu\)</span>, has a normal distribution with self-elicited mean <span class="math inline">\(\nu\)</span> and self-elicited standard deviation <span class="math inline">\(\tau\)</span>, then your posterior density for the mean, after seeing a sample of size <span class="math inline">\(n\)</span> with sample mean <span class="math inline">\(\bar{x}\)</span>, is also normal. In mathematical notation, we have</p>
+<p><span class="math display">\[\begin{align}
+x|\mu &amp;\sim N(\mu,\sigma) \\
+\mu &amp;\sim N(\nu, \tau)
+\end{align}\]</span></p>
+<p>As a practical matter, one often does not know sigma, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family. But there are cases in which it is reasonable to treat the <span class="math inline">\(\sigma\)</span> as known.</p>
+
+<div class="example">
+<p><span id="ex:chemist" class="example"><strong>Example 2.4 </strong></span>An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.</p>
+<p>Note that this normal-normal assumption made by the anayltical chemist is technically wrong, but still reasonable.</p>
+<ol style="list-style-type: decimal">
+<li><p>The normal family puts some probability on all possible values between <span class="math inline">\((-\infty,+\infty)\)</span>. But the mass on the balance can <strong>never</strong> be negative. However, the normal prior on the unknown mass is usually so concentrated on positive values that the normal distribution is still a good approximation.</p></li>
+<li>Even if the chemist has repeatedly calibrated her balance with standards from the National Institute of Standards and Technology, she still will not know its standard deviation precisely. However, if she has done it often and well, it is probably a sufficiently good approximation to assume that the standard deviation is known.
+</div>
+</li>
+</ol>
+<p>For the normal-normal conjugate families, assume the prior on the unknown mean follows a normal distribution, i.e. <span class="math inline">\(\mu \sim N(\nu, \tau)\)</span>. We also assume that the data <span class="math inline">\(x_1,x_2,\cdots,x_n\)</span> are independent and come from a normal with standard deviation <span class="math inline">\(\sigma\)</span>.</p>
+<p>Then the posterior distribution of <span class="math inline">\(\mu\)</span> is also normal, with mean as a weighted average of the prior mean and the sample mean. We have</p>
+<p><span class="math display">\[\mu|x_1,x_2,\cdots,x_n \sim N(\nu^*, \tau^*),\]</span></p>
+<p>where</p>
+<p><span class="math display">\[\nu^* = \frac{\nu\sigma^2 + n\bar{x}\tau^2}{\sigma^2 + n\tau^2} \text{ and } \tau^* = \sqrt{\frac{\sigma^2\tau^2}{\sigma^2 + n\tau^2}}.\]</span></p>
+<p>Let’s continue from Example <a href="three-conjugate-families.html#ex:chemist">2.4</a>, and suppose she wants to measure the mass of a sample of ammonium nitrate.</p>
+<p>Her balance has a known standard deviation of 0.2 milligrams. By looking at the sample, she thinks this mass is about 10 milligrams and based on her previous experience in estimating masses, her guess has the standard deviation of 2. So she decides that her prior for the mass of the sample is a normal distribution with mean, 10 milligrams, and standard deviation, 2 milligrams.</p>
+<p>Now she collects five measurements on the sample and finds that the average of those is 10.5. By conjugacy of the normal-normal family, our posterior belief about the mass of the sample has the normal distribution.</p>
+<p>The new mean of that posterior normal is found by plugging into the formula:</p>
+<p><span class="math display">\[\begin{align}
+\mu &amp;\sim N(\nu=10, \tau=2) \\
+\nu^*  &amp;= \frac{\nu\sigma^2 + n\bar{x}\tau^2}{\sigma^2 + n\tau^2} = \frac{10\times(0.2)^2+5\times10.5\times2^2}{(0.2)^2+5\times2^2} = 10.499\\
+\tau^* &amp;= \sqrt{\frac{\sigma^2\tau^2}{\sigma^2 + n\tau^2}} = \sqrt{(0.2)^2\times2^2}{(0.2)^2+5\times2^2} = 0.089.
+\end{align}\]</span></p>
+<p>Before seeing the data, the Bayesian analytical chemist thinks the ammonium nitrate has mass 10 mg and uncertainty (standard deviation) 2 mg. After seeing the data, she thinks the mass is 10.499 mg and standard deviation 0.089 mg. Her posterior mean has shifted quite a bit and her uncertainty has dropped by a lot. That’s exactly what an analytical chemist wants.</p>
+<p>This is the last of the three examples of conjugate families. There are many more, but they do not suffice for every situation one might have.</p>
+<p>We learned several things in this lecture. First, we learned the new pair of conjugate families and the relevant updating formula. Also, we worked a realistic example problem that can arise in practical situations.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="continuous-variables-and-eliciting-probability-distributions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="credible-intervals-and-predictive-inference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-inference-02-conjugate.Rmd",
+"text": "Edit"
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
