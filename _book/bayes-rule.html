@@ -253,7 +253,7 @@ We can rewrite this conditional probability in terms of ‘regular’ probabilit
   P(A \mid B) = \frac{P(A \,\&amp;\, B)}{P(B)}.
 \]</span>
 </div>
-
+<p></p>
 
 <div class="example">
 <p><span id="ex:unnamed-chunk-2" class="example"><strong>Example 1.1 </strong></span>What is the probability that an 18-29 year old from Table <a href="bayes-rule.html#tab:2015gallupDating">1.1</a> uses online dating sites?</p>
@@ -267,7 +267,7 @@ We can rewrite this conditional probability in terms of ‘regular’ probabilit
 \end{split}
 \end{multline*}\]</span>
 </div>
-
+<p></p>
 </div>
 <div id="diagnostic-testing" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Bayes’ Rule and Diagnostic Testing</h3>
@@ -326,20 +326,20 @@ Putting this all together and inserting into <a href="bayes-rule.html#eq:HIVcond
 <div class="example">
 <span id="ex:unnamed-chunk-3" class="example"><strong>Example 1.2 </strong></span>What is the probability that someone who tests positive does not actually have HIV?
 </div>
-
+<p></p>
 <p>We found in <a href="bayes-rule.html#eq:HIVresult">(1.4)</a> that someone who tests positive has a <span class="math inline">\(0.12\)</span> probability of having HIV. That implies that the same person has a <span class="math inline">\(1-0.12=0.88\)</span> probability of not having HIV, despite testing positive.</p>
 
 <div class="example">
 <span id="ex:unnamed-chunk-4" class="example"><strong>Example 1.3 </strong></span>If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?
 </div>
-
+<p></p>
 <p>If the person has a priori a higher risk for HIV and tests positive, then the probability of having HIV must be higher than for someone not at increased risk who also tests positive. Therefore, <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &gt; 0.12\)</span> where <span class="math inline">\(0.12\)</span> comes from <a href="bayes-rule.html#eq:HIVresult">(1.4)</a>.</p>
 <p>One can derive this mathematically by plugging in a larger number in <a href="bayes-rule.html#eq:HIVpositive">(1.1)</a> than 0.00148, as that number represents the prior risk of HIV. Changing the calculations accordingly shows <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &gt; 0.12\)</span>.</p>
 
 <div class="example">
 <span id="ex:unnamed-chunk-5" class="example"><strong>Example 1.4 </strong></span>If the false positive rate of the test is higher than 1%, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?
 </div>
-
+<p></p>
 <p>If the false positive rate increases, the probability of a wrong positive result increases. That means that a positive test result is more likely to be wrong and thus less indicative of HIV. Therefore, the probability of HIV after a positive ELISA goes down such that <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &lt; 0.12\)</span>.</p>
 </div>
 <div id="bayes-updating" class="section level3">
@@ -368,7 +368,7 @@ Putting this all together and inserting into <a href="bayes-rule.html#eq:HIVcond
 <div class="example">
 <span id="ex:unnamed-chunk-6" class="example"><strong>Example 1.5 </strong></span>What is the probability that one actually has HIV after testing positive 3 times on the ELISA? Again, assume that all three ELISAs are independent.
 </div>
-
+<p></p>
 Analogous to what we did in this section, we can use Bayes’ updating for this. However, now the prior is the probability of HIV after two positive ELISAs, that is <span class="math inline">\(P(\text{Person tested has HIV}) = 0.93\)</span>. Analogous to <a href="bayes-rule.html#eq:Bayes-updating">(1.5)</a>, the answer follows as
 <span class="math display">\[\begin{multline*}
   P(\text{Person tested has HIV} \mid \text{Third ELISA is also positive}) \\
@@ -394,7 +394,7 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <div class="example">
 <span id="ex:unnamed-chunk-7" class="example"><strong>Example 1.6 </strong></span>Based on a 2015 Pew Research poll on 1,500 adults: “We are 95% confident that 60% to 64% of Americans think the federal government does not do enough for middle class people.
 </div>
-
+<p></p>
 <p>The correct interpretation is: 95% of random samples of 1,500 adults will produce confidence intervals that contain the true proportion of Americans who think the federal government does not do enough for middle class people.</p>
 <p>Here are two common misconceptions:</p>
 <ul>
@@ -408,7 +408,7 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <div class="example">
 <span id="ex:unnamed-chunk-8" class="example"><strong>Example 1.7 </strong></span>The posterior distribution yields a 95% credible interval of 60% to 64% for the proportion of Americans who think the federal government does not do enough for middle class people.
 </div>
-
+<p></p>
 <p>We can say that there is a 95% probability that the proportion is between 60% and 64% because this is a <strong>credible</strong> interval, and more details will be introduced later in the course.</p>
 
 </div>

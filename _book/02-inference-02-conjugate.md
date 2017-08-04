@@ -1,5 +1,7 @@
 ## Three Conjugate Families
 
+Missing: Gamma plot in 2.2.2
+
 ### Inference on a Binomial Proportion
 
 \BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:RU-486more"><strong>(\#ex:RU-486more)</strong></span>Recall Example \@ref(ex:RU-486), a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception. 

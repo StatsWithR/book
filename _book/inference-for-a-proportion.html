@@ -189,7 +189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.</p>
 Question: How strongly do these data indicate that the treatment is more effective than the control?
 </div>
-
+<p></p>
 <p>To simplify the framework, let’s make it a one proportion problem and just consider the 20 total pregnancies because the two groups have the same sample size. If the treatment and control are equally effective, then the probability that a pregnancy comes from the treatment group (<span class="math inline">\(p\)</span>) should be 0.5. If RU-486 is more effective, then the probability that a pregnancy comes from the treatment group (<span class="math inline">\(p\)</span>) should be less than 0.5.</p>
 <p>Therefore, we can form the hypotheses as below:</p>
 <ul>
@@ -201,7 +201,7 @@ Question: How strongly do these data indicate that the treatment is more effecti
 <p>Since <span class="math inline">\(H_0\)</span> states that the probability of success (pregnancy) is 0.5, we can calculate the p-value from 20 independent Bernoulli trials where the probability of success is 0.5. The outcome of this experiment is 4 successes in 20 trials, so the goal is to obtain 4 or fewer successes in the 20 Bernoulli trials.</p>
 <p>This probability can be calculated exactly from a binomial distribution with <span class="math inline">\(n=20\)</span> trials and success probability <span class="math inline">\(p=0.5\)</span>. Assume <span class="math inline">\(k\)</span> is the actual number of successes observed, the p-value is</p>
 <p><span class="math display">\[P(k \leq 4) = P(k = 0) + P(k = 1) + P(k = 2) + P(k = 3) + P(k = 4)\]</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">p =</span> <span class="fl">0.5</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">dbinom</span>(<span class="dv">0</span>:<span class="dv">4</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">p =</span> <span class="fl">0.5</span>))</code></pre></div>
 <pre><code>## [1] 0.005908966</code></pre>
 <p>According to <span class="math inline">\(\mathsf{R}\)</span>, the probability of getting 4 or fewer successes in 20 trials is 0.0059. Therefore, given that pregnancy is equally likely in the two groups, we get the chance of observing 4 or fewer preganancy in the treatment group is 0.0059. With such a small probability, we reject the null hypothesis and conclude that the data provide convincing evidence for the treatment being more effective than the control.</p>
 </div>

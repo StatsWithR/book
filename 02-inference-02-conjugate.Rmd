@@ -1,5 +1,7 @@
 ## Three Conjugate Families
 
+Missing: Gamma plot in 2.2.2
+
 ### Inference on a Binomial Proportion
 
 ```{example, label="RU-486more"}

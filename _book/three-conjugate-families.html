@@ -181,6 +181,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="three-conjugate-families" class="section level2">
 <h2><span class="header-section-number">2.2</span> Three Conjugate Families</h2>
+<p>Missing: Gamma plot in 2.2.2</p>
 <div id="inference-on-a-binomial-proportion" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Inference on a Binomial Proportion</h3>
 
@@ -188,7 +189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span id="ex:RU-486more" class="example"><strong>Example 2.2 </strong></span>Recall Example <a href="inference-for-a-proportion.html#ex:RU-486">1.8</a>, a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception.</p>
 Half of these women were randomly assigned to the standard contraceptive, a large dose of estrogen and progesterone. And half of the women were assigned RU-486. Among the RU-486 group, there were no pregnancies. Among those receiving the standard therapy, four became pregnant.
 </div>
-
+<p></p>
 <p>Statistically, one can model these data as coming from a binomial distribution. Imagine a coin with two sides. One side is labeled standard therapy and the other is labeled RU-486. The coin was tossed four times, and each time it landed with the standard therapy side face up.</p>
 <p>A frequentist would analyze the problem as below:</p>
 <ul>
@@ -231,7 +232,7 @@ Half of these women were randomly assigned to the standard contraceptive, a larg
 <p>He had data on 15 cavalry units for the 20 years between 1875 and 1894, inclusive. The total number of cavalrymen who died by horse kick was 200.</p>
 One can imagine that a Prussian general might want to estimate <span class="math inline">\(\lambda\)</span>. The average number per year, per unit. Perhaps in order to see whether some educational campaign about best practices for equine safety would make a difference.
 </div>
-
+<p></p>
 <p>Suppose the Prussian general is a Bayesian. Introspective elicitation leads him to think that <span class="math inline">\(\lambda=0.75\)</span> and standard deviation 1.</p>
 <p>Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of lambda in the Poisson can take any non-negative value so this fits.</p>
 <p>And, the gamma family is pretty flexible, one can see a wide range of gamma shapes.</p>
@@ -297,7 +298,7 @@ x|\mu &amp;\sim N(\mu,\sigma) \\
 <li><p>The normal family puts some probability on all possible values between <span class="math inline">\((-\infty,+\infty)\)</span>. But the mass on the balance can <strong>never</strong> be negative. However, the normal prior on the unknown mass is usually so concentrated on positive values that the normal distribution is still a good approximation.</p></li>
 <li>Even if the chemist has repeatedly calibrated her balance with standards from the National Institute of Standards and Technology, she still will not know its standard deviation precisely. However, if she has done it often and well, it is probably a sufficiently good approximation to assume that the standard deviation is known.
 </div>
-</li>
+<p></p></li>
 </ol>
 <p>For the normal-normal conjugate families, assume the prior on the unknown mean follows a normal distribution, i.e. <span class="math inline">\(\mu \sim N(\nu, \tau)\)</span>. We also assume that the data <span class="math inline">\(x_1,x_2,\cdots,x_n\)</span> are independent and come from a normal with standard deviation <span class="math inline">\(\sigma\)</span>.</p>
 <p>Then the posterior distribution of <span class="math inline">\(\mu\)</span> is also normal, with mean as a weighted average of the prior mean and the sample mean. We have</p>
