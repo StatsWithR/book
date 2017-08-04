@@ -40,4 +40,24 @@ This section is mostly a look-ahead to future material. We have seen that a Baye
 
 ### Credible Intervals
 
+In this section, we introduce credible intervals, the Bayesian alternative to confidence intervals. Let's start with the confidence intervals, which are the frequentist way to express uncertainty about an estimate of a population mean, a population proportion or some other parameter. 
+
+
+A confidence interval has the form of an upper and lower bound.
+
+$$L, U = \text{pe} \pm \text{se} \times \text{cv}$$
+
+* L = lower, U = upper
+* pe = point estimate, se = standard error, cv = critical value 
+
+Most importantly, the interpretation of a 95% confidence interval on the mean is that **"95% of similarly constructed intervals will contain the true mean"**, not "the probability that true mean lies between $L$ and $U$ is 0.95".
+
+The reason for this frequentist wording is that a frequentist may not express his uncertainty as a probability. The true mean is either within the interval or not, so the probability is zero or one. The problem is that the frequentist does not know which is the case. 
+
+On the other hand, Bayesians have no such qualms. It is fine for us to say that **"the probability that the true mean is contained within a given interval is 0.95"**. To distinguish our intervals from confidence intervals, we call them **credible intervals**.
+
+Recall the RU-486 example. 
+
+
+
 ### Predictive Inference

@@ -208,6 +208,17 @@ x &amp; \text{for} &amp; 0 \leq x &lt; 0.5  \\
 </div>
 <div id="credible-intervals" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Credible Intervals</h3>
+<p>In this section, we introduce credible intervals, the Bayesian alternative to confidence intervals. Let’s start with the confidence intervals, which are the frequentist way to express uncertainty about an estimate of a population mean, a population proportion or some other parameter.</p>
+<p>A confidence interval has the form of an upper and lower bound.</p>
+<p><span class="math display">\[L, U = \text{pe} \pm \text{se} \times \text{cv}\]</span></p>
+<ul>
+<li>L = lower, U = upper</li>
+<li>pe = point estimate, se = standard error, cv = critical value</li>
+</ul>
+<p>Most importantly, the interpretation of a 95% confidence interval on the mean is that <strong>“95% of similarly constructed intervals will contain the true mean”</strong>, not “the probability that true mean lies between <span class="math inline">\(L\)</span> and <span class="math inline">\(U\)</span> is 0.95”.</p>
+<p>The reason for this frequentist wording is that a frequentist may not express his uncertainty as a probability. The true mean is either within the interval or not, so the probability is zero or one. The problem is that the frequentist does not know which is the case.</p>
+<p>On the other hand, Bayesians have no such qualms. It is fine for us to say that <strong>“the probability that the true mean is contained within a given interval is 0.95”</strong>. To distinguish our intervals from confidence intervals, we call them <strong>credible intervals</strong>.</p>
+<p>Recall the RU-486 example.</p>
 </div>
 <div id="predictive-inference" class="section level3">
 <h3><span class="header-section-number">2.3.3</span> Predictive Inference</h3>
