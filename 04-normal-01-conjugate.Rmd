@@ -1,23 +1,35 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ## Inference for Normal Mean with Unknown Variance {#sec:normal-gamma}
 
 
 In \@ref(sec:normal-normal) we described the normal-normal conjugate  family for inference about an unknown mean $\mu$ with a known standard deviation $\sigma$ when the data were assumed to be a random sample from a normal population. In this section we will introduce the normal-gamma conjugate family for the common situation when $\sigma$ is unknown.
 
+### Sampling Model
 
-The conjugate prior for $\mu$ given $\sigma$ is normal
+Recall that a conjugate pair is a sampling model for the data and prior distribution for the unknown parameters such that the posterior distribution is in the same family of distributions as the prior distribution. 
+We will assume that the data are a random sample of size $n$ from a normal population with mean $\mu$ and variance $\sigma^2$; the following is a shorthand to represent this distribution assumption 
+$$ Y_1, \ldots Y_n \iid \No(\mu, \sigma^2) $$
+where  iid above the distribution  indicates that each of the observations is **i**ndependent of the others (given $\mu$ and $\sigma^2$) and are **i**dentically **d**istributed.  With both $\mu$ and $\sigma^2$ unknown, we will need to specify a **joint** prior distriubtion to describe our prior uncertainty about them.
 
-with hyper-parameters
-the prior mean m not and a prior variance that we will represent as a
-multiple of sigma^2.  The hyper-parameter n_0 may be interpreted as a
-prior sample size.  As sigma is unknown, a Bayesian would use a prior
-distribution to describe the uncertainty about the variance before
+### Conjugate prior
+If you recall from \@ref{sec:normal-normal} the conjugate prior for $\mu$ given $\sigma$ is normal.  We will specify the conditional prior distribution for $\mu$ as 
+\[ \mu \mid \sigma^2   \sim  \No(m_0, \sigma^2/\n0) \]
+with hyper-parameters $m_0$, our prior mean for $\mu$, and $\sigma^2/\n0$ is our prior variance.  This is a slight change in notation before where we used $\tau$ as the variance, however, having the prior variance be a multiple of $\sigma^2$ is necessary for having a joint conjugate prior.
+We will see later how the hyper-parameter $\n0$ may be interpreted as a
+prior sample size.   Because $\sigma$ has the same units as the data, the hyper-parameter $\n0$ does not have any units, but is used to express how much prior precision in terms of our beliefs about $\mu$.
+
+As $\sigma^2$ is unknown, a Bayesian would use a
+prior distribution to describe the uncertainty about the variance before
 seeing data.  Since the variance is non-negative, continuous, and with
 no upper limit, you might guess that a gamma distribution would be a
-candidate for a  conjugate
-prior for the variance.
+candidate for a  conjugate prior for the variance.
 
 That is close, but it turns out that the inverse of the variance,
-which is known as the precision (or phi), has a conjugate prior that
+which is known as the precision has a conjugate prior. that
 is a gamma distribution with prior degrees of freedom v_0 and  prior
 variance s^2_0.  
 

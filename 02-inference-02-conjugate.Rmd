@@ -152,7 +152,7 @@ x|\mu &\sim N(\mu,\sigma) \\
 \mu &\sim N(\nu, \tau)
 \end{align}$$
 
-As a practical matter, one often does not know sigma, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family that we will describe in \@ref{sec:normal-gamma}. But there are cases in which it is reasonable to treat the $\sigma$ as known. 
+As a practical matter, one often does not know sigma, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family that we will describe in \@ref(sec:normal-gamma). But there are cases in which it is reasonable to treat the $\sigma$ as known. 
 
 ```{example, label="chemist"}
 An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.
