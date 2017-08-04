@@ -143,7 +143,7 @@ knitr::kable(
 
 In summary, we learned about the Poisson and gamma distributions; we also knew that the gamma-Poisson families are conjugate. Moreover, we learned the updating fomula, and applied it to a classical dataset.
 
-### The Normal-Normal Conjugate Families
+###  The Normal-Normal Conjugate Families {#sec:normal-normal}
 
 There are other conjugate families, and one is the normal-normal pair. If your data come from a normal distribution with known standard deviation $\sigma$ but unknown mean $\mu$, and if your prior on the mean $\mu$, has a normal distribution with self-elicited mean $\nu$ and self-elicited standard deviation $\tau$, then your posterior density for the mean, after seeing a sample of size $n$ with sample mean $\bar{x}$, is also normal. In mathematical notation, we have
 
@@ -152,7 +152,7 @@ x|\mu &\sim N(\mu,\sigma) \\
 \mu &\sim N(\nu, \tau)
 \end{align}$$
 
-As a practical matter, one often does not know sigma, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family. But there are cases in which it is reasonable to treat the $\sigma$ as known. 
+As a practical matter, one often does not know sigma, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family that we will describe in \@ref{sec:normal-gamma}. But there are cases in which it is reasonable to treat the $\sigma$ as known. 
 
 ```{example, label="chemist"}
 An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.

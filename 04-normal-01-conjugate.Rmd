@@ -1,0 +1,122 @@
+## Inference for Normal Mean with Unknown Variance {#sec:normal-gamma}
+
+
+In \@ref(sec:normal-normal) we described the normal-normal conjugate  family for inference about an unknown mean $\mu$ with a known standard deviation $\sigma$ when the data were assumed to be a random sample from a normal population. In this section we will introduce the normal-gamma conjugate family for the common situation when $\sigma$ is unknown.
+
+
+The conjugate prior for $\mu$ given $\sigma$ is normal
+
+with hyper-parameters
+the prior mean m not and a prior variance that we will represent as a
+multiple of sigma^2.  The hyper-parameter n_0 may be interpreted as a
+prior sample size.  As sigma is unknown, a Bayesian would use a prior
+distribution to describe the uncertainty about the variance before
+seeing data.  Since the variance is non-negative, continuous, and with
+no upper limit, you might guess that a gamma distribution would be a
+candidate for a  conjugate
+prior for the variance.
+
+That is close, but it turns out that the inverse of the variance,
+which is known as the precision (or phi), has a conjugate prior that
+is a gamma distribution with prior degrees of freedom v_0 and  prior
+variance s^2_0.  
+
+Equivalently we may say that the inverse of the variance has a gamma
+distribution.  
+
+Recall that a conjugate family is a pair of distributions for the data
+and prior distributions for the parameters such that the posterior
+distribution of the parameters is in the same family as the prior
+distribution.  Together the mean and precision have what we call a
+Normal Gamma family of distributions with 4 hyper-parameters.
+
+As a conjugate prior for a sample from a  normal distribution,
+
+the posterior is also Normal-Gamma where the subscript n on the
+hyper-parameters indicates updating after seeing the n observations.
+
+the updated hyperparameters for the posterior distribution of mu are
+the posterior mean which is a weighted average of the sample mean and
+prior mean. The posterior sample size is the sum of the prior sample
+size parameter and the sample size n.
+
+The degrees of freedom are also increased by the sample size n.
+
+The posterior variance parameter combines three sources of information
+about sigma in terms of sums of squared deviations.  The first term in
+the square brackets is the sample variance times the sample degrees of
+freedom which is the sample sum of squares. The second term represents
+the prior sum of squares, while the third term is based on the squared
+difference of the sample mean and prior mean.  We then divide by the
+posterior degrees of freedom to get the new variance.
+
+
+The joint  normal gamma distribution for mu and phi
+
+is equivalent to a hierarchical model with mu given sigma having a conditional normal distribution
+
+and the inverse variance having a marginal  gamma distribution.
+
+Since we are interested in inference about mu unconditionally, we need
+the marginal distribution of mu that averages over the uncertainty in
+sigma.  One can show by integration that the marginal distribution for
+mu is a Student t distribution with the degrees of freedom v_n, a
+location parameter m_n and squared scale parameter that is the
+posterior variance parameter divided by the posterior sample size. 
+**
+standardizing mu by subtracting the location and dividing by the scale
+yields a standard t distribution with degrees of freedom v_n, location
+0 and scale 1.  The latter representation allows us to use standard
+statistical functions for posterior inference.
+
+Let's look at an example based on a sample of total trihalomethanes or
+TTHM in tapwater from a city in NC. Using prior information about TTHM
+from the city, I will use a Normal-Gamma prior distribution with
+prior mean of 35 parts per billion based on a prior sample size of
+twenty-five and an estimate of the variance of one hundred fifty-six
+point two five with degrees of freedom twenty-four.  In a later video,
+we will describe how we arrived at these values.
+
+Using the sample mean of 55.5 and the sample variance five hundred
+forty point seven from the sample of size 28 we obtain the following
+update the hyper-parameters
+
+(pause)
+
+providing the normal-gamma posterior that summarizes our posterior
+uncertainty after seeing the data.
+
+To find a credible interval for the mean, we use the Student t
+distribution.  Since the distribution of mu is unimodal and symmetric,
+the shortest 95 percent credible interval or the Highest Posterior
+Density interval, HPD for short, is the orange interval given by the
+Lower endpoint L and upper endpoint U where the probability that mu is
+in the interval (L, U) is the shaded area which is equal to zero point
+nine five.
+
+using the standardized t distribution and some algebra, these values are
+based on the quantiles of the standard t distribution times the scale
+plus the posterior mean and should look familiar to expressions
+for confidence intervals from frequentist statistics.
+
+The following code illustrates using R to calculate the 95 percent
+credible interval using quantiles from the standard t distribution.
+The tap water data are available from the statsr package.
+
+Based on the updated posterior, we find that there is a 95 chance that
+the mean TTHM concentration is between 39.9 parts per billion and 51.8
+parts per billion.
+
+
+To recap, we introduced the normal -gamma conjugate prior for
+inference about an unknown mean and variance for samples from a normal
+distribution. 
+
+We described how the joint normal-gamma distribution leads to the
+student t distribution for inference about mu when sigma is unknown,
+
+and showed how to obtain credible intervals for mu  using R.
+
+
+next, we will introduce Monte Carlo sampling to explore prior and posterior
+distributions in more detail. 
