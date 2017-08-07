@@ -56,7 +56,19 @@ The reason for this frequentist wording is that a frequentist may not express hi
 
 On the other hand, Bayesians have no such qualms. It is fine for us to say that **"the probability that the true mean is contained within a given interval is 0.95"**. To distinguish our intervals from confidence intervals, we call them **credible intervals**.
 
-Recall the RU-486 example. 
+Recall the RU-486 example. When the analyst used the beta-binomial family, she took the prior as $p \sim \text{beta}(1,1)$, the uniform distribution, where $p$ is the probability of a child having a mother who received RU-486. 
+
+After we observed four children born to mothers who received conventional therapy, her posterior is $p|x \sim \text{beta}(1,5)$. 
+
+```{r, fig.cap="RU-486 Posterior"}
+x.vector = seq(from=0, to=1, by=0.001)
+y.vector = dbeta(x.vector,1,5)
+
+plot(x.vector, y.vector, type="l", main="Beta(1,5)", xlab="x", ylab="Density")
+```
+
+
+
 
 
 
