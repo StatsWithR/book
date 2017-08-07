@@ -1,8 +1,3 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
 ## Inference for Normal Mean with Unknown Variance {#sec:normal-gamma}
 
 
@@ -73,7 +68,7 @@ posterior degrees of freedom to get the new variance.
 
 
 
-The joint  Normal-Gamma distribution for $\mu$ and $\phi$, $(\mu, \phi) \mid \data \sim \textsf{NormalGamma}(m_n, n_n, s^2_n, v_n)$
+The joint  Normal-Gamma distribution for $\mu$ and $\phi$, $(\mu, \phi) \mid \data \sim \NoGa(m_n, n_n, s^2_n, v_n)$
 is equivalent to a hierarchical model with $\mu$ given $\sigma$ having a conditional normal distribution 
 $$\begin{aligned}
 \mu \mid \data, \sigma^2  &\sim  \No(m_n, \sigma^2/n_n)  \\

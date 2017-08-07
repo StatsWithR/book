@@ -58,18 +58,27 @@ On the other hand, Bayesians have no such qualms. It is fine for us to say that 
 
 Recall the RU-486 example. When the analyst used the beta-binomial family, she took the prior as $p \sim \text{beta}(1,1)$, the uniform distribution, where $p$ is the probability of a child having a mother who received RU-486. 
 
-After we observed four children born to mothers who received conventional therapy, her posterior is $p|x \sim \text{beta}(1,5)$. 
+After we observed four children born to mothers who received conventional therapy, her posterior is $p|x \sim \text{beta}(1,5)$. In Figure \@ref(fig:posterior), the posterior probability density for $\text{beta}(1,5)$ puts a lot of probability near zero and very little probability near one.
 
-```{r, fig.cap="RU-486 Posterior"}
+```{r posterior, fig.cap="RU-486 Posterior",echo=FALSE}
 x.vector = seq(from=0, to=1, by=0.001)
 y.vector = dbeta(x.vector,1,5)
 
 plot(x.vector, y.vector, type="l", main="Beta(1,5)", xlab="x", ylab="Density")
 ```
 
+For the Bayesian, her 95% credible interval is just any $L$ and $U$ such that the posterior probability that $L < p < U$ is $0.95$. The shortest such interval is obviously preferable. 
 
+To find this interval, the Bayesian looks at the area under the $\text{beta}(1,5)$ distribution, that lies to the left of a value x. 
 
+The density of the $\text{beta}(1,5)$ is 
+$$f(p) = 5 (1-p)^4 \text{ for } 0 \leq p \leq 1,$$
 
+and the area under the density between $0$ and $x$ is
+$$F(x) = 1 - (1-x)^5 \text{ for } 0 \leq p \leq 1.$$
 
+The Bayesian can use this to find $L, U$ with area 0.95 under the density curve between them, i.e. $F(U) − F(L) = 0.95$. Note that the Bayesian credible interval is asymmetric, unlike the symmetric confidence intervals that frequentists often obtain. It turns out that $L = 0$ and $U = 0.45$ is the shortest interval with probability 0.95 of containing $p$. 
+
+What have we done? We have seen the difference in interpretations between the frequentist confidence interval and the Bayesian credible interval. Also, we have seen the general form of a credible interval. Finally, we have done a practical example constructing a 95% credible interval for the RU-486 data set. 
 
 ### Predictive Inference

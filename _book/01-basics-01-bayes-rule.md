@@ -90,13 +90,15 @@ Also relevant to our question is the prevalence of HIV in the overall population
 Note that the above numbers are estimates. For our purposes, however, we will treat them as if they were exact.
 
 Our goal is to compute the probability of HIV if ELISA is positive, that is $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$. In none of the above numbers did we condition on the outcome of ELISA. Fortunately, Bayes' rule allows is to use the above numbers to compute the probability we seek. Bayes' rule states that
+
 $$
-\begin{aligned}
-  P(\text{Person tested has HIV} \mid \text{ELISA is positive}) \\
-  = \frac{P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive})}{P(\text{ELISA is positive})}.
-\end{aligned}
+  \begin{aligned}
+  P(&\text{Person tested has HIV}  \mid \text{ELISA is positive}) \\
+   & = \frac{P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive})}{P(\text{ELISA is positive})}.
+\end{aligned}  
 (\#eq:HIVconditional)
 $$
+
 The can be derived as follows. For someone to test positive and be HIV positive, that person first needs to be HIV positive and then seconldy test positive. The probability of the first thing happening is $P(\text{HIV positive}) = 0.00148$. The probability of then testing positive is $P(\text{ELISA is positive} \mid \text{Person tested has HIV}) = 0.93$, the true positive rate. This yields for the numerator
 \begin{multline*}
   P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive}) \\
