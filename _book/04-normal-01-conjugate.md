@@ -13,10 +13,10 @@ In \@ref(sec:normal-normal) we described the normal-normal conjugate  family for
 Recall that a conjugate pair is a sampling model for the data and prior distribution for the unknown parameters such that the posterior distribution is in the same family of distributions as the prior distribution. 
 We will assume that the data are a random sample of size $n$ from a normal population with mean $\mu$ and variance $\sigma^2$; the following is a mathematical shorthand to represent this distribution assumption 
 
-\begin{equation}
-Y_1, \ldots Y_n \mathrel{\mathop{\sim}\limits^{\rm iid}}
+$$\begin{equation}
+Y_1, \ldots Y_n  \iid
 \textsf{N}(\mu, \sigma^2) 
-\end{equation}
+\end{equation}$$
 where  iid above the distributed as symbol '$\sim$'  indicates that each of the observations are **i**ndependent of the others (given $\mu$ and $\sigma^2$) and are **i**dentically **d**istributed.  As both $\mu$ and $\sigma^2$ unknown, we will need to specify a **joint** prior distribution to describe our prior uncertainty about them.
 
 ### Conjugate prior
@@ -72,12 +72,14 @@ difference of the sample mean and prior mean.  We then divide by the
 posterior degrees of freedom to get the new variance.
 
 
+
 The joint  Normal-Gamma distribution for $\mu$ and $\phi$, $(\mu, \phi) \mid \data \sim \textsf{NormalGamma}(m_n, n_n, s^2_n, v_n)$
 is equivalent to a hierarchical model with $\mu$ given $\sigma$ having a conditional normal distribution 
-\begin{align*}
+$$\begin{aligned}
 \mu \mid \data, \sigma^2  &\sim  \No(m_n, \sigma^2/n_n)  \\
 1/\sigma^2 \mid \data  & \sim   \Ga(v_n/2, s^2_n v_n/2) \pause
-\end{align*}
+\end{aligned}
+$$
 and the inverse variance having a marginal  gamma distribution.
 
 ### Marginal Distribution for $\mu$
@@ -85,11 +87,16 @@ Since we are interested in inference about mu unconditionally, we need
 the marginal distribution of mu that averages over the uncertainty in
 $\sigma$.  One can show by integration that the marginal distribution for
 $\mu$ is a Student t distribution
-$$ \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n) \pause
- \Leftrightarrow  t = \frac{\mu - m_n}{s_n/\sqrt{n_n}} \sim \St(v_n, 0 , 1)$$  with density
-$$p(t) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
-%{\sqrt{\pi v_n} \Gamma\left(\frac{v_n}{2} \right)}
-%\left(1 + \frac{1}{v_n}\frac{(\mu - m_n)^2} {s^2_n/n_n} \right)^{-\frac{v_n+1}{2}}$$
+$$\begin{aligned} \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n) \pause
+ \Leftrightarrow  t = \frac{\mu - m_n}{s_n/\sqrt{n_n}} \sim \St(v_n, 0 , 1)
+ \end{aligned}
+$$  with density
+$$
+\begin{aligned}
+p(t) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
+{\sqrt{\pi v_n} \Gamma\left(\frac{v_n}{2} \right)}
+\left(1 + \frac{1}{v_n}\frac{(\mu - m_n)^2} {s^2_n/n_n} \right)^{-\frac{v_n+1}{2}}
+\end{aligned}$$
 with the degrees of freedom $v_n$, a
 location parameter $m_n$ and squared scale parameter that is the
 posterior variance parameter divided by the posterior sample size. 
@@ -125,4 +132,55 @@ update the hyper-parameters
 
 
 
+```r
+m_0 = 35; n_0 = 25; s2_0 = 156.25; v_0 = n_0 - 1
 
+Y = tapwater$tthm
+ybar = mean(Y)
+s2 = var(Y)
+n = length(Y)
+n_n = n_0 + n
+m_n = (n*ybar + n_0*m_0)/n_n
+v_n = v_0 + n
+s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
+```
+Prior $\textsf{NormalGamma}(35, 25, \Sexpr{s2_0}, \Sexpr{v_0})$ 
+
+Data  $\bar{Y} = \Sexpr{ybar}$, $s^2 = \Sexpr{s2}$, $n = \Sexpr{n}$
+providing the normal-gamma posterior that summarizes our posterior
+uncertainty after seeing the data.
+
+To find a credible interval for the mean, we use the Student t
+distribution.  Since the distribution of mu is unimodal and symmetric,
+the shortest 95 percent credible interval or the Highest Posterior
+Density interval, HPD for short, is the orange interval given by the
+Lower endpoint L and upper endpoint U where the probability that mu is
+in the interval (L, U) is the shaded area which is equal to zero point
+nine five.
+
+using the standardized t distribution and some algebra, these values are
+based on the quantiles of the standard t distribution times the scale
+plus the posterior mean and should look familiar to expressions
+for confidence intervals from frequentist statistics.
+
+The following code illustrates using R to calculate the 95 percent
+credible interval using quantiles from the standard t distribution.
+The tap water data are available from the statsr package.
+
+Based on the updated posterior, we find that there is a 95 chance that
+the mean TTHM concentration is between 39.9 parts per billion and 51.8
+parts per billion.
+
+
+To recap, we introduced the normal -gamma conjugate prior for
+inference about an unknown mean and variance for samples from a normal
+distribution. 
+
+We described how the joint normal-gamma distribution leads to the
+student t distribution for inference about mu when sigma is unknown,
+
+and showed how to obtain credible intervals for mu  using R.
+
+
+next, we will introduce Monte Carlo sampling to explore prior and posterior
+distributions in more detail. 
