@@ -14,14 +14,16 @@ github-repo: StatsWithR/book
 cover-image: cover.png
 url: 'http\://www.coursera.org/learn/bayesian/home/info/'
 ---
+# Welcome {-}
+
 \newcommand{\No}{\textsf{N}}
 \newcommand{\Ga}{\textsf{Gamma}}
 \newcommand{\St}{\textsf{t}}
-\def\NG{\textsf{NormalGamma}}
-\def\B{\textit{BF}}
-\def\n0{n_0}
+\newcommand{\NoGa}{\textsf{NormalGamma}}
+\newcommand{\B}{\textit{BF}}
+\newcommand{\n0}{\ensuremath{n_0}}
 \newcommand{\data}{\text{data}}
 \newcommand{\iid}{\mathrel{\mathop{\sim}\limits^{\rm iid}}}
-# Welcome {-}
+
 
 This book is a written companion for the Coursera Course 'Bayesian Statistics' from the Statistics with R specialization. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided.
