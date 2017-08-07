@@ -152,11 +152,11 @@ In the beta-binomial case, we have $P(x|p)=\text{Bin}(n,p)$ and $\pi(p)=\text{be
 
 Plugging in these distributions, we get
 
-$$\begin{align}
+$$\begin{aligned}
 \pi^*(p|x) &= \frac{1}{\text{some number}} \times P(x|p)\pi(p) \\
 &= \frac{1}{\text{some number}} [\left( \begin{array}{c} n \\ x \end{array} \right) p^x (1-p)^{n-x}] [\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{\alpha-1} (1-p)^{\beta-1}] \\
 &= \frac{\Gamma(\alpha+\beta+n)}{\Gamma(\alpha+x)\Gamma(\beta+n-x)} \times p^{\alpha+x-1} (1-p)^{\beta+n-x-1}
-\end{align}$$
+\end{aligned}$$
 
 Let $\alpha^* = \alpha + x$ and $\beta^* = \beta+n-x$, and we get
 

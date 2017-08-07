@@ -40,17 +40,17 @@ The Bayesian inference works differently as below.
 
 * Likelihood:
 
-$$\begin{align}
+$$\begin{aligned}
 P(k=1 | H_1) &= \left( \begin{array}{c} 5 \\ 1 \end{array} \right) \times 0.10 \times 0.90^4 \approx 0.33 \\
 P(k=1 | H_2) &= \left( \begin{array}{c} 5 \\ 1 \end{array} \right) \times 0.20 \times 0.80^4 \approx 0.41
-\end{align}$$
+\end{aligned}$$
 
 * Posterior
 
-$$\begin{align}
+$$\begin{aligned}
 P(H_1 | k=1) &= \frac{P(H_1)P(k=1 | H_1)}{P(k=1)} = \frac{0.5 \times 0.33}{0.5 \times 0.33 + 0.5 \times 0.41} \approx 0.45 \\
 P(H_2 | k=1) &= 1 - 0.45 = 0.55
-\end{align}$$
+\end{aligned}$$
 
 The posterior probabilities of whether $H_1$ or $H_2$ is correct are close to each other. As a result, with equal priors and a low sample size, it is difficult to make a decision with a strong confidence, given the observed data. However, $H_2$ has a higher posterior probability than $H_1$, so if we had to make a decision at this point, we should pick $H_2$, i.e., the proportion of yellow M&Ms is 20%. Note that this decision contradicts with the decision based on the frequentist approach. 
 
