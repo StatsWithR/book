@@ -108,10 +108,10 @@ In the supplementary material, we go with the $k$-$\theta$ parameterization, but
 
 For our parameterization, the mean of $\text{Gamma}(k,\theta)$ is $k\theta$, and the variance is $k\theta^2$. We can get the general's prior as below:
 
-$$\begin{align}
+$$\begin{aligned}
 \text{Mean} &= k\theta = 0.75 \\
 \text{Standard deviation} &= \theta\sqrt{k} = 1
-\end{align}$$
+\end{aligned}$$
 
 Hence
 $$k = \frac{9}{16} \text{ and } \theta = \frac{4}{3}$$
@@ -122,10 +122,10 @@ $$k^* = k + \sum^n_{i=1} x_i \text{ and } \theta^* = \frac{\theta}{(n\theta+1)}.
 
 For this dataset, $N = 15 \times 20 = 300$ observations, and the number of casualities is 200. Therefore, the general now thinks that the average number of Prussian cavalry officers who die at the hoofs of their horses follows a gamma distribution with the parameters below:
 
-$$\begin{align}
+$$\begin{aligned}
 k^* &= k + \sum^n_{i=1} x_i = \frac{9}{16} + 200 = 200.5625 \\
 \theta^* = \frac{\theta}{(n\theta+1)} &= \frac{4/3}{300\times(4/3)} = 0.0033
-\end{align}$$
+\end{aligned}$$
 
 How the general has changed his mind is described in Table \@ref(tab:before-after). After seeing the data, his uncertainty about lambda, expressed as a standard deviation, shrunk from 1 to 0.047.
 
@@ -147,10 +147,10 @@ In summary, we learned about the Poisson and gamma distributions; we also knew t
 
 There are other conjugate families, and one is the normal-normal pair. If your data come from a normal distribution with known standard deviation $\sigma$ but unknown mean $\mu$, and if your prior on the mean $\mu$, has a normal distribution with self-elicited mean $\nu$ and self-elicited standard deviation $\tau$, then your posterior density for the mean, after seeing a sample of size $n$ with sample mean $\bar{x}$, is also normal. In mathematical notation, we have
 
-$$\begin{align}
+$$\begin{aligned}
 x|\mu &\sim N(\mu,\sigma) \\
 \mu &\sim N(\nu, \tau)
-\end{align}$$
+\end{aligned}$$
 
 As a practical matter, one often does not know sigma, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family that we will describe in \@ref(sec:normal-gamma). But there are cases in which it is reasonable to treat the $\sigma$ as known. 
 
@@ -182,11 +182,11 @@ Now she collects five measurements on the sample and finds that the average of t
 
 The new mean of that posterior normal is found by plugging into the formula:
 
-$$\begin{align}
+$$\begin{aligned}
 \mu &\sim N(\nu=10, \tau=2) \\
 \nu^*  &= \frac{\nu\sigma^2 + n\bar{x}\tau^2}{\sigma^2 + n\tau^2} = \frac{10\times(0.2)^2+5\times10.5\times2^2}{(0.2)^2+5\times2^2} = 10.499\\
 \tau^* &= \sqrt{\frac{\sigma^2\tau^2}{\sigma^2 + n\tau^2}} = \sqrt{(0.2)^2\times2^2}{(0.2)^2+5\times2^2} = 0.089.
-\end{align}$$
+\end{aligned}$$
 
 Before seeing the data, the Bayesian analytical chemist thinks the ammonium nitrate has mass 10 mg and uncertainty (standard deviation) 2 mg. After seeing the data, she thinks the mass is 10.499 mg and standard deviation 0.089 mg. Her posterior mean has shifted quite a bit and her uncertainty has dropped by a lot. That's exactly what an analytical chemist wants. 
 

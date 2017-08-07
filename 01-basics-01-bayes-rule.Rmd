@@ -1,6 +1,8 @@
 ## Bayes' Rule
 
-### Conditional Probabilities & Bayes' Rule {#bayes-rule}
+NEED INTRO TEXT OTHERWISE LABEL MULTIPLIED DEFINED IN LATEX/PDF
+
+### Conditional Probabilities & Bayes' Rule {#sec:bayes-rule}
 
 Consider Table \@ref(tab:2015gallupDating).
 It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities.
@@ -37,7 +39,7 @@ We can rewrite this conditional probability in terms of 'regular' probabilities 
 \begin{split}
 	&= \frac{\text{Number in age group 30-49 that indicated they used an online dating site}}{\text{Total number in age group 30-49}} \\
 	&= \frac{\frac{\text{Number in age group 30-49 that indicated they used an online dating site}}{\text{Total number of people in the poll}}}{\frac{\text{Total number in age group 30-49}}{\text{Total number of people in the poll}}} \\
-	&= \frac{P(\text{using an online dating site & falling in age group 30-49})}{P(\text{Falling in age group 30-49})}.
+	&= \frac{P(\text{using an online dating site \& falling in age group 30-49})}{P(\text{Falling in age group 30-49})}.
 \end{split}
 \end{multline*}
 It turns out this relationship holds true for any conditional probability and is known as Bayes' rule:
@@ -60,7 +62,7 @@ Bayes' rule provides a way to compute this conditional probability:
 \begin{multline*}
 	P(\text{using an online dating site} \mid \text{in age group 18-29}) \\
 \begin{split}
-	&= \frac{P(\text{using an online dating site & falling in age group 18-29})}{P(\text{Falling in age group 18-29})} \\
+	&= \frac{P(\text{using an online dating site \& falling in age group 18-29})}{P(\text{Falling in age group 18-29})} \\
 	&= \frac{\frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number of people in the poll}}}{\frac{\text{Total number in age group 18-29}}{\text{Total number of people in the poll}}} \\
 	&= \frac{\text{Number in age group 18-29 that indicated they used an online dating site}}{\text{Total number in age group 18-29}} = \frac{60}{315} \approx 19\%.
 \end{split}
@@ -95,11 +97,13 @@ Also relevant to our question is the prevalence of HIV in the overall population
 Note that the above numbers are estimates. For our purposes, however, we will treat them as if they were exact.
 
 Our goal is to compute the probability of HIV if ELISA is positive, that is $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$. In none of the above numbers did we condition on the outcome of ELISA. Fortunately, Bayes' rule allows is to use the above numbers to compute the probability we seek. Bayes' rule states that
-\begin{multline*}
+$$
+\begin{aligned}
   P(\text{Person tested has HIV} \mid \text{ELISA is positive}) \\
   = \frac{P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive})}{P(\text{ELISA is positive})}.
-  (\#eq:HIVconditional)
-\end{multline*}
+\end{aligned}
+(\#eq:HIVconditional)
+$$
 The can be derived as follows. For someone to test positive and be HIV positive, that person first needs to be HIV positive and then seconldy test positive. The probability of the first thing happening is $P(\text{HIV positive}) = 0.00148$. The probability of then testing positive is $P(\text{ELISA is positive} \mid \text{Person tested has HIV}) = 0.93$, the true positive rate. This yields for the numerator
 \begin{multline*}
   P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive}) \\
@@ -110,7 +114,7 @@ The can be derived as follows. For someone to test positive and be HIV positive,
   \end{split}
   (\#eq:HIVjoint)
 \end{multline*}
-The first step in the above equation is implied by Bayes' rule: By multiplying the left- and right-hand side of Bayes' rule as presented in Section \@ref(bayes-rule) by $P(B)$, we obtain
+The first step in the above equation is implied by Bayes' rule: By multiplying the left- and right-hand side of Bayes' rule as presented in Section \@ref(sec:bayes-rule) by $P(B)$, we obtain
 \[
   P(A \mid B) P(B) = P(A \,\&\, B).
 \]
@@ -125,12 +129,12 @@ The denominator in \@ref(eq:HIVconditional) can be expanded as
   \end{split}
 \end{multline*}
 where we used \@ref(eq:HIVjoint) and
-\begin{multine*}
+\begin{multline*}
   P(\text{Person tested has no HIV} \,\&\, \text{ELISA is positive}) \\
   = P(\text{Person tested has no HIV}) P(\text{ELISA is positive} \mid \text{Person tested has no HIV})
   = \left(1 - P(\text{Person tested has HIV})\right) \cdot \left(1 - P(\text{ELISA is negative} \mid \text{Person tested has no HIV})\right)
   = \left(1 - 0.00148\right) \cdot \left(1 - 0.99\right) = 0.0099852.
-\end{multine*}
+\end{multline*}
 
 Putting this all together and inserting into \@ref(eq:HIVconditional) reveals
 \begin{equation}
