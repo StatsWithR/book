@@ -1,5 +1,7 @@
 ## Continuous Variables and Eliciting Probability Distributions
 
+Missing: Continuous random variable's pdf plot in 2.1.1
+
 ### From the Discrete to the Continuous
 
 This section leads the reader from the discrete random variable to continuous random variables. Let's start with the binomial random variable such as the number of heads in ten coin tosses, can only take a discrete number of values -- 0, 1, 2, up to 10.
