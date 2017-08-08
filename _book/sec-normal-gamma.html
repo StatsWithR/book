@@ -233,7 +233,7 @@ s^2_n &amp; =  &amp; \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n
 <p>The posterior variance hyper-parameter <span class="math inline">\(s^2_n\)</span> combines three sources of information about <span class="math inline">\(\sigma\)</span> in terms of sums of squared deviations. The first term in the square brackets is the sample variance times the sample degrees of freedom which is the sample sum of squares. The second term represents the prior sum of squares, while the third term is based on the squared difference of the sample mean and prior mean. We then divide by the posterior degrees of freedom to get the new variance.</p>
 <p>The joint Normal-Gamma distribution for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span>, <span class="math inline">\((\mu, \phi) \mid {\text{data}}\sim {\textsf{NormalGamma}}(m_n, n_n, s^2_n, v_n)\)</span> is equivalent to a hierarchical model with <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma\)</span> having a conditional normal distribution <span class="math display">\[\begin{aligned}
 \mu \mid {\text{data}}, \sigma^2  &amp;\sim  {\textsf{N}}(m_n, \sigma^2/n_n)  \\
-1/\sigma^2 \mid {\text{data}}&amp; \sim   {\textsf{Gamma}}(v_n/2, s^2_n v_n/2) \pause
+1/\sigma^2 \mid {\text{data}}&amp; \sim   {\textsf{Gamma}}(v_n/2, s^2_n v_n/2) 
 \end{aligned}
 \]</span> and the inverse variance having a marginal gamma distribution.</p>
 </div>
@@ -264,9 +264,23 @@ n_n =<span class="st"> </span>n_0 +<span class="st"> </span>n
 m_n =<span class="st"> </span>(n*ybar +<span class="st"> </span>n_0*m_0)/n_n
 v_n =<span class="st"> </span>v_0 +<span class="st"> </span>n
 s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)*s2 +<span class="st"> </span>v_0*s2_0 +<span class="st"> </span>n_0*n*(m_0 -<span class="st"> </span>ybar)^<span class="dv">2</span>/n_n)/v_n</code></pre></div>
-<p>Prior <span class="math inline">\(\textsf{NormalGamma}(35, 25, \Sexpr{s2_0}, \Sexpr{v_0})\)</span></p>
-<p>Data <span class="math inline">\(\bar{Y} = \Sexpr{ybar}\)</span>, <span class="math inline">\(s^2 = \Sexpr{s2}\)</span>, <span class="math inline">\(n = \Sexpr{n}\)</span> providing the normal-gamma posterior that summarizes our posterior uncertainty after seeing the data.</p>
-<p>To find a credible interval for the mean, we use the Student t distribution. Since the distribution of mu is unimodal and symmetric, the shortest 95 percent credible interval or the Highest Posterior Density interval, HPD for short, is the orange interval given by the Lower endpoint L and upper endpoint U where the probability that mu is in the interval (L, U) is the shaded area which is equal to zero point nine five.</p>
+<p>Prior <span class="math inline">\(\textsf{NormalGamma}(35, 25, 156.25, 24)\)</span></p>
+<p>Data <span class="math inline">\(\bar{Y} = 55.5239286\)</span>, <span class="math inline">\(s^2 = 540.7478692\)</span>, <span class="math inline">\(n = 28\)</span></p>
+<span class="math display">\[\begin{eqnarray*}
+n_n &amp; = &amp;  25 +  28 = 53\\
+m_n  &amp; = &amp; \frac{28 \times55.5239286 + 25 \times35}{53} = 45.8428302  \\
+v_n &amp; = &amp; 24 + 28 = 52  \\
+s^2_n &amp; = &amp; \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }{v_n}  \\
+  &amp; = &amp; \frac{1}{52}
+     \left[27 \times 540.7478692 +
+          24 \times 156.25  +
+          \frac{25 \times 28}{53} \times (35 - 55.5239286)^2
+\right] = 459.9  \\
+\end{eqnarray*}\]</span>
+<p>Posterior <span class="math inline">\(\textsf{NormalGamma}(45.8428302, 53, 459.8774861, 52)\)</span> providing the normal-gamma posterior that summarizes our posterior uncertainty after seeing the data.</p>
+<p>To find a credible interval for the mean, we use the Student t distribution. Since the distribution of mu is unimodal and symmetric, the shortest 95 percent credible interval or the Highest Posterior Density interval, HPD for short,</p>
+<p><img src="04-normal-01-conjugate_files/figure-html/tapwater-post-mu-1.png" width="384" /></p>
+<p>is the orange interval given by the Lower endpoint L and upper endpoint U where the probability that mu is in the interval (L, U) is the shaded area which is equal to zero point nine five.</p>
 <p>using the standardized t distribution and some algebra, these values are based on the quantiles of the standard t distribution times the scale plus the posterior mean and should look familiar to expressions for confidence intervals from frequentist statistics.</p>
 <p>The following code illustrates using R to calculate the 95 percent credible interval using quantiles from the standard t distribution. The tap water data are available from the statsr package.</p>
 <p>Based on the updated posterior, we find that there is a 95 chance that the mean TTHM concentration is between 39.9 parts per billion and 51.8 parts per billion.</p>

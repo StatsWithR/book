@@ -72,7 +72,7 @@ The joint  Normal-Gamma distribution for $\mu$ and $\phi$, $(\mu, \phi) \mid \da
 is equivalent to a hierarchical model with $\mu$ given $\sigma$ having a conditional normal distribution 
 $$\begin{aligned}
 \mu \mid \data, \sigma^2  &\sim  \No(m_n, \sigma^2/n_n)  \\
-1/\sigma^2 \mid \data  & \sim   \Ga(v_n/2, s^2_n v_n/2) \pause
+1/\sigma^2 \mid \data  & \sim   \Ga(v_n/2, s^2_n v_n/2) 
 \end{aligned}
 $$
 and the inverse variance having a marginal  gamma distribution.
@@ -139,16 +139,34 @@ m_n = (n*ybar + n_0*m_0)/n_n
 v_n = v_0 + n
 s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
 ```
-Prior $\textsf{NormalGamma}(35, 25, \Sexpr{s2_0}, \Sexpr{v_0})$ 
+Prior $\textsf{NormalGamma}(35, 25, 156.25, 24)$ 
 
-Data  $\bar{Y} = \Sexpr{ybar}$, $s^2 = \Sexpr{s2}$, $n = \Sexpr{n}$
+Data  $\bar{Y} = 55.5239286$, $s^2 = 540.7478692$, $n = 28$
+
+\begin{eqnarray*}
+n_n & = &  25 +  28 = 53\\
+m_n  & = & \frac{28 \times55.5239286 + 25 \times35}{53} = 45.8428302  \\
+v_n & = & 24 + 28 = 52  \\
+s^2_n & = & \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }{v_n}  \\
+  & = & \frac{1}{52}
+     \left[27 \times 540.7478692 +
+          24 \times 156.25  +
+          \frac{25 \times 28}{53} \times (35 - 55.5239286)^2
+\right] = 459.9  \\
+\end{eqnarray*}
+Posterior $\textsf{NormalGamma}(45.8428302, 53, 459.8774861, 52)$
 providing the normal-gamma posterior that summarizes our posterior
 uncertainty after seeing the data.
 
 To find a credible interval for the mean, we use the Student t
 distribution.  Since the distribution of mu is unimodal and symmetric,
 the shortest 95 percent credible interval or the Highest Posterior
-Density interval, HPD for short, is the orange interval given by the
+Density interval, HPD for short,
+
+
+<img src="04-normal-01-conjugate_files/figure-html/tapwater-post-mu-1.png" width="384" />
+
+is the orange interval given by the
 Lower endpoint L and upper endpoint U where the probability that mu is
 in the interval (L, U) is the shaded area which is equal to zero point
 nine five.
@@ -161,6 +179,7 @@ for confidence intervals from frequentist statistics.
 The following code illustrates using R to calculate the 95 percent
 credible interval using quantiles from the standard t distribution.
 The tap water data are available from the statsr package.
+
 
 Based on the updated posterior, we find that there is a 95 chance that
 the mean TTHM concentration is between 39.9 parts per billion and 51.8

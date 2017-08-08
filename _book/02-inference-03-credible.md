@@ -80,3 +80,38 @@ The Bayesian can use this to find $L, U$ with area 0.95 under the density curve 
 What have we done? We have seen the difference in interpretations between the frequentist confidence interval and the Bayesian credible interval. Also, we have seen the general form of a credible interval. Finally, we have done a practical example constructing a 95% credible interval for the RU-486 data set. 
 
 ### Predictive Inference
+
+Predictive inference arises when the goal is not to find a posterior distribution over some parameter, but rather to find a posterior distribution over some random variable depends on the parameter.
+
+Specifically, we want to make an inference on a random variable $X$ with probability densifity function $f(x|\theta)$, where you have some personal probability distribution $\pi(\theta)$ for the $\theta$.
+
+To solve this, one needs to integrate:
+$$P(X \leq x) = \int^{\infty}_{-\infty} P(X \leq x | \theta)\pi(\theta)d\theta$$
+
+The equation gives us the weighted average of the probabilities for $X$, where the weights correspond to the personal probability on $\theta$. But we won't do an integral; instead, we will illustrate the thinking with a trivial example. 
+
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-1"><strong>(\#ex:unnamed-chunk-1)</strong></span>Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 
+
+Before you start the game, your prior belief is that the probability of choosing the 0.7 coin is 0.5. This is reasonable, because both coins were equally likely to be drawn. In this game, you win if the coin comes up heads. 
+
+Suppose the game starts, you have tossed twice, and have obtained two heads. Then what is your new belief about $p$, the probability that you are using the 0.7 coin? </div>\EndKnitrBlock{example}
+
+This is just a simple application of the discrete form of Bayes' rule. 
+
+* Prior: $p=0.5$
+* Posterior: 
+$$p^* = \frac{P(\text{2 heads}|0.7) \times 0.5}{P(\text{2 heads}|0.7) \times 0.5 + P(\text{2 heads}|0.4) \times 0.5} = 0.754.$$
+
+However, this does not answer the important question -- What is the predictive probability that the next toss will come up heads? This is of interest because you are gambling on getting heads.
+
+Fortunately, the predictive probablity of getting heads is not difficult to calculate:
+
+* $p^* \text{ of 0.7 coin } = 0.754$
+* $p^* \text{ of 0.4 coin } = 1 − 0.754 = 0.246$
+* $P(\text{heads}) = P(\text{heads} | 0.7) \times 0.754 + P(\text{heads} | 0.4) \times 0.246 = 0.626$
+
+Therefore, the predictive probability that the next toss will come up heads is 0.626.
+
+Note that most realistic predictive inference problems are more complicated and require one to use integrals. For example, one might want to know the chance that a fifth child born in the RU-486 clinical trial will have a mother who received RU-486. Or you might want to know the probability that your stock broker's next recommendation will be profitable. 
+
+We have learned three things in this section. First, often the real goal is **a prediction about the value of a future random variable**, rather than making an estimate of a parameter. Second, these are deep waters, and often one needs to integrate. Finally, in certain simple cases where the parameter can only take discrete values, one can find a solution without integration. In our example, the parameter could only take two values to indicate which of the two coins was being used.
