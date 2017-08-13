@@ -1,9 +1,2 @@
 # Introduction to Losses and Decision-making
 
-## Losses and Decision Making 03-01
-
-## Working with Loss Functions 03-02
-
-## Minimizing Expectated Loss for Hypothesis Testing 03-03
-
-## Posterior Probabilities of Hypotheses and Bayes Factors 03-04
