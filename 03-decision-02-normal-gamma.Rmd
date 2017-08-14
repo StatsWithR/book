@@ -2,12 +2,12 @@
 
 This section is focused on the extending the Normal-Normal conjugate family introduced in \@ref(sec:normal-normal) to the problem of inference in a Normal population with an unknown mean and variance.  We will introduce the Normal-Gamma conjugate family for inference about the unknown mean and variance and will present Monte Carlo simulation for inference about functions of the parameters as well as sampling from predictive distributions, which can assist with prior elucidation. For situations when limited prior information is available, we discuss a limiting case of the Normal-Gamma conjugate family, leading to priors that can be used for a reference analysis.  Finally, we will show how to create a more flexible and robust prior distribution by using  mixtures of the  Normal-Gamma conjugate prior.  For inference in this case we will introduce Markov Chain Monte carlo, a powerful simulation method for Bayesian inference.   
 
-It is assumed that the readers have mastered the concepts of one-parameter Normal-Normal conjugate priors. Calculus is not required for this chapter; however, for those who have that backgound and would like to go deeper, we shall present starred sections with more details on the derivations. 
+It is assumed that the readers have mastered the concepts of one-parameter Normal-Normal conjugate priors. Calculus is not required for this chapter; however, for those who are comfortable with calculus and would like to go deeper, we shall present starred sections with more details on the derivations. 
 
-### Inference for Normal Mean with Unknown Variance {#sec:normal-gamma}
+### Inference for a Normal Mean with Unknown Variance {#sec:normal-gamma}
 
 
-In \@ref(sec:normal-normal) we described the normal-normal conjugate  family for inference about an unknown mean $\mu$ with a known standard deviation $\sigma$ when the data were assumed to be a random sample from a normal population. In this section we will introduce the normal-gamma conjugate family for the common situation when $\sigma$ is unknown.
+In \@ref(sec:normal-normal) we described the normal-normal conjugate  family for inference about an unknown mean $\mu$ with a known standard deviation $\sigma$ when the data were assumed to be a random sample from a normal population. In this section we will introduce the normal-gamma conjugate family for the common situation when $\sigma$ is unknown.  As both $\mu$ and $\sigma^2$ unknown, we will need to specify a **joint** prior distribution to describe our prior uncertainty about them.
 
 **Sampling Model**
 
@@ -18,7 +18,7 @@ $$\begin{equation}
 Y_1, \ldots Y_n  \iid
 \textsf{N}(\mu, \sigma^2) 
 \end{equation}$$
-where  iid above the distributed as symbol '$\sim$'  indicates that each of the observations are **i**ndependent of the others (given $\mu$ and $\sigma^2$) and are **i**dentically **d**istributed.  As both $\mu$ and $\sigma^2$ unknown, we will need to specify a **joint** prior distribution to describe our prior uncertainty about them.
+where the  'iid' above the distributed as symbol '$\sim$'  indicates that each of the observations are **i**ndependent of the others (given $\mu$ and $\sigma^2$) and are **i**dentically **d**istributed. 
 
 **Conjugate prior**
 If you recall from \@ref(sec:normal-normal) the conjugate prior for $\mu$ with a known standard deviation $\sigma$ was a normal distribution.  We will build on this  to specify the conditional prior distribution for $\mu$ as 
@@ -26,10 +26,10 @@ If you recall from \@ref(sec:normal-normal) the conjugate prior for $\mu$ with a
 \mu \mid \sigma^2   \sim  \textsf{N}(m_0, \sigma^2/n_0)
 (\#eq:04-conjugate-normal)
 \end{equation}
-with hyper-parameters $m_0$, the prior mean for $\mu$, and $\sigma^2/n_0$ the prior variance.  While previously the variance was a known constant $\tau^2$, replacing $\tau^2$ with a multiple of $\sigma^2$ is necessary for the joint conjugate prior.   Because $\sigma$ has the same units as the data, the hyper-parameter $n_0$ is unitless, but is used to express our prior precision about $\mu$ with larger values of $n_0$ indicating more precision and smaller values less precision.  We will see later how the hyper-parameter $n_0$ may be interpreted as a prior sample size. 
+with hyper-parameters $m_0$, the prior mean for $\mu$, and $\sigma^2/n_0$ the prior variance.  While previously the variance was a known constant $\tau^2$, replacing $\tau^2$ with a multiple of $\sigma^2$ is needed for representing the joint conjugate prior for the mean and variance.   Because $\sigma$ has the same units as the data, the hyper-parameter $n_0$ is unitless, but is used to express our prior precision about $\mu$ with larger values of $n_0$ indicating more precision and smaller values less precision.  We will see later how the hyper-parameter $n_0$ may be interpreted as a prior sample size.  
 
 As $\sigma^2$ is unknown, a Bayesian would use a
-prior distribution to describe the uncertainty about the variance before seeing data.  Since the variance is non-negative, continuous, and with no upper limit, you might think that a gamma distribution would be a candidate for a  conjugate prior for the variance, based on the distributions that we have seen so far. That is close, but it turns out that it is actually the inverse of the variance, which is known as the precision, that has a conjugate gamma prior distribution.
+prior distribution to describe the uncertainty about the variance before seeing data.  Since the variance is non-negative, continuous, and with no upper limit,  a gamma distribution is a candidate  prior for the variance, based on the distributions that we have seen so far. However, that choice does not lead to a posterior distribution in the same family. It turns out that the the inverse of the variance, which is known as the precision, has a conjugate gamma prior distribution.
 Letting $\phi = 1/\sigma^2$ denote the precision or inverse variance,  the conjugate prior for $\phi$,
 \begin{equation}
 \phi \sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right)
@@ -38,35 +38,31 @@ Letting $\phi = 1/\sigma^2$ denote the precision or inverse variance,  the conju
 is a gamma distribution with prior degrees of freedom $v_0$ and prior variance $s^2_0$.  Equivalently we may say that the inverse of the variance has a 
 $$1/\sigma^2 \sim \textsf{Gamma}(v_0/2, s^2_0 v_0/2)$$
 
-gamma distribution.  Together the Normal conditional distribution for $\mu$ given $\sigma^2$ in \@ref(eq:04-conjugate-normal)  and the marginal Gamma distribution for $\phi$ in \@ref(eq:04-conjugate-gamma) leads to a joint distribution for the pair $(\mu, \phi)$ that we will call the Normal-Gamma family of distributions
+gamma distribution.  Together the Normal conditional distribution for $\mu$ given $\sigma^2$ in \@ref(eq:04-conjugate-normal)  and the marginal Gamma distribution for $\phi$ in \@ref(eq:04-conjugate-gamma) leads to a joint distribution for the pair $(\mu, \phi)$ that we will call the Normal-Gamma family of distributions:
 \begin{equation}(\mu, \phi) \sim \textsf{NormalGamma}(m_0, n_0, s^2_0, v_0)
 (\#eq:04-cojugate-normal-gamma)
 \end{equation}
-with four hyperparameters $m_0$, $n_0$, $s^2_0$, and $v_0$.
+with the four hyperparameters $m_0$, $n_0$, $s^2_0$, and $v_0$.
 
 **Posterior Distribution**
 
 As a conjugate family the posterior
-distribution of the parameters is in the same family as the prior distribution.  As a conjugate prior for a sample from a  normal distribution, the posterior is also Normal-Gamma 
+distribution of the pair of parameters ($\mu, \phi$) is in the same family as the prior distribution with sample data coming from a  normal distribution, that is the posterior is also Normal-Gamma 
 \begin{equation}
 (\mu, \phi) \mid \text{data} \sim \textsf{NormalGamma}(m_n, n_n, s^2_n, v_n)
 \end{equation}
 where the subscript $n$ on the
-hyper-parameters indicates the updated values after seeing the $n$ observations from the data:
+hyper-parameters indicates the updated values after seeing the $n$ observations from the data based on the following updating rules:
 \begin{eqnarray*}
 m_n & = & \frac{n \bar{Y} + n_0 m_0} {n + n_0}  \\
 & \\
 n_n & = & n_0 + n  \\
 v_n & = & v_0 + n  \\
-s^2_n & =  & \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n} (\bar{Y} - m_0)^2 \right] 
+s^2_n & =  & \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n} (\bar{Y} - m_0)^2 \right]. 
 \end{eqnarray*}
-The updated hyperparameter $m_n$ in the posterior distribution of $\mu$ is the posterior mean, which is a weighted average of the sample mean $\bar{Y}$ and prior mean $m_0$ with weights $n/(n + n_0$ and $n_0/(n + n_0)$ respectively.
+The updated hyperparameter $m_n$ in the posterior distribution of $\mu$ is the posterior mean, which is a weighted average of the sample mean $\bar{Y}$ and prior mean $m_0$ with weights $n/(n + n_0$ and $n_0/(n + n_0)$ respectively and does not depend on $\sigma^2$.
 The posterior sample size $n_n$ is the sum of the prior sample
-size $n_n$ and the sample size $n$, representing the combined precision of the estimate for $\mu$.  
-
-The posterior degrees of freedom $v_n$ are also increased by adding the  sample size $n$ to the prior degrees of freedom $v_0$.
-
-The posterior variance hyper-parameter $s^2_n$ combines three sources of information about $\sigma$ in terms of sums of squared deviations.  The first term in
+size $n_n$ and the sample size $n$, representing the combined precision of the estimate for $\mu$.  The posterior degrees of freedom $v_n$ are also increased by adding the  sample size $n$ to the prior degrees of freedom $v_0$. Finally, the posterior variance hyper-parameter $s^2_n$ combines three sources of information about $\sigma$ in terms of sums of squared deviations.  The first term in
 the square brackets is the sample variance times the sample degrees of
 freedom which is the sample sum of squares. The second term represents
 the prior sum of squares, while the third term is based on the squared
@@ -75,8 +71,10 @@ posterior degrees of freedom to get the new variance.
 
 
 
-The joint  Normal-Gamma distribution for $\mu$ and $\phi$, $(\mu, \phi) \mid \data \sim \NoGa(m_n, n_n, s^2_n, v_n)$
-is equivalent to a hierarchical model with $\mu$ given $\sigma$ having a conditional normal distribution 
+The joint  Normal-Gamma distribution for $\mu$ and
+$\phi$, $(\mu, \phi) \mid \data \sim \NoGa(m_n, n_n, s^2_n, v_n)$
+is equivalent to a hierarchical model with $\mu$ given $\sigma$
+having a conditional normal distribution 
 $$\begin{aligned}
 \mu \mid \data, \sigma^2  &\sim  \No(m_n, \sigma^2/n_n)  \\
 1/\sigma^2 \mid \data  & \sim   \Ga(v_n/2, s^2_n v_n/2) 
@@ -84,19 +82,21 @@ $$\begin{aligned}
 $$
 and the inverse variance having a marginal  gamma distribution.
 
-#### Marginal Distribution for $\mu$
-Since we are interested in inference about mu unconditionally, we need
-the marginal distribution of mu that averages over the uncertainty in
-$\sigma$.  One can show by integration that the marginal distribution for
-$\mu$ is a Student t distribution
-$$\begin{aligned} \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n) \pause
+**Marginal Distribution for $\mu$**
+
+We are generally interested in inference about $\mu$ unconditionally
+as $\sigma^2$ is unknown, which requires the marginal distribution of
+$\mu$ that `averages' over the uncertainty in 
+$\sigma$ after seeing the data.  One can show by integration that the marginal distribution for
+$\mu$ given the data is a Student t distribution
+$$\begin{aligned} \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n)  
  \Leftrightarrow  t = \frac{\mu - m_n}{s_n/\sqrt{n_n}} \sim \St(v_n, 0 , 1)
  \end{aligned}
 $$  with density
 $$
 \begin{aligned}
-p(t) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
-{\sqrt{\pi v_n} \Gamma\left(\frac{v_n}{2} \right)}
+p(\mu) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
+{\sqrt{\pi v_n} \frac{s_n}{\sqrt{n_n}} \,\Gamma\left(\frac{v_n}{2} \right)}
 \left(1 + \frac{1}{v_n}\frac{(\mu - m_n)^2} {s^2_n/n_n} \right)^{-\frac{v_n+1}{2}}
 \end{aligned}$$
 with the degrees of freedom $v_n$, a
@@ -108,8 +108,7 @@ yields a standard t distribution with degrees of freedom v_n, location
 0 and scale 1.  The latter representation allows us to use standard
 statistical functions for posterior inference.
 
-Let's look at an example based on a sample of total trihalomethanes or
-TTHM in tapwater from a city in NC, that can be loaded from the `statsr` package
+Let's look at an example based on a sample of total trihalomethanes or TTHM in tapwater from a city in NC.  THe data can be loaded from the `statsr` package
 
 ```{r package, echo=TRUE, warning=FALSE, message=FALSE,  eval=FALSE}
 library(statsr)
@@ -120,51 +119,70 @@ data(tapwater)
 ```{r loadpackage, warning=FALSE, message=FALSE, echo=FALSE}
 suppressWarnings(library(statsr))
 data(tapwater)
+m_0 = 35; 
+n_0 = 25; 
+s2_0 = 156.25;
+v_0 = n_0 - 1
+Y = tapwater$tthm
+ybar = mean(Y)
+s2 = round(var(Y),1)
+n = length(Y)
+n_n = n_0 + n
+m_n = round((n*ybar + n_0*m_0)/n_n, 1)
+v_n = v_0 + n
+s2_n = round( ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n, 1)
 ```
 
-Using prior information about TTHM
-from the city, I will use a Normal-Gamma prior distribution with
-prior mean of 35 parts per billion based on a prior sample size of
-twenty-five and an estimate of the variance of one hundred fifty-six
-point two five with degrees of freedom twenty-four.  In section **ADD REFERENCE**,
-we will describe how we arrived at these values.
 
-Using the sample mean of 55.5 and the sample variance five hundred
-forty point seven from the sample of size 28 we obtain the following
-update the hyper-parameters
+Using prior information about TTHM from the city, we will use a Normal-Gamma prior distribution,
+$\textsf{NormalGamma}(`r m_0`, `r n_0`, `r s2_0`, `r v_0`)$ with
+a prior mean of `r m_0` parts per billion based on a prior sample
+size of `r n_0`, an estimate of the variance of `r s2_0` and  degrees of freedom `r v_0`.
 
 
+In section **ADD REFERENCE**, we will describe how we arrived at these values.
+
+We can obtain the sample mean $\bar{Y} = `r ybar`$, and variance $s^2 = `r s2`$ based on the sample size of $n = `r n`$ from `R`:
 
 ```{r data, echo=TRUE}
-m_0 = 35; n_0 = 25; s2_0 = 156.25; v_0 = n_0 - 1
-
 Y = tapwater$tthm
 ybar = mean(Y)
 s2 = var(Y)
 n = length(Y)
+```
+
+Using the summaries of the data and the prior hyperpameters, the posterior parameters are updated as follows:
+\begin{eqnarray*}
+n_n & = &  `r n_0` +  `r n` = `r n_n`\\
+m_n  & = & \frac{`r n` \times`r round(ybar, 1)` + `r n_0` \times`r m_0`}{`r n_n`} = `r round(m_n, 1)`  \\
+v_n & = & `r v_0` + `r n` = `r v_n`  \\
+s^2_n & = & \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }{v_n}  \\
+  & = & \frac{1}{`r v_n`}
+     \left[`r n-1` \times `r round(s2, 1)` +
+          `r v_0` \times `r s2_0`  +
+          \frac{`r n_0` \times `r n`}{`r n_n`} \times (`r m_0` - `r round(ybar, 1)`)^2
+\right] = `r round(s2_n, 1)`  \\
+\end{eqnarray*}
+
+
+in `R`
+```{r post-NG-TTHM}
+# prior hyperparameters
+m_0 = 35; n_0 = 25;  s2_0 = 156.25; v_0 = n_0 - 1
+# posterior hyperparamters
 n_n = n_0 + n
 m_n = (n*ybar + n_0*m_0)/n_n
 v_n = v_0 + n
 s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
 ```
-Prior $\textsf{NormalGamma}(`r m_0`, `r n_0`, `r s2_0`, `r v_0`)$ 
 
-Data  $\bar{Y} = `r ybar`$, $s^2 = `r s2`$, $n = `r n`$
-
-\begin{eqnarray*}
-n_n & = &  `r n_0` +  `r n` = `r n_n`\\
-m_n  & = & \frac{`r n` \times`r ybar` + `r n_0` \times`r m_0`}{`r n_n`} = `r m_n`  \\
-v_n & = & `r v_0` + `r n` = `r v_n`  \\
-s^2_n & = & \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }{v_n}  \\
-  & = & \frac{1}{`r v_n`}
-     \left[`r n-1` \times `r s2` +
-          `r v_0` \times `r s2_0`  +
-          \frac{`r n_0` \times `r n`}{`r n_n`} \times (`r m_0` - `r ybar`)^2
-\right] = `r round(s2_n, 1)`  \\
-\end{eqnarray*}
-Posterior $\textsf{NormalGamma}(`r m_n`, `r n_n`, `r s2_n`, `r v_n`)$
-providing the normal-gamma posterior that summarizes our posterior
+providing the conjugate $\textsf{NormalGamma}(`r m_n`, `r n_n`, `r s2_n`, `r v_n`)$
+that summarizes our posterior
 uncertainty after seeing the data.
+
+
+
+
 
 To find a credible interval for the mean, we use the Student t
 distribution.  Since the distribution of mu is unimodal and symmetric,
