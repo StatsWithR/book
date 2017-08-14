@@ -1,8 +1,8 @@
 ## Inference and Decision-Making with Multiple Parameters
 
-This section is focused on the extending the Normal-Normal conjugate family introduced in \@ref(sec:normal-normal) to the problem of inference in a Normal population with an unknown mean and variance.  We will introduce the Normal-Gamma conjugate family for inference about the unknown mean and variance and will present Monte Carlo simulation for inference about functions of the parameters as well as sampling from predictive distributions, which can assist with prior elucidation. For situations when limited prior information is available, we discuss a limiting case of the Normal-Gamma conjugate family, leading to priors that can be used for a reference analysis.  Finally, we will show how to create a more flexible and robust prior distribution by using  mixtures of the  Normal-Gamma conjugate prior.  For inference in this case we will introduce Markov Chain Monte carlo, a powerful simulation method for Bayesian inference.   
+This section is focused on the extending the Normal-Normal conjugate family introduced in \@ref(sec:normal-normal) to the problem of inference in a Normal population with an unknown mean and variance.  We will introduce the Normal-Gamma conjugate family for inference about the unknown mean and variance and will present Monte Carlo simulation for inference about functions of the parameters as well as sampling from predictive distributions, which can assist with prior elucidation. For situations when limited prior information is available, we discuss a limiting case of the Normal-Gamma conjugate family, leading to priors that can be used for a reference analysis.  Finally, we will show how to create a more flexible and robust prior distribution by using  mixtures of the  Normal-Gamma conjugate prior.  For inference in this case we will introduce Markov Chain Monte Carlo, a powerful simulation method for Bayesian inference.   
 
-It is assumed that the readers have mastered the concepts of one-parameter Normal-Normal conjugate priors. Calculus is not required for this chapter; however, for those who are comfortable with calculus and would like to go deeper, we shall present starred sections with more details on the derivations. 
+It is assumed that the readers have mastered the concepts of one-parameter Normal-Normal conjugate priors. Calculus is not required for this section; however, for those who are comfortable with calculus and would like to go deeper, we shall present starred sections with more details on the derivations. 
 
 ### Inference for a Normal Mean with Unknown Variance {#sec:normal-gamma}
 
@@ -131,6 +131,8 @@ n_n = n_0 + n
 m_n = round((n*ybar + n_0*m_0)/n_n, 1)
 v_n = v_0 + n
 s2_n = round( ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n, 1)
+L = qt(.025, v_n)*sqrt(s2_n/n_n) + m_n
+U = qt(.975, v_n)*sqrt(s2_n/n_n) + m_n
 ```
 
 
@@ -163,9 +165,11 @@ s^2_n & = & \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }{v_n}  \
           \frac{`r n_0` \times `r n`}{`r n_n`} \times (`r m_0` - `r round(ybar, 1)`)^2
 \right] = `r round(s2_n, 1)`  \\
 \end{eqnarray*}
+providing the conjugate $\textsf{NormalGamma}(`r m_n`, `r n_n`, `r s2_n`, `r v_n`)$
+that summarizes our posterior
+uncertainty for $\mu$ and $\phi$ ($\sigma^2$)  after seeing the data.
 
-
-in `R`
+We  can obtain the updated hyperparamters in `R` using the following code
 ```{r post-NG-TTHM}
 # prior hyperparameters
 m_0 = 35; n_0 = 25;  s2_0 = 156.25; v_0 = n_0 - 1
@@ -176,16 +180,10 @@ v_n = v_0 + n
 s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
 ```
 
-providing the conjugate $\textsf{NormalGamma}(`r m_n`, `r n_n`, `r s2_n`, `r v_n`)$
-that summarizes our posterior
-uncertainty after seeing the data.
-
-
-
-
+**Credible intervals for $\mu$**
 
 To find a credible interval for the mean, we use the Student t
-distribution.  Since the distribution of mu is unimodal and symmetric,
+distribution.  Since the distribution of $\mu$ is unimodal and symmetric,
 the shortest 95 percent credible interval or the Highest Posterior
 Density interval, HPD for short,
 ```{r tplot, echo=F, warning=FALSE, message=FALSE, fig.width=6, fig.height=6}
@@ -230,19 +228,27 @@ in the interval (L, U) is the shaded area which is equal to zero point
 nine five.
 
 using the standardized t distribution and some algebra, these values are
-based on the quantiles of the standard t distribution times the scale
-plus the posterior mean and should look familiar to expressions
-for confidence intervals from frequentist statistics.
+$$
+\begin{aligned}
+  L & =  m_n + t_{0.025}\sqrt{s^2_n/n_n}    \\
+  U & =  m_n + t_{0.975}\sqrt{s^2_n/n_n}
+\end{aligned}
+$$
+or the posterior mean (our point estimate) plus quantiles of the standard $t$ distribution times the scale.  Because of the symmetry in the Student $t$ distribution, the credible interval is $m_n \pm t_{0.975}\sqrt{s^2_n/n_n}$, which should look familar to expressions for confidence intervals.
 
-The following code illustrates using R to calculate the 95 percent
-credible interval using quantiles from the standard t distribution.
-The tap water data are available from the statsr package.
+Using the following code in `R` the  95\%
+credible interval for the tap water data is
+
+```{r CI-tapwater}
+m_n + qt(v_n, c(0.025, 0.975)*sqrt(s2_n/n_n))
+```
+
+
 
 
 Based on the updated posterior, we find that there is a 95 chance that
-the mean TTHM concentration is between 39.9 parts per billion and 51.8
-parts per billion.
-
+the mean TTHM concentration is between `r round(L, 1)`
+parts per billion and `r round(U, 1)` parts per billion.
 
 To recap, we introduced the normal -gamma conjugate prior for
 inference about an unknown mean and variance for samples from a normal
@@ -256,6 +262,9 @@ and showed how to obtain credible intervals for mu  using R.
 next, we will introduce Monte Carlo sampling to explore prior and posterior
 distributions in more detail.
 
+**Details of Results**
+
+TBA
 
 ### Monte Carlo Inference
 
