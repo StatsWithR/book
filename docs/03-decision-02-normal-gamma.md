@@ -115,40 +115,25 @@ This latter representation allows us to use standard statistical functions for p
 
 Let's look at an example based on a sample of total trihalomethanes or TTHM in tapwater from a city in NC.  The data can be loaded from the `statsr` package
 
-```{r package, echo=TRUE, warning=FALSE, message=FALSE,  eval=FALSE}
+
+```r
 library(statsr)
 data(tapwater)
 ```
 
 
-```{r loadpackage, warning=FALSE, message=FALSE, echo=FALSE}
-suppressWarnings(library(statsr))
-data(tapwater)
-m_0 = 35; 
-n_0 = 25; 
-s2_0 = 156.25;
-v_0 = n_0 - 1
-Y = tapwater$tthm
-ybar = mean(Y)
-s2 = round(var(Y),1)
-n = length(Y)
-n_n = n_0 + n
-m_n = round((n*ybar + n_0*m_0)/n_n, 1)
-v_n = v_0 + n
-s2_n = round( ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n, 1)
-L = qt(.025, v_n)*sqrt(s2_n/n_n) + m_n
-U = qt(.975, v_n)*sqrt(s2_n/n_n) + m_n
-```
+
 
 
 Using prior information about TTHM from the city, we will use a Normal-Gamma prior distribution,
-$\textsf{NormalGamma}(`r m_0`, `r n_0`, `r s2_0`, `r v_0`)$ with
-a prior mean of `r m_0` parts per billion, a prior sample
-size of `r n_0`, an estimate of the variance of `r s2_0` with degrees of freedom `r v_0`.  In section \@ref(sec:NG-predictive), we will describe how we arrived at these values.
+$\textsf{NormalGamma}(35, 25, 156.25, 24)$ with
+a prior mean of 35 parts per billion, a prior sample
+size of 25, an estimate of the variance of 156.25 with degrees of freedom 24.  In section \@ref(sec:NG-predictive), we will describe how we arrived at these values.
 
-We can obtain the sample mean $\bar{Y} = `r ybar`$, and variance $s^2 = `r s2`$ based on the sample size of $n = `r n`$ from `R`:
+We can obtain the sample mean $\bar{Y} = 55.5239286$, and variance $s^2 = 540.7$ based on the sample size of $n = 28$ from `R`:
 
-```{r data, echo=TRUE}
+
+```r
 Y = tapwater$tthm
 ybar = mean(Y)
 s2 = var(Y)
@@ -157,22 +142,23 @@ n = length(Y)
 
 Using the summaries of the data and the prior hyperpameters, the posterior parameters are updated as follows:
 \begin{eqnarray*}
-n_n & = &  `r n_0` +  `r n` = `r n_n`\\
-m_n  & = & \frac{`r n` \times`r round(ybar, 1)` + `r n_0` \times`r m_0`}{`r n_n`} = `r round(m_n, 1)`  \\
-v_n & = & `r v_0` + `r n` = `r v_n`  \\
+n_n & = &  25 +  28 = 53\\
+m_n  & = & \frac{28 \times55.5 + 25 \times35}{53} = 45.8  \\
+v_n & = & 24 + 28 = 52  \\
 s^2_n & = & \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }{v_n}  \\
-  & = & \frac{1}{`r v_n`}
-     \left[`r n-1` \times `r round(s2, 1)` +
-          `r v_0` \times `r s2_0`  +
-          \frac{`r n_0` \times `r n`}{`r n_n`} \times (`r m_0` - `r round(ybar, 1)`)^2
-\right] = `r round(s2_n, 1)`  \\
+  & = & \frac{1}{52}
+     \left[27 \times 540.7 +
+          24 \times 156.25  +
+          \frac{25 \times 28}{53} \times (35 - 55.5)^2
+\right] = 459.9  \\
 \end{eqnarray*}
-providing the conjugate $\textsf{NormalGamma}(`r m_n`, `r n_n`, `r s2_n`, `r v_n`)$
+providing the conjugate $\textsf{NormalGamma}(45.8, 53, 459.9, 52)$
 that summarizes our posterior
 uncertainty for $\mu$ and $\phi$ ($\sigma^2$)  after seeing the data.
 
 We  can obtain the updated hyperparamters in `R` using the following code
-```{r post-NG-TTHM}
+
+```r
 # prior hyperparameters
 m_0 = 35; n_0 = 25;  s2_0 = 156.25; v_0 = n_0 - 1
 # posterior hyperparamters
@@ -188,41 +174,9 @@ To find a credible interval for the mean, we use the Student t
 distribution.  Since the distribution of $\mu$ is unimodal and symmetric,
 the shortest 95 percent credible interval or the Highest Posterior
 Density interval, HPD for short,
-```{r tplot, echo=F, warning=FALSE, message=FALSE, fig.width=6, fig.height=6}
-require(ggplot2)
-out =bayes_inference(tthm, data=tapwater,prior="NG",
-                mu_0 = m_0, n_0=n_0, s_0 = sqrt(s2_0), v_0 = v_0,
-                method="theoretical", stat="mean", type="ci",show_res=F, show_summ=F, show_plot=F )
- den = out$post_den
-
- ci = out$ci
- d = data.frame(mu = den$x, dens = den$y)
-
-    d = d[d$dens > 1e-4,]
-
-    li = min(which(d$mu >= ci[1]))
-    ui = max(which(d$mu <  ci[2]))
-
-    ci_poly = data.frame(mu = c(d$mu[c(li,li:ui,ui)]),
-                         dens = c(0, d$dens[li:ui], 0))
 
 
-    ci_interval = data.frame(mu = ci, dens = 0)
-    pos_plot = ggplot(d, aes_string(x="mu", y="dens")) +
-               geom_line() +
-               ylab("Density") +
-               xlab(expression(mu)) +
-               geom_line(data  = ci_interval, size=1.5, colour="orange") +
-               geom_point(data = ci_interval, size=2) +
-               geom_polygon(data = ci_poly, alpha=0.5) +
-               theme(panel.background = element_rect(fill = "transparent", colour = NA),
-                     plot.background = element_rect(fill = "transparent", colour = NA)) +
-               theme(text = element_text(size=12))
-```
-
-```{r tapwater-post-mu, echo=FALSE, fig.width=4,fig.height=4}
-print(pos_plot)
-```
+<img src="03-decision-02-normal-gamma_files/figure-html/tapwater-post-mu-1.png" width="384" />
 
 is the orange interval given by the
 Lower endpoint L and upper endpoint U where the probability that mu is
@@ -241,16 +195,21 @@ or the posterior mean (our point estimate) plus quantiles of the standard $t$ di
 Using the following code in `R` the  95\%
 credible interval for the tap water data is
 
-```{r CI-tapwater}
+
+```r
 m_n + qt(c(0.025, 0.975), v_n)*sqrt(s2_n/n_n)
+```
+
+```
+## [1] 39.93192 51.75374
 ```
 
 
 
 
 Based on the updated posterior, we find that there is a 95 chance that
-the mean TTHM concentration is between `r round(L, 1)`
-parts per billion and `r round(U, 1)` parts per billion.
+the mean TTHM concentration is between 39.9
+parts per billion and 51.7 parts per billion.
 
 To recap, we introduced the normal -gamma conjugate prior for
 inference about an unknown mean and variance for samples from a normal
