@@ -40,9 +40,9 @@ $$1/\sigma^2 \sim \textsf{Gamma}(v_0/2, s^2_0 v_0/2)$$
 
 gamma distribution to avoid using a new symbol.  Together the Normal conditional distribution for $\mu$ given $\sigma^2$ in \@ref(eq:04-conjugate-normal)  and the marginal Gamma distribution for $\phi$ in \@ref(eq:04-conjugate-gamma) lead to a joint distribution for the pair $(\mu, \phi)$ that we will call the Normal-Gamma family of distributions:
 \begin{equation}(\mu, \phi) \sim \textsf{NormalGamma}(m_0, n_0, s^2_0, v_0)
-(\#eq:04-cojugate-normal-gamma)
+(\#eq:04-conjugate-normal-gamma)
 \end{equation}
-with the four hyperparameters $m_0$, $n_0$, $s^2_0$, and $v_0$.
+with the four hyper-parameters $m_0$, $n_0$, $s^2_0$, and $v_0$.
 
 **Posterior Distribution**
 
@@ -52,7 +52,7 @@ distribution of the pair of parameters ($\mu, \phi$) is in the same family as th
 (\mu, \phi) \mid \text{data} \sim \textsf{NormalGamma}(m_n, n_n, s^2_n, v_n)
 \end{equation}
 where the subscript $n$ on the
-hyper-parameters indicates the updated values after seeing the $n$ observations. One attraction to conjugate families is there are realtively simple updating rules for obtaining the new hyperparameters:
+hyper-parameters indicates the updated values after seeing the $n$ observations. One attraction to conjugate families is there are relatively simple updating rules for obtaining the new hyper-parameters:
 \begin{eqnarray*}
 m_n & = & \frac{n \bar{Y} + n_0 m_0} {n + n_0}  \\
 & \\
@@ -60,7 +60,7 @@ n_n & = & n_0 + n  \\
 v_n & = & v_0 + n  \\
 s^2_n & =  & \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n} (\bar{Y} - m_0)^2 \right]. 
 \end{eqnarray*}
-The updated hyperparameter $m_n$ in the posterior distribution of $\mu$ is the posterior mean, which is a weighted average of the sample mean $\bar{Y}$ and prior mean $m_0$ with weights $n/(n + n_0$ and $n_0/(n + n_0)$ respectively and does not depend on $\sigma^2$.
+The updated hyper-parameter $m_n$ in the posterior distribution of $\mu$ is the posterior mean, which is a weighted average of the sample mean $\bar{Y}$ and prior mean $m_0$ with weights $n/(n + n_0$ and $n_0/(n + n_0)$ respectively and does not depend on $\sigma^2$.
 The posterior sample size $n_n$ is the sum of the prior sample
 size $n_n$ and the sample size $n$, representing the combined precision of the estimate for $\mu$.  The posterior degrees of freedom $v_n$ are also increased by adding the  sample size $n$ to the prior degrees of freedom $v_0$. Finally, the posterior variance hyper-parameter $s^2_n$ combines three sources of information about $\sigma$ in terms of sums of squared deviations. **FILL IN MORE DETAILS** The first term in
 the square brackets is the sample variance times the sample degrees of
@@ -91,29 +91,30 @@ as $\sigma^2$ is unknown, which requires using  marginal distribution of $\mu$ t
 $\sigma$ after seeing the data.  One can show by integration
 that the marginal distribution for
 $\mu$ given the data is a Student t distribution
-$$\begin{aligned} \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n)  
- \Leftrightarrow  t = \frac{\mu - m_n}{s_n/\sqrt{n_n}} \sim \St(v_n, 0 , 1)
- \end{aligned}
+$$ \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n)  
 $$  with density
 $$
 \begin{aligned}
 p(\mu) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
 {\sqrt{\pi v_n} \frac{s_n}{\sqrt{n_n}} \,\Gamma\left(\frac{v_n}{2} \right)}
 \left(1 + \frac{1}{v_n}\frac{(\mu - m_n)^2} {s^2_n/n_n} \right)^{-\frac{v_n+1}{2}}
-\end{aligned}$$
+\end{aligned}
+{#eq:Student-t-density}
+$$
 with the degrees of freedom $v_n$, a
 location parameter $m_n$ and squared scale parameter that is the
-posterior variance parameter divided by the posterior sample size.  The Student $t$ distribution is similar to the normal distribution as it is symmetric and bell shaped, however, the __tails__ of the distribution are fatter or heavier than the normal distribution. The parameters $m_n$ and $s^2_n$ play similar roles in determining the center and spread of the distribution, as in the Normal distribution, however,  as Student $t$ distibutions with degrees of freedom less than 3 do not have a mean or variance, the parameter $m_n$ is called the location or center of the distribution and the $s_n/\sqrt{n}$ is the scale.
+posterior variance parameter divided by the posterior sample size.  The Student $t$ distribution is similar to the normal distribution as it is symmetric and bell shaped, however, the __tails__ of the distribution are fatter or heavier than the normal distribution. The parameters $m_n$ and $s^2_n$ play similar roles in determining the center and spread of the distribution, as in the Normal distribution, however,  as Student $t$ distributions with degrees of freedom less than 3 do not have a mean or variance, the parameter $m_n$ is called the location or center of the distribution and the $s_n/\sqrt{n}$ is the scale.
 
 A standard Student $t$ random variable can be obtained by taking  $\mu$ and  subtracting the location $m_n$ and dividing by the scale 
 $s_n/\sqrt{n}$:
 $$ \frac{\mu - m_n}{s_n/\sqrt{n_n}} \equiv t \sim \St(v_n, 0 , 1)  $$
-with degrees of freedom $v_n$, location  $0$ and scale $1$. 
+with degrees of freedom $v_n$, location  $0$ and scale $1$ in the
+expression for the density in #\ref(eq:Student-t-density).
 This latter representation allows us to use standard statistical functions for posterior inference such as finding credible intervals.
 
 **Example**
 
-Let's look at an example based on a sample of total trihalomethanes or TTHM in tapwater from a city in NC.  The data can be loaded from the `statsr` package
+Let's look at an example based on a sample of total trihalomethanes or TTHM in tap water from a city in NC.  The data can be loaded from the `statsr` package
 
 
 ```r
@@ -130,17 +131,9 @@ $\textsf{NormalGamma}(35, 25, 156.25, 24)$ with
 a prior mean of 35 parts per billion, a prior sample
 size of 25, an estimate of the variance of 156.25 with degrees of freedom 24.  In section \@ref(sec:NG-predictive), we will describe how we arrived at these values.
 
-We can obtain the sample mean $\bar{Y} = 55.5239286$, and variance $s^2 = 540.7$ based on the sample size of $n = 28$ from `R`:
-
-
-```r
-Y = tapwater$tthm
-ybar = mean(Y)
-s2 = var(Y)
-n = length(Y)
-```
-
-Using the summaries of the data and the prior hyperpameters, the posterior parameters are updated as follows:
+Using the summaries of the data, $\bar{Y} = 55.5$,
+variance $s^2 = 540.7$ and sample size of $n = 28$ with the
+prior hyper-parameters from above, the posterior hyper-parameters are updated as follows:
 \begin{eqnarray*}
 n_n & = &  25 +  28 = 53\\
 m_n  & = & \frac{28 \times55.5 + 25 \times35}{53} = 45.8  \\
@@ -152,15 +145,20 @@ s^2_n & = & \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }{v_n}  \
           \frac{25 \times 28}{53} \times (35 - 55.5)^2
 \right] = 459.9  \\
 \end{eqnarray*}
-providing the conjugate $\textsf{NormalGamma}(45.8, 53, 459.9, 52)$
-that summarizes our posterior
-uncertainty for $\mu$ and $\phi$ ($\sigma^2$)  after seeing the data.
+in the conjugate $\textsf{NormalGamma}(45.8, 53, 459.9, 52)$ 
+posterior distribution that now summarizes our 
+uncertainty about $\mu$ and $\phi$ ($\sigma^2$)  after seeing the data.
 
-We  can obtain the updated hyperparamters in `R` using the following code
+We can obtain the updated hyper-parameters in `R` using the following code in `R`
 
 ```r
 # prior hyperparameters
 m_0 = 35; n_0 = 25;  s2_0 = 156.25; v_0 = n_0 - 1
+# sample summaries
+Y = tapwater$tthm
+ybar = mean(Y)
+s2 = var(Y)
+n = length(Y)
 # posterior hyperparamters
 n_n = n_0 + n
 m_n = (n*ybar + n_0*m_0)/n_n
@@ -170,10 +168,8 @@ s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
 
 **Credible intervals for $\mu$**
 
-To find a credible interval for the mean, we use the Student t
-distribution.  Since the distribution of $\mu$ is unimodal and symmetric,
-the shortest 95 percent credible interval or the Highest Posterior
-Density interval, HPD for short,
+To find a credible interval for the mean $\mu$, we use the Student $t$
+distribution.  Since the distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
 
 
 <img src="03-decision-02-normal-gamma_files/figure-html/tapwater-post-mu-1.png" width="384" />
@@ -190,7 +186,7 @@ $$
   U & =  m_n + t_{0.975}\sqrt{s^2_n/n_n}
 \end{aligned}
 $$
-or the posterior mean (our point estimate) plus quantiles of the standard $t$ distribution times the scale.  Because of the symmetry in the Student $t$ distribution, the credible interval is $m_n \pm t_{0.975}\sqrt{s^2_n/n_n}$, which should look familar to expressions for confidence intervals.
+or the posterior mean (our point estimate) plus quantiles of the standard $t$ distribution times the scale.  Because of the symmetry in the Student $t$ distribution, the credible interval is $m_n \pm t_{0.975}\sqrt{s^2_n/n_n}$, which should look familiar to expressions for confidence intervals.
 
 Using the following code in `R` the  95\%
 credible interval for the tap water data is
@@ -211,17 +207,18 @@ Based on the updated posterior, we find that there is a 95 chance that
 the mean TTHM concentration is between 39.9
 parts per billion and 51.7 parts per billion.
 
-To recap, we introduced the normal -gamma conjugate prior for
+**Summary**
+The Normal-Gamma conjugate prior for
 inference about an unknown mean and variance for samples from a normal
-distribution. 
+distribution allows simple expressions for updating prior beliefs given the data.   The joint Normal-Gamma distribution leads to the
+Student $t$ distribution for inference about $\mu$ when $\sigma$ is unknown.  The Student $t$ distribution can be used to provide 
+credible intervals for $\mu$  using `R` or other software that provides quantiles of a standard $t$ distribution.
 
-We described how the joint normal-gamma distribution leads to the
-student t distribution for inference about mu when sigma is unknown,
+For the energetic learner who is comfortable with calculus, the following optional material provides more details on how the posterior distributions were obtained and other results in this section.
 
-and showed how to obtain credible intervals for mu  using R.
+For those that are ready to move on, we will introduce Monte Carlo sampling  in the next section; Monte Carlo Sampling is a simulation method that will allow us to approximate distributions of transformations of the parameters without using calculus or change of variables, as well as aid exploratory data analysis of the prior or posterior distribution.
 
-next, we will introduce Monte Carlo sampling to explore prior and posterior
-distributions in more detail.
+
 
 **Details of Results (optional reading)**
 
