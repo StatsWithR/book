@@ -91,16 +91,14 @@ as $\sigma^2$ is unknown, which requires using  marginal distribution of $\mu$ t
 $\sigma$ after seeing the data.  One can show by integration
 that the marginal distribution for
 $\mu$ given the data is a Student t distribution
-$$ \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n)  
-$$  with density
-$$
-\begin{aligned}
+$$ \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n)  $$ 
+with density
+\begin{equation}
 p(\mu) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
 {\sqrt{\pi v_n} \frac{s_n}{\sqrt{n_n}} \,\Gamma\left(\frac{v_n}{2} \right)}
-\left(1 + \frac{1}{v_n}\frac{(\mu - m_n)^2} {s^2_n/n_n} \right)^{-\frac{v_n+1}{2}}
-\end{aligned}
-{#eq:Student-t-density}
-$$
+\left(1 + \frac{1}{v_n}\frac{(\mu - m_n)^2} {s^2_n/n_n} \right)^{-\frac{v_n+1}{2}} 
+(\#eq:Student-t-density)
+\end{equation}
 with the degrees of freedom $v_n$, a
 location parameter $m_n$ and squared scale parameter that is the
 posterior variance parameter divided by the posterior sample size.  The Student $t$ distribution is similar to the normal distribution as it is symmetric and bell shaped, however, the __tails__ of the distribution are fatter or heavier than the normal distribution. The parameters $m_n$ and $s^2_n$ play similar roles in determining the center and spread of the distribution, as in the Normal distribution, however,  as Student $t$ distributions with degrees of freedom less than 3 do not have a mean or variance, the parameter $m_n$ is called the location or center of the distribution and the $s_n/\sqrt{n}$ is the scale.
@@ -109,7 +107,7 @@ A standard Student $t$ random variable can be obtained by taking  $\mu$ and  sub
 $s_n/\sqrt{n}$:
 $$ \frac{\mu - m_n}{s_n/\sqrt{n_n}} \equiv t \sim \St(v_n, 0 , 1)  $$
 with degrees of freedom $v_n$, location  $0$ and scale $1$ in the
-expression for the density in #\ref(eq:Student-t-density).
+expression for the density in \@ref(eq:Student-t-density).
 This latter representation allows us to use standard statistical functions for posterior inference such as finding credible intervals.
 
 **Example**
