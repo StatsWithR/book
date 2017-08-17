@@ -165,6 +165,7 @@ Note that this normal-normal assumption made by the anayltical chemist is techni
 1. The normal family puts some probability on all possible values between $(-\infty,+\infty)$. But the mass on the balance can **never** be negative. However, the normal prior on the unknown mass is usually so concentrated on positive values that the normal distribution is still a good approximation.
 
 2. Even if the chemist has repeatedly calibrated her balance with standards from the National Institute of Standards and Technology, she still will not know its standard deviation precisely. However, if she has done it often and well, it is probably a sufficiently good approximation to assume that the standard deviation is known.
+
 ```
 
 For the normal-normal conjugate families, assume the prior on the unknown mean follows a normal distribution, i.e. $\mu \sim N(\nu, \tau)$. We also assume that the data $x_1,x_2,\cdots,x_n$ are independent and come from a normal with standard deviation $\sigma$.
