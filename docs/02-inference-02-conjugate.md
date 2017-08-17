@@ -128,13 +128,19 @@ k^* &= k + \sum^n_{i=1} x_i = \frac{9}{16} + 200 = 200.5625 \\
 
 How the general has changed his mind is described in Table \@ref(tab:before-after). After seeing the data, his uncertainty about lambda, expressed as a standard deviation, shrunk from 1 to 0.047.
 
+\begin{table}
 
-Table: (\#tab:before-after)Before and after seeing the data
-
-          lambda   Standard Deviation
--------  -------  -------------------
-Before      0.75                1.000
-After       0.67                0.047
+\caption{(\#tab:before-after)Before and after seeing the data}
+\centering
+\begin{tabular}[t]{lrr}
+\toprule
+  & lambda & Standard Deviation\\
+\midrule
+Before & 0.75 & 1.000\\
+After & 0.67 & 0.047\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 In summary, we learned about the Poisson and gamma distributions; we also knew that the gamma-Poisson families are conjugate. Moreover, we learned the updating fomula, and applied it to a classical dataset.
 
@@ -155,7 +161,8 @@ Note that this normal-normal assumption made by the anayltical chemist is techni
 
 1. The normal family puts some probability on all possible values between $(-\infty,+\infty)$. But the mass on the balance can **never** be negative. However, the normal prior on the unknown mass is usually so concentrated on positive values that the normal distribution is still a good approximation.
 
-2. Even if the chemist has repeatedly calibrated her balance with standards from the National Institute of Standards and Technology, she still will not know its standard deviation precisely. However, if she has done it often and well, it is probably a sufficiently good approximation to assume that the standard deviation is known.</div>\EndKnitrBlock{example}
+2. Even if the chemist has repeatedly calibrated her balance with standards from the National Institute of Standards and Technology, she still will not know its standard deviation precisely. However, if she has done it often and well, it is probably a sufficiently good approximation to assume that the standard deviation is known.
+</div>\EndKnitrBlock{example}
 
 For the normal-normal conjugate families, assume the prior on the unknown mean follows a normal distribution, i.e. $\mu \sim N(\nu, \tau)$. We also assume that the data $x_1,x_2,\cdots,x_n$ are independent and come from a normal with standard deviation $\sigma$.
 

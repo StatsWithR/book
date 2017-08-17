@@ -14,10 +14,14 @@ This formula is called the **probability mass function** (pmf) for the binomial.
 
 The probability mass function can be visualized as a histogram in Figure \@ref(fig:histogram). The area under the histogram is one, and the area of each bar is the probability of seeing a binomial random variable, whose value is equal to the x-value at the center of the bars base. 
 
-<div class="figure" style="text-align: center">
-<img src="02-inference-01-continuous_files/figure-html/histogram-1.png" alt="Histogram of binomial random variable" width="288" />
-<p class="caption">(\#fig:histogram)Histogram of binomial random variable</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{02-inference-01-continuous_files/figure-latex/histogram-1} 
+
+}
+
+\caption{Histogram of binomial random variable}(\#fig:histogram)
+\end{figure}
 
 
 In contrast, the normal distribution, a.k.a. Gaussian distribution or the bell-shaped curve, can take any numerical value in $(-\infty,+\infty)$. A random variable generated from a normal distribution because it can take a continuum of values. 
@@ -87,10 +91,7 @@ When $\alpha=\beta=1$, the beta distribution becomes a uniform distribution, i.e
 
 The expected value of $p$ is $\frac{\alpha}{\alpha+\beta}$, so $\alpha$ can be regarded as the prior number of successes, and $\beta$ the prior number of failures. When $\alpha=\beta$, then one gets a symmetrical pdf around 0.5. For large but equal values of $\alpha$ and $\beta$, the area under the beta probability density near 0.5 is very large. Figure \@ref(fig:beta) compares the beta distribution with different parameter values.
 
-<div class="figure">
-<img src="02-inference-01-continuous_files/figure-html/beta-1.png" alt="Beta family" width="672" />
-<p class="caption">(\#fig:beta)Beta family</p>
-</div>
+![(\#fig:beta)Beta family](02-inference-01-continuous_files/figure-latex/beta-1.pdf) 
 
 These kinds of priors are probably appropriate if you want to infer the probability of getting heads in a coin toss. The beta family also includes skewed densities, which is appropriate if you think that $p$ the probability of success in ths binomial trial is close to zero or one. 
 

@@ -60,10 +60,7 @@ Recall the RU-486 example. When the analyst used the beta-binomial family, she t
 
 After we observed four children born to mothers who received conventional therapy, her posterior is $p|x \sim \text{beta}(1,5)$. In Figure \@ref(fig:posterior), the posterior probability density for $\text{beta}(1,5)$ puts a lot of probability near zero and very little probability near one.
 
-<div class="figure">
-<img src="02-inference-03-credible_files/figure-html/posterior-1.png" alt="RU-486 Posterior" width="672" />
-<p class="caption">(\#fig:posterior)RU-486 Posterior</p>
-</div>
+![(\#fig:posterior)RU-486 Posterior](02-inference-03-credible_files/figure-latex/posterior-1.pdf) 
 
 For the Bayesian, her 95% credible interval is just any $L$ and $U$ such that the posterior probability that $L < p < U$ is $0.95$. The shortest such interval is obviously preferable. 
 
