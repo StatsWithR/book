@@ -60,7 +60,10 @@ Recall the RU-486 example. When the analyst used the beta-binomial family, she t
 
 After we observed four children born to mothers who received conventional therapy, her posterior is $p|x \sim \text{beta}(1,5)$. In Figure \@ref(fig:posterior), the posterior probability density for $\text{beta}(1,5)$ puts a lot of probability near zero and very little probability near one.
 
-![(\#fig:posterior)RU-486 Posterior](02-inference-03-credible_files/figure-latex/posterior-1.pdf) 
+<div class="figure">
+<img src="02-inference-03-credible_files/figure-html/posterior-1.png" alt="RU-486 Posterior" width="672" />
+<p class="caption">(\#fig:posterior)RU-486 Posterior</p>
+</div>
 
 For the Bayesian, her 95% credible interval is just any $L$ and $U$ such that the posterior probability that $L < p < U$ is $0.95$. The shortest such interval is obviously preferable. 
 
@@ -87,7 +90,7 @@ $$P(X \leq x) = \int^{\infty}_{-\infty} P(X \leq x | \theta)\pi(\theta)d\theta$$
 
 The equation gives us the weighted average of the probabilities for $X$, where the weights correspond to the personal probability on $\theta$. But we won't do an integral; instead, we will illustrate the thinking with a trivial example. 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-1"><strong>(\#ex:unnamed-chunk-1)</strong></span>Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-1"><strong>(\#ex:unnamed-chunk-1) </strong></span>Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 
 
 Before you start the game, your prior belief is that the probability of choosing the 0.7 coin is 0.5. This is reasonable, because both coins were equally likely to be drawn. In this game, you win if the coin comes up heads. 
 

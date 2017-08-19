@@ -21,7 +21,6 @@ url: 'http\://www.coursera.org/learn/bayesian/home/info/'
 \newcommand{\St}{\textsf{t}}
 \newcommand{\NoGa}{\textsf{NormalGamma}}
 \newcommand{\B}{\textit{BF}}
-\newcommand{\n0}{\ensuremath{n_0}}
 \newcommand{\data}{\text{data}}
 \newcommand{\iid}{\mathrel{\mathop{\sim}\limits^{\rm iid}}}
 

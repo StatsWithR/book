@@ -4,7 +4,7 @@ Missing: Gamma plot in 2.2.2
 
 ### Inference on a Binomial Proportion
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:RU-486more"><strong>(\#ex:RU-486more)</strong></span>Recall Example \@ref(ex:RU-486), a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception. 
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:RU-486more"><strong>(\#ex:RU-486more) </strong></span>Recall Example \@ref(ex:RU-486), a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception. 
 
 Half of these women were randomly assigned to the standard contraceptive, a large dose of estrogen and progesterone. And half of the women were assigned RU-486. Among the RU-486 group, there were no pregnancies. Among those receiving the standard therapy, four became pregnant. </div>\EndKnitrBlock{example}
 
@@ -72,7 +72,7 @@ where $k! = k \times (k-1) \times \cdots \times 1$. This gives the probability o
 Note that $\lambda$ is both the mean and the variance of the Poisson random variable. It is obvious that $\lambda$ must be greater than zero, because it represents the mean number of counts, and the variance should be greater than zero (except for constants, which have zero variance).
 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:Poisson"><strong>(\#ex:Poisson)</strong></span>Famously, von Bortkiewicz used the Poisson distribution to study the number of Prussian cavalrymen who were kicked to death by a horse each year. This is count data over the course of a year, and the events are probably independent, so the Poisson model makes sense.
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:Poisson"><strong>(\#ex:Poisson) </strong></span>Famously, von Bortkiewicz used the Poisson distribution to study the number of Prussian cavalrymen who were kicked to death by a horse each year. This is count data over the course of a year, and the events are probably independent, so the Poisson model makes sense.
 
 He had data on 15 cavalry units for the 20 years between 1875 and 1894, inclusive. The total number of cavalrymen who died by horse kick was 200. 
 
@@ -128,19 +128,13 @@ k^* &= k + \sum^n_{i=1} x_i = \frac{9}{16} + 200 = 200.5625 \\
 
 How the general has changed his mind is described in Table \@ref(tab:before-after). After seeing the data, his uncertainty about lambda, expressed as a standard deviation, shrunk from 1 to 0.047.
 
-\begin{table}
 
-\caption{(\#tab:before-after)Before and after seeing the data}
-\centering
-\begin{tabular}[t]{lrr}
-\toprule
-  & lambda & Standard Deviation\\
-\midrule
-Before & 0.75 & 1.000\\
-After & 0.67 & 0.047\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:before-after)Before and after seeing the data
+
+          lambda   Standard Deviation
+-------  -------  -------------------
+Before      0.75                1.000
+After       0.67                0.047
 
 In summary, we learned about the Poisson and gamma distributions; we also knew that the gamma-Poisson families are conjugate. Moreover, we learned the updating fomula, and applied it to a classical dataset.
 
@@ -155,7 +149,7 @@ x|\mu &\sim N(\mu,\sigma) \\
 
 As a practical matter, one often does not know sigma, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family that we will describe in \@ref(sec:normal-gamma). But there are cases in which it is reasonable to treat the $\sigma$ as known. 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:chemist"><strong>(\#ex:chemist)</strong></span>An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:chemist"><strong>(\#ex:chemist) </strong></span>An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.
 
 Note that this normal-normal assumption made by the anayltical chemist is technically wrong, but still reasonable.
 

@@ -173,7 +173,7 @@ To find a credible interval for the mean $\mu$, we use the Student $t$
 distribution.  Since the distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
 
 
-![](03-decision-02-normal-gamma_files/figure-latex/tapwater-post-mu-1.pdf)<!-- --> 
+<img src="03-decision-02-normal-gamma_files/figure-html/tapwater-post-mu-1.png" width="384" />
 
 is the orange interval given by the
 Lower endpoint L and upper endpoint U where the probability that mu is

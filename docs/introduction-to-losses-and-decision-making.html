@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bayesian Statistics</title>
+  <meta name="description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization.">
+  <meta name="generator" content="bookdown 0.4.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Bayesian Statistics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://www.coursera.org/learn/bayesian/home/info/" />
+  <meta property="og:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+  <meta property="og:description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="github-repo" content="StatsWithR/book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Bayesian Statistics" />
+  
+  <meta name="twitter:description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="twitter:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+
+<meta name="author" content="Christine Chai">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="bayesian-inference.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bayesian Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
+<li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
+<li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
+<li class="chapter" data-level="1.1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
+<li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-frequentist-approach"><i class="fa fa-check"></i><b>1.2.1</b> Inference for a Proportion: Frequentist Approach</a></li>
+<li class="chapter" data-level="1.2.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
+<li class="chapter" data-level="1.2.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#exercises"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#continuous-variables-and-eliciting-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#from-the-discrete-to-the-continuous"><i class="fa fa-check"></i><b>2.1.1</b> From the Discrete to the Continuous</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#elicitation"><i class="fa fa-check"></i><b>2.1.2</b> Elicitation</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#conjugacy"><i class="fa fa-check"></i><b>2.1.3</b> Conjugacy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#three-conjugate-families"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#inference-on-a-binomial-proportion"><i class="fa fa-check"></i><b>2.2.1</b> Inference on a Binomial Proportion</a></li>
+<li class="chapter" data-level="2.2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#the-gamma-poisson-conjugate-families"><i class="fa fa-check"></i><b>2.2.2</b> The Gamma-Poisson Conjugate Families</a></li>
+<li class="chapter" data-level="2.2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#sec:normal-normal"><i class="fa fa-check"></i><b>2.2.3</b> The Normal-Normal Conjugate Families</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals-and-predictive-inference"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#non-conjugate-priors"><i class="fa fa-check"></i><b>2.3.1</b> Non-Conjugate Priors</a></li>
+<li class="chapter" data-level="2.3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals"><i class="fa fa-check"></i><b>2.3.2</b> Credible Intervals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#predictive-inference"><i class="fa fa-check"></i><b>2.3.3</b> Predictive Inference</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html"><i class="fa fa-check"></i><b>3</b> Introduction to Losses and Decision-making</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#losses-and-decision-making"><i class="fa fa-check"></i><b>3.1</b> Losses and Decision Making</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#loss-functions"><i class="fa fa-check"></i><b>3.1.1</b> Loss Functions</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#working-with-loss-functions"><i class="fa fa-check"></i><b>3.1.2</b> Working with Loss Functions</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#minimizing-expectated-loss-for-hypothesis-testing"><i class="fa fa-check"></i><b>3.1.3</b> Minimizing Expectated Loss for Hypothesis Testing</a></li>
+<li class="chapter" data-level="3.1.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#posterior-probabilities-of-hypotheses-and-bayes-factors"><i class="fa fa-check"></i><b>3.1.4</b> Posterior Probabilities of Hypotheses and Bayes Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#inference-and-decision-making-with-multiple-parameters"><i class="fa fa-check"></i><b>3.2</b> Inference and Decision-Making with Multiple Parameters</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:normal-gamma"><i class="fa fa-check"></i><b>3.2.1</b> Inference for a Normal Mean with Unknown Variance</a></li>
+<li class="chapter" data-level="3.2.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-MC"><i class="fa fa-check"></i><b>3.2.2</b> Monte Carlo Inference</a></li>
+<li class="chapter" data-level="3.2.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-predictive"><i class="fa fa-check"></i><b>3.2.3</b> Predictive Distributions</a></li>
+<li class="chapter" data-level="3.2.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-reference"><i class="fa fa-check"></i><b>3.2.4</b> Reference Priors</a></li>
+<li class="chapter" data-level="3.2.5" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-Cauchy"><i class="fa fa-check"></i><b>3.2.5</b> Mixtures of Conjugate Priors</a></li>
+<li class="chapter" data-level="3.2.6" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-MCMC"><i class="fa fa-check"></i><b>3.2.6</b> MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#hypothesis-testing-with-normal-populations"><i class="fa fa-check"></i><b>3.3</b> Hypothesis Testing with Normal Populations</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#bayes-factors-for-testing-a-normal-mean-variance-known"><i class="fa fa-check"></i><b>3.3.1</b> Bayes Factors for Testing a Normal Mean: variance known</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#bayes-factors-for-testing-a-normal-mean-unknown-variance"><i class="fa fa-check"></i><b>3.3.2</b> Bayes Factors for Testing a Normal Mean: unknown variance</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#testing-normal-means-paired-data"><i class="fa fa-check"></i><b>3.3.3</b> Testing Normal Means: paired data</a></li>
+<li class="chapter" data-level="3.3.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#testing-normal-means-independent-groups"><i class="fa fa-check"></i><b>3.3.4</b> Testing Normal Means: independent groups</a></li>
+<li class="chapter" data-level="3.3.5" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#inference-after-testing"><i class="fa fa-check"></i><b>3.3.5</b> Inference after Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#exercises-1"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-losses-and-decision-making" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Introduction to Losses and Decision-making</h1>
+
+<div id="losses-and-decision-making" class="section level2">
+<h2><span class="header-section-number">3.1</span> Losses and Decision Making</h2>
+<div id="loss-functions" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Loss Functions</h3>
+</div>
+<div id="working-with-loss-functions" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Working with Loss Functions</h3>
+</div>
+<div id="minimizing-expectated-loss-for-hypothesis-testing" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Minimizing Expectated Loss for Hypothesis Testing</h3>
+</div>
+<div id="posterior-probabilities-of-hypotheses-and-bayes-factors" class="section level3">
+<h3><span class="header-section-number">3.1.4</span> Posterior Probabilities of Hypotheses and Bayes Factors</h3>
+
+</div>
+</div>
+<div id="inference-and-decision-making-with-multiple-parameters" class="section level2">
+<h2><span class="header-section-number">3.2</span> Inference and Decision-Making with Multiple Parameters</h2>
+<p>This section is focused on the extending the Normal-Normal conjugate family introduced in <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a> to the problem of inference in a Normal population with an unknown mean and variance. We will introduce the Normal-Gamma conjugate family for inference about the unknown mean and variance and will present Monte Carlo simulation for inference about functions of the parameters as well as sampling from predictive distributions, which can assist with prior elucidation. For situations when limited prior information is available, we discuss a limiting case of the Normal-Gamma conjugate family, leading to priors that can be used for a reference analysis. Finally, we will show how to create a more flexible and robust prior distribution by using mixtures of the Normal-Gamma conjugate prior. For inference in this case we will introduce Markov Chain Monte Carlo, a powerful simulation method for Bayesian inference.</p>
+<p>It is assumed that the readers have mastered the concepts of one-parameter Normal-Normal conjugate priors. Calculus is not required for this section; however, for those who are comfortable with calculus and would like to go deeper, we shall present starred sections with more details on the derivations.</p>
+<div id="sec:normal-gamma" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Inference for a Normal Mean with Unknown Variance</h3>
+<p>In <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a> we described the normal-normal conjugate family for inference about an unknown mean <span class="math inline">\(\mu\)</span> with a known standard deviation <span class="math inline">\(\sigma\)</span> when the data were assumed to be a random sample from a normal population. In this section we will introduce the normal-gamma conjugate family for the common situation when <span class="math inline">\(\sigma\)</span> is unknown. As both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> unknown, we will need to specify a <strong>joint</strong> prior distribution to describe our prior uncertainty about them.</p>
+<p><strong>Sampling Model</strong></p>
+<p>Recall that a conjugate pair is a sampling model for the data and prior distribution for the unknown parameters such that the posterior distribution is in the same family of distributions as the prior distribution. We will assume that the data are a random sample of size <span class="math inline">\(n\)</span> from a normal population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>; the following is a mathematical shorthand to represent this distribution assumption</p>
+<p><span class="math display">\[\begin{aligned}
+Y_1, \ldots Y_n  {\mathrel{\mathop{\sim}\limits^{\rm iid}}}\textsf{N}(\mu, \sigma^2) 
+\end{aligned}\]</span> where the ‘iid’ above the distributed as symbol ‘<span class="math inline">\(\sim\)</span>’ indicates that each of the observations are <strong>i</strong>ndependent of the others (given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>) and are <strong>i</strong>dentically <strong>d</strong>istributed.</p>
+<strong>Conjugate prior</strong> Back in <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a>, we found that with normal data, the conjugate prior for <span class="math inline">\(\mu\)</span> when the standard deviation <span class="math inline">\(\sigma\)</span> was known was a normal distribution. We will build on this to specify a conditional prior distribution for <span class="math inline">\(\mu\)</span> as
+<span class="math display" id="eq:04-conjugate-normal">\[\begin{equation}
+\mu \mid \sigma^2   \sim  \textsf{N}(m_0, \sigma^2/n_0)
+\tag{3.1}
+\end{equation}\]</span>
+<p>with hyper-parameters <span class="math inline">\(m_0\)</span>, the prior mean for <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(\sigma^2/n_0\)</span> the prior variance. While previously the variance was a known constant <span class="math inline">\(\tau^2\)</span>, replacing <span class="math inline">\(\tau^2\)</span> with a multiple of <span class="math inline">\(\sigma^2\)</span> is needed for representing the joint conjugate prior for the mean and variance. Because <span class="math inline">\(\sigma\)</span> has the same units as the data, the hyper-parameter <span class="math inline">\(n_0\)</span> is unitless, but is used to express our prior precision about <span class="math inline">\(\mu\)</span> with larger values of <span class="math inline">\(n_0\)</span> indicating more precision and smaller values less precision. We will see later how the hyper-parameter <span class="math inline">\(n_0\)</span> may be interpreted as a prior sample size.</p>
+As <span class="math inline">\(\sigma^2\)</span> is unknown, a Bayesian would use a prior distribution to describe the uncertainty about the variance before seeing data. Since the variance is non-negative, continuous, and with no upper limit, a gamma distribution is a candidate prior for the variance, based on the distributions that we have seen so far. However, that choice does not lead to a posterior distribution in the same family or that is recognizable as any common distribution. It turns out that the the inverse of the variance, which is known as the precision, has a conjugate gamma prior distribution. Letting <span class="math inline">\(\phi = 1/\sigma^2\)</span> denote the precision or inverse variance, the conjugate prior for <span class="math inline">\(\phi\)</span>,
+<span class="math display" id="eq:04-conjugate-gamma">\[\begin{equation}
+\phi \sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right)
+\tag{3.2}
+\end{equation}\]</span>
+<p>is a gamma distribution with hyper-parameters <span class="math inline">\(v_0\)</span>, prior degrees of freedom, and <span class="math inline">\(s^2_0\)</span> a prior variance or guess for <span class="math inline">\(\sigma^2\)</span>. Equivalently we may say that the inverse of the variance has a <span class="math display">\[1/\sigma^2 \sim \textsf{Gamma}(v_0/2, s^2_0 v_0/2)\]</span></p>
+gamma distribution to avoid using a new symbol. Together the Normal conditional distribution for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> in <a href="introduction-to-losses-and-decision-making.html#eq:04-conjugate-normal">(3.1)</a> and the marginal Gamma distribution for <span class="math inline">\(\phi\)</span> in <a href="introduction-to-losses-and-decision-making.html#eq:04-conjugate-gamma">(3.2)</a> lead to a joint distribution for the pair <span class="math inline">\((\mu, \phi)\)</span> that we will call the Normal-Gamma family of distributions:
+<span class="math display" id="eq:04-conjugate-normal-gamma">\[\begin{equation}(\mu, \phi) \sim \textsf{NormalGamma}(m_0, n_0, s^2_0, v_0)
+\tag{3.3}
+\end{equation}\]</span>
+<p>with the four hyper-parameters <span class="math inline">\(m_0\)</span>, <span class="math inline">\(n_0\)</span>, <span class="math inline">\(s^2_0\)</span>, and <span class="math inline">\(v_0\)</span>.</p>
+<p><strong>Posterior Distribution</strong></p>
+As a conjugate family, the posterior distribution of the pair of parameters (<span class="math inline">\(\mu, \phi\)</span>) is in the same family as the prior distribution when the sample data arise from a normal distribution, that is the posterior is also Normal-Gamma
+<span class="math display">\[\begin{equation}
+(\mu, \phi) \mid \text{data} \sim \textsf{NormalGamma}(m_n, n_n, s^2_n, v_n)
+\end{equation}\]</span>
+where the subscript <span class="math inline">\(n\)</span> on the hyper-parameters indicates the updated values after seeing the <span class="math inline">\(n\)</span> observations. One attraction to conjugate families is there are relatively simple updating rules for obtaining the new hyper-parameters:
+<span class="math display">\[\begin{eqnarray*}
+m_n &amp; = &amp; \frac{n \bar{Y} + n_0 m_0} {n + n_0}  \\
+&amp; \\
+n_n &amp; = &amp; n_0 + n  \\
+v_n &amp; = &amp; v_0 + n  \\
+s^2_n &amp; =  &amp; \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n} (\bar{Y} - m_0)^2 \right]. 
+\end{eqnarray*}\]</span>
+<p>The updated hyper-parameter <span class="math inline">\(m_n\)</span> in the posterior distribution of <span class="math inline">\(\mu\)</span> is the posterior mean, which is a weighted average of the sample mean <span class="math inline">\(\bar{Y}\)</span> and prior mean <span class="math inline">\(m_0\)</span> with weights <span class="math inline">\(n/(n + n_0\)</span> and <span class="math inline">\(n_0/(n + n_0)\)</span> respectively and does not depend on <span class="math inline">\(\sigma^2\)</span>. The posterior sample size <span class="math inline">\(n_n\)</span> is the sum of the prior sample size <span class="math inline">\(n_n\)</span> and the sample size <span class="math inline">\(n\)</span>, representing the combined precision of the estimate for <span class="math inline">\(\mu\)</span>. The posterior degrees of freedom <span class="math inline">\(v_n\)</span> are also increased by adding the sample size <span class="math inline">\(n\)</span> to the prior degrees of freedom <span class="math inline">\(v_0\)</span>. Finally, the posterior variance hyper-parameter <span class="math inline">\(s^2_n\)</span> combines three sources of information about <span class="math inline">\(\sigma\)</span> in terms of sums of squared deviations. <strong>FILL IN MORE DETAILS</strong> The first term in the square brackets is the sample variance times the sample degrees of freedom which is the sample sum of squares. The second term represents the prior sum of squares, while the third term is based on the squared difference of the sample mean and prior mean. We then divide by the posterior degrees of freedom to get the new hyper-parameter.</p>
+<p>The joint Normal-Gamma distribution for the pair <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span>, <span class="math display">\[(\mu, \phi) \mid {\text{data}}\sim {\textsf{NormalGamma}}(m_n, n_n, s^2_n, v_n)\]</span> is equivalent to a <strong>hierarchical model</strong> specified in two stages with <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma\)</span> having a conditional normal distribution <span class="math display">\[\mu \mid {\text{data}}, \sigma^2  \sim  {\textsf{N}}(m_n, \sigma^2/n_n)\]</span> and the inverse variance marginally <span class="math display">\[
+1/\sigma^2 \mid {\text{data}}\sim   {\textsf{Gamma}}(v_n/2, s^2_n v_n/2) 
+\]</span> having a gamma distribution. We will see in the next section how this representation is convenient for generating samples from the posterior distribution.</p>
+<p><strong>Marginal Distribution for <span class="math inline">\(\mu\)</span></strong></p>
+<p>We are generally interested in inference about <span class="math inline">\(\mu\)</span> unconditionally as <span class="math inline">\(\sigma^2\)</span> is unknown. This marginal inference requires the unconditional or marginal distribution of <span class="math inline">\(\mu\)</span> that `averages’ over the uncertainty in <span class="math inline">\(\sigma\)</span>. For continuous variables like <span class="math inline">\(\sigma\)</span>, this averaging is performed by integration leading to the following result:</p>
+<p><span class="math inline">\(\mu\)</span> given the data is a  <span class="math display">\[ \mu \mid {\text{data}}\sim {\textsf{t}}(v_n, m_n, s^2_n/n_n)  \]</span> with density <span class="math display">\[
+p(\mu) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
+{\sqrt{\pi v_n} \frac{s_n}{\sqrt{n_n}} \,\Gamma\left(\frac{v_n}{2} \right)}
+\left(1 + \frac{1}{v_n}\frac{(\mu - m_n)^2} {s^2_n/n_n} \right)^{-\frac{v_n+1}{2}} 
+(\#eq:Student-t-density)
+\]</span> with the degrees of freedom <span class="math inline">\(v_n\)</span>, a location parameter <span class="math inline">\(m_n\)</span> and squared scale parameter that is the posterior variance parameter divided by the posterior sample size. A standard Student <span class="math inline">\(t\)</span> random variable can be obtained by taking <span class="math inline">\(\mu\)</span> and subtracting the location <span class="math inline">\(m_n\)</span> and dividing by the scale <span class="math inline">\(s_n/\sqrt{n}\)</span>: <span class="math display">\[ \frac{\mu - m_n}{s_n/\sqrt{n_n}} \equiv t \sim {\textsf{t}}(v_n, 0 , 1)  \]</span> with degrees of freedom <span class="math inline">\(v_n\)</span>, location <span class="math inline">\(0\)</span> and scale <span class="math inline">\(1\)</span> in the expression for the density in <a href="#eq:Student-t-density">(<strong>??</strong>)</a>. This latter representation allows us to use standard statistical functions for posterior inference such as finding credible intervals.</p>
+<p>The Student <span class="math inline">\(t\)</span> distribution is similar to the normal distribution as it is symmetric and bell shaped, however, the <strong>tails</strong> of the distribution are fatter or heavier than the normal distribution. The parameters <span class="math inline">\(m_n\)</span> and <span class="math inline">\(s^2_n\)</span> play similar roles in determining the center and spread of the distribution, as in the Normal distribution, however, as Student <span class="math inline">\(t\)</span> distributions with degrees of freedom less than 3 do not have a mean or variance, the parameter <span class="math inline">\(m_n\)</span> is called the location or center of the distribution and the <span class="math inline">\(s_n/\sqrt{n}\)</span> is the scale.</p>
+<p><strong>Example</strong></p>
+<p>Let’s look at an example based on a sample of total trihalomethanes or TTHM in tap water from a city in NC. The data can be loaded from the <code>statsr</code> package</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
+<span class="kw">data</span>(tapwater)</code></pre></div>
+<p>Using prior information about TTHM from the city, we will use a Normal-Gamma prior distribution, <span class="math inline">\(\textsf{NormalGamma}(35, 25, 156.25, 24)\)</span> with a prior mean of 35 parts per billion, a prior sample size of 25, an estimate of the variance of 156.25 with degrees of freedom 24. In section <a href="introduction-to-losses-and-decision-making.html#sec:NG-predictive">3.2.3</a>, we will describe how we arrived at these values.</p>
+Using the summaries of the data, <span class="math inline">\(\bar{Y} = 55.5\)</span>, variance <span class="math inline">\(s^2 = 540.7\)</span> and sample size of <span class="math inline">\(n = 28\)</span> with the prior hyper-parameters from above, the posterior hyper-parameters are updated as follows:
+<span class="math display">\[\begin{eqnarray*}
+n_n &amp; = &amp;  25 +  28 = 53\\
+m_n  &amp; = &amp; \frac{28 \times55.5 + 25 \times35}{53} = 45.8  \\
+v_n &amp; = &amp; 24 + 28 = 52  \\
+s^2_n &amp; = &amp; \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }{v_n}  \\
+  &amp; = &amp; \frac{1}{52}
+     \left[27 \times 540.7 +
+          24 \times 156.25  +
+          \frac{25 \times 28}{53} \times (35 - 55.5)^2
+\right] = 459.9  \\
+\end{eqnarray*}\]</span>
+<p>in the conjugate <span class="math inline">\(\textsf{NormalGamma}(45.8, 53, 459.9, 52)\)</span> posterior distribution that now summarizes our uncertainty about <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(\sigma^2\)</span>) after seeing the data.</p>
+<p>We can obtain the updated hyper-parameters in <code>R</code> using the following code in <code>R</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># prior hyperparameters</span>
+m_<span class="dv">0</span> =<span class="st"> </span><span class="dv">35</span>; n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>;  s2_<span class="dv">0</span> =<span class="st"> </span><span class="fl">156.25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+<span class="co"># sample summaries</span>
+Y =<span class="st"> </span>tapwater<span class="op">$</span>tthm
+ybar =<span class="st"> </span><span class="kw">mean</span>(Y)
+s2 =<span class="st"> </span><span class="kw">var</span>(Y)
+n =<span class="st"> </span><span class="kw">length</span>(Y)
+<span class="co"># posterior hyperparamters</span>
+n_n =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
+m_n =<span class="st"> </span>(n<span class="op">*</span>ybar <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>m_<span class="dv">0</span>)<span class="op">/</span>n_n
+v_n =<span class="st"> </span>v_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
+s2_n =<span class="st"> </span>((n<span class="op">-</span><span class="dv">1</span>)<span class="op">*</span>s2 <span class="op">+</span><span class="st"> </span>v_<span class="dv">0</span><span class="op">*</span>s2_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>n<span class="op">*</span>(m_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span>ybar)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>n_n)<span class="op">/</span>v_n</code></pre></div>
+<p><strong>Credible intervals for <span class="math inline">\(\mu\)</span></strong></p>
+<p>To find a credible interval for the mean <span class="math inline">\(\mu\)</span>, we use the Student <span class="math inline">\(t\)</span> distribution. Since the distribution of <span class="math inline">\(\mu\)</span> is unimodal and symmetric, the shortest 95 percent credible interval or the <strong>Highest Posterior Density</strong> interval, HPD for short,</p>
+<p><img src="03-decision-02-normal-gamma_files/figure-html/tapwater-post-mu-1.png" width="384" /></p>
+<p>is the orange interval given by the Lower endpoint L and upper endpoint U where the probability that mu is in the interval (L, U) is the shaded area which is equal to zero point nine five.</p>
+<p>using the standardized t distribution and some algebra, these values are <span class="math display">\[
+\begin{aligned}
+  L &amp; =  m_n + t_{0.025}\sqrt{s^2_n/n_n}    \\
+  U &amp; =  m_n + t_{0.975}\sqrt{s^2_n/n_n}
+\end{aligned}
+\]</span> or the posterior mean (our point estimate) plus quantiles of the standard <span class="math inline">\(t\)</span> distribution times the scale. Because of the symmetry in the Student <span class="math inline">\(t\)</span> distribution, the credible interval is <span class="math inline">\(m_n \pm t_{0.975}\sqrt{s^2_n/n_n}\)</span>, which should look familiar to expressions for confidence intervals.</p>
+<p>Using the following code in <code>R</code> the 95% credible interval for the tap water data is</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_n <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), v_n)<span class="op">*</span><span class="kw">sqrt</span>(s2_n<span class="op">/</span>n_n)</code></pre></div>
+<pre><code>## [1] 39.93192 51.75374</code></pre>
+<p>Based on the updated posterior, we find that there is a 95 chance that the mean TTHM concentration is between 39.9 parts per billion and 51.7 parts per billion.</p>
+<p><strong>Summary</strong> The Normal-Gamma conjugate prior for inference about an unknown mean and variance for samples from a normal distribution allows simple expressions for updating prior beliefs given the data. The joint Normal-Gamma distribution leads to the Student <span class="math inline">\(t\)</span> distribution for inference about <span class="math inline">\(\mu\)</span> when <span class="math inline">\(\sigma\)</span> is unknown. The Student <span class="math inline">\(t\)</span> distribution can be used to provide credible intervals for <span class="math inline">\(\mu\)</span> using <code>R</code> or other software that provides quantiles of a standard <span class="math inline">\(t\)</span> distribution.</p>
+<p>For the energetic learner who is comfortable with calculus, the following optional material provides more details on how the posterior distributions were obtained and other results in this section.</p>
+<p>For those that are ready to move on, we will introduce Monte Carlo sampling in the next section; Monte Carlo Sampling is a simulation method that will allow us to approximate distributions of transformations of the parameters without using calculus or change of variables, as well as aid exploratory data analysis of the prior or posterior distribution.</p>
+<p><strong>Details of Results (optional reading)</strong></p>
+<p>TBA</p>
+</div>
+<div id="sec:NG-MC" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Monte Carlo Inference</h3>
+</div>
+<div id="sec:NG-predictive" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> Predictive Distributions</h3>
+</div>
+<div id="sec:NG-reference" class="section level3">
+<h3><span class="header-section-number">3.2.4</span> Reference Priors</h3>
+</div>
+<div id="sec:NG-Cauchy" class="section level3">
+<h3><span class="header-section-number">3.2.5</span> Mixtures of Conjugate Priors</h3>
+</div>
+<div id="sec:NG-MCMC" class="section level3">
+<h3><span class="header-section-number">3.2.6</span> MCMC</h3>
+
+</div>
+</div>
+<div id="hypothesis-testing-with-normal-populations" class="section level2">
+<h2><span class="header-section-number">3.3</span> Hypothesis Testing with Normal Populations</h2>
+<div id="bayes-factors-for-testing-a-normal-mean-variance-known" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Bayes Factors for Testing a Normal Mean: variance known</h3>
+</div>
+<div id="bayes-factors-for-testing-a-normal-mean-unknown-variance" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Bayes Factors for Testing a Normal Mean: unknown variance</h3>
+</div>
+<div id="testing-normal-means-paired-data" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Testing Normal Means: paired data</h3>
+</div>
+<div id="testing-normal-means-independent-groups" class="section level3">
+<h3><span class="header-section-number">3.3.4</span> Testing Normal Means: independent groups</h3>
+</div>
+<div id="inference-after-testing" class="section level3">
+<h3><span class="header-section-number">3.3.5</span> Inference after Testing</h3>
+
+</div>
+</div>
+<div id="exercises-1" class="section level2">
+<h2><span class="header-section-number">3.4</span> Exercises</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bayesian-inference.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-decision-00-intro.Rmd",
+"text": "Edit"
+},
+"download": ["Bayes_Book.pdf", "Bayes_Book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
