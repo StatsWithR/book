@@ -188,11 +188,53 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <div id="losses-and-decision-making" class="section level2">
 <h2><span class="header-section-number">3.1</span> Losses and Decision Making</h2>
+<p>To a Bayesian, the posterior distribution is the basis of any inference, since it integrates both his/her prior opinions and knowledge and the new information provided by the data. It also contains everything she believes about the distribution of the unknown parameter of interest.</p>
+<p>However, the posterior distribution on its own is not always sufficient. Sometimes the inference we want to express is a <strong>credible interval</strong>, because it indicates a range of likely values for the parameter. That would be helpful if you wanted to say that you are <strong>95% certain</strong> the probability of an RU-486 pregnancy lies between some number <span class="math inline">\(L\)</span> and some number <span class="math inline">\(U\)</span>. And on other occasions, one needs to make a single number guess about the value of the parameter. For example, you might want to declare the average payoff for an insurance claim or tell a patient how much longer he/she has to live.</p>
+<p>Therefore, the Bayesian perspective leads directly to <strong>decision theory</strong>. And in decision theory, one seeks to minimize one’s expected loss.</p>
 <div id="loss-functions" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Loss Functions</h3>
+<p>Quantifying the loss can be tricky, and Table <a href="introduction-to-losses-and-decision-making.html#tab:loss-functions">3.1</a> summarizes three different examples with three different loss functions.</p>
+<p>If you’re declaring the average payoff for an insurance claim, and if you are <strong>linear</strong> in how you value money, that is, twice as much money is exactly twice as good, then one can prove that the optimal one-number estimate is the <strong>median</strong> of the posterior distribution. But in different situations, other measures of loss may apply.</p>
+<p>If you are advising a patient on his/her life expectancy, it is easy to imagine that large errors are far more problematic than small ones. And perhaps the loss increases as the <strong>square</strong> of how far off your single number estimate is from the truth. For example, if she’s told that her average life expectancy is two years, and it is actually ten, then her estate planning will be catastrophically bad, and she will die in poverty. In the case when the loss is proportional to the <strong>quadratic</strong> error, one can show that the optimal one-number estimate is the <strong>mean</strong> of the posterior distribution.</p>
+<p>Finally, in some cases, the penalty is 0 if you are exactly correct, but constant if you’re at all wrong. This is the case with the old saying that close only counts with horseshoes and hand grenades; i.e., coming close but not succeeding is not good enough. And it would apply if you want a prize for correctly guessing the number of jelly beans in a jar. Here, of course, instead of minimizing expected losses, we want to <strong>maximize the expected gain</strong>. If a Bayesian is in such a situation, then his/her best one-number estimate is the <strong>mode</strong> of his/her posterior distribution, which is the most likely value.</p>
+<p>There is a large literature on decision theory, and it is directly linked to risk analysis, which arises in many fields. Although it is possible for frequentists to employ a certain kind of decision theory, it is much more natural for Bayesians.</p>
+<table>
+<caption><span id="tab:loss-functions">Table 3.1: </span>Loss Functions</caption>
+<thead>
+<tr class="header">
+<th align="center">Loss</th>
+<th align="center">Best Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Linear</td>
+<td align="center">Median</td>
+</tr>
+<tr class="even">
+<td align="center">Quadratic</td>
+<td align="center">Mean</td>
+</tr>
+<tr class="odd">
+<td align="center">0/1</td>
+<td align="center">Mode</td>
+</tr>
+</tbody>
+</table>
+<p>When making point estimates of unknown parameters, we should make the choices that minimize the loss. Nevertheless, the best estimate depends on the kind of loss function we are using, and we will discuss in more depth how these best estimates are determined in the next section.</p>
 </div>
 <div id="working-with-loss-functions" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> Working with Loss Functions</h3>
+<p>UNFINISHED</p>
+<div class="figure" style="text-align: center"><span id="fig:posterior-decision"></span>
+<img src="03-decision-01-decisions_files/figure-html/posterior-decision-1.png" alt="Posterior" width="960" />
+<p class="caption">
+Figure 3.1: Posterior
+</p>
+</div>
+<p>Figure <a href="introduction-to-losses-and-decision-making.html#fig:posterior-decision">3.1</a></p>
+<p>Linear loss: The absolute value function is required because overestimates and underestimates do not cancel out.</p>
+<p>L0 is minimized at the mode of the posterior distribution. L1 is minimized at the median of the posterior distribution. L2 is minimized at the mean of the posterior distribution.</p>
 </div>
 <div id="minimizing-expectated-loss-for-hypothesis-testing" class="section level3">
 <h3><span class="header-section-number">3.1.3</span> Minimizing Expectated Loss for Hypothesis Testing</h3>
