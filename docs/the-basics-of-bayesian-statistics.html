@@ -106,7 +106,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
 <li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
 <li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
-<li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
+<li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
 <li class="chapter" data-level="1.1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
 <li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
 </ul></li>
@@ -141,7 +141,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#losses-and-decision-making"><i class="fa fa-check"></i><b>3.1</b> Losses and Decision Making</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#loss-functions"><i class="fa fa-check"></i><b>3.1.1</b> Loss Functions</a></li>
 <li class="chapter" data-level="3.1.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#working-with-loss-functions"><i class="fa fa-check"></i><b>3.1.2</b> Working with Loss Functions</a></li>
-<li class="chapter" data-level="3.1.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#minimizing-expectated-loss-for-hypothesis-testing"><i class="fa fa-check"></i><b>3.1.3</b> Minimizing Expectated Loss for Hypothesis Testing</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#minimizing-expected-loss-for-hypothesis-testing"><i class="fa fa-check"></i><b>3.1.3</b> Minimizing Expected Loss for Hypothesis Testing</a></li>
 <li class="chapter" data-level="3.1.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#posterior-probabilities-of-hypotheses-and-bayes-factors"><i class="fa fa-check"></i><b>3.1.4</b> Posterior Probabilities of Hypotheses and Bayes Factors</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#inference-and-decision-making-with-multiple-parameters"><i class="fa fa-check"></i><b>3.2</b> Inference and Decision-Making with Multiple Parameters</a><ul>
@@ -277,7 +277,7 @@ We can rewrite this conditional probability in terms of ‘regular’ probabilit
 </div>
 <p></p>
 </div>
-<div id="diagnostic-testing" class="section level3">
+<div id="sec:diagnostic-testing" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Bayes’ Rule and Diagnostic Testing</h3>
 <p>To better understand conditional probabilities and their importance, let us consider an example involving the human immunodeficiency virus (HIV). In the early 1980s, HIV had just been discovered and was rapidly expanding. There was major concern with the safety of the blood supply. Also, virtually no cure existed making an HIV diagnosis basically a death sentence, in addition to the stigma that was attached to the disease.</p>
 <p>These made false positives and false negatives in HIV testing highly undesirable. A <em>false positive</em> is when a test returns postive while the truth is negative. That would for instance be that someone without HIV is wrongly diagnosed with HIV, wrongly telling that person they are going to die and casting the stigma on them. A <em>false negative</em> is when a test returns negative while the truth is positive. That is when someone with HIV undergoes an HIV test which wrongly comes back negative. The latter poses a threat to the blood supply if that person is about to donate blood.</p>
@@ -376,7 +376,7 @@ Putting this all together and inserting into <a href="the-basics-of-bayesian-sta
   \end{split}
   \tag{1.5}
 \end{multline*}\]</span>
-<p>Since we are considering the same ELISA test, we used the same true positive and true negative rates as in Section <a href="the-basics-of-bayesian-statistics.html#diagnostic-testing">1.1.2</a>. We see that two positive tests makes it much more probable for someone to have HIV than when only one test comes up positive.</p>
+<p>Since we are considering the same ELISA test, we used the same true positive and true negative rates as in Section <a href="#diagnostic-testing"><strong>??</strong></a>. We see that two positive tests makes it much more probable for someone to have HIV than when only one test comes up positive.</p>
 <p>This process, of using Bayes’ rule to update a probability based on an event affecting it, is called Bayes’ updating. More generally, the what one tries to update can be considered ‘prior’ information, sometimes simply called the <em>prior</em>. The event providing information about this can also be data. Then, updating this prior using Bayes’ rule gives the information conditional on the data, also known as the <em>posterior</em>, as in the information <em>after</em> having seen the data. Going from the prior to the posterior is Bayes updating.</p>
 <p>The probability of HIV after one positive ELISA, 0.12, was the posterior in the previous section as it was an update of the overall prevalence of HIV, <a href="the-basics-of-bayesian-statistics.html#eq:HIVpositive">(1.1)</a>. However, in this section we answered a question where we used this posterior information as the prior. This process of using a posterior as prior in a new problem is natural in the Bayesian framework of updating knowledge based on the data.</p>
 
@@ -657,8 +657,8 @@ P(H_2 | k=1) &amp;= 1 - 0.45 = 0.55
 <h2><span class="header-section-number">1.4</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li><p><strong>Conditioning on dating site usage.</strong> Recall Table <a href="the-basics-of-bayesian-statistics.html#tab:2015gallupDating">1.1</a>. What is the probability that an online dating site user from this sample is 18-29 years old?</p></li>
-<li><p><strong>Probability of no HIV.</strong> Consider the ELISA test from Section <a href="the-basics-of-bayesian-statistics.html#diagnostic-testing">1.1.2</a>. What is the probability that someone has no HIV if that person has a negative ELISA result? How does this compare to the probability of having no HIV before any test was done?</p></li>
-<li><p><strong>Probability of no HIV after contradictive tests.</strong> Consider the ELISA test from Section <a href="the-basics-of-bayesian-statistics.html#diagnostic-testing">1.1.2</a>. What is the probability that someone has no HIV if that person first tests positive on the ELISA and secondly test negative? Assume that the tests are independent from each other.</p></li>
+<li><p><strong>Probability of no HIV.</strong> Consider the ELISA test from Section <a href="#diagnostic-testing"><strong>??</strong></a>. What is the probability that someone has no HIV if that person has a negative ELISA result? How does this compare to the probability of having no HIV before any test was done?</p></li>
+<li><p><strong>Probability of no HIV after contradictive tests.</strong> Consider the ELISA test from Section <a href="#diagnostic-testing"><strong>??</strong></a>. What is the probability that someone has no HIV if that person first tests positive on the ELISA and secondly test negative? Assume that the tests are independent from each other.</p></li>
 </ol>
 
 </div>

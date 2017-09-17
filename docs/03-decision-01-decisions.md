@@ -31,8 +31,6 @@ When making point estimates of unknown parameters, we should make the choices th
 
 ### Working with Loss Functions
 
-UNFINISHED: CURRENTLY WORKING ON L2
-
 Now we illustrate why certain estimates minimize certain loss functions. 
 
 \BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:car"><strong>(\#ex:car)</strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure \@ref(fig:posterior-decision). The mean, median and the mode of the distribution are also marked on the plot. Your boss doesn't know any Bayesian statistics though, so he/she wants you to report **a single number** for the number of cars the dealership will sell per month.</div>\EndKnitrBlock{example}
@@ -116,9 +114,17 @@ Table: (\#tab:L1-table)L1: linear loss for g = 30
 <p class="caption">(\#fig:L1-median)L1 is minimized at the median of the posterior</p>
 </div>
 
-UNFINISHED
+If your loss function is $L_2$ (i.e. a squared loss), then the total loss for a guess is the sum of the squared differences between that guess and each value in the posterior. 
 
-If your loss function is L2, that is a squared loss, then the total loss for a guess is the sum of the squared differences between that guess and each value in the posterior. We can once again calculate the total loss under L2 if your guess is 30. We have the posterior distribution again, sorted in ascending order. The first value is 4, and the squared difference between 4 and 30 is 676. The second value is 19 the square of the difference between 19 and 30 is 121. The third value is 20, and the square difference between 20 and 30 is 100. There's only 1 30 in your posterior, and the loss for this value is 0 since it's equal to your guess. The remaining values in the posterior are again all different than 30, hence their losses are all different than 0. To find the total loss, we simply sum over these individual losses again and the total loss comes out to 3,732. We have the visualization of the posterior distribution. Again, this time along with the squared loss function calculated for a possible serious of possible guesses within the range of the posterior distribution. Creating this visualization had the same steps. Go through the same process described earlier for a guess of 30, for all guesses considered, and record the total loss. This time, the function has the lowest value when X is equal to the mean of the posterior. Hence, L2 is minimized at the mean of the posterior distribution. In summary, in this lesson we illustrated that the 0, 1 loss, L0 is minimized at the mode of the posterior distribution. The linear loss L1 is minimized at the median of the posterior distribution and the squared loss L2 is minimized at the mean of the posterior distribution. Going back to the original question. The point estimate to report to your boss about the number of cars the dealership will sell per month depends on your loss function. In any case, you would choose to report the estimate that minimizes the loss. 
+We can once again calculate the total loss under $L_2$ if your guess is 30. Table \@ref(tab:L2-table) summarizes the posterior distribution again, sorted in ascending order. 
+
+The first value is 4, and the squared difference between 4 and 30 is 676. The second value is 19, and the square of the difference between 19 and 30 is 121. The third value is 20, and the square difference between 20 and 30 is 100. 
+
+There is only one 30 in your posterior, and the loss for this value is 0 since it is equal to your guess. The remaining values in the posterior are again all different than 30, hence their losses are all different than 0.
+
+To find the total loss, we simply sum over these individual losses again and the total loss comes out to 3,732. We have the visualization of the posterior distribution. Again, this time along with the squared loss function calculated for a possible serious of possible guesses within the range of the posterior distribution. 
+
+Creating the visualization in Figure \@ref(fig:L2-mean) had the same steps. Go through the same process described earlier for a guess of 30, for all guesses considered, and record the total loss. This time, the function has the lowest value when $g$ is equal to the **mean** of the posterior. Hence, $L_2$ is minimized at the **mean** of the posterior distribution.
 
 
 Table: (\#tab:L2-table)L2: squared loss for g = 30
@@ -140,11 +146,112 @@ Table: (\#tab:L2-table)L2: squared loss for g = 30
 <p class="caption">(\#fig:L2-mean)L2 is minimized at the mean of the posterior</p>
 </div>
 
+To sum up, the point estimate to report to your boss about the number of cars the dealership will sell per month **depends on your loss function**. In any case, you will choose to report the estimate that minimizes the loss. 
 
-L0 is minimized at the mode of the posterior distribution.
-L1 is minimized at the median of the posterior distribution.
-L2 is minimized at the mean of the posterior distribution.
+* $L_0$ is minimized at the **mode** of the posterior distribution.
+* $L_1$ is minimized at the **median** of the posterior distribution.
+* $L_2$ is minimized at the **mean** of the posterior distribution.
 
-### Minimizing Expectated Loss for Hypothesis Testing
+### Minimizing Expected Loss for Hypothesis Testing
+
+In Bayesian statistics, the inference about a parameter is made based on the posterior distribution, and let's include this in the hypothesis test setting.
+
+Suppose we have two competing hypothesis, $H_1$ and $H_2$. Then we get
+
+* $P(H_1 \text{ is true } | \text{ data})$ = posterior probability of $H_1$
+* $P(H_2 \text{ is true } | \text{ data})$ = posterior probability of $H_2$
+
+One straightforward way of choosing between $H_1$ and $H_2$ would be to **choose the one with the higher posterior probability**. In other words, the potential decision criterion is to
+
+* Reject $H_1$ if $P(H_1 \text{ is true } | \text{ data}) < P(H_1 \text{ is true } | \text{ data})$.
+
+However, since hypothesis testing is a decision problem, we should also consider a loss function. Let's revisit the HIV testing example in Section \@ref(sec:diagnostic-testing), and suppose we want to test the two competing hypotheses below:
+
+* $H_1$: Patient does not have HIV
+* $H_2$: Patient has HIV
+
+These are the only two possibilities, so they are mutually exclusive hypotheses that cover the entire decision space. 
+
+We can define the loss function as $L(d)$ -- the loss that occurs when decision $d$ is made. Then the Bayesian testing procedure minimizes the posterior expected loss. 
+
+The possible decisions (actions) are:
+
+* $d_1$: Choose $H_1$ - decide that the patient does not have HIV
+* $d_2$: Choose $H_2$ - decide that the patient has HIV
+
+For each decision $d$, we might be right, or we might be wrong. If the decision is right, the loss $L(d)$ associated with the decision $d$ is zero, i.e. no loss. If the decision is wrong, the loss $L(d)$ associated with the decision $d$ is some positive value $w$.
+
+For $d=d_1$, we have
+
+* **Right**: Decide patient does not have HIV, and indeed they do not. $\Rightarrow L(d_1) = 0$
+* **Wrong**: Decide patient does not have HIV, but they do. $\Rightarrow L(d_1) = w_1$
+
+For $d=d_2$, we also have
+
+* **Right**: Decide patient has HIV, and indeed they do. $\Rightarrow L(d_2) = 0$
+* **Wrong**: Decide patient has HIV, but they don’t $\Rightarrow L(d2) = w_2$
+
+The consequences of making a wrong decision $d_1$ or $d_2$ are different. 
+
+Wrong $d_1$ is a **false negative**:
+
+* We decide that patient does not have HIV when in reality they do.
+* Potential consequences: no treatment and premature death! (severe)
+
+Wrong $d_2$ is a **false positive**:
+
+* We decide that the patient has HIV when in reality they do not.
+* Potential consequences: distress and unnecessary further investigation. (not ideal but less severe than the consequences of a false negative decision)
+
+Let's put these definitions in the context of the HIV testing example with ELISA. 
+
+**Hypotheses**
+
+* $H_1$: Patient does not have HIV
+* $H_2$: Patient has HIV
+
+**Decision**
+
+* $d_1$: Choose $H_1$ - decide that the patient does not have HIV
+* $d_2$: Choose $H_2$ - decide that the patient has HIV
+
+**Losses**
+
+* $L(d_1) = \left\{ \begin{array}{cc}
+0 & \text{if $d_1$ is right}\\
+w_1=1000 & \text{if $d_1$ is wrong}
+\end{array}\right.$
+
+* $L(d_2) = \left\{ \begin{array}{cc}
+0 & \text{if $d_2$ is right}\\
+w_2=10 & \text{if $d_2$ is wrong}
+\end{array}\right.$
+
+The values of $w_1$ and $w_2$ are arbitrarily chosen. But the important thing is that $w_1$, the loss associated with a false negative determination, is much higher than $w_2$, the loss associated with a false positive determination.
+
+**Posteriors**
+
+The plus sign means that our patient had tested positive on the ELISA. 
+
+* $P(H_1|+) \approx 0.88$ - the posterior probability of the patient **not** having HIV given positive ELISA result
+* $P(H_2|+) \approx 0.12$ - the posterior probability of the patient having HIV given positive ELISA result, as the complement value of $P(H_1|+)$
+
+**Expected losses**
+
+* $E[L(d_1)] = 0.88 \times 0 + 0.12 \times 1000 = 120$
+* $E[L(d_2)] = 0.88 \times 10 + 0.12 \times 0 = 8.8$
+
+Since the expected loss for $d_2$ is lower, we should make this decision -- the patient has HIV. 
+
+Note that our decision is highly influenced by the losses we assigned to $d_1$ and $d_2$. 
+
+
+If the losses were symmetric, say $w_1 = w_2 = 10$, then the expected loss for $d_1$ becomes
+
+$$E[L(d_1)] = 0.88 \times 0 + 0.12 \times 10 = 1.2,$$
+
+while the expected loss for $d_2$ would not change. Therefore, we would choose $d_1$ instead; that is, we would decide that the patient does not have HIV. 
+
+To recap, Bayesian methodologies allow for the integration of losses into the decision making framework easily. And in Bayesian testing, we minimize the posterior expected loss. 
 
 ### Posterior Probabilities of Hypotheses and Bayes Factors

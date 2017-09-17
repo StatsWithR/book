@@ -69,7 +69,7 @@ Bayes' rule provides a way to compute this conditional probability:
 \end{multline*}
 ```
 
-### Bayes' Rule and Diagnostic Testing {#diagnostic-testing}
+### Bayes' Rule and Diagnostic Testing {#sec:diagnostic-testing}
 
 To better understand conditional probabilities and their importance, let us consider an example involving the human immunodeficiency virus (HIV). In the early 1980s, HIV had just been discovered and was rapidly expanding. There was major concern with the safety of the blood supply. Also, virtually no cure existed making an HIV diagnosis basically a death sentence, in addition to the stigma that was attached to the disease.
 

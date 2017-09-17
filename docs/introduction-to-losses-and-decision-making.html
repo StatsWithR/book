@@ -106,7 +106,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
 <li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
 <li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
-<li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
+<li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
 <li class="chapter" data-level="1.1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
 <li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
 </ul></li>
@@ -141,7 +141,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#losses-and-decision-making"><i class="fa fa-check"></i><b>3.1</b> Losses and Decision Making</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#loss-functions"><i class="fa fa-check"></i><b>3.1.1</b> Loss Functions</a></li>
 <li class="chapter" data-level="3.1.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#working-with-loss-functions"><i class="fa fa-check"></i><b>3.1.2</b> Working with Loss Functions</a></li>
-<li class="chapter" data-level="3.1.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#minimizing-expectated-loss-for-hypothesis-testing"><i class="fa fa-check"></i><b>3.1.3</b> Minimizing Expectated Loss for Hypothesis Testing</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#minimizing-expected-loss-for-hypothesis-testing"><i class="fa fa-check"></i><b>3.1.3</b> Minimizing Expected Loss for Hypothesis Testing</a></li>
 <li class="chapter" data-level="3.1.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#posterior-probabilities-of-hypotheses-and-bayes-factors"><i class="fa fa-check"></i><b>3.1.4</b> Posterior Probabilities of Hypotheses and Bayes Factors</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#inference-and-decision-making-with-multiple-parameters"><i class="fa fa-check"></i><b>3.2</b> Inference and Decision-Making with Multiple Parameters</a><ul>
@@ -225,7 +225,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="working-with-loss-functions" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> Working with Loss Functions</h3>
-<p>UNFINISHED: CURRENTLY WORKING ON L2</p>
 <p>Now we illustrate why certain estimates minimize certain loss functions.</p>
 
 <div class="example">
@@ -382,8 +381,12 @@ Figure 3.2: L0 is minimized at the mode of the posterior
 Figure 3.3: L1 is minimized at the median of the posterior
 </p>
 </div>
-<p>UNFINISHED</p>
-<p>If your loss function is L2, that is a squared loss, then the total loss for a guess is the sum of the squared differences between that guess and each value in the posterior. We can once again calculate the total loss under L2 if your guess is 30. We have the posterior distribution again, sorted in ascending order. The first value is 4, and the squared difference between 4 and 30 is 676. The second value is 19 the square of the difference between 19 and 30 is 121. The third value is 20, and the square difference between 20 and 30 is 100. There’s only 1 30 in your posterior, and the loss for this value is 0 since it’s equal to your guess. The remaining values in the posterior are again all different than 30, hence their losses are all different than 0. To find the total loss, we simply sum over these individual losses again and the total loss comes out to 3,732. We have the visualization of the posterior distribution. Again, this time along with the squared loss function calculated for a possible serious of possible guesses within the range of the posterior distribution. Creating this visualization had the same steps. Go through the same process described earlier for a guess of 30, for all guesses considered, and record the total loss. This time, the function has the lowest value when X is equal to the mean of the posterior. Hence, L2 is minimized at the mean of the posterior distribution. In summary, in this lesson we illustrated that the 0, 1 loss, L0 is minimized at the mode of the posterior distribution. The linear loss L1 is minimized at the median of the posterior distribution and the squared loss L2 is minimized at the mean of the posterior distribution. Going back to the original question. The point estimate to report to your boss about the number of cars the dealership will sell per month depends on your loss function. In any case, you would choose to report the estimate that minimizes the loss.</p>
+<p>If your loss function is <span class="math inline">\(L_2\)</span> (i.e. a squared loss), then the total loss for a guess is the sum of the squared differences between that guess and each value in the posterior.</p>
+<p>We can once again calculate the total loss under <span class="math inline">\(L_2\)</span> if your guess is 30. Table <a href="introduction-to-losses-and-decision-making.html#tab:L2-table">3.4</a> summarizes the posterior distribution again, sorted in ascending order.</p>
+<p>The first value is 4, and the squared difference between 4 and 30 is 676. The second value is 19, and the square of the difference between 19 and 30 is 121. The third value is 20, and the square difference between 20 and 30 is 100.</p>
+<p>There is only one 30 in your posterior, and the loss for this value is 0 since it is equal to your guess. The remaining values in the posterior are again all different than 30, hence their losses are all different than 0.</p>
+<p>To find the total loss, we simply sum over these individual losses again and the total loss comes out to 3,732. We have the visualization of the posterior distribution. Again, this time along with the squared loss function calculated for a possible serious of possible guesses within the range of the posterior distribution.</p>
+<p>Creating the visualization in Figure <a href="introduction-to-losses-and-decision-making.html#fig:L2-mean">3.4</a> had the same steps. Go through the same process described earlier for a guess of 30, for all guesses considered, and record the total loss. This time, the function has the lowest value when <span class="math inline">\(g\)</span> is equal to the <strong>mean</strong> of the posterior. Hence, <span class="math inline">\(L_2\)</span> is minimized at the <strong>mean</strong> of the posterior distribution.</p>
 <table>
 <caption><span id="tab:L2-table">Table 3.4: </span>L2: squared loss for g = 30</caption>
 <thead>
@@ -447,10 +450,93 @@ Figure 3.3: L1 is minimized at the median of the posterior
 Figure 3.4: L2 is minimized at the mean of the posterior
 </p>
 </div>
-<p>L0 is minimized at the mode of the posterior distribution. L1 is minimized at the median of the posterior distribution. L2 is minimized at the mean of the posterior distribution.</p>
+<p>To sum up, the point estimate to report to your boss about the number of cars the dealership will sell per month <strong>depends on your loss function</strong>. In any case, you will choose to report the estimate that minimizes the loss.</p>
+<ul>
+<li><span class="math inline">\(L_0\)</span> is minimized at the <strong>mode</strong> of the posterior distribution.</li>
+<li><span class="math inline">\(L_1\)</span> is minimized at the <strong>median</strong> of the posterior distribution.</li>
+<li><span class="math inline">\(L_2\)</span> is minimized at the <strong>mean</strong> of the posterior distribution.</li>
+</ul>
 </div>
-<div id="minimizing-expectated-loss-for-hypothesis-testing" class="section level3">
-<h3><span class="header-section-number">3.1.3</span> Minimizing Expectated Loss for Hypothesis Testing</h3>
+<div id="minimizing-expected-loss-for-hypothesis-testing" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Minimizing Expected Loss for Hypothesis Testing</h3>
+<p>In Bayesian statistics, the inference about a parameter is made based on the posterior distribution, and let’s include this in the hypothesis test setting.</p>
+<p>Suppose we have two competing hypothesis, <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>. Then we get</p>
+<ul>
+<li><span class="math inline">\(P(H_1 \text{ is true } | \text{ data})\)</span> = posterior probability of <span class="math inline">\(H_1\)</span></li>
+<li><span class="math inline">\(P(H_2 \text{ is true } | \text{ data})\)</span> = posterior probability of <span class="math inline">\(H_2\)</span></li>
+</ul>
+<p>One straightforward way of choosing between <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span> would be to <strong>choose the one with the higher posterior probability</strong>. In other words, the potential decision criterion is to</p>
+<ul>
+<li>Reject <span class="math inline">\(H_1\)</span> if <span class="math inline">\(P(H_1 \text{ is true } | \text{ data}) &lt; P(H_1 \text{ is true } | \text{ data})\)</span>.</li>
+</ul>
+<p>However, since hypothesis testing is a decision problem, we should also consider a loss function. Let’s revisit the HIV testing example in Section <a href="the-basics-of-bayesian-statistics.html#sec:diagnostic-testing">1.1.2</a>, and suppose we want to test the two competing hypotheses below:</p>
+<ul>
+<li><span class="math inline">\(H_1\)</span>: Patient does not have HIV</li>
+<li><span class="math inline">\(H_2\)</span>: Patient has HIV</li>
+</ul>
+<p>These are the only two possibilities, so they are mutually exclusive hypotheses that cover the entire decision space.</p>
+<p>We can define the loss function as <span class="math inline">\(L(d)\)</span> – the loss that occurs when decision <span class="math inline">\(d\)</span> is made. Then the Bayesian testing procedure minimizes the posterior expected loss.</p>
+<p>The possible decisions (actions) are:</p>
+<ul>
+<li><span class="math inline">\(d_1\)</span>: Choose <span class="math inline">\(H_1\)</span> - decide that the patient does not have HIV</li>
+<li><span class="math inline">\(d_2\)</span>: Choose <span class="math inline">\(H_2\)</span> - decide that the patient has HIV</li>
+</ul>
+<p>For each decision <span class="math inline">\(d\)</span>, we might be right, or we might be wrong. If the decision is right, the loss <span class="math inline">\(L(d)\)</span> associated with the decision <span class="math inline">\(d\)</span> is zero, i.e. no loss. If the decision is wrong, the loss <span class="math inline">\(L(d)\)</span> associated with the decision <span class="math inline">\(d\)</span> is some positive value <span class="math inline">\(w\)</span>.</p>
+<p>For <span class="math inline">\(d=d_1\)</span>, we have</p>
+<ul>
+<li><strong>Right</strong>: Decide patient does not have HIV, and indeed they do not. <span class="math inline">\(\Rightarrow L(d_1) = 0\)</span></li>
+<li><strong>Wrong</strong>: Decide patient does not have HIV, but they do. <span class="math inline">\(\Rightarrow L(d_1) = w_1\)</span></li>
+</ul>
+<p>For <span class="math inline">\(d=d_2\)</span>, we also have</p>
+<ul>
+<li><strong>Right</strong>: Decide patient has HIV, and indeed they do. <span class="math inline">\(\Rightarrow L(d_2) = 0\)</span></li>
+<li><strong>Wrong</strong>: Decide patient has HIV, but they don’t <span class="math inline">\(\Rightarrow L(d2) = w_2\)</span></li>
+</ul>
+<p>The consequences of making a wrong decision <span class="math inline">\(d_1\)</span> or <span class="math inline">\(d_2\)</span> are different.</p>
+<p>Wrong <span class="math inline">\(d_1\)</span> is a <strong>false negative</strong>:</p>
+<ul>
+<li>We decide that patient does not have HIV when in reality they do.</li>
+<li>Potential consequences: no treatment and premature death! (severe)</li>
+</ul>
+<p>Wrong <span class="math inline">\(d_2\)</span> is a <strong>false positive</strong>:</p>
+<ul>
+<li>We decide that the patient has HIV when in reality they do not.</li>
+<li>Potential consequences: distress and unnecessary further investigation. (not ideal but less severe than the consequences of a false negative decision)</li>
+</ul>
+<p>Let’s put these definitions in the context of the HIV testing example with ELISA.</p>
+<p><strong>Hypotheses</strong></p>
+<ul>
+<li><span class="math inline">\(H_1\)</span>: Patient does not have HIV</li>
+<li><span class="math inline">\(H_2\)</span>: Patient has HIV</li>
+</ul>
+<p><strong>Decision</strong></p>
+<ul>
+<li><span class="math inline">\(d_1\)</span>: Choose <span class="math inline">\(H_1\)</span> - decide that the patient does not have HIV</li>
+<li><span class="math inline">\(d_2\)</span>: Choose <span class="math inline">\(H_2\)</span> - decide that the patient has HIV</li>
+</ul>
+<p><strong>Losses</strong></p>
+<ul>
+<li><p><span class="math inline">\(L(d_1) = \left\{ \begin{array}{cc} 0 &amp; \text{if $d_1$ is right}\\ w_1=1000 &amp; \text{if $d_1$ is wrong} \end{array}\right.\)</span></p></li>
+<li><p><span class="math inline">\(L(d_2) = \left\{ \begin{array}{cc} 0 &amp; \text{if $d_2$ is right}\\ w_2=10 &amp; \text{if $d_2$ is wrong} \end{array}\right.\)</span></p></li>
+</ul>
+<p>The values of <span class="math inline">\(w_1\)</span> and <span class="math inline">\(w_2\)</span> are arbitrarily chosen. But the important thing is that <span class="math inline">\(w_1\)</span>, the loss associated with a false negative determination, is much higher than <span class="math inline">\(w_2\)</span>, the loss associated with a false positive determination.</p>
+<p><strong>Posteriors</strong></p>
+<p>The plus sign means that our patient had tested positive on the ELISA.</p>
+<ul>
+<li><span class="math inline">\(P(H_1|+) \approx 0.88\)</span> - the posterior probability of the patient <strong>not</strong> having HIV given positive ELISA result</li>
+<li><span class="math inline">\(P(H_2|+) \approx 0.12\)</span> - the posterior probability of the patient having HIV given positive ELISA result, as the complement value of <span class="math inline">\(P(H_1|+)\)</span></li>
+</ul>
+<p><strong>Expected losses</strong></p>
+<ul>
+<li><span class="math inline">\(E[L(d_1)] = 0.88 \times 0 + 0.12 \times 1000 = 120\)</span></li>
+<li><span class="math inline">\(E[L(d_2)] = 0.88 \times 10 + 0.12 \times 0 = 8.8\)</span></li>
+</ul>
+<p>Since the expected loss for <span class="math inline">\(d_2\)</span> is lower, we should make this decision – the patient has HIV.</p>
+<p>Note that our decision is highly influenced by the losses we assigned to <span class="math inline">\(d_1\)</span> and <span class="math inline">\(d_2\)</span>.</p>
+<p>If the losses were symmetric, say <span class="math inline">\(w_1 = w_2 = 10\)</span>, then the expected loss for <span class="math inline">\(d_1\)</span> becomes</p>
+<p><span class="math display">\[E[L(d_1)] = 0.88 \times 0 + 0.12 \times 10 = 1.2,\]</span></p>
+<p>while the expected loss for <span class="math inline">\(d_2\)</span> would not change. Therefore, we would choose <span class="math inline">\(d_1\)</span> instead; that is, we would decide that the patient does not have HIV.</p>
+<p>To recap, Bayesian methodologies allow for the integration of losses into the decision making framework easily. And in Bayesian testing, we minimize the posterior expected loss.</p>
 </div>
 <div id="posterior-probabilities-of-hypotheses-and-bayes-factors" class="section level3">
 <h3><span class="header-section-number">3.1.4</span> Posterior Probabilities of Hypotheses and Bayes Factors</h3>
