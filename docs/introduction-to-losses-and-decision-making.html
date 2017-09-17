@@ -540,6 +540,62 @@ Figure 3.4: L2 is minimized at the mean of the posterior
 </div>
 <div id="posterior-probabilities-of-hypotheses-and-bayes-factors" class="section level3">
 <h3><span class="header-section-number">3.1.4</span> Posterior Probabilities of Hypotheses and Bayes Factors</h3>
+<p>In this section, we will continue with the HIV testing example to introduce the concept of Bayes factors. Earlier, we introduced the concept of priors and posteriors. The <strong>prior odds</strong> is defined as <strong>the ratio of the prior probabilities of hypotheses</strong>.</p>
+<p>Therefore, if there are two competing hypotheses being considered, then the prior odds of <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> can be defined as <span class="math inline">\(O[H_1:H_2]\)</span>, which is equal to <span class="math inline">\(P(H_1)\)</span> over probability of <span class="math inline">\(P(H_2)\)</span>. In mathematical terms,</p>
+<p><span class="math display">\[O[H_1:H_2] = \frac{P(H_1)}{P(H_2)}\]</span></p>
+<p>Similarly, the <strong>posterior odds</strong> is <strong>the ratio of the two posterior probabilities of hypotheses</strong>, written as</p>
+<p><span class="math display">\[PO[H_1:H_2] = \frac{P(H_1|\text{data})}{P(H_2|\text{data})}\]</span></p>
+<p>Using Bayes’ rule, we can rewrite the posterior probabilities as below:</p>
+<p><span class="math display">\[\begin{align}
+PO[H_1:H_2] &amp;= \frac{P(H_1|\text{data})}{P(H_2|\text{data})} \\
+&amp;= \frac{(P(\text{data}|H_1) \times P(H_1)) / P(\text{data}))}{(P(\text{data}|H_2) \times P(H_2)) / P(\text{data}))} \\
+&amp;= \frac{(P(\text{data}|H_1) \times P(H_1))}{(P(\text{data}|H_2) \times P(H_2))} \\
+&amp;= \boxed{\frac{P(\text{data}|H_1)}{P(\text{data}|H_2)}} \times \boxed{\frac{P(H_1)}{P(H_2)}} \\
+&amp;= \textbf{Bayes factor} \times \textbf{prior odds}
+\end{align}\]</span></p>
+<p>In mathematical notation, we have</p>
+<p><span class="math display">\[PO[H_1:H_2] = BF[H_1:H_2] \times O[H_1:H_2]\]</span></p>
+<p>In other words, the posterior odds is the product of the Bayes factor and the prior odds for these two hypotheses.</p>
+<p>The Bayes factor quantifies the evidence of data arising from <span class="math inline">\(H_1\)</span> versus <span class="math inline">\(H_2\)</span>.</p>
+<p>In a discrete case, the Bayes factor is simply the ratio of the likelihoods of the observed data under the two hypotheses, written as</p>
+<p><span class="math display">\[BF[H_1:H_2] = \frac{P(\text{data}|H_1)}{P(\text{data}|H_2)}.\]</span></p>
+<p>On the other hand, in a continuous case, the Bayes factor is the ratio of the marginal likelihoods, written as</p>
+<p><span class="math display">\[BF[H_1:H_2] = \frac{\int P(\text{data}|\theta,H_1)d\theta}{\int P(\text{data}|\theta,H_2)d\theta}.\]</span></p>
+<p>Note that <span class="math inline">\(\theta\)</span> is the set formed by all possible values of the model parameters.</p>
+<p>In this section, we will stick with the simpler discrete case. And in upcoming sections, we will revisit calculating Bayes factors for more complicated models.</p>
+<p>Let’s return to the HIV testing example from earlier, where our patient had tested positive in the ELISA.</p>
+<p><strong>Hypotheses</strong></p>
+<ul>
+<li><span class="math inline">\(H_1\)</span>: Patient does not have HIV</li>
+<li><span class="math inline">\(H_2\)</span>: Patient has HIV</li>
+</ul>
+<p><strong>Priors</strong></p>
+<p>The prior probabilities we place on these hypothesis came from the prevalence of HIV at the time in the general population. We were told that the prevalence of HIV in the population was 1.48 out of 1000, hence the prior probability assigned to <span class="math inline">\(H_2\)</span> is 0.00148. And the prior assigned to <span class="math inline">\(H_1\)</span> is simply the complement of this.</p>
+<ul>
+<li><span class="math inline">\(P(H_1) = 0.99852\)</span> and <span class="math inline">\(P(H_2) = 0.00148\)</span></li>
+</ul>
+<p>The prior odds are</p>
+<ul>
+<li><span class="math inline">\(O[H_1:H_2] = \dfrac{P(H_1)}{P(H_2)} = \dfrac{0.99852}{0.00148} = 674.6757\)</span></li>
+</ul>
+<p><strong>Posteriors</strong></p>
+<p>Given a positive ELISA result, the posterior probabilities of these hypotheses can also be calculated, and these are approximately 0.88 and 0.12. We will hold on to more decimal places in our calculations to avoid rounding errors later.</p>
+<ul>
+<li><span class="math inline">\(P(H_1|+) = 0.8788551\)</span> and <span class="math inline">\(P(H_2|+) = 0.1211449\)</span></li>
+</ul>
+<p>The posterior odds are</p>
+<ul>
+<li><span class="math inline">\(PO[H_1:H_2] = \dfrac{P(H_1|+)}{P(H_2|+)} = \dfrac{0.8788551}{0.1211449} = 7.254578\)</span></li>
+</ul>
+<p><strong>Bayes factor</strong></p>
+<p>Finally, we can calculate the Bayes factor as the ratio of the posterior odds to prior odds, which comes out to approximately 0.0108. Note that in this simple discrete case the Bayes factor, it simplifies to the ratio of the likelihoods of the observed data under the two hypotheses.</p>
+<p><span class="math display">\[\begin{align}
+BF[H_1:H_2] &amp;= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \approx 0.0108 \\
+&amp;= \frac{P(+|H_1)}{P(+|H_2)} = \frac{0.01}{0.93} \approx 0.0108
+\end{align}\]</span></p>
+<p>Alternatively, remember that the true positive rate of the test was 0.93 and the false positive rate was 0.01. Using these two values, the Bayes factor also comes out to approximately 0.0108.</p>
+<p>UNFINISHED BELOW</p>
+<p>So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by Jeffreys.</p>
 
 </div>
 </div>
