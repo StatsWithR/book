@@ -337,3 +337,7 @@ Alternatively, remember that the true positive rate of the test was 0.93 and the
 UNFINISHED BELOW
 
 So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by Jeffreys.
+
+Test citation: @jeffreys1961theory
+
+Another citation: @kass1995bayes
