@@ -92,12 +92,12 @@ as $\sigma^2$ is unknown. This marginal inference requires the unconditional or 
 $\mu$ given the data is a \index{Student t distribution}
 $$ \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n)  $$ 
 with density
-$$
+\begin{equation}
 p(\mu) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
 {\sqrt{\pi v_n} \frac{s_n}{\sqrt{n_n}} \,\Gamma\left(\frac{v_n}{2} \right)}
 \left(1 + \frac{1}{v_n}\frac{(\mu - m_n)^2} {s^2_n/n_n} \right)^{-\frac{v_n+1}{2}} 
 (\#eq:Student-t-density)
-$$
+\end{equation}
 with the degrees of freedom $v_n$, a
 location parameter $m_n$ and squared scale parameter that is the
 posterior variance parameter divided by the posterior sample size. 

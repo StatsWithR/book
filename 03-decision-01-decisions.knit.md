@@ -18,18 +18,14 @@ Finally, in some cases, the penalty is 0 if you are exactly correct, but constan
 
 There is a large literature on decision theory, and it is directly linked to risk analysis, which arises in many fields. Although it is possible for frequentists to employ a certain kind of decision theory, it is much more natural for Bayesians. 
 
-```{r loss-functions, echo=FALSE}
-temp <- matrix(c("Linear","Median",
-                 "Quadratic","Mean",
-                 "0/1","Mode"), nrow=3, byrow=TRUE)
 
-colnames(temp) <- c("Loss","Best Estimate")
+Table: (\#tab:loss-functions)Loss Functions
 
-knitr::kable(
-  x = temp, booktabs = TRUE,
-  caption = "Loss Functions", align = 'c'
-)
-```
+   Loss       Best Estimate 
+-----------  ---------------
+  Linear         Median     
+ Quadratic        Mean      
+    0/1           Mode      
 
 When making point estimates of unknown parameters, we should make the choices that minimize the loss. Nevertheless, the best estimate depends on the kind of loss function we are using, and we will discuss in more depth how these best estimates are determined in the next section.
 
@@ -37,40 +33,12 @@ When making point estimates of unknown parameters, we should make the choices th
 
 Now we illustrate why certain estimates minimize certain loss functions. 
 
-```{example, label="car"}
-You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure \@ref(fig:posterior-decision). The mean, median and the mode of the distribution are also marked on the plot. Your boss doesn't know any Bayesian statistics though, so he/she wants you to report **a single number** for the number of cars the dealership will sell per month.
-```
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:car"><strong>(\#ex:car)</strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure \@ref(fig:posterior-decision). The mean, median and the mode of the distribution are also marked on the plot. Your boss doesn't know any Bayesian statistics though, so he/she wants you to report **a single number** for the number of cars the dealership will sell per month.</div>\EndKnitrBlock{example}
 
-```{r posterior-decision, fig.height=3, fig.width=10, fig.align='center', fig.cap="Posterior", echo=FALSE, message=FALSE}
-# posterior ---------------------------------------------------------
-
-posterior <- c(47, 33, 35, 32, 19, 33, 34, 36, 47, 32, 35, 41, 32, 29, 35, 
-               25, 32, 36, 20, 47, 37, 32, 35, 25, 37, 40, 36, 38, 40, 35, 49, 
-               23, 33, 35, 38, 28, 36, 4, 28, 45, 37, 39, 34, 41, 28, 33, 27, 
-               26, 30, 34, 23)
-
-# length(posterior) # 51
-
-# t(sort(posterior))
-
-# mean(posterior) # 33.45098
-# median(posterior) # 34
-# table(posterior)[which.max(table(posterior))] # 35
-
-# dotplot of posterior ----------------------------------------------
-
-# pdf("posterior.pdf", width = 10, height = 3)
-par(mar = c(2, 0, 0, 0), cex.axis = 1.5, cex = 1.5)
-BHH2::dotPlot(posterior, pch = 19, xlim = c(0, 50), axes = FALSE)
-axis(1, at = seq(from = 0, to = 50, by = 5))
-abline(v = mean(posterior), col = "orange", lwd = 4)
-abline(v = median(posterior), col = "turquoise4", lwd = 4)
-abline(v = 35, col = "pink", lwd = 4)
-legend("topleft", col = c("orange", "turquoise4", "pink"), 
-       c("mean", "median", "mode"), lty = 1, lwd = 4,
-       bty = "n")
-# dev.off()
-```
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-html/posterior-decision-1.png" alt="Posterior" width="960" />
+<p class="caption">(\#fig:posterior-decision)Posterior</p>
+</div>
 
 Suppose your single guess is 30, and we call this $g$ in the following calculations. If your loss function is $L_0$ (i.e., a 0/1 loss), then you lose a point for each value in your posterior that differs from your guess and do not lose any points for values that exactly equal your guess. The total loss is the sum of the losses from each value in the posterior.
 
@@ -92,52 +60,25 @@ To find the total loss, we simply sum over these individual losses in the poster
 
 Figure \@ref(fig:L0-mode) is a visualization of the posterior distribution, along with the 0-1 loss calculated for a series of possible guesses within the range of the posterior distribution. To create this visualization of the loss function, we went through the process we described earlier for a guess of 30 for all guesses considered, and we recorded the total loss. We can see that the loss function has the lowest value when $g$, our guess, is equal to **the most frequent observation** in the posterior. Hence, $L_0$ is minimized at the **mode** of the posterior, which means that if we use the 0/1 loss, the best point estimate is the mode of the posterior. 
 
-```{r L0-table, echo=FALSE}
-i = c(1,2,3,"",14,"",50,51)
-xi = c(4,19,20,"...",30,"...",47,49)
-L0_loss = c(1,1,1,"...",0,"...",1,1)
 
-temp <- cbind(i,xi,L0_loss)
-temp <- rbind(temp, c("","Total",50))
-temp <- data.frame(temp)
-names(temp) <- c("i","x_i","L0: 0/1")
+Table: (\#tab:L0-table)L0: 0/1 loss for g = 30
 
-knitr::kable(
-  x = temp, booktabs = TRUE,
-  caption = "L0: 0/1 loss for g = 30", align = 'c'
-)
-```
+ i      x_i     L0: 0/1 
+----  -------  ---------
+ 1       4         1    
+ 2      19         1    
+ 3      20         1    
+        ...       ...   
+ 14     30         0    
+        ...       ...   
+ 50     47         1    
+ 51     49         1    
+       Total      50    
 
-```{r L0-mode, fig.height=5, fig.width=10, fig.align='center', fig.cap="L0 is minimized at the mode of the posterior", echo=FALSE, message=FALSE}
-
-# g = 30 ------------------------------------------------------------
-
-g = 30
-
-# L0 for g ----------------------------------------------------------
-
-# (abs(sort(posterior)-g) > 1e-6)[c(1,2,3,12,13,14,50,51)]
-# sum( abs(posterior-g) > 1e-6 )
-
-# L0 ----------------------------------------------------------------
-
-# pdf("L0.pdf", width = 10, height = 5)
-par(mfrow = c(2, 1), cex = 1.5, mar = c(2, 4, 0.5, 0), las = 1)
-s = seq(0, 50, by = 0.01)
-L0 = sapply(s, function(s) sum( abs(posterior - s) > 1e-6 ))
-plot(s, L0, ylab = "L0", type = "l", axes = FALSE, xlim = c(0, 50))
-axis(2, at = c(44, 46, 48, 50))
-#
-BHH2::dotPlot(posterior, pch = 19, xlim = c(0, 50), axes = FALSE)
-axis(1, at = seq(from = 0, to = 50, by = 5))
-abline(v = mean(posterior), col = "orange", lwd = 4)
-abline(v = median(posterior), col = "turquoise4", lwd = 4)
-abline(v = 35, col = "pink", lwd = 4)
-legend("topleft", col = c("orange", "turquoise4", "pink"), 
-       c("mean", "median", "mode"), lty = 1, lwd = 4,
-       bty = "n")
-# dev.off()
-```
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-html/L0-mode-1.png" alt="L0 is minimized at the mode of the posterior" width="960" />
+<p class="caption">(\#fig:L0-mode)L0 is minimized at the mode of the posterior</p>
+</div>
 
 Let's consider another loss function. If your loss function is $L_1$ (i.e., linear loss), then the total loss for a guess is the sum of the **absolute values** of the difference between that guess and each value in the posterior. Note that the absolute value function is required, because overestimates and underestimates do not cancel out.
 
@@ -153,47 +94,25 @@ To find the total loss, we again simply sum over these individual losses, and th
 
 Again, Figure \@ref(fig:L1-median) is a visualization of the posterior distribution, along with a linear loss function calculated for a series of possible guesses within the range of the posterior distribution. To create this visualization of the loss function, we went through the same process we described earlier for all of the guesses considered. This time, the function has the lowest value when $g$ is equal to the **median** of the posterior. Hence, $L_1$ is minimized at the **median** of the posterior one other loss function. 
 
-```{r L1-table, echo=FALSE}
-# i = c(1,2,3,"",14,"",50,51)
-# xi = c(4,19,20,"...",30,"...",47,49)
-L1_loss = c(26,11,10,"...",0,"...",17,19)
 
-temp <- cbind(i,xi,L0_loss)
-temp <- rbind(temp, c("","Total",346))
-temp <- data.frame(temp)
-names(temp) <- c("i","x_i","L1: |x_i-30|")
+Table: (\#tab:L1-table)L1: linear loss for g = 30
 
-knitr::kable(
-  x = temp, booktabs = TRUE,
-  caption = "L1: linear loss for g = 30", align = 'c'
-)
-```
+ i      x_i     L1: |x_i-30| 
+----  -------  --------------
+ 1       4           1       
+ 2      19           1       
+ 3      20           1       
+        ...         ...      
+ 14     30           0       
+        ...         ...      
+ 50     47           1       
+ 51     49           1       
+       Total        346      
 
-```{r L1-median, fig.height=5, fig.width=10, fig.align='center', fig.cap="L1 is minimized at the median of the posterior", echo=FALSE, message=FALSE}
-# L1 for g = 30 -----------------------------------------------------
-
-# abs(sort(posterior) - g)[c(1,2,3,12,13,14,50,51)]
-# sum(abs(sort(posterior) - g))
-
-# L1 ----------------------------------------------------------------
-
-# pdf("L1.pdf", width = 10, height = 5)
-par(mfrow = c(2, 1), cex = 1.5, mar = c(2, 4, 0.5, 0), las = 1)
-s = seq(0, 50, by = 0.01)
-L1 = sapply(s,function(s) sum( abs(posterior - s) ))
-plot(s, L1, ylab = "L1", type = "l", xlim = c(0, 50), axes = FALSE)
-axis(2, at = seq(250, 1650, 350))
-#
-BHH2::dotPlot(posterior, pch = 19, xlim = c(0, 50), axes = FALSE)
-axis(1, at = seq(from = 0, to = 50, by = 5))
-abline(v = mean(posterior), col = "orange", lwd = 4)
-abline(v = median(posterior), col = "turquoise4", lwd = 4)
-abline(v = 35, col = "pink", lwd = 4)
-legend("topleft", col = c("orange", "turquoise4", "pink"), 
-       c("mean", "median", "mode"), lty = 1, lwd = 4,
-       bty = "n")
-# dev.off()
-```
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-html/L1-median-1.png" alt="L1 is minimized at the median of the posterior" width="960" />
+<p class="caption">(\#fig:L1-median)L1 is minimized at the median of the posterior</p>
+</div>
 
 If your loss function is $L_2$ (i.e. a squared loss), then the total loss for a guess is the sum of the squared differences between that guess and each value in the posterior. 
 
@@ -207,47 +126,25 @@ To find the total loss, we simply sum over these individual losses again and the
 
 Creating the visualization in Figure \@ref(fig:L2-mean) had the same steps. Go through the same process described earlier for a guess of 30, for all guesses considered, and record the total loss. This time, the function has the lowest value when $g$ is equal to the **mean** of the posterior. Hence, $L_2$ is minimized at the **mean** of the posterior distribution.
 
-```{r L2-table, echo=FALSE}
-# i = c(1,2,3,"",14,"",50,51)
-# xi = c(4,19,20,"...",30,"...",47,49)
-L2_loss = c(676,121,100,"...",0,"...",289,361)
 
-temp <- cbind(i,xi,L0_loss)
-temp <- rbind(temp, c("","Total",3732))
-temp <- data.frame(temp)
-names(temp) <- c("i","x_i","L2: (x_i-30)^2")
+Table: (\#tab:L2-table)L2: squared loss for g = 30
 
-knitr::kable(
-  x = temp, booktabs = TRUE,
-  caption = "L2: squared loss for g = 30", align = 'c'
-)
-```
+ i      x_i     L2: (x_i-30)^2 
+----  -------  ----------------
+ 1       4            1        
+ 2      19            1        
+ 3      20            1        
+        ...          ...       
+ 14     30            0        
+        ...          ...       
+ 50     47            1        
+ 51     49            1        
+       Total         3732      
 
-```{r L2-mean, fig.height=5, fig.width=10, fig.align='center', fig.cap="L2 is minimized at the mean of the posterior", echo=FALSE, message=FALSE}
-# L2 for g = 30 -----------------------------------------------------
-
-# ((sort(posterior) - g)^2)[c(1,2,3,12,13,14,50,51)]
-# sum((sort(posterior) - g)^2)
-
-# L2 ----------------------------------------------------------------
-
-# pdf("L2.pdf", width = 10, height = 5)
-par(mfrow = c(2, 1), cex = 1.5, mar = c(2, 4, 0.5, 0), las = 1)
-s = seq(0, 50, by = 0.01)
-L2 = sapply(s,function(s) sum( (posterior - s)^2 ))
-plot(s, L2, ylab = "L2", type = "l", xlim = c(0, 50), ylim = c(0, 61000), axes = FALSE)
-axis(2, at = seq(0, 60000, 20000))
-#
-BHH2::dotPlot(posterior, pch = 19, xlim = c(0, 50), axes = FALSE)
-axis(1, at = seq(from = 0, to = 50, by = 5))
-abline(v = mean(posterior), col = "orange", lwd = 4)
-abline(v = median(posterior), col = "turquoise4", lwd = 4)
-abline(v = 35, col = "pink", lwd = 4)
-legend("topleft", col = c("orange", "turquoise4", "pink"), 
-       c("mean", "median", "mode"), lty = 1, lwd = 4,
-       bty = "n")
-# dev.off()
-```
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-html/L2-mean-1.png" alt="L2 is minimized at the mean of the posterior" width="960" />
+<p class="caption">(\#fig:L2-mean)L2 is minimized at the mean of the posterior</p>
+</div>
 
 To sum up, the point estimate to report to your boss about the number of cars the dealership will sell per month **depends on your loss function**. In any case, you will choose to report the estimate that minimizes the loss. 
 
@@ -439,21 +336,15 @@ Alternatively, remember that the true positive rate of the test was 0.93 and the
 
 So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by @jeffreys1961theory, as in Table \@ref(tab:jeffreys1961). If the Bayes factor is between 1 and 3, the evidence against $H_2$ is not worth a bare mention. If it is 3 to 20, the evidence is positive. If it is 30 to 150, the evidence is strong. If it is greater than 150, the evidence is very strong. 
 
-```{r jeffreys1961, echo=FALSE}
 
-temp <- matrix(c("1 to 3", "3 to 20", "30 to 150", "> 150",
-                 "Not worth a bare mention",
-                 "Positive", "Strong", "Very strong"), 
-               nrow=4, byrow=FALSE)
+Table: (\#tab:jeffreys1961)Interpreting the Bayes factor
 
-colnames(temp) <- c("BF[H_1:H_2]","Evidence against H_2")
-
-
-knitr::kable(
-  x = temp, booktabs = TRUE,
-  caption = "Interpreting the Bayes factor", align = 'c'
-)
-```
+ BF[H_1:H_2]      Evidence against H_2   
+-------------  --------------------------
+   1 to 3       Not worth a bare mention 
+   3 to 20              Positive         
+  30 to 150              Strong          
+    > 150             Very strong        
 
 It might have caught your attention that the Bayes factor we calculated does not even appear on the scale. To obtain a Bayes factor value on the scale, we will need to change the order of our hypotheses and calculate $BF[H_2:H_1]$, i.e. the Bayes factor for $H_2$ to $H_1$. Then we look for evidence against $H_1$ instead. 
 
@@ -465,26 +356,11 @@ For our data, this comes out to approximately 93. Hence the evidence against $H_
 
 An intuitive way of thinking about this is to consider not only the posteriors, but also the priors assigned to these hypotheses. Bayes factor is the ratio of the posterior odds to prior odds. While 12% is a low posterior probability for having HIV given a positive ELISA result, this value is still much higher than the overall prevalence of HIV in the population (in other words, the prior probability for that hypothesis).
 
-Another commonly used scale for interpreting Bayes factors is proposed by @kass1995bayes, and it deals with the natural logarithm of the calculated Bayes factor. The values can be interpreted in Table \@ref(tab:kass1995).
+Test citation: @kass1995bayes
 
-```{r kass1995, echo=FALSE}
-
-temp <- matrix(c("0 to 2", "2 to 6", "6 to 10", "> 10",
-                 "Not worth a bare mention",
-                 "Positive", "Strong", "Very strong"), 
-               nrow=4, byrow=FALSE)
-
-colnames(temp) <- c("2*log(BF[H_2:H_1])","Evidence against H_1")
+5:22
+Another commonly used scale for interpreting Bayes factors is proposed by Kass and Raftery, and it deals with the natural logarithm of the calculated Bayes factor. Reporting of the log scale can be helpful for numerical accuracy reasons when the likelihoods are very small. Taking two times the natural logarithm of the Bayes factor we calculated earlier, we would end up with the same decision that the evidence against hypothesis two is strong. To recap, in this video we defined prior odds, posterior odds, and Bayes factors. We learned about scales by which we can interpret these values for model selection. We also re-emphasize that in Bayesian testing, the order in which we evaluate the models of hypotheses does not matter. Since the Bayes factor of hypothesis two versus hypothesis one is simply the reciprocal of the Bayes factor for hypothesis one versus hypothesis two. 
 
 
-knitr::kable(
-  x = temp, booktabs = TRUE,
-  caption = "Interpreting the Bayes factor", align = 'c'
-)
-```
 
-Reporting of the log scale can be helpful for numerical accuracy reasons when the likelihoods are very small. Taking two times the natural logarithm of the Bayes factor we calculated earlier, we would end up with the same decision that the evidence against $H_1$ is strong.
 
-$$2 \times \log(92.59259) = 9.056418$$
-
-To recap, we defined prior odds, posterior odds, and the Bayes factor. We learned about scales by which we can interpret these values for model selection. We also re-emphasize that in Bayesian testing, the order in which we evaluate the models of hypotheses does **not** matter. The Bayes factor of $H_2$ versus $H_1$, $BF[H_2:H_1]$, is simply the reciprocal of the Bayes factor for $H_1$ versus $H_2$, that is, $BF[H_1:H_2]$.
