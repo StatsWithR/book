@@ -1,6 +1,6 @@
 ## Bayes' Rule
 
-NEED INTRO TEXT OTHERWISE LABEL MULTIPLIED DEFINED IN LATEX/PDF
+This section introduces how the Bayes' rule is applied to calculating conditional probability, and several real-life examples are demonstrated. Finally, we compare the Bayesian and frequentist definition of probability.
 
 ### Conditional Probabilities & Bayes' Rule {#sec:bayes-rule}
 
@@ -193,7 +193,7 @@ In the last section, we used $P(\text{Person tested has HIV}) = 0.00148$, see \@
   (\#eq:Bayes-updating)
 \end{multline*}
 
-Since we are considering the same ELISA test, we used the same true positive and true negative rates as in Section \@ref(diagnostic-testing).
+Since we are considering the same ELISA test, we used the same true positive and true negative rates as in Section \@ref(sec:diagnostic-testing).
 We see that two positive tests makes it much more probable for someone to have HIV than when only one test comes up positive.
 
 This process, of using Bayes' rule to update a probability based on an event affecting it, is called Bayes' updating. More generally, the what one tries to update can be considered 'prior' information, sometimes simply called the *prior*. The event providing information about this can also be data. Then, updating this prior using Bayes' rule gives the information conditional on the data, also known as the *posterior*, as in the information *after* having seen the data. Going from the prior to the posterior is Bayes updating.
