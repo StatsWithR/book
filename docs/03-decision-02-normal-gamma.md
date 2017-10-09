@@ -92,12 +92,12 @@ as $\sigma^2$ is unknown. This marginal inference requires the unconditional or 
 $\mu$ given the data is a \index{Student t distribution}
 $$ \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n)  $$ 
 with density
-$$
+\begin{equation}
 p(\mu) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
 {\sqrt{\pi v_n} \frac{s_n}{\sqrt{n_n}} \,\Gamma\left(\frac{v_n}{2} \right)}
 \left(1 + \frac{1}{v_n}\frac{(\mu - m_n)^2} {s^2_n/n_n} \right)^{-\frac{v_n+1}{2}} 
 (\#eq:Student-t-density)
-$$
+\end{equation}
 with the degrees of freedom $v_n$, a
 location parameter $m_n$ and squared scale parameter that is the
 posterior variance parameter divided by the posterior sample size. 
@@ -226,6 +226,43 @@ For those that are ready to move on, we will introduce Monte Carlo sampling  in 
 TBA
 
 ### Monte Carlo Inference  {#sec:NG-MC}
+
+In this section, we will illustrate Monte Carlo sampling from posterior distributions and how it can be used for inference. In Section \@ref(sec:normal-gamma), we can get the posterior distributions for the precision (inverse variance), and the mean given the precision. Then the marginal distribution of the mean can be obtained via integration.
+
+Here is a recap of the joint posterior distribution for the mean $\mu$ and the precision $\phi = 1/\sigma^2$:
+
+* Conditional posterior $\mu \mid \data, \sigma^2  \sim  \No(m_n, \sigma^2/n_n)$
+* Marginal posterior $1/\sigma^2 = \phi \mid \data   \sim   \Ga(v_n/2,s^2_n v_n/2)$
+* Marginal posterior $\mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n)$
+
+What if we are interested in the distribution of the standard deviation $\sigma$ itself, or other transformations of the parameters? There may not be a closed-form expression for the distributions.
+
+However, it turns out that **Monte Carlo sampling** is an easy way to make inference, when we cannot analytically calculate distributions of parameters, expectations, or probabilities. Monte Carlo methods are computational algorithms that rely on repeated random sampling to calculate numerical results. The name refers to the famous Monte Carlo Casino in Monaco, home to games of chance such as Roulette.
+
+Let's start with a case where we know the posterior distribution.
+
+
+For posterior inference about the precision $\phi$ using Monte Carlo simulation, we generate $S$ random samples from the posterior distribution: 
+
+$$\phi^{(1)},\phi^{(2)},\cdots,\phi^{(S)} \iid \Ga(v_n/2,s^2_n v_n/2)$$
+
+The term **iid** stands for *i*ndependent and *i*dentically *d*istributed. In other words, the $S$ draws of $\phi$ are independent and identically distributed from the gamma distribution.
+
+Then the empirical distribution of the $S$ samples is used to approximate the actual posterior distribution. From the samples, the sample mean of the draws of $\phi$ can be used to approximate the posterior mean of $\phi$. 
+
+Likewise, we can calculate probabilities, quantiles and other functions using the samples from the posterior distribution. For example, if we want to calculate the posterior expectation of some function of $\phi$, written as $g(\phi)$, we can approximate that by taking the average of the function, and evaluate it at the $S$ draws of $\phi$, written as $\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)})$.
+
+The approximation improves as the size of the Monte Carlo simulation $S$ increases.
+
+$$\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)}) \rightarrow E(g(\phi \mid \data))$$
+
+We will apply this with a tap water example. To start, we will set a random seed, which allows the results to be replicated.
+
+
+```r
+set.seed(8675309)
+phi = rgamma(1000, shape = v_n/2, rate=s2_n*v_n/2)
+```
 
 ### Predictive Distributions {#sec:NG-predictive}
 

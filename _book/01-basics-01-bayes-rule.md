@@ -2,7 +2,7 @@
 
 NEED INTRO TEXT OTHERWISE LABEL MULTIPLIED DEFINED IN LATEX/PDF
 
-### Conditional Probabilities & Bayes' Rule {#sec:bayes-rule}
+### Conditional Probabilities & Bayes' Rule {#bayes-rule}
 
 Consider Table \@ref(tab:2015gallupDating).
 It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities.

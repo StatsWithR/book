@@ -2,7 +2,7 @@
 
 ### Inference for a Proportion: Frequentist Approach
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:RU-486"><strong>(\#ex:RU-486) </strong></span>RU-486 is claimed to be an effective "morning after" contraceptive pill, but is it really effective?
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:RU-486"><strong>(\#ex:RU-486)</strong></span>RU-486 is claimed to be an effective "morning after" contraceptive pill, but is it really effective?
 
 Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.
 

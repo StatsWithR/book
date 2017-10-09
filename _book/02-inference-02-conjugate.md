@@ -100,7 +100,10 @@ However, some books parameterize the gamma distribution in a slightly different 
 
 $$f(x) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$$
 
-In the supplementary material, we go with the $k$-$\theta$ parameterization, but you should always check which parameterization is being used. For example, $\mathsf{R}$ uses the $\alpha$-$\beta$ parameterization.
+For this example, we use the $k$-$\theta$ parameterization, but you should always check which parameterization is being used. For example, $\mathsf{R}$ uses the $\alpha$-$\beta$ parameterization by default.  
+In the the later material we find that  using the rate parameterization is more convenient.
+
+** ANY WAY TO MAKE THE MATERIAL MORE IN SYNC AS LABS LATER SECTIONS ALL USE THE RATE PARAMETERIZATION **
 
 For our parameterization, the mean of $\text{Gamma}(k,\theta)$ is $k\theta$, and the variance is $k\theta^2$. We can get the general's prior as below:
 
