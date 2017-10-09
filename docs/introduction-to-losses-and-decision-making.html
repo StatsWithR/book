@@ -771,6 +771,26 @@ s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)*s2 +<span class="s
 </div>
 <div id="sec:NG-MC" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Monte Carlo Inference</h3>
+<p>In this section, we will illustrate Monte Carlo sampling from posterior distributions and how it can be used for inference. In Section <a href="introduction-to-losses-and-decision-making.html#sec:normal-gamma">3.2.1</a>, we can get the posterior distributions for the precision (inverse variance), and the mean given the precision. Then the marginal distribution of the mean can be obtained via integration.</p>
+<p>Here is a recap of the joint posterior distribution for the mean <span class="math inline">\(\mu\)</span> and the precision <span class="math inline">\(\phi = 1/\sigma^2\)</span>:</p>
+<ul>
+<li>Conditional posterior <span class="math inline">\(\mu \mid {\text{data}}, \sigma^2 \sim {\textsf{N}}(m_n, \sigma^2/n_n)\)</span></li>
+<li>Marginal posterior <span class="math inline">\(1/\sigma^2 = \phi \mid {\text{data}}\sim {\textsf{Gamma}}(v_n/2,s^2_n v_n/2)\)</span></li>
+<li>Marginal posterior <span class="math inline">\(\mu \mid {\text{data}}\sim {\textsf{t}}(v_n, m_n, s^2_n/n_n)\)</span></li>
+</ul>
+<p>What if we are interested in the distribution of the standard deviation <span class="math inline">\(\sigma\)</span> itself, or other transformations of the parameters? There may not be a closed-form expression for the distributions.</p>
+<p>However, it turns out that <strong>Monte Carlo sampling</strong> is an easy way to make inference, when we cannot analytically calculate distributions of parameters, expectations, or probabilities. Monte Carlo methods are computational algorithms that rely on repeated random sampling to calculate numerical results. The name refers to the famous Monte Carlo Casino in Monaco, home to games of chance such as Roulette.</p>
+<p>Let’s start with a case where we know the posterior distribution.</p>
+<p>For posterior inference about the precision <span class="math inline">\(\phi\)</span> using Monte Carlo simulation, we generate <span class="math inline">\(S\)</span> random samples from the posterior distribution:</p>
+<p><span class="math display">\[\phi^{(1)},\phi^{(2)},\cdots,\phi^{(S)} {\mathrel{\mathop{\sim}\limits^{\rm iid}}}{\textsf{Gamma}}(v_n/2,s^2_n v_n/2)\]</span></p>
+<p>The term <strong>iid</strong> stands for <em>i</em>ndependent and <em>i</em>dentically <em>d</em>istributed. In other words, the <span class="math inline">\(S\)</span> draws of <span class="math inline">\(\phi\)</span> are independent and identically distributed from the gamma distribution.</p>
+<p>Then the empirical distribution of the <span class="math inline">\(S\)</span> samples is used to approximate the actual posterior distribution. From the samples, the sample mean of the draws of <span class="math inline">\(\phi\)</span> can be used to approximate the posterior mean of <span class="math inline">\(\phi\)</span>.</p>
+<p>Likewise, we can calculate probabilities, quantiles and other functions using the samples from the posterior distribution. For example, if we want to calculate the posterior expectation of some function of <span class="math inline">\(\phi\)</span>, written as <span class="math inline">\(g(\phi)\)</span>, we can approximate that by taking the average of the function, and evaluate it at the <span class="math inline">\(S\)</span> draws of <span class="math inline">\(\phi\)</span>, written as <span class="math inline">\(\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)})\)</span>.</p>
+<p>The approximation improves as the size of the Monte Carlo simulation <span class="math inline">\(S\)</span> increases.</p>
+<p><span class="math display">\[\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)}) \rightarrow E(g(\phi \mid {\text{data}}))\]</span></p>
+<p>We will apply this with a tap water example. To start, we will set a random seed, which allows the results to be replicated.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">8675309</span>)
+phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>, <span class="dt">shape =</span> v_n/<span class="dv">2</span>, <span class="dt">rate=</span>s2_n*v_n/<span class="dv">2</span>)</code></pre></div>
 </div>
 <div id="sec:NG-predictive" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> Predictive Distributions</h3>
