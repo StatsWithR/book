@@ -1,7 +1,5 @@
 ## Credible Intervals and Predictive Inference
 
-Missing: JAGS plot for 2.3.1
-
 ### Non-Conjugate Priors
 
 In many applications, a Bayesian may not be able to use a conjugate prior. Sometimes she may want to use a reference prior, which injects the minimum amount of personal belief into the analysis. But most often, a Bayesian will have a personal belief about the problem that cannot be expressed in terms of a convenient conjugate prior. 
@@ -30,9 +28,11 @@ Why would this be a reasonable prior for an analyst to self-elicit? One reason i
 
 As previously mentioned, there is no way to compute the posterior distribution for $p$ in a simple or even a complex mathematical form. And that is why Bayesian inference languished for so many decades until computational power enabled numerical solutions. But now we have such tools, and one of them is called **JAGS (Just Another Gibbs Sampler)**.
 
-If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution. At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results. 
+If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution, as in Figure \@ref(fig:JAGS-screenshot). At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results. 
 
-NEED TO GET THE JAGS PLOT HERE
+```{r JAGS-screenshot, fig.align="center", fig.cap="Posterior with JAGS", echo=FALSE}
+knitr::include_graphics("JAGS_screenshot.png")
+```
 
 That histogram is lightly smooth to generate the posterior density you see. There is still a point mass of probability at 0.5, but now it has less weight than before. Also, note how the data have changed the posterior away from the prior. The analyst sees a lot of probability under the curve near 0.2, but responds to the fact that no children were born to RU-486 mothers. 
 

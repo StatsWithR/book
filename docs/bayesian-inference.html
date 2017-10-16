@@ -472,7 +472,6 @@ x|\mu &amp;\sim N(\mu,\sigma) \\
 </div>
 <div id="credible-intervals-and-predictive-inference" class="section level2">
 <h2><span class="header-section-number">2.3</span> Credible Intervals and Predictive Inference</h2>
-<p>Missing: JAGS plot for 2.3.1</p>
 <div id="non-conjugate-priors" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Non-Conjugate Priors</h3>
 <p>In many applications, a Bayesian may not be able to use a conjugate prior. Sometimes she may want to use a reference prior, which injects the minimum amount of personal belief into the analysis. But most often, a Bayesian will have a personal belief about the problem that cannot be expressed in terms of a convenient conjugate prior.</p>
@@ -492,8 +491,13 @@ x &amp; \text{for} &amp; 0 \leq x &lt; 0.5  \\
 \end{array}\right.\]</span></p>
 <p>Why would this be a reasonable prior for an analyst to self-elicit? One reason is that in clinical trials, there’s actually quite a lot of preceding research on the efficacy of the drug. This research might be based on animal studies or knowledge of the chemical activity of the molecule. So the Bayesian might feel sure that there is no possibility that RU-486 is worse than the standard treatment. And her interest is on whether the therapies are equivalent and if not, how much better RU-486 is than the standard therapy.</p>
 <p>As previously mentioned, there is no way to compute the posterior distribution for <span class="math inline">\(p\)</span> in a simple or even a complex mathematical form. And that is why Bayesian inference languished for so many decades until computational power enabled numerical solutions. But now we have such tools, and one of them is called <strong>JAGS (Just Another Gibbs Sampler)</strong>.</p>
-<p>If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution. At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results.</p>
-<p>NEED TO GET THE JAGS PLOT HERE</p>
+<p>If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution, as in Figure <a href="bayesian-inference.html#fig:JAGS-screenshot">2.5</a>. At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results.</p>
+<div class="figure" style="text-align: center"><span id="fig:JAGS-screenshot"></span>
+<img src="JAGS_screenshot.png" alt="Posterior with JAGS"  />
+<p class="caption">
+Figure 2.5: Posterior with JAGS
+</p>
+</div>
 <p>That histogram is lightly smooth to generate the posterior density you see. There is still a point mass of probability at 0.5, but now it has less weight than before. Also, note how the data have changed the posterior away from the prior. The analyst sees a lot of probability under the curve near 0.2, but responds to the fact that no children were born to RU-486 mothers.</p>
 <p>This section is mostly a look-ahead to future material. We have seen that a Bayesian might reasonably employ a non-conjugate prior in a practical application. But then she will need to employ some kind of numerical computation to approximate the posterior distribution. Additionally, we have used a computational tool, JAGS, to approximate the posterior for <span class="math inline">\(p\)</span>, and identified its three important elements, the probability of the data given <span class="math inline">\(p\)</span>, that is the likelihood, and the prior, and the call to the Gibbs sampler.</p>
 </div>
@@ -510,11 +514,11 @@ x &amp; \text{for} &amp; 0 \leq x &lt; 0.5  \\
 <p>The reason for this frequentist wording is that a frequentist may not express his uncertainty as a probability. The true mean is either within the interval or not, so the probability is zero or one. The problem is that the frequentist does not know which is the case.</p>
 <p>On the other hand, Bayesians have no such qualms. It is fine for us to say that <strong>“the probability that the true mean is contained within a given interval is 0.95”</strong>. To distinguish our intervals from confidence intervals, we call them <strong>credible intervals</strong>.</p>
 <p>Recall the RU-486 example. When the analyst used the beta-binomial family, she took the prior as <span class="math inline">\(p \sim \text{beta}(1,1)\)</span>, the uniform distribution, where <span class="math inline">\(p\)</span> is the probability of a child having a mother who received RU-486.</p>
-<p>After we observed four children born to mothers who received conventional therapy, her posterior is <span class="math inline">\(p|x \sim \text{beta}(1,5)\)</span>. In Figure <a href="bayesian-inference.html#fig:posterior">2.5</a>, the posterior probability density for <span class="math inline">\(\text{beta}(1,5)\)</span> puts a lot of probability near zero and very little probability near one.</p>
+<p>After we observed four children born to mothers who received conventional therapy, her posterior is <span class="math inline">\(p|x \sim \text{beta}(1,5)\)</span>. In Figure <a href="bayesian-inference.html#fig:posterior">2.6</a>, the posterior probability density for <span class="math inline">\(\text{beta}(1,5)\)</span> puts a lot of probability near zero and very little probability near one.</p>
 <div class="figure"><span id="fig:posterior"></span>
 <img src="02-inference-03-credible_files/figure-html/posterior-1.png" alt="RU-486 Posterior" width="672" />
 <p class="caption">
-Figure 2.5: RU-486 Posterior
+Figure 2.6: RU-486 Posterior
 </p>
 </div>
 <p>For the Bayesian, her 95% credible interval is just any <span class="math inline">\(L\)</span> and <span class="math inline">\(U\)</span> such that the posterior probability that <span class="math inline">\(L &lt; p &lt; U\)</span> is <span class="math inline">\(0.95\)</span>. The shortest such interval is obviously preferable.</p>
