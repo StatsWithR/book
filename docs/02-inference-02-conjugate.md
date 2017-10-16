@@ -1,6 +1,6 @@
 ## Three Conjugate Families
 
-Missing: Gamma plot in 2.2.2
+In this section, the three conjugate families are beta-binomial, normal-gamma, and normal-normal pairs. Each of them has its own applications in everyday life.
 
 ### Inference on a Binomial Proportion
 
@@ -80,12 +80,15 @@ One can imagine that a Prussian general might want to estimate $\lambda$. The av
 
 Suppose the Prussian general is a Bayesian. Introspective elicitation leads him to think that $\lambda=0.75$ and standard deviation 1.
 
-Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of lambda in the Poisson can take any non-negative value so this fits. 
+Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of $\lambda$ in the Poisson can take any non-negative value so this fits. 
 
+The gamma family is flexible, and Figure \@ref(fig:gamma) illustrates a wide range of gamma shapes. 
 
-And, the gamma family is pretty flexible, one can see a wide range of gamma shapes. 
+<div class="figure" style="text-align: center">
+<img src="02-inference-02-conjugate_files/figure-html/gamma-1.png" alt="Gamma family" width="672" />
+<p class="caption">(\#fig:gamma)Gamma family</p>
+</div>
 
-NEED TO GET THE GAMMA PLOT HERE
 
 The probability density function for the gamma is indexed by shape $k$ and scale $\theta$, denoted as $\text{Gamma}(k,\theta)$ with $k,\theta > 0$. The mathematical form of the distribution is 
 

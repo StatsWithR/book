@@ -188,7 +188,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <div id="continuous-variables-and-eliciting-probability-distributions" class="section level2">
 <h2><span class="header-section-number">2.1</span> Continuous Variables and Eliciting Probability Distributions</h2>
-<p>Missing: Continuous random variable’s pdf plot in 2.1.1</p>
 <div id="from-the-discrete-to-the-continuous" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> From the Discrete to the Continuous</h3>
 <p>This section leads the reader from the discrete random variable to continuous random variables. Let’s start with the binomial random variable such as the number of heads in ten coin tosses, can only take a discrete number of values – 0, 1, 2, up to 10.</p>
@@ -206,8 +205,13 @@ Figure 2.1: Histogram of binomial random variable
 <p>In general, if the set of possible values a random variable can take are separated points, it is a discrete random variable. But if it can take any value in some (possibly infinite) interval, then it is a continuous random variable.</p>
 <p>When the random variable is <strong>discrete</strong>, it has a <strong>probability mass function</strong> or pmf. That pmf tells us the probability that the random variable takes each of the possible values. But when the random variable is continuous, it has probability zero of taking any single value. (Hence probability zero does not equal to impossible, an event of probabilty zero can still happen.)</p>
 <p>We can only talk about the probability of a continuous random variable lined within some interval. For example, suppose that heights are approximately normally distributed. The probability of finding someone who is exactly 6 feet tall at 0.0000 inches tall for an infinite number of 0s after the decimal point is 0. But we can easily calculate the probability of finding someone who is between 5’11&quot; inches tall and 6’1&quot; inches tall.</p>
-<p>A <strong>continuous</strong> random variable has a <strong>probability density function</strong> or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5’11&quot; and 6’1&quot; is the area under the pdf curve for height between those two values.</p>
-<p>NEED TO GET THE PLOTS HERE</p>
+<p>A <strong>continuous</strong> random variable has a <strong>probability density function</strong> or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5’11&quot; (71 inches) and 6’1&quot; (73 inches) is the area under the pdf curve for height between those two values, as shown in the blue area of Figure <a href="bayesian-inference.html#fig:pdf-auc">2.2</a>.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<div class="figure" style="text-align: center"><span id="fig:pdf-auc"></span>
+<img src="02-inference-01-continuous_files/figure-html/pdf-auc-1.png" alt="Area under curve for the probability density function" width="672" />
+<p class="caption">
+Figure 2.2: Area under curve for the probability density function
+</p>
+</div>
 <p>For example, a normal distribution with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span> (i.e., variance <span class="math inline">\(\sigma^2\)</span>) is defined as</p>
 <p><span class="math display">\[f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp[-\frac{1}{2\sigma^2}(x-\mu)^2],\]</span></p>
 <p>where <span class="math inline">\(x\)</span> is any value the random variable <span class="math inline">\(X\)</span> can take. This is denoted as <span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span>, where <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> are the parameters of the normal distribution.</p>
@@ -258,11 +262,11 @@ f(p) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{\alpha-1} (1-
 <p>where <span class="math inline">\(0 \leq p \leq 1, \alpha&gt;0, \beta&gt;0\)</span>, and <span class="math inline">\(\Gamma\)</span> is a factorial:</p>
 <p><span class="math display">\[\Gamma(n) = (n-1)! = (n-1) \times (n-2) \times \cdots \times 1\]</span></p>
 <p>When <span class="math inline">\(\alpha=\beta=1\)</span>, the beta distribution becomes a uniform distribution, i.e. the probabilty density function is a flat line. In other words, the uniform distribution is a special case of the beta family.</p>
-<p>The expected value of <span class="math inline">\(p\)</span> is <span class="math inline">\(\frac{\alpha}{\alpha+\beta}\)</span>, so <span class="math inline">\(\alpha\)</span> can be regarded as the prior number of successes, and <span class="math inline">\(\beta\)</span> the prior number of failures. When <span class="math inline">\(\alpha=\beta\)</span>, then one gets a symmetrical pdf around 0.5. For large but equal values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, the area under the beta probability density near 0.5 is very large. Figure <a href="bayesian-inference.html#fig:beta">2.2</a> compares the beta distribution with different parameter values.</p>
-<div class="figure"><span id="fig:beta"></span>
+<p>The expected value of <span class="math inline">\(p\)</span> is <span class="math inline">\(\frac{\alpha}{\alpha+\beta}\)</span>, so <span class="math inline">\(\alpha\)</span> can be regarded as the prior number of successes, and <span class="math inline">\(\beta\)</span> the prior number of failures. When <span class="math inline">\(\alpha=\beta\)</span>, then one gets a symmetrical pdf around 0.5. For large but equal values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, the area under the beta probability density near 0.5 is very large. Figure <a href="bayesian-inference.html#fig:beta">2.3</a> compares the beta distribution with different parameter values.</p>
+<div class="figure" style="text-align: center"><span id="fig:beta"></span>
 <img src="02-inference-01-continuous_files/figure-html/beta-1.png" alt="Beta family" width="672" />
 <p class="caption">
-Figure 2.2: Beta family
+Figure 2.3: Beta family
 </p>
 </div>
 <p>These kinds of priors are probably appropriate if you want to infer the probability of getting heads in a coin toss. The beta family also includes skewed densities, which is appropriate if you think that <span class="math inline">\(p\)</span> the probability of success in ths binomial trial is close to zero or one.</p>
@@ -320,7 +324,7 @@ p|x \sim \text{beta}(\alpha+x, \beta+n-x).
 </div>
 <div id="three-conjugate-families" class="section level2">
 <h2><span class="header-section-number">2.2</span> Three Conjugate Families</h2>
-<p>Missing: Gamma plot in 2.2.2</p>
+<p>In this section, the three conjugate families are beta-binomial, normal-gamma, and normal-normal pairs. Each of them has its own applications in everyday life.</p>
 <div id="inference-on-a-binomial-proportion" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Inference on a Binomial Proportion</h3>
 
@@ -373,9 +377,14 @@ One can imagine that a Prussian general might want to estimate <span class="math
 </div>
 <p></p>
 <p>Suppose the Prussian general is a Bayesian. Introspective elicitation leads him to think that <span class="math inline">\(\lambda=0.75\)</span> and standard deviation 1.</p>
-<p>Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of lambda in the Poisson can take any non-negative value so this fits.</p>
-<p>And, the gamma family is pretty flexible, one can see a wide range of gamma shapes.</p>
-<p>NEED TO GET THE GAMMA PLOT HERE</p>
+<p>Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of <span class="math inline">\(\lambda\)</span> in the Poisson can take any non-negative value so this fits.</p>
+<p>The gamma family is flexible, and Figure <a href="bayesian-inference.html#fig:gamma">2.4</a> illustrates a wide range of gamma shapes.</p>
+<div class="figure" style="text-align: center"><span id="fig:gamma"></span>
+<img src="02-inference-02-conjugate_files/figure-html/gamma-1.png" alt="Gamma family" width="672" />
+<p class="caption">
+Figure 2.4: Gamma family
+</p>
+</div>
 <p>The probability density function for the gamma is indexed by shape <span class="math inline">\(k\)</span> and scale <span class="math inline">\(\theta\)</span>, denoted as <span class="math inline">\(\text{Gamma}(k,\theta)\)</span> with <span class="math inline">\(k,\theta &gt; 0\)</span>. The mathematical form of the distribution is</p>
 <p><span class="math display">\[f(x) = \dfrac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta},\]</span> where</p>
 <p><span class="math display">\[\Gamma(z) = \int^{\infty}_0 x^{z-1} e^{-x} dx.\]</span></p>
@@ -501,11 +510,11 @@ x &amp; \text{for} &amp; 0 \leq x &lt; 0.5  \\
 <p>The reason for this frequentist wording is that a frequentist may not express his uncertainty as a probability. The true mean is either within the interval or not, so the probability is zero or one. The problem is that the frequentist does not know which is the case.</p>
 <p>On the other hand, Bayesians have no such qualms. It is fine for us to say that <strong>“the probability that the true mean is contained within a given interval is 0.95”</strong>. To distinguish our intervals from confidence intervals, we call them <strong>credible intervals</strong>.</p>
 <p>Recall the RU-486 example. When the analyst used the beta-binomial family, she took the prior as <span class="math inline">\(p \sim \text{beta}(1,1)\)</span>, the uniform distribution, where <span class="math inline">\(p\)</span> is the probability of a child having a mother who received RU-486.</p>
-<p>After we observed four children born to mothers who received conventional therapy, her posterior is <span class="math inline">\(p|x \sim \text{beta}(1,5)\)</span>. In Figure <a href="bayesian-inference.html#fig:posterior">2.3</a>, the posterior probability density for <span class="math inline">\(\text{beta}(1,5)\)</span> puts a lot of probability near zero and very little probability near one.</p>
+<p>After we observed four children born to mothers who received conventional therapy, her posterior is <span class="math inline">\(p|x \sim \text{beta}(1,5)\)</span>. In Figure <a href="bayesian-inference.html#fig:posterior">2.5</a>, the posterior probability density for <span class="math inline">\(\text{beta}(1,5)\)</span> puts a lot of probability near zero and very little probability near one.</p>
 <div class="figure"><span id="fig:posterior"></span>
 <img src="02-inference-03-credible_files/figure-html/posterior-1.png" alt="RU-486 Posterior" width="672" />
 <p class="caption">
-Figure 2.3: RU-486 Posterior
+Figure 2.5: RU-486 Posterior
 </p>
 </div>
 <p>For the Bayesian, her 95% credible interval is just any <span class="math inline">\(L\)</span> and <span class="math inline">\(U\)</span> such that the posterior probability that <span class="math inline">\(L &lt; p &lt; U\)</span> is <span class="math inline">\(0.95\)</span>. The shortest such interval is obviously preferable.</p>
@@ -546,6 +555,12 @@ Suppose the game starts, you have tossed twice, and have obtained two heads. The
 
 </div>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Code reference: <a href="http://www.statmethods.net/advgraphs/probability.html" class="uri">http://www.statmethods.net/advgraphs/probability.html</a><a href="bayesian-inference.html#fnref1">↩</a></p></li>
+</ol>
 </div>
             </section>
 
