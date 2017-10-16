@@ -90,7 +90,7 @@ $$P(X \leq x) = \int^{\infty}_{-\infty} P(X \leq x | \theta)\pi(\theta)d\theta$$
 
 The equation gives us the weighted average of the probabilities for $X$, where the weights correspond to the personal probability on $\theta$. But we won't do an integral; instead, we will illustrate the thinking with a trivial example. 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-1"><strong>(\#ex:unnamed-chunk-1)</strong></span>Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-1"><strong>(\#ex:unnamed-chunk-1) </strong></span>Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 
 
 Before you start the game, your prior belief is that the probability of choosing the 0.7 coin is 0.5. This is reasonable, because both coins were equally likely to be drawn. In this game, you win if the coin comes up heads. 
 
