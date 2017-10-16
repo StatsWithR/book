@@ -288,7 +288,7 @@ For posterior inference about the precision $\phi$ using Monte Carlo simulation,
 
 $$\phi^{(1)},\phi^{(2)},\cdots,\phi^{(S)} \iid \Ga(v_n/2,s^2_n v_n/2)$$
 
-The term **iid** stands for *i*ndependent and *i*dentically *d*istributed. In other words, the $S$ draws of $\phi$ are independent and identically distributed from the gamma distribution.
+The term **iid** stands for **i**ndependent and **i**dentically **d**istributed. In other words, the $S$ draws of $\phi$ are independent and identically distributed from the gamma distribution.
 
 Then the empirical distribution of the $S$ samples is used to approximate the actual posterior distribution. From the samples, the sample mean of the draws of $\phi$ can be used to approximate the posterior mean of $\phi$. 
 
@@ -298,14 +298,102 @@ The approximation improves as the size of the Monte Carlo simulation $S$ increas
 
 $$\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)}) \rightarrow E(g(\phi \mid \data))$$
 
-We will apply this with a tap water example. To start, we will set a random seed, which allows the results to be replicated.
+**Example**
+
+We will apply this with the tap water example. To start, we will set a random seed, which allows the results to be replicated. To generate 1,000 draws from the gamma posterior distribution, we use the `rgamma` function `R` with the posterior hyperparameters from last time.
 
 ```{r monte-carlo-example, warning=FALSE, message=FALSE}
 set.seed(8675309)
 phi = rgamma(1000, shape = v_n/2, rate=s2_n*v_n/2)
 ```
 
+Figure \@ref(fig:phi-plot) shows the histogram of the 1,000 draws of $\phi$ generated from the Monte Carlo simulation, representing the empirical distribution. The orange line represents the actual gamma posterior density.
+
+```{r phi-plot, warning=FALSE, message=FALSE, echo=FALSE, fig.width=4,fig.height=4, fig.align="center",fig.cap="Empirical distribution of the tap water example"}
+library(ggplot2)
+
+d.temp = data.frame(phi)
+
+mcmc.plot = ggplot(d.temp,aes(phi))+ 
+      geom_histogram(aes(phi, ..density..),binwidth = 10e-6)+
+      geom_density(aes(phi, ..density..),color="orange",size=2)
+
+mcmc.plot
+```
+
+Try changing the random seed or increasing the number of simulations, and see how the approximation changes.
+
+We will now use Monte Carlo simulations to approximate the distribution of $\sigma$. Since $\sigma = 1/\sqrt{\phi}$, we can apply the transformation to the 1,000 draws of $\phi$ to obtain a random sample of $\sigma$. We can then estimate the posterior mean of $\sigma$ by calculating the sample mean of the 1,000 draws. 
+
+```{r sigma-post-mean}
+sigma = 1/sqrt(phi)
+mean(sigma) # posterior mean of sigma
+```
+
+Similarly, we can obtain a 95% credible interval for $\sigma$ by finding the sample quantiles of the distribution.
+
+```{r sigma-post-quantile}
+quantile(sigma, c(0.025, 0.975))
+```
+
+**Summary**
+
+To recap, we have introduced the powerful method of Monte Carlo simulation for posterior inference. Monte Carlo methods provide estimates of expectations, probabilities, and quantiles of distributions from the simulated values. Monte Carlo simulation also allows us to approximate distributions of functions of the parameters, or the transformations of the parameters.
+
+Next we will discuss predictive distributions and show how Monte Carlo simulation may be used to help choose prior hyperparameters, using the prior predictive distribution of data.
+
 ### Predictive Distributions {#sec:NG-predictive}
+
+In this section, we will discuss prior and posterior **predictive** distributions of the data and show how Monte Carlo sampling from the prior predictive distribution can help select hyper parameters.
+
+We can obtain the prior predictive distribution of the data, by taking the joint distribution of the data and the parameters in averaging over the possible values of the parameters from the prior.
+
+* Prior:
+
+$$ \begin{align}
+\frac{1}{\sigma^2} = \phi &\sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right) \\
+\mu \mid \sigma^2  &\sim  \textsf{N}(m_0, \sigma^2/n_0)
+\end{align} $$
+
+* Sampling model:
+
+$$Y_i \mid \mu,\sigma^2 \iid \No(\mu, \sigma^2) $$
+
+* Prior predictive distribution for $Y$:
+
+$$\begin{align}
+p(Y) &= \int \int p(Y \mid \mu,\sigma^2) p(\mu \mid \sigma^2) p(\sigma^2) d\mu d\sigma^2 \\
+Y &\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
+\end{align}$$
+
+This distribution of the observables can be used to help elicit prior hyper parameters as in the tap water example.
+
+A report from the city water department suggests that levels of TTHM are expected to be between 10-60 parts per billion (ppb).
+
+* Set the prior mean $\mu$ to be at the midpoint of the interval: $m_0 = (60+10)/2 = 35$
+
+* Standard deviation: Based on the empirical rule, 95% observations are within $\pm 2\sigma$ of $\mu$, we expect that the range of the data should be $4\sigma$.
+ 
+* Prior estimate of sigma: $s_0 = (60-10)/4 = 12.5$ or $s_0^2 = [(60-10)/4]^2 = 156.25$
+
+To complete the specification, we also need to choose the prior sample size $n_0$ and degrees of freedom $v_0$. As the degrees of freedom of the variance are $n-1$, we set $v_0 = n_0 - 1$. We will draw samples from the prior predictive distribution and modify $n_0$ so that the simulated data agree with our prior assumptions.
+
+The following `R` code shows a simulation from the predictive distribution with the prior sample size of 2. Please note that the number of Monte Carlo simulations should not be confused with the prior sample size $n_0$.
+
+We begin by simulating $\phi$, transfering $\phi$ to calculate $\sigma$, and then simulating values of $\mu$. Finally, the simulated values of $\mu,\sigma$ are used to generate possible values of TTHM denoted by $Y$. 
+
+```{r predictive-TTHM}
+m_0 = (60+10)/2; s2_0 = ((60-10)/4)^2;
+n_0 = 2; v_0 = n_0 - 1
+set.seed(1234)
+phi = rgamma(1000, v_0/2, s2_0*v_0/2)
+sigma = 1/sqrt(phi)
+mu = rnorm(1000, mean=m_0, sd=sigma/(sqrt(n_0)))
+y = rnorm(1000, mu, sigma)
+quantile(y, c(0.025,0.975))
+```
+
+This forward simulation propagates uncertainty in $\mu,\sigma$ to the prior predictive distribution of the data. Calculating the sample quantiles from the samples of the prior predictive for $Y$, we see that the 95% predictive interval includes negative values. Since TTHM is non-negative, we need to adjust $n_0$ and repeat.
 
 ### Reference Priors  {#sec:NG-reference}
 

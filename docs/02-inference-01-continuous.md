@@ -1,7 +1,5 @@
 ## Continuous Variables and Eliciting Probability Distributions
 
-Missing: Continuous random variable's pdf plot in 2.1.1
-
 ### From the Discrete to the Continuous
 
 This section leads the reader from the discrete random variable to continuous random variables. Let's start with the binomial random variable such as the number of heads in ten coin tosses, can only take a discrete number of values -- 0, 1, 2, up to 10.
@@ -28,9 +26,12 @@ When the random variable is **discrete**, it has a **probability mass function**
 
 We can only talk about the probability of a continuous random variable lined within some interval. For example, suppose that heights are approximately normally distributed. The probability of finding someone who is exactly 6 feet tall at 0.0000 inches tall for an infinite number of 0s after the decimal point is 0. But we can easily calculate the probability of finding someone who is between 5'11" inches tall and 6'1" inches tall. 
 
-A **continuous** random variable has a **probability density function** or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5'11" and 6'1" is the area under the pdf curve for height between those two values. 
+A **continuous** random variable has a **probability density function** or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5'11" (71 inches) and 6'1" (73 inches) is the area under the pdf curve for height between those two values, as shown in the blue area of Figure \@ref(fig:pdf-auc).^[Code reference: http://www.statmethods.net/advgraphs/probability.html]
 
-NEED TO GET THE PLOTS HERE
+<div class="figure" style="text-align: center">
+<img src="02-inference-01-continuous_files/figure-html/pdf-auc-1.png" alt="Area under curve for the probability density function" width="672" />
+<p class="caption">(\#fig:pdf-auc)Area under curve for the probability density function</p>
+</div>
 
 For example, a normal distribution with mean $\mu$ and standard deviation $\sigma$ (i.e., variance $\sigma^2$) is defined as
 
@@ -87,7 +88,7 @@ When $\alpha=\beta=1$, the beta distribution becomes a uniform distribution, i.e
 
 The expected value of $p$ is $\frac{\alpha}{\alpha+\beta}$, so $\alpha$ can be regarded as the prior number of successes, and $\beta$ the prior number of failures. When $\alpha=\beta$, then one gets a symmetrical pdf around 0.5. For large but equal values of $\alpha$ and $\beta$, the area under the beta probability density near 0.5 is very large. Figure \@ref(fig:beta) compares the beta distribution with different parameter values.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="02-inference-01-continuous_files/figure-html/beta-1.png" alt="Beta family" width="672" />
 <p class="caption">(\#fig:beta)Beta family</p>
 </div>

@@ -1,6 +1,6 @@
 ## Three Conjugate Families
 
-Missing: Gamma plot in 2.2.2
+In this section, the three conjugate families are beta-binomial, normal-gamma, and normal-normal pairs. Each of them has its own applications in everyday life.
 
 ### Inference on a Binomial Proportion
 
@@ -84,12 +84,37 @@ One can imagine that a Prussian general might want to estimate $\lambda$. The av
 
 Suppose the Prussian general is a Bayesian. Introspective elicitation leads him to think that $\lambda=0.75$ and standard deviation 1.
 
-Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of lambda in the Poisson can take any non-negative value so this fits. 
+Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of $\lambda$ in the Poisson can take any non-negative value so this fits. 
 
+The gamma family is flexible, and Figure \@ref(fig:gamma) illustrates a wide range of gamma shapes. 
 
-And, the gamma family is pretty flexible, one can see a wide range of gamma shapes. 
+```{r gamma, fig.align="center", fig.cap="Gamma family", echo=FALSE}
+x = seq(from=0, to=20, by=0.005)
 
-NEED TO GET THE GAMMA PLOT HERE
+texts = c("k=1.0, theta=2.0", "k=2.0, theta=2.0", "k=3.0, theta=2.0",
+          "k=5.0, theta=1.0", "k=9.0, theta=0.5", "k=7.5, theta=1.0",
+          "k=0.5, theta=1.0")
+color = c("red","orange","yellow","green","black","blue","purple")
+
+ga1 = dgamma(x,shape=1.0,scale=2.0)
+ga2 = dgamma(x,shape=2.0,scale=2.0)
+ga3 = dgamma(x,shape=3.0,scale=2.0)
+ga4 = dgamma(x,shape=5.0,scale=1.0)
+ga5 = dgamma(x,shape=9.0,scale=0.5)
+ga6 = dgamma(x,shape=7.5,scale=1.0)
+ga7 = dgamma(x,shape=0.5,scale=1.0)
+
+plot(x,ga1,type="n",xlim=c(0,20),ylim=c(0,0.5))
+lines(x,ga1,type="l",col=color[1])
+lines(x,ga2,type="l",col=color[2])
+lines(x,ga3,type="l",col=color[3])
+lines(x,ga4,type="l",col=color[4])
+lines(x,ga5,type="l",col=color[5])
+lines(x,ga6,type="l",col=color[6])
+lines(x,ga7,type="l",col=color[7])
+legend("topright", texts, lty=rep(c(1),7), col = color)
+```
+
 
 The probability density function for the gamma is indexed by shape $k$ and scale $\theta$, denoted as $\text{Gamma}(k,\theta)$ with $k,\theta > 0$. The mathematical form of the distribution is 
 
