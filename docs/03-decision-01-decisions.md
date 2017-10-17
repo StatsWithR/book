@@ -334,7 +334,7 @@ BF[H_1:H_2] &= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \approx
 
 Alternatively, remember that the true positive rate of the test was 0.93 and the false positive rate was 0.01. Using these two values, the Bayes factor also comes out to approximately 0.0108.
 
-So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by @jeffreys1961theory, as in Table \@ref(tab:jeffreys1961). If the Bayes factor is between 1 and 3, the evidence against $H_2$ is not worth a bare mention. If it is 3 to 20, the evidence is positive. If it is 30 to 150, the evidence is strong. If it is greater than 150, the evidence is very strong. 
+So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by @jeffreys1961theory, as in Table \@ref(tab:jeffreys1961). If the Bayes factor is between 1 and 3, the evidence against $H_2$ is not worth a bare mention. If it is 3 to 20, the evidence is positive. If it is 20 to 150, the evidence is strong. If it is greater than 150, the evidence is very strong. 
 
 
 Table: (\#tab:jeffreys1961)Interpreting the Bayes factor
@@ -343,7 +343,7 @@ Table: (\#tab:jeffreys1961)Interpreting the Bayes factor
 -------------  --------------------------
    1 to 3       Not worth a bare mention 
    3 to 20              Positive         
-  30 to 150              Strong          
+  20 to 150              Strong          
     > 150             Very strong        
 
 It might have caught your attention that the Bayes factor we calculated does not even appear on the scale. To obtain a Bayes factor value on the scale, we will need to change the order of our hypotheses and calculate $BF[H_2:H_1]$, i.e. the Bayes factor for $H_2$ to $H_1$. Then we look for evidence against $H_1$ instead. 
