@@ -4,7 +4,7 @@ This section is focused on the extending the Normal-Normal conjugate family intr
 
 It is assumed that the readers have mastered the concepts of one-parameter Normal-Normal conjugate priors. Calculus is not required for this section; however, for those who are comfortable with calculus and would like to go deeper, we shall present starred sections with more details on the derivations. 
 
-### Inference for a Normal Mean with Unknown Variance {#sec:normal-gamma}
+### The Normal-Gamma Conjugate Family {#sec:normal-gamma}
 
 
 In \@ref(sec:normal-normal) we described the normal-normal conjugate  family for inference about an unknown mean $\mu$ with a known standard deviation $\sigma$ when the data were assumed to be a random sample from a normal population. In this section we will introduce the normal-gamma conjugate family for the common situation when $\sigma$ is unknown.  As both $\mu$ and $\sigma^2$ unknown, we will need to specify a **joint** prior distribution to describe our prior uncertainty about them.
