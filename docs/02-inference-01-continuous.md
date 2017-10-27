@@ -12,10 +12,14 @@ This formula is called the **probability mass function** (pmf) for the binomial.
 
 The probability mass function can be visualized as a histogram in Figure \@ref(fig:histogram). The area under the histogram is one, and the area of each bar is the probability of seeing a binomial random variable, whose value is equal to the x-value at the center of the bars base. 
 
-<div class="figure" style="text-align: center">
-<img src="02-inference-01-continuous_files/figure-html/histogram-1.png" alt="Histogram of binomial random variable" width="288" />
-<p class="caption">(\#fig:histogram)Histogram of binomial random variable</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{02-inference-01-continuous_files/figure-latex/histogram-1} 
+
+}
+
+\caption{Histogram of binomial random variable}(\#fig:histogram)
+\end{figure}
 
 
 In contrast, the normal distribution, a.k.a. Gaussian distribution or the bell-shaped curve, can take any numerical value in $(-\infty,+\infty)$. A random variable generated from a normal distribution because it can take a continuum of values. 
@@ -28,10 +32,14 @@ We can only talk about the probability of a continuous random variable lined wit
 
 A **continuous** random variable has a **probability density function** or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5'11" (71 inches) and 6'1" (73 inches) is the area under the pdf curve for height between those two values, as shown in the blue area of Figure \@ref(fig:pdf-auc).^[Code reference: http://www.statmethods.net/advgraphs/probability.html]
 
-<div class="figure" style="text-align: center">
-<img src="02-inference-01-continuous_files/figure-html/pdf-auc-1.png" alt="Area under curve for the probability density function" width="672" />
-<p class="caption">(\#fig:pdf-auc)Area under curve for the probability density function</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{02-inference-01-continuous_files/figure-latex/pdf-auc-1} 
+
+}
+
+\caption{Area under curve for the probability density function}(\#fig:pdf-auc)
+\end{figure}
 
 For example, a normal distribution with mean $\mu$ and standard deviation $\sigma$ (i.e., variance $\sigma^2$) is defined as
 
@@ -65,13 +73,13 @@ Next, we introduce the concept of prior elicitation in base and statistics. Ofte
 
 Bayesians express their belief in terms of personal probabilities. These personal probabilities encapsulate everything a Bayesian knows or believes about the problem. But these beliefs must obey the laws of probability, and be consistent with everything else the Bayesian knows. 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:200percent"><strong>(\#ex:200percent) </strong></span>You cannot say that your probability of passing this course is 200%, no matter how confident you are. A probability value must be between zero and one. (If you still think you have a probability of 200% to pass the course, you are definitely not going to pass it.)</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:200percent"><strong>(\#ex:200percent)</strong></span>You cannot say that your probability of passing this course is 200%, no matter how confident you are. A probability value must be between zero and one. (If you still think you have a probability of 200% to pass the course, you are definitely not going to pass it.)</div>\EndKnitrBlock{example}
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:binomial-data"><strong>(\#ex:binomial-data) </strong></span>You may know nothing at all about the value of $p$ that generated some binomial data. In which case any value between zero and one is equally likely, you may want to make an inference on the proportion of people who would buy a new band of toothpaste. If you have industry experience, you may have a strong belief about the value of $p$, but if you are new to the industry you would do nothing about $p$. In any value between zero and one seems equally like a deal. This major personal probability is the uniform distribution whose probably density function is flat, denoted as $\text{Unif}(0,1)$.</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:binomial-data"><strong>(\#ex:binomial-data)</strong></span>You may know nothing at all about the value of $p$ that generated some binomial data. In which case any value between zero and one is equally likely, you may want to make an inference on the proportion of people who would buy a new band of toothpaste. If you have industry experience, you may have a strong belief about the value of $p$, but if you are new to the industry you would do nothing about $p$. In any value between zero and one seems equally like a deal. This major personal probability is the uniform distribution whose probably density function is flat, denoted as $\text{Unif}(0,1)$.</div>\EndKnitrBlock{example}
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:coin-toss"><strong>(\#ex:coin-toss) </strong></span>If you were tossing a coin, most people believed that the probability of heads is pretty close to half. They know that some coin are loaded and they know that some coins may have two heads or two tails. And they probably also know that coins are not perfectly balanced. Nonetheless, before they start to collect data by tossing the coin and counting the number of heads their belief is that values of $p$ near 0.5 are very likely, where's values of $p$ near 0 or 1 are very unlikely. </div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:coin-toss"><strong>(\#ex:coin-toss)</strong></span>If you were tossing a coin, most people believed that the probability of heads is pretty close to half. They know that some coin are loaded and they know that some coins may have two heads or two tails. And they probably also know that coins are not perfectly balanced. Nonetheless, before they start to collect data by tossing the coin and counting the number of heads their belief is that values of $p$ near 0.5 are very likely, where's values of $p$ near 0 or 1 are very unlikely. </div>\EndKnitrBlock{example}
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:marriage"><strong>(\#ex:marriage) </strong></span>In real life, here are two ways to elicit a probability that you cousin will get married. A frequentist might go to the U.S. Census records and determine what proportion of people get married (or, better, what proportion of people of your cousin's ethnicity, education level, religion, and age cohort are married). In contrast, a Bayesian might think "My cousin is brilliant, attractive, and fun. The probability that my cousin gets married is really high -- probably around 0.97."</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:marriage"><strong>(\#ex:marriage)</strong></span>In real life, here are two ways to elicit a probability that you cousin will get married. A frequentist might go to the U.S. Census records and determine what proportion of people get married (or, better, what proportion of people of your cousin's ethnicity, education level, religion, and age cohort are married). In contrast, a Bayesian might think "My cousin is brilliant, attractive, and fun. The probability that my cousin gets married is really high -- probably around 0.97."</div>\EndKnitrBlock{example}
 
 So a base angle sits to express their belief about the value of $p$ through a probability distribution, and a very flexible family of distributions for this purpose is the **beta family**. A member of the beta family is specified by two parameters, $\alpha$ and $\beta$; we denote this as $p \sim \text{beta}(\alpha, \beta)$. The probability density function is 
 
@@ -88,10 +96,14 @@ When $\alpha=\beta=1$, the beta distribution becomes a uniform distribution, i.e
 
 The expected value of $p$ is $\frac{\alpha}{\alpha+\beta}$, so $\alpha$ can be regarded as the prior number of successes, and $\beta$ the prior number of failures. When $\alpha=\beta$, then one gets a symmetrical pdf around 0.5. For large but equal values of $\alpha$ and $\beta$, the area under the beta probability density near 0.5 is very large. Figure \@ref(fig:beta) compares the beta distribution with different parameter values.
 
-<div class="figure" style="text-align: center">
-<img src="02-inference-01-continuous_files/figure-html/beta-1.png" alt="Beta family" width="672" />
-<p class="caption">(\#fig:beta)Beta family</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{02-inference-01-continuous_files/figure-latex/beta-1} 
+
+}
+
+\caption{Beta family}(\#fig:beta)
+\end{figure}
 
 These kinds of priors are probably appropriate if you want to infer the probability of getting heads in a coin toss. The beta family also includes skewed densities, which is appropriate if you think that $p$ the probability of success in ths binomial trial is close to zero or one. 
 
