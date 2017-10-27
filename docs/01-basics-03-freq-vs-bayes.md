@@ -4,7 +4,7 @@
 
 In this section, we will solve a simple inference problem using both frequentist and Bayesian approaches. Then we will compare our results based on decisions based on the two methods, to see whether we get the same answer or not. If we do not, we will discuss why that happens.
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:MM"><strong>(\#ex:MM)</strong></span>We have a population of M&M's, and in this population the percentage of yellow M&M's is either 10% or 20%. You've been hired as a statistical consultant to decide whether the true percentage of yellow M&M's is 10% or 20%. 
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:MM"><strong>(\#exm:MM) </strong></span>We have a population of M&M's, and in this population the percentage of yellow M&M's is either 10% or 20%. You've been hired as a statistical consultant to decide whether the true percentage of yellow M&M's is 10% or 20%. 
 
 Payoffs/losses: You are being asked to make a decision, and there are associated payoff/losses that you should consider. If you make the correct decision, your boss gives you a bonus. On the other hand, if you make the wrong decision, you lose your job.
 

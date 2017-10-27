@@ -125,7 +125,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{Last built on 2017-10-26}
+  \date{Last built on 2017-10-27}
 
 \usepackage{amsthm}
 \usepackage{booktabs}
@@ -147,8 +147,11 @@
 \newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{definition}
 \newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
 \maketitle
@@ -164,7 +167,7 @@
 \newcommand{\Ga}{\textsf{Gamma}}
 \newcommand{\St}{\textsf{t}}
 \newcommand{\NoGa}{\textsf{NormalGamma}}
-\newcommand{\B}{\textit{BF}}
+\renewcommand{\B}{\textsf{BF}}
 \newcommand{\data}{\text{data}}
 \newcommand{\iid}{\mathrel{\mathop{\sim}\limits^{\rm iid}}}
 
@@ -273,8 +276,8 @@ probability and is known as Bayes' rule:
 \EndKnitrBlock{definition}
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:unnamed-chunk-2}{}{\label{ex:unnamed-chunk-2}}What
-is the probability that an 18-29 year old from Table
+\protect\hypertarget{exm:unnamed-chunk-2}{}{\label{exm:unnamed-chunk-2}
+}What is the probability that an 18-29 year old from Table
 \ref{tab:2015gallupDating} uses online dating sites?
 
 Note that the question asks a question about 18-29 year olds. Therefore,
@@ -427,9 +430,9 @@ expect \(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)
 to change?
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:unnamed-chunk-3}{}{\label{ex:unnamed-chunk-3}}What
-is the probability that someone who tests positive does not actually
-have HIV?
+\protect\hypertarget{exm:unnamed-chunk-3}{}{\label{exm:unnamed-chunk-3}
+}What is the probability that someone who tests positive does not
+actually have HIV?
 \EndKnitrBlock{example}
 
 We found in \eqref{eq:HIVresult} that someone who tests positive has a
@@ -438,11 +441,11 @@ has a \(1-0.12=0.88\) probability of not having HIV, despite testing
 positive.
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:unnamed-chunk-4}{}{\label{ex:unnamed-chunk-4}}If the
-an individual is at a higher risk for having HIV than a randomly sampled
-person from the population considered, how, if at all, would you expect
-\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\) to
-change?
+\protect\hypertarget{exm:unnamed-chunk-4}{}{\label{exm:unnamed-chunk-4} }If
+the an individual is at a higher risk for having HIV than a randomly
+sampled person from the population considered, how, if at all, would you
+expect \(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)
+to change?
 \EndKnitrBlock{example}
 
 If the person has a priori a higher risk for HIV and tests positive,
@@ -457,8 +460,8 @@ risk of HIV. Changing the calculations accordingly shows
 \(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) > 0.12\).
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:unnamed-chunk-5}{}{\label{ex:unnamed-chunk-5}}If the
-false positive rate of the test is higher than 1\%, how, if at all,
+\protect\hypertarget{exm:unnamed-chunk-5}{}{\label{exm:unnamed-chunk-5} }If
+the false positive rate of the test is higher than 1\%, how, if at all,
 would you expect
 \(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\) to
 change?
@@ -531,9 +534,10 @@ process of using a posterior as prior in a new problem is natural in the
 Bayesian framework of updating knowledge based on the data.
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:unnamed-chunk-6}{}{\label{ex:unnamed-chunk-6}}What
-is the probability that one actually has HIV after testing positive 3
-times on the ELISA? Again, assume that all three ELISAs are independent.
+\protect\hypertarget{exm:unnamed-chunk-6}{}{\label{exm:unnamed-chunk-6}
+}What is the probability that one actually has HIV after testing
+positive 3 times on the ELISA? Again, assume that all three ELISAs are
+independent.
 \EndKnitrBlock{example}
 
 Analogous to what we did in this section, we can use Bayes' updating for
@@ -583,10 +587,10 @@ the confidence level is NOT the probability that a given interval
 includes the true population parameter.
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:unnamed-chunk-7}{}{\label{ex:unnamed-chunk-7}}Based
-on a 2015 Pew Research poll on 1,500 adults: ``We are 95\% confident
-that 60\% to 64\% of Americans think the federal government does not do
-enough for middle class people.
+\protect\hypertarget{exm:unnamed-chunk-7}{}{\label{exm:unnamed-chunk-7}
+}Based on a 2015 Pew Research poll on 1,500 adults: ``We are 95\%
+confident that 60\% to 64\% of Americans think the federal government
+does not do enough for middle class people.
 \EndKnitrBlock{example}
 
 The correct interpretation is: 95\% of random samples of 1,500 adults
@@ -624,7 +628,7 @@ there is a 95\% chance that the credible interval contains the true
 parameter value.
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:unnamed-chunk-8}{}{\label{ex:unnamed-chunk-8}}The
+\protect\hypertarget{exm:unnamed-chunk-8}{}{\label{exm:unnamed-chunk-8} }The
 posterior distribution yields a 95\% credible interval of 60\% to 64\%
 for the proportion of Americans who think the federal government does
 not do enough for middle class people.
@@ -640,8 +644,8 @@ more details will be introduced later in the course.
 Approach}\label{inference-for-a-proportion-frequentist-approach}
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:RU-486}{}{\label{ex:RU-486}}RU-486 is claimed to be
-an effective ``morning after'' contraceptive pill, but is it really
+\protect\hypertarget{exm:RU-486}{}{\label{exm:RU-486} }RU-486 is claimed to
+be an effective ``morning after'' contraceptive pill, but is it really
 effective?
 
 Data: A total of 40 women came to a health clinic asking for emergency
@@ -869,10 +873,10 @@ based on decisions based on the two methods, to see whether we get the
 same answer or not. If we do not, we will discuss why that happens.
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:MM}{}{\label{ex:MM}}We have a population of M\&M's,
-and in this population the percentage of yellow M\&M's is either 10\% or
-20\%. You've been hired as a statistical consultant to decide whether
-the true percentage of yellow M\&M's is 10\% or 20\%.
+\protect\hypertarget{exm:MM}{}{\label{exm:MM} }We have a population of
+M\&M's, and in this population the percentage of yellow M\&M's is either
+10\% or 20\%. You've been hired as a statistical consultant to decide
+whether the true percentage of yellow M\&M's is 10\% or 20\%.
 
 Payoffs/losses: You are being asked to make a decision, and there are
 associated payoff/losses that you should consider. If you make the
@@ -1174,15 +1178,15 @@ believes about the problem. But these beliefs must obey the laws of
 probability, and be consistent with everything else the Bayesian knows.
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:200percent}{}{\label{ex:200percent}}You cannot say
-that your probability of passing this course is 200\%, no matter how
+\protect\hypertarget{exm:200percent}{}{\label{exm:200percent} }You cannot
+say that your probability of passing this course is 200\%, no matter how
 confident you are. A probability value must be between zero and one. (If
 you still think you have a probability of 200\% to pass the course, you
 are definitely not going to pass it.)
 \EndKnitrBlock{example}
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:binomial-data}{}{\label{ex:binomial-data}}You may
+\protect\hypertarget{exm:binomial-data}{}{\label{exm:binomial-data} }You may
 know nothing at all about the value of \(p\) that generated some
 binomial data. In which case any value between zero and one is equally
 likely, you may want to make an inference on the proportion of people
@@ -1195,7 +1199,7 @@ is flat, denoted as \(\text{Unif}(0,1)\).
 \EndKnitrBlock{example}
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:coin-toss}{}{\label{ex:coin-toss}}If you were
+\protect\hypertarget{exm:coin-toss}{}{\label{exm:coin-toss} }If you were
 tossing a coin, most people believed that the probability of heads is
 pretty close to half. They know that some coin are loaded and they know
 that some coins may have two heads or two tails. And they probably also
@@ -1206,12 +1210,12 @@ where's values of \(p\) near 0 or 1 are very unlikely.
 \EndKnitrBlock{example}
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:marriage}{}{\label{ex:marriage}}In real life, here
-are two ways to elicit a probability that you cousin will get married. A
-frequentist might go to the U.S. Census records and determine what
-proportion of people get married (or, better, what proportion of people
-of your cousin's ethnicity, education level, religion, and age cohort
-are married). In contrast, a Bayesian might think ``My cousin is
+\protect\hypertarget{exm:marriage}{}{\label{exm:marriage} }In real life,
+here are two ways to elicit a probability that you cousin will get
+married. A frequentist might go to the U.S. Census records and determine
+what proportion of people get married (or, better, what proportion of
+people of your cousin's ethnicity, education level, religion, and age
+cohort are married). In contrast, a Bayesian might think ``My cousin is
 brilliant, attractive, and fun. The probability that my cousin gets
 married is really high -- probably around 0.97.''
 \EndKnitrBlock{example}
@@ -1415,12 +1419,12 @@ applications in everyday life.
 Proportion}\label{inference-on-a-binomial-proportion}
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:RU-486more}{}{\label{ex:RU-486more}}Recall Example
-\ref{ex:RU-486}, a simplified version of a real clinical trial taken in
-Scotland. It concerned RU-486, a morning after pill that was being
-studied to determine whether it was effective at preventing unwanted
-pregnancies. It had 800 women, each of whom had intercourse no more than
-72 hours before reporting to a family planning clinic to seek
+\protect\hypertarget{exm:RU-486more}{}{\label{exm:RU-486more} }Recall
+Example \ref{ex:RU-486}, a simplified version of a real clinical trial
+taken in Scotland. It concerned RU-486, a morning after pill that was
+being studied to determine whether it was effective at preventing
+unwanted pregnancies. It had 800 women, each of whom had intercourse no
+more than 72 hours before reporting to a family planning clinic to seek
 contraception.
 
 Half of these women were randomly assigned to the standard
@@ -1548,7 +1552,7 @@ should be greater than zero (except for constants, which have zero
 variance).
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:Poisson}{}{\label{ex:Poisson}}Famously, von
+\protect\hypertarget{exm:Poisson}{}{\label{exm:Poisson} }Famously, von
 Bortkiewicz used the Poisson distribution to study the number of
 Prussian cavalrymen who were kicked to death by a horse each year. This
 is count data over the course of a year, and the events are probably
@@ -1689,12 +1693,12 @@ could use a more advanced conjugate family that we will describe in
 treat the \(\sigma\) as known.
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:chemist}{}{\label{ex:chemist}}An analytical chemist
-whose balance produces measurements that are normally distributed with
-mean equal to the true mass of the sample and standard deviation that
-has been estimated by the manufacturer balance and confirmed against
-calibration standards provided by the National Institute of Standards
-and Technology.
+\protect\hypertarget{exm:chemist}{}{\label{exm:chemist} }An analytical
+chemist whose balance produces measurements that are normally
+distributed with mean equal to the true mass of the sample and standard
+deviation that has been estimated by the manufacturer balance and
+confirmed against calibration standards provided by the National
+Institute of Standards and Technology.
 
 Note that this normal-normal assumption made by the anayltical chemist
 is technically wrong, but still reasonable.
@@ -1838,7 +1842,7 @@ creates a histogram of the results.
 
 \begin{figure}
 
-{\centering \includegraphics{JAGS_screenshot} 
+{\centering \includegraphics[width=11.24in]{JAGS_screenshot} 
 
 }
 
@@ -1958,11 +1962,11 @@ The equation gives us the weighted average of the probabilities for
 thinking with a trivial example.
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:unnamed-chunk-1}{}{\label{ex:unnamed-chunk-1}}Suppose
-you have two coins. One coin has probability 0.7 of coming up heads, and
-the other has probability 0.4 of coming up heads. You are playing a
-gambling game with a friend, and you draw one of those two coins at
-random from a bag.
+\protect\hypertarget{exm:unnamed-chunk-1}{}{\label{exm:unnamed-chunk-1}
+}Suppose you have two coins. One coin has probability 0.7 of coming up
+heads, and the other has probability 0.4 of coming up heads. You are
+playing a gambling game with a friend, and you draw one of those two
+coins at random from a bag.
 
 Before you start the game, your prior belief is that the probability of
 choosing the 0.7 coin is 0.5. This is reasonable, because both coins
@@ -2121,13 +2125,13 @@ Functions}\label{working-with-loss-functions}
 Now we illustrate why certain estimates minimize certain loss functions.
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:car}{}{\label{ex:car}}You work at a car dealership.
-Your boss wants to know how many cars the dealership will sell per
-month. An analyst who has worked with past data from your company
-provided you a distribution that shows the probability of number of cars
-the dealership will sell per month. In Bayesian lingo, this is called
-the posterior distribution. A dot plot of that posterior is shown in
-Figure \ref{fig:posterior-decision}. The mean, median and the mode of
+\protect\hypertarget{exm:car}{}{\label{exm:car} }You work at a car
+dealership. Your boss wants to know how many cars the dealership will
+sell per month. An analyst who has worked with past data from your
+company provided you a distribution that shows the probability of number
+of cars the dealership will sell per month. In Bayesian lingo, this is
+called the posterior distribution. A dot plot of that posterior is shown
+in Figure \ref{fig:posterior-decision}. The mean, median and the mode of
 the distribution are also marked on the plot. Your boss doesn't know any
 Bayesian statistics though, so he/she wants you to report \textbf{a
 single number} for the number of cars the dealership will sell per
@@ -3486,7 +3490,7 @@ groups}\label{testing-normal-means-independent-groups}
 
 \section{Exercises}\label{exercises-1}
 
-\bibliography{packages,book,references}
+\bibliography{packages.bib,book.bib,references.bib}
 
 
 \end{document}

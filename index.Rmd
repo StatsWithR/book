@@ -20,7 +20,7 @@ url: 'http\://www.coursera.org/learn/bayesian/home/info/'
 \newcommand{\Ga}{\textsf{Gamma}}
 \newcommand{\St}{\textsf{t}}
 \newcommand{\NoGa}{\textsf{NormalGamma}}
-\newcommand{\B}{\textit{BF}}
+\renewcommand{\B}{\textsf{BF}}
 \newcommand{\data}{\text{data}}
 \newcommand{\iid}{\mathrel{\mathop{\sim}\limits^{\rm iid}}}
 
