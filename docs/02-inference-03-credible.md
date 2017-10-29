@@ -32,7 +32,7 @@ If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find t
 
 \begin{figure}
 
-{\centering \includegraphics[width=11.24in]{JAGS_screenshot} 
+{\centering \includegraphics{JAGS_screenshot} 
 
 }
 

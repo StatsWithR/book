@@ -3,7 +3,7 @@ title: "Bayesian Statistics"
 subtitle: "A Companion to the Statistics with R Coursera Course"
 author: ["Christine Chai"]
 description: "This book is a written companion for the Coursera Course 'Bayesian Statistics' from the Statistics with R specialization."
-date: "Last built on 2017-10-26"
+date: "Last built on 2017-10-29"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -20,7 +20,7 @@ url: 'http\://www.coursera.org/learn/bayesian/home/info/'
 \newcommand{\Ga}{\textsf{Gamma}}
 \newcommand{\St}{\textsf{t}}
 \newcommand{\NoGa}{\textsf{NormalGamma}}
-\newcommand{\B}{\textit{BF}}
+\renewcommand{\B}{\textsf{BF}}
 \newcommand{\data}{\text{data}}
 \newcommand{\iid}{\mathrel{\mathop{\sim}\limits^{\rm iid}}}
 
@@ -86,14 +86,14 @@ We can rewrite this conditional probability in terms of 'regular' probabilities 
 \end{multline*}
 It turns out this relationship holds true for any conditional probability and is known as Bayes' rule:
 
-\BeginKnitrBlock{definition}\iffalse{-91-66-97-121-101-115-39-32-82-117-108-101-93-}\fi{}<div class="definition"><span class="definition" id="def:unnamed-chunk-1"><strong>(\#def:unnamed-chunk-1) \iffalse (Bayes' Rule) \fi{} </strong></span>The conditional probability of the event $A$ conditional on the event $B$ is given by
+\BeginKnitrBlock{definition}\iffalse{-91-66-97-121-101-115-39-32-82-117-108-101-93-}\fi{}<div class="definition"><span class="definition" id="def:unnamed-chunk-1"><strong>(\#def:unnamed-chunk-1)  \iffalse (Bayes' Rule) \fi{} </strong></span>The conditional probability of the event $A$ conditional on the event $B$ is given by
 
 \[
   P(A \mid B) = \frac{P(A \,\&\, B)}{P(B)}.
 \]</div>\EndKnitrBlock{definition}
 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-2"><strong>(\#ex:unnamed-chunk-2)</strong></span>What is the probability that an 18-29 year old from Table \@ref(tab:2015gallupDating) uses online dating sites?
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:unnamed-chunk-2"><strong>(\#exm:unnamed-chunk-2) </strong></span>What is the probability that an 18-29 year old from Table \@ref(tab:2015gallupDating) uses online dating sites?
 
 Note that the question asks a question about 18-29 year olds. Therefore, it conditions on being 18-29 years old.
 Bayes' rule provides a way to compute this conditional probability:
@@ -187,17 +187,17 @@ Questions like the one we just answered (What is the probability of a disease if
 
 If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-3"><strong>(\#ex:unnamed-chunk-3)</strong></span>What is the probability that someone who tests positive does not actually have HIV?</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:unnamed-chunk-3"><strong>(\#exm:unnamed-chunk-3) </strong></span>What is the probability that someone who tests positive does not actually have HIV?</div>\EndKnitrBlock{example}
 
 We found in \@ref(eq:HIVresult) that someone who tests positive has a $0.12$ probability of having HIV. That implies that the same person has a $1-0.12=0.88$ probability of not having HIV, despite testing positive.
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-4"><strong>(\#ex:unnamed-chunk-4)</strong></span>If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:unnamed-chunk-4"><strong>(\#exm:unnamed-chunk-4) </strong></span>If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?</div>\EndKnitrBlock{example}
 
 If the person has a priori a higher risk for HIV and tests positive, then the probability of having HIV must be higher than for someone not at increased risk who also tests positive. Therefore, $P(\text{Person tested has HIV} \mid \text{ELISA is positive}) > 0.12$ where $0.12$ comes from \@ref(eq:HIVresult).
 
 One can derive this mathematically by plugging in a larger number in \@ref(eq:HIVpositive) than 0.00148, as that number represents the prior risk of HIV. Changing the calculations accordingly shows $P(\text{Person tested has HIV} \mid \text{ELISA is positive}) > 0.12$.
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-5"><strong>(\#ex:unnamed-chunk-5)</strong></span>If the false positive rate of the test is higher than 1%, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:unnamed-chunk-5"><strong>(\#exm:unnamed-chunk-5) </strong></span>If the false positive rate of the test is higher than 1%, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?</div>\EndKnitrBlock{example}
 
 If the false positive rate increases, the probability of a wrong positive result increases. That means that a positive test result is more likely to be wrong and thus less indicative of HIV. Therefore, the probability of HIV after a positive ELISA goes down such that $P(\text{Person tested has HIV} \mid \text{ELISA is positive}) < 0.12$.
 
@@ -232,7 +232,7 @@ This process, of using Bayes' rule to update a probability based on an event aff
 
 The probability of HIV after one positive ELISA, 0.12, was the posterior in the previous section as it was an update of the overall prevalence of HIV, \@ref(eq:HIVpositive). However, in this section we answered a question where we used this posterior information as the prior. This process of using a posterior as prior in a new problem is natural in the Bayesian framework of updating knowledge based on the data.
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-6"><strong>(\#ex:unnamed-chunk-6)</strong></span>What is the probability that one actually has HIV after testing positive 3 times on the ELISA? Again, assume that all three ELISAs are independent.</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:unnamed-chunk-6"><strong>(\#exm:unnamed-chunk-6) </strong></span>What is the probability that one actually has HIV after testing positive 3 times on the ELISA? Again, assume that all three ELISAs are independent.</div>\EndKnitrBlock{example}
 
 Analogous to what we did in this section, we can use Bayes' updating for this. However, now the prior is the probability of HIV after two positive ELISAs, that is $P(\text{Person tested has HIV}) = 0.93$. Analogous to \@ref(eq:Bayes-updating), the answer follows as
 \begin{multline*}
@@ -259,7 +259,7 @@ On the other hand, the Bayesian definition of probability $P(E)$ reflects our pr
 
 The two definitions result in different methods of inference. Using the frequentist approach, we describe the confidence level as the proportion of random samples from the same population that produced confidence intervals which contain the true population parameter. For example, if we generated 100 random samples from the population, and 95 of the samples contain the true parameter, then the confidence level is 95%. Note that each sample either contains the true parameter or does not, so the confidence level is NOT the probability that a given interval includes the true population parameter.
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-7"><strong>(\#ex:unnamed-chunk-7)</strong></span>Based on a 2015 Pew Research poll on 1,500 adults: "We are 95% confident that 60% to 64% of Americans think the federal government does not do enough for middle class people.</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:unnamed-chunk-7"><strong>(\#exm:unnamed-chunk-7) </strong></span>Based on a 2015 Pew Research poll on 1,500 adults: "We are 95% confident that 60% to 64% of Americans think the federal government does not do enough for middle class people.</div>\EndKnitrBlock{example}
 
 The correct interpretation is: 95% of random samples of 1,500 adults will produce
 confidence intervals that contain the true proportion of Americans who think the federal government does not do enough for middle class people.
@@ -276,7 +276,7 @@ The second (incorrect) statement sounds like the true proportion is a value that
 
 The Bayesian alternative is the credible interval, which has a definition that is easier to interpret. Since a Bayesian is allowed to express uncertainty in terms of probability, a Bayesian credible interval is a range for which the Bayesian thinks that the probability of including the true value is, say, 0.95.  Thus a Bayesian can say that there is a 95% chance that the credible interval contains the true parameter value.
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-8"><strong>(\#ex:unnamed-chunk-8)</strong></span>The posterior distribution yields a 95% credible interval of 60% to 64% for the proportion of Americans who think the federal government does not do enough for middle class people.</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:unnamed-chunk-8"><strong>(\#exm:unnamed-chunk-8) </strong></span>The posterior distribution yields a 95% credible interval of 60% to 64% for the proportion of Americans who think the federal government does not do enough for middle class people.</div>\EndKnitrBlock{example}
 
 
 We can say that there is a 95% probability that the proportion is between 60% and 64% because this is a **credible** interval, and more details will be introduced later in the course.
@@ -287,7 +287,7 @@ We can say that there is a 95% probability that the proportion is between 60% an
 
 ### Inference for a Proportion: Frequentist Approach
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:RU-486"><strong>(\#ex:RU-486)</strong></span>RU-486 is claimed to be an effective "morning after" contraceptive pill, but is it really effective?
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:RU-486"><strong>(\#exm:RU-486) </strong></span>RU-486 is claimed to be an effective "morning after" contraceptive pill, but is it really effective?
 
 Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.
 
@@ -390,7 +390,7 @@ Figure \@ref(fig:RU-486plotX10) demonstrates that **as more data are collected, 
 
 In this section, we will solve a simple inference problem using both frequentist and Bayesian approaches. Then we will compare our results based on decisions based on the two methods, to see whether we get the same answer or not. If we do not, we will discuss why that happens.
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:MM"><strong>(\#ex:MM)</strong></span>We have a population of M&M's, and in this population the percentage of yellow M&M's is either 10% or 20%. You've been hired as a statistical consultant to decide whether the true percentage of yellow M&M's is 10% or 20%. 
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:MM"><strong>(\#exm:MM) </strong></span>We have a population of M&M's, and in this population the percentage of yellow M&M's is either 10% or 20%. You've been hired as a statistical consultant to decide whether the true percentage of yellow M&M's is 10% or 20%. 
 
 Payoffs/losses: You are being asked to make a decision, and there are associated payoff/losses that you should consider. If you make the correct decision, your boss gives you a bonus. On the other hand, if you make the wrong decision, you lose your job.
 
@@ -498,6 +498,11 @@ This formula is called the **probability mass function** (pmf) for the binomial.
 
 The probability mass function can be visualized as a histogram in Figure \@ref(fig:histogram). The area under the histogram is one, and the area of each bar is the probability of seeing a binomial random variable, whose value is equal to the x-value at the center of the bars base. 
 
+
+```
+## Warning: package 'scales' was built under R version 3.4.2
+```
+
 \begin{figure}
 
 {\centering \includegraphics{02-inference-01-continuous_files/figure-latex/histogram-1} 
@@ -559,13 +564,13 @@ Next, we introduce the concept of prior elicitation in base and statistics. Ofte
 
 Bayesians express their belief in terms of personal probabilities. These personal probabilities encapsulate everything a Bayesian knows or believes about the problem. But these beliefs must obey the laws of probability, and be consistent with everything else the Bayesian knows. 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:200percent"><strong>(\#ex:200percent)</strong></span>You cannot say that your probability of passing this course is 200%, no matter how confident you are. A probability value must be between zero and one. (If you still think you have a probability of 200% to pass the course, you are definitely not going to pass it.)</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:200percent"><strong>(\#exm:200percent) </strong></span>You cannot say that your probability of passing this course is 200%, no matter how confident you are. A probability value must be between zero and one. (If you still think you have a probability of 200% to pass the course, you are definitely not going to pass it.)</div>\EndKnitrBlock{example}
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:binomial-data"><strong>(\#ex:binomial-data)</strong></span>You may know nothing at all about the value of $p$ that generated some binomial data. In which case any value between zero and one is equally likely, you may want to make an inference on the proportion of people who would buy a new band of toothpaste. If you have industry experience, you may have a strong belief about the value of $p$, but if you are new to the industry you would do nothing about $p$. In any value between zero and one seems equally like a deal. This major personal probability is the uniform distribution whose probably density function is flat, denoted as $\text{Unif}(0,1)$.</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:binomial-data"><strong>(\#exm:binomial-data) </strong></span>You may know nothing at all about the value of $p$ that generated some binomial data. In which case any value between zero and one is equally likely, you may want to make an inference on the proportion of people who would buy a new band of toothpaste. If you have industry experience, you may have a strong belief about the value of $p$, but if you are new to the industry you would do nothing about $p$. In any value between zero and one seems equally like a deal. This major personal probability is the uniform distribution whose probably density function is flat, denoted as $\text{Unif}(0,1)$.</div>\EndKnitrBlock{example}
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:coin-toss"><strong>(\#ex:coin-toss)</strong></span>If you were tossing a coin, most people believed that the probability of heads is pretty close to half. They know that some coin are loaded and they know that some coins may have two heads or two tails. And they probably also know that coins are not perfectly balanced. Nonetheless, before they start to collect data by tossing the coin and counting the number of heads their belief is that values of $p$ near 0.5 are very likely, where's values of $p$ near 0 or 1 are very unlikely. </div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:coin-toss"><strong>(\#exm:coin-toss) </strong></span>If you were tossing a coin, most people believed that the probability of heads is pretty close to half. They know that some coin are loaded and they know that some coins may have two heads or two tails. And they probably also know that coins are not perfectly balanced. Nonetheless, before they start to collect data by tossing the coin and counting the number of heads their belief is that values of $p$ near 0.5 are very likely, where's values of $p$ near 0 or 1 are very unlikely. </div>\EndKnitrBlock{example}
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:marriage"><strong>(\#ex:marriage)</strong></span>In real life, here are two ways to elicit a probability that you cousin will get married. A frequentist might go to the U.S. Census records and determine what proportion of people get married (or, better, what proportion of people of your cousin's ethnicity, education level, religion, and age cohort are married). In contrast, a Bayesian might think "My cousin is brilliant, attractive, and fun. The probability that my cousin gets married is really high -- probably around 0.97."</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:marriage"><strong>(\#exm:marriage) </strong></span>In real life, here are two ways to elicit a probability that you cousin will get married. A frequentist might go to the U.S. Census records and determine what proportion of people get married (or, better, what proportion of people of your cousin's ethnicity, education level, religion, and age cohort are married). In contrast, a Bayesian might think "My cousin is brilliant, attractive, and fun. The probability that my cousin gets married is really high -- probably around 0.97."</div>\EndKnitrBlock{example}
 
 So a base angle sits to express their belief about the value of $p$ through a probability distribution, and a very flexible family of distributions for this purpose is the **beta family**. A member of the beta family is specified by two parameters, $\alpha$ and $\beta$; we denote this as $p \sim \text{beta}(\alpha, \beta)$. The probability density function is 
 
@@ -681,7 +686,7 @@ In this section, the three conjugate families are beta-binomial, normal-gamma, a
 
 ### Inference on a Binomial Proportion
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:RU-486more"><strong>(\#ex:RU-486more)</strong></span>Recall Example \@ref(ex:RU-486), a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception. 
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:RU-486more"><strong>(\#exm:RU-486more) </strong></span>Recall Example \@ref(ex:RU-486), a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception. 
 
 Half of these women were randomly assigned to the standard contraceptive, a large dose of estrogen and progesterone. And half of the women were assigned RU-486. Among the RU-486 group, there were no pregnancies. Among those receiving the standard therapy, four became pregnant. </div>\EndKnitrBlock{example}
 
@@ -749,7 +754,7 @@ where $k! = k \times (k-1) \times \cdots \times 1$. This gives the probability o
 Note that $\lambda$ is both the mean and the variance of the Poisson random variable. It is obvious that $\lambda$ must be greater than zero, because it represents the mean number of counts, and the variance should be greater than zero (except for constants, which have zero variance).
 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:Poisson"><strong>(\#ex:Poisson)</strong></span>Famously, von Bortkiewicz used the Poisson distribution to study the number of Prussian cavalrymen who were kicked to death by a horse each year. This is count data over the course of a year, and the events are probably independent, so the Poisson model makes sense.
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:Poisson"><strong>(\#exm:Poisson) </strong></span>Famously, von Bortkiewicz used the Poisson distribution to study the number of Prussian cavalrymen who were kicked to death by a horse each year. This is count data over the course of a year, and the events are probably independent, so the Poisson model makes sense.
 
 He had data on 15 cavalry units for the 20 years between 1875 and 1894, inclusive. The total number of cavalrymen who died by horse kick was 200. 
 
@@ -839,7 +844,7 @@ x|\mu &\sim N(\mu,\sigma) \\
 
 As a practical matter, one often does not know sigma, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family that we will describe in \@ref(sec:normal-gamma). But there are cases in which it is reasonable to treat the $\sigma$ as known. 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:chemist"><strong>(\#ex:chemist)</strong></span>An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:chemist"><strong>(\#exm:chemist) </strong></span>An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.
 
 Note that this normal-normal assumption made by the anayltical chemist is technically wrong, but still reasonable.
 
@@ -974,7 +979,7 @@ $$P(X \leq x) = \int^{\infty}_{-\infty} P(X \leq x | \theta)\pi(\theta)d\theta$$
 
 The equation gives us the weighted average of the probabilities for $X$, where the weights correspond to the personal probability on $\theta$. But we won't do an integral; instead, we will illustrate the thinking with a trivial example. 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:unnamed-chunk-1"><strong>(\#ex:unnamed-chunk-1)</strong></span>Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:unnamed-chunk-1"><strong>(\#exm:unnamed-chunk-1) </strong></span>Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 
 
 Before you start the game, your prior belief is that the probability of choosing the 0.7 coin is 0.5. This is reasonable, because both coins were equally likely to be drawn. In this game, you win if the coin comes up heads. 
 
@@ -1052,7 +1057,7 @@ When making point estimates of unknown parameters, we should make the choices th
 
 Now we illustrate why certain estimates minimize certain loss functions. 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="ex:car"><strong>(\#ex:car)</strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure \@ref(fig:posterior-decision). The mean, median and the mode of the distribution are also marked on the plot. Your boss doesn't know any Bayesian statistics though, so he/she wants you to report **a single number** for the number of cars the dealership will sell per month.</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:car"><strong>(\#exm:car) </strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure \@ref(fig:posterior-decision). The mean, median and the mode of the distribution are also marked on the plot. Your boss doesn't know any Bayesian statistics though, so he/she wants you to report **a single number** for the number of cars the dealership will sell per month.</div>\EndKnitrBlock{example}
 
 \begin{figure}
 
