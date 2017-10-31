@@ -268,13 +268,13 @@ $$PO[H_1:H_2] = \frac{P(H_1|\text{data})}{P(H_2|\text{data})}$$
 
 Using Bayes' rule, we can rewrite the posterior probabilities as below:
 
-$$\begin{align}
+$$\begin{aligned}
 PO[H_1:H_2] &= \frac{P(H_1|\text{data})}{P(H_2|\text{data})} \\
 &= \frac{(P(\text{data}|H_1) \times P(H_1)) / P(\text{data}))}{(P(\text{data}|H_2) \times P(H_2)) / P(\text{data}))} \\
 &= \frac{(P(\text{data}|H_1) \times P(H_1))}{(P(\text{data}|H_2) \times P(H_2))} \\
 &= \boxed{\frac{P(\text{data}|H_1)}{P(\text{data}|H_2)}} \times \boxed{\frac{P(H_1)}{P(H_2)}} \\
 &= \textbf{Bayes factor} \times \textbf{prior odds}
-\end{align}$$
+\end{aligned}$$
 
 In mathematical notation, we have
 
@@ -327,10 +327,10 @@ The posterior odds are
 
 Finally, we can calculate the Bayes factor as the ratio of the posterior odds to prior odds, which comes out to approximately 0.0108. Note that in this simple discrete case the Bayes factor, it simplifies to the ratio of the likelihoods of the observed data under the two hypotheses.
 
-$$\begin{align}
+$$\begin{aligned}
 BF[H_1:H_2] &= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \approx 0.0108 \\
 &= \frac{P(+|H_1)}{P(+|H_2)} = \frac{0.01}{0.93} \approx 0.0108
-\end{align}$$
+\end{aligned}$$
 
 Alternatively, remember that the true positive rate of the test was 0.93 and the false positive rate was 0.01. Using these two values, the Bayes factor also comes out to approximately 0.0108.
 

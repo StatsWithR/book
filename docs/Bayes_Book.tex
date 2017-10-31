@@ -2588,13 +2588,13 @@ posterior probabilities of hypotheses}, written as
 
 Using Bayes' rule, we can rewrite the posterior probabilities as below:
 
-\[\begin{align}
+\[\begin{aligned}
 PO[H_1:H_2] &= \frac{P(H_1|\text{data})}{P(H_2|\text{data})} \\
 &= \frac{(P(\text{data}|H_1) \times P(H_1)) / P(\text{data}))}{(P(\text{data}|H_2) \times P(H_2)) / P(\text{data}))} \\
 &= \frac{(P(\text{data}|H_1) \times P(H_1))}{(P(\text{data}|H_2) \times P(H_2))} \\
 &= \boxed{\frac{P(\text{data}|H_1)}{P(\text{data}|H_2)}} \times \boxed{\frac{P(H_1)}{P(H_2)}} \\
 &= \textbf{Bayes factor} \times \textbf{prior odds}
-\end{align}\]
+\end{aligned}\]
 
 In mathematical notation, we have
 
@@ -2686,10 +2686,10 @@ odds to prior odds, which comes out to approximately 0.0108. Note that
 in this simple discrete case the Bayes factor, it simplifies to the
 ratio of the likelihoods of the observed data under the two hypotheses.
 
-\[\begin{align}
+\[\begin{aligned}
 BF[H_1:H_2] &= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \approx 0.0108 \\
 &= \frac{P(+|H_1)}{P(+|H_2)} = \frac{0.01}{0.93} \approx 0.0108
-\end{align}\]
+\end{aligned}\]
 
 Alternatively, remember that the true positive rate of the test was 0.93
 and the false positive rate was 0.01. Using these two values, the Bayes
@@ -3265,10 +3265,10 @@ the possible values of the parameters from the prior.
   Prior:
 \end{itemize}
 
-\[ \begin{align}
+\[ \begin{aligned}
 \frac{1}{\sigma^2} = \phi &\sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right) \\
 \mu \mid \sigma^2  &\sim  \textsf{N}(m_0, \sigma^2/n_0)
-\end{align} \]
+\end{aligned} \]
 
 \begin{itemize}
 \tightlist
@@ -3284,10 +3284,10 @@ the possible values of the parameters from the prior.
   Prior predictive distribution for \(Y\):
 \end{itemize}
 
-\[\begin{align}
+\[\begin{aligned}
 p(Y) &= \iint p(Y \mid \mu,\sigma^2) p(\mu \mid \sigma^2) p(\sigma^2) d\mu \, d\sigma^2 \\
 Y &\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
-\end{align}\]
+\end{aligned}\]
 
 This distribution of the observables can be used to help elicit prior
 hyper parameters as in the tap water example.
@@ -3489,6 +3489,8 @@ groups}\label{testing-normal-means-independent-groups}
 \subsection{Inference after Testing}\label{inference-after-testing}
 
 \section{Exercises}\label{exercises-1}
+
+Test something here
 
 \bibliography{packages.bib,book.bib,references.bib}
 

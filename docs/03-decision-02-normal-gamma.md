@@ -313,10 +313,10 @@ We can obtain the prior predictive distribution of the data, by taking the joint
 
 * Prior:
 
-$$ \begin{align}
+$$ \begin{aligned}
 \frac{1}{\sigma^2} = \phi &\sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right) \\
 \mu \mid \sigma^2  &\sim  \textsf{N}(m_0, \sigma^2/n_0)
-\end{align} $$
+\end{aligned} $$
 
 * Sampling model:
 
@@ -324,10 +324,10 @@ $$Y_i \mid \mu,\sigma^2 \iid \No(\mu, \sigma^2) $$
 
 * Prior predictive distribution for $Y$:
 
-$$\begin{align}
+$$\begin{aligned}
 p(Y) &= \iint p(Y \mid \mu,\sigma^2) p(\mu \mid \sigma^2) p(\sigma^2) d\mu \, d\sigma^2 \\
 Y &\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
-\end{align}$$
+\end{aligned}$$
 
 This distribution of the observables can be used to help elicit prior hyper parameters as in the tap water example.
 
