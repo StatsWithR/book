@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Bayesian Statistics</title>
   <meta name="description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Bayesian Statistics" />
   <meta property="og:type" content="book" />
@@ -261,10 +261,10 @@ We can rewrite this conditional probability in terms of ‘regular’ probabilit
   P(A \mid B) = \frac{P(A \,\&amp;\, B)}{P(B)}.
 \]</span>
 </div>
-<p></p>
+
 
 <div class="example">
-<p><span id="ex:unnamed-chunk-2" class="example"><strong>Example 1.1 </strong></span>What is the probability that an 18-29 year old from Table <a href="the-basics-of-bayesian-statistics.html#tab:2015gallupDating">1.1</a> uses online dating sites?</p>
+<p><span id="exm:unnamed-chunk-2" class="example"><strong>Example 1.1  </strong></span>What is the probability that an 18-29 year old from Table <a href="the-basics-of-bayesian-statistics.html#tab:2015gallupDating">1.1</a> uses online dating sites?</p>
 <p>Note that the question asks a question about 18-29 year olds. Therefore, it conditions on being 18-29 years old. Bayes’ rule provides a way to compute this conditional probability:</p>
 <span class="math display">\[\begin{multline*}
     P(\text{using an online dating site} \mid \text{in age group 18-29}) \\
@@ -275,7 +275,7 @@ We can rewrite this conditional probability in terms of ‘regular’ probabilit
 \end{split}
 \end{multline*}\]</span>
 </div>
-<p></p>
+
 </div>
 <div id="sec:diagnostic-testing" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Bayes’ Rule and Diagnostic Testing</h3>
@@ -339,22 +339,22 @@ Putting this all together and inserting into <a href="the-basics-of-bayesian-sta
 <p>If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-3" class="example"><strong>Example 1.2 </strong></span>What is the probability that someone who tests positive does not actually have HIV?
+<span id="exm:unnamed-chunk-3" class="example"><strong>Example 1.2  </strong></span>What is the probability that someone who tests positive does not actually have HIV?
 </div>
-<p></p>
+
 <p>We found in <a href="the-basics-of-bayesian-statistics.html#eq:HIVresult">(1.4)</a> that someone who tests positive has a <span class="math inline">\(0.12\)</span> probability of having HIV. That implies that the same person has a <span class="math inline">\(1-0.12=0.88\)</span> probability of not having HIV, despite testing positive.</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-4" class="example"><strong>Example 1.3 </strong></span>If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?
+<span id="exm:unnamed-chunk-4" class="example"><strong>Example 1.3  </strong></span>If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?
 </div>
-<p></p>
+
 <p>If the person has a priori a higher risk for HIV and tests positive, then the probability of having HIV must be higher than for someone not at increased risk who also tests positive. Therefore, <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &gt; 0.12\)</span> where <span class="math inline">\(0.12\)</span> comes from <a href="the-basics-of-bayesian-statistics.html#eq:HIVresult">(1.4)</a>.</p>
 <p>One can derive this mathematically by plugging in a larger number in <a href="the-basics-of-bayesian-statistics.html#eq:HIVpositive">(1.1)</a> than 0.00148, as that number represents the prior risk of HIV. Changing the calculations accordingly shows <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &gt; 0.12\)</span>.</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-5" class="example"><strong>Example 1.4 </strong></span>If the false positive rate of the test is higher than 1%, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?
+<span id="exm:unnamed-chunk-5" class="example"><strong>Example 1.4  </strong></span>If the false positive rate of the test is higher than 1%, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?
 </div>
-<p></p>
+
 <p>If the false positive rate increases, the probability of a wrong positive result increases. That means that a positive test result is more likely to be wrong and thus less indicative of HIV. Therefore, the probability of HIV after a positive ELISA goes down such that <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &lt; 0.12\)</span>.</p>
 </div>
 <div id="bayes-updating" class="section level3">
@@ -381,9 +381,9 @@ Putting this all together and inserting into <a href="the-basics-of-bayesian-sta
 <p>The probability of HIV after one positive ELISA, 0.12, was the posterior in the previous section as it was an update of the overall prevalence of HIV, <a href="the-basics-of-bayesian-statistics.html#eq:HIVpositive">(1.1)</a>. However, in this section we answered a question where we used this posterior information as the prior. This process of using a posterior as prior in a new problem is natural in the Bayesian framework of updating knowledge based on the data.</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-6" class="example"><strong>Example 1.5 </strong></span>What is the probability that one actually has HIV after testing positive 3 times on the ELISA? Again, assume that all three ELISAs are independent.
+<span id="exm:unnamed-chunk-6" class="example"><strong>Example 1.5  </strong></span>What is the probability that one actually has HIV after testing positive 3 times on the ELISA? Again, assume that all three ELISAs are independent.
 </div>
-<p></p>
+
 Analogous to what we did in this section, we can use Bayes’ updating for this. However, now the prior is the probability of HIV after two positive ELISAs, that is <span class="math inline">\(P(\text{Person tested has HIV}) = 0.93\)</span>. Analogous to <a href="the-basics-of-bayesian-statistics.html#eq:Bayes-updating">(1.5)</a>, the answer follows as
 <span class="math display">\[\begin{multline*}
   P(\text{Person tested has HIV} \mid \text{Third ELISA is also positive}) \\
@@ -407,9 +407,9 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <p>The two definitions result in different methods of inference. Using the frequentist approach, we describe the confidence level as the proportion of random samples from the same population that produced confidence intervals which contain the true population parameter. For example, if we generated 100 random samples from the population, and 95 of the samples contain the true parameter, then the confidence level is 95%. Note that each sample either contains the true parameter or does not, so the confidence level is NOT the probability that a given interval includes the true population parameter.</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-7" class="example"><strong>Example 1.6 </strong></span>Based on a 2015 Pew Research poll on 1,500 adults: “We are 95% confident that 60% to 64% of Americans think the federal government does not do enough for middle class people.
+<span id="exm:unnamed-chunk-7" class="example"><strong>Example 1.6  </strong></span>Based on a 2015 Pew Research poll on 1,500 adults: “We are 95% confident that 60% to 64% of Americans think the federal government does not do enough for middle class people.
 </div>
-<p></p>
+
 <p>The correct interpretation is: 95% of random samples of 1,500 adults will produce confidence intervals that contain the true proportion of Americans who think the federal government does not do enough for middle class people.</p>
 <p>Here are two common misconceptions:</p>
 <ul>
@@ -421,9 +421,9 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <p>The Bayesian alternative is the credible interval, which has a definition that is easier to interpret. Since a Bayesian is allowed to express uncertainty in terms of probability, a Bayesian credible interval is a range for which the Bayesian thinks that the probability of including the true value is, say, 0.95. Thus a Bayesian can say that there is a 95% chance that the credible interval contains the true parameter value.</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-8" class="example"><strong>Example 1.7 </strong></span>The posterior distribution yields a 95% credible interval of 60% to 64% for the proportion of Americans who think the federal government does not do enough for middle class people.
+<span id="exm:unnamed-chunk-8" class="example"><strong>Example 1.7  </strong></span>The posterior distribution yields a 95% credible interval of 60% to 64% for the proportion of Americans who think the federal government does not do enough for middle class people.
 </div>
-<p></p>
+
 <p>We can say that there is a 95% probability that the proportion is between 60% and 64% because this is a <strong>credible</strong> interval, and more details will be introduced later in the course.</p>
 
 </div>
@@ -434,11 +434,11 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <h3><span class="header-section-number">1.2.1</span> Inference for a Proportion: Frequentist Approach</h3>
 
 <div class="example">
-<p><span id="ex:RU-486" class="example"><strong>Example 1.8 </strong></span>RU-486 is claimed to be an effective “morning after” contraceptive pill, but is it really effective?</p>
+<p><span id="exm:RU-486" class="example"><strong>Example 1.8  </strong></span>RU-486 is claimed to be an effective “morning after” contraceptive pill, but is it really effective?</p>
 <p>Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.</p>
 Question: How strongly do these data indicate that the treatment is more effective than the control?
 </div>
-<p></p>
+
 <p>To simplify the framework, let’s make it a one proportion problem and just consider the 20 total pregnancies because the two groups have the same sample size. If the treatment and control are equally effective, then the probability that a pregnancy comes from the treatment group (<span class="math inline">\(p\)</span>) should be 0.5. If RU-486 is more effective, then the probability that a pregnancy comes from the treatment group (<span class="math inline">\(p\)</span>) should be less than 0.5.</p>
 <p>Therefore, we can form the hypotheses as below:</p>
 <ul>
@@ -450,7 +450,7 @@ Question: How strongly do these data indicate that the treatment is more effecti
 <p>Since <span class="math inline">\(H_0\)</span> states that the probability of success (pregnancy) is 0.5, we can calculate the p-value from 20 independent Bernoulli trials where the probability of success is 0.5. The outcome of this experiment is 4 successes in 20 trials, so the goal is to obtain 4 or fewer successes in the 20 Bernoulli trials.</p>
 <p>This probability can be calculated exactly from a binomial distribution with <span class="math inline">\(n=20\)</span> trials and success probability <span class="math inline">\(p=0.5\)</span>. Assume <span class="math inline">\(k\)</span> is the actual number of successes observed, the p-value is</p>
 <p><span class="math display">\[P(k \leq 4) = P(k = 0) + P(k = 1) + P(k = 2) + P(k = 3) + P(k = 4)\]</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">dbinom</span>(<span class="dv">0</span>:<span class="dv">4</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">p =</span> <span class="fl">0.5</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">p =</span> <span class="fl">0.5</span>))</code></pre></div>
 <pre><code>## [1] 0.005908966</code></pre>
 <p>According to <span class="math inline">\(\mathsf{R}\)</span>, the probability of getting 4 or fewer successes in 20 trials is 0.0059. Therefore, given that pregnancy is equally likely in the two groups, we get the chance of observing 4 or fewer preganancy in the treatment group is 0.0059. With such a small probability, we reject the null hypothesis and conclude that the data provide convincing evidence for the treatment being more effective than the control.</p>
 </div>
@@ -569,12 +569,12 @@ Figure 1.3: More data: sample size <span class="math inline">\(n=200\)</span> an
 <p>In this section, we will solve a simple inference problem using both frequentist and Bayesian approaches. Then we will compare our results based on decisions based on the two methods, to see whether we get the same answer or not. If we do not, we will discuss why that happens.</p>
 
 <div class="example">
-<p><span id="ex:MM" class="example"><strong>Example 1.9 </strong></span>We have a population of M&amp;M’s, and in this population the percentage of yellow M&amp;M’s is either 10% or 20%. You’ve been hired as a statistical consultant to decide whether the true percentage of yellow M&amp;M’s is 10% or 20%.</p>
+<p><span id="exm:MM" class="example"><strong>Example 1.9  </strong></span>We have a population of M&amp;M’s, and in this population the percentage of yellow M&amp;M’s is either 10% or 20%. You’ve been hired as a statistical consultant to decide whether the true percentage of yellow M&amp;M’s is 10% or 20%.</p>
 <p>Payoffs/losses: You are being asked to make a decision, and there are associated payoff/losses that you should consider. If you make the correct decision, your boss gives you a bonus. On the other hand, if you make the wrong decision, you lose your job.</p>
 <p>Data: You can “buy” a random sample from the population – You pay $200 for each M&amp;M, and you must buy in $1,000 increments (5 M&amp;Ms at a time). You have a total of $4,000 to spend, i.e., you may buy 5, 10, 15, or 20 M&amp;Ms.</p>
 Remark: Remember that the cost of making a wrong decision is high, so you want to be fairly confident of your decision. At the same time, though, data collection is also costly, so you don’t want to pay for a sample larger than you need. If you believe that you could actually make a correct decision using a smaller sample size, you might choose to do so and save money and resources.
 </div>
-<p></p>
+
 <p>Let’s start with the frequentist inference.</p>
 <ul>
 <li><p>Hypothesis: <span class="math inline">\(H_0\)</span> is 10% yellow M&amp;Ms, and <span class="math inline">\(H_A\)</span> is &gt;10% yellow M&amp;Ms.</p></li>
@@ -680,7 +680,7 @@ P(H_2 | k=1) &amp;= 1 - 0.45 = 0.55
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
