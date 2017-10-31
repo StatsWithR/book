@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Bayesian Statistics</title>
   <meta name="description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Bayesian Statistics" />
   <meta property="og:type" content="book" />
@@ -228,9 +228,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Now we illustrate why certain estimates minimize certain loss functions.</p>
 
 <div class="example">
-<span id="ex:car" class="example"><strong>Example 3.1 </strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure <a href="introduction-to-losses-and-decision-making.html#fig:posterior-decision">3.1</a>. The mean, median and the mode of the distribution are also marked on the plot. Your boss doesn’t know any Bayesian statistics though, so he/she wants you to report <strong>a single number</strong> for the number of cars the dealership will sell per month.
+<span id="exm:car" class="example"><strong>Example 3.1  </strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure <a href="introduction-to-losses-and-decision-making.html#fig:posterior-decision">3.1</a>. The mean, median and the mode of the distribution are also marked on the plot. Your boss doesn’t know any Bayesian statistics though, so he/she wants you to report <strong>a single number</strong> for the number of cars the dealership will sell per month.
 </div>
-<p></p>
+
 <div class="figure" style="text-align: center"><span id="fig:posterior-decision"></span>
 <img src="03-decision-01-decisions_files/figure-html/posterior-decision-1.png" alt="Posterior" width="960" />
 <p class="caption">
@@ -738,17 +738,17 @@ s^2_n &amp; = &amp; \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }
 <p>in the conjugate <span class="math inline">\(\textsf{NormalGamma}(45.8, 53, 459.9, 52)\)</span> posterior distribution that now summarizes our uncertainty about <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(\sigma^2\)</span>) after seeing the data.</p>
 <p>We can obtain the updated hyper-parameters in <code>R</code> using the following code in <code>R</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># prior hyperparameters</span>
-m_0 =<span class="st"> </span><span class="dv">35</span>; n_0 =<span class="st"> </span><span class="dv">25</span>;  s2_0 =<span class="st"> </span><span class="fl">156.25</span>; v_0 =<span class="st"> </span>n_0 -<span class="st"> </span><span class="dv">1</span>
+m_<span class="dv">0</span> =<span class="st"> </span><span class="dv">35</span>; n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>;  s2_<span class="dv">0</span> =<span class="st"> </span><span class="fl">156.25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
 <span class="co"># sample summaries</span>
-Y =<span class="st"> </span>tapwater$tthm
+Y =<span class="st"> </span>tapwater<span class="op">$</span>tthm
 ybar =<span class="st"> </span><span class="kw">mean</span>(Y)
 s2 =<span class="st"> </span><span class="kw">var</span>(Y)
 n =<span class="st"> </span><span class="kw">length</span>(Y)
 <span class="co"># posterior hyperparamters</span>
-n_n =<span class="st"> </span>n_0 +<span class="st"> </span>n
-m_n =<span class="st"> </span>(n*ybar +<span class="st"> </span>n_0*m_0)/n_n
-v_n =<span class="st"> </span>v_0 +<span class="st"> </span>n
-s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)*s2 +<span class="st"> </span>v_0*s2_0 +<span class="st"> </span>n_0*n*(m_0 -<span class="st"> </span>ybar)^<span class="dv">2</span>/n_n)/v_n</code></pre></div>
+n_n =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
+m_n =<span class="st"> </span>(n<span class="op">*</span>ybar <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>m_<span class="dv">0</span>)<span class="op">/</span>n_n
+v_n =<span class="st"> </span>v_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
+s2_n =<span class="st"> </span>((n<span class="op">-</span><span class="dv">1</span>)<span class="op">*</span>s2 <span class="op">+</span><span class="st"> </span>v_<span class="dv">0</span><span class="op">*</span>s2_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>n<span class="op">*</span>(m_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span>ybar)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>n_n)<span class="op">/</span>v_n</code></pre></div>
 <p><strong>Credible intervals for <span class="math inline">\(\mu\)</span></strong></p>
 <p>To find a credible interval for the mean <span class="math inline">\(\mu\)</span>, we use the Student <span class="math inline">\(t\)</span> distribution. Since the distribution of <span class="math inline">\(\mu\)</span> is unimodal and symmetric, the shortest 95 percent credible interval or the <strong>Highest Posterior Density</strong> interval, HPD for short,</p>
 <p><img src="03-decision-02-normal-gamma_files/figure-html/tapwater-post-mu-1.png" width="384" /></p>
@@ -760,7 +760,7 @@ s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)*s2 +<span class="s
 \end{aligned}
 \]</span> or the posterior mean (our point estimate) plus quantiles of the standard <span class="math inline">\(t\)</span> distribution times the scale. Because of the symmetry in the Student <span class="math inline">\(t\)</span> distribution, the credible interval is <span class="math inline">\(m_n \pm t_{0.975}\sqrt{s^2_n/n_n}\)</span>, which should look familiar to expressions for confidence intervals.</p>
 <p>Using the following code in <code>R</code> the 95% credible interval for the tap water data is</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_n +<span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), v_n)*<span class="kw">sqrt</span>(s2_n/n_n)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_n <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), v_n)<span class="op">*</span><span class="kw">sqrt</span>(s2_n<span class="op">/</span>n_n)</code></pre></div>
 <pre><code>## [1] 39.93192 51.75374</code></pre>
 <p>Based on the updated posterior, we find that there is a 95 chance that the mean TTHM concentration is between 39.9 parts per billion and 51.7 parts per billion.</p>
 <p><strong>Summary</strong> The Normal-Gamma conjugate prior for inference about an unknown mean and variance for samples from a normal distribution allows simple expressions for updating prior beliefs given the data. The joint Normal-Gamma distribution leads to the Student <span class="math inline">\(t\)</span> distribution for inference about <span class="math inline">\(\mu\)</span> when <span class="math inline">\(\sigma\)</span> is unknown. The Student <span class="math inline">\(t\)</span> distribution can be used to provide credible intervals for <span class="math inline">\(\mu\)</span> using <code>R</code> or other software that provides quantiles of a standard <span class="math inline">\(t\)</span> distribution.</p>
@@ -791,7 +791,7 @@ s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)*s2 +<span class="s
 <p><strong>Example</strong></p>
 <p>We will apply this with the tap water example. To start, we will set a random seed, which allows the results to be replicated. To generate 1,000 draws from the gamma posterior distribution, we use the <code>rgamma</code> function <code>R</code> with the posterior hyperparameters from last time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">8675309</span>)
-phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>, <span class="dt">shape =</span> v_n/<span class="dv">2</span>, <span class="dt">rate=</span>s2_n*v_n/<span class="dv">2</span>)</code></pre></div>
+phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>, <span class="dt">shape =</span> v_n<span class="op">/</span><span class="dv">2</span>, <span class="dt">rate=</span>s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)</code></pre></div>
 <p>Figure <a href="introduction-to-losses-and-decision-making.html#fig:phi-plot">3.5</a> shows the histogram of the 1,000 draws of <span class="math inline">\(\phi\)</span> generated from the Monte Carlo simulation, representing the empirical distribution. The orange line represents the actual gamma posterior density.</p>
 <div class="figure" style="text-align: center"><span id="fig:phi-plot"></span>
 <img src="03-decision-02-normal-gamma_files/figure-html/phi-plot-1.png" alt="Empirical distribution of the tap water example" width="384" />
@@ -801,7 +801,7 @@ Figure 3.5: Empirical distribution of the tap water example
 </div>
 <p>Try changing the random seed or increasing the number of simulations, and see how the approximation changes.</p>
 <p>We will now use Monte Carlo simulations to approximate the distribution of <span class="math inline">\(\sigma\)</span>. Since <span class="math inline">\(\sigma = 1/\sqrt{\phi}\)</span>, we can apply the transformation to the 1,000 draws of <span class="math inline">\(\phi\)</span> to obtain a random sample of <span class="math inline">\(\sigma\)</span>. We can then estimate the posterior mean of <span class="math inline">\(\sigma\)</span> by calculating the sample mean of the 1,000 draws.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sigma =<span class="st"> </span><span class="dv">1</span>/<span class="kw">sqrt</span>(phi)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
 <span class="kw">mean</span>(sigma) <span class="co"># posterior mean of sigma</span></code></pre></div>
 <pre><code>## [1] 21.81346</code></pre>
 <p>Similarly, we can obtain a 95% credible interval for <span class="math inline">\(\sigma\)</span> by finding the sample quantiles of the distribution.</p>
@@ -844,12 +844,12 @@ Y &amp;\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
 <p>To complete the specification, we also need to choose the prior sample size <span class="math inline">\(n_0\)</span> and degrees of freedom <span class="math inline">\(v_0\)</span>. As the degrees of freedom of the variance are <span class="math inline">\(n-1\)</span>, we set <span class="math inline">\(v_0 = n_0 - 1\)</span>. We will draw samples from the prior predictive distribution and modify <span class="math inline">\(n_0\)</span> so that the simulated data agree with our prior assumptions.</p>
 <p>The following <code>R</code> code shows a simulation from the predictive distribution with the prior sample size of 2. Please note that the number of Monte Carlo simulations should not be confused with the prior sample size <span class="math inline">\(n_0\)</span>.</p>
 <p>We begin by simulating <span class="math inline">\(\phi\)</span>, transfering <span class="math inline">\(\phi\)</span> to calculate <span class="math inline">\(\sigma\)</span>, and then simulating values of <span class="math inline">\(\mu\)</span>. Finally, the simulated values of <span class="math inline">\(\mu,\sigma\)</span> are used to generate possible values of TTHM denoted by <span class="math inline">\(Y\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_0 =<span class="st"> </span>(<span class="dv">60+10</span>)/<span class="dv">2</span>; s2_0 =<span class="st"> </span>((<span class="dv">60-10</span>)/<span class="dv">4</span>)^<span class="dv">2</span>;
-n_0 =<span class="st"> </span><span class="dv">2</span>; v_0 =<span class="st"> </span>n_0 -<span class="st"> </span><span class="dv">1</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_<span class="dv">0</span> =<span class="st"> </span>(<span class="dv">60</span><span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span>; s2_<span class="dv">0</span> =<span class="st"> </span>((<span class="dv">60</span><span class="op">-</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>;
+n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">2</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
 <span class="kw">set.seed</span>(<span class="dv">1234</span>)
-phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>, v_0/<span class="dv">2</span>, s2_0*v_0/<span class="dv">2</span>)
-sigma =<span class="st"> </span><span class="dv">1</span>/<span class="kw">sqrt</span>(phi)
-mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean=</span>m_0, <span class="dt">sd=</span>sigma/(<span class="kw">sqrt</span>(n_0)))
+phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>, v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>, s2_<span class="dv">0</span><span class="op">*</span>v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>)
+sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
+mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean=</span>m_<span class="dv">0</span>, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_<span class="dv">0</span>)))
 y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, mu, sigma)
 <span class="kw">quantile</span>(y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##      2.5%     97.5% 
@@ -955,7 +955,7 @@ y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000<
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

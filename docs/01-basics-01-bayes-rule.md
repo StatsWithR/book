@@ -7,20 +7,14 @@ This section introduces how the Bayes' rule is applied to calculating conditiona
 Consider Table \@ref(tab:2015gallupDating).
 It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities.
 
-\begin{table}
 
-\caption{(\#tab:2015gallupDating)Results from a 2015 Gallup poll on the use of online dating sites by age group}
-\centering
-\begin{tabular}[t]{lrrrrr}
-\toprule
-  & 18-29 & 30-49 & 50-64 & 65+ & Total\\
-\midrule
-Used online dating site & 60 & 86 & 58 & 21 & 225\\
-Did not use online dating site & 255 & 426 & 450 & 382 & 1513\\
-Total & 316 & 512 & 508 & 403 & 1738\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:2015gallupDating)Results from a 2015 Gallup poll on the use of online dating sites by age group
+
+                                  18-29   30-49   50-64   65+   Total
+-------------------------------  ------  ------  ------  ----  ------
+Used online dating site              60      86      58    21     225
+Did not use online dating site      255     426     450   382    1513
+Total                               316     512     508   403    1738
 
 For instance, the probability of an adult American using an online dating site can be calculated as
 \begin{multline*}
