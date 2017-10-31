@@ -1,0 +1,3 @@
+Just a test file.
+
+Checking whether Putty works with GitHub.
