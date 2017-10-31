@@ -45,16 +45,20 @@ Within the Bayesian framework, we need to make some assumptions on the models wh
 
 Table \@ref(tab:RU-486prior) specifies the prior probabilities that we want to assign to our assumption. There is no unique correct prior, but any prior probability should reflect our beliefs prior to the experiement. The prior probabilities should incorporate the information from all relevant research before we perform the current experiement.
 
+\begin{table}
 
-Table: (\#tab:RU-486prior)Prior, likelihood, and posterior probabilities for each of the 9 models
-
------------------------------  -------  -------  -------  -------  -------  ------  -----  -----  -----
-Model ($p$)                     0.1000   0.2000   0.3000   0.4000   0.5000   6e-01   0.70   0.80   0.90
-Prior $P(model)$                0.0600   0.0600   0.0600   0.0600   0.5200   6e-02   0.06   0.06   0.06
-Likelihood $P(data|model)$      0.0898   0.2182   0.1304   0.0350   0.0046   3e-04   0.00   0.00   0.00
-$P(data|model)$ x $P(model)$    0.0054   0.0131   0.0078   0.0021   0.0024   0e+00   0.00   0.00   0.00
-Posterior $P(model|data)$       0.1748   0.4248   0.2539   0.0681   0.0780   5e-04   0.00   0.00   0.00
------------------------------  -------  -------  -------  -------  -------  ------  -----  -----  -----
+\caption{(\#tab:RU-486prior)Prior, likelihood, and posterior probabilities for each of the 9 models}
+\centering
+\begin{tabular}[t]{lrrrrrrrrr}
+\toprule
+Model (\$p\$) & 0.1000 & 0.2000 & 0.3000 & 0.4000 & 0.5000 & 6e-01 & 0.70 & 0.80 & 0.90\\
+Prior \$P(model)\$ & 0.0600 & 0.0600 & 0.0600 & 0.0600 & 0.5200 & 6e-02 & 0.06 & 0.06 & 0.06\\
+Likelihood \$P(data|model)\$ & 0.0898 & 0.2182 & 0.1304 & 0.0350 & 0.0046 & 3e-04 & 0.00 & 0.00 & 0.00\\
+\$P(data|model)\$ x \$P(model)\$ & 0.0054 & 0.0131 & 0.0078 & 0.0021 & 0.0024 & 0e+00 & 0.00 & 0.00 & 0.00\\
+Posterior \$P(model|data)\$ & 0.1748 & 0.4248 & 0.2539 & 0.0681 & 0.0780 & 5e-04 & 0.00 & 0.00 & 0.00\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 This prior incorporates two beliefs: the probability of $p = 0.5$ is highest, and the benefit of the treatment is symmetric. The second belief means that the treatment is equally likely to be better or worse than the standard treatment. Now it is natural to ask how I came up with this prior, and the specification will be discussed in detail later in the course.
 
@@ -75,10 +79,7 @@ In decision making, we choose the model with the highest posterior probability, 
 
 Here are the histograms of the prior, the likelihood, and the posterior probabilities:
 
-<div class="figure">
-<img src="01-basics-02-inf-for-prop_files/figure-epub3/RU-486plot-1.png" alt="Original: sample size $n=20$ and number of successes $k=4$"  />
-<p class="caption">(\#fig:RU-486plot)Original: sample size $n=20$ and number of successes $k=4$</p>
-</div>
+![(\#fig:RU-486plot)Original: sample size $n=20$ and number of successes $k=4$](01-basics-02-inf-for-prop_files/figure-latex/RU-486plot-1.pdf) 
 
 We started with the high prior at $p=0.5$, but the data likelihood peaks at $p=0.2$. And we updated our prior based on observed data to find the posterior. The Bayesian paradigm, unlike the frequentist approach, allows us to make direct probability statements about our models. For example, we can calculate the probability that RU-486, the treatment, is more effective than the control as the sum of the posteriors of the models where $p<0.5$. Adding up the relevant posterior probabilities in Table \@ref(tab:RU-486prior), we get the chance that the treatment is more effective than the control is 92.16%. 
 
@@ -86,17 +87,11 @@ We started with the high prior at $p=0.5$, but the data likelihood peaks at $p=0
 
 The RU-486 example is summarized in Figure \@ref(fig:RU-486plot), and let's look at what the posterior distribution would look like if we had more data.
 
-<div class="figure">
-<img src="01-basics-02-inf-for-prop_files/figure-epub3/RU-486plotX2-1.png" alt="More data: sample size $n=40$ and number of successes $k=8$"  />
-<p class="caption">(\#fig:RU-486plotX2)More data: sample size $n=40$ and number of successes $k=8$</p>
-</div>
+![(\#fig:RU-486plotX2)More data: sample size $n=40$ and number of successes $k=8$](01-basics-02-inf-for-prop_files/figure-latex/RU-486plotX2-1.pdf) 
 
 Suppose our sample size was 40 instead of 20, and the number of successes was 8 instead of 4. Note that the ratio between the sample size and the number of successes is still 20%. We will start with the same prior distribution. Then calculate the likelihood of the data which is also centered at 0.20, but is less variable than the original likelihood we had with the smaller sample size. And finally put these two together to obtain the posterior distribution. The posterior also has a peak at p is equal to 0.20, but the peak is taller, as shown in Figure \@ref(fig:RU-486plotX2). In other words, there is more mass on that model, and less on the others. 
 
-<div class="figure">
-<img src="01-basics-02-inf-for-prop_files/figure-epub3/RU-486plotX10-1.png" alt="More data: sample size $n=200$ and number of successes $k=40$"  />
-<p class="caption">(\#fig:RU-486plotX10)More data: sample size $n=200$ and number of successes $k=40$</p>
-</div>
+![(\#fig:RU-486plotX10)More data: sample size $n=200$ and number of successes $k=40$](01-basics-02-inf-for-prop_files/figure-latex/RU-486plotX10-1.pdf) 
 
 To illustrate the effect of the sample size even further, we're going to keep increasing our sample size, but still maintain the the 20% ratio between the sample size and the number of successes. So let's consider a sample with 200 observations and 40 successes. Once again, we're going to use the same prior and the likelihood is again centered at 20% and almost all of the probability mass in the posterior is at p is equal to 0.20. The other models do not have zero probability mass, but they're posterior probabilities are very close to zero. 
 

@@ -30,10 +30,14 @@ As previously mentioned, there is no way to compute the posterior distribution f
 
 If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution, as in Figure \@ref(fig:JAGS-screenshot). At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results. 
 
-<div class="figure" style="text-align: center">
-<img src="JAGS_screenshot.png" alt="Posterior with JAGS" width="809" />
-<p class="caption">(\#fig:JAGS-screenshot)Posterior with JAGS</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=11.24in]{JAGS_screenshot} 
+
+}
+
+\caption{Posterior with JAGS}(\#fig:JAGS-screenshot)
+\end{figure}
 
 That histogram is lightly smooth to generate the posterior density you see. There is still a point mass of probability at 0.5, but now it has less weight than before. Also, note how the data have changed the posterior away from the prior. The analyst sees a lot of probability under the curve near 0.2, but responds to the fact that no children were born to RU-486 mothers. 
 
@@ -61,10 +65,7 @@ Recall the RU-486 example. When the analyst used the beta-binomial family, she t
 
 After we observed four children born to mothers who received conventional therapy, her posterior is $p|x \sim \text{beta}(1,5)$. In Figure \@ref(fig:posterior), the posterior probability density for $\text{beta}(1,5)$ puts a lot of probability near zero and very little probability near one.
 
-<div class="figure">
-<img src="02-inference-03-credible_files/figure-epub3/posterior-1.png" alt="RU-486 Posterior"  />
-<p class="caption">(\#fig:posterior)RU-486 Posterior</p>
-</div>
+![(\#fig:posterior)RU-486 Posterior](02-inference-03-credible_files/figure-latex/posterior-1.pdf) 
 
 For the Bayesian, her 95% credible interval is just any $L$ and $U$ such that the posterior probability that $L < p < U$ is $0.95$. The shortest such interval is obviously preferable. 
 
