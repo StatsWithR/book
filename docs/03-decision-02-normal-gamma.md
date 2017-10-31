@@ -173,7 +173,7 @@ To find a credible interval for the mean $\mu$, we use the Student $t$
 distribution.  Since the distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
 
 
-![](03-decision-02-normal-gamma_files/figure-latex/tapwater-post-mu-1.pdf)<!-- --> 
+![](03-decision-02-normal-gamma_files/figure-epub3/tapwater-post-mu-1.png)<!-- -->
 
 is the orange interval given by the
 Lower endpoint L and upper endpoint U where the probability that mu is
@@ -268,14 +268,10 @@ phi = rgamma(1000, shape = v_n/2, rate=s2_n*v_n/2)
 
 Figure \@ref(fig:phi-plot) shows the histogram of the 1,000 draws of $\phi$ generated from the Monte Carlo simulation, representing the empirical distribution. The orange line represents the actual gamma posterior density.
 
-\begin{figure}
-
-{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/phi-plot-1} 
-
-}
-
-\caption{Empirical distribution of the tap water example}(\#fig:phi-plot)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-02-normal-gamma_files/figure-epub3/phi-plot-1.png" alt="Empirical distribution of the tap water example"  />
+<p class="caption">(\#fig:phi-plot)Empirical distribution of the tap water example</p>
+</div>
 
 Try changing the random seed or increasing the number of simulations, and see how the approximation changes.
 
@@ -317,10 +313,10 @@ We can obtain the prior predictive distribution of the data, by taking the joint
 
 * Prior:
 
-$$ \begin{align}
+$$ \begin{aligned}
 \frac{1}{\sigma^2} = \phi &\sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right) \\
 \mu \mid \sigma^2  &\sim  \textsf{N}(m_0, \sigma^2/n_0)
-\end{align} $$
+\end{aligned} $$
 
 * Sampling model:
 
@@ -328,10 +324,10 @@ $$Y_i \mid \mu,\sigma^2 \iid \No(\mu, \sigma^2) $$
 
 * Prior predictive distribution for $Y$:
 
-$$\begin{align}
+$$\begin{aligned}
 p(Y) &= \iint p(Y \mid \mu,\sigma^2) p(\mu \mid \sigma^2) p(\sigma^2) d\mu \, d\sigma^2 \\
 Y &\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
-\end{align}$$
+\end{aligned}$$
 
 This distribution of the observables can be used to help elicit prior hyper parameters as in the tap water example.
 

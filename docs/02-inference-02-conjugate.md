@@ -84,14 +84,10 @@ Modern computing was unavailable at that time yet, so the general will need to e
 
 The gamma family is flexible, and Figure \@ref(fig:gamma) illustrates a wide range of gamma shapes. 
 
-\begin{figure}
-
-{\centering \includegraphics{02-inference-02-conjugate_files/figure-latex/gamma-1} 
-
-}
-
-\caption{Gamma family}(\#fig:gamma)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-inference-02-conjugate_files/figure-epub3/gamma-1.png" alt="Gamma family"  />
+<p class="caption">(\#fig:gamma)Gamma family</p>
+</div>
 
 
 The probability density function for the gamma is indexed by shape $k$ and scale $\theta$, denoted as $\text{Gamma}(k,\theta)$ with $k,\theta > 0$. The mathematical form of the distribution is 
@@ -135,19 +131,13 @@ k^* &= k + \sum^n_{i=1} x_i = \frac{9}{16} + 200 = 200.5625 \\
 
 How the general has changed his mind is described in Table \@ref(tab:before-after). After seeing the data, his uncertainty about lambda, expressed as a standard deviation, shrunk from 1 to 0.047.
 
-\begin{table}
 
-\caption{(\#tab:before-after)Before and after seeing the data}
-\centering
-\begin{tabular}[t]{lrr}
-\toprule
-  & lambda & Standard Deviation\\
-\midrule
-Before & 0.75 & 1.000\\
-After & 0.67 & 0.047\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:before-after)Before and after seeing the data
+
+          lambda   Standard Deviation
+-------  -------  -------------------
+Before      0.75                1.000
+After       0.67                0.047
 
 In summary, we learned about the Poisson and gamma distributions; we also knew that the gamma-Poisson families are conjugate. Moreover, we learned the updating fomula, and applied it to a classical dataset.
 

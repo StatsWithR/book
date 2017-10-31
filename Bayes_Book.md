@@ -3,7 +3,7 @@ title: "Bayesian Statistics"
 subtitle: "A Companion to the Statistics with R Coursera Course"
 author: ["Christine Chai"]
 description: "This book is a written companion for the Coursera Course 'Bayesian Statistics' from the Statistics with R specialization."
-date: "Last built on 2017-10-29"
+date: "Last built on 2017-10-30"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -46,20 +46,14 @@ This section introduces how the Bayes' rule is applied to calculating conditiona
 Consider Table \@ref(tab:2015gallupDating).
 It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities.
 
-\begin{table}
 
-\caption{(\#tab:2015gallupDating)Results from a 2015 Gallup poll on the use of online dating sites by age group}
-\centering
-\begin{tabular}[t]{lrrrrr}
-\toprule
-  & 18-29 & 30-49 & 50-64 & 65+ & Total\\
-\midrule
-Used online dating site & 60 & 86 & 58 & 21 & 225\\
-Did not use online dating site & 255 & 426 & 450 & 382 & 1513\\
-Total & 316 & 512 & 508 & 403 & 1738\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:2015gallupDating)Results from a 2015 Gallup poll on the use of online dating sites by age group
+
+                                  18-29   30-49   50-64   65+   Total
+-------------------------------  ------  ------  ------  ----  ------
+Used online dating site              60      86      58    21     225
+Did not use online dating site      255     426     450   382    1513
+Total                               316     512     508   403    1738
 
 For instance, the probability of an adult American using an online dating site can be calculated as
 \begin{multline*}
@@ -330,20 +324,16 @@ Within the Bayesian framework, we need to make some assumptions on the models wh
 
 Table \@ref(tab:RU-486prior) specifies the prior probabilities that we want to assign to our assumption. There is no unique correct prior, but any prior probability should reflect our beliefs prior to the experiement. The prior probabilities should incorporate the information from all relevant research before we perform the current experiement.
 
-\begin{table}
 
-\caption{(\#tab:RU-486prior)Prior, likelihood, and posterior probabilities for each of the 9 models}
-\centering
-\begin{tabular}[t]{lrrrrrrrrr}
-\toprule
-Model (\$p\$) & 0.1000 & 0.2000 & 0.3000 & 0.4000 & 0.5000 & 6e-01 & 0.70 & 0.80 & 0.90\\
-Prior \$P(model)\$ & 0.0600 & 0.0600 & 0.0600 & 0.0600 & 0.5200 & 6e-02 & 0.06 & 0.06 & 0.06\\
-Likelihood \$P(data|model)\$ & 0.0898 & 0.2182 & 0.1304 & 0.0350 & 0.0046 & 3e-04 & 0.00 & 0.00 & 0.00\\
-\$P(data|model)\$ x \$P(model)\$ & 0.0054 & 0.0131 & 0.0078 & 0.0021 & 0.0024 & 0e+00 & 0.00 & 0.00 & 0.00\\
-Posterior \$P(model|data)\$ & 0.1748 & 0.4248 & 0.2539 & 0.0681 & 0.0780 & 5e-04 & 0.00 & 0.00 & 0.00\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:RU-486prior)Prior, likelihood, and posterior probabilities for each of the 9 models
+
+-----------------------------  -------  -------  -------  -------  -------  ------  -----  -----  -----
+Model ($p$)                     0.1000   0.2000   0.3000   0.4000   0.5000   6e-01   0.70   0.80   0.90
+Prior $P(model)$                0.0600   0.0600   0.0600   0.0600   0.5200   6e-02   0.06   0.06   0.06
+Likelihood $P(data|model)$      0.0898   0.2182   0.1304   0.0350   0.0046   3e-04   0.00   0.00   0.00
+$P(data|model)$ x $P(model)$    0.0054   0.0131   0.0078   0.0021   0.0024   0e+00   0.00   0.00   0.00
+Posterior $P(model|data)$       0.1748   0.4248   0.2539   0.0681   0.0780   5e-04   0.00   0.00   0.00
+-----------------------------  -------  -------  -------  -------  -------  ------  -----  -----  -----
 
 This prior incorporates two beliefs: the probability of $p = 0.5$ is highest, and the benefit of the treatment is symmetric. The second belief means that the treatment is equally likely to be better or worse than the standard treatment. Now it is natural to ask how I came up with this prior, and the specification will be discussed in detail later in the course.
 
@@ -364,7 +354,10 @@ In decision making, we choose the model with the highest posterior probability, 
 
 Here are the histograms of the prior, the likelihood, and the posterior probabilities:
 
-![(\#fig:RU-486plot)Original: sample size $n=20$ and number of successes $k=4$](01-basics-02-inf-for-prop_files/figure-latex/RU-486plot-1.pdf) 
+<div class="figure">
+<img src="01-basics-02-inf-for-prop_files/figure-epub3/RU-486plot-1.png" alt="Original: sample size $n=20$ and number of successes $k=4$"  />
+<p class="caption">(\#fig:RU-486plot)Original: sample size $n=20$ and number of successes $k=4$</p>
+</div>
 
 We started with the high prior at $p=0.5$, but the data likelihood peaks at $p=0.2$. And we updated our prior based on observed data to find the posterior. The Bayesian paradigm, unlike the frequentist approach, allows us to make direct probability statements about our models. For example, we can calculate the probability that RU-486, the treatment, is more effective than the control as the sum of the posteriors of the models where $p<0.5$. Adding up the relevant posterior probabilities in Table \@ref(tab:RU-486prior), we get the chance that the treatment is more effective than the control is 92.16%. 
 
@@ -372,11 +365,17 @@ We started with the high prior at $p=0.5$, but the data likelihood peaks at $p=0
 
 The RU-486 example is summarized in Figure \@ref(fig:RU-486plot), and let's look at what the posterior distribution would look like if we had more data.
 
-![(\#fig:RU-486plotX2)More data: sample size $n=40$ and number of successes $k=8$](01-basics-02-inf-for-prop_files/figure-latex/RU-486plotX2-1.pdf) 
+<div class="figure">
+<img src="01-basics-02-inf-for-prop_files/figure-epub3/RU-486plotX2-1.png" alt="More data: sample size $n=40$ and number of successes $k=8$"  />
+<p class="caption">(\#fig:RU-486plotX2)More data: sample size $n=40$ and number of successes $k=8$</p>
+</div>
 
 Suppose our sample size was 40 instead of 20, and the number of successes was 8 instead of 4. Note that the ratio between the sample size and the number of successes is still 20%. We will start with the same prior distribution. Then calculate the likelihood of the data which is also centered at 0.20, but is less variable than the original likelihood we had with the smaller sample size. And finally put these two together to obtain the posterior distribution. The posterior also has a peak at p is equal to 0.20, but the peak is taller, as shown in Figure \@ref(fig:RU-486plotX2). In other words, there is more mass on that model, and less on the others. 
 
-![(\#fig:RU-486plotX10)More data: sample size $n=200$ and number of successes $k=40$](01-basics-02-inf-for-prop_files/figure-latex/RU-486plotX10-1.pdf) 
+<div class="figure">
+<img src="01-basics-02-inf-for-prop_files/figure-epub3/RU-486plotX10-1.png" alt="More data: sample size $n=200$ and number of successes $k=40$"  />
+<p class="caption">(\#fig:RU-486plotX10)More data: sample size $n=200$ and number of successes $k=40$</p>
+</div>
 
 To illustrate the effect of the sample size even further, we're going to keep increasing our sample size, but still maintain the the 20% ratio between the sample size and the number of successes. So let's consider a sample with 200 observations and 40 successes. Once again, we're going to use the same prior and the likelihood is again centered at 20% and almost all of the probability mass in the posterior is at p is equal to 0.20. The other models do not have zero probability mass, but they're posterior probabilities are very close to zero. 
 
@@ -442,22 +441,16 @@ The posterior probabilities of whether $H_1$ or $H_2$ is correct are close to ea
 
 Table \@ref(tab:freq-vs-bayes) summarizes what the results would look like if we had chosen larger sample sizes. Under each of these scenarios, the frequentist method yields a higher p-value than our significance level, so we would fail to reject the null hypothesis with any of these samples. On the other hand, the Bayesian method always yields a higher posterior for the second model where $p$ is equal to 0.20. So the decisions that we would make are contradictory to each other.
 
-\begin{table}
 
-\caption{(\#tab:freq-vs-bayes)Frequentist and Bayesian probabilities for larger sample sizes}
-\centering
-\begin{tabular}[t]{llll}
-\toprule
- & Frequentist & Bayesian H\_1 & Bayesian H\_2\\
-\midrule
-Observed Data & P(k or more | 10\% yellow) & P(10\% yellow | n, k) & P(20\% yellow | n, k)\\
-n = 5, k = 1 & 0.41 & 0.45 & 0.55\\
-n = 10, k = 2 & 0.26 & 0.39 & 0.61\\
-n = 15, k = 3 & 0.18 & 0.34 & 0.66\\
-n = 20, k = 4 & 0.13 & 0.29 & 0.71\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:freq-vs-bayes)Frequentist and Bayesian probabilities for larger sample sizes
+
+                Frequentist                 Bayesian H_1           Bayesian H_2         
+--------------  --------------------------  ---------------------  ---------------------
+Observed Data   P(k or more | 10% yellow)   P(10% yellow | n, k)   P(20% yellow | n, k) 
+n = 5, k = 1    0.41                        0.45                   0.55                 
+n = 10, k = 2   0.26                        0.39                   0.61                 
+n = 15, k = 3   0.18                        0.34                   0.66                 
+n = 20, k = 4   0.13                        0.29                   0.71                 
 
 However, if we had set up our framework differently in the frequentist method and set our null hypothesis to be $p = 0.20$ and our alternative to be $p < 0.20$, we would obtain different results. This shows that **the frequentist method is highly sensitive to the null hypothesis**, while in the Bayesian method, our results would be the same regardless of which order we evaluate our models. 
 
@@ -498,19 +491,10 @@ This formula is called the **probability mass function** (pmf) for the binomial.
 
 The probability mass function can be visualized as a histogram in Figure \@ref(fig:histogram). The area under the histogram is one, and the area of each bar is the probability of seeing a binomial random variable, whose value is equal to the x-value at the center of the bars base. 
 
-
-```
-## Warning: package 'scales' was built under R version 3.4.2
-```
-
-\begin{figure}
-
-{\centering \includegraphics{02-inference-01-continuous_files/figure-latex/histogram-1} 
-
-}
-
-\caption{Histogram of binomial random variable}(\#fig:histogram)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-inference-01-continuous_files/figure-epub3/histogram-1.png" alt="Histogram of binomial random variable"  />
+<p class="caption">(\#fig:histogram)Histogram of binomial random variable</p>
+</div>
 
 
 In contrast, the normal distribution, a.k.a. Gaussian distribution or the bell-shaped curve, can take any numerical value in $(-\infty,+\infty)$. A random variable generated from a normal distribution because it can take a continuum of values. 
@@ -523,14 +507,10 @@ We can only talk about the probability of a continuous random variable lined wit
 
 A **continuous** random variable has a **probability density function** or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5'11" (71 inches) and 6'1" (73 inches) is the area under the pdf curve for height between those two values, as shown in the blue area of Figure \@ref(fig:pdf-auc).^[Code reference: http://www.statmethods.net/advgraphs/probability.html]
 
-\begin{figure}
-
-{\centering \includegraphics{02-inference-01-continuous_files/figure-latex/pdf-auc-1} 
-
-}
-
-\caption{Area under curve for the probability density function}(\#fig:pdf-auc)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-inference-01-continuous_files/figure-epub3/pdf-auc-1.png" alt="Area under curve for the probability density function"  />
+<p class="caption">(\#fig:pdf-auc)Area under curve for the probability density function</p>
+</div>
 
 For example, a normal distribution with mean $\mu$ and standard deviation $\sigma$ (i.e., variance $\sigma^2$) is defined as
 
@@ -587,14 +567,10 @@ When $\alpha=\beta=1$, the beta distribution becomes a uniform distribution, i.e
 
 The expected value of $p$ is $\frac{\alpha}{\alpha+\beta}$, so $\alpha$ can be regarded as the prior number of successes, and $\beta$ the prior number of failures. When $\alpha=\beta$, then one gets a symmetrical pdf around 0.5. For large but equal values of $\alpha$ and $\beta$, the area under the beta probability density near 0.5 is very large. Figure \@ref(fig:beta) compares the beta distribution with different parameter values.
 
-\begin{figure}
-
-{\centering \includegraphics{02-inference-01-continuous_files/figure-latex/beta-1} 
-
-}
-
-\caption{Beta family}(\#fig:beta)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-inference-01-continuous_files/figure-epub3/beta-1.png" alt="Beta family"  />
+<p class="caption">(\#fig:beta)Beta family</p>
+</div>
 
 These kinds of priors are probably appropriate if you want to infer the probability of getting heads in a coin toss. The beta family also includes skewed densities, which is appropriate if you think that $p$ the probability of success in ths binomial trial is close to zero or one. 
 
@@ -766,14 +742,10 @@ Modern computing was unavailable at that time yet, so the general will need to e
 
 The gamma family is flexible, and Figure \@ref(fig:gamma) illustrates a wide range of gamma shapes. 
 
-\begin{figure}
-
-{\centering \includegraphics{02-inference-02-conjugate_files/figure-latex/gamma-1} 
-
-}
-
-\caption{Gamma family}(\#fig:gamma)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-inference-02-conjugate_files/figure-epub3/gamma-1.png" alt="Gamma family"  />
+<p class="caption">(\#fig:gamma)Gamma family</p>
+</div>
 
 
 The probability density function for the gamma is indexed by shape $k$ and scale $\theta$, denoted as $\text{Gamma}(k,\theta)$ with $k,\theta > 0$. The mathematical form of the distribution is 
@@ -817,19 +789,13 @@ k^* &= k + \sum^n_{i=1} x_i = \frac{9}{16} + 200 = 200.5625 \\
 
 How the general has changed his mind is described in Table \@ref(tab:before-after). After seeing the data, his uncertainty about lambda, expressed as a standard deviation, shrunk from 1 to 0.047.
 
-\begin{table}
 
-\caption{(\#tab:before-after)Before and after seeing the data}
-\centering
-\begin{tabular}[t]{lrr}
-\toprule
-  & lambda & Standard Deviation\\
-\midrule
-Before & 0.75 & 1.000\\
-After & 0.67 & 0.047\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:before-after)Before and after seeing the data
+
+          lambda   Standard Deviation
+-------  -------  -------------------
+Before      0.75                1.000
+After       0.67                0.047
 
 In summary, we learned about the Poisson and gamma distributions; we also knew that the gamma-Poisson families are conjugate. Moreover, we learned the updating fomula, and applied it to a classical dataset.
 
@@ -917,14 +883,10 @@ As previously mentioned, there is no way to compute the posterior distribution f
 
 If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution, as in Figure \@ref(fig:JAGS-screenshot). At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results. 
 
-\begin{figure}
-
-{\centering \includegraphics{JAGS_screenshot} 
-
-}
-
-\caption{Posterior with JAGS}(\#fig:JAGS-screenshot)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="JAGS_screenshot.png" alt="Posterior with JAGS" width="809" />
+<p class="caption">(\#fig:JAGS-screenshot)Posterior with JAGS</p>
+</div>
 
 That histogram is lightly smooth to generate the posterior density you see. There is still a point mass of probability at 0.5, but now it has less weight than before. Also, note how the data have changed the posterior away from the prior. The analyst sees a lot of probability under the curve near 0.2, but responds to the fact that no children were born to RU-486 mothers. 
 
@@ -952,7 +914,10 @@ Recall the RU-486 example. When the analyst used the beta-binomial family, she t
 
 After we observed four children born to mothers who received conventional therapy, her posterior is $p|x \sim \text{beta}(1,5)$. In Figure \@ref(fig:posterior), the posterior probability density for $\text{beta}(1,5)$ puts a lot of probability near zero and very little probability near one.
 
-![(\#fig:posterior)RU-486 Posterior](02-inference-03-credible_files/figure-latex/posterior-1.pdf) 
+<div class="figure">
+<img src="02-inference-03-credible_files/figure-epub3/posterior-1.png" alt="RU-486 Posterior"  />
+<p class="caption">(\#fig:posterior)RU-486 Posterior</p>
+</div>
 
 For the Bayesian, her 95% credible interval is just any $L$ and $U$ such that the posterior probability that $L < p < U$ is $0.95$. The shortest such interval is obviously preferable. 
 
@@ -1036,20 +1001,14 @@ Finally, in some cases, the penalty is 0 if you are exactly correct, but constan
 
 There is a large literature on decision theory, and it is directly linked to risk analysis, which arises in many fields. Although it is possible for frequentists to employ a certain kind of decision theory, it is much more natural for Bayesians. 
 
-\begin{table}
 
-\caption{(\#tab:loss-functions)Loss Functions}
-\centering
-\begin{tabular}[t]{cc}
-\toprule
-Loss & Best Estimate\\
-\midrule
-Linear & Median\\
-Quadratic & Mean\\
-0/1 & Mode\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:loss-functions)Loss Functions
+
+   Loss       Best Estimate 
+-----------  ---------------
+  Linear         Median     
+ Quadratic        Mean      
+    0/1           Mode      
 
 When making point estimates of unknown parameters, we should make the choices that minimize the loss. Nevertheless, the best estimate depends on the kind of loss function we are using, and we will discuss in more depth how these best estimates are determined in the next section.
 
@@ -1059,14 +1018,10 @@ Now we illustrate why certain estimates minimize certain loss functions.
 
 \BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:car"><strong>(\#exm:car) </strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure \@ref(fig:posterior-decision). The mean, median and the mode of the distribution are also marked on the plot. Your boss doesn't know any Bayesian statistics though, so he/she wants you to report **a single number** for the number of cars the dealership will sell per month.</div>\EndKnitrBlock{example}
 
-\begin{figure}
-
-{\centering \includegraphics{03-decision-01-decisions_files/figure-latex/posterior-decision-1} 
-
-}
-
-\caption{Posterior}(\#fig:posterior-decision)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-epub3/posterior-decision-1.png" alt="Posterior"  />
+<p class="caption">(\#fig:posterior-decision)Posterior</p>
+</div>
 
 Suppose your single guess is 30, and we call this $g$ in the following calculations. If your loss function is $L_0$ (i.e., a 0/1 loss), then you lose a point for each value in your posterior that differs from your guess and do not lose any points for values that exactly equal your guess. The total loss is the sum of the losses from each value in the posterior.
 
@@ -1088,36 +1043,25 @@ To find the total loss, we simply sum over these individual losses in the poster
 
 Figure \@ref(fig:L0-mode) is a visualization of the posterior distribution, along with the 0-1 loss calculated for a series of possible guesses within the range of the posterior distribution. To create this visualization of the loss function, we went through the process we described earlier for a guess of 30 for all guesses considered, and we recorded the total loss. We can see that the loss function has the lowest value when $g$, our guess, is equal to **the most frequent observation** in the posterior. Hence, $L_0$ is minimized at the **mode** of the posterior, which means that if we use the 0/1 loss, the best point estimate is the mode of the posterior. 
 
-\begin{table}
 
-\caption{(\#tab:L0-table)L0: 0/1 loss for g = 30}
-\centering
-\begin{tabular}[t]{ccc}
-\toprule
-i & x\_i & L0: 0/1\\
-\midrule
-1 & 4 & 1\\
-2 & 19 & 1\\
-3 & 20 & 1\\
- & ... & ...\\
-14 & 30 & 0\\
-\addlinespace
- & ... & ...\\
-50 & 47 & 1\\
-51 & 49 & 1\\
- & Total & 50\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:L0-table)L0: 0/1 loss for g = 30
 
-\begin{figure}
+ i      x_i     L0: 0/1 
+----  -------  ---------
+ 1       4         1    
+ 2      19         1    
+ 3      20         1    
+        ...       ...   
+ 14     30         0    
+        ...       ...   
+ 50     47         1    
+ 51     49         1    
+       Total      50    
 
-{\centering \includegraphics{03-decision-01-decisions_files/figure-latex/L0-mode-1} 
-
-}
-
-\caption{L0 is minimized at the mode of the posterior}(\#fig:L0-mode)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-epub3/L0-mode-1.png" alt="L0 is minimized at the mode of the posterior"  />
+<p class="caption">(\#fig:L0-mode)L0 is minimized at the mode of the posterior</p>
+</div>
 
 Let's consider another loss function. If your loss function is $L_1$ (i.e., linear loss), then the total loss for a guess is the sum of the **absolute values** of the difference between that guess and each value in the posterior. Note that the absolute value function is required, because overestimates and underestimates do not cancel out.
 
@@ -1133,36 +1077,25 @@ To find the total loss, we again simply sum over these individual losses, and th
 
 Again, Figure \@ref(fig:L1-median) is a visualization of the posterior distribution, along with a linear loss function calculated for a series of possible guesses within the range of the posterior distribution. To create this visualization of the loss function, we went through the same process we described earlier for all of the guesses considered. This time, the function has the lowest value when $g$ is equal to the **median** of the posterior. Hence, $L_1$ is minimized at the **median** of the posterior one other loss function. 
 
-\begin{table}
 
-\caption{(\#tab:L1-table)L1: linear loss for g = 30}
-\centering
-\begin{tabular}[t]{ccc}
-\toprule
-i & x\_i & L1: |x\_i-30|\\
-\midrule
-1 & 4 & 1\\
-2 & 19 & 1\\
-3 & 20 & 1\\
- & ... & ...\\
-14 & 30 & 0\\
-\addlinespace
- & ... & ...\\
-50 & 47 & 1\\
-51 & 49 & 1\\
- & Total & 346\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:L1-table)L1: linear loss for g = 30
 
-\begin{figure}
+ i      x_i     L1: |x_i-30| 
+----  -------  --------------
+ 1       4           1       
+ 2      19           1       
+ 3      20           1       
+        ...         ...      
+ 14     30           0       
+        ...         ...      
+ 50     47           1       
+ 51     49           1       
+       Total        346      
 
-{\centering \includegraphics{03-decision-01-decisions_files/figure-latex/L1-median-1} 
-
-}
-
-\caption{L1 is minimized at the median of the posterior}(\#fig:L1-median)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-epub3/L1-median-1.png" alt="L1 is minimized at the median of the posterior"  />
+<p class="caption">(\#fig:L1-median)L1 is minimized at the median of the posterior</p>
+</div>
 
 If your loss function is $L_2$ (i.e. a squared loss), then the total loss for a guess is the sum of the squared differences between that guess and each value in the posterior. 
 
@@ -1176,36 +1109,25 @@ To find the total loss, we simply sum over these individual losses again and the
 
 Creating the visualization in Figure \@ref(fig:L2-mean) had the same steps. Go through the same process described earlier for a guess of 30, for all guesses considered, and record the total loss. This time, the function has the lowest value when $g$ is equal to the **mean** of the posterior. Hence, $L_2$ is minimized at the **mean** of the posterior distribution.
 
-\begin{table}
 
-\caption{(\#tab:L2-table)L2: squared loss for g = 30}
-\centering
-\begin{tabular}[t]{ccc}
-\toprule
-i & x\_i & L2: (x\_i-30)\textasciicircum{}2\\
-\midrule
-1 & 4 & 1\\
-2 & 19 & 1\\
-3 & 20 & 1\\
- & ... & ...\\
-14 & 30 & 0\\
-\addlinespace
- & ... & ...\\
-50 & 47 & 1\\
-51 & 49 & 1\\
- & Total & 3732\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:L2-table)L2: squared loss for g = 30
 
-\begin{figure}
+ i      x_i     L2: (x_i-30)^2 
+----  -------  ----------------
+ 1       4            1        
+ 2      19            1        
+ 3      20            1        
+        ...          ...       
+ 14     30            0        
+        ...          ...       
+ 50     47            1        
+ 51     49            1        
+       Total         3732      
 
-{\centering \includegraphics{03-decision-01-decisions_files/figure-latex/L2-mean-1} 
-
-}
-
-\caption{L2 is minimized at the mean of the posterior}(\#fig:L2-mean)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-epub3/L2-mean-1.png" alt="L2 is minimized at the mean of the posterior"  />
+<p class="caption">(\#fig:L2-mean)L2 is minimized at the mean of the posterior</p>
+</div>
 
 To sum up, the point estimate to report to your boss about the number of cars the dealership will sell per month **depends on your loss function**. In any case, you will choose to report the estimate that minimizes the loss. 
 
@@ -1329,13 +1251,13 @@ $$PO[H_1:H_2] = \frac{P(H_1|\text{data})}{P(H_2|\text{data})}$$
 
 Using Bayes' rule, we can rewrite the posterior probabilities as below:
 
-$$\begin{align}
+$$\begin{aligned}
 PO[H_1:H_2] &= \frac{P(H_1|\text{data})}{P(H_2|\text{data})} \\
 &= \frac{(P(\text{data}|H_1) \times P(H_1)) / P(\text{data}))}{(P(\text{data}|H_2) \times P(H_2)) / P(\text{data}))} \\
 &= \frac{(P(\text{data}|H_1) \times P(H_1))}{(P(\text{data}|H_2) \times P(H_2))} \\
 &= \boxed{\frac{P(\text{data}|H_1)}{P(\text{data}|H_2)}} \times \boxed{\frac{P(H_1)}{P(H_2)}} \\
 &= \textbf{Bayes factor} \times \textbf{prior odds}
-\end{align}$$
+\end{aligned}$$
 
 In mathematical notation, we have
 
@@ -1388,30 +1310,24 @@ The posterior odds are
 
 Finally, we can calculate the Bayes factor as the ratio of the posterior odds to prior odds, which comes out to approximately 0.0108. Note that in this simple discrete case the Bayes factor, it simplifies to the ratio of the likelihoods of the observed data under the two hypotheses.
 
-$$\begin{align}
+$$\begin{aligned}
 BF[H_1:H_2] &= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \approx 0.0108 \\
 &= \frac{P(+|H_1)}{P(+|H_2)} = \frac{0.01}{0.93} \approx 0.0108
-\end{align}$$
+\end{aligned}$$
 
 Alternatively, remember that the true positive rate of the test was 0.93 and the false positive rate was 0.01. Using these two values, the Bayes factor also comes out to approximately 0.0108.
 
 So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by @jeffreys1961theory, as in Table \@ref(tab:jeffreys1961). If the Bayes factor is between 1 and 3, the evidence against $H_2$ is not worth a bare mention. If it is 3 to 20, the evidence is positive. If it is 20 to 150, the evidence is strong. If it is greater than 150, the evidence is very strong. 
 
-\begin{table}
 
-\caption{(\#tab:jeffreys1961)Interpreting the Bayes factor}
-\centering
-\begin{tabular}[t]{cc}
-\toprule
-BF[H\_1:H\_2] & Evidence against H\_2\\
-\midrule
-1 to 3 & Not worth a bare mention\\
-3 to 20 & Positive\\
-20 to 150 & Strong\\
-> 150 & Very strong\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:jeffreys1961)Interpreting the Bayes factor
+
+ BF[H_1:H_2]      Evidence against H_2   
+-------------  --------------------------
+   1 to 3       Not worth a bare mention 
+   3 to 20              Positive         
+  20 to 150              Strong          
+    > 150             Very strong        
 
 It might have caught your attention that the Bayes factor we calculated does not even appear on the scale. To obtain a Bayes factor value on the scale, we will need to change the order of our hypotheses and calculate $BF[H_2:H_1]$, i.e. the Bayes factor for $H_2$ to $H_1$. Then we look for evidence against $H_1$ instead. 
 
@@ -1425,21 +1341,15 @@ An intuitive way of thinking about this is to consider not only the posteriors, 
 
 Another commonly used scale for interpreting Bayes factors is proposed by @kass1995bayes, and it deals with the natural logarithm of the calculated Bayes factor. The values can be interpreted in Table \@ref(tab:kass1995).
 
-\begin{table}
 
-\caption{(\#tab:kass1995)Interpreting the Bayes factor}
-\centering
-\begin{tabular}[t]{cc}
-\toprule
-2*log(BF[H\_2:H\_1]) & Evidence against H\_1\\
-\midrule
-0 to 2 & Not worth a bare mention\\
-2 to 6 & Positive\\
-6 to 10 & Strong\\
-> 10 & Very strong\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:kass1995)Interpreting the Bayes factor
+
+ 2*log(BF[H_2:H_1])      Evidence against H_1   
+--------------------  --------------------------
+       0 to 2          Not worth a bare mention 
+       2 to 6                  Positive         
+      6 to 10                   Strong          
+        > 10                 Very strong        
 
 Reporting of the log scale can be helpful for numerical accuracy reasons when the likelihoods are very small. Taking two times the natural logarithm of the Bayes factor we calculated earlier, we would end up with the same decision that the evidence against $H_1$ is strong.
 
@@ -1624,7 +1534,7 @@ To find a credible interval for the mean $\mu$, we use the Student $t$
 distribution.  Since the distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
 
 
-![](03-decision-02-normal-gamma_files/figure-latex/tapwater-post-mu-1.pdf)<!-- --> 
+![](03-decision-02-normal-gamma_files/figure-epub3/tapwater-post-mu-1.png)<!-- -->
 
 is the orange interval given by the
 Lower endpoint L and upper endpoint U where the probability that mu is
@@ -1719,14 +1629,10 @@ phi = rgamma(1000, shape = v_n/2, rate=s2_n*v_n/2)
 
 Figure \@ref(fig:phi-plot) shows the histogram of the 1,000 draws of $\phi$ generated from the Monte Carlo simulation, representing the empirical distribution. The orange line represents the actual gamma posterior density.
 
-\begin{figure}
-
-{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/phi-plot-1} 
-
-}
-
-\caption{Empirical distribution of the tap water example}(\#fig:phi-plot)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-02-normal-gamma_files/figure-epub3/phi-plot-1.png" alt="Empirical distribution of the tap water example"  />
+<p class="caption">(\#fig:phi-plot)Empirical distribution of the tap water example</p>
+</div>
 
 Try changing the random seed or increasing the number of simulations, and see how the approximation changes.
 
@@ -1768,10 +1674,10 @@ We can obtain the prior predictive distribution of the data, by taking the joint
 
 * Prior:
 
-$$ \begin{align}
+$$ \begin{aligned}
 \frac{1}{\sigma^2} = \phi &\sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right) \\
 \mu \mid \sigma^2  &\sim  \textsf{N}(m_0, \sigma^2/n_0)
-\end{align} $$
+\end{aligned} $$
 
 * Sampling model:
 
@@ -1779,10 +1685,10 @@ $$Y_i \mid \mu,\sigma^2 \iid \No(\mu, \sigma^2) $$
 
 * Prior predictive distribution for $Y$:
 
-$$\begin{align}
+$$\begin{aligned}
 p(Y) &= \iint p(Y \mid \mu,\sigma^2) p(\mu \mid \sigma^2) p(\sigma^2) d\mu \, d\sigma^2 \\
 Y &\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
-\end{align}$$
+\end{aligned}$$
 
 This distribution of the observables can be used to help elicit prior hyper parameters as in the tap water example.
 

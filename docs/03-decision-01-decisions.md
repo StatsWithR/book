@@ -18,20 +18,14 @@ Finally, in some cases, the penalty is 0 if you are exactly correct, but constan
 
 There is a large literature on decision theory, and it is directly linked to risk analysis, which arises in many fields. Although it is possible for frequentists to employ a certain kind of decision theory, it is much more natural for Bayesians. 
 
-\begin{table}
 
-\caption{(\#tab:loss-functions)Loss Functions}
-\centering
-\begin{tabular}[t]{cc}
-\toprule
-Loss & Best Estimate\\
-\midrule
-Linear & Median\\
-Quadratic & Mean\\
-0/1 & Mode\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:loss-functions)Loss Functions
+
+   Loss       Best Estimate 
+-----------  ---------------
+  Linear         Median     
+ Quadratic        Mean      
+    0/1           Mode      
 
 When making point estimates of unknown parameters, we should make the choices that minimize the loss. Nevertheless, the best estimate depends on the kind of loss function we are using, and we will discuss in more depth how these best estimates are determined in the next section.
 
@@ -41,14 +35,10 @@ Now we illustrate why certain estimates minimize certain loss functions.
 
 \BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:car"><strong>(\#exm:car) </strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure \@ref(fig:posterior-decision). The mean, median and the mode of the distribution are also marked on the plot. Your boss doesn't know any Bayesian statistics though, so he/she wants you to report **a single number** for the number of cars the dealership will sell per month.</div>\EndKnitrBlock{example}
 
-\begin{figure}
-
-{\centering \includegraphics{03-decision-01-decisions_files/figure-latex/posterior-decision-1} 
-
-}
-
-\caption{Posterior}(\#fig:posterior-decision)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-epub3/posterior-decision-1.png" alt="Posterior"  />
+<p class="caption">(\#fig:posterior-decision)Posterior</p>
+</div>
 
 Suppose your single guess is 30, and we call this $g$ in the following calculations. If your loss function is $L_0$ (i.e., a 0/1 loss), then you lose a point for each value in your posterior that differs from your guess and do not lose any points for values that exactly equal your guess. The total loss is the sum of the losses from each value in the posterior.
 
@@ -70,36 +60,25 @@ To find the total loss, we simply sum over these individual losses in the poster
 
 Figure \@ref(fig:L0-mode) is a visualization of the posterior distribution, along with the 0-1 loss calculated for a series of possible guesses within the range of the posterior distribution. To create this visualization of the loss function, we went through the process we described earlier for a guess of 30 for all guesses considered, and we recorded the total loss. We can see that the loss function has the lowest value when $g$, our guess, is equal to **the most frequent observation** in the posterior. Hence, $L_0$ is minimized at the **mode** of the posterior, which means that if we use the 0/1 loss, the best point estimate is the mode of the posterior. 
 
-\begin{table}
 
-\caption{(\#tab:L0-table)L0: 0/1 loss for g = 30}
-\centering
-\begin{tabular}[t]{ccc}
-\toprule
-i & x\_i & L0: 0/1\\
-\midrule
-1 & 4 & 1\\
-2 & 19 & 1\\
-3 & 20 & 1\\
- & ... & ...\\
-14 & 30 & 0\\
-\addlinespace
- & ... & ...\\
-50 & 47 & 1\\
-51 & 49 & 1\\
- & Total & 50\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:L0-table)L0: 0/1 loss for g = 30
 
-\begin{figure}
+ i      x_i     L0: 0/1 
+----  -------  ---------
+ 1       4         1    
+ 2      19         1    
+ 3      20         1    
+        ...       ...   
+ 14     30         0    
+        ...       ...   
+ 50     47         1    
+ 51     49         1    
+       Total      50    
 
-{\centering \includegraphics{03-decision-01-decisions_files/figure-latex/L0-mode-1} 
-
-}
-
-\caption{L0 is minimized at the mode of the posterior}(\#fig:L0-mode)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-epub3/L0-mode-1.png" alt="L0 is minimized at the mode of the posterior"  />
+<p class="caption">(\#fig:L0-mode)L0 is minimized at the mode of the posterior</p>
+</div>
 
 Let's consider another loss function. If your loss function is $L_1$ (i.e., linear loss), then the total loss for a guess is the sum of the **absolute values** of the difference between that guess and each value in the posterior. Note that the absolute value function is required, because overestimates and underestimates do not cancel out.
 
@@ -115,36 +94,25 @@ To find the total loss, we again simply sum over these individual losses, and th
 
 Again, Figure \@ref(fig:L1-median) is a visualization of the posterior distribution, along with a linear loss function calculated for a series of possible guesses within the range of the posterior distribution. To create this visualization of the loss function, we went through the same process we described earlier for all of the guesses considered. This time, the function has the lowest value when $g$ is equal to the **median** of the posterior. Hence, $L_1$ is minimized at the **median** of the posterior one other loss function. 
 
-\begin{table}
 
-\caption{(\#tab:L1-table)L1: linear loss for g = 30}
-\centering
-\begin{tabular}[t]{ccc}
-\toprule
-i & x\_i & L1: |x\_i-30|\\
-\midrule
-1 & 4 & 1\\
-2 & 19 & 1\\
-3 & 20 & 1\\
- & ... & ...\\
-14 & 30 & 0\\
-\addlinespace
- & ... & ...\\
-50 & 47 & 1\\
-51 & 49 & 1\\
- & Total & 346\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:L1-table)L1: linear loss for g = 30
 
-\begin{figure}
+ i      x_i     L1: |x_i-30| 
+----  -------  --------------
+ 1       4           1       
+ 2      19           1       
+ 3      20           1       
+        ...         ...      
+ 14     30           0       
+        ...         ...      
+ 50     47           1       
+ 51     49           1       
+       Total        346      
 
-{\centering \includegraphics{03-decision-01-decisions_files/figure-latex/L1-median-1} 
-
-}
-
-\caption{L1 is minimized at the median of the posterior}(\#fig:L1-median)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-epub3/L1-median-1.png" alt="L1 is minimized at the median of the posterior"  />
+<p class="caption">(\#fig:L1-median)L1 is minimized at the median of the posterior</p>
+</div>
 
 If your loss function is $L_2$ (i.e. a squared loss), then the total loss for a guess is the sum of the squared differences between that guess and each value in the posterior. 
 
@@ -158,36 +126,25 @@ To find the total loss, we simply sum over these individual losses again and the
 
 Creating the visualization in Figure \@ref(fig:L2-mean) had the same steps. Go through the same process described earlier for a guess of 30, for all guesses considered, and record the total loss. This time, the function has the lowest value when $g$ is equal to the **mean** of the posterior. Hence, $L_2$ is minimized at the **mean** of the posterior distribution.
 
-\begin{table}
 
-\caption{(\#tab:L2-table)L2: squared loss for g = 30}
-\centering
-\begin{tabular}[t]{ccc}
-\toprule
-i & x\_i & L2: (x\_i-30)\textasciicircum{}2\\
-\midrule
-1 & 4 & 1\\
-2 & 19 & 1\\
-3 & 20 & 1\\
- & ... & ...\\
-14 & 30 & 0\\
-\addlinespace
- & ... & ...\\
-50 & 47 & 1\\
-51 & 49 & 1\\
- & Total & 3732\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:L2-table)L2: squared loss for g = 30
 
-\begin{figure}
+ i      x_i     L2: (x_i-30)^2 
+----  -------  ----------------
+ 1       4            1        
+ 2      19            1        
+ 3      20            1        
+        ...          ...       
+ 14     30            0        
+        ...          ...       
+ 50     47            1        
+ 51     49            1        
+       Total         3732      
 
-{\centering \includegraphics{03-decision-01-decisions_files/figure-latex/L2-mean-1} 
-
-}
-
-\caption{L2 is minimized at the mean of the posterior}(\#fig:L2-mean)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-01-decisions_files/figure-epub3/L2-mean-1.png" alt="L2 is minimized at the mean of the posterior"  />
+<p class="caption">(\#fig:L2-mean)L2 is minimized at the mean of the posterior</p>
+</div>
 
 To sum up, the point estimate to report to your boss about the number of cars the dealership will sell per month **depends on your loss function**. In any case, you will choose to report the estimate that minimizes the loss. 
 
@@ -311,13 +268,13 @@ $$PO[H_1:H_2] = \frac{P(H_1|\text{data})}{P(H_2|\text{data})}$$
 
 Using Bayes' rule, we can rewrite the posterior probabilities as below:
 
-$$\begin{align}
+$$\begin{aligned}
 PO[H_1:H_2] &= \frac{P(H_1|\text{data})}{P(H_2|\text{data})} \\
 &= \frac{(P(\text{data}|H_1) \times P(H_1)) / P(\text{data}))}{(P(\text{data}|H_2) \times P(H_2)) / P(\text{data}))} \\
 &= \frac{(P(\text{data}|H_1) \times P(H_1))}{(P(\text{data}|H_2) \times P(H_2))} \\
 &= \boxed{\frac{P(\text{data}|H_1)}{P(\text{data}|H_2)}} \times \boxed{\frac{P(H_1)}{P(H_2)}} \\
 &= \textbf{Bayes factor} \times \textbf{prior odds}
-\end{align}$$
+\end{aligned}$$
 
 In mathematical notation, we have
 
@@ -370,30 +327,24 @@ The posterior odds are
 
 Finally, we can calculate the Bayes factor as the ratio of the posterior odds to prior odds, which comes out to approximately 0.0108. Note that in this simple discrete case the Bayes factor, it simplifies to the ratio of the likelihoods of the observed data under the two hypotheses.
 
-$$\begin{align}
+$$\begin{aligned}
 BF[H_1:H_2] &= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \approx 0.0108 \\
 &= \frac{P(+|H_1)}{P(+|H_2)} = \frac{0.01}{0.93} \approx 0.0108
-\end{align}$$
+\end{aligned}$$
 
 Alternatively, remember that the true positive rate of the test was 0.93 and the false positive rate was 0.01. Using these two values, the Bayes factor also comes out to approximately 0.0108.
 
 So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by @jeffreys1961theory, as in Table \@ref(tab:jeffreys1961). If the Bayes factor is between 1 and 3, the evidence against $H_2$ is not worth a bare mention. If it is 3 to 20, the evidence is positive. If it is 20 to 150, the evidence is strong. If it is greater than 150, the evidence is very strong. 
 
-\begin{table}
 
-\caption{(\#tab:jeffreys1961)Interpreting the Bayes factor}
-\centering
-\begin{tabular}[t]{cc}
-\toprule
-BF[H\_1:H\_2] & Evidence against H\_2\\
-\midrule
-1 to 3 & Not worth a bare mention\\
-3 to 20 & Positive\\
-20 to 150 & Strong\\
-> 150 & Very strong\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:jeffreys1961)Interpreting the Bayes factor
+
+ BF[H_1:H_2]      Evidence against H_2   
+-------------  --------------------------
+   1 to 3       Not worth a bare mention 
+   3 to 20              Positive         
+  20 to 150              Strong          
+    > 150             Very strong        
 
 It might have caught your attention that the Bayes factor we calculated does not even appear on the scale. To obtain a Bayes factor value on the scale, we will need to change the order of our hypotheses and calculate $BF[H_2:H_1]$, i.e. the Bayes factor for $H_2$ to $H_1$. Then we look for evidence against $H_1$ instead. 
 
@@ -407,21 +358,15 @@ An intuitive way of thinking about this is to consider not only the posteriors, 
 
 Another commonly used scale for interpreting Bayes factors is proposed by @kass1995bayes, and it deals with the natural logarithm of the calculated Bayes factor. The values can be interpreted in Table \@ref(tab:kass1995).
 
-\begin{table}
 
-\caption{(\#tab:kass1995)Interpreting the Bayes factor}
-\centering
-\begin{tabular}[t]{cc}
-\toprule
-2*log(BF[H\_2:H\_1]) & Evidence against H\_1\\
-\midrule
-0 to 2 & Not worth a bare mention\\
-2 to 6 & Positive\\
-6 to 10 & Strong\\
-> 10 & Very strong\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:kass1995)Interpreting the Bayes factor
+
+ 2*log(BF[H_2:H_1])      Evidence against H_1   
+--------------------  --------------------------
+       0 to 2          Not worth a bare mention 
+       2 to 6                  Positive         
+      6 to 10                   Strong          
+        > 10                 Very strong        
 
 Reporting of the log scale can be helpful for numerical accuracy reasons when the likelihoods are very small. Taking two times the natural logarithm of the Bayes factor we calculated earlier, we would end up with the same decision that the evidence against $H_1$ is strong.
 
