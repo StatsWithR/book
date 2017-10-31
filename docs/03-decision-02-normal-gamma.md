@@ -173,7 +173,7 @@ To find a credible interval for the mean $\mu$, we use the Student $t$
 distribution.  Since the distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
 
 
-<img src="03-decision-02-normal-gamma_files/figure-html/tapwater-post-mu-1.png" width="384" />
+![](03-decision-02-normal-gamma_files/figure-latex/tapwater-post-mu-1.pdf)<!-- --> 
 
 is the orange interval given by the
 Lower endpoint L and upper endpoint U where the probability that mu is
@@ -268,10 +268,14 @@ phi = rgamma(1000, shape = v_n/2, rate=s2_n*v_n/2)
 
 Figure \@ref(fig:phi-plot) shows the histogram of the 1,000 draws of $\phi$ generated from the Monte Carlo simulation, representing the empirical distribution. The orange line represents the actual gamma posterior density.
 
-<div class="figure" style="text-align: center">
-<img src="03-decision-02-normal-gamma_files/figure-html/phi-plot-1.png" alt="Empirical distribution of the tap water example" width="384" />
-<p class="caption">(\#fig:phi-plot)Empirical distribution of the tap water example</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/phi-plot-1} 
+
+}
+
+\caption{Empirical distribution of the tap water example}(\#fig:phi-plot)
+\end{figure}
 
 Try changing the random seed or increasing the number of simulations, and see how the approximation changes.
 
