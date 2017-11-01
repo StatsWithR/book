@@ -7,20 +7,14 @@ This section introduces how the Bayes' rule is applied to calculating conditiona
 Consider Table \@ref(tab:2015gallupDating).
 It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities.
 
-\begin{table}
 
-\caption{(\#tab:2015gallupDating)Results from a 2015 Gallup poll on the use of online dating sites by age group}
-\centering
-\begin{tabular}[t]{lrrrrr}
-\toprule
-  & 18-29 & 30-49 & 50-64 & 65+ & Total\\
-\midrule
-Used online dating site & 60 & 86 & 58 & 21 & 225\\
-Did not use online dating site & 255 & 426 & 450 & 382 & 1513\\
-Total & 316 & 512 & 508 & 403 & 1738\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:2015gallupDating)Results from a 2015 Gallup poll on the use of online dating sites by age group
+
+                                  18-29   30-49   50-64   65+   Total
+-------------------------------  ------  ------  ------  ----  ------
+Used online dating site              60      86      58    21     225
+Did not use online dating site      255     426     450   382    1513
+Total                               316     512     508   403    1738
 
 For instance, the probability of an adult American using an online dating site can be calculated as
 \begin{multline*}
@@ -106,7 +100,8 @@ $$
 $$
 
 The can be derived as follows. For someone to test positive and be HIV positive, that person first needs to be HIV positive and then seconldy test positive. The probability of the first thing happening is $P(\text{HIV positive}) = 0.00148$. The probability of then testing positive is $P(\text{ELISA is positive} \mid \text{Person tested has HIV}) = 0.93$, the true positive rate. This yields for the numerator
-\begin{multline*}
+
+\begin{multline}
   P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive}) \\
   \begin{split}
   &= P(\text{Person tested has HIV}) P(\text{ELISA is positive} \mid \text{Person tested has HIV}) \\
@@ -114,27 +109,32 @@ The can be derived as follows. For someone to test positive and be HIV positive,
   = 0.0013764.
   \end{split}
   (\#eq:HIVjoint)
-\end{multline*}
+\end{multline}
+
 The first step in the above equation is implied by Bayes' rule: By multiplying the left- and right-hand side of Bayes' rule as presented in Section \@ref(sec:bayes-rule) by $P(B)$, we obtain
 \[
   P(A \mid B) P(B) = P(A \,\&\, B).
 \]
 
 The denominator in \@ref(eq:HIVconditional) can be expanded as
+
 \begin{multline*}
   P(\text{ELISA is positive}) \\
   \begin{split}
-  &= P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive})
-  + P(\text{Person tested has no HIV} \,\&\, \text{ELISA is positive}) \\
+  &= P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive}) + P(\text{Person tested has no HIV} \,\&\, \text{ELISA is positive}) \\
   &= 0.0013764 + 0.0099852 = 0.0113616
   \end{split}
 \end{multline*}
+
 where we used \@ref(eq:HIVjoint) and
+
 \begin{multline*}
   P(\text{Person tested has no HIV} \,\&\, \text{ELISA is positive}) \\
-  = P(\text{Person tested has no HIV}) P(\text{ELISA is positive} \mid \text{Person tested has no HIV})
-  = \left(1 - P(\text{Person tested has HIV})\right) \cdot \left(1 - P(\text{ELISA is negative} \mid \text{Person tested has no HIV})\right)
-  = \left(1 - 0.00148\right) \cdot \left(1 - 0.99\right) = 0.0099852.
+  \begin{split}
+  &= P(\text{Person tested has no HIV}) P(\text{ELISA is positive} \mid \text{Person tested has no HIV}) \\
+  &= \left(1 - P(\text{Person tested has HIV})\right) \cdot \left(1 - P(\text{ELISA is negative} \mid \text{Person tested has no HIV})\right) \\
+  &= \left(1 - 0.00148\right) \cdot \left(1 - 0.99\right) = 0.0099852.
+  \end{split}
 \end{multline*}
 
 Putting this all together and inserting into \@ref(eq:HIVconditional) reveals
@@ -171,20 +171,20 @@ To solve this problem, we will assume that the correctness of this second test i
 
 In the last section, we used $P(\text{Person tested has HIV}) = 0.00148$, see \@ref(eq:HIVpositive), to compute the probability of HIV after one positive test. If we repeat those steps but now with $P(\text{Person tested has HIV}) = 0.12$, the probability that a person with one positive test has HIV, we exactly obtain the probability of HIV after two positive tests. Repeating the maths from the previous section, involving Bayes' rule, gives
 
-\begin{multline*}
+\begin{multline}
   P(\text{Person tested has HIV} \mid \text{Second ELISA is also positive}) \\
   \begin{split}
   &= \frac{P(\text{Person tested has HIV}) P(\text{Second ELISA is positive} \mid \text{Person tested has HIV})}{P(\text{Second ELISA is also positive})} \\
   &= \frac{0.12 \cdot 0.93}{
   \begin{split}
   &P(\text{Person tested has HIV}) P(\text{Second ELISA is positive} \mid \text{Has HIV}) \\
-  + &P(\text{Person tested has no HIV}) P(\text{Second ELISA is positive} \mid \text{Has no HIV})
+  &+ P(\text{Person tested has no HIV}) P(\text{Second ELISA is positive} \mid \text{Has no HIV})
   \end{split}
   } \\
   &= \frac{0.1116}{0.12 \cdot 0.93 + (1 - 0.12)\cdot (1 - 0.99)} \approx 0.93.
   \end{split}
   (\#eq:Bayes-updating)
-\end{multline*}
+\end{multline}
 
 Since we are considering the same ELISA test, we used the same true positive and true negative rates as in Section \@ref(sec:diagnostic-testing).
 We see that two positive tests makes it much more probable for someone to have HIV than when only one test comes up positive.
@@ -196,7 +196,8 @@ The probability of HIV after one positive ELISA, 0.12, was the posterior in the 
 \BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:unnamed-chunk-6"><strong>(\#exm:unnamed-chunk-6) </strong></span>What is the probability that one actually has HIV after testing positive 3 times on the ELISA? Again, assume that all three ELISAs are independent.</div>\EndKnitrBlock{example}
 
 Analogous to what we did in this section, we can use Bayes' updating for this. However, now the prior is the probability of HIV after two positive ELISAs, that is $P(\text{Person tested has HIV}) = 0.93$. Analogous to \@ref(eq:Bayes-updating), the answer follows as
-\begin{multline*}
+
+\begin{multline}
   P(\text{Person tested has HIV} \mid \text{Third ELISA is also positive}) \\
   \begin{split}
   &= \frac{P(\text{Person tested has HIV}) P(\text{Third ELISA is positive} \mid \text{Person tested has HIV})}{P(\text{Third ELISA is also positive})} \\
@@ -206,7 +207,7 @@ Analogous to what we did in this section, we can use Bayes' updating for this. H
   \end{split}} \\
   &= \frac{0.8649}{0.93 \cdot 0.93 + (1 - 0.93)\cdot (1 - 0.99)} \approx 0.999.
   \end{split}
-\end{multline*}
+\end{multline}
 
 
 ### Bayesian vs. Frequentist Definitions of Probability

@@ -125,7 +125,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{Last built on 2017-10-30}
+  \date{Last built on 2017-10-31}
 
 \usepackage{amsthm}
 \usepackage{booktabs}
@@ -366,7 +366,7 @@ positive is
 \(P(\text{ELISA is positive} \mid \text{Person tested has HIV}) = 0.93\),
 the true positive rate. This yields for the numerator
 
-\begin{multline*}
+\begin{multline}
   P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive}) \\
   \begin{split}
   &= P(\text{Person tested has HIV}) P(\text{ELISA is positive} \mid \text{Person tested has HIV}) \\
@@ -374,7 +374,7 @@ the true positive rate. This yields for the numerator
   = 0.0013764.
   \end{split}
   \label{eq:HIVjoint}
-\end{multline*}
+\end{multline}
 
 The first step in the above equation is implied by Bayes' rule: By
 multiplying the left- and right-hand side of Bayes' rule as presented in
@@ -387,8 +387,7 @@ The denominator in \eqref{eq:HIVconditional} can be expanded as
 \begin{multline*}
   P(\text{ELISA is positive}) \\
   \begin{split}
-  &= P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive})
-  + P(\text{Person tested has no HIV} \,\&\, \text{ELISA is positive}) \\
+  &= P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive}) + P(\text{Person tested has no HIV} \,\&\, \text{ELISA is positive}) \\
   &= 0.0013764 + 0.0099852 = 0.0113616
   \end{split}
 \end{multline*}
@@ -397,9 +396,11 @@ where we used \eqref{eq:HIVjoint} and
 
 \begin{multline*}
   P(\text{Person tested has no HIV} \,\&\, \text{ELISA is positive}) \\
-  = P(\text{Person tested has no HIV}) P(\text{ELISA is positive} \mid \text{Person tested has no HIV})
-  = \left(1 - P(\text{Person tested has HIV})\right) \cdot \left(1 - P(\text{ELISA is negative} \mid \text{Person tested has no HIV})\right)
-  = \left(1 - 0.00148\right) \cdot \left(1 - 0.99\right) = 0.0099852.
+  \begin{split}
+  &= P(\text{Person tested has no HIV}) P(\text{ELISA is positive} \mid \text{Person tested has no HIV}) \\
+  &= \left(1 - P(\text{Person tested has HIV})\right) \cdot \left(1 - P(\text{ELISA is negative} \mid \text{Person tested has no HIV})\right) \\
+  &= \left(1 - 0.00148\right) \cdot \left(1 - 0.99\right) = 0.0099852.
+  \end{split}
 \end{multline*}
 
 Putting this all together and inserting into \eqref{eq:HIVconditional}
@@ -496,20 +497,20 @@ probability that a person with one positive test has HIV, we exactly
 obtain the probability of HIV after two positive tests. Repeating the
 maths from the previous section, involving Bayes' rule, gives
 
-\begin{multline*}
+\begin{multline}
   P(\text{Person tested has HIV} \mid \text{Second ELISA is also positive}) \\
   \begin{split}
   &= \frac{P(\text{Person tested has HIV}) P(\text{Second ELISA is positive} \mid \text{Person tested has HIV})}{P(\text{Second ELISA is also positive})} \\
   &= \frac{0.12 \cdot 0.93}{
   \begin{split}
   &P(\text{Person tested has HIV}) P(\text{Second ELISA is positive} \mid \text{Has HIV}) \\
-  + &P(\text{Person tested has no HIV}) P(\text{Second ELISA is positive} \mid \text{Has no HIV})
+  &+ P(\text{Person tested has no HIV}) P(\text{Second ELISA is positive} \mid \text{Has no HIV})
   \end{split}
   } \\
   &= \frac{0.1116}{0.12 \cdot 0.93 + (1 - 0.12)\cdot (1 - 0.99)} \approx 0.93.
   \end{split}
   \label{eq:Bayes-updating}
-\end{multline*}
+\end{multline}
 
 Since we are considering the same ELISA test, we used the same true
 positive and true negative rates as in Section
@@ -545,7 +546,7 @@ this. However, now the prior is the probability of HIV after two
 positive ELISAs, that is \(P(\text{Person tested has HIV}) = 0.93\).
 Analogous to \eqref{eq:Bayes-updating}, the answer follows as
 
-\begin{multline*}
+\begin{multline}
   P(\text{Person tested has HIV} \mid \text{Third ELISA is also positive}) \\
   \begin{split}
   &= \frac{P(\text{Person tested has HIV}) P(\text{Third ELISA is positive} \mid \text{Person tested has HIV})}{P(\text{Third ELISA is also positive})} \\
@@ -555,7 +556,7 @@ Analogous to \eqref{eq:Bayes-updating}, the answer follows as
   \end{split}} \\
   &= \frac{0.8649}{0.93 \cdot 0.93 + (1 - 0.93)\cdot (1 - 0.99)} \approx 0.999.
   \end{split}
-\end{multline*}
+\end{multline}
 
 \subsection{Bayesian vs.~Frequentist Definitions of
 Probability}\label{bayesian-vs.frequentist-definitions-of-probability}
@@ -1420,7 +1421,7 @@ Proportion}\label{inference-on-a-binomial-proportion}
 
 \BeginKnitrBlock{example}
 \protect\hypertarget{exm:RU-486more}{}{\label{exm:RU-486more} }Recall
-Example \ref{ex:RU-486}, a simplified version of a real clinical trial
+Example \ref{exm:RU-486}, a simplified version of a real clinical trial
 taken in Scotland. It concerned RU-486, a morning after pill that was
 being studied to determine whether it was effective at preventing
 unwanted pregnancies. It had 800 women, each of whom had intercourse no
@@ -1735,7 +1736,7 @@ where
 
 \[\nu^* = \frac{\nu\sigma^2 + n\bar{x}\tau^2}{\sigma^2 + n\tau^2} \text{ and } \tau^* = \sqrt{\frac{\sigma^2\tau^2}{\sigma^2 + n\tau^2}}.\]
 
-Let's continue from Example \ref{ex:chemist}, and suppose she wants to
+Let's continue from Example \ref{exm:chemist}, and suppose she wants to
 measure the mass of a sample of ammonium nitrate.
 
 Her balance has a known standard deviation of 0.2 milligrams. By looking

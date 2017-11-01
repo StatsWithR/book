@@ -4,7 +4,7 @@ In this section, the three conjugate families are beta-binomial, normal-gamma, a
 
 ### Inference on a Binomial Proportion
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:RU-486more"><strong>(\#exm:RU-486more) </strong></span>Recall Example \@ref(ex:RU-486), a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception. 
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:RU-486more"><strong>(\#exm:RU-486more) </strong></span>Recall Example \@ref(exm:RU-486), a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception. 
 
 Half of these women were randomly assigned to the standard contraceptive, a large dose of estrogen and progesterone. And half of the women were assigned RU-486. Among the RU-486 group, there were no pregnancies. Among those receiving the standard therapy, four became pregnant. </div>\EndKnitrBlock{example}
 
@@ -84,14 +84,10 @@ Modern computing was unavailable at that time yet, so the general will need to e
 
 The gamma family is flexible, and Figure \@ref(fig:gamma) illustrates a wide range of gamma shapes. 
 
-\begin{figure}
-
-{\centering \includegraphics{02-inference-02-conjugate_files/figure-latex/gamma-1} 
-
-}
-
-\caption{Gamma family}(\#fig:gamma)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="02-inference-02-conjugate_files/figure-html/gamma-1.png" alt="Gamma family" width="672" />
+<p class="caption">(\#fig:gamma)Gamma family</p>
+</div>
 
 
 The probability density function for the gamma is indexed by shape $k$ and scale $\theta$, denoted as $\text{Gamma}(k,\theta)$ with $k,\theta > 0$. The mathematical form of the distribution is 
@@ -135,19 +131,13 @@ k^* &= k + \sum^n_{i=1} x_i = \frac{9}{16} + 200 = 200.5625 \\
 
 How the general has changed his mind is described in Table \@ref(tab:before-after). After seeing the data, his uncertainty about lambda, expressed as a standard deviation, shrunk from 1 to 0.047.
 
-\begin{table}
 
-\caption{(\#tab:before-after)Before and after seeing the data}
-\centering
-\begin{tabular}[t]{lrr}
-\toprule
-  & lambda & Standard Deviation\\
-\midrule
-Before & 0.75 & 1.000\\
-After & 0.67 & 0.047\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:before-after)Before and after seeing the data
+
+          lambda   Standard Deviation
+-------  -------  -------------------
+Before      0.75                1.000
+After       0.67                0.047
 
 In summary, we learned about the Poisson and gamma distributions; we also knew that the gamma-Poisson families are conjugate. Moreover, we learned the updating fomula, and applied it to a classical dataset.
 
@@ -181,7 +171,7 @@ where
 
 $$\nu^* = \frac{\nu\sigma^2 + n\bar{x}\tau^2}{\sigma^2 + n\tau^2} \text{ and } \tau^* = \sqrt{\frac{\sigma^2\tau^2}{\sigma^2 + n\tau^2}}.$$
 
-Let's continue from Example \@ref(ex:chemist), and suppose she wants to measure the mass of a sample of ammonium nitrate. 
+Let's continue from Example \@ref(exm:chemist), and suppose she wants to measure the mass of a sample of ammonium nitrate. 
 
 Her balance has a known standard deviation of 0.2 milligrams. By looking at the sample, she thinks this mass is about 10 milligrams and based on her previous experience in estimating masses, her guess has the standard deviation of 2. So she decides that her prior for the mass of the sample is a normal distribution with mean, 10 milligrams, and standard deviation, 2 milligrams. 
 
