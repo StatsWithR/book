@@ -847,14 +847,48 @@ Y &amp;\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_<span class="dv">0</span> =<span class="st"> </span>(<span class="dv">60</span><span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span>; s2_<span class="dv">0</span> =<span class="st"> </span>((<span class="dv">60</span><span class="op">-</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>;
 n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">2</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
 <span class="kw">set.seed</span>(<span class="dv">1234</span>)
-phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>, v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>, s2_<span class="dv">0</span><span class="op">*</span>v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>)
+phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>, s2_<span class="dv">0</span><span class="op">*</span>v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>)
 sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
-mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean=</span>m_<span class="dv">0</span>, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_<span class="dv">0</span>)))
-y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, mu, sigma)
+mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_<span class="dv">0</span>, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_<span class="dv">0</span>)))
+y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, mu, sigma)
 <span class="kw">quantile</span>(y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##      2.5%     97.5% 
-## -159.5107  287.0330</code></pre>
+## -140.1391  217.7050</code></pre>
 <p>This forward simulation propagates uncertainty in <span class="math inline">\(\mu,\sigma\)</span> to the prior predictive distribution of the data. Calculating the sample quantiles from the samples of the prior predictive for <span class="math inline">\(Y\)</span>, we see that the 95% predictive interval includes negative values. Since TTHM is non-negative, we need to adjust <span class="math inline">\(n_0\)</span> and repeat.</p>
+<p>After some trial and error, we find that the prior sample size of 25 (in fact the Central Limit Theorem suggests at least 25 or 30 to be “sufficiently large”), the empirical quantiles from the prior predictive distribution are close to the range of 10 to 16 that we were given as prior information.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_<span class="dv">0</span> =<span class="st"> </span>(<span class="dv">60</span><span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span>; s2_<span class="dv">0</span> =<span class="st"> </span>((<span class="dv">60</span><span class="op">-</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>;
+n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+<span class="kw">set.seed</span>(<span class="dv">1234</span>)
+phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>, s2_<span class="dv">0</span><span class="op">*</span>v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>)
+sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
+mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_<span class="dv">0</span>, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_<span class="dv">0</span>)))
+y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, mu, sigma)
+<span class="kw">quantile</span>(y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre></div>
+<pre><code>##      2.5%     97.5% 
+##  8.802515 61.857350</code></pre>
+<p>Figure <a href="introduction-to-losses-and-decision-making.html#fig:hist-prior">3.6</a> shows an estimate of the prior distribution of <span class="math inline">\(\mu\)</span> in gray and the more dispersed prior predictive distribution in TTHM in orange, obtained from the Monte Carlo samples.</p>
+<div class="figure" style="text-align: center"><span id="fig:hist-prior"></span>
+<img src="03-decision-02-normal-gamma_files/figure-html/hist-prior-1.png" alt="Prior density" width="672" />
+<p class="caption">
+Figure 3.6: Prior density
+</p>
+</div>
+<p>Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(y)  <span class="co"># P(Y &lt; 0) a priori</span></code></pre></div>
+<pre><code>## [1] 0.0049</code></pre>
+<p>With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we can still use the conjugate normal gamma model for analysis.</p>
+<p>We can use the same strategy to generate samples from the predictive distribution of a new measurement <span class="math inline">\(Y_{n+1}\)</span> given the observed data. In mathematical terms, the posterior predictive distribution is written as</p>
+<p><span class="math display">\[Y_{n+1} \mid Y_1, \ldots, Y_n \sim {\textsf{t}}(v_n, m_n, s^2_n (1 + 1/n_n))\]</span></p>
+<p>In the code, we replace the prior hyper parameters with the posterior hyper parameters from last time.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1234</span>)
+phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_n<span class="op">/</span><span class="dv">2</span>, s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)
+sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
+post_mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_n, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_n)))
+pred_y =<span class="st">  </span><span class="kw">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)
+<span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</code></pre></div>
+<pre><code>##      2.5%     97.5% 
+##  3.324087 89.871964</code></pre>
+<p>In the plot we show the Monte Carlo approximation to the prior distribution of Mu, and the posterior distribution of Mu which is shifted to the right. The prior and posterior predictive distributions are also depicted and show how the data have updated the prior information. Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion. Which is approximately 0.06. By using Monte-Carlo methods we can obtain prior and posterior predictive distributions of the data. Sampling from the prior predictive distribution can help with the selection of prior hyper parameters and verify that these choices reflect the prior information that is available. Visualizing prior predictive distributions based on Monte Carlo simulations can help explore implications of our prior assumptions such as the choice of the hyper parameters or even assume distributions. If samples are incompatible with known information such as support on positive values, we may need to modify assumptions and look at other families of prior distributions. Next, as part of exploring prior assumptions we will reference priors which are often used as part of a prior sensitivity analysis.</p>
 </div>
 <div id="sec:NG-reference" class="section level3">
 <h3><span class="header-section-number">3.2.4</span> Reference Priors</h3>

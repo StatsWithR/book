@@ -173,7 +173,7 @@ To find a credible interval for the mean $\mu$, we use the Student $t$
 distribution.  Since the distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
 
 
-<img src="03-decision-02-normal-gamma_files/figure-html/tapwater-post-mu-1.png" width="384" />
+![](03-decision-02-normal-gamma_files/figure-latex/tapwater-post-mu-1.pdf)<!-- --> 
 
 is the orange interval given by the
 Lower endpoint L and upper endpoint U where the probability that mu is
@@ -268,10 +268,14 @@ phi = rgamma(1000, shape = v_n/2, rate=s2_n*v_n/2)
 
 Figure \@ref(fig:phi-plot) shows the histogram of the 1,000 draws of $\phi$ generated from the Monte Carlo simulation, representing the empirical distribution. The orange line represents the actual gamma posterior density.
 
-<div class="figure" style="text-align: center">
-<img src="03-decision-02-normal-gamma_files/figure-html/phi-plot-1.png" alt="Empirical distribution of the tap water example" width="384" />
-<p class="caption">(\#fig:phi-plot)Empirical distribution of the tap water example</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/phi-plot-1} 
+
+}
+
+\caption{Empirical distribution of the tap water example}(\#fig:phi-plot)
+\end{figure}
 
 Try changing the random seed or increasing the number of simulations, and see how the approximation changes.
 
@@ -350,19 +354,85 @@ We begin by simulating $\phi$, transfering $\phi$ to calculate $\sigma$, and the
 m_0 = (60+10)/2; s2_0 = ((60-10)/4)^2;
 n_0 = 2; v_0 = n_0 - 1
 set.seed(1234)
-phi = rgamma(1000, v_0/2, s2_0*v_0/2)
+phi = rgamma(10000, v_0/2, s2_0*v_0/2)
 sigma = 1/sqrt(phi)
-mu = rnorm(1000, mean=m_0, sd=sigma/(sqrt(n_0)))
-y = rnorm(1000, mu, sigma)
+mu = rnorm(10000, mean=m_0, sd=sigma/(sqrt(n_0)))
+y = rnorm(10000, mu, sigma)
 quantile(y, c(0.025,0.975))
 ```
 
 ```
 ##      2.5%     97.5% 
-## -159.5107  287.0330
+## -140.1391  217.7050
 ```
 
 This forward simulation propagates uncertainty in $\mu,\sigma$ to the prior predictive distribution of the data. Calculating the sample quantiles from the samples of the prior predictive for $Y$, we see that the 95% predictive interval includes negative values. Since TTHM is non-negative, we need to adjust $n_0$ and repeat.
+
+After some trial and error, we find that the prior sample size of 25 (in fact the Central Limit Theorem suggests at least 25 or 30 to be "sufficiently large"), the empirical quantiles from the prior predictive distribution are close to the range of 10 to 16 that we were given as prior information. 
+
+
+```r
+m_0 = (60+10)/2; s2_0 = ((60-10)/4)^2;
+n_0 = 25; v_0 = n_0 - 1
+set.seed(1234)
+phi = rgamma(10000, v_0/2, s2_0*v_0/2)
+sigma = 1/sqrt(phi)
+mu = rnorm(10000, mean=m_0, sd=sigma/(sqrt(n_0)))
+y = rnorm(10000, mu, sigma)
+quantile(y, c(0.025,0.975))
+```
+
+```
+##      2.5%     97.5% 
+##  8.802515 61.857350
+```
+
+Figure \@ref(fig:hist-prior) shows an estimate of the prior distribution of $\mu$ in gray and the more dispersed prior predictive distribution in TTHM in orange, obtained from the Monte Carlo samples.
+
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/hist-prior-1} 
+
+}
+
+\caption{Prior density}(\#fig:hist-prior)
+\end{figure}
+
+Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations. 
+
+
+```r
+sum(y < 0)/length(y)  # P(Y < 0) a priori
+```
+
+```
+## [1] 0.0049
+```
+
+With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we can still use the conjugate normal gamma model for analysis. 
+
+We can use the same strategy to generate samples from the predictive distribution of a new measurement $Y_{n+1}$ given the observed data. In mathematical terms, the posterior predictive distribution is written as
+
+$$Y_{n+1} \mid Y_1, \ldots, Y_n \sim \St(v_n, m_n, s^2_n (1 + 1/n_n))$$
+
+In the code, we replace the prior hyper parameters with the posterior hyper parameters from last time. 
+
+
+```r
+set.seed(1234)
+phi = rgamma(10000, v_n/2, s2_n*v_n/2)
+sigma = 1/sqrt(phi)
+post_mu = rnorm(10000, mean=m_n, sd=sigma/(sqrt(n_n)))
+pred_y =  rnorm(10000,post_mu, sigma)
+quantile(pred_y, c(.025, .975))
+```
+
+```
+##      2.5%     97.5% 
+##  3.324087 89.871964
+```
+
+In the plot we show the Monte Carlo approximation to the prior distribution of Mu, and the posterior distribution of Mu which is shifted to the right. The prior and posterior predictive distributions are also depicted and show how the data have updated the prior information. Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion. Which is approximately 0.06. By using Monte-Carlo methods we can obtain prior and posterior predictive distributions of the data. Sampling from the prior predictive distribution can help with the selection of prior hyper parameters and verify that these choices reflect the prior information that is available. Visualizing prior predictive distributions based on Monte Carlo simulations can help explore implications of our prior assumptions such as the choice of the hyper parameters or even assume distributions. If samples are incompatible with known information such as support on positive values, we may need to modify assumptions and look at other families of prior distributions. Next, as part of exploring prior assumptions we will reference priors which are often used as part of a prior sensitivity analysis. 
 
 ### Reference Priors  {#sec:NG-reference}
 

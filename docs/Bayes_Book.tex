@@ -3330,17 +3330,17 @@ of TTHM denoted by \(Y\).
 \NormalTok{m_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\NormalTok{(}\DecValTok{60}\OperatorTok{+}\DecValTok{10}\NormalTok{)}\OperatorTok{/}\DecValTok{2}\NormalTok{; s2_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\NormalTok{((}\DecValTok{60}\OperatorTok{-}\DecValTok{10}\NormalTok{)}\OperatorTok{/}\DecValTok{4}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\NormalTok{;}
 \NormalTok{n_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\DecValTok{2}\NormalTok{; v_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\NormalTok{n_}\DecValTok{0} \OperatorTok{-}\StringTok{ }\DecValTok{1}
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
-\NormalTok{phi =}\StringTok{ }\KeywordTok{rgamma}\NormalTok{(}\DecValTok{1000}\NormalTok{, v_}\DecValTok{0}\OperatorTok{/}\DecValTok{2}\NormalTok{, s2_}\DecValTok{0}\OperatorTok{*}\NormalTok{v_}\DecValTok{0}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\NormalTok{phi =}\StringTok{ }\KeywordTok{rgamma}\NormalTok{(}\DecValTok{10000}\NormalTok{, v_}\DecValTok{0}\OperatorTok{/}\DecValTok{2}\NormalTok{, s2_}\DecValTok{0}\OperatorTok{*}\NormalTok{v_}\DecValTok{0}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
 \NormalTok{sigma =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(phi)}
-\NormalTok{mu =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DataTypeTok{mean=}\NormalTok{m_}\DecValTok{0}\NormalTok{, }\DataTypeTok{sd=}\NormalTok{sigma}\OperatorTok{/}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(n_}\DecValTok{0}\NormalTok{)))}
-\NormalTok{y =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, mu, sigma)}
+\NormalTok{mu =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{, }\DataTypeTok{mean=}\NormalTok{m_}\DecValTok{0}\NormalTok{, }\DataTypeTok{sd=}\NormalTok{sigma}\OperatorTok{/}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(n_}\DecValTok{0}\NormalTok{)))}
+\NormalTok{y =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{, mu, sigma)}
 \KeywordTok{quantile}\NormalTok{(y, }\KeywordTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{,}\FloatTok{0.975}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ##      2.5%     97.5% 
-## -159.5107  287.0330
+## -140.1391  217.7050
 \end{verbatim}
 
 This forward simulation propagates uncertainty in \(\mu,\sigma\) to the
@@ -3348,6 +3348,108 @@ prior predictive distribution of the data. Calculating the sample
 quantiles from the samples of the prior predictive for \(Y\), we see
 that the 95\% predictive interval includes negative values. Since TTHM
 is non-negative, we need to adjust \(n_0\) and repeat.
+
+After some trial and error, we find that the prior sample size of 25 (in
+fact the Central Limit Theorem suggests at least 25 or 30 to be
+``sufficiently large''), the empirical quantiles from the prior
+predictive distribution are close to the range of 10 to 16 that we were
+given as prior information.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\NormalTok{(}\DecValTok{60}\OperatorTok{+}\DecValTok{10}\NormalTok{)}\OperatorTok{/}\DecValTok{2}\NormalTok{; s2_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\NormalTok{((}\DecValTok{60}\OperatorTok{-}\DecValTok{10}\NormalTok{)}\OperatorTok{/}\DecValTok{4}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\NormalTok{;}
+\NormalTok{n_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\DecValTok{25}\NormalTok{; v_}\DecValTok{0}\NormalTok{ =}\StringTok{ }\NormalTok{n_}\DecValTok{0} \OperatorTok{-}\StringTok{ }\DecValTok{1}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+\NormalTok{phi =}\StringTok{ }\KeywordTok{rgamma}\NormalTok{(}\DecValTok{10000}\NormalTok{, v_}\DecValTok{0}\OperatorTok{/}\DecValTok{2}\NormalTok{, s2_}\DecValTok{0}\OperatorTok{*}\NormalTok{v_}\DecValTok{0}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\NormalTok{sigma =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(phi)}
+\NormalTok{mu =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{, }\DataTypeTok{mean=}\NormalTok{m_}\DecValTok{0}\NormalTok{, }\DataTypeTok{sd=}\NormalTok{sigma}\OperatorTok{/}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(n_}\DecValTok{0}\NormalTok{)))}
+\NormalTok{y =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{, mu, sigma)}
+\KeywordTok{quantile}\NormalTok{(y, }\KeywordTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{,}\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      2.5%     97.5% 
+##  8.802515 61.857350
+\end{verbatim}
+
+Figure \ref{fig:hist-prior} shows an estimate of the prior distribution
+of \(\mu\) in gray and the more dispersed prior predictive distribution
+in TTHM in orange, obtained from the Monte Carlo samples.
+
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/hist-prior-1} 
+
+}
+
+\caption{Prior density}\label{fig:hist-prior}
+\end{figure}
+
+Using the Monte Carlo samples, we can also estimate the prior
+probability of negative values of TTHM by counting the number of times
+the simulated values are less than zero out of the total number of
+simulations.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(y }\OperatorTok{<}\StringTok{ }\DecValTok{0}\NormalTok{)}\OperatorTok{/}\KeywordTok{length}\NormalTok{(y)  }\CommentTok{# P(Y < 0) a priori}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0049
+\end{verbatim}
+
+With the normal prior distribution, this probability will never be zero,
+but may be acceptably small, so we can still use the conjugate normal
+gamma model for analysis.
+
+We can use the same strategy to generate samples from the predictive
+distribution of a new measurement \(Y_{n+1}\) given the observed data.
+In mathematical terms, the posterior predictive distribution is written
+as
+
+\[Y_{n+1} \mid Y_1, \ldots, Y_n \sim \St(v_n, m_n, s^2_n (1 + 1/n_n))\]
+
+In the code, we replace the prior hyper parameters with the posterior
+hyper parameters from last time.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+\NormalTok{phi =}\StringTok{ }\KeywordTok{rgamma}\NormalTok{(}\DecValTok{10000}\NormalTok{, v_n}\OperatorTok{/}\DecValTok{2}\NormalTok{, s2_n}\OperatorTok{*}\NormalTok{v_n}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\NormalTok{sigma =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(phi)}
+\NormalTok{post_mu =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{, }\DataTypeTok{mean=}\NormalTok{m_n, }\DataTypeTok{sd=}\NormalTok{sigma}\OperatorTok{/}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(n_n)))}
+\NormalTok{pred_y =}\StringTok{  }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{,post_mu, sigma)}
+\KeywordTok{quantile}\NormalTok{(pred_y, }\KeywordTok{c}\NormalTok{(.}\DecValTok{025}\NormalTok{, .}\DecValTok{975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      2.5%     97.5% 
+##  3.324087 89.871964
+\end{verbatim}
+
+In the plot we show the Monte Carlo approximation to the prior
+distribution of Mu, and the posterior distribution of Mu which is
+shifted to the right. The prior and posterior predictive distributions
+are also depicted and show how the data have updated the prior
+information. Using the Monte-Carlo samples from the posterior predictive
+distribution, we can estimate the probability that a new TTHM sample
+will exceed the legal limit of 80 parts per billion. Which is
+approximately 0.06. By using Monte-Carlo methods we can obtain prior and
+posterior predictive distributions of the data. Sampling from the prior
+predictive distribution can help with the selection of prior hyper
+parameters and verify that these choices reflect the prior information
+that is available. Visualizing prior predictive distributions based on
+Monte Carlo simulations can help explore implications of our prior
+assumptions such as the choice of the hyper parameters or even assume
+distributions. If samples are incompatible with known information such
+as support on positive values, we may need to modify assumptions and
+look at other families of prior distributions. Next, as part of
+exploring prior assumptions we will reference priors which are often
+used as part of a prior sensitivity analysis.
 
 \subsection{Reference Priors}\label{sec:NG-reference}
 
