@@ -173,7 +173,7 @@ To find a credible interval for the mean $\mu$, we use the Student $t$
 distribution.  Since the distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
 
 
-![](03-decision-02-normal-gamma_files/figure-latex/tapwater-post-mu-1.pdf)<!-- --> 
+<img src="03-decision-02-normal-gamma_files/figure-html/tapwater-post-mu-1.png" width="384" />
 
 is the orange interval given by the
 Lower endpoint L and upper endpoint U where the probability that mu is
@@ -268,14 +268,10 @@ phi = rgamma(1000, shape = v_n/2, rate=s2_n*v_n/2)
 
 Figure \@ref(fig:phi-plot) shows the histogram of the 1,000 draws of $\phi$ generated from the Monte Carlo simulation, representing the empirical distribution. The orange line represents the actual gamma posterior density.
 
-\begin{figure}
-
-{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/phi-plot-1} 
-
-}
-
-\caption{Empirical distribution of the tap water example}(\#fig:phi-plot)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-02-normal-gamma_files/figure-html/phi-plot-1.png" alt="Empirical distribution of the tap water example" width="384" />
+<p class="caption">(\#fig:phi-plot)Empirical distribution of the tap water example</p>
+</div>
 
 Try changing the random seed or increasing the number of simulations, and see how the approximation changes.
 
@@ -389,14 +385,10 @@ quantile(y, c(0.025,0.975))
 
 Figure \@ref(fig:hist-prior) shows an estimate of the prior distribution of $\mu$ in gray and the more dispersed prior predictive distribution in TTHM in orange, obtained from the Monte Carlo samples.
 
-\begin{figure}
-
-{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/hist-prior-1} 
-
-}
-
-\caption{Prior density}(\#fig:hist-prior)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="03-decision-02-normal-gamma_files/figure-html/hist-prior-1.png" alt="Prior density" width="672" />
+<p class="caption">(\#fig:hist-prior)Prior density</p>
+</div>
 
 Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations. 
 
@@ -432,34 +424,43 @@ quantile(pred_y, c(.025, .975))
 ##  3.324087 89.871964
 ```
 
-In the plot we show the Monte Carlo approximation to the prior distribution of Mu, and the posterior distribution of Mu which is shifted to the right. The prior and posterior predictive distributions are also depicted and show how the data have updated the prior information. Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion. Which is approximately 0.06. By using Monte-Carlo methods we can obtain prior and posterior predictive distributions of the data. Sampling from the prior predictive distribution can help with the selection of prior hyper parameters and verify that these choices reflect the prior information that is available. Visualizing prior predictive distributions based on Monte Carlo simulations can help explore implications of our prior assumptions such as the choice of the hyper parameters or even assume distributions. If samples are incompatible with known information such as support on positive values, we may need to modify assumptions and look at other families of prior distributions. Next, as part of exploring prior assumptions we will reference priors which are often used as part of a prior sensitivity analysis. 
+Figure \@ref(fig:hist-pred) shows the Monte Carlo approximation to the prior distribution of $\mu$, and the posterior distribution of $\mu$ which is shifted to the right. The prior and posterior predictive distributions are also depicted, showing how the data have updated the prior information.
+
+<div class="figure" style="text-align: center">
+<img src="03-decision-02-normal-gamma_files/figure-html/hist-pred-1.png" alt="Posterior densities" width="672" />
+<p class="caption">(\#fig:hist-pred)Posterior densities</p>
+</div>
+
+Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06. 
+
+
+```r
+sum(pred_y > 80)/length(pred_y)  # P(Y > 80 | data)
+```
+
+```
+## [1] 0.0623
+```
+
+By using Monte-Carlo methods, we can obtain prior and posterior predictive distributions of the data. 
+
+* Sampling from the prior predictive distribution can help with the selection of prior hyper parameters and verify that these choices reflect the prior information that is available. 
+
+* Visualizing prior predictive distributions based on Monte Carlo simulations can help explore implications of our prior assumptions such as the choice of the hyper parameters or even assume distributions. 
+
+* If samples are incompatible with known information, such as support on positive values, we may need to modify assumptions and look at other families of prior distributions.
 
 ### Reference Priors  {#sec:NG-reference}
 
+In Section \@ref(sec:NG-predictive), we described a way of specifying an informative prior distribution for inference about TTHM in tapwater based on additional prior information. We had to use a prior sample size that was comparable to the observed sample size for the prior predictive under the Normal-Gamma distribution to agree with the reported prior interval.
 
+However, there may be cases where prior information is not available, or you may wish to present an objective analysis where minimal prior information is used. Or perhaps, you want to use the Bayesian paradigm to make probability statements about parameters, but not use any prior information. 
 
+In this section, we will present reference priors for normal data, which can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution. **Can you actually perform a Bayesian analysis without using prior information?**  
 
-Previously we described a way of specifying an informative
-prior distribution for inference about TTHM in tapwater based on
-additional prior information.   However there may be cases where prior
-information is not available or you may wish to present an objective analysis
-where minimal prior information is used.  Or perhaps, you want to use
-the Bayesian paradigm to make probability statements about parameters,
-but not use any prior information.  In this section we will present reference priors for normal data, which
-can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution.
+Conjugate priors can be interpreted to be based on a prior sample. What happens in the conjugate Normal-Gamma prior if we take our prior sample size $n_0$ to go to zero?  If we have no data, then we will define the prior sample variance $s_0^2$ to go to  0, and based on the relationship between prior sample sized and prior degrees of freedom, we will let the prior degrees of freedom go to the prior sample size minus one, or negative 1, i.e. $v_0 = n_0 - 1 \rightarrow -1$.
 
-
-Can you actually perform a Bayesian analysis without using prior
-information?  
-
-  Conjugate priors can be interpreted to be based on a prior sample.
-    What happens in the conjugate Normal-Gamma prior if we take
-    our prior sample size to go to zero?  If we have no data, then we
-    will define the prior sample variance to go to  0, and based on
-    the relationship between prior sample sized and prior degrees of
-    freedom, we will let the prior degrees of freedom go to the prior
-    sample size minus one, or negative
-    1.
+UNFINISHED BELOW
 
   With this limit, 
   
@@ -474,7 +475,14 @@ and the posterior variance parameter goes to the sample variance.
 In this limiting case the posterior hyperparameters do not depend on the prior
 hyperparameters in the limit.
 
+Since $n_0 \rightarrow 0, s^2_0 \rightarrow 0, v_0 = n_0 - 1 \rightarrow -1$, we have
 
+$$\begin{aligned}
+m_n &= \frac{n \bar{Y} + n_0 m_0} {n + n_0}  \rightarrow \bar{Y} \\
+n_n &= n_0 + n  \rightarrow n \\
+v_n &= v_0 + n  \rightarrow n-1 \\
+s^2_n &= \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n} (\bar{Y} - m_0)^2 \right] \rightarrow s^2
+\end{aligned}$$
 
 
 This limiting Normal-gamma with hyperparameters of 0, 0, 0, and

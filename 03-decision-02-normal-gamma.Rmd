@@ -437,7 +437,7 @@ priorpred
 
 Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations. 
 
-```{r negative-simulations}
+```{r negative-prior}
 sum(y < 0)/length(y)  # P(Y < 0) a priori
 ```
 
@@ -458,34 +458,55 @@ pred_y =  rnorm(10000,post_mu, sigma)
 quantile(pred_y, c(.025, .975))
 ```
 
-In the plot we show the Monte Carlo approximation to the prior distribution of Mu, and the posterior distribution of Mu which is shifted to the right. The prior and posterior predictive distributions are also depicted and show how the data have updated the prior information. Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion. Which is approximately 0.06. By using Monte-Carlo methods we can obtain prior and posterior predictive distributions of the data. Sampling from the prior predictive distribution can help with the selection of prior hyper parameters and verify that these choices reflect the prior information that is available. Visualizing prior predictive distributions based on Monte Carlo simulations can help explore implications of our prior assumptions such as the choice of the hyper parameters or even assume distributions. If samples are incompatible with known information such as support on positive values, we may need to modify assumptions and look at other families of prior distributions. Next, as part of exploring prior assumptions we will reference priors which are often used as part of a prior sensitivity analysis. 
+Figure \@ref(fig:hist-pred) shows the Monte Carlo approximation to the prior distribution of $\mu$, and the posterior distribution of $\mu$ which is shifted to the right. The prior and posterior predictive distributions are also depicted, showing how the data have updated the prior information.
+
+```{r hist-pred, fig.align="center", fig.cap="Posterior densities", echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+nsim =length(post_mu)
+#df = data.frame(mu, sigma, y)
+df = data.frame(parameter = c(rep("prior mu", nsim), rep("prior predictive Y", nsim), rep("posterior mu", nsim), rep("posterior predictive Y", nsim)), x = c(mu, y, post_mu, pred_y))
+#priorpred= ggplot(data=df, aes(x=y)) + geom_histogram(aes(x=y, y=..density..)) +
+#         geom_density() + geom_density(aes(x=mu), col="blue")
+postpred =  ggplot(data=df, aes(x=pred_y)) +
+               geom_density(aes(x=x, colour=parameter, linetype=parameter),
+                            size=1.2, show.legend=FALSE) +
+               stat_density(aes(x=x, colour=parameter, linetype=parameter),
+                  geom="line",position="identity", size=1.2) +
+                  xlab("TTHM (ppb)") + scale_colour_manual(values=cbPalette) +
+               xlab("TTHM (ppb)") +
+               scale_colour_manual(values=cbPalette) + theme(panel.background = element_rect(fill = "transparent", colour = NA),
+                 legend.key = element_rect(colour = "transparent", fill = NA),
+                  plot.background = element_rect(fill = "transparent", colour = NA)) +
+                     theme(legend.position=c(.75, .75)) +
+  theme(text = element_text(size=20))
+postpred
+```
+
+Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06. 
+
+```{r negative-pred}
+sum(pred_y > 80)/length(pred_y)  # P(Y > 80 | data)
+```
+
+By using Monte-Carlo methods, we can obtain prior and posterior predictive distributions of the data. 
+
+* Sampling from the prior predictive distribution can help with the selection of prior hyper parameters and verify that these choices reflect the prior information that is available. 
+
+* Visualizing prior predictive distributions based on Monte Carlo simulations can help explore implications of our prior assumptions such as the choice of the hyper parameters or even assume distributions. 
+
+* If samples are incompatible with known information, such as support on positive values, we may need to modify assumptions and look at other families of prior distributions.
 
 ### Reference Priors  {#sec:NG-reference}
 
+In Section \@ref(sec:NG-predictive), we described a way of specifying an informative prior distribution for inference about TTHM in tapwater based on additional prior information. We had to use a prior sample size that was comparable to the observed sample size for the prior predictive under the Normal-Gamma distribution to agree with the reported prior interval.
 
+However, there may be cases where prior information is not available, or you may wish to present an objective analysis where minimal prior information is used. Or perhaps, you want to use the Bayesian paradigm to make probability statements about parameters, but not use any prior information. 
 
+In this section, we will present reference priors for normal data, which can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution. **Can you actually perform a Bayesian analysis without using prior information?**  
 
-Previously we described a way of specifying an informative
-prior distribution for inference about TTHM in tapwater based on
-additional prior information.   However there may be cases where prior
-information is not available or you may wish to present an objective analysis
-where minimal prior information is used.  Or perhaps, you want to use
-the Bayesian paradigm to make probability statements about parameters,
-but not use any prior information.  In this section we will present reference priors for normal data, which
-can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution.
+Conjugate priors can be interpreted to be based on a prior sample. What happens in the conjugate Normal-Gamma prior if we take our prior sample size $n_0$ to go to zero?  If we have no data, then we will define the prior sample variance $s_0^2$ to go to  0, and based on the relationship between prior sample sized and prior degrees of freedom, we will let the prior degrees of freedom go to the prior sample size minus one, or negative 1, i.e. $v_0 = n_0 - 1 \rightarrow -1$.
 
-
-Can you actually perform a Bayesian analysis without using prior
-information?  
-
-  Conjugate priors can be interpreted to be based on a prior sample.
-    What happens in the conjugate Normal-Gamma prior if we take
-    our prior sample size to go to zero?  If we have no data, then we
-    will define the prior sample variance to go to  0, and based on
-    the relationship between prior sample sized and prior degrees of
-    freedom, we will let the prior degrees of freedom go to the prior
-    sample size minus one, or negative
-    1.
+UNFINISHED BELOW
 
   With this limit, 
   
@@ -500,7 +521,14 @@ and the posterior variance parameter goes to the sample variance.
 In this limiting case the posterior hyperparameters do not depend on the prior
 hyperparameters in the limit.
 
+Since $n_0 \rightarrow 0, s^2_0 \rightarrow 0, v_0 = n_0 - 1 \rightarrow -1$, we have
 
+$$\begin{aligned}
+m_n &= \frac{n \bar{Y} + n_0 m_0} {n + n_0}  \rightarrow \bar{Y} \\
+n_n &= n_0 + n  \rightarrow n \\
+v_n &= v_0 + n  \rightarrow n-1 \\
+s^2_n &= \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n} (\bar{Y} - m_0)^2 \right] \rightarrow s^2
+\end{aligned}$$
 
 
 This limiting Normal-gamma with hyperparameters of 0, 0, 0, and
