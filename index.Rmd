@@ -23,6 +23,7 @@ url: 'http\://www.coursera.org/learn/bayesian/home/info/'
 \newcommand{\BF}{\textsf{BF}}
 \newcommand{\data}{\text{data}}
 \newcommand{\iid}{\mathrel{\mathop{\sim}\limits^{\rm iid}}}
+\newcommand{\Ca}{\textsf{C}}
 
 ```{r code, warning=FALSE, message=FALSE, echo=FALSE, results='hide'}
 # If you are using any R packages, please add it here. 

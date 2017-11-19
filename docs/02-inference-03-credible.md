@@ -31,7 +31,7 @@ As previously mentioned, there is no way to compute the posterior distribution f
 If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution, as in Figure \@ref(fig:JAGS-screenshot). At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results. 
 
 <div class="figure" style="text-align: center">
-<img src="JAGS_screenshot.png" alt="Posterior with JAGS" width="404" />
+<img src="JAGS_screenshot.png" alt="Posterior with JAGS"  />
 <p class="caption">(\#fig:JAGS-screenshot)Posterior with JAGS</p>
 </div>
 

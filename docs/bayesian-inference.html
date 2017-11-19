@@ -195,6 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[P(X = k) = \left( \begin{array}{c} n \\ k \end{array} \right) p^k (1-p)^{n-k}\]</span>.</p>
 <p>This formula is called the <strong>probability mass function</strong> (pmf) for the binomial.</p>
 <p>The probability mass function can be visualized as a histogram in Figure <a href="bayesian-inference.html#fig:histogram">2.1</a>. The area under the histogram is one, and the area of each bar is the probability of seeing a binomial random variable, whose value is equal to the x-value at the center of the bars base.</p>
+<pre><code>## Warning: package &#39;scales&#39; was built under R version 3.4.2</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:histogram"></span>
 <img src="02-inference-01-continuous_files/figure-html/histogram-1.png" alt="Histogram of binomial random variable" width="288" />
 <p class="caption">
@@ -493,7 +494,7 @@ x &amp; \text{for} &amp; 0 \leq x &lt; 0.5  \\
 <p>As previously mentioned, there is no way to compute the posterior distribution for <span class="math inline">\(p\)</span> in a simple or even a complex mathematical form. And that is why Bayesian inference languished for so many decades until computational power enabled numerical solutions. But now we have such tools, and one of them is called <strong>JAGS (Just Another Gibbs Sampler)</strong>.</p>
 <p>If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution, as in Figure <a href="bayesian-inference.html#fig:JAGS-screenshot">2.5</a>. At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results.</p>
 <div class="figure" style="text-align: center"><span id="fig:JAGS-screenshot"></span>
-<img src="JAGS_screenshot.png" alt="Posterior with JAGS" width="404" />
+<img src="JAGS_screenshot.png" alt="Posterior with JAGS"  />
 <p class="caption">
 Figure 2.5: Posterior with JAGS
 </p>

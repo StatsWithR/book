@@ -911,38 +911,93 @@ Figure 3.7: Posterior densities
 <p>However, there may be cases where prior information is not available, or you may wish to present an objective analysis where minimal prior information is used. Or perhaps, you want to use the Bayesian paradigm to make probability statements about parameters, but not use any prior information.</p>
 <p>In this section, we will present reference priors for normal data, which can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution. <strong>Can you actually perform a Bayesian analysis without using prior information?</strong></p>
 <p>Conjugate priors can be interpreted to be based on a prior sample. What happens in the conjugate Normal-Gamma prior if we take our prior sample size <span class="math inline">\(n_0\)</span> to go to zero? If we have no data, then we will define the prior sample variance <span class="math inline">\(s_0^2\)</span> to go to 0, and based on the relationship between prior sample sized and prior degrees of freedom, we will let the prior degrees of freedom go to the prior sample size minus one, or negative 1, i.e. <span class="math inline">\(v_0 = n_0 - 1 \rightarrow -1\)</span>.</p>
-<p>UNFINISHED BELOW</p>
-<p>With this limit,</p>
-<p>the posterior mean goes to the sample mean</p>
-<p>the posterior sample size is the observed sample size</p>
-<p>the posterior degrees of freedom go to the sample degrees of freedom</p>
-<p>and the posterior variance parameter goes to the sample variance. In this limiting case the posterior hyperparameters do not depend on the prior hyperparameters in the limit.</p>
-<p>Since <span class="math inline">\(n_0 \rightarrow 0, s^2_0 \rightarrow 0, v_0 = n_0 - 1 \rightarrow -1\)</span>, we have</p>
+<p>With this limit, we have the following properties:</p>
+<ul>
+<li><p>The posterior mean goes to the sample mean.</p></li>
+<li><p>The posterior sample size is the observed sample size.</p></li>
+<li><p>The posterior degrees of freedom go to the sample degrees of freedom.</p></li>
+<li><p>The posterior variance parameter goes to the sample variance.</p></li>
+</ul>
+<p>In this limit, the posterior hyperparameters do not depend on the prior hyperparameters.</p>
+<p>Since <span class="math inline">\(n_0 \rightarrow 0, s^2_0 \rightarrow 0, v_0 = n_0 - 1 \rightarrow -1\)</span>, we have in mathematical terms:</p>
 <p><span class="math display">\[\begin{aligned}
 m_n &amp;= \frac{n \bar{Y} + n_0 m_0} {n + n_0}  \rightarrow \bar{Y} \\
 n_n &amp;= n_0 + n  \rightarrow n \\
 v_n &amp;= v_0 + n  \rightarrow n-1 \\
 s^2_n &amp;= \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n} (\bar{Y} - m_0)^2 \right] \rightarrow s^2
 \end{aligned}\]</span></p>
-<p>This limiting Normal-gamma with hyperparameters of 0, 0, 0, and negative 1 is a special case of a reference prior known as the independent Jeffreys prior. While Jeffreys used other arguments to arrive at the form of the prior, the goal was to have an objective prior that was invariant to shifting the data by a constant or multiplying by a constant. The result is a reference prior for mu that is a uniform or flat on the whole real line</p>
-<p>and a reference prior for the variance that is proportional to 1 over the variance.</p>
-<p>The joint prior is taken as the product of the two.</p>
-<p>Since these do not integrate to a constant, these are <strong>improper</strong> distributions. An important consideration in using these is that one cannot generate samples from the prior or the prior predictive distribution of the data and hence are refereed to as non-generative distributions.</p>
-<p>While the reference prior is not a proper prior distribution, formal application of Bayes rule can be used to show that the posterior distribution is a valid normal gamma distribution leading to what is called a formal Bayes posterior distribution.</p>
-<p>Under this reference prior, the posterior distribution after standardizing mu by subtracting the sample mean and dividing by the sample standard deviation over the square root of n has a student t distribution with n minus one degrees of freedom.</p>
-<p>prior to seeing the data, the distribution of the standardized sample mean given mu and sigma also has a Student t distribution</p>
-<p>Both frequentist sampling distributions and Bayesian reference posterior distributions lead to intervals of this form</p>
-<p>However, only the Bayesian approach justifies the probability statements about mu being in the interval after seeing the data.</p>
-<p>We can use either analytical expressions or Monte Carlo samples from the posterior predictive distribution to make predictions about a new sample.</p>
-<p>using the Monte Carlo samples, the plot shows the posterior distribution based on the informative Normal Gamma prior and the reference prior. Both the posterior distribution for mu and the posterior predictive distribution for a new sample are shifted to the right and are centered at the sample mean. The posterior for mu under the reference prior is less concentrated around its mean than the posterior under the informative prior which leads to an increased posterior sample size and hence increased precision.</p>
+<p>This limiting Normal-gamma distribution, <span class="math inline">\({\textsf{N}}-{\textsf{Gamma}}(0,0,0,-1)\)</span>, is not really a normal gamma distribution, as the density does not integrate to 1. The form of the limit can be viewed as a prior for <span class="math inline">\(\mu\)</span> that is proportional to a constant, or uniform/flat on the whole real line. And a prior for the variance is proportional to 1 over the variance. The joint prior is taken as the product of the two.</p>
+<p><span class="math display">\[\begin{aligned}
+p(\mu \mid \sigma^2) &amp; \propto  1 \\
+p(\sigma^2) &amp; \propto  1/\sigma^2 \\
+p(\mu, \sigma^2) &amp; \propto  1/\sigma^2
+\end{aligned}\]</span></p>
+<p>This is refered to as a <strong>reference prior</strong> because the posterior hyperparameters do not depend on the prior hyperparameters.</p>
+<p>In addition, <span class="math inline">\(\textsf{NormalGamma}(0,0,0,-1)\)</span> is a special case of a reference prior, known as the independent Jeffreys prior. While Jeffreys used other arguments to arrive at the form of the prior, the goal was to have an <strong>objective prior</strong> invariant to shifting the data by a constant or multiplying by a constant.</p>
+<p>Now, a naive approach to constructing a non-informative distribution might be to use a uniform distribution to represent lack of knowledge. However, would you use a uniform distribution for <span class="math inline">\(\sigma^2\)</span>, or a uniform distribution for the precision <span class="math inline">\(1/\sigma^2\)</span>? Or perhaps a uniform distribution for <span class="math inline">\(\sigma\)</span>? These would all lead to different posteriors with little justification for any of them. This ambiguity led Sir Harold Jeffreys to propose reference distributions for the mean and variance for situations where prior information was limited. These priors are <strong>invariant</strong> to the units of the data.</p>
+<p>The unnormalized priors that do not integrate to a constant are called <strong>improper distributions</strong>. An important consideration in using them is that one cannot generate samples from the prior or the prior predictive distribution to data and are referred to as <strong>non-generative distributions</strong>.</p>
+<p>While the reference prior is not a proper prior distribution, and cannot reflect anyone’s actual prior beliefs, the formal application phase rule can still be used to show that <strong>the posterior distribution is a valid normal gamma distribution</strong>, leading to a formal phase posterior distribution. That depends only on summary statistics of the data.</p>
+<p>The posterior distribution <span class="math inline">\(\textsf{NormalGamma}(\bar{Y}, n, s^2, n-1)\)</span> breaks down to</p>
+<p><span class="math display">\[\begin{aligned}
+\mu \mid \sigma^2, {\text{data}}&amp; \sim {\textsf{N}}(\bar{Y}, \sigma^2/n) \\
+1/\sigma^2  \mid {\text{data}}&amp; \sim {\textsf{Gamma}}((n-1)/2, s^2(n - 1)/2).
+\end{aligned}\]</span></p>
+<ul>
+<li>Under the reference prior <span class="math inline">\(p(\mu, \sigma^2) \propto 1/\sigma^2\)</span>, the posterior distribution after standardizing <span class="math inline">\(\mu\)</span> has a Student <span class="math inline">\(t\)</span> distribution with n minus one degrees of freedom.</li>
+</ul>
+<p><span class="math display">\[\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid {\text{data}}\sim  {\textsf{t}}(n-1, 0, 1)\]</span> * Prior to seeing the data, the distribution of the standardized sample mean given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> also has a Student t distribution.</p>
+<p><span class="math display">\[\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid \mu, \sigma^2 \sim  {\textsf{t}}(n-1, 0, 1) \]</span></p>
+<ul>
+<li>Both frequentist sampling distributions and Bayesian reference posterior distributions lead to intervals of this form:</li>
+</ul>
+<p><span class="math display">\[(\bar{Y} - t_{1 - \alpha/2} s/\sqrt{n}, \, \bar{Y} + t_{1 - \alpha/2} s/\sqrt{n})\]</span></p>
+<ul>
+<li>However, only the Bayesian approach justifies the probability statements about <span class="math inline">\(\mu\)</span> being in the interval after seeing the data.</li>
+</ul>
+<p><span class="math display">\[P(\bar{Y} - t_{1 - \alpha/2} s/\sqrt{n} &lt; \mu &lt;  \bar{Y} + t_{1 - \alpha/2} s/\sqrt{n}) = 1 - \alpha\]</span></p>
+<p>We can use either analytic expressions based on the t-distribution, or Monte Carlo samples from the posterior predictive distribution, to make predictions about a new sample.</p>
+<p>Here is some code to generate the Monte Carlo samples from the tap water example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, (n<span class="op">-</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span>, s2<span class="op">*</span>(n<span class="op">-</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span>)
+sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
+post_mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>ybar, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n)))
+pred_y =<span class="st">  </span><span class="kw">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)
+<span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</code></pre></div>
+<pre><code>##       2.5%      97.5% 
+##   6.692877 104.225954</code></pre>
+<p>Using the Monte Carlo samples, Figure <a href="introduction-to-losses-and-decision-making.html#fig:plot-post-pred">3.8</a> shows the posterior distribution based on the informative Normal-Gamma prior and the reference prior. Both the posterior distribution for <span class="math inline">\(\mu\)</span> and the posterior predictive distribution for a new sample are shifted to the right, and are centered at the sample mean. The posterior for <span class="math inline">\(\mu\)</span> under the reference prior is less concentrated around its mean than the posterior under the informative prior, which leads to an increased posterior sample size and hence increased precision.</p>
+<div class="figure" style="text-align: center"><span id="fig:plot-post-pred"></span>
+<img src="03-decision-02-normal-gamma_files/figure-html/plot-post-pred-1.png" alt="Comparison of posterior densities" width="672" />
+<p class="caption">
+Figure 3.8: Comparison of posterior densities
+</p>
+</div>
 <p>The posterior probability that a new sample will exceed the legal limit of 80 ppb under the reference prior is roughly 0.15, which is more than double the probability of 0.06 from the posterior under the informative prior.</p>
-<p>To recap, we have introduced a reference prior for inference for normal data with an unknown mean and variance.</p>
-<p>Reference priors are often part of a prior sensitivity study and are used when objectivity is of utmost importance.</p>
-<p>If conclusions are fundamentally different with an informative prior and a reference prior, one may wish to carefully examine assumputions that led to the informative prior. Is the prior information based on a prior sample that is exchangable with the observed data? Is the normal-gamma assumption appropriate? In the case of the tap water example, there are several concerns: one; it is not clear that the prior data are exchangeable with the observed data. For example water treatment conditions may have changed. Two, the prior sample size was not based on a real prior sample, but instead selected so that the prior predictive intervals under the normal gamma model agreed with the prior data. As we do not have access to the prior data, we cannot check assumptions about normality that would help justify the prior. Other skewed distributions may be consistent with the prior interval, but lead to different conclusions. Informative priors can provide more accurate inference when data are limited, however, one needs to be careful that certain prior assumptions do not have un-intended consequences.</p>
-<p>Next we will investigate a prior distribution that is a mixture of conjugate priors that provides additional robustness to prior mis-specification in the prior sample size. While we no longer have nice analytical expressions for the posterior we can simulate fron a Monte Carlo aglrothm called Markov chain Monte Carlo.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(pred_y <span class="op">&gt;</span><span class="st"> </span><span class="dv">80</span>)<span class="op">/</span><span class="kw">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></code></pre></div>
+<pre><code>## [1] 0.1534</code></pre>
+<p>In constructing the informative prior from the reported interval, there are two critical assumptions. First, the prior data are exchangeable with the observed data. Second, the conjugate normal gamma distribution is suitable for representing the prior information. These assumptions may or may not be verifiable, but they should be considered carefully when using informative conjugate priors.</p>
+<p>In the case of the tap water example, there are several concerns: One, it is unclear that the prior data are exchangeable with the observed data. For example, water treatment conditions may have changed. Two, the prior sample size was not based on a real prior sample, but instead selected so that the prior predictive intervals under the normal gamma model agreed with the prior data. As we do not have access to the prior data, we cannot check assumptions about normality that would help justify the prior. Other skewed distributions may be consistent with the prior interval, but lead to different conclusions.</p>
+<p>To recap, we have introduced a reference prior for inference for normal data with an unknown mean and variance. Reference priors are often part of a prior sensitivity study and are used when objectivity is of utmost importance.</p>
+<p>If conclusions are fundamentally different with an informative prior and a reference prior, one may wish to carefully examine assumputions that led to the informative prior.</p>
+<ul>
+<li><p>Is the prior information based on a prior sample that is exchangable with the observed data?</p></li>
+<li><p>Is the normal-gamma assumption appropriate?</p></li>
+</ul>
+<p>Informative priors can provide more accurate inference when data are limited, and the transparency of explicitly laying out prior assumptions is an important aspect of reproducible research. However, one needs to be careful that certain prior assumptions may lead to un-intended consequences.</p>
+<p>Next, we will investigate a prior distribution that is a mixture of conjugate priors, so the new prior distribution provides robustness to prior mis-specification in the prior sample size.</p>
+<p>While we will no longer have nice analytical expressions for the posterior, we can simulate from the posterior distribution using a Monte Carlo algorithm called Markov chain Monte Carlo (MCMC).</p>
 </div>
 <div id="sec:NG-Cauchy" class="section level3">
 <h3><span class="header-section-number">3.2.5</span> Mixtures of Conjugate Priors</h3>
+<p>In this section, we will describe priors that are constructed as a mixture of conjugate priors – in particular, the Cauchy distribution. As these are no longer conjugate priors, nice analytic expressions for the posterior distribution are not available. However, we can use a Monte Carlo algorithm called Markov chain Monte Carlo (MCMC) for posterior inference.</p>
+<p>In many situations, we may have reasonable prior information about the mean <span class="math inline">\(\mu\)</span>, but we are less confident in how many observations our prior beliefs are equivalent to. We can address this uncertainty in the prior sample size, through an additional prior distribution on a <span class="math inline">\(n_0\)</span> via a hierarchical prior.</p>
+<p>The hierarchical prior for the normal gamma distribution is written as <span class="math display">\[\begin{aligned}
+\mu \mid \sigma^2, n_0 &amp; \sim {\textsf{N}}(m_0, \sigma^2/n_0) \\
+n_0 \mid \sigma^2 &amp;  \sim {\textsf{Gamma}}(1/2, r^2/2)
+\end{aligned}\]</span></p>
+<p>If <span class="math inline">\(r=1\)</span>, then this corresponds to a prior expected sample size of one because the expectation of <span class="math inline">\({\textsf{Gamma}}(1/2,1/2)\)</span> is one.</p>
+<p>The marginal prior distribution from <span class="math inline">\(\mu\)</span> can be attained via integration, and we get</p>
+<p><span class="math display">\[\mu \mid \sigma^2  \sim  {\textsf{C}}(m_0, \sigma^2 r^2)\]</span></p>
+<p>This is a <strong>Cauchy distribution</strong> centered at the prior mean <span class="math inline">\(m_0\)</span>, with the scale parameter <span class="math inline">\(\sigma^2 r^2\)</span>.</p>
 </div>
 <div id="sec:NG-MCMC" class="section level3">
 <h3><span class="header-section-number">3.2.6</span> MCMC</h3>
