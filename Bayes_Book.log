@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (MiKTeX 2.9.6500 64-bit) (preloaded format=xelatex 2017.11.17)  23 NOV 2017 20:29
+This is XeTeX, Version 3.14159265-2.6-0.99998 (MiKTeX 2.9.6500 64-bit) (preloaded format=xelatex 2017.11.17)  23 NOV 2017 22:56
 entering extended mode
 **./Bayes_Book.tex
 (Bayes_Book.tex
@@ -1092,23 +1092,29 @@ nk-4-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[66] (Bayes_Book.bbl [67] [68
+[66] [67]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 4044.
 
-])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4005.
-[69]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 4005.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[68] [69] (Bayes_Book.bbl [70])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4125.
+[71
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 4125.
 (Bayes_Book.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 4005.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 4005.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 4125.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 4125.
  ) 
 Here is how much of TeX's memory you used:
- 21318 strings out of 427839
- 392524 string characters out of 3155183
- 509988 words of memory out of 3000000
- 25047 multiletter control sequences out of 15000+200000
- 564706 words of font info for 79 fonts, out of 3000000 for 9000
+ 21329 strings out of 427839
+ 392718 string characters out of 3155183
+ 510182 words of memory out of 3000000
+ 25055 multiletter control sequences out of 15000+200000
+ 571455 words of font info for 85 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  45i,22n,68p,10453b,444s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Bayes_Book.pdf (69 pages).
+Output written on Bayes_Book.pdf (71 pages).

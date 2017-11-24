@@ -15,7 +15,7 @@ summary(bodyfat)
 ```
 
 This dataframe includes 252 measurements on men of body fat and other measurements, such as waist circumference (`Abdomen`). We will use `Abdomen` to illustrate Bayesian simple linear regression. We regress the response variable `Bodyfat` on the predictor `Abdomen`, which gives us the model
-$$ Y_i = \alpha + \beta X_i + \epsilon_i, $$
+$$ y_i = \alpha + \beta x_i + \epsilon_i, $$
 which the assumption that the errors $\epsilon_i$ are independent and identically distributed as normal random variables with mean zero and constant variance $\sigma^2$. 
 
 The figure below shows the percentage body fat obtained from under water weighing and the abdominal circumference for 252 men. To predict body fat, the line overlayed on the scatter plot illustrates the best fitting ordinary least squares line obtained with the `lm` function in R.
@@ -57,6 +57,97 @@ plot(bodyfat.lm, which = 2)
 Let us now turn to the Bayesian version and show how to obtain the posterior distributions of $\alpha$ and $\beta$ under the reference prior. 
 
 The Bayesian model starts with the same model as the classical frequentist approach:
-$$ Y_i = \alpha + \beta X_i + \epsilon_i $$
+$$ y_i = \alpha + \beta x_i + \epsilon_i, $$
 with the assumption that the errors, $\epsilon_i$, are independent and identically distributed as normal random variables with mean zero and constant variance $\sigma^2$. This assumption is exactly the same as the classical inference for testing and constructing confidence intervals for $\alpha$ and $\beta$. 
 
+Our goal is to update the distributions of the unknown parameters $\alpha$, $\beta$, and $\sigma^2$, based on the data $x_1, y_1, \cdots, x_n, y_n$, where $n$ is the number of observations. We may center the covariate in order to simplify our later calculations. Here we set $\alpha^* = \alpha + \beta \bar{x}$, where $\bar{x}$ is the mean of all $x_i$'s. Then we can rewrite $y_i$ as
+$$ y_i = \alpha^* + \beta(x_i-\bar{x}) + \epsilon_i. $$
+We will first find the posterior distribution of $\alpha^*$, $\beta$ and $\sigma^2$, then back solve the posterior distribution of $\alpha$.
+
+Under the assumption that the errors $\epsilon_i$ are normally distributed with constant variance $\sigma^2$, we have for each response $y_i$, conditioning on the observed data $x_i$ and the parameters $\alpha^*,\ \beta,\ \sigma^2$, is normally distributed: 
+$$ y_i~|~x_i, \alpha^*, \beta,\sigma^2 \sim \mathcal{N}(\alpha^* + \beta(x_i-\bar{x}), \sigma^2),\qquad i = 1,\cdots, n. $$
+That is, the likelihood of $y_i$ given $x_i, \alpha^*, \beta$, and $\sigma^2$ is
+$$ \pi(y_i~|~x_i, \alpha^*, \beta, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y_i-(\alpha^*+\beta (x_i-\bar{x})))^2}{2\sigma^2}\right). $$
+
+We will first consider the standard noninformative prior (reference prior) which gives the analogue to the frequentist results. Here we assume 
+$$ \pi(\alpha^*, \beta, \sigma^2)\propto \frac{1}{\sigma^2}. $$
+Using the hierachical model, we may equivalently assume that
+$$ \pi(\alpha^*, \beta~|~\sigma^2) \propto 1, \qquad \pi(\sigma^2) \propto \frac{1}{\sigma^2}, $$
+which will give the same joint prior distribution. Then we apply the Bayes' rule to derive the posterior joint distribution after observing $y_1,\cdots, y_n$: 
+$$
+\begin{aligned}
+\pi^*(\alpha^*, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto & \left[\prod_i^n\pi(y_i~|~x_i,\alpha^*,\beta,\sigma^2)\right]\pi(\alpha^*, \beta,\sigma^2) \\
+\propto & \left[\left(\frac{1}{(\sigma^2)^{1/2}}\exp\left(-\frac{(y_1-(\alpha^*+\beta x_1 - \beta \bar{x}))^2}{2\sigma^2}\right)\right)\times\cdots \right.\\
+& \left. \times \left(\frac{1}{(\sigma^2)^{1/2}}\exp\left(-\frac{(y_n-(\alpha^* +\beta x_n-\beta \bar{x}))^2}{2\sigma^2}\right)\right)\right]\times\left(\frac{1}{\sigma^2}\right)\\
+\propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\sum_i\left(y_i-\alpha^*-\beta (x_i-\bar{x})\right)^2}{2\sigma^2}\right)
+\end{aligned}
+$$
+Recall that the residual sum of squares (SSR) is defined to be
+$$ \text{SSR} = \sum_i^n (y_i - \hat{y}_i)^2 = \sum_i^n \left(y_i - \hat{\alpha^*} - \hat{\beta} (x_i-\bar{x})\right)^2, $$
+where $\hat{\alpha^*}$ and $\hat{\beta}$ are the regression coefficients under the frequentist method:
+$$ \hat{\beta} = \frac{\sum_i (x_i-\bar{x})(y_i-\bar{y})}{\sum_i (x_i-\bar{x})^2},\qquad \hat{\alpha^*} = \hat{\alpha} + \hat{\beta}\bar{x} = \bar{y}-\hat{\beta}\bar{x} + \hat{\beta}\bar{x} = \bar{y}. $$
+Here $\bar{y}$ is the mean of $y_1,\cdots,y_n$.
+
+(????? Need to write a shorter version, then the longer one gives the detailed calculations)
+
+### Deviations of Marginal Posterior Distributions of $\alpha$, $\beta$, and $\sigma^2$
+
+We may use these quantities to further simplify the numerator inside the exponential function:
+$$ 
+\begin{aligned}
+\sum_i^n \left(y_i - \alpha^* - \beta (x_i-\bar{x})\right)^2 = & \sum_i^n \left(y_i - \hat{\alpha^*} - \hat{\beta}(x_i-\bar{x}) - (\alpha^* - \hat{\alpha^*}) - (\beta - \hat{\beta})(x_i-\bar{x})\right)^2 \\
+= & \sum_i^n \left(y_i - \hat{\alpha^*} - \hat{\beta}(x_i-\bar{x})\right)^2 + \sum_i^n (\alpha^* - \hat{\alpha^*})^2 + \sum_i^n (\beta-\hat{\beta})^2(x_i-\bar{x})^2 \\
+  & - 2\sum_i^n (\alpha^* - \hat{\alpha^*})(y_i-\hat{\alpha^*}-\hat{\beta}(x_i-\bar{x}))\\
+  & - 2\sum_i^n (\beta-\hat{\beta})(x_i-\bar{x})(y_i-\hat{\alpha^*}-\hat{\beta}(x_i-\bar{x}))\\
+  & + 2\sum_i^n(\alpha^* - \hat{\alpha^*})(\beta-\hat{\beta})(x_i-\bar{x})\\
+= & \text{SSR} + n(\alpha^* - \hat{\alpha^*})^2 + (\beta-\hat{\beta})^2\sum_i^n (x_i-\bar{x})^2 - 2(\alpha^*-\hat{\alpha^*})\sum_i^n (y_i-\hat{\alpha^*}-\hat{\beta}x_i)\\
+  & -2(\beta - \hat{\beta})\sum_i^n (x_i-\bar{x})(y_i-\hat{\alpha^*} - \beta(x_i-\bar{x})) + 2(\alpha^*-\hat{\alpha^*})(\beta - \hat{\beta})\sum_i^n(x_i-\bar{x})
+\end{aligned}
+$$
+
+Recall the formula of $\hat{\alpha^*}$ and $\hat{\beta}$, and that $\displaystyle \sum_i^n (x_i-\bar{x}) = \sum_i^n(y_i-\bar{y}) = 0$, we have
+$$ \sum_i^n (y_i-\hat{\alpha^*} - \hat{\beta}(x_i-\bar{x})) = \sum_i^n (y_i -\bar{y}) - \hat{\beta}\sum_i^n (x_i-\bar{x}) = 0, $$
+$$ (\alpha^* - \hat{\alpha^*})(\beta - \hat{\beta})\sum_i^n (x_i - \bar{x}) = 0, $$
+and finally
+$$ \sum_i^n (x_i - \bar{x})(y_i - \hat{\alpha^*} - \hat{\beta}(x_i-\bar{x})) = \sum_i^n (x_i-\bar{x})(y_i-\bar{y}) - \hat{\beta}\sum_i^n (x_i - \bar{x})^2 = 0. $$
+
+Therefore, the posterior joint distribution of $\alpha^*, \beta, \sigma^2$ is
+$$ 
+\begin{aligned}
+\pi^*(\alpha^*, \beta,\sigma^2 ~|~y_1,\cdots, y_n) \propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\sum_i(y_i - \alpha^* - \beta(x_i-\bar{x}))^2}{2\sigma^2}\right) \\
+= & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSR} + n(\alpha^*-\hat{\alpha^*}) + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)
+\end{aligned}
+$$
+
+To get the marginal posterior distribution of $\alpha^*$, we need to integrate out $\beta$ and $\sigma^2$:
+$$ \pi^*(\alpha^* ~|~y_1,\cdots,y_n) \propto \int_0^\infty \left(\int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSR} + n(\alpha^*-\hat{\alpha^*})+(\beta-\hat{\beta})\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\beta\right)\, d\sigma^2 $$
+The integral inside can be handled as follows:
+$$
+\begin{aligned}
+   & \int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSR}+n(\alpha^*-\hat{\alpha^*})}{2\sigma^2}\right)\exp\left(-\frac{(\beta-\hat{\beta})\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\beta \\
+= & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSR}+n(\alpha^*-\hat{\alpha^*})}{2\sigma^2}\right) \int_{-\infty}^\infty \exp\left(-\frac{(\beta-\hat{\beta})\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\beta \\
+= & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSR}+n(\alpha^*-\hat{\alpha^*})}{2\sigma^2}\right) \sqrt{2\pi\frac{\sigma^2}{\sum_i(x_i-\bar{x})^2}}\\
+\propto & \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSR}+n(\alpha^*-\hat{\alpha^*})}{2\sigma^2}\right).
+\end{aligned}
+$$
+Here, 
+$$ \exp\left(-\frac{(\beta - \hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) $$
+can be viewed as part of the normal distribution of $\beta$, with mean $\hat{\beta}$, and variance $\sigma^2/(\sum_i(x_i-\bar{x})^2)$. Therefore, the integral is proportional to $\sqrt{\sigma^2/(\sum_i(x_i-\bar{x})^2)}$. 
+
+We then integrate out $\sigma^2$ to get the marginal distribution of $\alpha^*$. Here we perform change of variable and set $\sigma^2 = \frac{1}{\phi}$. Then the integral becomes
+$$
+\begin{aligned}
+\pi^*(\alpha^*~|~y_1,\cdots, y_n) \propto & \int_0^\infty \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSR} + n(\alpha^*-\hat{\alpha^*})^2}{2\sigma^2}\right)\, d\sigma^2 \\
+\propto & \int_0^\infty \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSR}+n(\alpha^*-\hat{\alpha^*})^2}{2}\phi\right)\, d\phi\\
+\propto & \left(\frac{\text{SSR}+n(\alpha^*-\hat{\alpha^*})^2}{2}\right)^{-\frac{(n-2)+1}{2}}\int_0^\infty s^{\frac{n-3}{2}}e^{-s}\, ds\\
+\propto & \left(1+\frac{\left(\frac{\alpha^* - \hat{\alpha^*}}{\hat{\sigma}/\sqrt{n}}\right)}{n-2}\right)^{-\frac{(n-2)+1}{2}}
+\end{aligned}
+$$
+
+Here we use another change of variable by setting $s = \displaystyle \frac{\text{SSR}+n(\alpha^*-\hat{\alpha^*})^2}{2}\phi$, the fact that $\displaystyle \int_0^\infty s^{(n-3)/2}e^{-s}\, ds$ gives us the Gamma function, which is a constant, and that the mean squared error (MSE)
+$$ \hat{\sigma}^2 = \frac{1}{n-2}\sum_i^n \hat{\epsilon}_i^2 = \frac{1}{n-2}\text{SSR} $$
+
+The above deviation shows that $\alpha^*$ follows a Student's $t$-distribution with center $\hat{\alpha^*} = \bar{y}$, scale parameter $\displaystyle \frac{\hat{\sigma}^2}{n}$, and degrees of freedom $n-2$:
+$$ \alpha^* ~|~y_1,\cdots,y_n \sim t_{n-2}\left(\hat{\alpha^*}, \frac{\hat{\sigma}^2}{n}\right) $$
+
+A similar approach will lead us to the marginal distribution of $\beta$. (Tomorrow......)
