@@ -31,7 +31,10 @@ url: 'http\://www.coursera.org/learn/bayesian/home/info/'
 require(ggplot2) || install.packages("ggplot2")
 require(devtools) || install.packages("devtools")
 require(statsr) || install_github("StatsWithR/statsr", ref="BayesFactor")
+require(BAS)   || install.packages("BAS")
+require(coda)  || install.packages("coda")
 data(tapwater)
+data(bodyfat)
 
 # Just a test for rarely used packages
 # require(stringdist) || install.packages("stringdist",repos="http://cran.us.r-project.org")
