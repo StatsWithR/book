@@ -12,6 +12,11 @@ This formula is called the **probability mass function** (pmf) for the binomial.
 
 The probability mass function can be visualized as a histogram in Figure \@ref(fig:histogram). The area under the histogram is one, and the area of each bar is the probability of seeing a binomial random variable, whose value is equal to the x-value at the center of the bars base. 
 
+
+```
+## Warning: package 'scales' was built under R version 3.4.2
+```
+
 \begin{figure}
 
 {\centering \includegraphics{02-inference-01-continuous_files/figure-latex/histogram-1} 
