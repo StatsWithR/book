@@ -173,7 +173,7 @@ To find a credible interval for the mean $\mu$, we use the Student $t$
 distribution.  Since the distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
 
 
-<img src="03-decision-02-normal-gamma_files/figure-html/tapwater-post-mu-1.png" width="384" />
+![](03-decision-02-normal-gamma_files/figure-latex/tapwater-post-mu-1.pdf)<!-- --> 
 
 is the orange interval given by the
 Lower endpoint L and upper endpoint U where the probability that mu is
@@ -268,10 +268,14 @@ phi = rgamma(1000, shape = v_n/2, rate=s2_n*v_n/2)
 
 Figure \@ref(fig:phi-plot) shows the histogram of the 1,000 draws of $\phi$ generated from the Monte Carlo simulation, representing the empirical distribution. The orange line represents the actual gamma posterior density.
 
-<div class="figure" style="text-align: center">
-<img src="03-decision-02-normal-gamma_files/figure-html/phi-plot-1.png" alt="Empirical distribution of the tap water example" width="384" />
-<p class="caption">(\#fig:phi-plot)Empirical distribution of the tap water example</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/phi-plot-1} 
+
+}
+
+\caption{Empirical distribution of the tap water example}(\#fig:phi-plot)
+\end{figure}
 
 Try changing the random seed or increasing the number of simulations, and see how the approximation changes.
 
@@ -385,10 +389,14 @@ quantile(y, c(0.025,0.975))
 
 Figure \@ref(fig:hist-prior) shows an estimate of the prior distribution of $\mu$ in gray and the more dispersed prior predictive distribution in TTHM in orange, obtained from the Monte Carlo samples.
 
-<div class="figure" style="text-align: center">
-<img src="03-decision-02-normal-gamma_files/figure-html/hist-prior-1.png" alt="Prior density" width="672" />
-<p class="caption">(\#fig:hist-prior)Prior density</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/hist-prior-1} 
+
+}
+
+\caption{Prior density}(\#fig:hist-prior)
+\end{figure}
 
 Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations. 
 
@@ -426,10 +434,14 @@ quantile(pred_y, c(.025, .975))
 
 Figure \@ref(fig:hist-pred) shows the Monte Carlo approximation to the prior distribution of $\mu$, and the posterior distribution of $\mu$ which is shifted to the right. The prior and posterior predictive distributions are also depicted, showing how the data have updated the prior information.
 
-<div class="figure" style="text-align: center">
-<img src="03-decision-02-normal-gamma_files/figure-html/hist-pred-1.png" alt="Posterior densities" width="672" />
-<p class="caption">(\#fig:hist-pred)Posterior densities</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/hist-pred-1} 
+
+}
+
+\caption{Posterior densities}(\#fig:hist-pred)
+\end{figure}
 
 Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06. 
 
@@ -543,10 +555,14 @@ quantile(pred_y, c(.025, .975))
 
 Using the Monte Carlo samples, Figure \@ref(fig:plot-post-pred) shows the posterior distribution based on the informative Normal-Gamma prior and the reference prior. Both the posterior distribution for $\mu$ and the posterior predictive distribution for a new sample are shifted to the right, and are centered at the sample mean. The posterior for $\mu$ under the reference prior is less concentrated around its mean than the posterior under the informative prior, which leads to an increased posterior sample size and hence increased precision.
 
-<div class="figure" style="text-align: center">
-<img src="03-decision-02-normal-gamma_files/figure-html/plot-post-pred-1.png" alt="Comparison of posterior densities" width="672" />
-<p class="caption">(\#fig:plot-post-pred)Comparison of posterior densities</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/plot-post-pred-1} 
+
+}
+
+\caption{Comparison of posterior densities}(\#fig:plot-post-pred)
+\end{figure}
 
 The posterior probability that a new sample will exceed the legal limit of 80 ppb under the reference prior is roughly 0.15, which is more than double the probability of 0.06 from the posterior under the informative prior.
 
