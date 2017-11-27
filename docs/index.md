@@ -1,9 +1,9 @@
 --- 
 title: "Bayesian Statistics"
 subtitle: "A Companion to the Statistics with R Coursera Course"
-author: ["Christine Chai"]
+author: ["Christine Chai","Lizzy Huang"]
 description: "This book is a written companion for the Coursera Course 'Bayesian Statistics' from the Statistics with R specialization."
-date: "Last built on 2017-11-25"
+date: "Last built on 2017-11-26"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
