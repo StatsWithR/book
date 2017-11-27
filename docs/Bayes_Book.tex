@@ -4000,7 +4000,7 @@ the sample size of 100. Recall that for estimation, we interpreted
 \(n_0\) goes to zero as a non-informative or reference prior.
 
 \begin{equation}
-\BF[H_1 : H_2] = \left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}}\right)^{1/2} \exp\left\{-\frac{1}{2} \frac{n }{n + \mathbf{n_0}} Z^2 \right\}
+\textsf{BF}[H_1 : H_2] = \left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}}\right)^{1/2} \exp\left\{-\frac{1}{2} \frac{n }{n + \mathbf{n_0}} Z^2 \right\}
 \label{eq:BayesFactor}
 \end{equation}
 
@@ -4117,9 +4117,14 @@ To start, we load the \texttt{BAS} library (you may download the package
 from CRAN) to access the dataframe. We print out a summary of the
 variables in this dataframe.
 
-\begin{verbatim}
-## Warning: package 'BAS' was built under R version 3.4.2
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Suppress warning messages}
+\KeywordTok{library}\NormalTok{(BAS)}
+\KeywordTok{data}\NormalTok{(bodyfat)}
+\KeywordTok{summary}\NormalTok{(bodyfat)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{verbatim}
 ##     Density         Bodyfat           Age            Weight     

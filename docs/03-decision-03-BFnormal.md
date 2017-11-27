@@ -43,7 +43,7 @@ The term in the denominator requires integration to account for the uncertainty 
 Let's explore how the hyperparameters in $n_0$ influences the Bayes factor in Equation \@ref(eq:BayesFactor). For illustration we will use the sample size of 100. Recall that for estimation, we interpreted $n_0$ as a prior sample size and considered the limiting case where $n_0$ goes to zero as a non-informative or reference prior. 
 
 \begin{equation}
-\BF[H_1 : H_2] = \left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}}\right)^{1/2} \exp\left\{-\frac{1}{2} \frac{n }{n + \mathbf{n_0}} Z^2 \right\}
+\textsf{BF}[H_1 : H_2] = \left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}}\right)^{1/2} \exp\left\{-\frac{1}{2} \frac{n }{n + \mathbf{n_0}} Z^2 \right\}
 (\#eq:BayesFactor)
 \end{equation}
 

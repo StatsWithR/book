@@ -9,8 +9,11 @@ Obtaining accurate measurements of body fat is expensive and not easy to be done
 To start, we load the `BAS` library (you may download the package from CRAN) to access the dataframe. We print out a summary of the variables in this dataframe.
 
 
-```
-## Warning: package 'BAS' was built under R version 3.4.2
+```r
+# Suppress warning messages
+library(BAS)
+data(bodyfat)
+summary(bodyfat)
 ```
 
 ```

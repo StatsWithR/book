@@ -204,7 +204,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">4.1.1</span> Frequentist Ordinary Least Square Simple Linear Regression</h3>
 <p>Obtaining accurate measurements of body fat is expensive and not easy to be done. Instaed, predictive models which predict the percentage of body fat using readily available measurements such as abdominal circumference are easy to use and inexpensive. We will illustrate this using the <code>bodyfat</code> data from the library <code>BAS</code>.</p>
 <p>To start, we load the <code>BAS</code> library (you may download the package from CRAN) to access the dataframe. We print out a summary of the variables in this dataframe.</p>
-<pre><code>## Warning: package &#39;BAS&#39; was built under R version 3.4.2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Suppress warning messages</span>
+<span class="kw">library</span>(BAS)
+<span class="kw">data</span>(bodyfat)
+<span class="kw">summary</span>(bodyfat)</code></pre></div>
 <pre><code>##     Density         Bodyfat           Age            Weight     
 ##  Min.   :0.995   Min.   : 0.00   Min.   :22.00   Min.   :118.5  
 ##  1st Qu.:1.041   1st Qu.:12.47   1st Qu.:35.75   1st Qu.:159.0  
