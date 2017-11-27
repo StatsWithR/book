@@ -87,7 +87,7 @@ beta = coef(bodyfat.lm)
 abline(beta, lwd = 4, col = 1)
 ```
 
-![](04-regression-01-Bayesian-simple-regression_files/figure-latex/unnamed-chunk-1-1.pdf)<!-- --> 
+<img src="04-regression-01-Bayesian-simple-regression_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 
 From the summary, we see that this model has an estimated slope, $\hat{\beta}$, of 0.63 and an estimated intercept, $\hat{\alpha}$, of about -39.28%. For every additional centimeter, we expect body fat to increase by 0.63%. The negative interceptive course does not make sense as a physical model, but neither does predicting a male with a waist of zero centimeters. Nevertheless, this linear regression may be an accurate approximation for prediction purposes for measurements that are in the observed range for this population. 
 
@@ -102,7 +102,7 @@ plot(residuals(bodyfat.lm) ~ fitted(bodyfat.lm))
 abline(h = 0)
 ```
 
-![](04-regression-01-Bayesian-simple-regression_files/figure-latex/unnamed-chunk-2-1.pdf)<!-- --> 
+<img src="04-regression-01-Bayesian-simple-regression_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 
 With the exception of the one observation for the individual with the largest waist measurement, the residual plot suggests that the linear regression is a reasonable approximation.
 
@@ -112,7 +112,7 @@ Furthermore, we can check the normal probability plot of the residuals for the a
 plot(bodyfat.lm, which = 2)
 ```
 
-![](04-regression-01-Bayesian-simple-regression_files/figure-latex/unnamed-chunk-3-1.pdf)<!-- --> 
+<img src="04-regression-01-Bayesian-simple-regression_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 The confidence interval of $\alpha$ and $\beta$ can be constructed using the standard errors $\text{sd}_{\hat{\alpha}}$ and $\text{sd}_{\hat{\beta}}$ respectively. To proceed, we introduce notations of some "sums of squares"
 $$
@@ -282,7 +282,7 @@ legend(110, 15, legend = c("Posterior mean", "95% CI for mean", "95% CI for pred
        col = c("orange", rep("darkgrey", 2)), lwd = 3, lty = c(1, 2, 3))
 ```
 
-![](04-regression-01-Bayesian-simple-regression_files/figure-latex/predict-intervals-1.pdf)<!-- --> 
+<img src="04-regression-01-Bayesian-simple-regression_files/figure-html/predict-intervals-1.png" width="672" />
 
 Note in the ablve the legend "CI" can mean either confidence interval or credible interval. The difference comes down to the interpretation. For example, the prediction at the same abdominal circumference as in Case 39 is
 

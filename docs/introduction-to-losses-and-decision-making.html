@@ -23,6 +23,7 @@
   <meta name="twitter:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
 
 <meta name="author" content="Christine Chai">
+<meta name="author" content="Lizzy Huang">
 
 
 
@@ -165,7 +166,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-simple-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Bayesian Simple Linear Regression</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#frequentist-ordinary-least-square-simple-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Frequentist Ordinary Least Square Simple Linear Regression</a></li>
 <li class="chapter" data-level="4.1.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-simple-linear-regression-using-reference-prior"><i class="fa fa-check"></i><b>4.1.2</b> Bayesian Simple Linear Regression Using Reference Prior</a></li>
-<li class="chapter" data-level="4.1.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#deviations-of-marginal-posterior-distributions-of-alpha-beta-and-sigma2"><i class="fa fa-check"></i><b>4.1.3</b> Deviations of Marginal Posterior Distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.1.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#ourliers"><i class="fa fa-check"></i><b>4.1.3</b> Ourliers</a></li>
+<li class="chapter" data-level="4.1.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#informative-priors"><i class="fa fa-check"></i><b>4.1.4</b> Informative Priors</a></li>
+<li class="chapter" data-level="4.1.5" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#deviations-of-marginal-posterior-distributions-of-alpha-beta-and-sigma2"><i class="fa fa-check"></i><b>4.1.5</b> Deviations of Marginal Posterior Distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-multiple-linear-regression"><i class="fa fa-check"></i><b>4.2</b> Bayesian Multiple Linear Regression</a></li>
 </ul></li>
@@ -1079,21 +1082,48 @@ Figure 3.10: Comparison of posterior densities
 <li><span class="math inline">\(H_1: \mu = m_0\)</span></li>
 <li><span class="math inline">\(H_2: \mu \neq m_0\)</span></li>
 </ul>
+<p><strong>Priors</strong></p>
 <p>We also need to specify priors for <span class="math inline">\(\mu\)</span> under both hypotheses. Under <span class="math inline">\(H_1\)</span>, we assume that <span class="math inline">\(\mu\)</span> is exactly <span class="math inline">\(m_0\)</span>, so this occurs with probability 1 under <span class="math inline">\(H_1\)</span>. Now under <span class="math inline">\(H_2\)</span>, <span class="math inline">\(\mu\)</span> is unspecified, so we describe our prior uncertainty with the conjugate normal distribution centered at <span class="math inline">\(m_0\)</span> and with a variance <span class="math inline">\(\sigma^2/\mathbf{n_0}\)</span>. This is centered at the hypothesized value <span class="math inline">\(m_0\)</span>, and it seems that the mean is equally likely to be larger or smaller than <span class="math inline">\(m_0\)</span>, so a dividing factor <span class="math inline">\(n_0\)</span> is given to the variance. The hyper parameter <span class="math inline">\(n_0\)</span> controls the precision of the prior as before.</p>
 <p>In mathematical terms, the priors are:</p>
-<p><strong>Priors</strong></p>
 <ul>
 <li><span class="math inline">\(H_1: \mu = m_0 \text{  with probability 1}\)</span></li>
 <li><span class="math inline">\(H_2: \mu \sim {\textsf{N}}(m_0, \sigma^2/\mathbf{n_0})\)</span></li>
 </ul>
-<p>UNFINISHED BELOW</p>
 <p><strong>Bayes Factor</strong></p>
+<p>Now the Bayes factor for comparing <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> is the ratio of the distribution, the data under the assumption that <span class="math inline">\(\mu = m_0\)</span> to the distribution of the data under <span class="math inline">\(H_2\)</span>.</p>
 <p><span class="math display">\[\begin{aligned}
 {\textsf{BF}}[H_1 : H_2] &amp;= \frac{p({\text{data}}\mid \mu = m_0, \sigma^2 )}
  {\int p({\text{data}}\mid \mu, \sigma^2) p(\mu \mid m_0, \mathbf{n_0}, \sigma^2)\, d \mu} \\ 
 {\textsf{BF}}[H_1 : H_2] &amp;=\left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}} \right)^{1/2} \exp\left\{-\frac 1 2 \frac{n }{n + \mathbf{n_0}} Z^2 \right\} \\
  Z   &amp;=  \frac{(\bar{Y} - m_0)}{\sigma/\sqrt{n}}
 \end{aligned}\]</span></p>
+<p>The term in the denominator requires integration to account for the uncertainty in <span class="math inline">\(\mu\)</span> under <span class="math inline">\(H_2\)</span>. And it can be shown that the Bayes factor is a function of the observed sampled size, the prior sample size <span class="math inline">\(n_0\)</span> and a <span class="math inline">\(Z\)</span> score.</p>
+<p>Let’s explore how the hyperparameters in <span class="math inline">\(n_0\)</span> influences the Bayes factor in Equation <a href="introduction-to-losses-and-decision-making.html#eq:BayesFactor">(3.5)</a>. For illustration we will use the sample size of 100. Recall that for estimation, we interpreted <span class="math inline">\(n_0\)</span> as a prior sample size and considered the limiting case where <span class="math inline">\(n_0\)</span> goes to zero as a non-informative or reference prior.</p>
+<span class="math display" id="eq:BayesFactor">\[\begin{equation}
+\BF[H_1 : H_2] = \left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}}\right)^{1/2} \exp\left\{-\frac{1}{2} \frac{n }{n + \mathbf{n_0}} Z^2 \right\}
+\tag{3.5}
+\end{equation}\]</span>
+<p>Figure <a href="introduction-to-losses-and-decision-making.html#fig:vague-prior">3.11</a> shows the Bayes factor for comparing <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> on the y-axis as <span class="math inline">\(n_0\)</span> changes on the x-axis. The different lines correspond to different values of the <span class="math inline">\(Z\)</span> score or how many standard errors <span class="math inline">\(\bar{y}\)</span> is from the hypothesized mean. As expected, larger values of the <span class="math inline">\(Z\)</span> score favor <span class="math inline">\(H_2\)</span>.</p>
+<div class="figure"><span id="fig:vague-prior"></span>
+<img src="03-decision-03-BFnormal_files/figure-html/vague-prior-1.png" alt="Vague prior for mu: n=100" width="672" />
+<p class="caption">
+Figure 3.11: Vague prior for mu: n=100
+</p>
+</div>
+<p>But as <span class="math inline">\(n_0\)</span> becomes smaller and approaches 0, the first term in the Bayes factor goes to infinity, while the exponential term involving the data goes to a constant and is ignored. In the limit as <span class="math inline">\(n_0 \rightarrow 0\)</span> under this noninformative prior, the Bayes factor paradoxically ends up favoring <span class="math inline">\(H_1\)</span> regardless of the value of <span class="math inline">\(\bar{y}\)</span>.</p>
+<p>The takeaway from this is that we cannot use improper priors with <span class="math inline">\(n_0 = 0\)</span>, if we are going to test our hypothesis that <span class="math inline">\(\mu = n_0\)</span>. Similarly, vague priors that use a small value of <span class="math inline">\(n_0\)</span> are not recommended due to the sensitivity of the results to the choice of an arbitrarily small value of <span class="math inline">\(n_0\)</span>.</p>
+<p>This problem arises with vague priors – the Bayes factor favors the null model <span class="math inline">\(H_1\)</span> even when the data are far away from the value under the null – are known as the Bartlett’s paradox or the Jeffrey’s-Lindleys paradox.</p>
+<p>Now one way to try to understand the effect of prior is through the standard effect size</p>
+<p><span class="math display">\[\delta = \frac{\mu - m_0}{\sigma}.\]</span> The prior of the standard effect size is</p>
+<p><span class="math display">\[\delta \mid   H_2  \sim {\textsf{N}}(0, \frac{1}{\mathbf{n_0}})\]</span></p>
+<p>This allows us to think about a standardized effect independent of the units of the problem. One default choice is using the unit information prior, where the prior sample size <span class="math inline">\(n_0\)</span> is 1, leading to a standard normal for the standardized effect size. This is depicted with the blue normal density in Figure <a href="introduction-to-losses-and-decision-making.html#fig:effect-size">3.12</a>.</p>
+<div class="figure"><span id="fig:effect-size"></span>
+<img src="03-decision-03-BFnormal_files/figure-html/effect-size-1.png" alt="Prior on standard effect size" width="672" />
+<p class="caption">
+Figure 3.12: Prior on standard effect size
+</p>
+</div>
+<p>UNFINISHED BELOW</p>
 </div>
 <div id="bayes-factors-for-testing-a-normal-mean-unknown-variance" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> Bayes Factors for Testing a Normal Mean: unknown variance</h3>

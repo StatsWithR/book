@@ -25,7 +25,7 @@
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={Bayesian Statistics},
-            pdfauthor={Christine Chai},
+            pdfauthor={Christine Chai; Lizzy Huang},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -120,12 +120,12 @@
   \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
 \subtitle{A Companion to the Statistics with R Coursera Course}
-  \author{Christine Chai}
+  \author{Christine Chai \\ Lizzy Huang}
   \preauthor{\centering\large\emph}
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{Last built on 2017-11-25}
+  \date{Last built on 2017-11-26}
 
 \usepackage{amsthm}
 \usepackage{booktabs}
@@ -1062,6 +1062,10 @@ The probability mass function can be visualized as a histogram in Figure
 of each bar is the probability of seeing a binomial random variable,
 whose value is equal to the x-value at the center of the bars base.
 
+\begin{verbatim}
+## Warning: package 'scales' was built under R version 3.4.2
+\end{verbatim}
+
 \begin{figure}
 
 {\centering \includegraphics{02-inference-01-continuous_files/figure-latex/histogram-1} 
@@ -1845,7 +1849,7 @@ creates a histogram of the results.
 
 \begin{figure}
 
-{\centering \includegraphics[width=11.24in]{JAGS_screenshot} 
+{\centering \includegraphics{JAGS_screenshot} 
 
 }
 
@@ -3948,6 +3952,8 @@ Therefore, we can formulate the data and hypotheses as below:
   \(H_2: \mu \neq m_0\)
 \end{itemize}
 
+\textbf{Priors}
+
 We also need to specify priors for \(\mu\) under both hypotheses. Under
 \(H_1\), we assume that \(\mu\) is exactly \(m_0\), so this occurs with
 probability 1 under \(H_1\). Now under \(H_2\), \(\mu\) is unspecified,
@@ -3961,8 +3967,6 @@ prior as before.
 
 In mathematical terms, the priors are:
 
-\textbf{Priors}
-
 \begin{itemize}
 \tightlist
 \item
@@ -3971,9 +3975,11 @@ In mathematical terms, the priors are:
   \(H_2: \mu \sim \No(m_0, \sigma^2/\mathbf{n_0})\)
 \end{itemize}
 
-UNFINISHED BELOW
-
 \textbf{Bayes Factor}
+
+Now the Bayes factor for comparing \(H_1\) to \(H_2\) is the ratio of
+the distribution, the data under the assumption that \(\mu = m_0\) to
+the distribution of the data under \(H_2\).
 
 \[\begin{aligned}
 \BF[H_1 : H_2] &= \frac{p(\data \mid \mu = m_0, \sigma^2 )}
@@ -3981,6 +3987,74 @@ UNFINISHED BELOW
 \BF[H_1 : H_2] &=\left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}} \right)^{1/2} \exp\left\{-\frac 1 2 \frac{n }{n + \mathbf{n_0}} Z^2 \right\} \\
  Z   &=  \frac{(\bar{Y} - m_0)}{\sigma/\sqrt{n}}
 \end{aligned}\]
+
+The term in the denominator requires integration to account for the
+uncertainty in \(\mu\) under \(H_2\). And it can be shown that the Bayes
+factor is a function of the observed sampled size, the prior sample size
+\(n_0\) and a \(Z\) score.
+
+Let's explore how the hyperparameters in \(n_0\) influences the Bayes
+factor in Equation \eqref{eq:BayesFactor}. For illustration we will use
+the sample size of 100. Recall that for estimation, we interpreted
+\(n_0\) as a prior sample size and considered the limiting case where
+\(n_0\) goes to zero as a non-informative or reference prior.
+
+\begin{equation}
+\BF[H_1 : H_2] = \left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}}\right)^{1/2} \exp\left\{-\frac{1}{2} \frac{n }{n + \mathbf{n_0}} Z^2 \right\}
+\label{eq:BayesFactor}
+\end{equation}
+
+Figure \ref{fig:vague-prior} shows the Bayes factor for comparing
+\(H_1\) to \(H_2\) on the y-axis as \(n_0\) changes on the x-axis. The
+different lines correspond to different values of the \(Z\) score or how
+many standard errors \(\bar{y}\) is from the hypothesized mean. As
+expected, larger values of the \(Z\) score favor \(H_2\).
+
+\begin{figure}
+\centering
+\includegraphics{03-decision-03-BFnormal_files/figure-latex/vague-prior-1.pdf}
+\caption{\label{fig:vague-prior}Vague prior for mu: n=100}
+\end{figure}
+
+But as \(n_0\) becomes smaller and approaches 0, the first term in the
+Bayes factor goes to infinity, while the exponential term involving the
+data goes to a constant and is ignored. In the limit as
+\(n_0 \rightarrow 0\) under this noninformative prior, the Bayes factor
+paradoxically ends up favoring \(H_1\) regardless of the value of
+\(\bar{y}\).
+
+The takeaway from this is that we cannot use improper priors with
+\(n_0 = 0\), if we are going to test our hypothesis that \(\mu = n_0\).
+Similarly, vague priors that use a small value of \(n_0\) are not
+recommended due to the sensitivity of the results to the choice of an
+arbitrarily small value of \(n_0\).
+
+This problem arises with vague priors -- the Bayes factor favors the
+null model \(H_1\) even when the data are far away from the value under
+the null -- are known as the Bartlett's paradox or the
+Jeffrey's-Lindleys paradox.
+
+Now one way to try to understand the effect of prior is through the
+standard effect size
+
+\[\delta = \frac{\mu - m_0}{\sigma}.\] The prior of the standard effect
+size is
+
+\[\delta \mid   H_2  \sim \No(0, \frac{1}{\mathbf{n_0}})\]
+
+This allows us to think about a standardized effect independent of the
+units of the problem. One default choice is using the unit information
+prior, where the prior sample size \(n_0\) is 1, leading to a standard
+normal for the standardized effect size. This is depicted with the blue
+normal density in Figure \ref{fig:effect-size}.
+
+\begin{figure}
+\centering
+\includegraphics{03-decision-03-BFnormal_files/figure-latex/effect-size-1.pdf}
+\caption{\label{fig:effect-size}Prior on standard effect size}
+\end{figure}
+
+UNFINISHED BELOW
 
 \subsection{Bayes Factors for Testing a Normal Mean: unknown
 variance}\label{bayes-factors-for-testing-a-normal-mean-unknown-variance}
