@@ -34,6 +34,7 @@ require(statsr) || install_github("StatsWithR/statsr", ref="BayesFactor")
 require(BAS)   || install.packages("BAS")
 require(coda)  || install.packages("coda")
 require(mvtnorm) || install.packages("mvtnorm")
+require(foreign) || install.packages("foreign")
 
 # need source("bayes-outliers.R"), where can I find it?
 data(tapwater)
