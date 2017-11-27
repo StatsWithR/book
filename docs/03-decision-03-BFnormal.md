@@ -49,10 +49,7 @@ Let's explore how the hyperparameters in $n_0$ influences the Bayes factor in Eq
 
 Figure \@ref(fig:vague-prior) shows the Bayes factor for comparing $H_1$ to $H_2$ on the y-axis as $n_0$ changes on the x-axis. The different lines correspond to different values of the $Z$ score or how many standard errors $\bar{y}$ is from the hypothesized mean. As expected, larger values of the $Z$ score favor $H_2$.
 
-<div class="figure">
-<img src="03-decision-03-BFnormal_files/figure-html/vague-prior-1.png" alt="Vague prior for mu: n=100" width="672" />
-<p class="caption">(\#fig:vague-prior)Vague prior for mu: n=100</p>
-</div>
+![(\#fig:vague-prior)Vague prior for mu: n=100](03-decision-03-BFnormal_files/figure-latex/vague-prior-1.pdf) 
 
 But as $n_0$ becomes smaller and approaches 0, the first term in
 the Bayes factor goes to infinity, while the exponential term involving the
@@ -71,10 +68,7 @@ $$\delta \mid   H_2  \sim \No(0, \frac{1}{\mathbf{n_0}})$$
 
 This allows us to think about a standardized effect independent of the units of the problem. One default choice is using the unit information prior, where the prior sample size $n_0$ is 1, leading to a standard normal for the standardized effect size. This is depicted with the blue normal density in Figure \@ref(fig:effect-size).
 
-<div class="figure">
-<img src="03-decision-03-BFnormal_files/figure-html/effect-size-1.png" alt="Prior on standard effect size" width="672" />
-<p class="caption">(\#fig:effect-size)Prior on standard effect size</p>
-</div>
+![(\#fig:effect-size)Prior on standard effect size](03-decision-03-BFnormal_files/figure-latex/effect-size-1.pdf) 
 
 UNFINISHED BELOW
 
