@@ -132,7 +132,7 @@ par(mfrow = c(2, 2), col.lab = "darkgrey", col.axis = "darkgrey", col = "darkgre
 plot(cog.coef, subset = 2:5, ask = F)
 ```
 
-![](04-regression-02-Bayesian-multi-regression_files/figure-latex/plot-coef-1.pdf)<!-- --> 
+<img src="04-regression-02-Bayesian-multi-regression_files/figure-html/plot-coef-1.png" width="672" />
 
 These distributions all center at their respetive OLS estimates $\hat{\beta}_j$, with the spread of the distribution related to the standard errors. 
 
