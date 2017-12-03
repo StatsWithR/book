@@ -2,7 +2,7 @@
 
 In Section \@ref(sec:bayes-factors), we described how the Bayes factors can be used for hypothesis testing. Now we will use the Bayes factors to test normal means, i.e. compare two groups of normally-distributed populations. We divide this mission into four cases: known variance, unknown variance, paired data, and independent groups.
 
-### Bayes Factors for Testing a Normal Mean: variance known
+### Bayes Factors for Testing a Normal Mean: variance known {#sec:known-var}
 
 ```{r setup, echo=FALSE, include=FALSE}
 library(knitr)
@@ -247,8 +247,111 @@ To obtain the Bayes factor, we need to use integration over the prior distributi
 
 $$\BF[H_1 : H_2] = \iint p(\data \mid \mu, \sigma^2) p(\mu \mid \sigma^2) p(\sigma^2 \mid H_2)\, d \mu \, d\sigma^2$$
 
-UNFINISHED HERE
+This requires specifying the following priors:
+
+* $\mu \mid \sigma^2, H_2 \sim \No(0, \sigma^2/n_0)$
+* $p(\sigma^2) \propto 1/\sigma^2$ for both $H_1$ and $H_2$
+
+$\mu$ is exactly zero under the hypothesis $H_1$. For $\mu$ in $H_2$, we start with the same conjugate normal prior as we used in Section \@ref(sec:known-var) -- testing the normal mean with known variance. Since we assume that $\sigma^2$ is known, we model $\mu \mid \sigma^2$ instead of $\mu$ itself.
+
+The $\sigma^2$ appears in both the numerator and denominator of the Bayes factor. For default or reference case, we use the Jeffreys prior (a.k.a. reference prior) on $\sigma^2$. As long as we have more than two observations, this (improper) prior will lead to a proper posterior.
+
+After integration and rearranging, one can derive a simple expression for the Bayes factor:
+
+\begin{equation*}
+\BF[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
+  \frac{ t^2  \frac{n_0}{n + n_0} + \nu }
+  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}
+\end{equation*}
+
+This is a function of the t-statistic 
+
+$$t = \frac{|\bar{Y}|}{s/\sqrt{n}}$$,
+
+where $s$ is the sample standard deviation and the degrees of freedom $\nu = n-1$ (sample size minus one).
+
+As we saw in the case of Bayes factors with known variance, we cannot use the improper prior on $\mu$ because when $n_0 \to 0$, then $\BF[H1:H_2] \to \infty$ favoring $H_1$ regardless of the magnitude of the t-statistic. Arbitrary, vague small choices for $n_0$ also lead to arbitrary large Bayes factors in favor of $H_1$. Another example of the Barlett's or Jeffreys-Lindley paradox.
+
+Sir Herald Jeffrey discovered another paradox testing using the conjugant normal prior, known as the **information paradox**. His thought experiment assumed that our sample size $n$ and the prior sample size $n_0$. He then considered what would happen to the Bayes factor as the sample mean moved further and further away from the hypothesized mean, measured in terms standard errors with the t-statistic, i.e., $|t| \to \infty$. As the t-statistic or information about the mean moved further and further from zero, the Bayes factor goes to a constant depending on $n, n_0$ rather than providing overwhelming support for $H_2$.
+
+The bounded Bayes factor is
+
+$$\BF[H_1 : H_2] \to \left( \frac{n_0}{n_0 + n}  \right)^{\frac{n - 1}{2}}$$
+
+Jeffrey wanted a prior with $\BF[H_1 : H_2] \to 0$ (or equivalently, $\BF[H_2 : H_1] \to \infty$), as the information from the t-statistic grows, indicating the sample mean is as far as from the hypothesized mean and should favor $H_2$.
+
+To resolve the paradox when the information the t-statistic favors $H_2$ but the Bayes factor does not, Jeffreys showed that **no normal prior could resolve the paradox**.
+
+But a **Cauchy prior** on $\mu$, would resolve it. In this way, $\BF[H_2 : H_1]$ goes to infinity as the sample mean becomes further away from the hypothesized mean. Recall that the Cauchy prior is written as $\Ca(0, r^2 \sigma^2)$. While Jeffreys used a default of $r = 1$, smaller values of $r$ can be used if smaller effects are expected.
+
+The combination of the Jeffrey's prior on $\sigma^2$ and this Cauchy prior on $\mu$ under $H_2$ is sometimes referred to as the **Jeffrey-Zellener-Siow prior**.
+
+However, there is no closed form expressions for the Bayes factor under the Cauchy distribution. To obtain the Bayes factor, we must use the
+numerical integration or simulation methods.
+
+We will use the \texttt{bayes$\_$inference} function from the \texttt{statsr} package to test whether the mean difference is zero in Example \@ref(exm:zinc) (zinc), using the JZS (Jeffreys-Zellener-Siow) prior.
+
+```{r bayes-inference, message=FALSE, warning=FALSE}
+library(statsr)
+bayes_inference(Difference, data=zinc, statistic="mean", type="ht",
+                prior="JZS", mu_0=0, method="theo", alt="twosided")
+```
+
+With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis $H_2$, the mean difference is different from 0, is almost 51 times more likely than the hypothesis $H_1$ that the average concentration is the same at the surface and the bottom.
+
+To sum up, we have used the **Cauchy prior** as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the \texttt{bayes$\_$inference} function from the \texttt{statsr} package. If you expect that the effect sizes will be small, smaller values of $r$ are recommended.
+
+It is often important to quantify the magnitude of the difference in addition to testing. The Cauchy Prior provides a default prior for both testing and inference; it avoids problems that arise with choosing a value of $n_0$ (prior sample size) in both cases.
+
+Next, we will illustrate using the Cauchy prior for comparing two means from independent normal samples.
 
 ### Testing Normal Means: independent groups
+
+In the previous section, we described Bayes factors for testing whether the mean difference of **paired** samples was zero. In this section, we will consider a slightly different problem -- we have two **independent** samples, and we would like to test the hypothesis that the means are different or equal.
+
+```{example birth-records}
+We illustrate the testing of independent groups with data from a 2004 survey of birth records from North Carolina, which are available in the \texttt{statsr} package.
+
+The variable of interest is \texttt{gained} -- the weight gain of mothers during pregnancy. We have two groups defined by the categorical variable, \texttt{mature}, with levels, younger mom and older mom.
+
+**Question of interest**: Do the data provide convincing evidence of a difference between the average weight gain of older moms and the average weight gain of younger moms?
+```
+
+We will view the data as a random sample from two populations, older and younger moms. The two groups are modeled as:
+
+\begin{equation}
+\begin{split}
+Y_{O,i} &\iid \No(\mu + \alpha/2, \sigma^2) \\
+Y_{Y,i} &\iid \No(\mu - \alpha/2, \sigma^2)
+\end{split}
+(\#eq:half-alpha)
+\end{equation}
+
+The model for weight gain for older moms using the subscript $O$, and it assumes that the observations $Y$ are independent and identically distributed, with a mean $\mu+\alpha/2$ and variance $\sigma^2$.
+
+For the younger women, the observations with the subscript $Y$ are independent and identically distributed with a mean $\mu-\alpha/2$ and variance $\sigma^2$.
+
+Using this representation of the means in the two groups, the difference in means simplifies to $\alpha$ -- the parameter of interest.
+
+$$(\mu + \alpha/2)  - (\mu - \alpha/2) =  \alpha$$
+
+You may ask, "Why don't we set the average weight gain of older women to $\mu+\alpha$, and the average weight gain of younger women to $\mu$?" We need the parameter $\alpha$ to be present in both $Y_{O,i}$ (the group of older women) and $Y_{Y,i}$ (the group of younger women). 
+
+We have the following competing hypotheses:
+
+* $H_1: \alpha = 0 \Leftrightarrow$ The means are not different.
+* $H_2: \alpha \neq 0 \Leftrightarrow$ The means are different.
+
+In this representation, $\mu$ represents the overall weight gain for all women. (Does the model in Equation \@ref(eq:half-alpha) make more sense now?) To test the hypothesis, we need to specify prior distributions for $\alpha$ under $H_2$ (c.f. $\alpha = 0$ under $H_1$) and priors for $\mu,\sigma^2$ under both hypotheses.
+
+UNFINISHED BELOW
+
+Recall that the Bayes factor is the ratio of the distribution of the data under the two hypotheses.
+
+$$\begin{aligned}
+ \BF[H_1 : H_2] &=  \frac{p(\data \mid H_1)} {p(\data \mid H_2)} \\
+  &= \frac{\iint p(\data \mid \alpha = 0,\mu,  \sigma^2 )p(\mu, \sigma^2 \mid H_1) \, d\mu \,d\sigma^2}
+ {\int \iint p(\data \mid \alpha, \mu, \sigma^2) p(\alpha \mid \sigma^2) p(\mu, \sigma^2 \mid H_2) \, d \mu \, d\sigma^2 \, d \alpha}
+\end{aligned}$$
 
 ### Inference after Testing
