@@ -1271,11 +1271,9 @@ Water samples collected at the the same location, on the surface and the bottom,
 <p><span class="math inline">\(\mu\)</span> is exactly zero under the hypothesis <span class="math inline">\(H_1\)</span>. For <span class="math inline">\(\mu\)</span> in <span class="math inline">\(H_2\)</span>, we start with the same conjugate normal prior as we used in Section <a href="introduction-to-losses-and-decision-making.html#sec:known-var">3.3.1</a> – testing the normal mean with known variance. Since we assume that <span class="math inline">\(\sigma^2\)</span> is known, we model <span class="math inline">\(\mu \mid \sigma^2\)</span> instead of <span class="math inline">\(\mu\)</span> itself.</p>
 <p>The <span class="math inline">\(\sigma^2\)</span> appears in both the numerator and denominator of the Bayes factor. For default or reference case, we use the Jeffreys prior (a.k.a. reference prior) on <span class="math inline">\(\sigma^2\)</span>. As long as we have more than two observations, this (improper) prior will lead to a proper posterior.</p>
 <p>After integration and rearranging, one can derive a simple expression for the Bayes factor:</p>
-<span class="math display">\[\begin{equation*}
-\BF[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
+<p><span class="math display">\[{\textsf{BF}}[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
   \frac{ t^2  \frac{n_0}{n + n_0} + \nu }
-  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}
-\end{equation*}\]</span>
+  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}\]</span></p>
 <p>This is a function of the t-statistic</p>
 <p><span class="math display">\[t = \frac{|\bar{Y}|}{s/\sqrt{n}}\]</span>,</p>
 <p>where <span class="math inline">\(s\)</span> is the sample standard deviation and the degrees of freedom <span class="math inline">\(\nu = n-1\)</span> (sample size minus one).</p>
@@ -1313,11 +1311,11 @@ Water samples collected at the the same location, on the surface and the bottom,
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03639149 0.06328334 0.07535410  0.08714348  0.11223572
-## sigma 0.03664608 0.04739854 0.05531645  0.06558811  0.09548028
-## n_0   0.16145869 1.88927629 4.72989823 10.11929195 32.51796761
+## mu    0.03647703 0.06331522 0.07535308  0.08711501  0.11217497
+## sigma 0.03665478 0.04740514 0.05530127  0.06556323  0.09534345
+## n_0   0.16319998 1.89110766 4.73229128 10.09099284 32.45835288
 ## 
-## 95% CI for mu: (0.0364, 0.1122)</code></pre>
+## 95% CI for mu: (0.0365, 0.1122)</code></pre>
 <p><img src="03-decision-03-BFnormal_files/figure-html/bayes-inference-1.png" width="672" /></p>
 <p>With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis <span class="math inline">\(H_2\)</span>, the mean difference is different from 0, is almost 51 times more likely than the hypothesis <span class="math inline">\(H_1\)</span> that the average concentration is the same at the surface and the bottom.</p>
 <p>To sum up, we have used the <strong>Cauchy prior</strong> as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the  function from the  package. If you expect that the effect sizes will be small, smaller values of <span class="math inline">\(r\)</span> are recommended.</p>
@@ -1337,8 +1335,8 @@ Water samples collected at the the same location, on the surface and the bottom,
 <p>We will view the data as a random sample from two populations, older and younger moms. The two groups are modeled as:</p>
 <span class="math display" id="eq:half-alpha">\[\begin{equation}
 \begin{split}
-Y_{O,i} &amp;\iid \No(\mu + \alpha/2, \sigma^2) \\
-Y_{Y,i} &amp;\iid \No(\mu - \alpha/2, \sigma^2)
+Y_{O,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu + \alpha/2, \sigma^2) \\
+Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2, \sigma^2)
 \end{split}
 \tag{3.6}
 \end{equation}\]</span>

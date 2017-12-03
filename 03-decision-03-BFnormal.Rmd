@@ -258,11 +258,9 @@ The $\sigma^2$ appears in both the numerator and denominator of the Bayes factor
 
 After integration and rearranging, one can derive a simple expression for the Bayes factor:
 
-\begin{equation*}
-\BF[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
+$$\BF[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
   \frac{ t^2  \frac{n_0}{n + n_0} + \nu }
-  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}
-\end{equation*}
+  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}$$
 
 This is a function of the t-statistic 
 
@@ -321,8 +319,8 @@ We will view the data as a random sample from two populations, older and younger
 
 \begin{equation}
 \begin{split}
-Y_{O,i} &\iid \No(\mu + \alpha/2, \sigma^2) \\
-Y_{Y,i} &\iid \No(\mu - \alpha/2, \sigma^2)
+Y_{O,i} &\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu + \alpha/2, \sigma^2) \\
+Y_{Y,i} &\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2, \sigma^2)
 \end{split}
 (\#eq:half-alpha)
 \end{equation}

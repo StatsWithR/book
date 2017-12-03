@@ -125,7 +125,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{Last built on 2017-12-02}
+  \date{Last built on 2017-12-03}
 
 \usepackage{amsthm}
 \usepackage{booktabs}
@@ -4272,11 +4272,9 @@ two observations, this (improper) prior will lead to a proper posterior.
 After integration and rearranging, one can derive a simple expression
 for the Bayes factor:
 
-\begin{equation*}
-\BF[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
+\[\BF[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
   \frac{ t^2  \frac{n_0}{n + n_0} + \nu }
-  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}
-\end{equation*}
+  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}\]
 
 This is a function of the t-statistic
 
@@ -4364,12 +4362,12 @@ prior.
 ## (Assuming improper Jeffreys prior: p(sigma^2) = 1/sigma^2
 ## 
 ## Posterior Summaries
-##             2.5%        25%        50%         75%       97.5%
-## mu    0.03638508 0.06328166 0.07537420  0.08717658  0.11225983
-## sigma 0.03671659 0.04744041 0.05534848  0.06560755  0.09546809
-## n_0   0.16080390 1.89875161 4.75527560 10.12692738 32.46352271
+##             2.5%        25%        50%         75%      97.5%
+## mu    0.03654586 0.06330174 0.07538794  0.08719806  0.1122371
+## sigma 0.03668105 0.04740802 0.05529246  0.06554432  0.0953931
+## n_0   0.16185632 1.88742742 4.73660241 10.10892627 32.3564337
 ## 
-## 95% CI for mu: (0.0364, 0.1123)
+## 95% CI for mu: (0.0365, 0.1122)
 \end{verbatim}
 
 \includegraphics{03-decision-03-BFnormal_files/figure-latex/bayes-inference-1.pdf}
@@ -4424,8 +4422,8 @@ younger moms. The two groups are modeled as:
 
 \begin{equation}
 \begin{split}
-Y_{O,i} &\iid \No(\mu + \alpha/2, \sigma^2) \\
-Y_{Y,i} &\iid \No(\mu - \alpha/2, \sigma^2)
+Y_{O,i} &\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu + \alpha/2, \sigma^2) \\
+Y_{Y,i} &\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2, \sigma^2)
 \end{split}
 \label{eq:half-alpha}
 \end{equation}

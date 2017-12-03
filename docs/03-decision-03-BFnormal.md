@@ -179,11 +179,9 @@ The $\sigma^2$ appears in both the numerator and denominator of the Bayes factor
 
 After integration and rearranging, one can derive a simple expression for the Bayes factor:
 
-\begin{equation*}
-\BF[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
+$$\BF[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
   \frac{ t^2  \frac{n_0}{n + n_0} + \nu }
-  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}
-\end{equation*}
+  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}$$
 
 This is a function of the t-statistic 
 
@@ -241,11 +239,11 @@ bayes_inference(Difference, data=zinc, statistic="mean", type="ht",
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03639149 0.06328334 0.07535410  0.08714348  0.11223572
-## sigma 0.03664608 0.04739854 0.05531645  0.06558811  0.09548028
-## n_0   0.16145869 1.88927629 4.72989823 10.11929195 32.51796761
+## mu    0.03647703 0.06331522 0.07535308  0.08711501  0.11217497
+## sigma 0.03665478 0.04740514 0.05530127  0.06556323  0.09534345
+## n_0   0.16319998 1.89110766 4.73229128 10.09099284 32.45835288
 ## 
-## 95% CI for mu: (0.0364, 0.1122)
+## 95% CI for mu: (0.0365, 0.1122)
 ```
 
 <img src="03-decision-03-BFnormal_files/figure-html/bayes-inference-1.png" width="672" />
@@ -272,8 +270,8 @@ We will view the data as a random sample from two populations, older and younger
 
 \begin{equation}
 \begin{split}
-Y_{O,i} &\iid \No(\mu + \alpha/2, \sigma^2) \\
-Y_{Y,i} &\iid \No(\mu - \alpha/2, \sigma^2)
+Y_{O,i} &\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu + \alpha/2, \sigma^2) \\
+Y_{Y,i} &\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2, \sigma^2)
 \end{split}
 (\#eq:half-alpha)
 \end{equation}
