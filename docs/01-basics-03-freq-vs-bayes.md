@@ -56,21 +56,15 @@ The posterior probabilities of whether $H_1$ or $H_2$ is correct are close to ea
 
 Table \@ref(tab:freq-vs-bayes) summarizes what the results would look like if we had chosen larger sample sizes. Under each of these scenarios, the frequentist method yields a higher p-value than our significance level, so we would fail to reject the null hypothesis with any of these samples. On the other hand, the Bayesian method always yields a higher posterior for the second model where $p$ is equal to 0.20. So the decisions that we would make are contradictory to each other.
 
-\begin{table}
 
-\caption{(\#tab:freq-vs-bayes)Frequentist and Bayesian probabilities for larger sample sizes}
-\centering
-\begin{tabular}[t]{llll}
-\toprule
- & Frequentist & Bayesian H\_1 & Bayesian H\_2\\
-\midrule
-Observed Data & P(k or more | 10\% yellow) & P(10\% yellow | n, k) & P(20\% yellow | n, k)\\
-n = 5, k = 1 & 0.41 & 0.45 & 0.55\\
-n = 10, k = 2 & 0.26 & 0.39 & 0.61\\
-n = 15, k = 3 & 0.18 & 0.34 & 0.66\\
-n = 20, k = 4 & 0.13 & 0.29 & 0.71\\
-\bottomrule
-\end{tabular}
-\end{table}
+Table: (\#tab:freq-vs-bayes)Frequentist and Bayesian probabilities for larger sample sizes
+
+                Frequentist                 Bayesian H_1           Bayesian H_2         
+--------------  --------------------------  ---------------------  ---------------------
+Observed Data   P(k or more | 10% yellow)   P(10% yellow | n, k)   P(20% yellow | n, k) 
+n = 5, k = 1    0.41                        0.45                   0.55                 
+n = 10, k = 2   0.26                        0.39                   0.61                 
+n = 15, k = 3   0.18                        0.34                   0.66                 
+n = 20, k = 4   0.13                        0.29                   0.71                 
 
 However, if we had set up our framework differently in the frequentist method and set our null hypothesis to be $p = 0.20$ and our alternative to be $p < 0.20$, we would obtain different results. This shows that **the frequentist method is highly sensitive to the null hypothesis**, while in the Bayesian method, our results would be the same regardless of which order we evaluate our models. 

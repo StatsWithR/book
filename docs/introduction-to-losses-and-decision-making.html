@@ -154,7 +154,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2.6" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-MCMC"><i class="fa fa-check"></i><b>3.2.6</b> Markov Chain Monte Carlo (MCMC)</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#hypothesis-testing-with-normal-populations"><i class="fa fa-check"></i><b>3.3</b> Hypothesis Testing with Normal Populations</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#bayes-factors-for-testing-a-normal-mean-variance-known"><i class="fa fa-check"></i><b>3.3.1</b> Bayes Factors for Testing a Normal Mean: variance known</a></li>
+<li class="chapter" data-level="3.3.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:known-var"><i class="fa fa-check"></i><b>3.3.1</b> Bayes Factors for Testing a Normal Mean: variance known</a></li>
 <li class="chapter" data-level="3.3.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#bayes-factors-for-testing-a-normal-mean-unknown-variance"><i class="fa fa-check"></i><b>3.3.2</b> Bayes Factors for Testing a Normal Mean: unknown variance</a></li>
 <li class="chapter" data-level="3.3.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#testing-normal-means-paired-data"><i class="fa fa-check"></i><b>3.3.3</b> Testing Normal Means: paired data</a></li>
 <li class="chapter" data-level="3.3.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#testing-normal-means-independent-groups"><i class="fa fa-check"></i><b>3.3.4</b> Testing Normal Means: independent groups</a></li>
@@ -170,7 +170,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#informative-priors"><i class="fa fa-check"></i><b>4.1.4</b> Informative Priors</a></li>
 <li class="chapter" data-level="4.1.5" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#deviations-of-marginal-posterior-distributions-of-alpha-beta-and-sigma2"><i class="fa fa-check"></i><b>4.1.5</b> Deviations of Marginal Posterior Distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span></a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-multiple-linear-regression"><i class="fa fa-check"></i><b>4.2</b> Bayesian Multiple Linear Regression</a></li>
+<li class="chapter" data-level="4.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-multiple-linear-regression"><i class="fa fa-check"></i><b>4.2</b> Bayesian Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#the-model"><i class="fa fa-check"></i><b>4.2.1</b> The Model</a></li>
+<li class="chapter" data-level="4.2.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#data-pre-processing"><i class="fa fa-check"></i><b>4.2.2</b> Data Pre-processing</a></li>
+<li class="chapter" data-level="4.2.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#specify-bayesian-prior-distributions"><i class="fa fa-check"></i><b>4.2.3</b> Specify Bayesian Prior Distributions</a></li>
+<li class="chapter" data-level="4.2.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#fitting-the-bayesian-model"><i class="fa fa-check"></i><b>4.2.4</b> Fitting the Bayesian Model</a></li>
+<li class="chapter" data-level="4.2.5" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#posterior-means-and-posterior-standard-deviations"><i class="fa fa-check"></i><b>4.2.5</b> Posterior Means and Posterior Standard Deviations</a></li>
+<li class="chapter" data-level="4.2.6" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#credible-intervals-summary"><i class="fa fa-check"></i><b>4.2.6</b> Credible Intervals Summary</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -1072,7 +1079,7 @@ Figure 3.10: Comparison of posterior densities
 <div id="hypothesis-testing-with-normal-populations" class="section level2">
 <h2><span class="header-section-number">3.3</span> Hypothesis Testing with Normal Populations</h2>
 <p>In Section <a href="introduction-to-losses-and-decision-making.html#sec:bayes-factors">3.1.4</a>, we described how the Bayes factors can be used for hypothesis testing. Now we will use the Bayes factors to test normal means, i.e. compare two groups of normally-distributed populations. We divide this mission into four cases: known variance, unknown variance, paired data, and independent groups.</p>
-<div id="bayes-factors-for-testing-a-normal-mean-variance-known" class="section level3">
+<div id="sec:known-var" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Bayes Factors for Testing a Normal Mean: variance known</h3>
 <p>Now we show how to obtain base factors for testing hypothesis about a normal mean, where <strong>the variance is known</strong>. To start, let’s consider a random sample of observations from a normal population with mean <span class="math inline">\(\mu\)</span> and pre-specified variance <span class="math inline">\(\sigma^2\)</span>. We consider testing whether the population mean <span class="math inline">\(\mu\)</span> is equal to <span class="math inline">\(m_0\)</span> or not.</p>
 <p>Therefore, we can formulate the data and hypotheses as below:</p>
@@ -1116,23 +1123,241 @@ Figure 3.11: Vague prior for mu: n=100
 <p>Now one way to try to understand the effect of prior is through the standard effect size</p>
 <p><span class="math display">\[\delta = \frac{\mu - m_0}{\sigma}.\]</span> The prior of the standard effect size is</p>
 <p><span class="math display">\[\delta \mid   H_2  \sim {\textsf{N}}(0, \frac{1}{\mathbf{n_0}})\]</span></p>
-<p>This allows us to think about a standardized effect independent of the units of the problem. One default choice is using the unit information prior, where the prior sample size <span class="math inline">\(n_0\)</span> is 1, leading to a standard normal for the standardized effect size. This is depicted with the blue normal density in Figure <a href="introduction-to-losses-and-decision-making.html#fig:effect-size">3.12</a>.</p>
+<p>This allows us to think about a standardized effect independent of the units of the problem. One default choice is using the unit information prior, where the prior sample size <span class="math inline">\(n_0\)</span> is 1, leading to a standard normal for the standardized effect size. This is depicted with the blue normal density in Figure <a href="introduction-to-losses-and-decision-making.html#fig:effect-size">3.12</a>. This suggested that we expect that the mean will be within <span class="math inline">\(\pm 1.96\)</span> standard deviations of the hypothesized mean <strong>with probability 0.95</strong>. (Note that we can say this only under a Bayesian setting.)</p>
+<p>In many fields we expect that the effect will be small relative to <span class="math inline">\(\sigma\)</span>. If we do not expect to see large effects, then we may want to use a more informative prior on the effect size as the density in orange with <span class="math inline">\(n_0 = 4\)</span>. So they expected the mean to be within <span class="math inline">\(\pm 1/\sqrt{n_0}\)</span> or five standard deviations of the prior mean.</p>
 <div class="figure"><span id="fig:effect-size"></span>
 <img src="03-decision-03-BFnormal_files/figure-html/effect-size-1.png" alt="Prior on standard effect size" width="672" />
 <p class="caption">
 Figure 3.12: Prior on standard effect size
 </p>
 </div>
-<p>UNFINISHED BELOW</p>
+
+<div class="example">
+<span id="exm:unnamed-chunk-1" class="example"><strong>Example 2.8  </strong></span>To illustrate, we give an example from parapsychological research. The case involved the test of the subject’s claim to affect a series of randomly generated 0’s and 1’s by means of extra sensory perception (ESP). The random sequence of 0’s and 1’s are generated by a machine with probability of generating 1 being 0.5. The subject claims that his ESP would make the sample mean differ significantly from 0.5.
+</div>
+
+<p>Therefore, we are testing <span class="math inline">\(H_1: \mu = 0.5\)</span> versus <span class="math inline">\(H_2: \mu \neq 0.5\)</span>. Let’s use a prior that suggests we do not expect a large effect which leads the following solution for <span class="math inline">\(n_0\)</span>. Assume we want a standard effect of 0.03, there is a 95% chance that it is between <span class="math inline">\((-0.03/\sigma, 0.03/\sigma)\)</span>, with <span class="math inline">\(n_0 = (1.96\sigma/0.03)^2 = 32.7^2\)</span>.</p>
+<p>Figure <a href="introduction-to-losses-and-decision-making.html#fig:prior-effect">3.13</a> shows our informative prior in blue, while the unit information prior is in orange. On this scale, the unit information prior needs to be almost uniform for the range that we are interested.</p>
+<div class="figure"><span id="fig:prior-effect"></span>
+<img src="03-decision-03-BFnormal_files/figure-html/prior-effect-1.png" alt="Prior effect in the extra sensory perception test" width="672" />
+<p class="caption">
+Figure 3.13: Prior effect in the extra sensory perception test
+</p>
+</div>
+<p>A very large data set with over 104 million trials was collected to test this hypothesis, so we use a normal distribution to approximate the distribution the sample mean.</p>
+<ul>
+<li>Sample size: <span class="math inline">\(n = 1.0449 \times 10^8\)</span></li>
+<li>Sample mean: <span class="math inline">\(\bar{y} = 0.500177\)</span>, standard deviation <span class="math inline">\(\sigma = 0.5\)</span></li>
+<li><span class="math inline">\(Z\)</span>-score: 3.61</li>
+</ul>
+<p>Now using our prior in the data, the Bayes factor for <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> was 0.46, implying evidence against the hypothesis <span class="math inline">\(H_1\)</span> that <span class="math inline">\(\mu = 0.5\)</span>.</p>
+<ul>
+<li>Informative <span class="math inline">\({\textsf{BF}}[H_1:H_2] = 0.46\)</span></li>
+<li><span class="math inline">\({\textsf{BF}}[H_2:H_1] = 1/{\textsf{BF}}[H_1:H_2] = 2.19\)</span></li>
+</ul>
+<p>Now, this can be inverted to provide the evidence in favor of <span class="math inline">\(H_2\)</span>. The evidence suggests that the hypothesis that the machine operates with a probability that is not 0.5, is 2.19 times more likely than the hypothesis the probability is 0.5. Based on the interpretation of Bayes factors from Table <a href="introduction-to-losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “not worth the bare mention”.</p>
+<p>To recap, we present expressions for calculating Bayes factors for a normal model with a specified variance. We show that the improper reference priors for <span class="math inline">\(\mu\)</span> when <span class="math inline">\(n_0 = 0\)</span>, or vague priors where <span class="math inline">\(n_0\)</span> is arbitrarily small, lead to Bayes factors that favor the null hypothesis regardless of the data, and thus should not be used for hypothesis testing.</p>
+<p>Bayes factors with normal priors can be sensitive to the choice of the <span class="math inline">\(n_0\)</span>. While the default value of <span class="math inline">\(n_0 = 1\)</span> is reasonable in many cases, this may be too non-informative if one expects more effects. Wherever possible, think about how large an effect you expect and use that information to help select the <span class="math inline">\(n_0\)</span>.</p>
+<p>All the ESP examples suggest weak evidence and favored the machine generating random 0’s and 1’s with a probability that is different from 0.5. Note that ESP is not the only explanation – a deviation from 0.5 can also occur if the random number generator is biased. Bias in the stream of random numbers in our pseudorandom numbers has huge implications for numerous fields that depend on simulation. If the context had been about detecting a small bias in random numbers what prior would you use and how would it change the outcome? You can try to experiment in R or other software packages that generate random Bernoullis.</p>
+<p>Next, we will look at Bayes factors in normal models with unknown variances using the Cauchy prior so that results are less sensitive to the choice of <span class="math inline">\(n_0\)</span>.</p>
 </div>
 <div id="bayes-factors-for-testing-a-normal-mean-unknown-variance" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> Bayes Factors for Testing a Normal Mean: unknown variance</h3>
 </div>
 <div id="testing-normal-means-paired-data" class="section level3">
 <h3><span class="header-section-number">3.3.3</span> Testing Normal Means: paired data</h3>
+<p>We previously learned that we can use a paired t-test to compare means from two paired samples. In this section, we will show how Bayes factors can be expressed as a function of the t-statistic for comparing the means and provide posterior probabilities of the hypothesis that whether the means are equal or different.</p>
+
+<div class="example">
+<p><span id="exm:zinc" class="example"><strong>Example 3.2  </strong></span>Trace metals in drinking water affect the flavor, and unusually high concentrations can pose a health hazard. Ten pairs of data were taken measuring the zinc concentration in bottom and surface water at ten randomly sampled locations, as listed in Table <a href="introduction-to-losses-and-decision-making.html#tab:zinc-table">3.7</a>.</p>
+Water samples collected at the the same location, on the surface and the bottom, cannot be assumed to be independent of each other. However, it may be reasonable to assume that the differences in the concentration at the bottom and the surface in randomly sampled locations are independent of each other.
+</div>
+
+<table>
+<caption><span id="tab:zinc-table">Table 3.7: </span>Zinc in drinking water</caption>
+<thead>
+<tr class="header">
+<th align="right">Location</th>
+<th align="right">Surface</th>
+<th align="right">Bottom</th>
+<th align="right">Difference</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0.430</td>
+<td align="right">0.415</td>
+<td align="right">0.015</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.266</td>
+<td align="right">0.238</td>
+<td align="right">0.028</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.567</td>
+<td align="right">0.390</td>
+<td align="right">0.177</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.531</td>
+<td align="right">0.410</td>
+<td align="right">0.121</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.707</td>
+<td align="right">0.605</td>
+<td align="right">0.102</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.716</td>
+<td align="right">0.609</td>
+<td align="right">0.107</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.651</td>
+<td align="right">0.632</td>
+<td align="right">0.019</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.589</td>
+<td align="right">0.523</td>
+<td align="right">0.066</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.469</td>
+<td align="right">0.411</td>
+<td align="right">0.058</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.723</td>
+<td align="right">0.612</td>
+<td align="right">0.111</td>
+</tr>
+</tbody>
+</table>
+<p>To start modeling, we will treat the ten differences as a random sample from a normal population where the parameter of interest is the difference between the average zinc concentration at the bottom and the average zinc concentration at the surface, or the main difference, <span class="math inline">\(\mu\)</span>.</p>
+<p>In mathematical terms, we have</p>
+<ul>
+<li>Random sample of <span class="math inline">\(n= 10\)</span> differences <span class="math inline">\(Y_1, \ldots, Y_n\)</span></li>
+<li>Normal population with mean <span class="math inline">\(\mu \equiv \mu_B - \mu_S\)</span></li>
+</ul>
+<p>In this case, we have no information about the variability in the data, and we will treat the variance, <span class="math inline">\(\sigma^2\)</span>, as unknown.</p>
+<p>The hypothesis of the main concentration at the surface and bottom are the same is equivalent to saying <span class="math inline">\(\mu = 0\)</span>. The second hypothesis is that the difference between the mean bottom and surface concentrations, or equivalently that the mean difference <span class="math inline">\(\mu \neq 0\)</span>.</p>
+<p>In other words, we are going to compare the following hypotheses:</p>
+<ul>
+<li><span class="math inline">\(H_1: \mu_B = \mu_S \Leftrightarrow \mu = 0\)</span></li>
+<li><span class="math inline">\(H_2: \mu_B \neq \mu_S \Leftrightarrow \mu \neq 0\)</span></li>
+</ul>
+<p>The Bayes factor is the ratio between the distributions of the data under each hypothesis, which does not depend on any unknown parameters.</p>
+<p><span class="math display">\[{\textsf{BF}}[H_1 : H_2] = \frac{p({\text{data}}\mid H_1)} {p({\text{data}}\mid H_2)}\]</span></p>
+<p>To obtain the Bayes factor, we need to use integration over the prior distributions under each hypothesis to obtain those distributions of the data.</p>
+<p><span class="math display">\[{\textsf{BF}}[H_1 : H_2] = \iint p({\text{data}}\mid \mu, \sigma^2) p(\mu \mid \sigma^2) p(\sigma^2 \mid H_2)\, d \mu \, d\sigma^2\]</span></p>
+<p>This requires specifying the following priors:</p>
+<ul>
+<li><span class="math inline">\(\mu \mid \sigma^2, H_2 \sim {\textsf{N}}(0, \sigma^2/n_0)\)</span></li>
+<li><span class="math inline">\(p(\sigma^2) \propto 1/\sigma^2\)</span> for both <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span></li>
+</ul>
+<p><span class="math inline">\(\mu\)</span> is exactly zero under the hypothesis <span class="math inline">\(H_1\)</span>. For <span class="math inline">\(\mu\)</span> in <span class="math inline">\(H_2\)</span>, we start with the same conjugate normal prior as we used in Section <a href="introduction-to-losses-and-decision-making.html#sec:known-var">3.3.1</a> – testing the normal mean with known variance. Since we assume that <span class="math inline">\(\sigma^2\)</span> is known, we model <span class="math inline">\(\mu \mid \sigma^2\)</span> instead of <span class="math inline">\(\mu\)</span> itself.</p>
+<p>The <span class="math inline">\(\sigma^2\)</span> appears in both the numerator and denominator of the Bayes factor. For default or reference case, we use the Jeffreys prior (a.k.a. reference prior) on <span class="math inline">\(\sigma^2\)</span>. As long as we have more than two observations, this (improper) prior will lead to a proper posterior.</p>
+<p>After integration and rearranging, one can derive a simple expression for the Bayes factor:</p>
+<p><span class="math display">\[{\textsf{BF}}[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
+  \frac{ t^2  \frac{n_0}{n + n_0} + \nu }
+  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}\]</span></p>
+<p>This is a function of the t-statistic</p>
+<p><span class="math display">\[t = \frac{|\bar{Y}|}{s/\sqrt{n}}\]</span>,</p>
+<p>where <span class="math inline">\(s\)</span> is the sample standard deviation and the degrees of freedom <span class="math inline">\(\nu = n-1\)</span> (sample size minus one).</p>
+<p>As we saw in the case of Bayes factors with known variance, we cannot use the improper prior on <span class="math inline">\(\mu\)</span> because when <span class="math inline">\(n_0 \to 0\)</span>, then <span class="math inline">\({\textsf{BF}}[H1:H_2] \to \infty\)</span> favoring <span class="math inline">\(H_1\)</span> regardless of the magnitude of the t-statistic. Arbitrary, vague small choices for <span class="math inline">\(n_0\)</span> also lead to arbitrary large Bayes factors in favor of <span class="math inline">\(H_1\)</span>. Another example of the Barlett’s or Jeffreys-Lindley paradox.</p>
+<p>Sir Herald Jeffrey discovered another paradox testing using the conjugant normal prior, known as the <strong>information paradox</strong>. His thought experiment assumed that our sample size <span class="math inline">\(n\)</span> and the prior sample size <span class="math inline">\(n_0\)</span>. He then considered what would happen to the Bayes factor as the sample mean moved further and further away from the hypothesized mean, measured in terms standard errors with the t-statistic, i.e., <span class="math inline">\(|t| \to \infty\)</span>. As the t-statistic or information about the mean moved further and further from zero, the Bayes factor goes to a constant depending on <span class="math inline">\(n, n_0\)</span> rather than providing overwhelming support for <span class="math inline">\(H_2\)</span>.</p>
+<p>The bounded Bayes factor is</p>
+<p><span class="math display">\[{\textsf{BF}}[H_1 : H_2] \to \left( \frac{n_0}{n_0 + n}  \right)^{\frac{n - 1}{2}}\]</span></p>
+<p>Jeffrey wanted a prior with <span class="math inline">\({\textsf{BF}}[H_1 : H_2] \to 0\)</span> (or equivalently, <span class="math inline">\({\textsf{BF}}[H_2 : H_1] \to \infty\)</span>), as the information from the t-statistic grows, indicating the sample mean is as far as from the hypothesized mean and should favor <span class="math inline">\(H_2\)</span>.</p>
+<p>To resolve the paradox when the information the t-statistic favors <span class="math inline">\(H_2\)</span> but the Bayes factor does not, Jeffreys showed that <strong>no normal prior could resolve the paradox</strong>.</p>
+<p>But a <strong>Cauchy prior</strong> on <span class="math inline">\(\mu\)</span>, would resolve it. In this way, <span class="math inline">\({\textsf{BF}}[H_2 : H_1]\)</span> goes to infinity as the sample mean becomes further away from the hypothesized mean. Recall that the Cauchy prior is written as <span class="math inline">\({\textsf{C}}(0, r^2 \sigma^2)\)</span>. While Jeffreys used a default of <span class="math inline">\(r = 1\)</span>, smaller values of <span class="math inline">\(r\)</span> can be used if smaller effects are expected.</p>
+<p>The combination of the Jeffrey’s prior on <span class="math inline">\(\sigma^2\)</span> and this Cauchy prior on <span class="math inline">\(\mu\)</span> under <span class="math inline">\(H_2\)</span> is sometimes referred to as the <strong>Jeffrey-Zellener-Siow prior</strong>.</p>
+<p>However, there is no closed form expressions for the Bayes factor under the Cauchy distribution. To obtain the Bayes factor, we must use the numerical integration or simulation methods.</p>
+<p>We will use the  function from the  package to test whether the mean difference is zero in Example <a href="introduction-to-losses-and-decision-making.html#exm:zinc">3.2</a> (zinc), using the JZS (Jeffreys-Zellener-Siow) prior.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
+<span class="kw">bayes_inference</span>(Difference, <span class="dt">data=</span>zinc, <span class="dt">statistic=</span><span class="st">&quot;mean&quot;</span>, <span class="dt">type=</span><span class="st">&quot;ht&quot;</span>,
+                <span class="dt">prior=</span><span class="st">&quot;JZS&quot;</span>, <span class="dt">mu_0=</span><span class="dv">0</span>, <span class="dt">method=</span><span class="st">&quot;theo&quot;</span>, <span class="dt">alt=</span><span class="st">&quot;twosided&quot;</span>)</code></pre></div>
+<pre><code>## Single numerical variable
+## n = 10, y-bar = 0.0804, s = 0.0523
+## (Using Zellner-Siow Cauchy prior:  mu ~ C(0, 1*sigma)
+## (Using Jeffreys prior: p(sigma^2) = 1/sigma^2
+## 
+## Hypotheses:
+## H1: mu = 0 versus H2: mu != 0
+## Priors:
+## P(H1) = 0.5 , P(H2) = 0.5
+## Results:
+## BF[H2:H1] = 50.7757
+## P(H1|data) = 0.0193  P(H2|data) = 0.9807 
+## 
+## Posterior summaries for mu under H2:
+## Single numerical variable
+## n = 10, y-bar = 0.0804, s = 0.0523
+## (Assuming Zellner-Siow Cauchy prior:  mu | sigma^2 ~ C(0, 1*sigma)
+## (Assuming improper Jeffreys prior: p(sigma^2) = 1/sigma^2
+## 
+## Posterior Summaries
+##             2.5%        25%        50%         75%       97.5%
+## mu    0.03647703 0.06331522 0.07535308  0.08711501  0.11217497
+## sigma 0.03665478 0.04740514 0.05530127  0.06556323  0.09534345
+## n_0   0.16319998 1.89110766 4.73229128 10.09099284 32.45835288
+## 
+## 95% CI for mu: (0.0365, 0.1122)</code></pre>
+<p><img src="03-decision-03-BFnormal_files/figure-html/bayes-inference-1.png" width="672" /></p>
+<p>With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis <span class="math inline">\(H_2\)</span>, the mean difference is different from 0, is almost 51 times more likely than the hypothesis <span class="math inline">\(H_1\)</span> that the average concentration is the same at the surface and the bottom.</p>
+<p>To sum up, we have used the <strong>Cauchy prior</strong> as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the  function from the  package. If you expect that the effect sizes will be small, smaller values of <span class="math inline">\(r\)</span> are recommended.</p>
+<p>It is often important to quantify the magnitude of the difference in addition to testing. The Cauchy Prior provides a default prior for both testing and inference; it avoids problems that arise with choosing a value of <span class="math inline">\(n_0\)</span> (prior sample size) in both cases.</p>
+<p>Next, we will illustrate using the Cauchy prior for comparing two means from independent normal samples.</p>
 </div>
 <div id="testing-normal-means-independent-groups" class="section level3">
 <h3><span class="header-section-number">3.3.4</span> Testing Normal Means: independent groups</h3>
+<p>In the previous section, we described Bayes factors for testing whether the mean difference of <strong>paired</strong> samples was zero. In this section, we will consider a slightly different problem – we have two <strong>independent</strong> samples, and we would like to test the hypothesis that the means are different or equal.</p>
+
+<div class="example">
+<p><span id="exm:birth-records" class="example"><strong>Example 3.3  </strong></span>We illustrate the testing of independent groups with data from a 2004 survey of birth records from North Carolina, which are available in the  package.</p>
+<p>The variable of interest is  – the weight gain of mothers during pregnancy. We have two groups defined by the categorical variable, , with levels, younger mom and older mom.</p>
+<strong>Question of interest</strong>: Do the data provide convincing evidence of a difference between the average weight gain of older moms and the average weight gain of younger moms?
+</div>
+
+<p>We will view the data as a random sample from two populations, older and younger moms. The two groups are modeled as:</p>
+<span class="math display" id="eq:half-alpha">\[\begin{equation}
+\begin{split}
+Y_{O,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu + \alpha/2, \sigma^2) \\
+Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2, \sigma^2)
+\end{split}
+\tag{3.6}
+\end{equation}\]</span>
+<p>The model for weight gain for older moms using the subscript <span class="math inline">\(O\)</span>, and it assumes that the observations <span class="math inline">\(Y\)</span> are independent and identically distributed, with a mean <span class="math inline">\(\mu+\alpha/2\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>For the younger women, the observations with the subscript <span class="math inline">\(Y\)</span> are independent and identically distributed with a mean <span class="math inline">\(\mu-\alpha/2\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Using this representation of the means in the two groups, the difference in means simplifies to <span class="math inline">\(\alpha\)</span> – the parameter of interest.</p>
+<p><span class="math display">\[(\mu + \alpha/2)  - (\mu - \alpha/2) =  \alpha\]</span></p>
+<p>You may ask, “Why don’t we set the average weight gain of older women to <span class="math inline">\(\mu+\alpha\)</span>, and the average weight gain of younger women to <span class="math inline">\(\mu\)</span>?” We need the parameter <span class="math inline">\(\alpha\)</span> to be present in both <span class="math inline">\(Y_{O,i}\)</span> (the group of older women) and <span class="math inline">\(Y_{Y,i}\)</span> (the group of younger women).</p>
+<p>We have the following competing hypotheses:</p>
+<ul>
+<li><span class="math inline">\(H_1: \alpha = 0 \Leftrightarrow\)</span> The means are not different.</li>
+<li><span class="math inline">\(H_2: \alpha \neq 0 \Leftrightarrow\)</span> The means are different.</li>
+</ul>
+<p>In this representation, <span class="math inline">\(\mu\)</span> represents the overall weight gain for all women. (Does the model in Equation <a href="introduction-to-losses-and-decision-making.html#eq:half-alpha">(3.6)</a> make more sense now?) To test the hypothesis, we need to specify prior distributions for <span class="math inline">\(\alpha\)</span> under <span class="math inline">\(H_2\)</span> (c.f. <span class="math inline">\(\alpha = 0\)</span> under <span class="math inline">\(H_1\)</span>) and priors for <span class="math inline">\(\mu,\sigma^2\)</span> under both hypotheses.</p>
+<p>UNFINISHED BELOW</p>
+<p>Recall that the Bayes factor is the ratio of the distribution of the data under the two hypotheses.</p>
+<p><span class="math display">\[\begin{aligned}
+ {\textsf{BF}}[H_1 : H_2] &amp;=  \frac{p({\text{data}}\mid H_1)} {p({\text{data}}\mid H_2)} \\
+  &amp;= \frac{\iint p({\text{data}}\mid \alpha = 0,\mu,  \sigma^2 )p(\mu, \sigma^2 \mid H_1) \, d\mu \,d\sigma^2}
+ {\int \iint p({\text{data}}\mid \alpha, \mu, \sigma^2) p(\alpha \mid \sigma^2) p(\mu, \sigma^2 \mid H_2) \, d \mu \, d\sigma^2 \, d \alpha}
+\end{aligned}\]</span></p>
 </div>
 <div id="inference-after-testing" class="section level3">
 <h3><span class="header-section-number">3.3.5</span> Inference after Testing</h3>
