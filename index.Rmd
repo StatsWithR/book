@@ -26,17 +26,18 @@ url: 'http\://www.coursera.org/learn/bayesian/home/info/'
 \newcommand{\Ca}{\textsf{C}}
 
 ```{r code, warning=FALSE, message=FALSE, echo=FALSE, results='hide'}
-# If you are using any R packages, please add it here. 
-# Therefore, the compiler will show errors here, instead of later.
-require(ggplot2) || install.packages("ggplot2")
-require(devtools) || install.packages("devtools")
-require(statsr) || install_github("StatsWithR/statsr", ref="BayesFactor")
-require(BAS)   || install.packages("BAS")
-require(coda)  || install.packages("coda")
-require(mvtnorm) || install.packages("mvtnorm")
-require(latex2exp) || install.packages("latex2exp")
-require(knitr) || install.packages("knitr")
-require(foreign) || install.packages("foreign")
+# If you are using any R packages, please add it here AND
+# add the package to the DESCRIPTION file as well
+
+library(ggplot2)
+library(devtools)
+library(statsr)
+library(BAS)
+library(coda) 
+library(mvtnorm)
+library(latex2exp)
+library(knitr)
+library(foreign)
 
 # need source("bayes-outliers.R"), where can I find it?
 data(tapwater)
