@@ -125,7 +125,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{Last built on 2017-12-03}
+  \date{Last built on 2017-12-07}
 
 \usepackage{amsthm}
 \usepackage{booktabs}
@@ -1062,10 +1062,6 @@ The probability mass function can be visualized as a histogram in Figure
 of each bar is the probability of seeing a binomial random variable,
 whose value is equal to the x-value at the center of the bars base.
 
-\begin{verbatim}
-## Warning: package 'scales' was built under R version 3.4.2
-\end{verbatim}
-
 \begin{figure}
 
 {\centering \includegraphics{02-inference-01-continuous_files/figure-latex/histogram-1} 
@@ -1849,7 +1845,7 @@ creates a histogram of the results.
 
 \begin{figure}
 
-{\centering \includegraphics{JAGS_screenshot} 
+{\centering \includegraphics[width=11.24in]{JAGS_screenshot} 
 
 }
 
@@ -4362,12 +4358,12 @@ prior.
 ## (Assuming improper Jeffreys prior: p(sigma^2) = 1/sigma^2
 ## 
 ## Posterior Summaries
-##             2.5%        25%        50%         75%      97.5%
-## mu    0.03654586 0.06330174 0.07538794  0.08719806  0.1122371
-## sigma 0.03668105 0.04740802 0.05529246  0.06554432  0.0953931
-## n_0   0.16185632 1.88742742 4.73660241 10.10892627 32.3564337
+##             2.5%        25%        50%         75%       97.5%
+## mu    0.03649741 0.06327356 0.07535469  0.08717014  0.11226979
+## sigma 0.03666372 0.04741923 0.05533309  0.06558718  0.09548381
+## n_0   0.16182279 1.89623907 4.74572496 10.10920920 32.45124735
 ## 
-## 95% CI for mu: (0.0365, 0.1122)
+## 95% CI for mu: (0.0365, 0.1123)
 \end{verbatim}
 
 \includegraphics{03-decision-03-BFnormal_files/figure-latex/bayes-inference-1.pdf}
@@ -5517,15 +5513,6 @@ specify different model priors.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(BAS)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: package 'BAS' was built under R version 3.4.2
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{cog.bas =}\StringTok{ }\KeywordTok{bas.lm}\NormalTok{(kid_score }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ cognitive, }\DataTypeTok{prior =} \StringTok{"BIC"}\NormalTok{, }
                  \DataTypeTok{modelprior =} \KeywordTok{Bernoulli}\NormalTok{(}\DecValTok{1}\NormalTok{), }\DataTypeTok{bestmodel =} \KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{), }\DataTypeTok{n.models =} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
@@ -5669,7 +5656,7 @@ and \texttt{age} include 0, which implies that we may improve this model
 so that the model will accomplish a desired level of explanation or
 prediction with fewer predictors.
 
-\bibliography{packages,book,references}
+\bibliography{packages.bib,book.bib,references.bib}
 
 
 \end{document}

@@ -83,13 +83,6 @@ To gain more flexibility in choosing priors, we will instead use the `bas.lm` fu
 
 ```r
 library(BAS)
-```
-
-```
-## Warning: package 'BAS' was built under R version 3.4.2
-```
-
-```r
 cog.bas = bas.lm(kid_score ~ ., data = cognitive, prior = "BIC", 
                  modelprior = Bernoulli(1), bestmodel = rep(1, 5), n.models = 1)
 ```
@@ -132,7 +125,7 @@ par(mfrow = c(2, 2), col.lab = "darkgrey", col.axis = "darkgrey", col = "darkgre
 plot(cog.coef, subset = 2:5, ask = F)
 ```
 
-<img src="04-regression-02-Bayesian-multi-regression_files/figure-html/plot-coef-1.png" width="672" />
+![](04-regression-02-Bayesian-multi-regression_files/figure-latex/plot-coef-1.pdf)<!-- --> 
 
 These distributions all center at their respetive OLS estimates $\hat{\beta}_j$, with the spread of the distribution related to the standard errors. 
 
