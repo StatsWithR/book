@@ -4,6 +4,8 @@ sudo: false
 before_script:
 - chmod +x ./_build.sh
 - chmod +x ./_deploy.sh
+install:
+- ./travis-tool.sh install_github statswithr/statsr@BayesFactor
 script:
 - ./_build.sh
 after_success:
