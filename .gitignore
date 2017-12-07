@@ -7,3 +7,4 @@ _bookdown_files/*
 _book/*
 render*
 tmp*
+Bayes_Book.rds
