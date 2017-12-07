@@ -31,6 +31,7 @@ url: 'http\://www.coursera.org/learn/bayesian/home/info/'
 
 library(ggplot2)
 library(devtools)
+library(bayesfactor)
 library(statsr)
 library(BAS)
 library(coda) 
@@ -38,6 +39,7 @@ library(mvtnorm)
 library(latex2exp)
 library(knitr)
 library(foreign)
+
 
 # need source("bayes-outliers.R"), where can I find it?
 data(tapwater)
