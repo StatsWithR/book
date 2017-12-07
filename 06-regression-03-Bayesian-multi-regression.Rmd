@@ -13,8 +13,7 @@ Here, $\text{score}_i$ is the $i$th kid's cognitive score. $\text{hs}_i$, $\text
 
 We can download the data set from Gelman's website and read the summary information of the data set.
 ```{r load-data}
-library(foreign)
-cognitive = read.dta("http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta")
+cognitive = foreign::read.dta("http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta")
 summary(cognitive)
 ```
 

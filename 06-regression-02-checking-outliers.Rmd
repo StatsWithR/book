@@ -12,7 +12,7 @@ $$ \mathbb{P}(|y_i-\alpha-\beta x_i| > k\sigma~|~\text{data}).$$
 
 
 
-### Implementatin Using `BAS` Package
+### Implementation Using `BAS` Package
 
 The code for calculating the probability of outliers involves integration. We have implemented this in the function `Bayes.outlier.prob` that can be sourced from the file `bayes-outliers.R`. Applying this to the `bodyfat` data for Case 39, we get
 ```{r outlier}
