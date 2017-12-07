@@ -13,16 +13,12 @@ This formula is called the **probability mass function** (pmf) for the binomial.
 The probability mass function can be visualized as a histogram in Figure \@ref(fig:histogram). The area under the histogram is one, and the area of each bar is the probability of seeing a binomial random variable, whose value is equal to the x-value at the center of the bars base. 
 
 ```{r histogram, fig.height=3, fig.width=3, fig.align='center', fig.cap="Histogram of binomial random variable", echo=FALSE, message=FALSE}
-trials = c(0,1,1,1,2,2,2,3)
-data = data.frame(trials)
-library(ggplot2)
-library(scales)
-# library(plotly)
-hist.temp = ggplot(data, aes(data$trials)) + 
+
+data = data.frame(trials = c(0,1,1,1,2,2,2,3))
+
+ggplot(data, aes(data$trials)) + 
   geom_histogram(aes(y=..count../sum(..count..))) +
   xlab("") + ylab("")
-hist.temp
-# ggplotly(hist.temp)
 ```
 
 
