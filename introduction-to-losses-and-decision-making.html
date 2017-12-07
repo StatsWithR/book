@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bayesian Statistics</title>
+  <meta name="description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization.">
+  <meta name="generator" content="bookdown 0.5.10 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Bayesian Statistics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://www.coursera.org/learn/bayesian/home/info/" />
+  <meta property="og:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+  <meta property="og:description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="github-repo" content="StatsWithR/book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Bayesian Statistics" />
+  
+  <meta name="twitter:description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="twitter:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+
+<meta name="author" content="Christine Chai">
+<meta name="author" content="Lizzy Huang">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="bayesian-inference.html">
+<link rel="next" href="introduction-to-bayesian-regression.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bayesian Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
+<li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
+<li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
+<li class="chapter" data-level="1.1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
+<li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-frequentist-approach"><i class="fa fa-check"></i><b>1.2.1</b> Inference for a Proportion: Frequentist Approach</a></li>
+<li class="chapter" data-level="1.2.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
+<li class="chapter" data-level="1.2.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#exercises"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#continuous-variables-and-eliciting-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#from-the-discrete-to-the-continuous"><i class="fa fa-check"></i><b>2.1.1</b> From the Discrete to the Continuous</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#elicitation"><i class="fa fa-check"></i><b>2.1.2</b> Elicitation</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#conjugacy"><i class="fa fa-check"></i><b>2.1.3</b> Conjugacy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#three-conjugate-families"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#inference-on-a-binomial-proportion"><i class="fa fa-check"></i><b>2.2.1</b> Inference on a Binomial Proportion</a></li>
+<li class="chapter" data-level="2.2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#the-gamma-poisson-conjugate-families"><i class="fa fa-check"></i><b>2.2.2</b> The Gamma-Poisson Conjugate Families</a></li>
+<li class="chapter" data-level="2.2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#sec:normal-normal"><i class="fa fa-check"></i><b>2.2.3</b> The Normal-Normal Conjugate Families</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals-and-predictive-inference"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#non-conjugate-priors"><i class="fa fa-check"></i><b>2.3.1</b> Non-Conjugate Priors</a></li>
+<li class="chapter" data-level="2.3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals"><i class="fa fa-check"></i><b>2.3.2</b> Credible Intervals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#predictive-inference"><i class="fa fa-check"></i><b>2.3.3</b> Predictive Inference</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html"><i class="fa fa-check"></i><b>3</b> Introduction to Losses and Decision-making</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#losses-and-decision-making"><i class="fa fa-check"></i><b>3.1</b> Losses and Decision Making</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#loss-functions"><i class="fa fa-check"></i><b>3.1.1</b> Loss Functions</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#working-with-loss-functions"><i class="fa fa-check"></i><b>3.1.2</b> Working with Loss Functions</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#minimizing-expected-loss-for-hypothesis-testing"><i class="fa fa-check"></i><b>3.1.3</b> Minimizing Expected Loss for Hypothesis Testing</a></li>
+<li class="chapter" data-level="3.1.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:bayes-factors"><i class="fa fa-check"></i><b>3.1.4</b> Posterior Probabilities of Hypotheses and Bayes Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#inference-and-decision-making-with-multiple-parameters"><i class="fa fa-check"></i><b>3.2</b> Inference and Decision-Making with Multiple Parameters</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:normal-gamma"><i class="fa fa-check"></i><b>3.2.1</b> The Normal-Gamma Conjugate Family</a></li>
+<li class="chapter" data-level="3.2.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-MC"><i class="fa fa-check"></i><b>3.2.2</b> Monte Carlo Inference</a></li>
+<li class="chapter" data-level="3.2.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-predictive"><i class="fa fa-check"></i><b>3.2.3</b> Predictive Distributions</a></li>
+<li class="chapter" data-level="3.2.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-reference"><i class="fa fa-check"></i><b>3.2.4</b> Reference Priors</a></li>
+<li class="chapter" data-level="3.2.5" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-Cauchy"><i class="fa fa-check"></i><b>3.2.5</b> Mixtures of Conjugate Priors</a></li>
+<li class="chapter" data-level="3.2.6" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-MCMC"><i class="fa fa-check"></i><b>3.2.6</b> Markov Chain Monte Carlo (MCMC)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#hypothesis-testing-with-normal-populations"><i class="fa fa-check"></i><b>3.3</b> Hypothesis Testing with Normal Populations</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:known-var"><i class="fa fa-check"></i><b>3.3.1</b> Bayes Factors for Testing a Normal Mean: variance known</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#bayes-factors-for-testing-a-normal-mean-unknown-variance"><i class="fa fa-check"></i><b>3.3.2</b> Bayes Factors for Testing a Normal Mean: unknown variance</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#testing-normal-means-paired-data"><i class="fa fa-check"></i><b>3.3.3</b> Testing Normal Means: paired data</a></li>
+<li class="chapter" data-level="3.3.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#testing-normal-means-independent-groups"><i class="fa fa-check"></i><b>3.3.4</b> Testing Normal Means: independent groups</a></li>
+<li class="chapter" data-level="3.3.5" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#inference-after-testing"><i class="fa fa-check"></i><b>3.3.5</b> Inference after Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#exercises-1"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html"><i class="fa fa-check"></i><b>4</b> Introduction to Bayesian Regression</a><ul>
+<li class="chapter" data-level="4.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-simple-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Bayesian Simple Linear Regression</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#frequentist-ordinary-least-square-simple-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Frequentist Ordinary Least Square Simple Linear Regression</a></li>
+<li class="chapter" data-level="4.1.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-simple-linear-regression-using-reference-prior"><i class="fa fa-check"></i><b>4.1.2</b> Bayesian Simple Linear Regression Using Reference Prior</a></li>
+<li class="chapter" data-level="4.1.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#informative-priors"><i class="fa fa-check"></i><b>4.1.3</b> Informative Priors</a></li>
+<li class="chapter" data-level="4.1.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#deviations-of-marginal-posterior-distributions-of-alpha-beta-and-sigma2"><i class="fa fa-check"></i><b>4.1.4</b> Deviations of Marginal Posterior Distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#checking-outliers"><i class="fa fa-check"></i><b>4.2</b> Checking Outliers</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#posterior-distribution-of-epsilon_i-conditioning-on-sigma"><i class="fa fa-check"></i><b>4.2.1</b> Posterior Distribution of <span class="math inline">\(\epsilon_i\)</span> Conditioning On <span class="math inline">\(\sigma\)</span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#implementation-using-bas-package"><i class="fa fa-check"></i><b>4.2.2</b> Implementation Using <code>BAS</code> Package</a></li>
+<li class="chapter" data-level="4.2.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#summary"><i class="fa fa-check"></i><b>4.2.3</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-multiple-linear-regression"><i class="fa fa-check"></i><b>4.3</b> Bayesian Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#the-model"><i class="fa fa-check"></i><b>4.3.1</b> The Model</a></li>
+<li class="chapter" data-level="4.3.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#data-pre-processing"><i class="fa fa-check"></i><b>4.3.2</b> Data Pre-processing</a></li>
+<li class="chapter" data-level="4.3.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#specify-bayesian-prior-distributions"><i class="fa fa-check"></i><b>4.3.3</b> Specify Bayesian Prior Distributions</a></li>
+<li class="chapter" data-level="4.3.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#fitting-the-bayesian-model"><i class="fa fa-check"></i><b>4.3.4</b> Fitting the Bayesian Model</a></li>
+<li class="chapter" data-level="4.3.5" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#posterior-means-and-posterior-standard-deviations"><i class="fa fa-check"></i><b>4.3.5</b> Posterior Means and Posterior Standard Deviations</a></li>
+<li class="chapter" data-level="4.3.6" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#credible-intervals-summary"><i class="fa fa-check"></i><b>4.3.6</b> Credible Intervals Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-model-selection"><i class="fa fa-check"></i><b>4.4</b> Bayesian Model Selection</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-information-criterion-bic"><i class="fa fa-check"></i><b>4.4.1</b> Bayesian Information Criterion (BIC)</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-losses-and-decision-making" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Introduction to Losses and Decision-making</h1>
+<p>In the previous chapter, we learned about continuous random variables. That enabled us to study conjugate families, such as the beta binomial, the poisson gamma, and the normal normal. We also considered the difficulties of eliciting a personal prior, and of handling inference in nonconjugate cases. Finally, we introduced the credible interval and studied predictive inference.</p>
+<p>In this new chapter, we will introduce loss functions and Bayesian decision making, minimizing expected loss for hypothesis testing, and define posterior probabilities of hypothesis and base factors. We will then outline Bayesian testing for two proportions and two means, discuss how findings from credible intervals compare to those from our hypothesis test, and finally discuss when to reject, accept, or wait.</p>
+
+<div id="losses-and-decision-making" class="section level2">
+<h2><span class="header-section-number">3.1</span> Losses and Decision Making</h2>
+<p>To a Bayesian, the posterior distribution is the basis of any inference, since it integrates both his/her prior opinions and knowledge and the new information provided by the data. It also contains everything she believes about the distribution of the unknown parameter of interest.</p>
+<p>However, the posterior distribution on its own is not always sufficient. Sometimes the inference we want to express is a <strong>credible interval</strong>, because it indicates a range of likely values for the parameter. That would be helpful if you wanted to say that you are <strong>95% certain</strong> the probability of an RU-486 pregnancy lies between some number <span class="math inline">\(L\)</span> and some number <span class="math inline">\(U\)</span>. And on other occasions, one needs to make a single number guess about the value of the parameter. For example, you might want to declare the average payoff for an insurance claim or tell a patient how much longer he/she has to live.</p>
+<p>Therefore, the Bayesian perspective leads directly to <strong>decision theory</strong>. And in decision theory, one seeks to minimize one’s expected loss.</p>
+<div id="loss-functions" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Loss Functions</h3>
+<p>Quantifying the loss can be tricky, and Table <a href="introduction-to-losses-and-decision-making.html#tab:loss-functions">3.1</a> summarizes three different examples with three different loss functions.</p>
+<p>If you’re declaring the average payoff for an insurance claim, and if you are <strong>linear</strong> in how you value money, that is, twice as much money is exactly twice as good, then one can prove that the optimal one-number estimate is the <strong>median</strong> of the posterior distribution. But in different situations, other measures of loss may apply.</p>
+<p>If you are advising a patient on his/her life expectancy, it is easy to imagine that large errors are far more problematic than small ones. And perhaps the loss increases as the <strong>square</strong> of how far off your single number estimate is from the truth. For example, if she’s told that her average life expectancy is two years, and it is actually ten, then her estate planning will be catastrophically bad, and she will die in poverty. In the case when the loss is proportional to the <strong>quadratic</strong> error, one can show that the optimal one-number estimate is the <strong>mean</strong> of the posterior distribution.</p>
+<p>Finally, in some cases, the penalty is 0 if you are exactly correct, but constant if you’re at all wrong. This is the case with the old saying that close only counts with horseshoes and hand grenades; i.e., coming close but not succeeding is not good enough. And it would apply if you want a prize for correctly guessing the number of jelly beans in a jar. Here, of course, instead of minimizing expected losses, we want to <strong>maximize the expected gain</strong>. If a Bayesian is in such a situation, then his/her best one-number estimate is the <strong>mode</strong> of his/her posterior distribution, which is the most likely value.</p>
+<p>There is a large literature on decision theory, and it is directly linked to risk analysis, which arises in many fields. Although it is possible for frequentists to employ a certain kind of decision theory, it is much more natural for Bayesians.</p>
+<table>
+<caption><span id="tab:loss-functions">Table 3.1: </span>Loss Functions</caption>
+<thead>
+<tr class="header">
+<th align="center">Loss</th>
+<th align="center">Best Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Linear</td>
+<td align="center">Median</td>
+</tr>
+<tr class="even">
+<td align="center">Quadratic</td>
+<td align="center">Mean</td>
+</tr>
+<tr class="odd">
+<td align="center">0/1</td>
+<td align="center">Mode</td>
+</tr>
+</tbody>
+</table>
+<p>When making point estimates of unknown parameters, we should make the choices that minimize the loss. Nevertheless, the best estimate depends on the kind of loss function we are using, and we will discuss in more depth how these best estimates are determined in the next section.</p>
+</div>
+<div id="working-with-loss-functions" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Working with Loss Functions</h3>
+<p>Now we illustrate why certain estimates minimize certain loss functions.</p>
+
+<div class="example">
+<span id="exm:car" class="example"><strong>Example 3.1  </strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure <a href="introduction-to-losses-and-decision-making.html#fig:posterior-decision">3.1</a>. The mean, median and the mode of the distribution are also marked on the plot. Your boss doesn’t know any Bayesian statistics though, so he/she wants you to report <strong>a single number</strong> for the number of cars the dealership will sell per month.
+</div>
+<p></p>
+<div class="figure" style="text-align: center"><span id="fig:posterior-decision"></span>
+<img src="03-decision-01-decisions_files/figure-html/posterior-decision-1.png" alt="Posterior" width="960" />
+<p class="caption">
+Figure 3.1: Posterior
+</p>
+</div>
+<p>Suppose your single guess is 30, and we call this <span class="math inline">\(g\)</span> in the following calculations. If your loss function is <span class="math inline">\(L_0\)</span> (i.e., a 0/1 loss), then you lose a point for each value in your posterior that differs from your guess and do not lose any points for values that exactly equal your guess. The total loss is the sum of the losses from each value in the posterior.</p>
+<p>In mathematical terms, we define <span class="math inline">\(L_0\)</span> (0/1 loss) as</p>
+<p><span class="math display">\[L_{0,i}(0,g) = \left\{ \begin{array}{cc}
+0 &amp; \text{if } g=x_i \\ 1 &amp; \text{otherwise}
+\end{array}\right.\]</span></p>
+<p>The total loss is <span class="math inline">\(L_0 = \sum_i L_{0,i}(0,g)\)</span>.</p>
+<p>Let’s calculate what the total loss would be if your guess is 30. Table <a href="introduction-to-losses-and-decision-making.html#tab:L0-table">3.2</a> summarizes the values in the posterior distribution sorted in descending order.</p>
+<p>The first value is 4, which is not equal to your guess of 30, so the loss for that value is 1. The second value is 19, also not equal to your guess of 30, and the loss for that value is also 1. The third value is 20, also not equal to your guess of 30, and the loss for this value is also 1.</p>
+<p>There is only one 30 in your posterior, and the loss for this value is 0 – since it’s equal to your guess (good news!). The remaining values in the posterior are all different than 30 hence, the loss for them are all ones as well.</p>
+<p>To find the total loss, we simply sum over these individual losses in the posterior distribution with 51 observations where only one of them equals our guess and the remainder are different. Hence, the total loss is 50.</p>
+<p>Figure <a href="introduction-to-losses-and-decision-making.html#fig:L0-mode">3.2</a> is a visualization of the posterior distribution, along with the 0-1 loss calculated for a series of possible guesses within the range of the posterior distribution. To create this visualization of the loss function, we went through the process we described earlier for a guess of 30 for all guesses considered, and we recorded the total loss. We can see that the loss function has the lowest value when <span class="math inline">\(g\)</span>, our guess, is equal to <strong>the most frequent observation</strong> in the posterior. Hence, <span class="math inline">\(L_0\)</span> is minimized at the <strong>mode</strong> of the posterior, which means that if we use the 0/1 loss, the best point estimate is the mode of the posterior.</p>
+<table>
+<caption><span id="tab:L0-table">Table 3.2: </span>L0: 0/1 loss for g = 30</caption>
+<thead>
+<tr class="header">
+<th align="center">i</th>
+<th align="center">x_i</th>
+<th align="center">L0: 0/1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">4</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">19</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">20</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr class="odd">
+<td align="center">14</td>
+<td align="center">30</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr class="odd">
+<td align="center">50</td>
+<td align="center">47</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">51</td>
+<td align="center">49</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">Total</td>
+<td align="center">50</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span id="fig:L0-mode"></span>
+<img src="03-decision-01-decisions_files/figure-html/L0-mode-1.png" alt="L0 is minimized at the mode of the posterior" width="960" />
+<p class="caption">
+Figure 3.2: L0 is minimized at the mode of the posterior
+</p>
+</div>
+<p>Let’s consider another loss function. If your loss function is <span class="math inline">\(L_1\)</span> (i.e., linear loss), then the total loss for a guess is the sum of the <strong>absolute values</strong> of the difference between that guess and each value in the posterior. Note that the absolute value function is required, because overestimates and underestimates do not cancel out.</p>
+<p>In mathematical terms, <span class="math inline">\(L_1\)</span> (linear loss) is calculated as <span class="math inline">\(L_1(g) = \sum_i |x_i - g|\)</span>.</p>
+<p>We can once again calculate the total loss under <span class="math inline">\(L_1\)</span> if your guess is 30. Table <a href="introduction-to-losses-and-decision-making.html#tab:L1-table">3.3</a> summarizes the values in the posterior distribution sorted in descending order.</p>
+<p>The first value is 4, and the absolute value of the difference between 4 and 30 is 26. The second value is 19, and the absolute value of the difference between 19 and 30 is 11. The third value is 20 and the absolute value of the difference between 20 and 30 is 10.</p>
+<p>There is only one 30 in your posterior, and the loss for this value is 0 since it is equal to your guess. The remaining value in the posterior are all different than 30 hence their losses are different than 0.</p>
+<p>To find the total loss, we again simply sum over these individual losses, and the total is to 346.</p>
+<p>Again, Figure <a href="introduction-to-losses-and-decision-making.html#fig:L1-median">3.3</a> is a visualization of the posterior distribution, along with a linear loss function calculated for a series of possible guesses within the range of the posterior distribution. To create this visualization of the loss function, we went through the same process we described earlier for all of the guesses considered. This time, the function has the lowest value when <span class="math inline">\(g\)</span> is equal to the <strong>median</strong> of the posterior. Hence, <span class="math inline">\(L_1\)</span> is minimized at the <strong>median</strong> of the posterior one other loss function.</p>
+<table>
+<caption><span id="tab:L1-table">Table 3.3: </span>L1: linear loss for g = 30</caption>
+<thead>
+<tr class="header">
+<th align="center">i</th>
+<th align="center">x_i</th>
+<th align="center">L1: |x_i-30|</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">4</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">19</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">20</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr class="odd">
+<td align="center">14</td>
+<td align="center">30</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr class="odd">
+<td align="center">50</td>
+<td align="center">47</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">51</td>
+<td align="center">49</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">Total</td>
+<td align="center">346</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span id="fig:L1-median"></span>
+<img src="03-decision-01-decisions_files/figure-html/L1-median-1.png" alt="L1 is minimized at the median of the posterior" width="960" />
+<p class="caption">
+Figure 3.3: L1 is minimized at the median of the posterior
+</p>
+</div>
+<p>If your loss function is <span class="math inline">\(L_2\)</span> (i.e. a squared loss), then the total loss for a guess is the sum of the squared differences between that guess and each value in the posterior.</p>
+<p>We can once again calculate the total loss under <span class="math inline">\(L_2\)</span> if your guess is 30. Table <a href="introduction-to-losses-and-decision-making.html#tab:L2-table">3.4</a> summarizes the posterior distribution again, sorted in ascending order.</p>
+<p>The first value is 4, and the squared difference between 4 and 30 is 676. The second value is 19, and the square of the difference between 19 and 30 is 121. The third value is 20, and the square difference between 20 and 30 is 100.</p>
+<p>There is only one 30 in your posterior, and the loss for this value is 0 since it is equal to your guess. The remaining values in the posterior are again all different than 30, hence their losses are all different than 0.</p>
+<p>To find the total loss, we simply sum over these individual losses again and the total loss comes out to 3,732. We have the visualization of the posterior distribution. Again, this time along with the squared loss function calculated for a possible serious of possible guesses within the range of the posterior distribution.</p>
+<p>Creating the visualization in Figure <a href="introduction-to-losses-and-decision-making.html#fig:L2-mean">3.4</a> had the same steps. Go through the same process described earlier for a guess of 30, for all guesses considered, and record the total loss. This time, the function has the lowest value when <span class="math inline">\(g\)</span> is equal to the <strong>mean</strong> of the posterior. Hence, <span class="math inline">\(L_2\)</span> is minimized at the <strong>mean</strong> of the posterior distribution.</p>
+<table>
+<caption><span id="tab:L2-table">Table 3.4: </span>L2: squared loss for g = 30</caption>
+<thead>
+<tr class="header">
+<th align="center">i</th>
+<th align="center">x_i</th>
+<th align="center">L2: (x_i-30)^2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">4</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">19</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">20</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr class="odd">
+<td align="center">14</td>
+<td align="center">30</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr class="odd">
+<td align="center">50</td>
+<td align="center">47</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">51</td>
+<td align="center">49</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">Total</td>
+<td align="center">3732</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span id="fig:L2-mean"></span>
+<img src="03-decision-01-decisions_files/figure-html/L2-mean-1.png" alt="L2 is minimized at the mean of the posterior" width="960" />
+<p class="caption">
+Figure 3.4: L2 is minimized at the mean of the posterior
+</p>
+</div>
+<p>To sum up, the point estimate to report to your boss about the number of cars the dealership will sell per month <strong>depends on your loss function</strong>. In any case, you will choose to report the estimate that minimizes the loss.</p>
+<ul>
+<li><span class="math inline">\(L_0\)</span> is minimized at the <strong>mode</strong> of the posterior distribution.</li>
+<li><span class="math inline">\(L_1\)</span> is minimized at the <strong>median</strong> of the posterior distribution.</li>
+<li><span class="math inline">\(L_2\)</span> is minimized at the <strong>mean</strong> of the posterior distribution.</li>
+</ul>
+</div>
+<div id="minimizing-expected-loss-for-hypothesis-testing" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Minimizing Expected Loss for Hypothesis Testing</h3>
+<p>In Bayesian statistics, the inference about a parameter is made based on the posterior distribution, and let’s include this in the hypothesis test setting.</p>
+<p>Suppose we have two competing hypothesis, <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>. Then we get</p>
+<ul>
+<li><span class="math inline">\(P(H_1 \text{ is true } | \text{ data})\)</span> = posterior probability of <span class="math inline">\(H_1\)</span></li>
+<li><span class="math inline">\(P(H_2 \text{ is true } | \text{ data})\)</span> = posterior probability of <span class="math inline">\(H_2\)</span></li>
+</ul>
+<p>One straightforward way of choosing between <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span> would be to <strong>choose the one with the higher posterior probability</strong>. In other words, the potential decision criterion is to</p>
+<ul>
+<li>Reject <span class="math inline">\(H_1\)</span> if <span class="math inline">\(P(H_1 \text{ is true } | \text{ data}) &lt; P(H_1 \text{ is true } | \text{ data})\)</span>.</li>
+</ul>
+<p>However, since hypothesis testing is a decision problem, we should also consider a loss function. Let’s revisit the HIV testing example in Section <a href="the-basics-of-bayesian-statistics.html#sec:diagnostic-testing">1.1.2</a>, and suppose we want to test the two competing hypotheses below:</p>
+<ul>
+<li><span class="math inline">\(H_1\)</span>: Patient does not have HIV</li>
+<li><span class="math inline">\(H_2\)</span>: Patient has HIV</li>
+</ul>
+<p>These are the only two possibilities, so they are mutually exclusive hypotheses that cover the entire decision space.</p>
+<p>We can define the loss function as <span class="math inline">\(L(d)\)</span> – the loss that occurs when decision <span class="math inline">\(d\)</span> is made. Then the Bayesian testing procedure minimizes the posterior expected loss.</p>
+<p>The possible decisions (actions) are:</p>
+<ul>
+<li><span class="math inline">\(d_1\)</span>: Choose <span class="math inline">\(H_1\)</span> - decide that the patient does not have HIV</li>
+<li><span class="math inline">\(d_2\)</span>: Choose <span class="math inline">\(H_2\)</span> - decide that the patient has HIV</li>
+</ul>
+<p>For each decision <span class="math inline">\(d\)</span>, we might be right, or we might be wrong. If the decision is right, the loss <span class="math inline">\(L(d)\)</span> associated with the decision <span class="math inline">\(d\)</span> is zero, i.e. no loss. If the decision is wrong, the loss <span class="math inline">\(L(d)\)</span> associated with the decision <span class="math inline">\(d\)</span> is some positive value <span class="math inline">\(w\)</span>.</p>
+<p>For <span class="math inline">\(d=d_1\)</span>, we have</p>
+<ul>
+<li><strong>Right</strong>: Decide patient does not have HIV, and indeed they do not. <span class="math inline">\(\Rightarrow L(d_1) = 0\)</span></li>
+<li><strong>Wrong</strong>: Decide patient does not have HIV, but they do. <span class="math inline">\(\Rightarrow L(d_1) = w_1\)</span></li>
+</ul>
+<p>For <span class="math inline">\(d=d_2\)</span>, we also have</p>
+<ul>
+<li><strong>Right</strong>: Decide patient has HIV, and indeed they do. <span class="math inline">\(\Rightarrow L(d_2) = 0\)</span></li>
+<li><strong>Wrong</strong>: Decide patient has HIV, but they don’t <span class="math inline">\(\Rightarrow L(d2) = w_2\)</span></li>
+</ul>
+<p>The consequences of making a wrong decision <span class="math inline">\(d_1\)</span> or <span class="math inline">\(d_2\)</span> are different.</p>
+<p>Wrong <span class="math inline">\(d_1\)</span> is a <strong>false negative</strong>:</p>
+<ul>
+<li>We decide that patient does not have HIV when in reality they do.</li>
+<li>Potential consequences: no treatment and premature death! (severe)</li>
+</ul>
+<p>Wrong <span class="math inline">\(d_2\)</span> is a <strong>false positive</strong>:</p>
+<ul>
+<li>We decide that the patient has HIV when in reality they do not.</li>
+<li>Potential consequences: distress and unnecessary further investigation. (not ideal but less severe than the consequences of a false negative decision)</li>
+</ul>
+<p>Let’s put these definitions in the context of the HIV testing example with ELISA.</p>
+<p><strong>Hypotheses</strong></p>
+<ul>
+<li><span class="math inline">\(H_1\)</span>: Patient does not have HIV</li>
+<li><span class="math inline">\(H_2\)</span>: Patient has HIV</li>
+</ul>
+<p><strong>Decision</strong></p>
+<ul>
+<li><span class="math inline">\(d_1\)</span>: Choose <span class="math inline">\(H_1\)</span> - decide that the patient does not have HIV</li>
+<li><span class="math inline">\(d_2\)</span>: Choose <span class="math inline">\(H_2\)</span> - decide that the patient has HIV</li>
+</ul>
+<p><strong>Losses</strong></p>
+<ul>
+<li><p><span class="math inline">\(L(d_1) = \left\{ \begin{array}{cc} 0 &amp; \text{if $d_1$ is right}\\ w_1=1000 &amp; \text{if $d_1$ is wrong} \end{array}\right.\)</span></p></li>
+<li><p><span class="math inline">\(L(d_2) = \left\{ \begin{array}{cc} 0 &amp; \text{if $d_2$ is right}\\ w_2=10 &amp; \text{if $d_2$ is wrong} \end{array}\right.\)</span></p></li>
+</ul>
+<p>The values of <span class="math inline">\(w_1\)</span> and <span class="math inline">\(w_2\)</span> are arbitrarily chosen. But the important thing is that <span class="math inline">\(w_1\)</span>, the loss associated with a false negative determination, is much higher than <span class="math inline">\(w_2\)</span>, the loss associated with a false positive determination.</p>
+<p><strong>Posteriors</strong></p>
+<p>The plus sign means that our patient had tested positive on the ELISA.</p>
+<ul>
+<li><span class="math inline">\(P(H_1|+) \approx 0.88\)</span> - the posterior probability of the patient <strong>not</strong> having HIV given positive ELISA result</li>
+<li><span class="math inline">\(P(H_2|+) \approx 0.12\)</span> - the posterior probability of the patient having HIV given positive ELISA result, as the complement value of <span class="math inline">\(P(H_1|+)\)</span></li>
+</ul>
+<p><strong>Expected losses</strong></p>
+<ul>
+<li><span class="math inline">\(E[L(d_1)] = 0.88 \times 0 + 0.12 \times 1000 = 120\)</span></li>
+<li><span class="math inline">\(E[L(d_2)] = 0.88 \times 10 + 0.12 \times 0 = 8.8\)</span></li>
+</ul>
+<p>Since the expected loss for <span class="math inline">\(d_2\)</span> is lower, we should make this decision – the patient has HIV.</p>
+<p>Note that our decision is highly influenced by the losses we assigned to <span class="math inline">\(d_1\)</span> and <span class="math inline">\(d_2\)</span>.</p>
+<p>If the losses were symmetric, say <span class="math inline">\(w_1 = w_2 = 10\)</span>, then the expected loss for <span class="math inline">\(d_1\)</span> becomes</p>
+<p><span class="math display">\[E[L(d_1)] = 0.88 \times 0 + 0.12 \times 10 = 1.2,\]</span></p>
+<p>while the expected loss for <span class="math inline">\(d_2\)</span> would not change. Therefore, we would choose <span class="math inline">\(d_1\)</span> instead; that is, we would decide that the patient does not have HIV.</p>
+<p>To recap, Bayesian methodologies allow for the integration of losses into the decision making framework easily. And in Bayesian testing, we minimize the posterior expected loss.</p>
+</div>
+<div id="sec:bayes-factors" class="section level3">
+<h3><span class="header-section-number">3.1.4</span> Posterior Probabilities of Hypotheses and Bayes Factors</h3>
+<p>In this section, we will continue with the HIV testing example to introduce the concept of Bayes factors. Earlier, we introduced the concept of priors and posteriors. The <strong>prior odds</strong> is defined as <strong>the ratio of the prior probabilities of hypotheses</strong>.</p>
+<p>Therefore, if there are two competing hypotheses being considered, then the prior odds of <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> can be defined as <span class="math inline">\(O[H_1:H_2]\)</span>, which is equal to <span class="math inline">\(P(H_1)\)</span> over probability of <span class="math inline">\(P(H_2)\)</span>. In mathematical terms,</p>
+<p><span class="math display">\[O[H_1:H_2] = \frac{P(H_1)}{P(H_2)}\]</span></p>
+<p>Similarly, the <strong>posterior odds</strong> is <strong>the ratio of the two posterior probabilities of hypotheses</strong>, written as</p>
+<p><span class="math display">\[PO[H_1:H_2] = \frac{P(H_1|\text{data})}{P(H_2|\text{data})}\]</span></p>
+<p>Using Bayes’ rule, we can rewrite the posterior probabilities as below:</p>
+<p><span class="math display">\[\begin{aligned}
+PO[H_1:H_2] &amp;= \frac{P(H_1|\text{data})}{P(H_2|\text{data})} \\
+&amp;= \frac{(P(\text{data}|H_1) \times P(H_1)) / P(\text{data}))}{(P(\text{data}|H_2) \times P(H_2)) / P(\text{data}))} \\
+&amp;= \frac{(P(\text{data}|H_1) \times P(H_1))}{(P(\text{data}|H_2) \times P(H_2))} \\
+&amp;= \boxed{\frac{P(\text{data}|H_1)}{P(\text{data}|H_2)}} \times \boxed{\frac{P(H_1)}{P(H_2)}} \\
+&amp;= \textbf{Bayes factor} \times \textbf{prior odds}
+\end{aligned}\]</span></p>
+<p>In mathematical notation, we have</p>
+<p><span class="math display">\[PO[H_1:H_2] = BF[H_1:H_2] \times O[H_1:H_2]\]</span></p>
+<p>In other words, the posterior odds is the product of the Bayes factor and the prior odds for these two hypotheses.</p>
+<p>The Bayes factor quantifies the evidence of data arising from <span class="math inline">\(H_1\)</span> versus <span class="math inline">\(H_2\)</span>.</p>
+<p>In a discrete case, the Bayes factor is simply the ratio of the likelihoods of the observed data under the two hypotheses, written as</p>
+<p><span class="math display">\[BF[H_1:H_2] = \frac{P(\text{data}|H_1)}{P(\text{data}|H_2)}.\]</span></p>
+<p>On the other hand, in a continuous case, the Bayes factor is the ratio of the marginal likelihoods, written as</p>
+<p><span class="math display">\[BF[H_1:H_2] = \frac{\int P(\text{data}|\theta,H_1)d\theta}{\int P(\text{data}|\theta,H_2)d\theta}.\]</span></p>
+<p>Note that <span class="math inline">\(\theta\)</span> is the set formed by all possible values of the model parameters.</p>
+<p>In this section, we will stick with the simpler discrete case. And in upcoming sections, we will revisit calculating Bayes factors for more complicated models.</p>
+<p>Let’s return to the HIV testing example from earlier, where our patient had tested positive in the ELISA.</p>
+<p><strong>Hypotheses</strong></p>
+<ul>
+<li><span class="math inline">\(H_1\)</span>: Patient does not have HIV</li>
+<li><span class="math inline">\(H_2\)</span>: Patient has HIV</li>
+</ul>
+<p><strong>Priors</strong></p>
+<p>The prior probabilities we place on these hypothesis came from the prevalence of HIV at the time in the general population. We were told that the prevalence of HIV in the population was 1.48 out of 1000, hence the prior probability assigned to <span class="math inline">\(H_2\)</span> is 0.00148. And the prior assigned to <span class="math inline">\(H_1\)</span> is simply the complement of this.</p>
+<ul>
+<li><span class="math inline">\(P(H_1) = 0.99852\)</span> and <span class="math inline">\(P(H_2) = 0.00148\)</span></li>
+</ul>
+<p>The prior odds are</p>
+<ul>
+<li><span class="math inline">\(O[H_1:H_2] = \dfrac{P(H_1)}{P(H_2)} = \dfrac{0.99852}{0.00148} = 674.6757\)</span></li>
+</ul>
+<p><strong>Posteriors</strong></p>
+<p>Given a positive ELISA result, the posterior probabilities of these hypotheses can also be calculated, and these are approximately 0.88 and 0.12. We will hold on to more decimal places in our calculations to avoid rounding errors later.</p>
+<ul>
+<li><span class="math inline">\(P(H_1|+) = 0.8788551\)</span> and <span class="math inline">\(P(H_2|+) = 0.1211449\)</span></li>
+</ul>
+<p>The posterior odds are</p>
+<ul>
+<li><span class="math inline">\(PO[H_1:H_2] = \dfrac{P(H_1|+)}{P(H_2|+)} = \dfrac{0.8788551}{0.1211449} = 7.254578\)</span></li>
+</ul>
+<p><strong>Bayes Factor</strong></p>
+<p>Finally, we can calculate the Bayes factor as the ratio of the posterior odds to prior odds, which comes out to approximately 0.0108. Note that in this simple discrete case the Bayes factor, it simplifies to the ratio of the likelihoods of the observed data under the two hypotheses.</p>
+<p><span class="math display">\[\begin{aligned}
+BF[H_1:H_2] &amp;= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \approx 0.0108 \\
+&amp;= \frac{P(+|H_1)}{P(+|H_2)} = \frac{0.01}{0.93} \approx 0.0108
+\end{aligned}\]</span></p>
+<p>Alternatively, remember that the true positive rate of the test was 0.93 and the false positive rate was 0.01. Using these two values, the Bayes factor also comes out to approximately 0.0108.</p>
+<p>So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by <span class="citation">Jeffreys (<a href="#ref-jeffreys1961theory">1961</a>)</span>, as in Table <a href="introduction-to-losses-and-decision-making.html#tab:jeffreys1961">3.5</a>. If the Bayes factor is between 1 and 3, the evidence against <span class="math inline">\(H_2\)</span> is not worth a bare mention. If it is 3 to 20, the evidence is positive. If it is 20 to 150, the evidence is strong. If it is greater than 150, the evidence is very strong.</p>
+<table>
+<caption><span id="tab:jeffreys1961">Table 3.5: </span>Interpreting the Bayes factor</caption>
+<thead>
+<tr class="header">
+<th align="center">BF[H_1:H_2]</th>
+<th align="center">Evidence against H_2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1 to 3</td>
+<td align="center">Not worth a bare mention</td>
+</tr>
+<tr class="even">
+<td align="center">3 to 20</td>
+<td align="center">Positive</td>
+</tr>
+<tr class="odd">
+<td align="center">20 to 150</td>
+<td align="center">Strong</td>
+</tr>
+<tr class="even">
+<td align="center">&gt; 150</td>
+<td align="center">Very strong</td>
+</tr>
+</tbody>
+</table>
+<p>It might have caught your attention that the Bayes factor we calculated does not even appear on the scale. To obtain a Bayes factor value on the scale, we will need to change the order of our hypotheses and calculate <span class="math inline">\(BF[H_2:H_1]\)</span>, i.e. the Bayes factor for <span class="math inline">\(H_2\)</span> to <span class="math inline">\(H_1\)</span>. Then we look for evidence against <span class="math inline">\(H_1\)</span> instead.</p>
+<p>We can calculate <span class="math inline">\(BF[H_2:H_1]\)</span> as a reciprocal of <span class="math inline">\(BF[H_1:H_2]\)</span> as below:</p>
+<p><span class="math display">\[BF[H_2:H_1] = \frac{1}{BF[H_1:H_2]} = \frac{1}{0.0108} = 92.59259\]</span></p>
+<p>For our data, this comes out to approximately 93. Hence the evidence against <span class="math inline">\(H_1\)</span> (the patient does not have HIV) is strong. Therefore, even though the posterior for having HIV given a positive result, i.e. <span class="math inline">\(P(H_2|+)\)</span>, was low, we would still decide that the patient has HIV, according to the scale based on a positive ELISA result.</p>
+<p>An intuitive way of thinking about this is to consider not only the posteriors, but also the priors assigned to these hypotheses. Bayes factor is the ratio of the posterior odds to prior odds. While 12% is a low posterior probability for having HIV given a positive ELISA result, this value is still much higher than the overall prevalence of HIV in the population (in other words, the prior probability for that hypothesis).</p>
+<p>Another commonly used scale for interpreting Bayes factors is proposed by <span class="citation">Kass and Raftery (<a href="#ref-kass1995bayes">1995</a>)</span>, and it deals with the natural logarithm of the calculated Bayes factor. The values can be interpreted in Table <a href="introduction-to-losses-and-decision-making.html#tab:kass1995">3.6</a>.</p>
+<table>
+<caption><span id="tab:kass1995">Table 3.6: </span>Interpreting the Bayes factor</caption>
+<thead>
+<tr class="header">
+<th align="center">2*log(BF[H_2:H_1])</th>
+<th align="center">Evidence against H_1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0 to 2</td>
+<td align="center">Not worth a bare mention</td>
+</tr>
+<tr class="even">
+<td align="center">2 to 6</td>
+<td align="center">Positive</td>
+</tr>
+<tr class="odd">
+<td align="center">6 to 10</td>
+<td align="center">Strong</td>
+</tr>
+<tr class="even">
+<td align="center">&gt; 10</td>
+<td align="center">Very strong</td>
+</tr>
+</tbody>
+</table>
+<p>Reporting of the log scale can be helpful for numerical accuracy reasons when the likelihoods are very small. Taking two times the natural logarithm of the Bayes factor we calculated earlier, we would end up with the same decision that the evidence against <span class="math inline">\(H_1\)</span> is strong.</p>
+<p><span class="math display">\[2 \times \log(92.59259) = 9.056418\]</span></p>
+<p>To recap, we defined prior odds, posterior odds, and the Bayes factor. We learned about scales by which we can interpret these values for model selection. We also re-emphasize that in Bayesian testing, the order in which we evaluate the models of hypotheses does <strong>not</strong> matter. The Bayes factor of <span class="math inline">\(H_2\)</span> versus <span class="math inline">\(H_1\)</span>, <span class="math inline">\(BF[H_2:H_1]\)</span>, is simply the reciprocal of the Bayes factor for <span class="math inline">\(H_1\)</span> versus <span class="math inline">\(H_2\)</span>, that is, <span class="math inline">\(BF[H_1:H_2]\)</span>.</p>
+
+</div>
+</div>
+<div id="inference-and-decision-making-with-multiple-parameters" class="section level2">
+<h2><span class="header-section-number">3.2</span> Inference and Decision-Making with Multiple Parameters</h2>
+<p>This section is focused on the extending the Normal-Normal conjugate family introduced in <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a> to the problem of inference in a Normal population with an unknown mean and variance. We will introduce the Normal-Gamma conjugate family for inference about the unknown mean and variance and will present Monte Carlo simulation for inference about functions of the parameters as well as sampling from predictive distributions, which can assist with prior elucidation. For situations when limited prior information is available, we discuss a limiting case of the Normal-Gamma conjugate family, leading to priors that can be used for a reference analysis. Finally, we will show how to create a more flexible and robust prior distribution by using mixtures of the Normal-Gamma conjugate prior. For inference in this case we will introduce Markov Chain Monte Carlo, a powerful simulation method for Bayesian inference.</p>
+<p>It is assumed that the readers have mastered the concepts of one-parameter Normal-Normal conjugate priors. Calculus is not required for this section; however, for those who are comfortable with calculus and would like to go deeper, we shall present starred sections with more details on the derivations.</p>
+<div id="sec:normal-gamma" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> The Normal-Gamma Conjugate Family</h3>
+<p>In <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a> we described the normal-normal conjugate family for inference about an unknown mean <span class="math inline">\(\mu\)</span> with a known standard deviation <span class="math inline">\(\sigma\)</span> when the data were assumed to be a random sample from a normal population. In this section we will introduce the normal-gamma conjugate family for the common situation when <span class="math inline">\(\sigma\)</span> is unknown. As both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> unknown, we will need to specify a <strong>joint</strong> prior distribution to describe our prior uncertainty about them.</p>
+<p><strong>Sampling Model</strong></p>
+<p>Recall that a conjugate pair is a sampling model for the data and prior distribution for the unknown parameters such that the posterior distribution is in the same family of distributions as the prior distribution. We will assume that the data are a random sample of size <span class="math inline">\(n\)</span> from a normal population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>; the following is a mathematical shorthand to represent this distribution assumption</p>
+<p><span class="math display" id="eq:04-conjugate-gamma" id="eq:04-conjugate-normal">\[\begin{aligned}
+Y_1, \ldots Y_n  {\mathrel{\mathop{\sim}\limits^{\rm iid}}}\textsf{N}(\mu, \sigma^2) 
+\end{aligned}\]</span> where the ‘iid’ above the distributed as symbol ‘<span class="math inline">\(\sim\)</span>’ indicates that each of the observations are <strong>i</strong>ndependent of the others (given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>) and are <strong>i</strong>dentically <strong>d</strong>istributed.</p>
+<strong>Conjugate prior</strong> Back in <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a>, we found that with normal data, the conjugate prior for <span class="math inline">\(\mu\)</span> when the standard deviation <span class="math inline">\(\sigma\)</span> was known was a normal distribution. We will build on this to specify a conditional prior distribution for <span class="math inline">\(\mu\)</span> as
+\begin{equation}
+\mu \mid \sigma^2   \sim  \textsf{N}(m_0, \sigma^2/n_0)
+\tag{3.1}
+\end{equation}
+<p>with hyper-parameters <span class="math inline">\(m_0\)</span>, the prior mean for <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(\sigma^2/n_0\)</span> the prior variance. While previously the variance was a known constant <span class="math inline">\(\tau^2\)</span>, replacing <span class="math inline">\(\tau^2\)</span> with a multiple of <span class="math inline">\(\sigma^2\)</span> is needed for representing the joint conjugate prior for the mean and variance. Because <span class="math inline">\(\sigma\)</span> has the same units as the data, the hyper-parameter <span class="math inline">\(n_0\)</span> is unitless, but is used to express our prior precision about <span class="math inline">\(\mu\)</span> with larger values of <span class="math inline">\(n_0\)</span> indicating more precision and smaller values less precision. We will see later how the hyper-parameter <span class="math inline">\(n_0\)</span> may be interpreted as a prior sample size.</p>
+As <span class="math inline">\(\sigma^2\)</span> is unknown, a Bayesian would use a prior distribution to describe the uncertainty about the variance before seeing data. Since the variance is non-negative, continuous, and with no upper limit, a gamma distribution is a candidate prior for the variance, based on the distributions that we have seen so far. However, that choice does not lead to a posterior distribution in the same family or that is recognizable as any common distribution. It turns out that the the inverse of the variance, which is known as the precision, has a conjugate gamma prior distribution. Letting <span class="math inline">\(\phi = 1/\sigma^2\)</span> denote the precision or inverse variance, the conjugate prior for <span class="math inline">\(\phi\)</span>,
+\begin{equation}
+\phi \sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right)
+\tag{3.2}
+\end{equation}
+<p>is a gamma distribution with hyper-parameters <span class="math inline">\(v_0\)</span>, prior degrees of freedom, and <span class="math inline">\(s^2_0\)</span> a prior variance or guess for <span class="math inline">\(\sigma^2\)</span>. Equivalently we may say that the inverse of the variance has a <span class="math display">\[1/\sigma^2 \sim \textsf{Gamma}(v_0/2, s^2_0 v_0/2)\]</span></p>
+gamma distribution to avoid using a new symbol. Together the Normal conditional distribution for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> in <a href="introduction-to-losses-and-decision-making.html#eq:04-conjugate-normal">(3.1)</a> and the marginal Gamma distribution for <span class="math inline">\(\phi\)</span> in <a href="introduction-to-losses-and-decision-making.html#eq:04-conjugate-gamma">(3.2)</a> lead to a joint distribution for the pair <span class="math inline">\((\mu, \phi)\)</span> that we will call the Normal-Gamma family of distributions:
+\begin{equation}(\mu, \phi) \sim \textsf{NormalGamma}(m_0, n_0, s^2_0, v_0)
+(\#eq:04-conjugate-normal-gamma)
+\end{equation}
+<p>with the four hyper-parameters <span class="math inline">\(m_0\)</span>, <span class="math inline">\(n_0\)</span>, <span class="math inline">\(s^2_0\)</span>, and <span class="math inline">\(v_0\)</span>.</p>
+<p><strong>Posterior Distribution</strong></p>
+As a conjugate family, the posterior distribution of the pair of parameters (<span class="math inline">\(\mu, \phi\)</span>) is in the same family as the prior distribution when the sample data arise from a normal distribution, that is the posterior is also Normal-Gamma
+\begin{equation}
+(\mu, \phi) \mid \text{data} \sim \textsf{NormalGamma}(m_n, n_n, s^2_n, v_n)
+\end{equation}
+where the subscript <span class="math inline">\(n\)</span> on the hyper-parameters indicates the updated values after seeing the <span class="math inline">\(n\)</span> observations. One attraction to conjugate families is there are relatively simple updating rules for obtaining the new hyper-parameters:
+\begin{eqnarray*}
+m_n &amp; = &amp; \frac{n \bar{Y} + n_0 m_0} {n + n_0}  \\
+&amp; \\
+n_n &amp; = &amp; n_0 + n  \\
+v_n &amp; = &amp; v_0 + n  \\
+s^2_n &amp; =  &amp; \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n} (\bar{Y} - m_0)^2 \right]. 
+\end{eqnarray*}
+<p>The updated hyper-parameter <span class="math inline">\(m_n\)</span> in the posterior distribution of <span class="math inline">\(\mu\)</span> is the posterior mean, which is a weighted average of the sample mean <span class="math inline">\(\bar{Y}\)</span> and prior mean <span class="math inline">\(m_0\)</span> with weights <span class="math inline">\(n/(n + n_0\)</span> and <span class="math inline">\(n_0/(n + n_0)\)</span> respectively and does not depend on <span class="math inline">\(\sigma^2\)</span>. The posterior sample size <span class="math inline">\(n_n\)</span> is the sum of the prior sample size <span class="math inline">\(n_n\)</span> and the sample size <span class="math inline">\(n\)</span>, representing the combined precision of the estimate for <span class="math inline">\(\mu\)</span>. The posterior degrees of freedom <span class="math inline">\(v_n\)</span> are also increased by adding the sample size <span class="math inline">\(n\)</span> to the prior degrees of freedom <span class="math inline">\(v_0\)</span>. Finally, the posterior variance hyper-parameter <span class="math inline">\(s^2_n\)</span> combines three sources of information about <span class="math inline">\(\sigma\)</span> in terms of sums of squared deviations. <strong>FILL IN MORE DETAILS</strong> The first term in the square brackets is the sample variance times the sample degrees of freedom which is the sample sum of squares. The second term represents the prior sum of squares, while the third term is based on the squared difference of the sample mean and prior mean. We then divide by the posterior degrees of freedom to get the new hyper-parameter.</p>
+<p>The joint Normal-Gamma distribution for the pair <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span>, <span class="math display">\[(\mu, \phi) \mid {\text{data}}\sim {\textsf{NormalGamma}}(m_n, n_n, s^2_n, v_n)\]</span> is equivalent to a <strong>hierarchical model</strong> specified in two stages with <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma\)</span> having a conditional normal distribution <span class="math display">\[\mu \mid {\text{data}}, \sigma^2  \sim  {\textsf{N}}(m_n, \sigma^2/n_n)\]</span> and the inverse variance marginally <span class="math display">\[
+1/\sigma^2 \mid {\text{data}}\sim   {\textsf{Gamma}}(v_n/2, s^2_n v_n/2) 
+\]</span> having a gamma distribution. We will see in the next section how this representation is convenient for generating samples from the posterior distribution.</p>
+<p><strong>Marginal Distribution for <span class="math inline">\(\mu\)</span></strong></p>
+<p>We are generally interested in inference about <span class="math inline">\(\mu\)</span> unconditionally as <span class="math inline">\(\sigma^2\)</span> is unknown. This marginal inference requires the unconditional or marginal distribution of <span class="math inline">\(\mu\)</span> that `averages’ over the uncertainty in <span class="math inline">\(\sigma\)</span>. For continuous variables like <span class="math inline">\(\sigma\)</span>, this averaging is performed by integration leading to the following result:</p>
+<span class="math inline">\(\mu\)</span> given the data is a  <span class="math display">\[ \mu \mid {\text{data}}\sim {\textsf{t}}(v_n, m_n, s^2_n/n_n)  \]</span> with density
+\begin{equation}
+p(\mu) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
+{\sqrt{\pi v_n} \frac{s_n}{\sqrt{n_n}} \,\Gamma\left(\frac{v_n}{2} \right)}
+\left(1 + \frac{1}{v_n}\frac{(\mu - m_n)^2} {s^2_n/n_n} \right)^{-\frac{v_n+1}{2}} 
+(\#eq:Student-t-density)
+\end{equation}
+<p>with the degrees of freedom <span class="math inline">\(v_n\)</span>, a location parameter <span class="math inline">\(m_n\)</span> and squared scale parameter that is the posterior variance parameter divided by the posterior sample size. A standard Student <span class="math inline">\(t\)</span> random variable can be obtained by taking <span class="math inline">\(\mu\)</span> and subtracting the location <span class="math inline">\(m_n\)</span> and dividing by the scale <span class="math inline">\(s_n/\sqrt{n}\)</span>: <span class="math display">\[ \frac{\mu - m_n}{s_n/\sqrt{n_n}} \equiv t \sim {\textsf{t}}(v_n, 0 , 1)  \]</span> with degrees of freedom <span class="math inline">\(v_n\)</span>, location <span class="math inline">\(0\)</span> and scale <span class="math inline">\(1\)</span> in the expression for the density in <a href="#eq:Student-t-density">(<strong>??</strong>)</a>. This latter representation allows us to use standard statistical functions for posterior inference such as finding credible intervals.</p>
+<p>The Student <span class="math inline">\(t\)</span> distribution is similar to the normal distribution as it is symmetric and bell shaped, however, the <strong>tails</strong> of the distribution are fatter or heavier than the normal distribution. The parameters <span class="math inline">\(m_n\)</span> and <span class="math inline">\(s^2_n\)</span> play similar roles in determining the center and spread of the distribution, as in the Normal distribution, however, as Student <span class="math inline">\(t\)</span> distributions with degrees of freedom less than 3 do not have a mean or variance, the parameter <span class="math inline">\(m_n\)</span> is called the location or center of the distribution and the <span class="math inline">\(s_n/\sqrt{n}\)</span> is the scale.</p>
+<p><strong>Example</strong></p>
+<p>Let’s look at an example based on a sample of total trihalomethanes or TTHM in tap water from a city in NC. The data can be loaded from the <code>statsr</code> package</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
+<span class="kw">data</span>(tapwater)</code></pre></div>
+<p>Using prior information about TTHM from the city, we will use a Normal-Gamma prior distribution, <span class="math inline">\(\textsf{NormalGamma}(35, 25, 156.25, 24)\)</span> with a prior mean of 35 parts per billion, a prior sample size of 25, an estimate of the variance of 156.25 with degrees of freedom 24. In section <a href="introduction-to-losses-and-decision-making.html#sec:NG-predictive">3.2.3</a>, we will describe how we arrived at these values.</p>
+Using the summaries of the data, <span class="math inline">\(\bar{Y} = 55.5\)</span>, variance <span class="math inline">\(s^2 = 540.7\)</span> and sample size of <span class="math inline">\(n = 28\)</span> with the prior hyper-parameters from above, the posterior hyper-parameters are updated as follows:
+\begin{eqnarray*}
+n_n &amp; = &amp;  25 +  28 = 53\\
+m_n  &amp; = &amp; \frac{28 \times55.5 + 25 \times35}{53} = 45.8  \\
+v_n &amp; = &amp; 24 + 28 = 52  \\
+s^2_n &amp; = &amp; \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }{v_n}  \\
+  &amp; = &amp; \frac{1}{52}
+     \left[27 \times 540.7 +
+          24 \times 156.25  +
+          \frac{25 \times 28}{53} \times (35 - 55.5)^2
+\right] = 459.9  \\
+\end{eqnarray*}
+<p>in the conjugate <span class="math inline">\(\textsf{NormalGamma}(45.8, 53, 459.9, 52)\)</span> posterior distribution that now summarizes our uncertainty about <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(\sigma^2\)</span>) after seeing the data.</p>
+<p>We can obtain the updated hyper-parameters in <code>R</code> using the following code in <code>R</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># prior hyperparameters</span>
+m_0 =<span class="st"> </span><span class="dv">35</span>; n_0 =<span class="st"> </span><span class="dv">25</span>;  s2_0 =<span class="st"> </span><span class="fl">156.25</span>; v_0 =<span class="st"> </span>n_0 -<span class="st"> </span><span class="dv">1</span>
+<span class="co"># sample summaries</span>
+Y =<span class="st"> </span>tapwater$tthm
+ybar =<span class="st"> </span><span class="kw">mean</span>(Y)
+s2 =<span class="st"> </span><span class="kw">var</span>(Y)
+n =<span class="st"> </span><span class="kw">length</span>(Y)
+<span class="co"># posterior hyperparamters</span>
+n_n =<span class="st"> </span>n_0 +<span class="st"> </span>n
+m_n =<span class="st"> </span>(n*ybar +<span class="st"> </span>n_0*m_0)/n_n
+v_n =<span class="st"> </span>v_0 +<span class="st"> </span>n
+s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)*s2 +<span class="st"> </span>v_0*s2_0 +<span class="st"> </span>n_0*n*(m_0 -<span class="st"> </span>ybar)^<span class="dv">2</span>/n_n)/v_n</code></pre></div>
+<p><strong>Credible intervals for <span class="math inline">\(\mu\)</span></strong></p>
+<p>To find a credible interval for the mean <span class="math inline">\(\mu\)</span>, we use the Student <span class="math inline">\(t\)</span> distribution. Since the distribution of <span class="math inline">\(\mu\)</span> is unimodal and symmetric, the shortest 95 percent credible interval or the <strong>Highest Posterior Density</strong> interval, HPD for short,</p>
+<p><img src="03-decision-02-normal-gamma_files/figure-html/tapwater-post-mu-1.png" width="384" /></p>
+<p>is the orange interval given by the Lower endpoint L and upper endpoint U where the probability that mu is in the interval (L, U) is the shaded area which is equal to zero point nine five.</p>
+<p>using the standardized t distribution and some algebra, these values are <span class="math display">\[
+\begin{aligned}
+  L &amp; =  m_n + t_{0.025}\sqrt{s^2_n/n_n}    \\
+  U &amp; =  m_n + t_{0.975}\sqrt{s^2_n/n_n}
+\end{aligned}
+\]</span> or the posterior mean (our point estimate) plus quantiles of the standard <span class="math inline">\(t\)</span> distribution times the scale. Because of the symmetry in the Student <span class="math inline">\(t\)</span> distribution, the credible interval is <span class="math inline">\(m_n \pm t_{0.975}\sqrt{s^2_n/n_n}\)</span>, which should look familiar to expressions for confidence intervals.</p>
+<p>Using the following code in <code>R</code> the 95% credible interval for the tap water data is</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_n +<span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), v_n)*<span class="kw">sqrt</span>(s2_n/n_n)</code></pre></div>
+<pre><code>## [1] 39.93192 51.75374</code></pre>
+<p>Based on the updated posterior, we find that there is a 95 chance that the mean TTHM concentration is between 39.9 parts per billion and 51.7 parts per billion.</p>
+<p><strong>Summary</strong> The Normal-Gamma conjugate prior for inference about an unknown mean and variance for samples from a normal distribution allows simple expressions for updating prior beliefs given the data. The joint Normal-Gamma distribution leads to the Student <span class="math inline">\(t\)</span> distribution for inference about <span class="math inline">\(\mu\)</span> when <span class="math inline">\(\sigma\)</span> is unknown. The Student <span class="math inline">\(t\)</span> distribution can be used to provide credible intervals for <span class="math inline">\(\mu\)</span> using <code>R</code> or other software that provides quantiles of a standard <span class="math inline">\(t\)</span> distribution.</p>
+<p>For the energetic learner who is comfortable with calculus, the following optional material provides more details on how the posterior distributions were obtained and other results in this section.</p>
+<p>For those that are ready to move on, we will introduce Monte Carlo sampling in the next section; Monte Carlo Sampling is a simulation method that will allow us to approximate distributions of transformations of the parameters without using calculus or change of variables, as well as aid exploratory data analysis of the prior or posterior distribution.</p>
+<p><strong>Details of Results (optional reading)</strong></p>
+<p>TBA</p>
+</div>
+<div id="sec:NG-MC" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Monte Carlo Inference</h3>
+<p>In this section, we will illustrate Monte Carlo sampling from posterior distributions and how it can be used for inference. In Section <a href="introduction-to-losses-and-decision-making.html#sec:normal-gamma">3.2.1</a>, we can get the posterior distributions for the precision (inverse variance), and the mean given the precision. Then the marginal distribution of the mean can be obtained via integration.</p>
+<p>Here is a recap of the joint posterior distribution for the mean <span class="math inline">\(\mu\)</span> and the precision <span class="math inline">\(\phi = 1/\sigma^2\)</span>:</p>
+<ul>
+<li>Conditional posterior <span class="math inline">\(\mu \mid {\text{data}}, \sigma^2 \sim {\textsf{N}}(m_n, \sigma^2/n_n)\)</span></li>
+<li>Marginal posterior <span class="math inline">\(1/\sigma^2 = \phi \mid {\text{data}}\sim {\textsf{Gamma}}(v_n/2,s^2_n v_n/2)\)</span></li>
+<li>Marginal posterior <span class="math inline">\(\mu \mid {\text{data}}\sim {\textsf{t}}(v_n, m_n, s^2_n/n_n)\)</span></li>
+</ul>
+<p>What if we are interested in the distribution of the standard deviation <span class="math inline">\(\sigma\)</span> itself, or other transformations of the parameters? There may not be a closed-form expression for the distributions.</p>
+<p>However, it turns out that <strong>Monte Carlo sampling</strong> is an easy way to make inference, when we cannot analytically calculate distributions of parameters, expectations, or probabilities. Monte Carlo methods are computational algorithms that rely on repeated random sampling to calculate numerical results. The name refers to the famous Monte Carlo Casino in Monaco, home to games of chance such as Roulette.</p>
+<p>Let’s start with a case where we know the posterior distribution.</p>
+<p>For posterior inference about the precision <span class="math inline">\(\phi\)</span> using Monte Carlo simulation, we generate <span class="math inline">\(S\)</span> random samples from the posterior distribution:</p>
+<p><span class="math display">\[\phi^{(1)},\phi^{(2)},\cdots,\phi^{(S)} {\mathrel{\mathop{\sim}\limits^{\rm iid}}}{\textsf{Gamma}}(v_n/2,s^2_n v_n/2)\]</span></p>
+<p>The term <strong>iid</strong> stands for <strong>i</strong>ndependent and <strong>i</strong>dentically <strong>d</strong>istributed. In other words, the <span class="math inline">\(S\)</span> draws of <span class="math inline">\(\phi\)</span> are independent and identically distributed from the gamma distribution.</p>
+<p>Then the empirical distribution of the <span class="math inline">\(S\)</span> samples is used to approximate the actual posterior distribution. From the samples, the sample mean of the draws of <span class="math inline">\(\phi\)</span> can be used to approximate the posterior mean of <span class="math inline">\(\phi\)</span>.</p>
+<p>Likewise, we can calculate probabilities, quantiles and other functions using the samples from the posterior distribution. For example, if we want to calculate the posterior expectation of some function of <span class="math inline">\(\phi\)</span>, written as <span class="math inline">\(g(\phi)\)</span>, we can approximate that by taking the average of the function, and evaluate it at the <span class="math inline">\(S\)</span> draws of <span class="math inline">\(\phi\)</span>, written as <span class="math inline">\(\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)})\)</span>.</p>
+<p>The approximation improves as the size of the Monte Carlo simulation <span class="math inline">\(S\)</span> increases.</p>
+<p><span class="math display">\[\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)}) \rightarrow E(g(\phi \mid {\text{data}}))\]</span></p>
+<p><strong>Example</strong></p>
+<p>We will apply this with the tap water example. To start, we will set a random seed, which allows the results to be replicated. To generate 1,000 draws from the gamma posterior distribution, we use the <code>rgamma</code> function <code>R</code> with the posterior hyperparameters from last time.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">8675309</span>)
+phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>, <span class="dt">shape =</span> v_n/<span class="dv">2</span>, <span class="dt">rate=</span>s2_n*v_n/<span class="dv">2</span>)</code></pre></div>
+<p>Figure <a href="introduction-to-losses-and-decision-making.html#fig:phi-plot">3.5</a> shows the histogram of the 1,000 draws of <span class="math inline">\(\phi\)</span> generated from the Monte Carlo simulation, representing the empirical distribution. The orange line represents the actual gamma posterior density.</p>
+<div class="figure" style="text-align: center"><span id="fig:phi-plot"></span>
+<img src="03-decision-02-normal-gamma_files/figure-html/phi-plot-1.png" alt="Empirical distribution of the tap water example" width="384" />
+<p class="caption">
+Figure 3.5: Empirical distribution of the tap water example
+</p>
+</div>
+<p>Try changing the random seed or increasing the number of simulations, and see how the approximation changes.</p>
+<p>We will now use Monte Carlo simulations to approximate the distribution of <span class="math inline">\(\sigma\)</span>. Since <span class="math inline">\(\sigma = 1/\sqrt{\phi}\)</span>, we can apply the transformation to the 1,000 draws of <span class="math inline">\(\phi\)</span> to obtain a random sample of <span class="math inline">\(\sigma\)</span>. We can then estimate the posterior mean of <span class="math inline">\(\sigma\)</span> by calculating the sample mean of the 1,000 draws.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sigma =<span class="st"> </span><span class="dv">1</span>/<span class="kw">sqrt</span>(phi)
+<span class="kw">mean</span>(sigma) <span class="co"># posterior mean of sigma</span></code></pre></div>
+<pre><code>## [1] 21.81346</code></pre>
+<p>Similarly, we can obtain a 95% credible interval for <span class="math inline">\(\sigma\)</span> by finding the sample quantiles of the distribution.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(sigma, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</code></pre></div>
+<pre><code>##     2.5%    97.5% 
+## 18.20655 26.53671</code></pre>
+<p><strong>Summary</strong></p>
+<p>To recap, we have introduced the powerful method of Monte Carlo simulation for posterior inference. Monte Carlo methods provide estimates of expectations, probabilities, and quantiles of distributions from the simulated values. Monte Carlo simulation also allows us to approximate distributions of functions of the parameters, or the transformations of the parameters.</p>
+<p>Next we will discuss predictive distributions and show how Monte Carlo simulation may be used to help choose prior hyperparameters, using the prior predictive distribution of data.</p>
+</div>
+<div id="sec:NG-predictive" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> Predictive Distributions</h3>
+<p>In this section, we will discuss prior and posterior <strong>predictive</strong> distributions of the data and show how Monte Carlo sampling from the prior predictive distribution can help select hyper parameters.</p>
+<p>We can obtain the prior predictive distribution of the data, by taking the joint distribution of the data and the parameters in averaging over the possible values of the parameters from the prior.</p>
+<ul>
+<li>Prior:</li>
+</ul>
+<p><span class="math display">\[ \begin{aligned}
+\frac{1}{\sigma^2} = \phi &amp;\sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right) \\
+\mu \mid \sigma^2  &amp;\sim  \textsf{N}(m_0, \sigma^2/n_0)
+\end{aligned} \]</span></p>
+<ul>
+<li>Sampling model:</li>
+</ul>
+<p><span class="math display">\[Y_i \mid \mu,\sigma^2 {\mathrel{\mathop{\sim}\limits^{\rm iid}}}{\textsf{N}}(\mu, \sigma^2) \]</span></p>
+<ul>
+<li>Prior predictive distribution for <span class="math inline">\(Y\)</span>:</li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+p(Y) &amp;= \iint p(Y \mid \mu,\sigma^2) p(\mu \mid \sigma^2) p(\sigma^2) d\mu \, d\sigma^2 \\
+Y &amp;\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
+\end{aligned}\]</span></p>
+<p>This distribution of the observables can be used to help elicit prior hyper parameters as in the tap water example.</p>
+<p>A report from the city water department suggests that levels of TTHM are expected to be between 10-60 parts per billion (ppb).</p>
+<ul>
+<li><p>Set the prior mean <span class="math inline">\(\mu\)</span> to be at the midpoint of the interval: <span class="math inline">\(m_0 = (60+10)/2 = 35\)</span></p></li>
+<li><p>Standard deviation: Based on the empirical rule, 95% observations are within <span class="math inline">\(\pm 2\sigma\)</span> of <span class="math inline">\(\mu\)</span>, we expect that the range of the data should be <span class="math inline">\(4\sigma\)</span>.</p></li>
+<li><p>Prior estimate of sigma: <span class="math inline">\(s_0 = (60-10)/4 = 12.5\)</span> or <span class="math inline">\(s_0^2 = [(60-10)/4]^2 = 156.25\)</span></p></li>
+</ul>
+<p>To complete the specification, we also need to choose the prior sample size <span class="math inline">\(n_0\)</span> and degrees of freedom <span class="math inline">\(v_0\)</span>. As the degrees of freedom of the variance are <span class="math inline">\(n-1\)</span>, we set <span class="math inline">\(v_0 = n_0 - 1\)</span>. We will draw samples from the prior predictive distribution and modify <span class="math inline">\(n_0\)</span> so that the simulated data agree with our prior assumptions.</p>
+<p>The following <code>R</code> code shows a simulation from the predictive distribution with the prior sample size of 2. Please note that the number of Monte Carlo simulations should not be confused with the prior sample size <span class="math inline">\(n_0\)</span>.</p>
+<p>We begin by simulating <span class="math inline">\(\phi\)</span>, transfering <span class="math inline">\(\phi\)</span> to calculate <span class="math inline">\(\sigma\)</span>, and then simulating values of <span class="math inline">\(\mu\)</span>. Finally, the simulated values of <span class="math inline">\(\mu,\sigma\)</span> are used to generate possible values of TTHM denoted by <span class="math inline">\(Y\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_0 =<span class="st"> </span>(<span class="dv">60+10</span>)/<span class="dv">2</span>; s2_0 =<span class="st"> </span>((<span class="dv">60-10</span>)/<span class="dv">4</span>)^<span class="dv">2</span>;
+n_0 =<span class="st"> </span><span class="dv">2</span>; v_0 =<span class="st"> </span>n_0 -<span class="st"> </span><span class="dv">1</span>
+<span class="kw">set.seed</span>(<span class="dv">1234</span>)
+phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_0/<span class="dv">2</span>, s2_0*v_0/<span class="dv">2</span>)
+sigma =<span class="st"> </span><span class="dv">1</span>/<span class="kw">sqrt</span>(phi)
+mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_0, <span class="dt">sd=</span>sigma/(<span class="kw">sqrt</span>(n_0)))
+y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, mu, sigma)
+<span class="kw">quantile</span>(y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre></div>
+<pre><code>##      2.5%     97.5% 
+## -140.1391  217.7050</code></pre>
+<p>This forward simulation propagates uncertainty in <span class="math inline">\(\mu,\sigma\)</span> to the prior predictive distribution of the data. Calculating the sample quantiles from the samples of the prior predictive for <span class="math inline">\(Y\)</span>, we see that the 95% predictive interval includes negative values. Since TTHM is non-negative, we need to adjust <span class="math inline">\(n_0\)</span> and repeat.</p>
+<p>After some trial and error, we find that the prior sample size of 25 (in fact the Central Limit Theorem suggests at least 25 or 30 to be “sufficiently large”), the empirical quantiles from the prior predictive distribution are close to the range of 10 to 16 that we were given as prior information.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_0 =<span class="st"> </span>(<span class="dv">60+10</span>)/<span class="dv">2</span>; s2_0 =<span class="st"> </span>((<span class="dv">60-10</span>)/<span class="dv">4</span>)^<span class="dv">2</span>;
+n_0 =<span class="st"> </span><span class="dv">25</span>; v_0 =<span class="st"> </span>n_0 -<span class="st"> </span><span class="dv">1</span>
+<span class="kw">set.seed</span>(<span class="dv">1234</span>)
+phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_0/<span class="dv">2</span>, s2_0*v_0/<span class="dv">2</span>)
+sigma =<span class="st"> </span><span class="dv">1</span>/<span class="kw">sqrt</span>(phi)
+mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_0, <span class="dt">sd=</span>sigma/(<span class="kw">sqrt</span>(n_0)))
+y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, mu, sigma)
+<span class="kw">quantile</span>(y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre></div>
+<pre><code>##      2.5%     97.5% 
+##  8.802515 61.857350</code></pre>
+<p>Figure <a href="introduction-to-losses-and-decision-making.html#fig:hist-prior">3.6</a> shows an estimate of the prior distribution of <span class="math inline">\(\mu\)</span> in gray and the more dispersed prior predictive distribution in TTHM in orange, obtained from the Monte Carlo samples.</p>
+<div class="figure" style="text-align: center"><span id="fig:hist-prior"></span>
+<img src="03-decision-02-normal-gamma_files/figure-html/hist-prior-1.png" alt="Prior density" width="672" />
+<p class="caption">
+Figure 3.6: Prior density
+</p>
+</div>
+<p>Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(y &lt;<span class="st"> </span><span class="dv">0</span>)/<span class="kw">length</span>(y)  <span class="co"># P(Y &lt; 0) a priori</span></code></pre></div>
+<pre><code>## [1] 0.0049</code></pre>
+<p>With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we can still use the conjugate normal gamma model for analysis.</p>
+<p>We can use the same strategy to generate samples from the predictive distribution of a new measurement <span class="math inline">\(Y_{n+1}\)</span> given the observed data. In mathematical terms, the posterior predictive distribution is written as</p>
+<p><span class="math display">\[Y_{n+1} \mid Y_1, \ldots, Y_n \sim {\textsf{t}}(v_n, m_n, s^2_n (1 + 1/n_n))\]</span></p>
+<p>In the code, we replace the prior hyper parameters with the posterior hyper parameters from last time.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1234</span>)
+phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_n/<span class="dv">2</span>, s2_n*v_n/<span class="dv">2</span>)
+sigma =<span class="st"> </span><span class="dv">1</span>/<span class="kw">sqrt</span>(phi)
+post_mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_n, <span class="dt">sd=</span>sigma/(<span class="kw">sqrt</span>(n_n)))
+pred_y =<span class="st">  </span><span class="kw">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)
+<span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</code></pre></div>
+<pre><code>##      2.5%     97.5% 
+##  3.324087 89.871964</code></pre>
+<p>Figure <a href="introduction-to-losses-and-decision-making.html#fig:hist-pred">3.7</a> shows the Monte Carlo approximation to the prior distribution of <span class="math inline">\(\mu\)</span>, and the posterior distribution of <span class="math inline">\(\mu\)</span> which is shifted to the right. The prior and posterior predictive distributions are also depicted, showing how the data have updated the prior information.</p>
+<div class="figure" style="text-align: center"><span id="fig:hist-pred"></span>
+<img src="03-decision-02-normal-gamma_files/figure-html/hist-pred-1.png" alt="Posterior densities" width="672" />
+<p class="caption">
+Figure 3.7: Posterior densities
+</p>
+</div>
+<p>Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(pred_y &gt;<span class="st"> </span><span class="dv">80</span>)/<span class="kw">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></code></pre></div>
+<pre><code>## [1] 0.0623</code></pre>
+<p>By using Monte-Carlo methods, we can obtain prior and posterior predictive distributions of the data.</p>
+<ul>
+<li><p>Sampling from the prior predictive distribution can help with the selection of prior hyper parameters and verify that these choices reflect the prior information that is available.</p></li>
+<li><p>Visualizing prior predictive distributions based on Monte Carlo simulations can help explore implications of our prior assumptions such as the choice of the hyper parameters or even assume distributions.</p></li>
+<li><p>If samples are incompatible with known information, such as support on positive values, we may need to modify assumptions and look at other families of prior distributions.</p></li>
+</ul>
+</div>
+<div id="sec:NG-reference" class="section level3">
+<h3><span class="header-section-number">3.2.4</span> Reference Priors</h3>
+<p>In Section <a href="introduction-to-losses-and-decision-making.html#sec:NG-predictive">3.2.3</a>, we described a way of specifying an informative prior distribution for inference about TTHM in tapwater based on additional prior information. We had to use a prior sample size that was comparable to the observed sample size for the prior predictive under the Normal-Gamma distribution to agree with the reported prior interval.</p>
+<p>However, there may be cases where prior information is not available, or you may wish to present an objective analysis where minimal prior information is used. Or perhaps, you want to use the Bayesian paradigm to make probability statements about parameters, but not use any prior information.</p>
+<p>In this section, we will present reference priors for normal data, which can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution. <strong>Can you actually perform a Bayesian analysis without using prior information?</strong></p>
+<p>Conjugate priors can be interpreted to be based on a prior sample. What happens in the conjugate Normal-Gamma prior if we take our prior sample size <span class="math inline">\(n_0\)</span> to go to zero? If we have no data, then we will define the prior sample variance <span class="math inline">\(s_0^2\)</span> to go to 0, and based on the relationship between prior sample sized and prior degrees of freedom, we will let the prior degrees of freedom go to the prior sample size minus one, or negative 1, i.e. <span class="math inline">\(v_0 = n_0 - 1 \rightarrow -1\)</span>.</p>
+<p>With this limit, we have the following properties:</p>
+<ul>
+<li><p>The posterior mean goes to the sample mean.</p></li>
+<li><p>The posterior sample size is the observed sample size.</p></li>
+<li><p>The posterior degrees of freedom go to the sample degrees of freedom.</p></li>
+<li><p>The posterior variance parameter goes to the sample variance.</p></li>
+</ul>
+<p>In this limit, the posterior hyperparameters do not depend on the prior hyperparameters.</p>
+<p>Since <span class="math inline">\(n_0 \rightarrow 0, s^2_0 \rightarrow 0, v_0 = n_0 - 1 \rightarrow -1\)</span>, we have in mathematical terms:</p>
+<p><span class="math display">\[\begin{aligned}
+m_n &amp;= \frac{n \bar{Y} + n_0 m_0} {n + n_0}  \rightarrow \bar{Y} \\
+n_n &amp;= n_0 + n  \rightarrow n \\
+v_n &amp;= v_0 + n  \rightarrow n-1 \\
+s^2_n &amp;= \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n} (\bar{Y} - m_0)^2 \right] \rightarrow s^2
+\end{aligned}\]</span></p>
+<p>This limiting Normal-gamma distribution, <span class="math inline">\({\textsf{N}}-{\textsf{Gamma}}(0,0,0,-1)\)</span>, is not really a normal gamma distribution, as the density does not integrate to 1. The form of the limit can be viewed as a prior for <span class="math inline">\(\mu\)</span> that is proportional to a constant, or uniform/flat on the whole real line. And a prior for the variance is proportional to 1 over the variance. The joint prior is taken as the product of the two.</p>
+<p><span class="math display">\[\begin{aligned}
+p(\mu \mid \sigma^2) &amp; \propto  1 \\
+p(\sigma^2) &amp; \propto  1/\sigma^2 \\
+p(\mu, \sigma^2) &amp; \propto  1/\sigma^2
+\end{aligned}\]</span></p>
+<p>This is refered to as a <strong>reference prior</strong> because the posterior hyperparameters do not depend on the prior hyperparameters.</p>
+<p>In addition, <span class="math inline">\(\textsf{NormalGamma}(0,0,0,-1)\)</span> is a special case of a reference prior, known as the independent Jeffreys prior. While Jeffreys used other arguments to arrive at the form of the prior, the goal was to have an <strong>objective prior</strong> invariant to shifting the data by a constant or multiplying by a constant.</p>
+<p>Now, a naive approach to constructing a non-informative distribution might be to use a uniform distribution to represent lack of knowledge. However, would you use a uniform distribution for <span class="math inline">\(\sigma^2\)</span>, or a uniform distribution for the precision <span class="math inline">\(1/\sigma^2\)</span>? Or perhaps a uniform distribution for <span class="math inline">\(\sigma\)</span>? These would all lead to different posteriors with little justification for any of them. This ambiguity led Sir Harold Jeffreys to propose reference distributions for the mean and variance for situations where prior information was limited. These priors are <strong>invariant</strong> to the units of the data.</p>
+<p>The unnormalized priors that do not integrate to a constant are called <strong>improper distributions</strong>. An important consideration in using them is that one cannot generate samples from the prior or the prior predictive distribution to data and are referred to as <strong>non-generative distributions</strong>.</p>
+<p>While the reference prior is not a proper prior distribution, and cannot reflect anyone’s actual prior beliefs, the formal application phase rule can still be used to show that <strong>the posterior distribution is a valid normal gamma distribution</strong>, leading to a formal phase posterior distribution. That depends only on summary statistics of the data.</p>
+<p>The posterior distribution <span class="math inline">\(\textsf{NormalGamma}(\bar{Y}, n, s^2, n-1)\)</span> breaks down to</p>
+<p><span class="math display">\[\begin{aligned}
+\mu \mid \sigma^2, {\text{data}}&amp; \sim {\textsf{N}}(\bar{Y}, \sigma^2/n) \\
+1/\sigma^2  \mid {\text{data}}&amp; \sim {\textsf{Gamma}}((n-1)/2, s^2(n - 1)/2).
+\end{aligned}\]</span></p>
+<ul>
+<li>Under the reference prior <span class="math inline">\(p(\mu, \sigma^2) \propto 1/\sigma^2\)</span>, the posterior distribution after standardizing <span class="math inline">\(\mu\)</span> has a Student <span class="math inline">\(t\)</span> distribution with n minus one degrees of freedom.</li>
+</ul>
+<p><span class="math display">\[\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid {\text{data}}\sim  {\textsf{t}}(n-1, 0, 1)\]</span> * Prior to seeing the data, the distribution of the standardized sample mean given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> also has a Student t distribution.</p>
+<p><span class="math display">\[\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid \mu, \sigma^2 \sim  {\textsf{t}}(n-1, 0, 1) \]</span></p>
+<ul>
+<li>Both frequentist sampling distributions and Bayesian reference posterior distributions lead to intervals of this form:</li>
+</ul>
+<p><span class="math display">\[(\bar{Y} - t_{1 - \alpha/2} s/\sqrt{n}, \, \bar{Y} + t_{1 - \alpha/2} s/\sqrt{n})\]</span></p>
+<ul>
+<li>However, only the Bayesian approach justifies the probability statements about <span class="math inline">\(\mu\)</span> being in the interval after seeing the data.</li>
+</ul>
+<p><span class="math display">\[P(\bar{Y} - t_{1 - \alpha/2} s/\sqrt{n} &lt; \mu &lt;  \bar{Y} + t_{1 - \alpha/2} s/\sqrt{n}) = 1 - \alpha\]</span></p>
+<p>We can use either analytic expressions based on the t-distribution, or Monte Carlo samples from the posterior predictive distribution, to make predictions about a new sample.</p>
+<p>Here is some code to generate the Monte Carlo samples from the tap water example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, (n<span class="dv">-1</span>)/<span class="dv">2</span>, s2*(n<span class="dv">-1</span>)/<span class="dv">2</span>)
+sigma =<span class="st"> </span><span class="dv">1</span>/<span class="kw">sqrt</span>(phi)
+post_mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>ybar, <span class="dt">sd=</span>sigma/(<span class="kw">sqrt</span>(n)))
+pred_y =<span class="st">  </span><span class="kw">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)
+<span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</code></pre></div>
+<pre><code>##       2.5%      97.5% 
+##   6.692877 104.225954</code></pre>
+<p>Using the Monte Carlo samples, Figure <a href="introduction-to-losses-and-decision-making.html#fig:plot-post-pred">3.8</a> shows the posterior distribution based on the informative Normal-Gamma prior and the reference prior. Both the posterior distribution for <span class="math inline">\(\mu\)</span> and the posterior predictive distribution for a new sample are shifted to the right, and are centered at the sample mean. The posterior for <span class="math inline">\(\mu\)</span> under the reference prior is less concentrated around its mean than the posterior under the informative prior, which leads to an increased posterior sample size and hence increased precision.</p>
+<div class="figure" style="text-align: center"><span id="fig:plot-post-pred"></span>
+<img src="03-decision-02-normal-gamma_files/figure-html/plot-post-pred-1.png" alt="Comparison of posterior densities" width="672" />
+<p class="caption">
+Figure 3.8: Comparison of posterior densities
+</p>
+</div>
+<p>The posterior probability that a new sample will exceed the legal limit of 80 ppb under the reference prior is roughly 0.15, which is more than double the probability of 0.06 from the posterior under the informative prior.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(pred_y &gt;<span class="st"> </span><span class="dv">80</span>)/<span class="kw">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></code></pre></div>
+<pre><code>## [1] 0.1534</code></pre>
+<p>In constructing the informative prior from the reported interval, there are two critical assumptions. First, the prior data are exchangeable with the observed data. Second, the conjugate normal gamma distribution is suitable for representing the prior information. These assumptions may or may not be verifiable, but they should be considered carefully when using informative conjugate priors.</p>
+<p>In the case of the tap water example, there are several concerns: One, it is unclear that the prior data are exchangeable with the observed data. For example, water treatment conditions may have changed. Two, the prior sample size was not based on a real prior sample, but instead selected so that the prior predictive intervals under the normal gamma model agreed with the prior data. As we do not have access to the prior data, we cannot check assumptions about normality that would help justify the prior. Other skewed distributions may be consistent with the prior interval, but lead to different conclusions.</p>
+<p>To recap, we have introduced a reference prior for inference for normal data with an unknown mean and variance. Reference priors are often part of a prior sensitivity study and are used when objectivity is of utmost importance.</p>
+<p>If conclusions are fundamentally different with an informative prior and a reference prior, one may wish to carefully examine assumputions that led to the informative prior.</p>
+<ul>
+<li><p>Is the prior information based on a prior sample that is exchangable with the observed data?</p></li>
+<li><p>Is the normal-gamma assumption appropriate?</p></li>
+</ul>
+<p>Informative priors can provide more accurate inference when data are limited, and the transparency of explicitly laying out prior assumptions is an important aspect of reproducible research. However, one needs to be careful that certain prior assumptions may lead to un-intended consequences.</p>
+<p>Next, we will investigate a prior distribution that is a mixture of conjugate priors, so the new prior distribution provides robustness to prior mis-specification in the prior sample size.</p>
+<p>While we will no longer have nice analytical expressions for the posterior, we can simulate from the posterior distribution using a Monte Carlo algorithm called Markov chain Monte Carlo (MCMC).</p>
+</div>
+<div id="sec:NG-Cauchy" class="section level3">
+<h3><span class="header-section-number">3.2.5</span> Mixtures of Conjugate Priors</h3>
+<p>In this section, we will describe priors that are constructed as a mixture of conjugate priors – in particular, the Cauchy distribution. As these are no longer conjugate priors, nice analytic expressions for the posterior distribution are not available. However, we can use a Monte Carlo algorithm called Markov chain Monte Carlo (MCMC) for posterior inference.</p>
+<p>In many situations, we may have reasonable prior information about the mean <span class="math inline">\(\mu\)</span>, but we are less confident in how many observations our prior beliefs are equivalent to. We can address this uncertainty in the prior sample size, through an additional prior distribution on a <span class="math inline">\(n_0\)</span> via a hierarchical prior.</p>
+<p>The hierarchical prior for the normal gamma distribution is written as <span class="math display">\[\begin{aligned}
+\mu \mid \sigma^2, n_0 &amp; \sim {\textsf{N}}(m_0, \sigma^2/n_0) \\
+n_0 \mid \sigma^2 &amp;  \sim {\textsf{Gamma}}(1/2, r^2/2)
+\end{aligned}\]</span></p>
+<p>If <span class="math inline">\(r=1\)</span>, then this corresponds to a prior expected sample size of one because the expectation of <span class="math inline">\({\textsf{Gamma}}(1/2,1/2)\)</span> is one.</p>
+<p>The marginal prior distribution from <span class="math inline">\(\mu\)</span> can be attained via integration, and we get</p>
+<p><span class="math display">\[\mu \mid \sigma^2  \sim  {\textsf{C}}(m_0, \sigma^2 r^2)\]</span></p>
+<p>This is a <strong>Cauchy distribution</strong> centered at the prior mean <span class="math inline">\(m_0\)</span>, with the scale parameter <span class="math inline">\(\sigma^2 r^2\)</span>. The probability density function (pdf) is:</p>
+<p><span class="math display">\[p(\mu \mid \sigma) = \frac{1}{\pi \sigma r} \left( 1 +  \frac{(\mu - m_0)^2} {\sigma^2 r^2}  \right)^{-1}\]</span></p>
+<p>The Cauchy distribution does not have a mean or standard deviation, but the center (location) and the scale play a similar role to the mean and standard deviation of the normal distribution. The Cauchy distribution is a special case of a student <span class="math inline">\(t\)</span> distribution with one degree of freedom.</p>
+<p>As Figure <a href="introduction-to-losses-and-decision-making.html#fig:cauchy-plot">3.9</a> shows, the standard Cauchy distribution with <span class="math inline">\(r=1\)</span> and the standard normal distribution <span class="math inline">\({\textsf{N}}(0,1)\)</span> are centered at the same location. But the Cauchy distribution has heavier tails – more probability on extreme values than the normal distribution with the same scale parameter <span class="math inline">\(\sigma\)</span>. Cauchy priors were recommended by Sir Harold Jeffreys as a default objective prior for both estimation and testing.</p>
+<div class="figure" style="text-align: center"><span id="fig:cauchy-plot"></span>
+<img src="03-decision-02-normal-gamma_files/figure-html/cauchy-plot-1.png" alt="Cauchy distribution" width="480" />
+<p class="caption">
+Figure 3.9: Cauchy distribution
+</p>
+</div>
+<p>ADD MORE DETAILS BEYOND THE VIDEO?</p>
+</div>
+<div id="sec:NG-MCMC" class="section level3">
+<h3><span class="header-section-number">3.2.6</span> Markov Chain Monte Carlo (MCMC)</h3>
+<p>The Cauchy prior described in Section <a href="introduction-to-losses-and-decision-making.html#sec:NG-Cauchy">3.2.5</a> is not a contrary prior, and therefore, the posterior distribution from <span class="math inline">\((\mu \mid \sigma)\)</span>, is not Cauchy or any well-known distribution. Fortunately, the conditional distribution of <span class="math inline">\((\mu, \sigma \mid n_0, {\text{data}})\)</span>,is normal gamma and easy to simulate from, as we learned in the previous sections. The conditional distribution of <span class="math inline">\((n_0 \mid \mu, \sigma, {\text{data}}\)</span>) is a gamma distribution, also easy to simulate from the given <span class="math inline">\(\mu, \sigma\)</span>.</p>
+<p>It turns out that if we alternate generating Monte Carlo samples from these conditional distributions, the sequence of samples converges to samples from the joint distribution of <span class="math inline">\((\mu, \sigma, n_0)\)</span>, as the number of simulated values increases. The Monte Carlo algorithm we have just described is a special case of Markov chain Monte Carlo (MCMC), known as the Gibbs sampler.</p>
+<p>Let’s look at the pseudo code for the algorithm.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initialize MCMC</span>
+sigma2[<span class="dv">1</span>] =<span class="st"> </span><span class="dv">1</span>; n_0[<span class="dv">1</span>]=<span class="dv">1</span>; mu[<span class="dv">1</span>]=m_0
+
+<span class="co">#draw from full conditional distributions</span>
+for (i in <span class="dv">2</span>:S) {
+  mu[i]     =<span class="st"> </span><span class="kw">p_mu</span>(sigma2[i<span class="dv">-1</span>], n_0[i<span class="dv">-1</span>],  m_0, r, data)
+  sigma2[i] =<span class="st"> </span><span class="kw">p_sigma2</span>(mu[i], n_0[i<span class="dv">-1</span>],    m_0, r, data)
+  n_0[i]    =<span class="st"> </span><span class="kw">p_n_0</span>(mu[i], sigma2[i],      m_0, r, data)
+}</code></pre></div>
+<p>We start with the initial values of each of the parameters for <span class="math inline">\(i=1\)</span>. In theory, these can be completely arbitrary, as long as they are allowed values for the parameters.</p>
+<p>For each iteration <span class="math inline">\(i\)</span>, the algorithm will cycle through generating each parameter, given the <strong>current</strong> value of the other parameters. The functions , , and  return a simulated value from the respective distribution conditional on the inputs.</p>
+<p>Whenever we update a parameter, we use the <strong>new value</strong> in the subsequent steps as the <span class="math inline">\(n\)</span> draws for <span class="math inline">\(\sigma, n_0\)</span>. We will repeat this until we reach iteration <span class="math inline">\(S\)</span>, leading to a dependent sequence of s draws from the joint posterior distribution.</p>
+<p>Incorporating the tap water example in Section <a href="introduction-to-losses-and-decision-making.html#sec:normal-gamma">3.2.1</a>, we will use MCMC to generate samples under the Cauchy prior. We set 35 as the location parameter and <span class="math inline">\(r=1\)</span>. To complete our prior specification, we use the Jeffrey’s reference prior on <span class="math inline">\(\sigma^2\)</span>. This combination is referred to as the Jeffrey’s Zellner-Siow Cauchy prior or “JZS” in the R  package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bayes_inference</span>(<span class="dt">y=</span>tthm, <span class="dt">data=</span>tapwater, <span class="dt">statistic=</span><span class="st">&quot;mean&quot;</span>,
+                <span class="dt">mu_0 =</span> <span class="dv">35</span>, <span class="dt">rscale=</span><span class="dv">1</span>, <span class="dt">prior=</span><span class="st">&quot;JZS&quot;</span>,
+                <span class="dt">type=</span><span class="st">&quot;ci&quot;</span>, <span class="dt">method=</span><span class="st">&quot;sim&quot;</span>)</code></pre></div>
+<pre><code>## Single numerical variable
+## n = 28, y-bar = 55.5239, s = 23.254
+## (Assuming Zellner-Siow Cauchy prior:  mu | sigma^2 ~ C(35, 1*sigma)
+## (Assuming improper Jeffreys prior: p(sigma^2) = 1/sigma^2
+## 
+## Posterior Summaries
+##             2.5%       25%      50%      75%    97.5%
+## mu    45.5713714 51.820910 54.87345 57.87171 64.20477
+## sigma 18.4996738 21.810376 23.84572 26.30359 32.11330
+## n_0    0.2512834  2.512059  6.13636 12.66747 36.37425
+## 
+## 95% CI for mu: (45.5714, 64.2048)</code></pre>
+<p><img src="03-decision-02-normal-gamma_files/figure-html/tapwater-inference-1.png" width="672" /></p>
+<p>Using the  function from the  package, we can obtain summary statistics and a plot from the MCMC output – not only <span class="math inline">\(\mu\)</span>, but also inference about <span class="math inline">\(\sigma^2\)</span> and the prior sample size.</p>
+<p>The posterior mean under the JZS model is much closer to the sample mean than what the normal gamma prior used previously. Under the informative normal gamma prior, the sample made a 55.5, about eight standard deviations above the mean – a surprising value under the normal prior. Under the Cauchy prior, the informative prior location has much less influence.</p>
+<p>This is <strong>the robustness property of the Cauchy prior</strong>, leading the posterior to put more weight on the sample mean than the prior mean, especially when the prior location is not close to the sample mean. We can see that the central 50% interval for <span class="math inline">\(n_0\)</span> is well below the value 25 used in the normal prior, which placed almost equal weight on the prior in sample mean.</p>
+<p>Using the MCMC draws of <span class="math inline">\(\mu, \sigma\)</span>, we can obtain Monte Carlo samples from the predictive distribution of <span class="math inline">\(y\)</span>, by plugging <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> into the corresponding functions. Figure <a href="introduction-to-losses-and-decision-making.html#fig:hist-ref-pred">3.10</a> compares the posterior densities estimated from the simulative values of <span class="math inline">\(\mu\)</span> and the predicted draws of TTHM under the Jeffrey Zellner-Siow prior, and the informative normal prior from <span class="math inline">\(\mu\)</span> with <span class="math inline">\(n_0 = 25\)</span> and the reference prior on <span class="math inline">\(\sigma^2\)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:hist-ref-pred"></span>
+<img src="03-decision-02-normal-gamma_files/figure-html/hist-ref-pred-1.png" alt="Comparison of posterior densities" width="672" />
+<p class="caption">
+Figure 3.10: Comparison of posterior densities
+</p>
+</div>
+<p>To recap, we have shown how to create more flexible prior distributions, such as the Cauchy distribution using mixtures of conjugate priors. As the posterior distributions are not available in closed form, we demonstrated how MCMC can be used for inference using the hierarchical prior distribution. Starting in the late 1980’s, MCMC algorithms have led to an exponential rise in the use of Bayes in methods, because complex models built through hierarchical distributions suddenly were tractable. The Cauchy prior is well-known for being robust prior mis-specifications. For example, having a prior mean that is far from the observed mean. This provides an alternative to the reference prior as a default or objective distribution that is proper.</p>
+<p>In the next sections, we will return to Bayes factors and hypothesis testing where the Cauchy prior plays an important role.</p>
+
+</div>
+</div>
+<div id="hypothesis-testing-with-normal-populations" class="section level2">
+<h2><span class="header-section-number">3.3</span> Hypothesis Testing with Normal Populations</h2>
+<p>In Section <a href="introduction-to-losses-and-decision-making.html#sec:bayes-factors">3.1.4</a>, we described how the Bayes factors can be used for hypothesis testing. Now we will use the Bayes factors to test normal means, i.e. compare two groups of normally-distributed populations. We divide this mission into four cases: known variance, unknown variance, paired data, and independent groups.</p>
+<div id="sec:known-var" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Bayes Factors for Testing a Normal Mean: variance known</h3>
+<p>Now we show how to obtain base factors for testing hypothesis about a normal mean, where <strong>the variance is known</strong>. To start, let’s consider a random sample of observations from a normal population with mean <span class="math inline">\(\mu\)</span> and pre-specified variance <span class="math inline">\(\sigma^2\)</span>. We consider testing whether the population mean <span class="math inline">\(\mu\)</span> is equal to <span class="math inline">\(m_0\)</span> or not.</p>
+<p>Therefore, we can formulate the data and hypotheses as below:</p>
+<p><strong>Data</strong> <span class="math display">\[Y_1, \cdots, Y_n {\mathrel{\mathop{\sim}\limits^{\rm iid}}}{\textsf{N}}(\mu, \sigma^2)\]</span></p>
+<p><strong>Hypotheses</strong></p>
+<ul>
+<li><span class="math inline">\(H_1: \mu = m_0\)</span></li>
+<li><span class="math inline">\(H_2: \mu \neq m_0\)</span></li>
+</ul>
+<p><strong>Priors</strong></p>
+<p>We also need to specify priors for <span class="math inline">\(\mu\)</span> under both hypotheses. Under <span class="math inline">\(H_1\)</span>, we assume that <span class="math inline">\(\mu\)</span> is exactly <span class="math inline">\(m_0\)</span>, so this occurs with probability 1 under <span class="math inline">\(H_1\)</span>. Now under <span class="math inline">\(H_2\)</span>, <span class="math inline">\(\mu\)</span> is unspecified, so we describe our prior uncertainty with the conjugate normal distribution centered at <span class="math inline">\(m_0\)</span> and with a variance <span class="math inline">\(\sigma^2/\mathbf{n_0}\)</span>. This is centered at the hypothesized value <span class="math inline">\(m_0\)</span>, and it seems that the mean is equally likely to be larger or smaller than <span class="math inline">\(m_0\)</span>, so a dividing factor <span class="math inline">\(n_0\)</span> is given to the variance. The hyper parameter <span class="math inline">\(n_0\)</span> controls the precision of the prior as before.</p>
+<p>In mathematical terms, the priors are:</p>
+<ul>
+<li><span class="math inline">\(H_1: \mu = m_0 \text{  with probability 1}\)</span></li>
+<li><span class="math inline">\(H_2: \mu \sim {\textsf{N}}(m_0, \sigma^2/\mathbf{n_0})\)</span></li>
+</ul>
+<p><strong>Bayes Factor</strong></p>
+<p>Now the Bayes factor for comparing <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> is the ratio of the distribution, the data under the assumption that <span class="math inline">\(\mu = m_0\)</span> to the distribution of the data under <span class="math inline">\(H_2\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+{\textsf{BF}}[H_1 : H_2] &amp;= \frac{p({\text{data}}\mid \mu = m_0, \sigma^2 )}
+ {\int p({\text{data}}\mid \mu, \sigma^2) p(\mu \mid m_0, \mathbf{n_0}, \sigma^2)\, d \mu} \\ 
+{\textsf{BF}}[H_1 : H_2] &amp;=\left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}} \right)^{1/2} \exp\left\{-\frac 1 2 \frac{n }{n + \mathbf{n_0}} Z^2 \right\} \\
+ Z   &amp;=  \frac{(\bar{Y} - m_0)}{\sigma/\sqrt{n}}
+\end{aligned}\]</span></p>
+<p>The term in the denominator requires integration to account for the uncertainty in <span class="math inline">\(\mu\)</span> under <span class="math inline">\(H_2\)</span>. And it can be shown that the Bayes factor is a function of the observed sampled size, the prior sample size <span class="math inline">\(n_0\)</span> and a <span class="math inline">\(Z\)</span> score.</p>
+<p>Let’s explore how the hyperparameters in <span class="math inline">\(n_0\)</span> influences the Bayes factor in Equation <a href="#eq:BayesFactor">(<strong>??</strong>)</a>. For illustration we will use the sample size of 100. Recall that for estimation, we interpreted <span class="math inline">\(n_0\)</span> as a prior sample size and considered the limiting case where <span class="math inline">\(n_0\)</span> goes to zero as a non-informative or reference prior.</p>
+\begin{equation}
+\textsf{BF}[H_1 : H_2] = \left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}}\right)^{1/2} \exp\left\{-\frac{1}{2} \frac{n }{n + \mathbf{n_0}} Z^2 \right\}
+(\#eq:BayesFactor)
+\end{equation}
+<p>Figure <a href="introduction-to-losses-and-decision-making.html#fig:vague-prior">3.11</a> shows the Bayes factor for comparing <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> on the y-axis as <span class="math inline">\(n_0\)</span> changes on the x-axis. The different lines correspond to different values of the <span class="math inline">\(Z\)</span> score or how many standard errors <span class="math inline">\(\bar{y}\)</span> is from the hypothesized mean. As expected, larger values of the <span class="math inline">\(Z\)</span> score favor <span class="math inline">\(H_2\)</span>.</p>
+<div class="figure"><span id="fig:vague-prior"></span>
+<img src="03-decision-03-BFnormal_files/figure-html/vague-prior-1.png" alt="Vague prior for mu: n=100" width="672" />
+<p class="caption">
+Figure 3.11: Vague prior for mu: n=100
+</p>
+</div>
+<p>But as <span class="math inline">\(n_0\)</span> becomes smaller and approaches 0, the first term in the Bayes factor goes to infinity, while the exponential term involving the data goes to a constant and is ignored. In the limit as <span class="math inline">\(n_0 \rightarrow 0\)</span> under this noninformative prior, the Bayes factor paradoxically ends up favoring <span class="math inline">\(H_1\)</span> regardless of the value of <span class="math inline">\(\bar{y}\)</span>.</p>
+<p>The takeaway from this is that we cannot use improper priors with <span class="math inline">\(n_0 = 0\)</span>, if we are going to test our hypothesis that <span class="math inline">\(\mu = n_0\)</span>. Similarly, vague priors that use a small value of <span class="math inline">\(n_0\)</span> are not recommended due to the sensitivity of the results to the choice of an arbitrarily small value of <span class="math inline">\(n_0\)</span>.</p>
+<p>This problem arises with vague priors – the Bayes factor favors the null model <span class="math inline">\(H_1\)</span> even when the data are far away from the value under the null – are known as the Bartlett’s paradox or the Jeffrey’s-Lindleys paradox.</p>
+<p>Now one way to try to understand the effect of prior is through the standard effect size</p>
+<p><span class="math display">\[\delta = \frac{\mu - m_0}{\sigma}.\]</span> The prior of the standard effect size is</p>
+<p><span class="math display">\[\delta \mid   H_2  \sim {\textsf{N}}(0, \frac{1}{\mathbf{n_0}})\]</span></p>
+<p>This allows us to think about a standardized effect independent of the units of the problem. One default choice is using the unit information prior, where the prior sample size <span class="math inline">\(n_0\)</span> is 1, leading to a standard normal for the standardized effect size. This is depicted with the blue normal density in Figure <a href="introduction-to-losses-and-decision-making.html#fig:effect-size">3.12</a>. This suggested that we expect that the mean will be within <span class="math inline">\(\pm 1.96\)</span> standard deviations of the hypothesized mean <strong>with probability 0.95</strong>. (Note that we can say this only under a Bayesian setting.)</p>
+<p>In many fields we expect that the effect will be small relative to <span class="math inline">\(\sigma\)</span>. If we do not expect to see large effects, then we may want to use a more informative prior on the effect size as the density in orange with <span class="math inline">\(n_0 = 4\)</span>. So they expected the mean to be within <span class="math inline">\(\pm 1/\sqrt{n_0}\)</span> or five standard deviations of the prior mean.</p>
+<div class="figure"><span id="fig:effect-size"></span>
+<img src="03-decision-03-BFnormal_files/figure-html/effect-size-1.png" alt="Prior on standard effect size" width="672" />
+<p class="caption">
+Figure 3.12: Prior on standard effect size
+</p>
+</div>
+
+<div class="example">
+<span id="exm:unnamed-chunk-2" class="example"><strong>Example 1.1  </strong></span>To illustrate, we give an example from parapsychological research. The case involved the test of the subject’s claim to affect a series of randomly generated 0’s and 1’s by means of extra sensory perception (ESP). The random sequence of 0’s and 1’s are generated by a machine with probability of generating 1 being 0.5. The subject claims that his ESP would make the sample mean differ significantly from 0.5.
+</div>
+<p></p>
+<p>Therefore, we are testing <span class="math inline">\(H_1: \mu = 0.5\)</span> versus <span class="math inline">\(H_2: \mu \neq 0.5\)</span>. Let’s use a prior that suggests we do not expect a large effect which leads the following solution for <span class="math inline">\(n_0\)</span>. Assume we want a standard effect of 0.03, there is a 95% chance that it is between <span class="math inline">\((-0.03/\sigma, 0.03/\sigma)\)</span>, with <span class="math inline">\(n_0 = (1.96\sigma/0.03)^2 = 32.7^2\)</span>.</p>
+<p>Figure <a href="introduction-to-losses-and-decision-making.html#fig:prior-effect">3.13</a> shows our informative prior in blue, while the unit information prior is in orange. On this scale, the unit information prior needs to be almost uniform for the range that we are interested.</p>
+<div class="figure"><span id="fig:prior-effect"></span>
+<img src="03-decision-03-BFnormal_files/figure-html/prior-effect-1.png" alt="Prior effect in the extra sensory perception test" width="672" />
+<p class="caption">
+Figure 3.13: Prior effect in the extra sensory perception test
+</p>
+</div>
+<p>A very large data set with over 104 million trials was collected to test this hypothesis, so we use a normal distribution to approximate the distribution the sample mean.</p>
+<ul>
+<li>Sample size: <span class="math inline">\(n = 1.0449 \times 10^8\)</span></li>
+<li>Sample mean: <span class="math inline">\(\bar{y} = 0.500177\)</span>, standard deviation <span class="math inline">\(\sigma = 0.5\)</span></li>
+<li><span class="math inline">\(Z\)</span>-score: 3.61</li>
+</ul>
+<p>Now using our prior in the data, the Bayes factor for <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> was 0.46, implying evidence against the hypothesis <span class="math inline">\(H_1\)</span> that <span class="math inline">\(\mu = 0.5\)</span>.</p>
+<ul>
+<li>Informative <span class="math inline">\({\textsf{BF}}[H_1:H_2] = 0.46\)</span></li>
+<li><span class="math inline">\({\textsf{BF}}[H_2:H_1] = 1/{\textsf{BF}}[H_1:H_2] = 2.19\)</span></li>
+</ul>
+<p>Now, this can be inverted to provide the evidence in favor of <span class="math inline">\(H_2\)</span>. The evidence suggests that the hypothesis that the machine operates with a probability that is not 0.5, is 2.19 times more likely than the hypothesis the probability is 0.5. Based on the interpretation of Bayes factors from Table <a href="introduction-to-losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “not worth the bare mention”.</p>
+<p>To recap, we present expressions for calculating Bayes factors for a normal model with a specified variance. We show that the improper reference priors for <span class="math inline">\(\mu\)</span> when <span class="math inline">\(n_0 = 0\)</span>, or vague priors where <span class="math inline">\(n_0\)</span> is arbitrarily small, lead to Bayes factors that favor the null hypothesis regardless of the data, and thus should not be used for hypothesis testing.</p>
+<p>Bayes factors with normal priors can be sensitive to the choice of the <span class="math inline">\(n_0\)</span>. While the default value of <span class="math inline">\(n_0 = 1\)</span> is reasonable in many cases, this may be too non-informative if one expects more effects. Wherever possible, think about how large an effect you expect and use that information to help select the <span class="math inline">\(n_0\)</span>.</p>
+<p>All the ESP examples suggest weak evidence and favored the machine generating random 0’s and 1’s with a probability that is different from 0.5. Note that ESP is not the only explanation – a deviation from 0.5 can also occur if the random number generator is biased. Bias in the stream of random numbers in our pseudorandom numbers has huge implications for numerous fields that depend on simulation. If the context had been about detecting a small bias in random numbers what prior would you use and how would it change the outcome? You can try to experiment in R or other software packages that generate random Bernoullis.</p>
+<p>Next, we will look at Bayes factors in normal models with unknown variances using the Cauchy prior so that results are less sensitive to the choice of <span class="math inline">\(n_0\)</span>.</p>
+</div>
+<div id="bayes-factors-for-testing-a-normal-mean-unknown-variance" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Bayes Factors for Testing a Normal Mean: unknown variance</h3>
+</div>
+<div id="testing-normal-means-paired-data" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Testing Normal Means: paired data</h3>
+<p>We previously learned that we can use a paired t-test to compare means from two paired samples. In this section, we will show how Bayes factors can be expressed as a function of the t-statistic for comparing the means and provide posterior probabilities of the hypothesis that whether the means are equal or different.</p>
+
+<div class="example">
+<p><span id="exm:zinc" class="example"><strong>Example 3.2  </strong></span>Trace metals in drinking water affect the flavor, and unusually high concentrations can pose a health hazard. Ten pairs of data were taken measuring the zinc concentration in bottom and surface water at ten randomly sampled locations, as listed in Table <a href="introduction-to-losses-and-decision-making.html#tab:zinc-table">3.7</a>.</p>
+Water samples collected at the the same location, on the surface and the bottom, cannot be assumed to be independent of each other. However, it may be reasonable to assume that the differences in the concentration at the bottom and the surface in randomly sampled locations are independent of each other.
+</div>
+<p></p>
+<table>
+<caption><span id="tab:zinc-table">Table 3.7: </span>Zinc in drinking water</caption>
+<thead>
+<tr class="header">
+<th align="right">Location</th>
+<th align="right">Surface</th>
+<th align="right">Bottom</th>
+<th align="right">Difference</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0.430</td>
+<td align="right">0.415</td>
+<td align="right">0.015</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.266</td>
+<td align="right">0.238</td>
+<td align="right">0.028</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.567</td>
+<td align="right">0.390</td>
+<td align="right">0.177</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.531</td>
+<td align="right">0.410</td>
+<td align="right">0.121</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.707</td>
+<td align="right">0.605</td>
+<td align="right">0.102</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.716</td>
+<td align="right">0.609</td>
+<td align="right">0.107</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.651</td>
+<td align="right">0.632</td>
+<td align="right">0.019</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.589</td>
+<td align="right">0.523</td>
+<td align="right">0.066</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.469</td>
+<td align="right">0.411</td>
+<td align="right">0.058</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.723</td>
+<td align="right">0.612</td>
+<td align="right">0.111</td>
+</tr>
+</tbody>
+</table>
+<p>To start modeling, we will treat the ten differences as a random sample from a normal population where the parameter of interest is the difference between the average zinc concentration at the bottom and the average zinc concentration at the surface, or the main difference, <span class="math inline">\(\mu\)</span>.</p>
+<p>In mathematical terms, we have</p>
+<ul>
+<li>Random sample of <span class="math inline">\(n= 10\)</span> differences <span class="math inline">\(Y_1, \ldots, Y_n\)</span></li>
+<li>Normal population with mean <span class="math inline">\(\mu \equiv \mu_B - \mu_S\)</span></li>
+</ul>
+<p>In this case, we have no information about the variability in the data, and we will treat the variance, <span class="math inline">\(\sigma^2\)</span>, as unknown.</p>
+<p>The hypothesis of the main concentration at the surface and bottom are the same is equivalent to saying <span class="math inline">\(\mu = 0\)</span>. The second hypothesis is that the difference between the mean bottom and surface concentrations, or equivalently that the mean difference <span class="math inline">\(\mu \neq 0\)</span>.</p>
+<p>In other words, we are going to compare the following hypotheses:</p>
+<ul>
+<li><span class="math inline">\(H_1: \mu_B = \mu_S \Leftrightarrow \mu = 0\)</span></li>
+<li><span class="math inline">\(H_2: \mu_B \neq \mu_S \Leftrightarrow \mu \neq 0\)</span></li>
+</ul>
+<p>The Bayes factor is the ratio between the distributions of the data under each hypothesis, which does not depend on any unknown parameters.</p>
+<p><span class="math display">\[{\textsf{BF}}[H_1 : H_2] = \frac{p({\text{data}}\mid H_1)} {p({\text{data}}\mid H_2)}\]</span></p>
+<p>To obtain the Bayes factor, we need to use integration over the prior distributions under each hypothesis to obtain those distributions of the data.</p>
+<p><span class="math display">\[{\textsf{BF}}[H_1 : H_2] = \iint p({\text{data}}\mid \mu, \sigma^2) p(\mu \mid \sigma^2) p(\sigma^2 \mid H_2)\, d \mu \, d\sigma^2\]</span></p>
+<p>This requires specifying the following priors:</p>
+<ul>
+<li><span class="math inline">\(\mu \mid \sigma^2, H_2 \sim {\textsf{N}}(0, \sigma^2/n_0)\)</span></li>
+<li><span class="math inline">\(p(\sigma^2) \propto 1/\sigma^2\)</span> for both <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span></li>
+</ul>
+<p><span class="math inline">\(\mu\)</span> is exactly zero under the hypothesis <span class="math inline">\(H_1\)</span>. For <span class="math inline">\(\mu\)</span> in <span class="math inline">\(H_2\)</span>, we start with the same conjugate normal prior as we used in Section <a href="introduction-to-losses-and-decision-making.html#sec:known-var">3.3.1</a> – testing the normal mean with known variance. Since we assume that <span class="math inline">\(\sigma^2\)</span> is known, we model <span class="math inline">\(\mu \mid \sigma^2\)</span> instead of <span class="math inline">\(\mu\)</span> itself.</p>
+<p>The <span class="math inline">\(\sigma^2\)</span> appears in both the numerator and denominator of the Bayes factor. For default or reference case, we use the Jeffreys prior (a.k.a. reference prior) on <span class="math inline">\(\sigma^2\)</span>. As long as we have more than two observations, this (improper) prior will lead to a proper posterior.</p>
+<p>After integration and rearranging, one can derive a simple expression for the Bayes factor:</p>
+<p><span class="math display">\[{\textsf{BF}}[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
+  \frac{ t^2  \frac{n_0}{n + n_0} + \nu }
+  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}\]</span></p>
+<p>This is a function of the t-statistic</p>
+<p><span class="math display">\[t = \frac{|\bar{Y}|}{s/\sqrt{n}}\]</span>,</p>
+<p>where <span class="math inline">\(s\)</span> is the sample standard deviation and the degrees of freedom <span class="math inline">\(\nu = n-1\)</span> (sample size minus one).</p>
+<p>As we saw in the case of Bayes factors with known variance, we cannot use the improper prior on <span class="math inline">\(\mu\)</span> because when <span class="math inline">\(n_0 \to 0\)</span>, then <span class="math inline">\({\textsf{BF}}[H1:H_2] \to \infty\)</span> favoring <span class="math inline">\(H_1\)</span> regardless of the magnitude of the t-statistic. Arbitrary, vague small choices for <span class="math inline">\(n_0\)</span> also lead to arbitrary large Bayes factors in favor of <span class="math inline">\(H_1\)</span>. Another example of the Barlett’s or Jeffreys-Lindley paradox.</p>
+<p>Sir Herald Jeffrey discovered another paradox testing using the conjugant normal prior, known as the <strong>information paradox</strong>. His thought experiment assumed that our sample size <span class="math inline">\(n\)</span> and the prior sample size <span class="math inline">\(n_0\)</span>. He then considered what would happen to the Bayes factor as the sample mean moved further and further away from the hypothesized mean, measured in terms standard errors with the t-statistic, i.e., <span class="math inline">\(|t| \to \infty\)</span>. As the t-statistic or information about the mean moved further and further from zero, the Bayes factor goes to a constant depending on <span class="math inline">\(n, n_0\)</span> rather than providing overwhelming support for <span class="math inline">\(H_2\)</span>.</p>
+<p>The bounded Bayes factor is</p>
+<p><span class="math display">\[{\textsf{BF}}[H_1 : H_2] \to \left( \frac{n_0}{n_0 + n}  \right)^{\frac{n - 1}{2}}\]</span></p>
+<p>Jeffrey wanted a prior with <span class="math inline">\({\textsf{BF}}[H_1 : H_2] \to 0\)</span> (or equivalently, <span class="math inline">\({\textsf{BF}}[H_2 : H_1] \to \infty\)</span>), as the information from the t-statistic grows, indicating the sample mean is as far as from the hypothesized mean and should favor <span class="math inline">\(H_2\)</span>.</p>
+<p>To resolve the paradox when the information the t-statistic favors <span class="math inline">\(H_2\)</span> but the Bayes factor does not, Jeffreys showed that <strong>no normal prior could resolve the paradox</strong>.</p>
+<p>But a <strong>Cauchy prior</strong> on <span class="math inline">\(\mu\)</span>, would resolve it. In this way, <span class="math inline">\({\textsf{BF}}[H_2 : H_1]\)</span> goes to infinity as the sample mean becomes further away from the hypothesized mean. Recall that the Cauchy prior is written as <span class="math inline">\({\textsf{C}}(0, r^2 \sigma^2)\)</span>. While Jeffreys used a default of <span class="math inline">\(r = 1\)</span>, smaller values of <span class="math inline">\(r\)</span> can be used if smaller effects are expected.</p>
+<p>The combination of the Jeffrey’s prior on <span class="math inline">\(\sigma^2\)</span> and this Cauchy prior on <span class="math inline">\(\mu\)</span> under <span class="math inline">\(H_2\)</span> is sometimes referred to as the <strong>Jeffrey-Zellener-Siow prior</strong>.</p>
+<p>However, there is no closed form expressions for the Bayes factor under the Cauchy distribution. To obtain the Bayes factor, we must use the numerical integration or simulation methods.</p>
+<p>We will use the  function from the  package to test whether the mean difference is zero in Example <a href="introduction-to-losses-and-decision-making.html#exm:zinc">3.2</a> (zinc), using the JZS (Jeffreys-Zellener-Siow) prior.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
+<span class="kw">bayes_inference</span>(Difference, <span class="dt">data=</span>zinc, <span class="dt">statistic=</span><span class="st">&quot;mean&quot;</span>, <span class="dt">type=</span><span class="st">&quot;ht&quot;</span>,
+                <span class="dt">prior=</span><span class="st">&quot;JZS&quot;</span>, <span class="dt">mu_0=</span><span class="dv">0</span>, <span class="dt">method=</span><span class="st">&quot;theo&quot;</span>, <span class="dt">alt=</span><span class="st">&quot;twosided&quot;</span>)</code></pre></div>
+<pre><code>## Single numerical variable
+## n = 10, y-bar = 0.0804, s = 0.0523
+## (Using Zellner-Siow Cauchy prior:  mu ~ C(0, 1*sigma)
+## (Using Jeffreys prior: p(sigma^2) = 1/sigma^2
+## 
+## Hypotheses:
+## H1: mu = 0 versus H2: mu != 0
+## Priors:
+## P(H1) = 0.5 , P(H2) = 0.5
+## Results:
+## BF[H2:H1] = 50.7757
+## P(H1|data) = 0.0193  P(H2|data) = 0.9807 
+## 
+## Posterior summaries for mu under H2:
+## Single numerical variable
+## n = 10, y-bar = 0.0804, s = 0.0523
+## (Assuming Zellner-Siow Cauchy prior:  mu | sigma^2 ~ C(0, 1*sigma)
+## (Assuming improper Jeffreys prior: p(sigma^2) = 1/sigma^2
+## 
+## Posterior Summaries
+##             2.5%        25%        50%         75%       97.5%
+## mu    0.03650940 0.06333734 0.07541138  0.08721128  0.11224104
+## sigma 0.03670541 0.04741918 0.05534271  0.06561693  0.09553628
+## n_0   0.16407097 1.89814998 4.74900156 10.12476472 32.40127938
+## 
+## 95% CI for mu: (0.0365, 0.1122)</code></pre>
+<p><img src="03-decision-03-BFnormal_files/figure-html/bayes-inference-1.png" width="672" /></p>
+<p>With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis <span class="math inline">\(H_2\)</span>, the mean difference is different from 0, is almost 51 times more likely than the hypothesis <span class="math inline">\(H_1\)</span> that the average concentration is the same at the surface and the bottom.</p>
+<p>To sum up, we have used the <strong>Cauchy prior</strong> as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the  function from the  package. If you expect that the effect sizes will be small, smaller values of <span class="math inline">\(r\)</span> are recommended.</p>
+<p>It is often important to quantify the magnitude of the difference in addition to testing. The Cauchy Prior provides a default prior for both testing and inference; it avoids problems that arise with choosing a value of <span class="math inline">\(n_0\)</span> (prior sample size) in both cases.</p>
+<p>Next, we will illustrate using the Cauchy prior for comparing two means from independent normal samples.</p>
+</div>
+<div id="testing-normal-means-independent-groups" class="section level3">
+<h3><span class="header-section-number">3.3.4</span> Testing Normal Means: independent groups</h3>
+<p>In the previous section, we described Bayes factors for testing whether the mean difference of <strong>paired</strong> samples was zero. In this section, we will consider a slightly different problem – we have two <strong>independent</strong> samples, and we would like to test the hypothesis that the means are different or equal.</p>
+
+<div class="example">
+<p><span id="exm:birth-records" class="example"><strong>Example 3.3  </strong></span>We illustrate the testing of independent groups with data from a 2004 survey of birth records from North Carolina, which are available in the  package.</p>
+<p>The variable of interest is  – the weight gain of mothers during pregnancy. We have two groups defined by the categorical variable, , with levels, younger mom and older mom.</p>
+<strong>Question of interest</strong>: Do the data provide convincing evidence of a difference between the average weight gain of older moms and the average weight gain of younger moms?
+</div>
+<p></p>
+<p>We will view the data as a random sample from two populations, older and younger moms. The two groups are modeled as:</p>
+\begin{equation}
+\begin{split}
+Y_{O,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu + \alpha/2, \sigma^2) \\
+Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2, \sigma^2)
+\end{split}
+(\#eq:half-alpha)
+\end{equation}
+<p>The model for weight gain for older moms using the subscript <span class="math inline">\(O\)</span>, and it assumes that the observations <span class="math inline">\(Y\)</span> are independent and identically distributed, with a mean <span class="math inline">\(\mu+\alpha/2\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>For the younger women, the observations with the subscript <span class="math inline">\(Y\)</span> are independent and identically distributed with a mean <span class="math inline">\(\mu-\alpha/2\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Using this representation of the means in the two groups, the difference in means simplifies to <span class="math inline">\(\alpha\)</span> – the parameter of interest.</p>
+<p><span class="math display">\[(\mu + \alpha/2)  - (\mu - \alpha/2) =  \alpha\]</span></p>
+<p>You may ask, “Why don’t we set the average weight gain of older women to <span class="math inline">\(\mu+\alpha\)</span>, and the average weight gain of younger women to <span class="math inline">\(\mu\)</span>?” We need the parameter <span class="math inline">\(\alpha\)</span> to be present in both <span class="math inline">\(Y_{O,i}\)</span> (the group of older women) and <span class="math inline">\(Y_{Y,i}\)</span> (the group of younger women).</p>
+<p>We have the following competing hypotheses:</p>
+<ul>
+<li><span class="math inline">\(H_1: \alpha = 0 \Leftrightarrow\)</span> The means are not different.</li>
+<li><span class="math inline">\(H_2: \alpha \neq 0 \Leftrightarrow\)</span> The means are different.</li>
+</ul>
+<p>In this representation, <span class="math inline">\(\mu\)</span> represents the overall weight gain for all women. (Does the model in Equation <a href="#eq:half-alpha">(<strong>??</strong>)</a> make more sense now?) To test the hypothesis, we need to specify prior distributions for <span class="math inline">\(\alpha\)</span> under <span class="math inline">\(H_2\)</span> (c.f. <span class="math inline">\(\alpha = 0\)</span> under <span class="math inline">\(H_1\)</span>) and priors for <span class="math inline">\(\mu,\sigma^2\)</span> under both hypotheses.</p>
+<p>UNFINISHED BELOW</p>
+<p>Recall that the Bayes factor is the ratio of the distribution of the data under the two hypotheses.</p>
+<p><span class="math display">\[\begin{aligned}
+ {\textsf{BF}}[H_1 : H_2] &amp;=  \frac{p({\text{data}}\mid H_1)} {p({\text{data}}\mid H_2)} \\
+  &amp;= \frac{\iint p({\text{data}}\mid \alpha = 0,\mu,  \sigma^2 )p(\mu, \sigma^2 \mid H_1) \, d\mu \,d\sigma^2}
+ {\int \iint p({\text{data}}\mid \alpha, \mu, \sigma^2) p(\alpha \mid \sigma^2) p(\mu, \sigma^2 \mid H_2) \, d \mu \, d\sigma^2 \, d \alpha}
+\end{aligned}\]</span></p>
+</div>
+<div id="inference-after-testing" class="section level3">
+<h3><span class="header-section-number">3.3.5</span> Inference after Testing</h3>
+
+</div>
+</div>
+<div id="exercises-1" class="section level2">
+<h2><span class="header-section-number">3.4</span> Exercises</h2>
+<p>Test something here</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-jeffreys1961theory">
+<p>Jeffreys, Sir Harold. 1961. <em>Theory of Probability: 3rd Edition</em>. Clarendon Press.</p>
+</div>
+<div id="ref-kass1995bayes">
+<p>Kass, Robert E, and Adrian E Raftery. 1995. “Bayes Factors.” <em>Journal of the American Statistical Association</em> 90 (430). Taylor &amp; Francis Group: 773–95.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bayesian-inference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-to-bayesian-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-decision-00-intro.Rmd",
+"text": "Edit"
+},
+"download": ["_main.pdf", "_main.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
