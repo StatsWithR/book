@@ -8,11 +8,43 @@ Obtaining accurate measurements of body fat is expensive and not easy to be done
 
 To start, we load the `BAS` library (you may download the package from CRAN) to access the dataframe. We print out a summary of the variables in this dataframe.
 
-```{r load-package-data, warning=FALSE, message=FALSE}
+
+```r
 # Suppress warning messages
 library(BAS)
 data(bodyfat)
 summary(bodyfat)
+```
+
+```
+##     Density         Bodyfat           Age            Weight     
+##  Min.   :0.995   Min.   : 0.00   Min.   :22.00   Min.   :118.5  
+##  1st Qu.:1.041   1st Qu.:12.47   1st Qu.:35.75   1st Qu.:159.0  
+##  Median :1.055   Median :19.20   Median :43.00   Median :176.5  
+##  Mean   :1.056   Mean   :19.15   Mean   :44.88   Mean   :178.9  
+##  3rd Qu.:1.070   3rd Qu.:25.30   3rd Qu.:54.00   3rd Qu.:197.0  
+##  Max.   :1.109   Max.   :47.50   Max.   :81.00   Max.   :363.1  
+##      Height           Neck           Chest           Abdomen      
+##  Min.   :29.50   Min.   :31.10   Min.   : 79.30   Min.   : 69.40  
+##  1st Qu.:68.25   1st Qu.:36.40   1st Qu.: 94.35   1st Qu.: 84.58  
+##  Median :70.00   Median :38.00   Median : 99.65   Median : 90.95  
+##  Mean   :70.15   Mean   :37.99   Mean   :100.82   Mean   : 92.56  
+##  3rd Qu.:72.25   3rd Qu.:39.42   3rd Qu.:105.38   3rd Qu.: 99.33  
+##  Max.   :77.75   Max.   :51.20   Max.   :136.20   Max.   :148.10  
+##       Hip            Thigh            Knee           Ankle     
+##  Min.   : 85.0   Min.   :47.20   Min.   :33.00   Min.   :19.1  
+##  1st Qu.: 95.5   1st Qu.:56.00   1st Qu.:36.98   1st Qu.:22.0  
+##  Median : 99.3   Median :59.00   Median :38.50   Median :22.8  
+##  Mean   : 99.9   Mean   :59.41   Mean   :38.59   Mean   :23.1  
+##  3rd Qu.:103.5   3rd Qu.:62.35   3rd Qu.:39.92   3rd Qu.:24.0  
+##  Max.   :147.7   Max.   :87.30   Max.   :49.10   Max.   :33.9  
+##      Biceps         Forearm          Wrist      
+##  Min.   :24.80   Min.   :21.00   Min.   :15.80  
+##  1st Qu.:30.20   1st Qu.:27.30   1st Qu.:17.60  
+##  Median :32.05   Median :28.70   Median :18.30  
+##  Mean   :32.27   Mean   :28.66   Mean   :18.23  
+##  3rd Qu.:34.33   3rd Qu.:30.00   3rd Qu.:18.80  
+##  Max.   :45.00   Max.   :34.90   Max.   :21.40
 ```
 
 This dataframe includes 252 measurements on men of body fat and other measurements, such as waist circumference (`Abdomen`). We will use `Abdomen` to illustrate Bayesian simple linear regression. We regress the response variable `Bodyfat` on the predictor `Abdomen`, which gives us the model
@@ -21,7 +53,8 @@ which the assumption that the errors $\epsilon_i$ are independent and identicall
 
 The figure below shows the percentage body fat obtained from under water weighing and the abdominal circumference for 252 men. To predict body fat, the line overlayed on the scatter plot illustrates the best fitting ordinary least squares line obtained with the `lm` function in R.
 
-```{r message = F}
+
+```r
 plot(Bodyfat ~ Abdomen, data = bodyfat, 
      xlab = "abdomen circumference (cm)", 
      col = "blue", pch = 16, main = "")
@@ -29,9 +62,35 @@ plot(Bodyfat ~ Abdomen, data = bodyfat,
 # Ordinary least square linear regression
 bodyfat.lm = lm(Bodyfat ~ Abdomen, data = bodyfat)
 summary(bodyfat.lm)
+```
+
+```
+## 
+## Call:
+## lm(formula = Bodyfat ~ Abdomen, data = bodyfat)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -19.0160  -3.7557   0.0554   3.4215  12.9007 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -39.28018    2.66034  -14.77   <2e-16 ***
+## Abdomen       0.63130    0.02855   22.11   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.877 on 250 degrees of freedom
+## Multiple R-squared:  0.6617,	Adjusted R-squared:  0.6603 
+## F-statistic: 488.9 on 1 and 250 DF,  p-value: < 2.2e-16
+```
+
+```r
 beta = coef(bodyfat.lm)
 abline(beta, lwd = 4, col = 1)
 ```
+
+![](06-regression-01-Bayesian-simple-regression_files/figure-latex/unnamed-chunk-1-1.pdf)<!-- --> 
 
 From the summary, we see that this model has an estimated slope, $\hat{\beta}$, of 0.63 and an estimated intercept, $\hat{\alpha}$, of about -39.28%. For every additional centimeter, we expect body fat to increase by 0.63%. The negative interceptive course does not make sense as a physical model, but neither does predicting a male with a waist of zero centimeters. Nevertheless, this linear regression may be an accurate approximation for prediction purposes for measurements that are in the observed range for this population. 
 
@@ -40,17 +99,23 @@ $$ \hat{\sigma}^2 = \frac{1}{n-2}\sum_i^n (y_i-\hat{y}_i)^2 = \frac{1}{n-2}\sum_
 Here the degrees of freedom $n-2$ are the number of observations adjusted for the number of parameters that we estimated in the regression. The MSE, $\hat{\sigma}^2$, may be obtained from the output as the square of the entry labeled "residual standard error".
 
 Since residuals and fitted values are uncorrelated with the expected value of the residuals equal to zero if the model is correct, the scatterplot of residuals versus fitted values provides an additional visual check of the model adequacy.
-```{r}
+
+```r
 plot(residuals(bodyfat.lm) ~ fitted(bodyfat.lm))
 abline(h = 0)
 ```
 
+![](06-regression-01-Bayesian-simple-regression_files/figure-latex/unnamed-chunk-2-1.pdf)<!-- --> 
+
 With the exception of the one observation for the individual with the largest waist measurement, the residual plot suggests that the linear regression is a reasonable approximation.
 
 Furthermore, we can check the normal probability plot of the residuals for the assumption of normally distributed errors. We see that only observation 39 is exceptionally away from the normal quantile. 
-```{r}
+
+```r
 plot(bodyfat.lm, which = 2)
 ```
+
+![](06-regression-01-Bayesian-simple-regression_files/figure-latex/unnamed-chunk-3-1.pdf)<!-- --> 
 
 The confidence interval of $\alpha$ and $\beta$ can be constructed using the standard errors $\text{sd}_{\hat{\alpha}}$ and $\text{sd}_{\hat{\beta}}$ respectively. To proceed, we introduce notations of some "sums of squares"
 $$
@@ -138,19 +203,33 @@ The Bayesian posterior distribution results of $\alpha$ and $\beta$ show that un
 
 We can use the `lm` function to obtain the OLS estimates and construct the credible intervals of $\alpha$ and $\beta$
 
-```{r summary-mean-std}
+
+```r
 output = summary(bodyfat.lm)$coef[, 1:2]
 output
+```
+
+```
+##                Estimate Std. Error
+## (Intercept) -39.2801847 2.66033696
+## Abdomen       0.6313044 0.02855067
 ```
 
 
 The columns labeled `Estimate` and `Std. Error` are equivalent to the centers (or posterior means) and scale parameters (or standard deviations) in the two $t$-distributions respetively. The credible intervals of $\alpha$ and $\beta$ are the same as the frequentist ocnfidence intervals, but we now can interpret them from a Bayesian perspective. 
 
 The `confint` function provides 95% confidence intervals, which under the reference prior are equivalent to the 95% credible intervals. The code below extracts them and relabels the output as the Bayesian results.
-```{r cred-int}
+
+```r
 out = cbind(output, confint(bodyfat.lm))
 colnames(out) = c("posterior mean", "posterior std", "2.5", "97.5")
 round(out, 2)
+```
+
+```
+##             posterior mean posterior std    2.5   97.5
+## (Intercept)         -39.28          2.66 -44.52 -34.04
+## Abdomen               0.63          0.03   0.58   0.69
 ```
 
 These intervals coincide with the confidence intervals from the frequentist approach. The primary difference is the interpretation. For example, based on the data, we believe that there is 95% chance that body fat will increase by 5.8% up to 6.9% for every additional 10 centimeter increase in the waist circumference.
@@ -180,7 +259,8 @@ $$
 The variance for predicting a new observation $y_{n+1}$ has an extra $\hat{\sigma}^2$ which comes from the uncertainty of a new observation about the mean $\mu_Y$ estimated by the regressio line. 
 
 We can extract these intervals using the `predict` function
-```{r predict-intervals}
+
+```r
 x = bodyfat$Abdomen
 y = bodyfat$Bodyfat
 xnew <- seq(min(x), max(x), length.out = 100)
@@ -205,80 +285,25 @@ legend(110, 15, legend = c("Posterior mean", "95% CI for mean", "95% CI for pred
        col = c("orange", rep("darkgrey", 2)), lwd = 3, lty = c(1, 2, 3))
 ```
 
+![](06-regression-01-Bayesian-simple-regression_files/figure-latex/predict-intervals-1.pdf)<!-- --> 
+
 Note in the ablve the legend "CI" can mean either confidence interval or credible interval. The difference comes down to the interpretation. For example, the prediction at the same abdominal circumference as in Case 39 is
-```{r pred-39}
+
+```r
 pred.39 = predict(bodyfat.lm, newdata = bodyfat[39, ], interval = "prediction", level = 0.95)
 out <- cbind(bodyfat[39,]$Abdomen, pred.39)
 colnames(out) <- c("abdomen", "prediction", "lower", "upper")
 out
 ```
 
+```
+##    abdomen prediction   lower    upper
+## 39   148.1   54.21599 44.0967 64.33528
+```
+
 Based on the data, a Bayesian would expect that a man with waist circumference of 148.1 centermeters should have bodyfat of 54.216 with 95% chance thta it is between 44.097 and 64.335 percent.
 
 While we expect the majority of the data will be within the prediction intervals (the short dashed grey lines), Case 39 seems to be well below the interval. We next use Bayesian methods to calculate the probability that this case is abnormal or an outlier by falling more than $k$ standard deviations from either side of the mean.
-
-### Ourliers
-
-The plot and predictive intervals suggest that predictions for Case 39 are not well captured by the model. There is always the possibility that this case does not meet the assumptions of the simple linear regression model (wrong mean or variance) or could be in error. Model diagnostics such as plots of residuals versus fitted values are useful in identifying potential outliers. Now with the interpretation of Bayesian paradigm, we can go further to calculate the probability to demonstrate whether a case falls too far from the mean. 
-
-The article by Chaloner & Brant (1988) (???reference????) suggested an approach for defining outliers and then calculating the probability that a case or multiple cases were outliers. The assumed model for our simple linear regression is $y_i=\alpha + \beta x_i+\epsilon_i$, with $\epsilon_i$ having independent, identical distributions that are normal with mean zero and constant variance $\sigma^2$, i.e., $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$. Chaloner & Brant consider outliers to be points where the error or the model discrepancy $\epsilon_i$ is greater than $k$ standard deviation for some large $k$, and then proceed to calculate the posterior probability that a case is an outlier to be
-$$ \mathbb{P}(|\epsilon_i| > k\sigma ~|~\text{data}) $$
-
-Since $\epsilon_i = y_i - \alpha-\beta x_i$, this is equivalent to calculating
-$$ \mathbb{P}(|y_i-\alpha-\beta x_i| > k\sigma~|~\text{data}).$$
-
-The code for calculating the probability of outliers involves integration. We have implemented this in the function `Bayes.outlier.prob` that can be sourced from the file `bayes-outliers.R`. Applying this to the `bodyfat` data for Case 39, we get
-```{r outlier}
-#source("bayes-outliers.R")
-#library(mvtnorm)
-#outliers = Bayes.outlier.prob(bodyfat.lm)
-
-# The default is to consider k=3
-#prob.39 = outliers$prob.outlier[39]
-#prob.39
-```
-
-We see that this case has an extremely high probability (0.9917) of being more an outlier, that is, the error is greater than $k=3$ standard deviations, based on the fitted model and data.
-
-With $k=3$, however, there may be a high probability a priori of at least one outlier in a large sample. We can compute this using
-
-```{r outliers}
-n = nrow(bodyfat)
-# probability of no outliers if outliers are error greater than 3 standard deviation
-prob = (1 - (2 * pnorm(-3))) ^ n
-prob
-
-# probability of at least one outlier
-prob.least1 = 1 - (1 - (2 * pnorm(-3))) ^ n
-prob.least1
-```
-
-With $n=252$, the probability of at least one outlier is much larger than say the marginal probability that one point is an outlier of 0.05. So we would expect that there will be at least one point where the error is more than 3 standard deviations from zero almost 50% of the time. Rather than fixing $k$, we can fix the prior probability of no outliers to be say 0.95, and solve for the value of $k$.
-
-```{r find-k}
-k = qnorm(0.5 + 0.5 * 0.95 ^ (1 / n))
-k
-```
-
-This leads to a larger value of $k$ after adjusting $k$ so that there is at least one outlier. We examine Case 39 again under this $k$
-
-```{r Case39-new-k}
-#outliers.no = Bayes.outlier.prob(bodyfat.lm, k = k)
-#prob.no.39 = outliers.no$prob.outlier[39]
-#prob.no.39
-```
-
-The posterior probability of Case 39 being an outlier is 0.68475. While this is not strikingly large, it is much larger than the marginal prior probability of
-```{r}
-2 * pnorm(-k)
-```
-
-
-**Summary**
-
-There is a substantial probability that Case 39 is an outlier. If you do view it as an outlier, what are your options? One option is to investigate the case and determine if the data are input incorrectly, and fix it. Another option is when you cannot confirm there is a data entry error, you may delete the observation from the analysis and refit the model without the case. If you do take this option, be sure to describe what you did so that your research is reproducible. You may want to apply diagnostics and calculate the probability of a case being an outlier using this reduced data. As a word of caution, if you discover that there are a large number of points that appear to be outliers, take a second look at your model assumptions, since the problem may be with the model rather than the data! A third option we will talk about later, is to combine inference under the model that retains this case as part of the population, and the model that treats it as coming from another population. This approach incorporates our uncertainty about whether the case is an outlier given the data.
-
-The source code is based on using a reference prior for the linear model and extends to multiple regression.
 
 
 ### Informative Priors
