@@ -25,7 +25,7 @@
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={Bayesian Statistics},
-            pdfauthor={Christine Chai},
+            pdfauthor={Christine Chai; Lizzy Huang},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -120,12 +120,12 @@
   \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
 \subtitle{A Companion to the Statistics with R Coursera Course}
-  \author{Christine Chai}
+  \author{Christine Chai \\ Lizzy Huang}
   \preauthor{\centering\large\emph}
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{Last built on 2017-10-31}
+  \date{Last built on 2017-12-03}
 
 \usepackage{amsthm}
 \usepackage{booktabs}
@@ -170,6 +170,8 @@
 \newcommand{\BF}{\textsf{BF}}
 \newcommand{\data}{\text{data}}
 \newcommand{\iid}{\mathrel{\mathop{\sim}\limits^{\rm iid}}}
+\newcommand{\Ca}{\textsf{C}}
+
 
 
 This book is a written companion for the Coursera Course `Bayesian
@@ -1060,6 +1062,10 @@ The probability mass function can be visualized as a histogram in Figure
 of each bar is the probability of seeing a binomial random variable,
 whose value is equal to the x-value at the center of the bars base.
 
+\begin{verbatim}
+## Warning: package 'scales' was built under R version 3.4.2
+\end{verbatim}
+
 \begin{figure}
 
 {\centering \includegraphics{02-inference-01-continuous_files/figure-latex/histogram-1} 
@@ -1843,7 +1849,7 @@ creates a histogram of the results.
 
 \begin{figure}
 
-{\centering \includegraphics[width=11.24in]{JAGS_screenshot} 
+{\centering \includegraphics{JAGS_screenshot} 
 
 }
 
@@ -2568,7 +2574,7 @@ into the decision making framework easily. And in Bayesian testing, we
 minimize the posterior expected loss.
 
 \subsection{Posterior Probabilities of Hypotheses and Bayes
-Factors}\label{posterior-probabilities-of-hypotheses-and-bayes-factors}
+Factors}\label{sec:bayes-factors}
 
 In this section, we will continue with the HIV testing example to
 introduce the concept of Bayes factors. Earlier, we introduced the
@@ -3431,154 +3437,722 @@ hyper parameters from last time.
 ##  3.324087 89.871964
 \end{verbatim}
 
-In the plot we show the Monte Carlo approximation to the prior
-distribution of Mu, and the posterior distribution of Mu which is
-shifted to the right. The prior and posterior predictive distributions
-are also depicted and show how the data have updated the prior
-information. Using the Monte-Carlo samples from the posterior predictive
+Figure \ref{fig:hist-pred} shows the Monte Carlo approximation to the
+prior distribution of \(\mu\), and the posterior distribution of \(\mu\)
+which is shifted to the right. The prior and posterior predictive
+distributions are also depicted, showing how the data have updated the
+prior information.
+
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/hist-pred-1} 
+
+}
+
+\caption{Posterior densities}\label{fig:hist-pred}
+\end{figure}
+
+Using the Monte-Carlo samples from the posterior predictive
 distribution, we can estimate the probability that a new TTHM sample
-will exceed the legal limit of 80 parts per billion. Which is
-approximately 0.06. By using Monte-Carlo methods we can obtain prior and
-posterior predictive distributions of the data. Sampling from the prior
-predictive distribution can help with the selection of prior hyper
-parameters and verify that these choices reflect the prior information
-that is available. Visualizing prior predictive distributions based on
-Monte Carlo simulations can help explore implications of our prior
-assumptions such as the choice of the hyper parameters or even assume
-distributions. If samples are incompatible with known information such
-as support on positive values, we may need to modify assumptions and
-look at other families of prior distributions. Next, as part of
-exploring prior assumptions we will reference priors which are often
-used as part of a prior sensitivity analysis.
+will exceed the legal limit of 80 parts per billion, which is
+approximately 0.06.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(pred_y }\OperatorTok{>}\StringTok{ }\DecValTok{80}\NormalTok{)}\OperatorTok{/}\KeywordTok{length}\NormalTok{(pred_y)  }\CommentTok{# P(Y > 80 | data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0623
+\end{verbatim}
+
+By using Monte-Carlo methods, we can obtain prior and posterior
+predictive distributions of the data.
+
+\begin{itemize}
+\item
+  Sampling from the prior predictive distribution can help with the
+  selection of prior hyper parameters and verify that these choices
+  reflect the prior information that is available.
+\item
+  Visualizing prior predictive distributions based on Monte Carlo
+  simulations can help explore implications of our prior assumptions
+  such as the choice of the hyper parameters or even assume
+  distributions.
+\item
+  If samples are incompatible with known information, such as support on
+  positive values, we may need to modify assumptions and look at other
+  families of prior distributions.
+\end{itemize}
 
 \subsection{Reference Priors}\label{sec:NG-reference}
 
-Previously we described a way of specifying an informative prior
-distribution for inference about TTHM in tapwater based on additional
-prior information. However there may be cases where prior information is
-not available or you may wish to present an objective analysis where
-minimal prior information is used. Or perhaps, you want to use the
-Bayesian paradigm to make probability statements about parameters, but
-not use any prior information. In this section we will present reference
-priors for normal data, which can be viewed as a limiting form of the
-Normal-Gamma conjugate prior distribution.
+In Section \ref{sec:NG-predictive}, we described a way of specifying an
+informative prior distribution for inference about TTHM in tapwater
+based on additional prior information. We had to use a prior sample size
+that was comparable to the observed sample size for the prior predictive
+under the Normal-Gamma distribution to agree with the reported prior
+interval.
 
-Can you actually perform a Bayesian analysis without using prior
-information?
+However, there may be cases where prior information is not available, or
+you may wish to present an objective analysis where minimal prior
+information is used. Or perhaps, you want to use the Bayesian paradigm
+to make probability statements about parameters, but not use any prior
+information.
+
+In this section, we will present reference priors for normal data, which
+can be viewed as a limiting form of the Normal-Gamma conjugate prior
+distribution. \textbf{Can you actually perform a Bayesian analysis
+without using prior information?}
 
 Conjugate priors can be interpreted to be based on a prior sample. What
 happens in the conjugate Normal-Gamma prior if we take our prior sample
-size to go to zero? If we have no data, then we will define the prior
-sample variance to go to 0, and based on the relationship between prior
-sample sized and prior degrees of freedom, we will let the prior degrees
-of freedom go to the prior sample size minus one, or negative 1.
+size \(n_0\) to go to zero? If we have no data, then we will define the
+prior sample variance \(s_0^2\) to go to 0, and based on the
+relationship between prior sample sized and prior degrees of freedom, we
+will let the prior degrees of freedom go to the prior sample size minus
+one, or negative 1, i.e. \(v_0 = n_0 - 1 \rightarrow -1\).
 
-With this limit,
+With this limit, we have the following properties:
 
-the posterior mean goes to the sample mean
+\begin{itemize}
+\item
+  The posterior mean goes to the sample mean.
+\item
+  The posterior sample size is the observed sample size.
+\item
+  The posterior degrees of freedom go to the sample degrees of freedom.
+\item
+  The posterior variance parameter goes to the sample variance.
+\end{itemize}
 
-the posterior sample size is the observed sample size
+In this limit, the posterior hyperparameters do not depend on the prior
+hyperparameters.
 
-the posterior degrees of freedom go to the sample degrees of freedom
+Since
+\(n_0 \rightarrow 0, s^2_0 \rightarrow 0, v_0 = n_0 - 1 \rightarrow -1\),
+we have in mathematical terms:
 
-and the posterior variance parameter goes to the sample variance. In
-this limiting case the posterior hyperparameters do not depend on the
-prior hyperparameters in the limit.
+\[\begin{aligned}
+m_n &= \frac{n \bar{Y} + n_0 m_0} {n + n_0}  \rightarrow \bar{Y} \\
+n_n &= n_0 + n  \rightarrow n \\
+v_n &= v_0 + n  \rightarrow n-1 \\
+s^2_n &= \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n} (\bar{Y} - m_0)^2 \right] \rightarrow s^2
+\end{aligned}\]
 
-This limiting Normal-gamma with hyperparameters of 0, 0, 0, and negative
-1 is a special case of a reference prior known as the independent
-Jeffreys prior. While Jeffreys used other arguments to arrive at the
-form of the prior, the goal was to have an objective prior that was
-invariant to shifting the data by a constant or multiplying by a
-constant. The result is a reference prior for mu that is a uniform or
-flat on the whole real line
+This limiting Normal-gamma distribution, \(\No-\Ga(0,0,0,-1)\), is not
+really a normal gamma distribution, as the density does not integrate to
+1. The form of the limit can be viewed as a prior for \(\mu\) that is
+proportional to a constant, or uniform/flat on the whole real line. And
+a prior for the variance is proportional to 1 over the variance. The
+joint prior is taken as the product of the two.
 
-and a reference prior for the variance that is proportional to 1 over
-the variance.
+\[\begin{aligned}
+p(\mu \mid \sigma^2) & \propto  1 \\
+p(\sigma^2) & \propto  1/\sigma^2 \\
+p(\mu, \sigma^2) & \propto  1/\sigma^2
+\end{aligned}\]
 
-The joint prior is taken as the product of the two.
+This is refered to as a \textbf{reference prior} because the posterior
+hyperparameters do not depend on the prior hyperparameters.
 
-Since these do not integrate to a constant, these are \textbf{improper}
-distributions. An important consideration in using these is that one
-cannot generate samples from the prior or the prior predictive
-distribution of the data and hence are refereed to as non-generative
-distributions.
+In addition, \(\textsf{NormalGamma}(0,0,0,-1)\) is a special case of a
+reference prior, known as the independent Jeffreys prior. While Jeffreys
+used other arguments to arrive at the form of the prior, the goal was to
+have an \textbf{objective prior} invariant to shifting the data by a
+constant or multiplying by a constant.
 
-While the reference prior is not a proper prior distribution, formal
-application of Bayes rule can be used to show that the posterior
-distribution is a valid normal gamma distribution leading to what is
-called a formal Bayes posterior distribution.
+Now, a naive approach to constructing a non-informative distribution
+might be to use a uniform distribution to represent lack of knowledge.
+However, would you use a uniform distribution for \(\sigma^2\), or a
+uniform distribution for the precision \(1/\sigma^2\)? Or perhaps a
+uniform distribution for \(\sigma\)? These would all lead to different
+posteriors with little justification for any of them. This ambiguity led
+Sir Harold Jeffreys to propose reference distributions for the mean and
+variance for situations where prior information was limited. These
+priors are \textbf{invariant} to the units of the data.
 
-Under this reference prior, the posterior distribution after
-standardizing mu by subtracting the sample mean and dividing by the
-sample standard deviation over the square root of n has a student t
-distribution with n minus one degrees of freedom.
+The unnormalized priors that do not integrate to a constant are called
+\textbf{improper distributions}. An important consideration in using
+them is that one cannot generate samples from the prior or the prior
+predictive distribution to data and are referred to as
+\textbf{non-generative distributions}.
 
-prior to seeing the data, the distribution of the standardized sample
-mean given mu and sigma also has a Student t distribution
+While the reference prior is not a proper prior distribution, and cannot
+reflect anyone's actual prior beliefs, the formal application phase rule
+can still be used to show that \textbf{the posterior distribution is a
+valid normal gamma distribution}, leading to a formal phase posterior
+distribution. That depends only on summary statistics of the data.
 
-Both frequentist sampling distributions and Bayesian reference posterior
-distributions lead to intervals of this form
+The posterior distribution
+\(\textsf{NormalGamma}(\bar{Y}, n, s^2, n-1)\) breaks down to
 
-However, only the Bayesian approach justifies the probability statements
-about mu being in the interval after seeing the data.
+\[\begin{aligned}
+\mu \mid \sigma^2, \data & \sim \No(\bar{Y}, \sigma^2/n) \\
+1/\sigma^2  \mid \data & \sim \Ga((n-1)/2, s^2(n - 1)/2).
+\end{aligned}\]
 
-We can use either analytical expressions or Monte Carlo samples from the
-posterior predictive distribution to make predictions about a new
-sample.
+\begin{itemize}
+\tightlist
+\item
+  Under the reference prior \(p(\mu, \sigma^2) \propto 1/\sigma^2\), the
+  posterior distribution after standardizing \(\mu\) has a Student \(t\)
+  distribution with n minus one degrees of freedom.
+\end{itemize}
 
-using the Monte Carlo samples, the plot shows the posterior distribution
-based on the informative Normal Gamma prior and the reference prior.
-Both the posterior distribution for mu and the posterior predictive
-distribution for a new sample are shifted to the right and are centered
-at the sample mean. The posterior for mu under the reference prior is
-less concentrated around its mean than the posterior under the
-informative prior which leads to an increased posterior sample size and
-hence increased precision.
+\[\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid \data \sim  \St(n-1, 0, 1)\] *
+Prior to seeing the data, the distribution of the standardized sample
+mean given \(\mu\) and \(\sigma\) also has a Student t distribution.
+
+\[\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid \mu, \sigma^2 \sim  \St(n-1, 0, 1) \]
+
+\begin{itemize}
+\tightlist
+\item
+  Both frequentist sampling distributions and Bayesian reference
+  posterior distributions lead to intervals of this form:
+\end{itemize}
+
+\[(\bar{Y} - t_{1 - \alpha/2} s/\sqrt{n}, \, \bar{Y} + t_{1 - \alpha/2} s/\sqrt{n})\]
+
+\begin{itemize}
+\tightlist
+\item
+  However, only the Bayesian approach justifies the probability
+  statements about \(\mu\) being in the interval after seeing the data.
+\end{itemize}
+
+\[P(\bar{Y} - t_{1 - \alpha/2} s/\sqrt{n} < \mu <  \bar{Y} + t_{1 - \alpha/2} s/\sqrt{n}) = 1 - \alpha\]
+
+We can use either analytic expressions based on the t-distribution, or
+Monte Carlo samples from the posterior predictive distribution, to make
+predictions about a new sample.
+
+Here is some code to generate the Monte Carlo samples from the tap water
+example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phi =}\StringTok{ }\KeywordTok{rgamma}\NormalTok{(}\DecValTok{10000}\NormalTok{, (n}\OperatorTok{-}\DecValTok{1}\NormalTok{)}\OperatorTok{/}\DecValTok{2}\NormalTok{, s2}\OperatorTok{*}\NormalTok{(n}\OperatorTok{-}\DecValTok{1}\NormalTok{)}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\NormalTok{sigma =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(phi)}
+\NormalTok{post_mu =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{, }\DataTypeTok{mean=}\NormalTok{ybar, }\DataTypeTok{sd=}\NormalTok{sigma}\OperatorTok{/}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(n)))}
+\NormalTok{pred_y =}\StringTok{  }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{,post_mu, sigma)}
+\KeywordTok{quantile}\NormalTok{(pred_y, }\KeywordTok{c}\NormalTok{(.}\DecValTok{025}\NormalTok{, .}\DecValTok{975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       2.5%      97.5% 
+##   6.692877 104.225954
+\end{verbatim}
+
+Using the Monte Carlo samples, Figure \ref{fig:plot-post-pred} shows the
+posterior distribution based on the informative Normal-Gamma prior and
+the reference prior. Both the posterior distribution for \(\mu\) and the
+posterior predictive distribution for a new sample are shifted to the
+right, and are centered at the sample mean. The posterior for \(\mu\)
+under the reference prior is less concentrated around its mean than the
+posterior under the informative prior, which leads to an increased
+posterior sample size and hence increased precision.
+
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/plot-post-pred-1} 
+
+}
+
+\caption{Comparison of posterior densities}\label{fig:plot-post-pred}
+\end{figure}
 
 The posterior probability that a new sample will exceed the legal limit
 of 80 ppb under the reference prior is roughly 0.15, which is more than
 double the probability of 0.06 from the posterior under the informative
 prior.
 
-To recap, we have introduced a reference prior for inference for normal
-data with an unknown mean and variance.
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(pred_y }\OperatorTok{>}\StringTok{ }\DecValTok{80}\NormalTok{)}\OperatorTok{/}\KeywordTok{length}\NormalTok{(pred_y)  }\CommentTok{# P(Y > 80 | data)}
+\end{Highlighting}
+\end{Shaded}
 
-Reference priors are often part of a prior sensitivity study and are
-used when objectivity is of utmost importance.
+\begin{verbatim}
+## [1] 0.1534
+\end{verbatim}
+
+In constructing the informative prior from the reported interval, there
+are two critical assumptions. First, the prior data are exchangeable
+with the observed data. Second, the conjugate normal gamma distribution
+is suitable for representing the prior information. These assumptions
+may or may not be verifiable, but they should be considered carefully
+when using informative conjugate priors.
+
+In the case of the tap water example, there are several concerns: One,
+it is unclear that the prior data are exchangeable with the observed
+data. For example, water treatment conditions may have changed. Two, the
+prior sample size was not based on a real prior sample, but instead
+selected so that the prior predictive intervals under the normal gamma
+model agreed with the prior data. As we do not have access to the prior
+data, we cannot check assumptions about normality that would help
+justify the prior. Other skewed distributions may be consistent with the
+prior interval, but lead to different conclusions.
+
+To recap, we have introduced a reference prior for inference for normal
+data with an unknown mean and variance. Reference priors are often part
+of a prior sensitivity study and are used when objectivity is of utmost
+importance.
 
 If conclusions are fundamentally different with an informative prior and
 a reference prior, one may wish to carefully examine assumputions that
-led to the informative prior. Is the prior information based on a prior
-sample that is exchangable with the observed data? Is the normal-gamma
-assumption appropriate? In the case of the tap water example, there are
-several concerns: one; it is not clear that the prior data are
-exchangeable with the observed data. For example water treatment
-conditions may have changed. Two, the prior sample size was not based on
-a real prior sample, but instead selected so that the prior predictive
-intervals under the normal gamma model agreed with the prior data. As we
-do not have access to the prior data, we cannot check assumptions about
-normality that would help justify the prior. Other skewed distributions
-may be consistent with the prior interval, but lead to different
-conclusions. Informative priors can provide more accurate inference when
-data are limited, however, one needs to be careful that certain prior
-assumptions do not have un-intended consequences.
+led to the informative prior.
 
-Next we will investigate a prior distribution that is a mixture of
-conjugate priors that provides additional robustness to prior
-mis-specification in the prior sample size. While we no longer have nice
-analytical expressions for the posterior we can simulate fron a Monte
-Carlo aglrothm called Markov chain Monte Carlo.
+\begin{itemize}
+\item
+  Is the prior information based on a prior sample that is exchangable
+  with the observed data?
+\item
+  Is the normal-gamma assumption appropriate?
+\end{itemize}
+
+Informative priors can provide more accurate inference when data are
+limited, and the transparency of explicitly laying out prior assumptions
+is an important aspect of reproducible research. However, one needs to
+be careful that certain prior assumptions may lead to un-intended
+consequences.
+
+Next, we will investigate a prior distribution that is a mixture of
+conjugate priors, so the new prior distribution provides robustness to
+prior mis-specification in the prior sample size.
+
+While we will no longer have nice analytical expressions for the
+posterior, we can simulate from the posterior distribution using a Monte
+Carlo algorithm called Markov chain Monte Carlo (MCMC).
 
 \subsection{Mixtures of Conjugate Priors}\label{sec:NG-Cauchy}
 
-\subsection{MCMC}\label{sec:NG-MCMC}
+In this section, we will describe priors that are constructed as a
+mixture of conjugate priors -- in particular, the Cauchy distribution.
+As these are no longer conjugate priors, nice analytic expressions for
+the posterior distribution are not available. However, we can use a
+Monte Carlo algorithm called Markov chain Monte Carlo (MCMC) for
+posterior inference.
+
+In many situations, we may have reasonable prior information about the
+mean \(\mu\), but we are less confident in how many observations our
+prior beliefs are equivalent to. We can address this uncertainty in the
+prior sample size, through an additional prior distribution on a \(n_0\)
+via a hierarchical prior.
+
+The hierarchical prior for the normal gamma distribution is written as
+\[\begin{aligned}
+\mu \mid \sigma^2, n_0 & \sim \No(m_0, \sigma^2/n_0) \\
+n_0 \mid \sigma^2 &  \sim \Ga(1/2, r^2/2)
+\end{aligned}\]
+
+If \(r=1\), then this corresponds to a prior expected sample size of one
+because the expectation of \(\Ga(1/2,1/2)\) is one.
+
+The marginal prior distribution from \(\mu\) can be attained via
+integration, and we get
+
+\[\mu \mid \sigma^2  \sim  \Ca(m_0, \sigma^2 r^2)\]
+
+This is a \textbf{Cauchy distribution} centered at the prior mean
+\(m_0\), with the scale parameter \(\sigma^2 r^2\). The probability
+density function (pdf) is:
+
+\[p(\mu \mid \sigma) = \frac{1}{\pi \sigma r} \left( 1 +  \frac{(\mu - m_0)^2} {\sigma^2 r^2}  \right)^{-1}\]
+
+The Cauchy distribution does not have a mean or standard deviation, but
+the center (location) and the scale play a similar role to the mean and
+standard deviation of the normal distribution. The Cauchy distribution
+is a special case of a student \(t\) distribution with one degree of
+freedom.
+
+As Figure \ref{fig:cauchy-plot} shows, the standard Cauchy distribution
+with \(r=1\) and the standard normal distribution \(\No(0,1)\) are
+centered at the same location. But the Cauchy distribution has heavier
+tails -- more probability on extreme values than the normal distribution
+with the same scale parameter \(\sigma\). Cauchy priors were recommended
+by Sir Harold Jeffreys as a default objective prior for both estimation
+and testing.
+
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/cauchy-plot-1} 
+
+}
+
+\caption{Cauchy distribution}\label{fig:cauchy-plot}
+\end{figure}
+
+ADD MORE DETAILS BEYOND THE VIDEO?
+
+\subsection{Markov Chain Monte Carlo (MCMC)}\label{sec:NG-MCMC}
+
+The Cauchy prior described in Section \ref{sec:NG-Cauchy} is not a
+contrary prior, and therefore, the posterior distribution from
+\((\mu \mid \sigma)\), is not Cauchy or any well-known distribution.
+Fortunately, the conditional distribution of
+\((\mu, \sigma \mid n_0, \data)\),is normal gamma and easy to simulate
+from, as we learned in the previous sections. The conditional
+distribution of \((n_0 \mid \mu, \sigma, \data\)) is a gamma
+distribution, also easy to simulate from the given \(\mu, \sigma\).
+
+It turns out that if we alternate generating Monte Carlo samples from
+these conditional distributions, the sequence of samples converges to
+samples from the joint distribution of \((\mu, \sigma, n_0)\), as the
+number of simulated values increases. The Monte Carlo algorithm we have
+just described is a special case of Markov chain Monte Carlo (MCMC),
+known as the Gibbs sampler.
+
+Let's look at the pseudo code for the algorithm.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# initialize MCMC}
+\NormalTok{sigma2[}\DecValTok{1}\NormalTok{] =}\StringTok{ }\DecValTok{1}\NormalTok{; n_}\DecValTok{0}\NormalTok{[}\DecValTok{1}\NormalTok{]=}\DecValTok{1}\NormalTok{; mu[}\DecValTok{1}\NormalTok{]=m_}\DecValTok{0}
+
+\CommentTok{#draw from full conditional distributions}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\NormalTok{S) \{}
+\NormalTok{  mu[i]     =}\StringTok{ }\KeywordTok{p_mu}\NormalTok{(sigma2[i}\OperatorTok{-}\DecValTok{1}\NormalTok{], n_}\DecValTok{0}\NormalTok{[i}\OperatorTok{-}\DecValTok{1}\NormalTok{],  m_}\DecValTok{0}\NormalTok{, r, data)}
+\NormalTok{  sigma2[i] =}\StringTok{ }\KeywordTok{p_sigma2}\NormalTok{(mu[i], n_}\DecValTok{0}\NormalTok{[i}\OperatorTok{-}\DecValTok{1}\NormalTok{],    m_}\DecValTok{0}\NormalTok{, r, data)}
+\NormalTok{  n_}\DecValTok{0}\NormalTok{[i]    =}\StringTok{ }\KeywordTok{p_n_0}\NormalTok{(mu[i], sigma2[i],      m_}\DecValTok{0}\NormalTok{, r, data)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We start with the initial values of each of the parameters for \(i=1\).
+In theory, these can be completely arbitrary, as long as they are
+allowed values for the parameters.
+
+For each iteration \(i\), the algorithm will cycle through generating
+each parameter, given the \textbf{current} value of the other
+parameters. The functions \texttt{p$\_$mu}, \texttt{p$\_$sigma2}, and
+\texttt{p$\_$n$\_$0} return a simulated value from the respective
+distribution conditional on the inputs.
+
+Whenever we update a parameter, we use the \textbf{new value} in the
+subsequent steps as the \(n\) draws for \(\sigma, n_0\). We will repeat
+this until we reach iteration \(S\), leading to a dependent sequence of
+s draws from the joint posterior distribution.
+
+Incorporating the tap water example in Section \ref{sec:normal-gamma},
+we will use MCMC to generate samples under the Cauchy prior. We set 35
+as the location parameter and \(r=1\). To complete our prior
+specification, we use the Jeffrey's reference prior on \(\sigma^2\).
+This combination is referred to as the Jeffrey's Zellner-Siow Cauchy
+prior or ``JZS'' in the R \texttt{statsr} package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{bayes_inference}\NormalTok{(}\DataTypeTok{y=}\NormalTok{tthm, }\DataTypeTok{data=}\NormalTok{tapwater, }\DataTypeTok{statistic=}\StringTok{"mean"}\NormalTok{,}
+                \DataTypeTok{mu_0 =} \DecValTok{35}\NormalTok{, }\DataTypeTok{rscale=}\DecValTok{1}\NormalTok{, }\DataTypeTok{prior=}\StringTok{"JZS"}\NormalTok{,}
+                \DataTypeTok{type=}\StringTok{"ci"}\NormalTok{, }\DataTypeTok{method=}\StringTok{"sim"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Single numerical variable
+## n = 28, y-bar = 55.5239, s = 23.254
+## (Assuming Zellner-Siow Cauchy prior:  mu | sigma^2 ~ C(35, 1*sigma)
+## (Assuming improper Jeffreys prior: p(sigma^2) = 1/sigma^2
+## 
+## Posterior Summaries
+##             2.5%       25%      50%      75%    97.5%
+## mu    45.5713714 51.820910 54.87345 57.87171 64.20477
+## sigma 18.4996738 21.810376 23.84572 26.30359 32.11330
+## n_0    0.2512834  2.512059  6.13636 12.66747 36.37425
+## 
+## 95% CI for mu: (45.5714, 64.2048)
+\end{verbatim}
+
+\includegraphics{03-decision-02-normal-gamma_files/figure-latex/tapwater-inference-1.pdf}
+
+Using the \texttt{bayes$\_$inference} function from the \texttt{statsr}
+package, we can obtain summary statistics and a plot from the MCMC
+output -- not only \(\mu\), but also inference about \(\sigma^2\) and
+the prior sample size.
+
+The posterior mean under the JZS model is much closer to the sample mean
+than what the normal gamma prior used previously. Under the informative
+normal gamma prior, the sample made a 55.5, about eight standard
+deviations above the mean -- a surprising value under the normal prior.
+Under the Cauchy prior, the informative prior location has much less
+influence.
+
+This is \textbf{the robustness property of the Cauchy prior}, leading
+the posterior to put more weight on the sample mean than the prior mean,
+especially when the prior location is not close to the sample mean. We
+can see that the central 50\% interval for \(n_0\) is well below the
+value 25 used in the normal prior, which placed almost equal weight on
+the prior in sample mean.
+
+Using the MCMC draws of \(\mu, \sigma\), we can obtain Monte Carlo
+samples from the predictive distribution of \(y\), by plugging \(\mu\)
+and \(\sigma\) into the corresponding functions. Figure
+\ref{fig:hist-ref-pred} compares the posterior densities estimated from
+the simulative values of \(\mu\) and the predicted draws of TTHM under
+the Jeffrey Zellner-Siow prior, and the informative normal prior from
+\(\mu\) with \(n_0 = 25\) and the reference prior on \(\sigma^2\).
+
+\begin{figure}
+
+{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/hist-ref-pred-1} 
+
+}
+
+\caption{Comparison of posterior densities}\label{fig:hist-ref-pred}
+\end{figure}
+
+To recap, we have shown how to create more flexible prior distributions,
+such as the Cauchy distribution using mixtures of conjugate priors. As
+the posterior distributions are not available in closed form, we
+demonstrated how MCMC can be used for inference using the hierarchical
+prior distribution. Starting in the late 1980's, MCMC algorithms have
+led to an exponential rise in the use of Bayes in methods, because
+complex models built through hierarchical distributions suddenly were
+tractable. The Cauchy prior is well-known for being robust prior
+mis-specifications. For example, having a prior mean that is far from
+the observed mean. This provides an alternative to the reference prior
+as a default or objective distribution that is proper.
+
+In the next sections, we will return to Bayes factors and hypothesis
+testing where the Cauchy prior plays an important role.
 
 \section{Hypothesis Testing with Normal
 Populations}\label{hypothesis-testing-with-normal-populations}
 
+In Section \ref{sec:bayes-factors}, we described how the Bayes factors
+can be used for hypothesis testing. Now we will use the Bayes factors to
+test normal means, i.e.~compare two groups of normally-distributed
+populations. We divide this mission into four cases: known variance,
+unknown variance, paired data, and independent groups.
+
 \subsection{Bayes Factors for Testing a Normal Mean: variance
-known}\label{bayes-factors-for-testing-a-normal-mean-variance-known}
+known}\label{sec:known-var}
+
+Now we show how to obtain base factors for testing hypothesis about a
+normal mean, where \textbf{the variance is known}. To start, let's
+consider a random sample of observations from a normal population with
+mean \(\mu\) and pre-specified variance \(\sigma^2\). We consider
+testing whether the population mean \(\mu\) is equal to \(m_0\) or not.
+
+Therefore, we can formulate the data and hypotheses as below:
+
+\textbf{Data} \[Y_1, \cdots, Y_n \iid \No(\mu, \sigma^2)\]
+
+\textbf{Hypotheses}
+
+\begin{itemize}
+\tightlist
+\item
+  \(H_1: \mu = m_0\)
+\item
+  \(H_2: \mu \neq m_0\)
+\end{itemize}
+
+\textbf{Priors}
+
+We also need to specify priors for \(\mu\) under both hypotheses. Under
+\(H_1\), we assume that \(\mu\) is exactly \(m_0\), so this occurs with
+probability 1 under \(H_1\). Now under \(H_2\), \(\mu\) is unspecified,
+so we describe our prior uncertainty with the conjugate normal
+distribution centered at \(m_0\) and with a variance
+\(\sigma^2/\mathbf{n_0}\). This is centered at the hypothesized value
+\(m_0\), and it seems that the mean is equally likely to be larger or
+smaller than \(m_0\), so a dividing factor \(n_0\) is given to the
+variance. The hyper parameter \(n_0\) controls the precision of the
+prior as before.
+
+In mathematical terms, the priors are:
+
+\begin{itemize}
+\tightlist
+\item
+  \(H_1: \mu = m_0 \text{  with probability 1}\)
+\item
+  \(H_2: \mu \sim \No(m_0, \sigma^2/\mathbf{n_0})\)
+\end{itemize}
+
+\textbf{Bayes Factor}
+
+Now the Bayes factor for comparing \(H_1\) to \(H_2\) is the ratio of
+the distribution, the data under the assumption that \(\mu = m_0\) to
+the distribution of the data under \(H_2\).
+
+\[\begin{aligned}
+\BF[H_1 : H_2] &= \frac{p(\data \mid \mu = m_0, \sigma^2 )}
+ {\int p(\data \mid \mu, \sigma^2) p(\mu \mid m_0, \mathbf{n_0}, \sigma^2)\, d \mu} \\ 
+\BF[H_1 : H_2] &=\left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}} \right)^{1/2} \exp\left\{-\frac 1 2 \frac{n }{n + \mathbf{n_0}} Z^2 \right\} \\
+ Z   &=  \frac{(\bar{Y} - m_0)}{\sigma/\sqrt{n}}
+\end{aligned}\]
+
+The term in the denominator requires integration to account for the
+uncertainty in \(\mu\) under \(H_2\). And it can be shown that the Bayes
+factor is a function of the observed sampled size, the prior sample size
+\(n_0\) and a \(Z\) score.
+
+Let's explore how the hyperparameters in \(n_0\) influences the Bayes
+factor in Equation \eqref{eq:BayesFactor}. For illustration we will use
+the sample size of 100. Recall that for estimation, we interpreted
+\(n_0\) as a prior sample size and considered the limiting case where
+\(n_0\) goes to zero as a non-informative or reference prior.
+
+\begin{equation}
+\textsf{BF}[H_1 : H_2] = \left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}}\right)^{1/2} \exp\left\{-\frac{1}{2} \frac{n }{n + \mathbf{n_0}} Z^2 \right\}
+\label{eq:BayesFactor}
+\end{equation}
+
+Figure \ref{fig:vague-prior} shows the Bayes factor for comparing
+\(H_1\) to \(H_2\) on the y-axis as \(n_0\) changes on the x-axis. The
+different lines correspond to different values of the \(Z\) score or how
+many standard errors \(\bar{y}\) is from the hypothesized mean. As
+expected, larger values of the \(Z\) score favor \(H_2\).
+
+\begin{figure}
+\centering
+\includegraphics{03-decision-03-BFnormal_files/figure-latex/vague-prior-1.pdf}
+\caption{\label{fig:vague-prior}Vague prior for mu: n=100}
+\end{figure}
+
+But as \(n_0\) becomes smaller and approaches 0, the first term in the
+Bayes factor goes to infinity, while the exponential term involving the
+data goes to a constant and is ignored. In the limit as
+\(n_0 \rightarrow 0\) under this noninformative prior, the Bayes factor
+paradoxically ends up favoring \(H_1\) regardless of the value of
+\(\bar{y}\).
+
+The takeaway from this is that we cannot use improper priors with
+\(n_0 = 0\), if we are going to test our hypothesis that \(\mu = n_0\).
+Similarly, vague priors that use a small value of \(n_0\) are not
+recommended due to the sensitivity of the results to the choice of an
+arbitrarily small value of \(n_0\).
+
+This problem arises with vague priors -- the Bayes factor favors the
+null model \(H_1\) even when the data are far away from the value under
+the null -- are known as the Bartlett's paradox or the
+Jeffrey's-Lindleys paradox.
+
+Now one way to try to understand the effect of prior is through the
+standard effect size
+
+\[\delta = \frac{\mu - m_0}{\sigma}.\] The prior of the standard effect
+size is
+
+\[\delta \mid   H_2  \sim \No(0, \frac{1}{\mathbf{n_0}})\]
+
+This allows us to think about a standardized effect independent of the
+units of the problem. One default choice is using the unit information
+prior, where the prior sample size \(n_0\) is 1, leading to a standard
+normal for the standardized effect size. This is depicted with the blue
+normal density in Figure \ref{fig:effect-size}. This suggested that we
+expect that the mean will be within \(\pm 1.96\) standard deviations of
+the hypothesized mean \textbf{with probability 0.95}. (Note that we can
+say this only under a Bayesian setting.)
+
+In many fields we expect that the effect will be small relative to
+\(\sigma\). If we do not expect to see large effects, then we may want
+to use a more informative prior on the effect size as the density in
+orange with \(n_0 = 4\). So they expected the mean to be within
+\(\pm 1/\sqrt{n_0}\) or five standard deviations of the prior mean.
+
+\begin{figure}
+\centering
+\includegraphics{03-decision-03-BFnormal_files/figure-latex/effect-size-1.pdf}
+\caption{\label{fig:effect-size}Prior on standard effect size}
+\end{figure}
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:unnamed-chunk-1}{}{\label{exm:unnamed-chunk-1} }To
+illustrate, we give an example from parapsychological research. The case
+involved the test of the subject's claim to affect a series of randomly
+generated 0's and 1's by means of extra sensory perception (ESP). The
+random sequence of 0's and 1's are generated by a machine with
+probability of generating 1 being 0.5. The subject claims that his ESP
+would make the sample mean differ significantly from 0.5.
+\EndKnitrBlock{example}
+
+Therefore, we are testing \(H_1: \mu = 0.5\) versus
+\(H_2: \mu \neq 0.5\). Let's use a prior that suggests we do not expect
+a large effect which leads the following solution for \(n_0\). Assume we
+want a standard effect of 0.03, there is a 95\% chance that it is
+between \((-0.03/\sigma, 0.03/\sigma)\), with
+\(n_0 = (1.96\sigma/0.03)^2 = 32.7^2\).
+
+Figure \ref{fig:prior-effect} shows our informative prior in blue, while
+the unit information prior is in orange. On this scale, the unit
+information prior needs to be almost uniform for the range that we are
+interested.
+
+\begin{figure}
+\centering
+\includegraphics{03-decision-03-BFnormal_files/figure-latex/prior-effect-1.pdf}
+\caption{\label{fig:prior-effect}Prior effect in the extra sensory
+perception test}
+\end{figure}
+
+A very large data set with over 104 million trials was collected to test
+this hypothesis, so we use a normal distribution to approximate the
+distribution the sample mean.
+
+\begin{itemize}
+\tightlist
+\item
+  Sample size: \(n = 1.0449 \times 10^8\)
+\item
+  Sample mean: \(\bar{y} = 0.500177\), standard deviation
+  \(\sigma = 0.5\)
+\item
+  \(Z\)-score: 3.61
+\end{itemize}
+
+Now using our prior in the data, the Bayes factor for \(H_1\) to \(H_2\)
+was 0.46, implying evidence against the hypothesis \(H_1\) that
+\(\mu = 0.5\).
+
+\begin{itemize}
+\tightlist
+\item
+  Informative \(\BF[H_1:H_2] = 0.46\)
+\item
+  \(\BF[H_2:H_1] = 1/\BF[H_1:H_2] = 2.19\)
+\end{itemize}
+
+Now, this can be inverted to provide the evidence in favor of \(H_2\).
+The evidence suggests that the hypothesis that the machine operates with
+a probability that is not 0.5, is 2.19 times more likely than the
+hypothesis the probability is 0.5. Based on the interpretation of Bayes
+factors from Table \ref{tab:jeffreys1961}, this is in the range of ``not
+worth the bare mention''.
+
+To recap, we present expressions for calculating Bayes factors for a
+normal model with a specified variance. We show that the improper
+reference priors for \(\mu\) when \(n_0 = 0\), or vague priors where
+\(n_0\) is arbitrarily small, lead to Bayes factors that favor the null
+hypothesis regardless of the data, and thus should not be used for
+hypothesis testing.
+
+Bayes factors with normal priors can be sensitive to the choice of the
+\(n_0\). While the default value of \(n_0 = 1\) is reasonable in many
+cases, this may be too non-informative if one expects more effects.
+Wherever possible, think about how large an effect you expect and use
+that information to help select the \(n_0\).
+
+All the ESP examples suggest weak evidence and favored the machine
+generating random 0's and 1's with a probability that is different from
+0.5. Note that ESP is not the only explanation -- a deviation from 0.5
+can also occur if the random number generator is biased. Bias in the
+stream of random numbers in our pseudorandom numbers has huge
+implications for numerous fields that depend on simulation. If the
+context had been about detecting a small bias in random numbers what
+prior would you use and how would it change the outcome? You can try to
+experiment in R or other software packages that generate random
+Bernoullis.
+
+Next, we will look at Bayes factors in normal models with unknown
+variances using the Cauchy prior so that results are less sensitive to
+the choice of \(n_0\).
 
 \subsection{Bayes Factors for Testing a Normal Mean: unknown
 variance}\label{bayes-factors-for-testing-a-normal-mean-unknown-variance}
@@ -3586,8 +4160,319 @@ variance}\label{bayes-factors-for-testing-a-normal-mean-unknown-variance}
 \subsection{Testing Normal Means: paired
 data}\label{testing-normal-means-paired-data}
 
+We previously learned that we can use a paired t-test to compare means
+from two paired samples. In this section, we will show how Bayes factors
+can be expressed as a function of the t-statistic for comparing the
+means and provide posterior probabilities of the hypothesis that whether
+the means are equal or different.
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:zinc}{}{\label{exm:zinc} }Trace metals in drinking
+water affect the flavor, and unusually high concentrations can pose a
+health hazard. Ten pairs of data were taken measuring the zinc
+concentration in bottom and surface water at ten randomly sampled
+locations, as listed in Table \ref{tab:zinc-table}.
+
+Water samples collected at the the same location, on the surface and the
+bottom, cannot be assumed to be independent of each other. However, it
+may be reasonable to assume that the differences in the concentration at
+the bottom and the surface in randomly sampled locations are independent
+of each other.
+\EndKnitrBlock{example}
+
+\begin{table}
+
+\caption{\label{tab:zinc-table}Zinc in drinking water}
+\centering
+\begin{tabular}[t]{rrrr}
+\toprule
+Location & Surface & Bottom & Difference\\
+\midrule
+1 & 0.430 & 0.415 & 0.015\\
+2 & 0.266 & 0.238 & 0.028\\
+3 & 0.567 & 0.390 & 0.177\\
+4 & 0.531 & 0.410 & 0.121\\
+5 & 0.707 & 0.605 & 0.102\\
+\addlinespace
+6 & 0.716 & 0.609 & 0.107\\
+7 & 0.651 & 0.632 & 0.019\\
+8 & 0.589 & 0.523 & 0.066\\
+9 & 0.469 & 0.411 & 0.058\\
+10 & 0.723 & 0.612 & 0.111\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+To start modeling, we will treat the ten differences as a random sample
+from a normal population where the parameter of interest is the
+difference between the average zinc concentration at the bottom and the
+average zinc concentration at the surface, or the main difference,
+\(\mu\).
+
+In mathematical terms, we have
+
+\begin{itemize}
+\tightlist
+\item
+  Random sample of \(n= 10\) differences \(Y_1, \ldots, Y_n\)
+\item
+  Normal population with mean \(\mu \equiv \mu_B - \mu_S\)
+\end{itemize}
+
+In this case, we have no information about the variability in the data,
+and we will treat the variance, \(\sigma^2\), as unknown.
+
+The hypothesis of the main concentration at the surface and bottom are
+the same is equivalent to saying \(\mu = 0\). The second hypothesis is
+that the difference between the mean bottom and surface concentrations,
+or equivalently that the mean difference \(\mu \neq 0\).
+
+In other words, we are going to compare the following hypotheses:
+
+\begin{itemize}
+\tightlist
+\item
+  \(H_1: \mu_B = \mu_S \Leftrightarrow \mu = 0\)
+\item
+  \(H_2: \mu_B \neq \mu_S \Leftrightarrow \mu \neq 0\)
+\end{itemize}
+
+The Bayes factor is the ratio between the distributions of the data
+under each hypothesis, which does not depend on any unknown parameters.
+
+\[\BF[H_1 : H_2] = \frac{p(\data \mid H_1)} {p(\data \mid H_2)}\]
+
+To obtain the Bayes factor, we need to use integration over the prior
+distributions under each hypothesis to obtain those distributions of the
+data.
+
+\[\BF[H_1 : H_2] = \iint p(\data \mid \mu, \sigma^2) p(\mu \mid \sigma^2) p(\sigma^2 \mid H_2)\, d \mu \, d\sigma^2\]
+
+This requires specifying the following priors:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\mu \mid \sigma^2, H_2 \sim \No(0, \sigma^2/n_0)\)
+\item
+  \(p(\sigma^2) \propto 1/\sigma^2\) for both \(H_1\) and \(H_2\)
+\end{itemize}
+
+\(\mu\) is exactly zero under the hypothesis \(H_1\). For \(\mu\) in
+\(H_2\), we start with the same conjugate normal prior as we used in
+Section \ref{sec:known-var} -- testing the normal mean with known
+variance. Since we assume that \(\sigma^2\) is known, we model
+\(\mu \mid \sigma^2\) instead of \(\mu\) itself.
+
+The \(\sigma^2\) appears in both the numerator and denominator of the
+Bayes factor. For default or reference case, we use the Jeffreys prior
+(a.k.a. reference prior) on \(\sigma^2\). As long as we have more than
+two observations, this (improper) prior will lead to a proper posterior.
+
+After integration and rearranging, one can derive a simple expression
+for the Bayes factor:
+
+\[\BF[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
+  \frac{ t^2  \frac{n_0}{n + n_0} + \nu }
+  { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}\]
+
+This is a function of the t-statistic
+
+\[t = \frac{|\bar{Y}|}{s/\sqrt{n}}\],
+
+where \(s\) is the sample standard deviation and the degrees of freedom
+\(\nu = n-1\) (sample size minus one).
+
+As we saw in the case of Bayes factors with known variance, we cannot
+use the improper prior on \(\mu\) because when \(n_0 \to 0\), then
+\(\BF[H1:H_2] \to \infty\) favoring \(H_1\) regardless of the magnitude
+of the t-statistic. Arbitrary, vague small choices for \(n_0\) also lead
+to arbitrary large Bayes factors in favor of \(H_1\). Another example of
+the Barlett's or Jeffreys-Lindley paradox.
+
+Sir Herald Jeffrey discovered another paradox testing using the
+conjugant normal prior, known as the \textbf{information paradox}. His
+thought experiment assumed that our sample size \(n\) and the prior
+sample size \(n_0\). He then considered what would happen to the Bayes
+factor as the sample mean moved further and further away from the
+hypothesized mean, measured in terms standard errors with the
+t-statistic, i.e., \(|t| \to \infty\). As the t-statistic or information
+about the mean moved further and further from zero, the Bayes factor
+goes to a constant depending on \(n, n_0\) rather than providing
+overwhelming support for \(H_2\).
+
+The bounded Bayes factor is
+
+\[\BF[H_1 : H_2] \to \left( \frac{n_0}{n_0 + n}  \right)^{\frac{n - 1}{2}}\]
+
+Jeffrey wanted a prior with \(\BF[H_1 : H_2] \to 0\) (or equivalently,
+\(\BF[H_2 : H_1] \to \infty\)), as the information from the t-statistic
+grows, indicating the sample mean is as far as from the hypothesized
+mean and should favor \(H_2\).
+
+To resolve the paradox when the information the t-statistic favors
+\(H_2\) but the Bayes factor does not, Jeffreys showed that \textbf{no
+normal prior could resolve the paradox}.
+
+But a \textbf{Cauchy prior} on \(\mu\), would resolve it. In this way,
+\(\BF[H_2 : H_1]\) goes to infinity as the sample mean becomes further
+away from the hypothesized mean. Recall that the Cauchy prior is written
+as \(\Ca(0, r^2 \sigma^2)\). While Jeffreys used a default of \(r = 1\),
+smaller values of \(r\) can be used if smaller effects are expected.
+
+The combination of the Jeffrey's prior on \(\sigma^2\) and this Cauchy
+prior on \(\mu\) under \(H_2\) is sometimes referred to as the
+\textbf{Jeffrey-Zellener-Siow prior}.
+
+However, there is no closed form expressions for the Bayes factor under
+the Cauchy distribution. To obtain the Bayes factor, we must use the
+numerical integration or simulation methods.
+
+We will use the \texttt{bayes$\_$inference} function from the
+\texttt{statsr} package to test whether the mean difference is zero in
+Example \ref{exm:zinc} (zinc), using the JZS (Jeffreys-Zellener-Siow)
+prior.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(statsr)}
+\KeywordTok{bayes_inference}\NormalTok{(Difference, }\DataTypeTok{data=}\NormalTok{zinc, }\DataTypeTok{statistic=}\StringTok{"mean"}\NormalTok{, }\DataTypeTok{type=}\StringTok{"ht"}\NormalTok{,}
+                \DataTypeTok{prior=}\StringTok{"JZS"}\NormalTok{, }\DataTypeTok{mu_0=}\DecValTok{0}\NormalTok{, }\DataTypeTok{method=}\StringTok{"theo"}\NormalTok{, }\DataTypeTok{alt=}\StringTok{"twosided"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Single numerical variable
+## n = 10, y-bar = 0.0804, s = 0.0523
+## (Using Zellner-Siow Cauchy prior:  mu ~ C(0, 1*sigma)
+## (Using Jeffreys prior: p(sigma^2) = 1/sigma^2
+## 
+## Hypotheses:
+## H1: mu = 0 versus H2: mu != 0
+## Priors:
+## P(H1) = 0.5 , P(H2) = 0.5
+## Results:
+## BF[H2:H1] = 50.7757
+## P(H1|data) = 0.0193  P(H2|data) = 0.9807 
+## 
+## Posterior summaries for mu under H2:
+## Single numerical variable
+## n = 10, y-bar = 0.0804, s = 0.0523
+## (Assuming Zellner-Siow Cauchy prior:  mu | sigma^2 ~ C(0, 1*sigma)
+## (Assuming improper Jeffreys prior: p(sigma^2) = 1/sigma^2
+## 
+## Posterior Summaries
+##             2.5%        25%        50%         75%      97.5%
+## mu    0.03654586 0.06330174 0.07538794  0.08719806  0.1122371
+## sigma 0.03668105 0.04740802 0.05529246  0.06554432  0.0953931
+## n_0   0.16185632 1.88742742 4.73660241 10.10892627 32.3564337
+## 
+## 95% CI for mu: (0.0365, 0.1122)
+\end{verbatim}
+
+\includegraphics{03-decision-03-BFnormal_files/figure-latex/bayes-inference-1.pdf}
+
+With equal prior probabilities on the two hypothesis, the Bayes factor
+is the posterior odds. From the output, we see this indicates that the
+hypothesis \(H_2\), the mean difference is different from 0, is almost
+51 times more likely than the hypothesis \(H_1\) that the average
+concentration is the same at the surface and the bottom.
+
+To sum up, we have used the \textbf{Cauchy prior} as a default prior
+testing hypothesis about a normal mean when variances are unknown. This
+does require numerical integration, but it is available in the
+\texttt{bayes$\_$inference} function from the \texttt{statsr} package.
+If you expect that the effect sizes will be small, smaller values of
+\(r\) are recommended.
+
+It is often important to quantify the magnitude of the difference in
+addition to testing. The Cauchy Prior provides a default prior for both
+testing and inference; it avoids problems that arise with choosing a
+value of \(n_0\) (prior sample size) in both cases.
+
+Next, we will illustrate using the Cauchy prior for comparing two means
+from independent normal samples.
+
 \subsection{Testing Normal Means: independent
 groups}\label{testing-normal-means-independent-groups}
+
+In the previous section, we described Bayes factors for testing whether
+the mean difference of \textbf{paired} samples was zero. In this
+section, we will consider a slightly different problem -- we have two
+\textbf{independent} samples, and we would like to test the hypothesis
+that the means are different or equal.
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:birth-records}{}{\label{exm:birth-records} }We
+illustrate the testing of independent groups with data from a 2004
+survey of birth records from North Carolina, which are available in the
+\texttt{statsr} package.
+
+The variable of interest is \texttt{gained} -- the weight gain of
+mothers during pregnancy. We have two groups defined by the categorical
+variable, \texttt{mature}, with levels, younger mom and older mom.
+
+\textbf{Question of interest}: Do the data provide convincing evidence
+of a difference between the average weight gain of older moms and the
+average weight gain of younger moms?
+\EndKnitrBlock{example}
+
+We will view the data as a random sample from two populations, older and
+younger moms. The two groups are modeled as:
+
+\begin{equation}
+\begin{split}
+Y_{O,i} &\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu + \alpha/2, \sigma^2) \\
+Y_{Y,i} &\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2, \sigma^2)
+\end{split}
+\label{eq:half-alpha}
+\end{equation}
+
+The model for weight gain for older moms using the subscript \(O\), and
+it assumes that the observations \(Y\) are independent and identically
+distributed, with a mean \(\mu+\alpha/2\) and variance \(\sigma^2\).
+
+For the younger women, the observations with the subscript \(Y\) are
+independent and identically distributed with a mean \(\mu-\alpha/2\) and
+variance \(\sigma^2\).
+
+Using this representation of the means in the two groups, the difference
+in means simplifies to \(\alpha\) -- the parameter of interest.
+
+\[(\mu + \alpha/2)  - (\mu - \alpha/2) =  \alpha\]
+
+You may ask, ``Why don't we set the average weight gain of older women
+to \(\mu+\alpha\), and the average weight gain of younger women to
+\(\mu\)?'' We need the parameter \(\alpha\) to be present in both
+\(Y_{O,i}\) (the group of older women) and \(Y_{Y,i}\) (the group of
+younger women).
+
+We have the following competing hypotheses:
+
+\begin{itemize}
+\tightlist
+\item
+  \(H_1: \alpha = 0 \Leftrightarrow\) The means are not different.
+\item
+  \(H_2: \alpha \neq 0 \Leftrightarrow\) The means are different.
+\end{itemize}
+
+In this representation, \(\mu\) represents the overall weight gain for
+all women. (Does the model in Equation \eqref{eq:half-alpha} make more
+sense now?) To test the hypothesis, we need to specify prior
+distributions for \(\alpha\) under \(H_2\) (c.f. \(\alpha = 0\) under
+\(H_1\)) and priors for \(\mu,\sigma^2\) under both hypotheses.
+
+UNFINISHED BELOW
+
+Recall that the Bayes factor is the ratio of the distribution of the
+data under the two hypotheses.
+
+\[\begin{aligned}
+ \BF[H_1 : H_2] &=  \frac{p(\data \mid H_1)} {p(\data \mid H_2)} \\
+  &= \frac{\iint p(\data \mid \alpha = 0,\mu,  \sigma^2 )p(\mu, \sigma^2 \mid H_1) \, d\mu \,d\sigma^2}
+ {\int \iint p(\data \mid \alpha, \mu, \sigma^2) p(\alpha \mid \sigma^2) p(\mu, \sigma^2 \mid H_2) \, d \mu \, d\sigma^2 \, d \alpha}
+\end{aligned}\]
 
 \subsection{Inference after Testing}\label{inference-after-testing}
 
@@ -3595,7 +4480,1196 @@ groups}\label{testing-normal-means-independent-groups}
 
 Test something here
 
-\bibliography{packages.bib,book.bib,references.bib}
+\chapter{Introduction to Bayesian
+Regression}\label{introduction-to-bayesian-regression}
+
+In the previous chapter, we introduced Bayesian decision making using
+posterior probabilities and a variety of loss functions. We discussed
+how to minimize the expected loss for hypothesis testing. Moreover, we
+instroduce the concept of Bayes factors and gave some examples of how
+they can be used in Bayesian hypothesis testing for comparison of two
+means. We also discussed how to choose appropriate and robust priors.
+When there is no conjugacy, we applied Markov Chain Monte Carlo
+simulation to approximate the posterior distributions of parameters of
+interest.
+
+In this chapter, we will apply Bayesian inference to linear regression.
+We will first apply Bayesian statistics to simple linear regression
+models, then generalize the results to multiple linear regression
+models. We will see when using the reference prior, the posterior means,
+posterior standard deviations, and credible intervals of the
+coefficients will coincide with the counterparts in the frequentist
+ordinary least square (OLS) linear regression models. However, using the
+Bayes framework, we can now interpret the credible intervals as the
+probability of the coefficients lie in such intervals.
+
+\section{Bayesian Simple Linear
+Regression}\label{bayesian-simple-linear-regression}
+
+In this section, we turn to Bayesian inference in simple linear
+regression. We will use reference prior distribution which will provide
+a connection between the frequentist solution and Bayesian answers. This
+provides a baseline analysis for comparions with more informative prior
+distributions. To illustrate the ideas, we will use an example of
+predicting body fat.
+
+\subsection{Frequentist Ordinary Least Square Simple Linear
+Regression}\label{frequentist-ordinary-least-square-simple-linear-regression}
+
+Obtaining accurate measurements of body fat is expensive and not easy to
+be done. Instaed, predictive models which predict the percentage of body
+fat using readily available measurements such as abdominal circumference
+are easy to use and inexpensive. We will illustrate this using the
+\texttt{bodyfat} data from the library \texttt{BAS}.
+
+To start, we load the \texttt{BAS} library (you may download the package
+from CRAN) to access the dataframe. We print out a summary of the
+variables in this dataframe.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Suppress warning messages}
+\KeywordTok{library}\NormalTok{(BAS)}
+\KeywordTok{data}\NormalTok{(bodyfat)}
+\KeywordTok{summary}\NormalTok{(bodyfat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Density         Bodyfat           Age            Weight     
+##  Min.   :0.995   Min.   : 0.00   Min.   :22.00   Min.   :118.5  
+##  1st Qu.:1.041   1st Qu.:12.47   1st Qu.:35.75   1st Qu.:159.0  
+##  Median :1.055   Median :19.20   Median :43.00   Median :176.5  
+##  Mean   :1.056   Mean   :19.15   Mean   :44.88   Mean   :178.9  
+##  3rd Qu.:1.070   3rd Qu.:25.30   3rd Qu.:54.00   3rd Qu.:197.0  
+##  Max.   :1.109   Max.   :47.50   Max.   :81.00   Max.   :363.1  
+##      Height           Neck           Chest           Abdomen      
+##  Min.   :29.50   Min.   :31.10   Min.   : 79.30   Min.   : 69.40  
+##  1st Qu.:68.25   1st Qu.:36.40   1st Qu.: 94.35   1st Qu.: 84.58  
+##  Median :70.00   Median :38.00   Median : 99.65   Median : 90.95  
+##  Mean   :70.15   Mean   :37.99   Mean   :100.82   Mean   : 92.56  
+##  3rd Qu.:72.25   3rd Qu.:39.42   3rd Qu.:105.38   3rd Qu.: 99.33  
+##  Max.   :77.75   Max.   :51.20   Max.   :136.20   Max.   :148.10  
+##       Hip            Thigh            Knee           Ankle     
+##  Min.   : 85.0   Min.   :47.20   Min.   :33.00   Min.   :19.1  
+##  1st Qu.: 95.5   1st Qu.:56.00   1st Qu.:36.98   1st Qu.:22.0  
+##  Median : 99.3   Median :59.00   Median :38.50   Median :22.8  
+##  Mean   : 99.9   Mean   :59.41   Mean   :38.59   Mean   :23.1  
+##  3rd Qu.:103.5   3rd Qu.:62.35   3rd Qu.:39.92   3rd Qu.:24.0  
+##  Max.   :147.7   Max.   :87.30   Max.   :49.10   Max.   :33.9  
+##      Biceps         Forearm          Wrist      
+##  Min.   :24.80   Min.   :21.00   Min.   :15.80  
+##  1st Qu.:30.20   1st Qu.:27.30   1st Qu.:17.60  
+##  Median :32.05   Median :28.70   Median :18.30  
+##  Mean   :32.27   Mean   :28.66   Mean   :18.23  
+##  3rd Qu.:34.33   3rd Qu.:30.00   3rd Qu.:18.80  
+##  Max.   :45.00   Max.   :34.90   Max.   :21.40
+\end{verbatim}
+
+This dataframe includes 252 measurements on men of body fat and other
+measurements, such as waist circumference (\texttt{Abdomen}). We will
+use \texttt{Abdomen} to illustrate Bayesian simple linear regression. We
+regress the response variable \texttt{Bodyfat} on the predictor
+\texttt{Abdomen}, which gives us the model
+\[ y_i = \alpha + \beta x_i + \epsilon_i, \] which the assumption that
+the errors \(\epsilon_i\) are independent and identically distributed as
+normal random variables with mean zero and constant variance
+\(\sigma^2\).
+
+The figure below shows the percentage body fat obtained from under water
+weighing and the abdominal circumference for 252 men. To predict body
+fat, the line overlayed on the scatter plot illustrates the best fitting
+ordinary least squares line obtained with the \texttt{lm} function in R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(Bodyfat }\OperatorTok{~}\StringTok{ }\NormalTok{Abdomen, }\DataTypeTok{data =}\NormalTok{ bodyfat, }
+     \DataTypeTok{xlab =} \StringTok{"abdomen circumference (cm)"}\NormalTok{, }
+     \DataTypeTok{col =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{16}\NormalTok{, }\DataTypeTok{main =} \StringTok{""}\NormalTok{)}
+
+\CommentTok{# Ordinary least square linear regression}
+\NormalTok{bodyfat.lm =}\StringTok{ }\KeywordTok{lm}\NormalTok{(Bodyfat }\OperatorTok{~}\StringTok{ }\NormalTok{Abdomen, }\DataTypeTok{data =}\NormalTok{ bodyfat)}
+\KeywordTok{summary}\NormalTok{(bodyfat.lm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Bodyfat ~ Abdomen, data = bodyfat)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -19.0160  -3.7557   0.0554   3.4215  12.9007 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -39.28018    2.66034  -14.77   <2e-16 ***
+## Abdomen       0.63130    0.02855   22.11   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.877 on 250 degrees of freedom
+## Multiple R-squared:  0.6617, Adjusted R-squared:  0.6603 
+## F-statistic: 488.9 on 1 and 250 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beta =}\StringTok{ }\KeywordTok{coef}\NormalTok{(bodyfat.lm)}
+\KeywordTok{abline}\NormalTok{(beta, }\DataTypeTok{lwd =} \DecValTok{4}\NormalTok{, }\DataTypeTok{col =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{04-regression-01-Bayesian-simple-regression_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+From the summary, we see that this model has an estimated slope,
+\(\hat{\beta}\), of 0.63 and an estimated intercept, \(\hat{\alpha}\),
+of about -39.28\%. For every additional centimeter, we expect body fat
+to increase by 0.63\%. The negative interceptive course does not make
+sense as a physical model, but neither does predicting a male with a
+waist of zero centimeters. Nevertheless, this linear regression may be
+an accurate approximation for prediction purposes for measurements that
+are in the observed range for this population.
+
+The residuals, which provide an estimate of the fitting error, are equal
+to \(\hat{\epsilon}_i = Y_i - \hat{Y}_i\), the difference between the
+observed values \(Y_i\) and the fited values
+\(\hat{Y}_i = \hat{\alpha} + \hat{\beta}X_i\), where \(X_i\) is the
+abdominal circumference for the \(i\)th male. \(\hat{\epsilon}_i\) are
+used for diagnostics as well as estimating the constant variance in the
+assumption of the model \(\sigma^2\) via the mean squared error (MSE):
+\[ \hat{\sigma}^2 = \frac{1}{n-2}\sum_i^n (y_i-\hat{y}_i)^2 = \frac{1}{n-2}\sum_i^n \hat{\epsilon}_i^2. \]
+Here the degrees of freedom \(n-2\) are the number of observations
+adjusted for the number of parameters that we estimated in the
+regression. The MSE, \(\hat{\sigma}^2\), may be obtained from the output
+as the square of the entry labeled ``residual standard error''.
+
+Since residuals and fitted values are uncorrelated with the expected
+value of the residuals equal to zero if the model is correct, the
+scatterplot of residuals versus fitted values provides an additional
+visual check of the model adequacy.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(bodyfat.lm) }\OperatorTok{~}\StringTok{ }\KeywordTok{fitted}\NormalTok{(bodyfat.lm))}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{04-regression-01-Bayesian-simple-regression_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+With the exception of the one observation for the individual with the
+largest waist measurement, the residual plot suggests that the linear
+regression is a reasonable approximation.
+
+Furthermore, we can check the normal probability plot of the residuals
+for the assumption of normally distributed errors. We see that only
+observation 39 is exceptionally away from the normal quantile.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(bodyfat.lm, }\DataTypeTok{which =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{04-regression-01-Bayesian-simple-regression_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+The confidence interval of \(\alpha\) and \(\beta\) can be constructed
+using the standard errors \(\text{sd}_{\hat{\alpha}}\) and
+\(\text{sd}_{\hat{\beta}}\) respectively. To proceed, we introduce
+notations of some ``sums of squares'' \[
+\begin{aligned}
+\text{S}_{xx} = & \sum_i^n (x_i-\bar{x})^2\\
+\text{S}_{yy} = & \sum_i^n (y_i-\bar{x})^2 \\
+\text{S}_{xy} = & \sum_i^n (x_i-bar{x})(y_i-\bar{y}) \\
+\text{SSE}    = & \sum_i^n (y_i-\hat{y}_i)^2 = \sum_i^n \hat{\epsilon}_i^2. 
+\end{aligned}
+\]
+
+\(\hat{\alpha}\) and \(\hat{\beta}\) can be calculated using these
+``sums of squares''
+\[ \hat{\beta} = \frac{\sum_i (x_i-\bar{x})(y_i-\bar{y})}{\sum_i (x_i-\bar{x})^2} = \frac{\text{S}_{xy}}{\text{S}_{xx}},\qquad \hat{\alpha} = \bar{y} - \hat{\beta}\bar{x} = \bar{y}-\frac{\text{S}_{xy}}{\text{S}_{xx}}\bar{x} \]
+
+The last ``sum of square'' is the \emph{sum of squars of errors}. Its
+sample mean is exactly the mean squared error (MSE) we introduced
+previously \[
+\hat{\sigma}^2 = \frac{\text{SSE}}{n-2} = \text{MSE}
+\]
+
+\(\text{sd}_{\hat{\alpha}}\) and \(\text{sd}_{\hat{\beta}}\) are given
+as \[ 
+\begin{aligned}
+\text{sd}_{\hat{\alpha}} = &  \sqrt{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)} = \hat{\sigma}\sqrt{\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}}\\
+\text{sd}_{\hat{\beta}} = & \sqrt{\frac{\text{SSE}}{n-2}\frac{1}{\text{S}_xx}} = \frac{\hat{\sigma}}{\sqrt{\text{S}_{xx}}}
+\end{aligned}
+\]
+
+We may construct the confidence intervals of \(\alpha\) and \(\beta\)
+using the \(t\)-statistics \[ 
+t_\alpha^\ast = \frac{\alpha - \hat{\alpha}}{\text{sd}_{\hat{\alpha}}},\qquad t_\beta^\ast = \frac{\beta-\hat{\beta}}{\text{sd}_{\hat{\beta}}} 
+\]
+
+They both have degrees of freedom \(n-2\).
+
+\subsection{Bayesian Simple Linear Regression Using Reference
+Prior}\label{bayesian-simple-linear-regression-using-reference-prior}
+
+Let us now turn to the Bayesian version and show how to obtain the
+posterior distributions of \(\alpha\) and \(\beta\) under the reference
+prior.
+
+The Bayesian model starts with the same model as the classical
+frequentist approach: \[ y_i = \alpha + \beta x_i + \epsilon_i, \] with
+the assumption that the errors, \(\epsilon_i\), are independent and
+identically distributed as normal random variables with mean zero and
+constant variance \(\sigma^2\). This assumption is exactly the same as
+the classical inference for testing and constructing confidence
+intervals for \(\alpha\) and \(\beta\).
+
+Our goal is to update the distributions of the unknown parameters
+\(\alpha\), \(\beta\), and \(\sigma^2\), based on the data
+\(x_1, y_1, \cdots, x_n, y_n\), where \(n\) is the number of
+observations.
+
+Under the assumption that the errors \(\epsilon_i\) are normally
+distributed with constant variance \(\sigma^2\), we have for each
+response \(y_i\), conditioning on the observed data \(x_i\) and the
+parameters \(\alpha,\ \beta,\ \sigma^2\), is normally distributed:
+\[ y_i~|~x_i, \alpha, \beta,\sigma^2 \sim \mathcal{N}(\alpha + \beta x_i, \sigma^2),\qquad i = 1,\cdots, n. \]
+That is, the likelihood of \(y_i\) given \(x_i, \alpha, \beta\), and
+\(\sigma^2\) is
+\[ \pi(y_i~|~x_i, \alpha, \beta, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y_i-(\alpha+\beta  x_i))^2}{2\sigma^2}\right). \]
+
+We will first consider the standard noninformative prior (reference
+prior). Using the reference prior, we will obtain familiar distributions
+as the posterior distributions of \(\alpha\), \(\beta\), and
+\(\sigma^2\), which gives the analogue to the frequentist results. Here
+we assume \[ \pi(\alpha, \beta, \sigma^2)\propto \frac{1}{\sigma^2}. \]
+Using the hierachical model framework, we may equivalently assume that
+the joint prior distribution of \(\alpha\) and \(\beta\) under
+\(\sigma^2\) is the uniform prior, while the prior distribution of
+\(\sigma^2\) is proportional to \(\displaystyle \frac{1}{\sigma^2}\).
+That is
+\[ \pi(\alpha, \beta~|~\sigma^2) \propto 1, \qquad \pi(\sigma^2) \propto \frac{1}{\sigma^2}, \]
+Combining the two using conditional probability, we will get the same
+joint prior distribution.
+
+Then we apply the Bayes' rule to derive the posterior joint distribution
+after observing \(y_1,\cdots, y_n\): \[
+\begin{aligned}
+\pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto & \left[\prod_i^n\pi(y_i~|~x_i,\alpha,\beta,\sigma^2)\right]\pi(\alpha, \beta,\sigma^2) \\
+\propto & \left[\left(\frac{1}{(\sigma^2)^{1/2}}\exp\left(-\frac{(y_1-(\alpha+\beta x_1 ))^2}{2\sigma^2}\right)\right)\times\cdots \right.\\
+& \left. \times \left(\frac{1}{(\sigma^2)^{1/2}}\exp\left(-\frac{(y_n-(\alpha +\beta x_n))^2}{2\sigma^2}\right)\right)\right]\times\left(\frac{1}{\sigma^2}\right)\\
+\propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\sum_i\left(y_i-\alpha-\beta  x_i\right)^2}{2\sigma^2}\right)
+\end{aligned}
+\]
+
+For example, to obtain the marginal distribution of \(\beta\), the slope
+of the linear regression model, we integrate \(\alpha\) and \(\sigma^2\)
+out:
+\[ \pi^*(\beta~|~y_1,\cdots,y_n) = \int_0^\infty \left(\int_{-\infty}^\infty \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\right)\, d\sigma^2. \]
+
+It can be shown that the marginal posterior distribution of \(\beta\) is
+the Student's \(t\)-distribution
+\[ \beta~|~y_1,\cdots,y_n \sim t_{n-2}\left(\hat{\beta}, \frac{\hat{\sigma}^2}{\text{S}_{xx}}\right) = t_{n-2}\left(\hat{\beta}, (\text{sd}_{\hat{\beta}})^2\right) \]
+with degrees of freedom \(n-2\), center at \(\hat{\beta}\), the
+coefficient we obtain from the frequentist OLS model, and scale
+parameter
+\(\displaystyle \frac{\hat{\sigma}^2}{\text{S}_{xx}}=\left(\text{sd}_{\hat{\beta}}\right)^2\),
+which is the square of the standard error of \(\hat{\beta}\) under the
+frequentist OLS model.
+
+Similarly, we can integrate out \(\beta\) and \(\sigma^2\) from the
+joint posterior distribution to get the marginal posterior distribution
+of \(\alpha\), \(\pi^*(\alpha~|~y_1,\cdots, y_n)\). It turns out that
+\(\pi^*(\alpha~|~y_1,\cdots,y_n)\) is again the Student's
+\(t\)-distribution with degrees of freedom \(n-2\), center at
+\(\hat{\alpha}\), the \(y\)-intercept from the frequentist OLS model,
+and scale parameter
+\(\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right) = \left(\text{sd}_{\hat{\alpha}}\right)^2\),
+which is the square of the standard error of \(\hat{\alpha}\) under the
+frequentist OLS model.
+
+Moreover, we can show that the marginal posterior distribution of
+\(\sigma^2\) is the inverse Gamma distribution
+\[ \sigma^2~|~y_1,\cdots,y_n \sim \text{IG}\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). \]
+
+We provide the detailed deviations in section ??? (how to do reference
+in R Markdown?)
+
+\textbf{Credible Intervals for the Slope \(\beta\) and the Intercept
+\(\alpha\) }
+
+The Bayesian posterior distribution results of \(\alpha\) and \(\beta\)
+show that under the reference prior, the posterior credible intervals
+are in fact numerically equivalent to the confidence intervals from the
+classical frequentist analysis, providing a baseline for other Bayesian
+analyses with more informative prior distributions or perhaps other
+``objective'' prior distributions, such as a Student's \(t\) prior with
+1 degree of freedome which is known as the Cauchy distribution.
+
+We can use the \texttt{lm} function to obtain the OLS estimates and
+construct the credible intervals of \(\alpha\) and \(\beta\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{output =}\StringTok{ }\KeywordTok{summary}\NormalTok{(bodyfat.lm)}\OperatorTok{$}\NormalTok{coef[, }\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{]}
+\NormalTok{output}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                Estimate Std. Error
+## (Intercept) -39.2801847 2.66033696
+## Abdomen       0.6313044 0.02855067
+\end{verbatim}
+
+The columns labeled \texttt{Estimate} and \texttt{Std.\ Error} are
+equivalent to the centers (or posterior means) and scale parameters (or
+standard deviations) in the two \(t\)-distributions respetively. The
+credible intervals of \(\alpha\) and \(\beta\) are the same as the
+frequentist ocnfidence intervals, but we now can interpret them from a
+Bayesian perspective.
+
+The \texttt{confint} function provides 95\% confidence intervals, which
+under the reference prior are equivalent to the 95\% credible intervals.
+The code below extracts them and relabels the output as the Bayesian
+results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out =}\StringTok{ }\KeywordTok{cbind}\NormalTok{(output, }\KeywordTok{confint}\NormalTok{(bodyfat.lm))}
+\KeywordTok{colnames}\NormalTok{(out) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"posterior mean"}\NormalTok{, }\StringTok{"posterior std"}\NormalTok{, }\StringTok{"2.5"}\NormalTok{, }\StringTok{"97.5"}\NormalTok{)}
+\KeywordTok{round}\NormalTok{(out, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             posterior mean posterior std    2.5   97.5
+## (Intercept)         -39.28          2.66 -44.52 -34.04
+## Abdomen               0.63          0.03   0.58   0.69
+\end{verbatim}
+
+These intervals coincide with the confidence intervals from the
+frequentist approach. The primary difference is the interpretation. For
+example, based on the data, we believe that there is 95\% chance that
+body fat will increase by 5.8\% up to 6.9\% for every additional 10
+centimeter increase in the waist circumference.
+
+\textbf{Credible Intervals for the Mean \(\mu_Y\) and the Prediction
+\(y_{n+1}\)}
+
+Under the reference prior, the mean of \(Y\), \(\mu_Y\), at the point
+\(x_i\) is given by \(\alpha + \beta x_i\), with a posterior
+distributuion \[ 
+\alpha + \beta x_i ~|~ \text{data} \sim t_{n-2}(\hat{\alpha} + \hat{\beta} x_i, \text{S}_{Y|X_i}^2), 
+\] where \[
+\text{S}_{Y|X_i}^2 = \hat{\sigma}^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})^2}{\text{S}_{xx}}\right)
+\]
+
+A new prediction \(y_{n+1}\) at a point \(x_{n+1}\) follows the
+Student's \(t\)-distribution \[ 
+y_{n+1}~|~\text{data}, x_{n+1}\ \sim t_{n-2}\left(\hat{\alpha}+\hat{\beta} x_{n+1},\text{S}_{Y|X_{n+1}}^2\right), 
+\]
+
+where \[ 
+\text{S}_{Y|X_{n+1}}^2 =\hat{\sigma}^2+\hat{\sigma}^2\left(\frac{1}{n}+\frac{(x_{n+1}-\bar{x})^2}{\text{S}_{xx}}\right) = \hat{\sigma}^2\left(1+\frac{1}{n}+\frac{(x_{n+1}-\bar{x})^2}{\text{S}_{xx}}\right).
+\]
+
+The variance for predicting a new observation \(y_{n+1}\) has an extra
+\(\hat{\sigma}^2\) which comes from the uncertainty of a new observation
+about the mean \(\mu_Y\) estimated by the regressio line.
+
+We can extract these intervals using the \texttt{predict} function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x =}\StringTok{ }\NormalTok{bodyfat}\OperatorTok{$}\NormalTok{Abdomen}
+\NormalTok{y =}\StringTok{ }\NormalTok{bodyfat}\OperatorTok{$}\NormalTok{Bodyfat}
+\NormalTok{xnew <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\KeywordTok{min}\NormalTok{(x), }\KeywordTok{max}\NormalTok{(x), }\DataTypeTok{length.out =} \DecValTok{100}\NormalTok{)}
+\NormalTok{ynew <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{predict}\NormalTok{(bodyfat.lm, }\DataTypeTok{newdata =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Abdomen =}\NormalTok{ xnew),}
+                           \DataTypeTok{interval =} \StringTok{"confidence"}\NormalTok{, }\DataTypeTok{level =} \FloatTok{0.95}\NormalTok{))}
+
+\CommentTok{# plot the data with the credible intervals of the mean}
+\KeywordTok{plot}\NormalTok{(x, y, }\DataTypeTok{xlab =} \StringTok{"abdomen"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"bodyfat"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(ynew}\OperatorTok{$}\NormalTok{lwr }\OperatorTok{~}\StringTok{ }\NormalTok{xnew, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{col =} \StringTok{"darkgrey"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(ynew}\OperatorTok{$}\NormalTok{upr }\OperatorTok{~}\StringTok{ }\NormalTok{xnew, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{col =} \StringTok{"darkgrey"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(bodyfat.lm, }\DataTypeTok{col =} \StringTok{"orange"}\NormalTok{)}
+
+\CommentTok{# plot the credible intervals of the prediction}
+\NormalTok{ypred <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{predict}\NormalTok{(bodyfat.lm, }\DataTypeTok{newdata =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Abdomen =}\NormalTok{ xnew),}
+                            \DataTypeTok{interval =} \StringTok{"prediction"}\NormalTok{, }\DataTypeTok{level =} \FloatTok{0.95}\NormalTok{))}
+\KeywordTok{lines}\NormalTok{(ypred}\OperatorTok{$}\NormalTok{lwr }\OperatorTok{~}\StringTok{ }\NormalTok{xnew, }\DataTypeTok{lty =} \DecValTok{3}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{col =} \StringTok{"darkgrey"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(ypred}\OperatorTok{$}\NormalTok{upr }\OperatorTok{~}\StringTok{ }\NormalTok{xnew, }\DataTypeTok{lty =} \DecValTok{3}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{col =} \StringTok{"darkgrey"}\NormalTok{)}
+
+\CommentTok{# identify the potential outlier: observation 39}
+\KeywordTok{points}\NormalTok{(bodyfat[}\DecValTok{39}\NormalTok{, }\StringTok{"Abdomen"}\NormalTok{], bodyfat[}\DecValTok{39}\NormalTok{, }\StringTok{"Bodyfat"}\NormalTok{], }\DataTypeTok{col =} \StringTok{"orange"}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{5}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\DecValTok{110}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DataTypeTok{legend =} \KeywordTok{c}\NormalTok{(}\StringTok{"Posterior mean"}\NormalTok{, }\StringTok{"95% CI for mean"}\NormalTok{, }\StringTok{"95% CI for predictions"}\NormalTok{),}
+       \DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\StringTok{"orange"}\NormalTok{, }\KeywordTok{rep}\NormalTok{(}\StringTok{"darkgrey"}\NormalTok{, }\DecValTok{2}\NormalTok{)), }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{lty =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{04-regression-01-Bayesian-simple-regression_files/figure-latex/predict-intervals-1.pdf}
+
+Note in the ablve the legend ``CI'' can mean either confidence interval
+or credible interval. The difference comes down to the interpretation.
+For example, the prediction at the same abdominal circumference as in
+Case 39 is
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.}\DecValTok{39}\NormalTok{ =}\StringTok{ }\KeywordTok{predict}\NormalTok{(bodyfat.lm, }\DataTypeTok{newdata =}\NormalTok{ bodyfat[}\DecValTok{39}\NormalTok{, ], }\DataTypeTok{interval =} \StringTok{"prediction"}\NormalTok{, }\DataTypeTok{level =} \FloatTok{0.95}\NormalTok{)}
+\NormalTok{out <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(bodyfat[}\DecValTok{39}\NormalTok{,]}\OperatorTok{$}\NormalTok{Abdomen, pred.}\DecValTok{39}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(out) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"abdomen"}\NormalTok{, }\StringTok{"prediction"}\NormalTok{, }\StringTok{"lower"}\NormalTok{, }\StringTok{"upper"}\NormalTok{)}
+\NormalTok{out}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    abdomen prediction   lower    upper
+## 39   148.1   54.21599 44.0967 64.33528
+\end{verbatim}
+
+Based on the data, a Bayesian would expect that a man with waist
+circumference of 148.1 centermeters should have bodyfat of 54.216 with
+95\% chance thta it is between 44.097 and 64.335 percent.
+
+While we expect the majority of the data will be within the prediction
+intervals (the short dashed grey lines), Case 39 seems to be well below
+the interval. We next use Bayesian methods to calculate the probability
+that this case is abnormal or an outlier by falling more than \(k\)
+standard deviations from either side of the mean.
+
+\subsection{Ourliers}\label{ourliers}
+
+The plot and predictive intervals suggest that predictions for Case 39
+are not well captured by the model. There is always the possibility that
+this case does not meet the assumptions of the simple linear regression
+model (wrong mean or variance) or could be in error. Model diagnostics
+such as plots of residuals versus fitted values are useful in
+identifying potential outliers. Now with the interpretation of Bayesian
+paradigm, we can go further to calculate the probability to demonstrate
+whether a case falls too far from the mean.
+
+The article by Chaloner \& Brant (1988) (???reference????) suggested an
+approach for defining outliers and then calculating the probability that
+a case or multiple cases were outliers. The assumed model for our simple
+linear regression is \(y_i=\alpha + \beta x_i+\epsilon_i\), with
+\(\epsilon_i\) having independent, identical distributions that are
+normal with mean zero and constant variance \(\sigma^2\), i.e.,
+\(\epsilon_i \sim \mathcal{N}(0, \sigma^2)\). Chaloner \& Brant consider
+outliers to be points where the error or the model discrepancy
+\(\epsilon_i\) is greater than \(k\) standard deviation for some large
+\(k\), and then proceed to calculate the posterior probability that a
+case is an outlier to be
+\[ \mathbb{P}(|\epsilon_i| > k\sigma ~|~\text{data}) \]
+
+Since \(\epsilon_i = y_i - \alpha-\beta x_i\), this is equivalent to
+calculating
+\[ \mathbb{P}(|y_i-\alpha-\beta x_i| > k\sigma~|~\text{data}).\]
+
+The code for calculating the probability of outliers involves
+integration. We have implemented this in the function
+\texttt{Bayes.outlier.prob} that can be sourced from the file
+\texttt{bayes-outliers.R}. Applying this to the \texttt{bodyfat} data
+for Case 39, we get
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#source("bayes-outliers.R")}
+\CommentTok{#library(mvtnorm)}
+\CommentTok{#outliers = Bayes.outlier.prob(bodyfat.lm)}
+
+\CommentTok{# The default is to consider k=3}
+\CommentTok{#prob.39 = outliers$prob.outlier[39]}
+\CommentTok{#prob.39}
+\end{Highlighting}
+\end{Shaded}
+
+We see that this case has an extremely high probability (0.9917) of
+being more an outlier, that is, the error is greater than \(k=3\)
+standard deviations, based on the fitted model and data.
+
+With \(k=3\), however, there may be a high probability a priori of at
+least one outlier in a large sample. We can compute this using
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n =}\StringTok{ }\KeywordTok{nrow}\NormalTok{(bodyfat)}
+\CommentTok{# probability of no outliers if outliers are error greater than 3 standard deviation}
+\NormalTok{prob =}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{))) }\OperatorTok{^}\StringTok{ }\NormalTok{n}
+\NormalTok{prob}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5059747
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# probability of at least one outlier}
+\NormalTok{prob.least1 =}\StringTok{ }\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{))) }\OperatorTok{^}\StringTok{ }\NormalTok{n}
+\NormalTok{prob.least1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4940253
+\end{verbatim}
+
+With \(n=252\), the probability of at least one outlier is much larger
+than say the marginal probability that one point is an outlier of 0.05.
+So we would expect that there will be at least one point where the error
+is more than 3 standard deviations from zero almost 50\% of the time.
+Rather than fixing \(k\), we can fix the prior probability of no
+outliers to be say 0.95, and solve for the value of \(k\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{k =}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.5} \OperatorTok{+}\StringTok{ }\FloatTok{0.5} \OperatorTok{*}\StringTok{ }\FloatTok{0.95} \OperatorTok{^}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{/}\StringTok{ }\NormalTok{n))}
+\NormalTok{k}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.714602
+\end{verbatim}
+
+This leads to a larger value of \(k\) after adjusting \(k\) so that
+there is at least one outlier. We examine Case 39 again under this \(k\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#outliers.no = Bayes.outlier.prob(bodyfat.lm, k = k)}
+\CommentTok{#prob.no.39 = outliers.no$prob.outlier[39]}
+\CommentTok{#prob.no.39}
+\end{Highlighting}
+\end{Shaded}
+
+The posterior probability of Case 39 being an outlier is 0.68475. While
+this is not strikingly large, it is much larger than the marginal prior
+probability of
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2} \OperatorTok{*}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(}\OperatorTok{-}\NormalTok{k)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0002035241
+\end{verbatim}
+
+\textbf{Summary}
+
+There is a substantial probability that Case 39 is an outlier. If you do
+view it as an outlier, what are your options? One option is to
+investigate the case and determine if the data are input incorrectly,
+and fix it. Another option is when you cannot confirm there is a data
+entry error, you may delete the observation from the analysis and refit
+the model without the case. If you do take this option, be sure to
+describe what you did so that your research is reproducible. You may
+want to apply diagnostics and calculate the probability of a case being
+an outlier using this reduced data. As a word of caution, if you
+discover that there are a large number of points that appear to be
+outliers, take a second look at your model assumptions, since the
+problem may be with the model rather than the data! A third option we
+will talk about later, is to combine inference under the model that
+retains this case as part of the population, and the model that treats
+it as coming from another population. This approach incorporates our
+uncertainty about whether the case is an outlier given the data.
+
+The source code is based on using a reference prior for the linear model
+and extends to multiple regression.
+
+\subsection{Informative Priors}\label{informative-priors}
+
+Except from the noninformative reference prior, we may also consider
+using a more general semi-conjugate prior distribution of \(\alpha\),
+\(\beta\), and \(\sigma^2\) when there is information available about
+the parameters.
+
+Since the data \(y_1,\cdots,y_n\) are normally distributed, from Chapter
+3 we see that a Normal-Gamma distribution will form a conjugacy in this
+situation. We then set up the prior distributions through a hierarchical
+model. We first assume that, given \(\sigma^2\), \(\alpha\) and
+\(\beta\) together follow the bivariate normal prior distribution, from
+which their marginal distributions are both normal, \[ 
+\begin{aligned}
+\alpha~|~\sigma^2 \sim & \mathcal{N}(a_0, \sigma^2\text{S}_\alpha) \\
+\beta ~|~ \sigma^2 \sim & \mathcal{N}(b_0, \sigma^2\text{S}_\beta),
+\end{aligned}
+\] with covariance
+\[ \text{Cov}(\alpha, \beta ~|~\sigma^2) =\sigma^2 \text{S}_{\alpha\beta}. \]
+
+This is equivalent to setting the coefficient vector \((\alpha, \beta)\)
+to have a biraviate normal distribution with convariance matrix
+\(\Sigma_0\) given by \(\text{S}_\alpha\), \(\text{S}_{\beta}\), and
+\(\text{S}_{\alpha\beta}\)
+\[ (\alpha, \beta) ~|~\sigma^2 \sim \text{BiraviateNormal}((a_0, b_0), \sigma^2\Sigma_0). \]
+
+Then for \(\sigma^2\), we will use a Inverse Gamma distribution
+\[ \sigma^2 \sim \text{IG}\left(\frac{\nu_0}{2}, \frac{\nu_0\sigma_0}{2}\right). \]
+Now the join prior distribution of \(\alpha, \beta\), and \(\sigma^2\)
+form a distribution that is analogous to the Normal-Gamma distribution.
+Prior information about \(\alpha\), \(\beta\), and \(\sigma^2\) are
+encoded in the hyperparameters \(a_0\), \(b_0\), \(\text{S}_\alpha\),
+\(\text{S}_\beta\), \(\text{S}_{\alpha\beta}\), \(\nu_0\), and
+\(\sigma_0\).
+
+The marginal posterior distribution of the coefficient vector
+\((\alpha, \beta)\) will be biraviate normal, and the marginal posterior
+distribution of \(\sigma^2\) is again a Inverse Gamma distribution
+\[ \sigma^2~|~y_1,\cdots,y_n \sim \text{IG}\left(\frac{\nu_0+n}{2}, \frac{\nu_0\sigma_0^2+\text{SSE}}{2}\right). \]
+
+One can see that the reference prior is the limiting case of this
+conjugate prior we impose. We usually use Gibbs sampling to approximate
+the joint posterior distribution instead of using the result directly,
+especially later in multiple linear regression when we have more
+coefficients. We omit the deviations of the posterior distributions due
+to the heavy use of advanced linear algebra. One can refer to (Hopf's
+book, how to reference????) for more details.
+
+Based on any prior information we have for the model, we can also impose
+other priors and assumptions on \(\alpha\), \(\beta\), and \(\sigma^2\)
+to get different Bayesian results. Most of these priors will not form
+any conjugacy and will require us to use simulation methods such as MCMC
+for approximations.
+
+\subsection{\texorpdfstring{Deviations of Marginal Posterior
+Distributions of \(\alpha\), \(\beta\), and
+\(\sigma^2\)}{Deviations of Marginal Posterior Distributions of \textbackslash{}alpha, \textbackslash{}beta, and \textbackslash{}sigma\^{}2}}\label{deviations-of-marginal-posterior-distributions-of-alpha-beta-and-sigma2}
+
+In this section, we will use the notations we introduced earlier such as
+\(\text{SSE}\), the sum of squares of errors, \(\hat{\sigma}^2\), the
+mean squared error, \(\text{S}_{xx}\), \(\text{sd}_{\hat{\alpha}}\),
+\(\text{sd}_{\hat{\beta}}\) and so on to simplify our calculations.
+
+We will also use the following quantities derived from the formula of
+\(\bar{x}\), \(\bar{y}\), \(\hat{\alpha}\), and \(\hat{\beta}\) \[
+\begin{aligned}
+& \sum_i^n (x_i-\bar{x}) = 0 \\
+& \sum_i^n (y_i-\bar{y}) = 0 \\
+& \sum_i^n (y_i - \hat{y}_i) = \sum_i^n (y_i - (\hat{\alpha} + \hat{\beta} x_i)) = 0\\
+& \sum_i^n (x_i-\bar{x})(y_i - \hat{y}_i) = \sum_i^n (x_i-\bar{x})(y_i-\bar{y}-\hat{\beta}(x_i-\bar{x})) = \sum_i^n (x_i-\bar{x})(y_i-\bar{y})-\hat{\beta}\sum_i^n(x_i-\bar{x})^2 = 0\\
+& \sum_i^n x_i^2 = \sum_i^(x_i-\bar{x})^2 + n\bar{x}^2 = \text{S}_{xx}+n\bar{x}^2
+\end{aligned}
+\]
+
+We first further simplify the numerator inside the exponential function
+in the formula of \(\pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n)\):
+\[ 
+\begin{aligned}
+\sum_i^n \left(y_i - \alpha - \beta x_i\right)^2 = & \sum_i^n \left(y_i - \hat{\alpha} - \hat{\beta}x_i - (\alpha - \hat{\alpha}) - (\beta - \hat{\beta})x_i\right)^2 \\
+= & \sum_i^n \left(y_i - \hat{\alpha} - \hat{\beta}x_i\right)^2 + \sum_i^n (\alpha - \hat{\alpha})^2 + \sum_i^n (\beta-\hat{\beta})^2(x_i)^2 \\
+  & - 2\sum_i^n (\alpha - \hat{\alpha})(y_i-\hat{\alpha}-\hat{\beta}x_i)\\
+  & - 2\sum_i^n (\beta-\hat{\beta})(x_i)(y_i-\hat{\alpha}-\hat{\beta}x_i)\\
+  & + 2\sum_i^n(\alpha - \hat{\alpha})(\beta-\hat{\beta})(x_i)\\
+= & \text{SSE} + n(\alpha-\hat{\alpha})^2 + (\beta-\hat{\beta})^2\sum_i^n x_i^2 - 2(\alpha-\hat{\alpha})\sum_i^n (y_i-\hat{y}_i) \\
+  & -2(\beta-\hat{\beta})\sum_i^n x_i(y_i-\hat{y}_i)+2(\alpha-\hat{\alpha})(\beta-\hat{\beta})(n\bar{x})
+\end{aligned}
+\]
+
+It is clear that
+\[ -2(\alpha-\hat{\alpha})\sum_i^n(y_i-\hat{y}_i) = 0 \]
+
+And \[
+\begin{aligned}
+-2(\beta-\hat{\beta})\sum_i^n x_i(y_i-\hat{y}_i) = & -2(\beta-\hat{\beta})\sum_i(x_i-\bar{x})(y_i-\hat{y}_i) - 2(\beta-\hat{\beta})\sum_i^n \bar{x}(y_i-\hat{y}_i) \\
+= & -2(\beta-\hat{\beta})\times 0 - 2(\beta-\hat{\beta})\bar{x}\sum_i^n(y_i-\hat{y}_i) = 0
+\end{aligned}
+\]
+
+Finally, we use the quantity that
+\(\displaystyle \sum_i^n x_i^2 = \sum_i^n(x_i-\bar{x})^2+ n\bar{x}^2\)
+to combine the terms \(n(\alpha-\hat{\alpha})^2\),
+\(2\displaystyle (\alpha-\hat{\alpha})(\beta-\hat{\beta})\sum_i^n x_i\),
+and \(\displaystyle (\beta-\hat{\beta})^2\sum_i^n x_i^2\) together.
+
+\[
+\begin{aligned}
+\sum_i^n (y_i-\alpha-\beta x_i)^2 = & \text{SSE} + n(\alpha-\hat{\alpha})^2 +(\beta-\hat{\beta})^2\sum_i^n (x_i-\bar{x})^2 + (\beta-\hat{\beta})^2 (n\bar{x}^2) \\
+& +2(\alpha-\hat{\alpha})(\beta-\hat{\beta})(n\bar{x})\\
+= & \text{SSE} + (\beta-\hat{\beta})^2\text{S}_{xx} + n\left[(\alpha-\hat{\alpha}) +(\beta-\hat{\beta})\bar{x}\right]^2
+\end{aligned}
+\]
+
+Therefore, the posterior joint distribution of
+\(\alpha, \beta, \sigma^2\) is \[ 
+\begin{aligned}
+\pi^*(\alpha^*, \beta,\sigma^2 ~|~y_1,\cdots, y_n) \propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\sum_i(y_i - \alpha - \beta x_i)^2}{2\sigma^2}\right) \\
+= & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)
+\end{aligned}
+\]
+
+\textbf{Marginal Posterior Distribution of \(\beta\)}
+
+To get the marginal posterior distribution of \(\beta\), we need to
+integrate out \(\alpha\) and \(\sigma^2\):
+
+\[
+\begin{aligned}
+\pi^*(\beta ~|~y_1,\cdots,y_n) = & \int_0^\infty \int_{-\infty}^\infty \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\, d\sigma^2 \\
+= & \int_0^\infty \left(\int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2+(\beta-\hat{\beta})\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\alpha\right)\, d\sigma^2
+\end{aligned}
+\]
+
+The integral inside is the joint posterior distribution of \(\beta\) and
+\(\sigma^2\) \[
+\begin{aligned}
+& \pi^*(\beta, \sigma^2~|~y_1,\cdots,y_n) \\
+= & \int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\alpha\\
+= & \int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) \exp\left(-\frac{n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2}{2\sigma^2}\right)\, d\alpha \\
+= & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) \int_{-\infty}^\infty \exp\left(-\frac{n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2}{2\sigma^2}\right)\, d\alpha
+\end{aligned}
+\]
+
+Here,
+\[ \exp\left(-\frac{n(\alpha-\hat{\alpha}+(\beta - \hat{\beta})\bar{x})^2}{2\sigma^2}\right) \]
+can be viewed as part of a normal distribution of \(\alpha\), with mean
+\(\hat{\alpha}-(\beta-\hat{\beta})\bar{x}\), and variance
+\(\sigma^2/n\). Therefore, the integral from the last line above is
+proportional to \(\sqrt{\sigma^2/n}\). We get
+
+\[
+\begin{aligned}
+\pi^*(\beta, \sigma^2~|~y_1,\cdots,y_n) 
+\propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) \times \sqrt{\sigma^2}\\
+= & \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)
+\end{aligned}
+\]
+
+We then integrate \(\sigma^2\) out to get the marginal distribution of
+\(\beta\). Here we first perform change of variable and set
+\(\sigma^2 = \frac{1}{\phi}\). Then the integral becomes \[
+\begin{aligned}
+\pi^*(\beta~|~y_1,\cdots, y_n) \propto & \int_0^\infty \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE} + (\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\sigma^2 \\
+\propto & \int_0^\infty \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\phi\right)\, d\phi\\
+\propto & \left(\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\right)^{-\frac{(n-2)+1}{2}}\int_0^\infty s^{\frac{n-3}{2}}e^{-s}\, ds
+\end{aligned}
+\]
+
+Here we use another change of variable by setting
+\(\displaystyle s= \frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\phi\),
+and the fact that \(\displaystyle \int_0^\infty s^{(n-3)/2}e^{-s}\, ds\)
+gives us the Gamma function, which is a constant.
+
+We can rewrite the last line from above to obtain the marginal posterior
+distribution of \(\beta\) to be the Student's \(t\)-distribution with
+degrees of freedom \(n-2\), center \(\hat{\beta}\), and scale parameter
+\(\displaystyle \frac{\hat{\sigma}^2}{\sum_i(x_i-\bar{x})^2}\)
+
+\[ \pi^*(\beta~|~y_1,\cdots,y_n) \propto
+ \left[1+\frac{1}{n-2}\frac{(\beta - \hat{\beta})^2}{\frac{\text{SSE}}{n-2}/(\sum_i (x_i-\bar{x})^2)}\right]^{-\frac{(n-2)+1}{2}} = \left[1 + \frac{1}{n-2}\frac{(\beta - \hat{\beta})^2}{\hat{\sigma}^2/(\sum_i (x_i-\bar{x})^2)}\right]^{-\frac{(n-2)+1}{2}},
+\]
+
+where \(\displaystyle \frac{\hat{\sigma}^2}{\sum_i (x_i-\bar{x})^2}\) is
+exactly the square of the standard error of \(\hat{\beta}\) from the
+frequentist OLS model.
+
+To summarize, under the reference prior, the marginal posterior
+distribution of the slope of the Bayesian simple linear regression
+follows the Student's \(t\)-distribution \[ 
+\beta ~|~y_1,\cdots, y_n \sim t_{n-2}\left(\hat{\beta}, \left(\text{sd}_{\hat{\beta}}\right)^2\right) 
+\]
+
+\textbf{Marginal Posterior Distribution of \(\alpha\)}
+
+A similar approach will lead us to the marginal distribution of
+\(\alpha\). We again start from the joint posterior distribution
+\[ \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}-(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right) \]
+
+This time we integrate \(\beta\) and \(\sigma^2\) out to get the
+marginal posterior distribution of \(\alpha\). We first compute the
+integral \[
+\begin{aligned}
+\pi^*(\alpha, \sigma^2~|~y_1,\cdots, y_n) = & \int_{-\infty}^\infty \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\beta\\
+= & \int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)\, d\beta 
+\end{aligned}
+\]
+
+Here we group the terms with \(\beta-\hat{\beta}\) together, then
+complete the square so that we can treat is as part of a normal
+distribution function to simplify the integral \[
+\begin{aligned}
+& n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2 \\
+= & (\beta-\hat{\beta})^2\left(\sum_i (x_i-\bar{x})^2 + n\bar{x}^2\right) + 2n\bar{x}(\alpha-\hat{\alpha})(\beta-\hat{\beta}) + n(\alpha-\hat{\alpha})^2 \\
+= & \left(\sum_i (x_i-\bar{x})^2 + n\bar{x}^2\right)\left[(\beta-\hat{\beta})+\frac{n\bar{x}(\alpha-\hat{\alpha})}{\sum_i(x_i-\bar{x})^2+n\bar{x}^2}\right]^2+ n(\alpha-\hat{\alpha})^2\left[\frac{\sum_i(x_i-\bar{x})^2}{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}\right]\\
+= & \left(\sum_i (x_i-\bar{x})^2 + n\bar{x}^2\right)\left[(\beta-\hat{\beta})+\frac{n\bar{x}(\alpha-\hat{\alpha})}{\sum_i(x_i-\bar{x})^2+n\bar{x}^2}\right]^2+\frac{(\alpha-\hat{\alpha})^2}{\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}}
+\end{aligned}
+\]
+
+When integrating, we can then view
+\[ \exp\left(-\frac{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}{2\sigma^2}\left(\beta-\hat{\beta}+\frac{n\bar{x}(\alpha-\hat{\alpha})}{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}\right)^2\right) \]
+as part of a normal distribution function, and get \[
+\begin{aligned}
+& \pi^*(\alpha, \sigma^2~|~y_1,\cdots,y_n) \\
+\propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2\sigma^2}\right)\\
+& \times\int_{-\infty}^\infty \exp\left(-\frac{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}{2\sigma^2}\left(\beta-\hat{\beta}+\frac{n\bar{x}(\alpha-\hat{\alpha})}{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}\right)^2\right)\, d\beta \\
+\propto & \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2\sigma^2}\right)
+\end{aligned}
+\]
+
+To get the marginal posterior distribution of \(\alpha\), we again
+integrate \(\sigma^2\) out. using the same change of variable
+\(\displaystyle \sigma^2=\frac{1}{\phi}\), and
+\(s=\displaystyle \frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2}\phi\).
+
+\[
+\begin{aligned}
+& \pi^*(\alpha~|~y_1,\cdots,y_n) \\
+= & \int_0^\infty \pi^*(\alpha, \sigma^2~|~y_1,\cdots, y_n)\, d\sigma^2 \\
+\propto & \int_0^\infty \phi^{(n-3)/2}\exp\left(-\frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2}\phi\right)\, d\phi\\
+\propto & \left(\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})\right)^{-\frac{(n-2)+1}{2}}\int_0^\infty s^{(n-3)/2}e^{-s}\, ds\\
+\propto & \left[1+\frac{1}{n-2}\frac{(\alpha-\hat{\alpha})^2}{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)}\right]^{-\frac{(n-2)+1}{2}} = \left[1 + \frac{1}{n-2}\left(\frac{\alpha-\hat{\alpha}}{\text{sd}_{\hat{\alpha}}}\right)^2\right]^{-\frac{(n-2)+1}{2}}
+\end{aligned}
+\]
+
+This shows that the marginal posterior distribution of \(\alpha\) also
+follows a Student's \(t\)-distribution, with \(n-2\) degrees of freedom.
+Its center is \(\hat{\alpha}\), the usual coefficient in the frequentist
+OLS estimate, and its scale parameter is
+\(\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)\),
+which is the square of the standard error of \(\hat{\alpha}\).
+
+\textbf{Marginal Posterior Distribution of \(\sigma^2\)}
+
+To show that the marginal posterior distribution of \(\sigma^2\) follows
+the inverse Gamma distribution, we only need to show the precision
+\(\displaystyle \phi = \frac{1}{\sigma^2}\) follows a Gamma
+distribution.
+
+We have shown in Week 3 that taking the prior distribution of
+\(\sigma^2\) proportional to \(\displaystyle \frac{1}{\sigma^2}\) is
+equivalent to taking the prior distribution of \(\phi\) proportional to
+\(\displaystyle \frac{1}{\phi}\)
+\[ \pi(\sigma^2) \propto \frac{1}{\sigma^2}\qquad \Longrightarrow \qquad \pi(\phi)\propto \frac{1}{\phi} \]
+
+Therefore, under the parameters \(\alpha\), \(\beta\), and the precision
+\(\phi\), we have the joint prior distribution as
+\[ \pi(\alpha, \beta, \phi) \propto \frac{1}{\phi} \] and the joint
+posterior distribution as \[ 
+\pi^*(\alpha, \beta, \phi~|~y_1,\cdots,y_n) \propto \phi^{\frac{n}{2}-1}\exp\left(-\frac{\sum_i(y_i-\alpha-\beta x_i)}{2}\phi\right) 
+\]
+
+Using the partial results we have calculated previously, we get \[
+\pi^*(\beta, \phi~|~y_1,\cdots,y_n) = \int_{-\infty}^\infty \pi^*(\alpha, \beta, \phi~|~y_1,\cdots,y_n)\, d\alpha \propto \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2}\phi\right) 
+\]
+
+Intergrating over \(\beta\), we finally have \[
+\begin{aligned}
+& \pi^*(\phi~|~y_1,\cdots,y_n) \\
+\propto & \int_{-\infty}^\infty \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2}\phi\right)\, d\beta\\
+= & \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}}{2}\phi\right)\int_{-\infty}^\infty \exp\left(-\frac{(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\phi\right)\, d\beta\\
+\propto & \phi^{\frac{n-4}{2}}\exp\left(-\frac{\text{SSE}}{2}\phi\right) = \phi^{\frac{n-2}{2}-1}\exp\left(-\frac{\text{SSE}}{2}\phi\right).
+\end{aligned}
+\]
+
+This is a Gamma distribution with shape parameter
+\(\displaystyle \frac{n-2}{2}\) and rate parameter
+\(\displaystyle \frac{\text{SSE}}{2}\). Therefore, the updated
+\(\sigma^2\) follows the inverse Gamma distribution
+\[ \sigma^2~|~y_1,\cdots,y_n \sim \text{IG}\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). \]
+
+\section{Bayesian Multiple Linear
+Regression}\label{bayesian-multiple-linear-regression}
+
+In this section, we will discuss Bayesian inference in multiple linear
+regression. We will use the reference prior to provide the default, or
+base line analysis of the model, which provides the correspondence
+between Bayesian and frequentist approaches.
+
+\subsection{The Model}\label{the-model}
+
+To illustrate the idea, we use the data set that we examined earlier on
+kids' cognitive scores, where we predicted the value of the kid's
+cognitive score from the mother's high school status, mother's IQ score,
+whether or not the mother worked during the first three years of the
+kid's life, and the mother's age. We set up the model as follows
+\[ \text{score}_i = \beta_0 + \beta_1 \text{hs}_i + \beta_2\text{IQ}_i + \beta_3\text{work}_i + \beta_4 \text{age}_i + \epsilon_i. \]
+
+Here, \(\text{score}_i\) is the \(i\)th kid's cognitive score.
+\(\text{hs}_i\), \(\text{IQ}_i\), \(\text{work}_i\), and
+\(\text{age}_i\) represent the high school status, the IQ score, work
+status during the first three years and the age of the \(i\)th kid's
+mother. \(\epsilon_i\) is the error term.
+
+\subsection{Data Pre-processing}\label{data-pre-processing}
+
+We can download the data set from Gelman's website and read the summary
+information of the data set.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(foreign)}
+\NormalTok{cognitive =}\StringTok{ }\KeywordTok{read.dta}\NormalTok{(}\StringTok{"http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(cognitive)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    kid_score         mom_hs           mom_iq          mom_work    
+##  Min.   : 20.0   Min.   :0.0000   Min.   : 71.04   Min.   :1.000  
+##  1st Qu.: 74.0   1st Qu.:1.0000   1st Qu.: 88.66   1st Qu.:2.000  
+##  Median : 90.0   Median :1.0000   Median : 97.92   Median :3.000  
+##  Mean   : 86.8   Mean   :0.7857   Mean   :100.00   Mean   :2.896  
+##  3rd Qu.:102.0   3rd Qu.:1.0000   3rd Qu.:110.27   3rd Qu.:4.000  
+##  Max.   :144.0   Max.   :1.0000   Max.   :138.89   Max.   :4.000  
+##     mom_age     
+##  Min.   :17.00  
+##  1st Qu.:21.00  
+##  Median :23.00  
+##  Mean   :22.79  
+##  3rd Qu.:25.00  
+##  Max.   :29.00
+\end{verbatim}
+
+As we see that variables \texttt{mom\_hs} and \texttt{mom\_work} should
+be considered as categorical variables. We transform them into indicator
+variables where \texttt{mom\_work} shows whether the mother worked for 1
+or more years, and \texttt{mom\_hs} indicates whether the mother had
+more than a high school education.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cognitive}\OperatorTok{$}\NormalTok{mom_work <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(cognitive}\OperatorTok{$}\NormalTok{mom_work }\OperatorTok{>}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\NormalTok{cognitive}\OperatorTok{$}\NormalTok{mom_hs <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(cognitive}\OperatorTok{$}\NormalTok{mom_hs }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)}
+
+\CommentTok{# Modify column names of the data set}
+\KeywordTok{colnames}\NormalTok{(cognitive) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"kid_score"}\NormalTok{, }\StringTok{"hs"}\NormalTok{, }\StringTok{"IQ"}\NormalTok{, }\StringTok{"work"}\NormalTok{, }\StringTok{"age"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+(how to put footnote in r markdown????) Note: \texttt{as.numeric} is not
+necessary here. We use \texttt{as.numeric} to keep the names of the
+levels of the two variables short.
+
+\subsection{Specify Bayesian Prior
+Distributions}\label{specify-bayesian-prior-distributions}
+
+For Bayesian inference, we need to specify a prior distribution of the
+error terms. Since the kid's cognitive scores \(\text{score}_i\) are
+continuous, we assume that \(\epsilon_i\) are independent, and
+identically distributed with the normal distribution
+\[ \epsilon_i \overset{\text{iid}}{\sim} \mathcal{N}(0, \sigma^2), \]
+where \(\sigma^2\) is the commonly shared variance of all observations.
+
+We will also need to specify the prior distribution for all the
+coefficients \(\beta_0,\ \beta_1,\ \beta_2,\ \beta_3\), and \(\beta_4\).
+An informative prior, which assumes that the \(\beta\)'s follow the
+multivariate normal distribution with covariance matrix
+\(\sigma^2\Sigma_0\) can be used. We may further impose the inverse
+Gamma distribution to \(\sigma^2\), to complete the hierachical model
+\[ 
+\begin{aligned}
+\beta_0, \beta_1, \beta_2, \beta_3, \beta_4 ~|~\sigma^2 \ \sim & \mathcal{N}((b_0, b_1, b_2, b_3, b_4), \sigma^2\Sigma_0)\\
+\sigma^2 \ \sim & \text{IG}(\nu_0/2, \nu_0\sigma_0^2/2) 
+\end{aligned}
+\]
+
+This gives us the multivariate normal-gamma conjugate family, with
+hyperparameters \(b_0, b_1, b_2, b_3, b_4, \Sigma_0, \nu_0\), and
+\(\sigma_0^2\). For this prior, we will need to specify the values of
+all the hyperparameters. This elicitation can be quite involved,
+especially when we do not have enough prior information about the
+variances, covariances of the coefficients and other prior
+hyperparameters. Therefore, we are going to adopt the noninformative
+prior (i.e., the reference prior), which is a limiting case of this
+multivariate normal-gamma prior.
+
+The reference prior in the multiple linear regression model is similar
+to the reference prior we used in the simple linear regression model,
+where the prior distribution of all the coefficients \(\beta\)'s is the
+uniform prior, and the prior of \(\sigma^2\) is proportional to its
+reciprocal
+\[ \pi(\beta_0,\beta_1,\beta_2,\beta_3,\beta_4~|~\sigma^2) \propto 1,\qquad \pi(\sigma^2) \propto \frac{1}{\sigma^2}. \]
+
+Under this reference prior, the posterior distributions of the
+coefficients, \(\beta\)'s, are parallel to the ones in simple linear
+regression. The marginal posterior distributions of \(\beta\)'s are the
+Student's \(t\)-distributions with centers given by the frequentist OLS
+estimates \(\hat{\beta}\)'s, scale parameters given by the standard
+errors \(\text{SE}_{\hat{\beta}}^2\) obtained from the OLS estimates \[
+\beta_j~|~y_1,\cdots,y_n\ \sim t_{n-p-1}(\hat{\beta}_j, \text{SE}_{\hat{\beta}_j}^2),\qquad j = 0, 1, \cdots, p.
+\]
+
+The degrees of freedom of these \(t\)-distributions are \(n-p-1\), where
+\(p\) is the number of predictors. In the kid cognitive score example,
+\(p=4\). The posterior mean, \(\hat{\beta}_j\), is the center of the
+\(t\)-distributions of \(\beta_j\), which is the same as the OLS
+estimates of \(\beta_j\). The posterior standard deviation of
+\(\beta_j\), which is the square root of the scale parameter of the
+\(t\)-distribution, is \(\text{SE}_{\beta_j}\), the standard error of
+\(\beta_j\) under the OLS estimates. That means, under the reference
+prior, we can easily obtain the posterior mean and posterior standard
+deviation from using the \texttt{lm} function, since they are
+numerically equivalent to the counterpart of the frequentist approach.
+
+\subsection{Fitting the Bayesian
+Model}\label{fitting-the-bayesian-model}
+
+To gain more flexibility in choosing priors, we will instead use the
+\texttt{bas.lm} function in the \texttt{BAS} library, which allows us to
+specify different model priors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(BAS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'BAS' was built under R version 3.4.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cog.bas =}\StringTok{ }\KeywordTok{bas.lm}\NormalTok{(kid_score }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ cognitive, }\DataTypeTok{prior =} \StringTok{"BIC"}\NormalTok{, }
+                 \DataTypeTok{modelprior =} \KeywordTok{Bernoulli}\NormalTok{(}\DecValTok{1}\NormalTok{), }\DataTypeTok{bestmodel =} \KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{), }\DataTypeTok{n.models =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The above \texttt{bas.lm} function uses the model formula the same as in
+the \texttt{lm}. It first specifies the response and predictor
+variables, a data argument to provide the data frame. The addition
+arguments further include the prior on the coefficients. We use
+\texttt{"BIC"} here to indicate that the model is based on the
+non-informative reference prior. (We will explain in the later section
+why we use the name \texttt{"BIC"}.) The \texttt{modelprior} argument
+tells the function to include all variables, which can be viewed as
+every variable is included with probability 1 under a Bernoulli trial.
+Because we want to fit just the full model, we use
+\texttt{bestmodel\ =\ rep(1,5)} to indicate that the intercept and all 4
+predictors are included. The argument \texttt{n.models\ =\ 1} fit just
+this one model.
+
+\subsection{Posterior Means and Posterior Standard
+Deviations}\label{posterior-means-and-posterior-standard-deviations}
+
+Similar to the OLS regression process, we can extract the posterior
+means and standard deviations of the coefficients using the
+\texttt{coef} function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cog.coef <-}\StringTok{ }\KeywordTok{coef}\NormalTok{(cog.bas)}
+\NormalTok{cog.coef}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Marginal Posterior Summaries of Coefficients: 
+## 
+##  Using  BMA 
+## 
+##  Based on the top  1 models 
+##            post mean  post SD   post p(B != 0)
+## Intercept  86.79724    0.87092   1.00000      
+## hs          5.09482    2.31450   1.00000      
+## IQ          0.56147    0.06064   1.00000      
+## work        2.53718    2.35067   1.00000      
+## age         0.21802    0.33074   1.00000
+\end{verbatim}
+
+From the last column in this summary, we see that the probability of the
+coefficients to be non-zero is always 1. This is because we specify the
+argument \texttt{Bernoulli(1)} to force the model to include all
+variables.
+
+We can visualize the coefficients in front of the predictors
+\(\beta_1,\beta_2, \beta_3, \beta_4\) using the \texttt{plot} function.
+We use the \texttt{subset} argument to plot only the coefficients of the
+predictors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{col.lab =} \StringTok{"darkgrey"}\NormalTok{, }\DataTypeTok{col.axis =} \StringTok{"darkgrey"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"darkgrey"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(cog.coef, }\DataTypeTok{subset =} \DecValTok{2}\OperatorTok{:}\DecValTok{5}\NormalTok{, }\DataTypeTok{ask =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{04-regression-02-Bayesian-multi-regression_files/figure-latex/plot-coef-1.pdf}
+
+These distributions all center at their respetive OLS estimates
+\(\hat{\beta}_j\), with the spread of the distribution related to the
+standard errors.
+
+\subsection{Credible Intervals
+Summary}\label{credible-intervals-summary}
+
+We can also report the posterior means, posterior standard deviations,
+and the 95\% credible intervals of the coefficients of all 4 predictors,
+which may give a clearer and more useful summary. The \texttt{BAS}
+library provides the method \texttt{confint} to extract the credible
+intervals from the output \texttt{cog.coef}. If we are only interested
+in the distributions of the coefficients of the 4 predictors, we may use
+the \texttt{parm} argument to restrict the variables shown in the
+summary
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{confint}\NormalTok{(cog.coef, }\DataTypeTok{parm =} \DecValTok{2}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            2.5%     97.5%      beta
+## hs    0.5456507 9.6439990 5.0948248
+## IQ    0.4422784 0.6806616 0.5614700
+## work -2.0830879 7.1574454 2.5371788
+## age  -0.4320547 0.8680925 0.2180189
+## attr(,"Probability")
+## [1] 0.95
+## attr(,"class")
+## [1] "confint.bas"
+\end{verbatim}
+
+All together, we can generate a summary table showing the posterior
+means, posterior standard deviations, the upper and lower bounds of the
+95\% credible intervals of all coefficients
+\(\beta_0, \beta_1, \beta_2, \beta_3\), and \(\beta_4\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{confint}\NormalTok{(cog.coef)[, }\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{]  }\CommentTok{# only extract the upper and lower bounds of the credible intervals}
+\NormalTok{names <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"posterior mean"}\NormalTok{, }\StringTok{"posterior std"}\NormalTok{, }\KeywordTok{colnames}\NormalTok{(out))}
+\NormalTok{out <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(cog.coef}\OperatorTok{$}\NormalTok{postmean, cog.coef}\OperatorTok{$}\NormalTok{postsd, out)}
+\KeywordTok{colnames}\NormalTok{(out) <-}\StringTok{ }\NormalTok{names}
+
+\KeywordTok{round}\NormalTok{(out, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           posterior mean posterior std  2.5% 97.5%
+## Intercept          86.80          0.87 85.09 88.51
+## hs                  5.09          2.31  0.55  9.64
+## IQ                  0.56          0.06  0.44  0.68
+## work                2.54          2.35 -2.08  7.16
+## age                 0.22          0.33 -0.43  0.87
+\end{verbatim}
+
+As in the simple linear aggression, the posterior estimates from the
+reference prior, that are in the table, are equivalent to the numbers
+reported from the \texttt{lm} function in R, or using the confident
+function in the OLS estimates. These intervals are centered at the
+posterior mean with width given by the appropriate \(t\) quantile with
+\(n-p-1\) degrees of freedom times the posterior standard deviation. The
+primary difference is the interpretation of the intervals. For example,
+given this data we believe there is a 95\% chance that the kid's
+cognitive score increases by 0.44 to 0.68 with an additional increase of
+the mother's IQ score. The mother's high school status has a larger
+effect where we believe that there is a 95\% chance the kid would score
+of 0.55 up to 9.64 points higher if the mother had three or more years
+of high school. The credible intervals of the predictors \texttt{work}
+and \texttt{age} include 0, which implies that we may improve this model
+so that the model will accomplish a desired level of explanation or
+prediction with fewer predictors.
+
+\bibliography{packages,book,references}
 
 
 \end{document}

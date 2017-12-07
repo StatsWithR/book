@@ -357,7 +357,7 @@ while the expected loss for $d_2$ would not change. Therefore, we would choose $
 
 To recap, Bayesian methodologies allow for the integration of losses into the decision making framework easily. And in Bayesian testing, we minimize the posterior expected loss. 
 
-### Posterior Probabilities of Hypotheses and Bayes Factors
+### Posterior Probabilities of Hypotheses and Bayes Factors {#sec:bayes-factors}
 
 In this section, we will continue with the HIV testing example to introduce the concept of Bayes factors. Earlier, we introduced the concept of priors and posteriors. The **prior odds** is defined as **the ratio of the prior probabilities of hypotheses**.
 

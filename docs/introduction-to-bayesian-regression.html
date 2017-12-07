@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bayesian Statistics</title>
+  <meta name="description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Bayesian Statistics" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://www.coursera.org/learn/bayesian/home/info/" />
+  <meta property="og:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+  <meta property="og:description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="github-repo" content="StatsWithR/book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Bayesian Statistics" />
+  
+  <meta name="twitter:description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  <meta name="twitter:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+
+<meta name="author" content="Christine Chai">
+<meta name="author" content="Lizzy Huang">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="introduction-to-losses-and-decision-making.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bayesian Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
+<li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
+<li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
+<li class="chapter" data-level="1.1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
+<li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-frequentist-approach"><i class="fa fa-check"></i><b>1.2.1</b> Inference for a Proportion: Frequentist Approach</a></li>
+<li class="chapter" data-level="1.2.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
+<li class="chapter" data-level="1.2.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#exercises"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#continuous-variables-and-eliciting-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#from-the-discrete-to-the-continuous"><i class="fa fa-check"></i><b>2.1.1</b> From the Discrete to the Continuous</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#elicitation"><i class="fa fa-check"></i><b>2.1.2</b> Elicitation</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#conjugacy"><i class="fa fa-check"></i><b>2.1.3</b> Conjugacy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#three-conjugate-families"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#inference-on-a-binomial-proportion"><i class="fa fa-check"></i><b>2.2.1</b> Inference on a Binomial Proportion</a></li>
+<li class="chapter" data-level="2.2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#the-gamma-poisson-conjugate-families"><i class="fa fa-check"></i><b>2.2.2</b> The Gamma-Poisson Conjugate Families</a></li>
+<li class="chapter" data-level="2.2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#sec:normal-normal"><i class="fa fa-check"></i><b>2.2.3</b> The Normal-Normal Conjugate Families</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals-and-predictive-inference"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#non-conjugate-priors"><i class="fa fa-check"></i><b>2.3.1</b> Non-Conjugate Priors</a></li>
+<li class="chapter" data-level="2.3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals"><i class="fa fa-check"></i><b>2.3.2</b> Credible Intervals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#predictive-inference"><i class="fa fa-check"></i><b>2.3.3</b> Predictive Inference</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html"><i class="fa fa-check"></i><b>3</b> Introduction to Losses and Decision-making</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#losses-and-decision-making"><i class="fa fa-check"></i><b>3.1</b> Losses and Decision Making</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#loss-functions"><i class="fa fa-check"></i><b>3.1.1</b> Loss Functions</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#working-with-loss-functions"><i class="fa fa-check"></i><b>3.1.2</b> Working with Loss Functions</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#minimizing-expected-loss-for-hypothesis-testing"><i class="fa fa-check"></i><b>3.1.3</b> Minimizing Expected Loss for Hypothesis Testing</a></li>
+<li class="chapter" data-level="3.1.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:bayes-factors"><i class="fa fa-check"></i><b>3.1.4</b> Posterior Probabilities of Hypotheses and Bayes Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#inference-and-decision-making-with-multiple-parameters"><i class="fa fa-check"></i><b>3.2</b> Inference and Decision-Making with Multiple Parameters</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:normal-gamma"><i class="fa fa-check"></i><b>3.2.1</b> The Normal-Gamma Conjugate Family</a></li>
+<li class="chapter" data-level="3.2.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-MC"><i class="fa fa-check"></i><b>3.2.2</b> Monte Carlo Inference</a></li>
+<li class="chapter" data-level="3.2.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-predictive"><i class="fa fa-check"></i><b>3.2.3</b> Predictive Distributions</a></li>
+<li class="chapter" data-level="3.2.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-reference"><i class="fa fa-check"></i><b>3.2.4</b> Reference Priors</a></li>
+<li class="chapter" data-level="3.2.5" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-Cauchy"><i class="fa fa-check"></i><b>3.2.5</b> Mixtures of Conjugate Priors</a></li>
+<li class="chapter" data-level="3.2.6" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:NG-MCMC"><i class="fa fa-check"></i><b>3.2.6</b> Markov Chain Monte Carlo (MCMC)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#hypothesis-testing-with-normal-populations"><i class="fa fa-check"></i><b>3.3</b> Hypothesis Testing with Normal Populations</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#sec:known-var"><i class="fa fa-check"></i><b>3.3.1</b> Bayes Factors for Testing a Normal Mean: variance known</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#bayes-factors-for-testing-a-normal-mean-unknown-variance"><i class="fa fa-check"></i><b>3.3.2</b> Bayes Factors for Testing a Normal Mean: unknown variance</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#testing-normal-means-paired-data"><i class="fa fa-check"></i><b>3.3.3</b> Testing Normal Means: paired data</a></li>
+<li class="chapter" data-level="3.3.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#testing-normal-means-independent-groups"><i class="fa fa-check"></i><b>3.3.4</b> Testing Normal Means: independent groups</a></li>
+<li class="chapter" data-level="3.3.5" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#inference-after-testing"><i class="fa fa-check"></i><b>3.3.5</b> Inference after Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-losses-and-decision-making.html"><a href="introduction-to-losses-and-decision-making.html#exercises-1"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html"><i class="fa fa-check"></i><b>4</b> Introduction to Bayesian Regression</a><ul>
+<li class="chapter" data-level="4.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-simple-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Bayesian Simple Linear Regression</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#frequentist-ordinary-least-square-simple-linear-regression"><i class="fa fa-check"></i><b>4.1.1</b> Frequentist Ordinary Least Square Simple Linear Regression</a></li>
+<li class="chapter" data-level="4.1.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-simple-linear-regression-using-reference-prior"><i class="fa fa-check"></i><b>4.1.2</b> Bayesian Simple Linear Regression Using Reference Prior</a></li>
+<li class="chapter" data-level="4.1.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#ourliers"><i class="fa fa-check"></i><b>4.1.3</b> Ourliers</a></li>
+<li class="chapter" data-level="4.1.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#informative-priors"><i class="fa fa-check"></i><b>4.1.4</b> Informative Priors</a></li>
+<li class="chapter" data-level="4.1.5" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#deviations-of-marginal-posterior-distributions-of-alpha-beta-and-sigma2"><i class="fa fa-check"></i><b>4.1.5</b> Deviations of Marginal Posterior Distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-multiple-linear-regression"><i class="fa fa-check"></i><b>4.2</b> Bayesian Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#the-model"><i class="fa fa-check"></i><b>4.2.1</b> The Model</a></li>
+<li class="chapter" data-level="4.2.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#data-pre-processing"><i class="fa fa-check"></i><b>4.2.2</b> Data Pre-processing</a></li>
+<li class="chapter" data-level="4.2.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#specify-bayesian-prior-distributions"><i class="fa fa-check"></i><b>4.2.3</b> Specify Bayesian Prior Distributions</a></li>
+<li class="chapter" data-level="4.2.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#fitting-the-bayesian-model"><i class="fa fa-check"></i><b>4.2.4</b> Fitting the Bayesian Model</a></li>
+<li class="chapter" data-level="4.2.5" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#posterior-means-and-posterior-standard-deviations"><i class="fa fa-check"></i><b>4.2.5</b> Posterior Means and Posterior Standard Deviations</a></li>
+<li class="chapter" data-level="4.2.6" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#credible-intervals-summary"><i class="fa fa-check"></i><b>4.2.6</b> Credible Intervals Summary</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-bayesian-regression" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Introduction to Bayesian Regression</h1>
+<p>In the previous chapter, we introduced Bayesian decision making using posterior probabilities and a variety of loss functions. We discussed how to minimize the expected loss for hypothesis testing. Moreover, we instroduce the concept of Bayes factors and gave some examples of how they can be used in Bayesian hypothesis testing for comparison of two means. We also discussed how to choose appropriate and robust priors. When there is no conjugacy, we applied Markov Chain Monte Carlo simulation to approximate the posterior distributions of parameters of interest.</p>
+<p>In this chapter, we will apply Bayesian inference to linear regression. We will first apply Bayesian statistics to simple linear regression models, then generalize the results to multiple linear regression models. We will see when using the reference prior, the posterior means, posterior standard deviations, and credible intervals of the coefficients will coincide with the counterparts in the frequentist ordinary least square (OLS) linear regression models. However, using the Bayes framework, we can now interpret the credible intervals as the probability of the coefficients lie in such intervals.</p>
+
+<div id="bayesian-simple-linear-regression" class="section level2">
+<h2><span class="header-section-number">4.1</span> Bayesian Simple Linear Regression</h2>
+<p>In this section, we turn to Bayesian inference in simple linear regression. We will use reference prior distribution which will provide a connection between the frequentist solution and Bayesian answers. This provides a baseline analysis for comparions with more informative prior distributions. To illustrate the ideas, we will use an example of predicting body fat.</p>
+<div id="frequentist-ordinary-least-square-simple-linear-regression" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Frequentist Ordinary Least Square Simple Linear Regression</h3>
+<p>Obtaining accurate measurements of body fat is expensive and not easy to be done. Instaed, predictive models which predict the percentage of body fat using readily available measurements such as abdominal circumference are easy to use and inexpensive. We will illustrate this using the <code>bodyfat</code> data from the library <code>BAS</code>.</p>
+<p>To start, we load the <code>BAS</code> library (you may download the package from CRAN) to access the dataframe. We print out a summary of the variables in this dataframe.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Suppress warning messages</span>
+<span class="kw">library</span>(BAS)
+<span class="kw">data</span>(bodyfat)
+<span class="kw">summary</span>(bodyfat)</code></pre></div>
+<pre><code>##     Density         Bodyfat           Age            Weight     
+##  Min.   :0.995   Min.   : 0.00   Min.   :22.00   Min.   :118.5  
+##  1st Qu.:1.041   1st Qu.:12.47   1st Qu.:35.75   1st Qu.:159.0  
+##  Median :1.055   Median :19.20   Median :43.00   Median :176.5  
+##  Mean   :1.056   Mean   :19.15   Mean   :44.88   Mean   :178.9  
+##  3rd Qu.:1.070   3rd Qu.:25.30   3rd Qu.:54.00   3rd Qu.:197.0  
+##  Max.   :1.109   Max.   :47.50   Max.   :81.00   Max.   :363.1  
+##      Height           Neck           Chest           Abdomen      
+##  Min.   :29.50   Min.   :31.10   Min.   : 79.30   Min.   : 69.40  
+##  1st Qu.:68.25   1st Qu.:36.40   1st Qu.: 94.35   1st Qu.: 84.58  
+##  Median :70.00   Median :38.00   Median : 99.65   Median : 90.95  
+##  Mean   :70.15   Mean   :37.99   Mean   :100.82   Mean   : 92.56  
+##  3rd Qu.:72.25   3rd Qu.:39.42   3rd Qu.:105.38   3rd Qu.: 99.33  
+##  Max.   :77.75   Max.   :51.20   Max.   :136.20   Max.   :148.10  
+##       Hip            Thigh            Knee           Ankle     
+##  Min.   : 85.0   Min.   :47.20   Min.   :33.00   Min.   :19.1  
+##  1st Qu.: 95.5   1st Qu.:56.00   1st Qu.:36.98   1st Qu.:22.0  
+##  Median : 99.3   Median :59.00   Median :38.50   Median :22.8  
+##  Mean   : 99.9   Mean   :59.41   Mean   :38.59   Mean   :23.1  
+##  3rd Qu.:103.5   3rd Qu.:62.35   3rd Qu.:39.92   3rd Qu.:24.0  
+##  Max.   :147.7   Max.   :87.30   Max.   :49.10   Max.   :33.9  
+##      Biceps         Forearm          Wrist      
+##  Min.   :24.80   Min.   :21.00   Min.   :15.80  
+##  1st Qu.:30.20   1st Qu.:27.30   1st Qu.:17.60  
+##  Median :32.05   Median :28.70   Median :18.30  
+##  Mean   :32.27   Mean   :28.66   Mean   :18.23  
+##  3rd Qu.:34.33   3rd Qu.:30.00   3rd Qu.:18.80  
+##  Max.   :45.00   Max.   :34.90   Max.   :21.40</code></pre>
+<p>This dataframe includes 252 measurements on men of body fat and other measurements, such as waist circumference (<code>Abdomen</code>). We will use <code>Abdomen</code> to illustrate Bayesian simple linear regression. We regress the response variable <code>Bodyfat</code> on the predictor <code>Abdomen</code>, which gives us the model <span class="math display">\[ y_i = \alpha + \beta x_i + \epsilon_i, \]</span> which the assumption that the errors <span class="math inline">\(\epsilon_i\)</span> are independent and identically distributed as normal random variables with mean zero and constant variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>The figure below shows the percentage body fat obtained from under water weighing and the abdominal circumference for 252 men. To predict body fat, the line overlayed on the scatter plot illustrates the best fitting ordinary least squares line obtained with the <code>lm</code> function in R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Bodyfat <span class="op">~</span><span class="st"> </span>Abdomen, <span class="dt">data =</span> bodyfat, 
+     <span class="dt">xlab =</span> <span class="st">&quot;abdomen circumference (cm)&quot;</span>, 
+     <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">main =</span> <span class="st">&quot;&quot;</span>)
+
+<span class="co"># Ordinary least square linear regression</span>
+bodyfat.lm =<span class="st"> </span><span class="kw">lm</span>(Bodyfat <span class="op">~</span><span class="st"> </span>Abdomen, <span class="dt">data =</span> bodyfat)
+<span class="kw">summary</span>(bodyfat.lm)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Bodyfat ~ Abdomen, data = bodyfat)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -19.0160  -3.7557   0.0554   3.4215  12.9007 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -39.28018    2.66034  -14.77   &lt;2e-16 ***
+## Abdomen       0.63130    0.02855   22.11   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.877 on 250 degrees of freedom
+## Multiple R-squared:  0.6617, Adjusted R-squared:  0.6603 
+## F-statistic: 488.9 on 1 and 250 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">beta =<span class="st"> </span><span class="kw">coef</span>(bodyfat.lm)
+<span class="kw">abline</span>(beta, <span class="dt">lwd =</span> <span class="dv">4</span>, <span class="dt">col =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="04-regression-01-Bayesian-simple-regression_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>From the summary, we see that this model has an estimated slope, <span class="math inline">\(\hat{\beta}\)</span>, of 0.63 and an estimated intercept, <span class="math inline">\(\hat{\alpha}\)</span>, of about -39.28%. For every additional centimeter, we expect body fat to increase by 0.63%. The negative interceptive course does not make sense as a physical model, but neither does predicting a male with a waist of zero centimeters. Nevertheless, this linear regression may be an accurate approximation for prediction purposes for measurements that are in the observed range for this population.</p>
+<p>The residuals, which provide an estimate of the fitting error, are equal to <span class="math inline">\(\hat{\epsilon}_i = Y_i - \hat{Y}_i\)</span>, the difference between the observed values <span class="math inline">\(Y_i\)</span> and the fited values <span class="math inline">\(\hat{Y}_i = \hat{\alpha} + \hat{\beta}X_i\)</span>, where <span class="math inline">\(X_i\)</span> is the abdominal circumference for the <span class="math inline">\(i\)</span>th male. <span class="math inline">\(\hat{\epsilon}_i\)</span> are used for diagnostics as well as estimating the constant variance in the assumption of the model <span class="math inline">\(\sigma^2\)</span> via the mean squared error (MSE): <span class="math display">\[ \hat{\sigma}^2 = \frac{1}{n-2}\sum_i^n (y_i-\hat{y}_i)^2 = \frac{1}{n-2}\sum_i^n \hat{\epsilon}_i^2. \]</span> Here the degrees of freedom <span class="math inline">\(n-2\)</span> are the number of observations adjusted for the number of parameters that we estimated in the regression. The MSE, <span class="math inline">\(\hat{\sigma}^2\)</span>, may be obtained from the output as the square of the entry labeled “residual standard error”.</p>
+<p>Since residuals and fitted values are uncorrelated with the expected value of the residuals equal to zero if the model is correct, the scatterplot of residuals versus fitted values provides an additional visual check of the model adequacy.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">residuals</span>(bodyfat.lm) <span class="op">~</span><span class="st"> </span><span class="kw">fitted</span>(bodyfat.lm))
+<span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>)</code></pre></div>
+<p><img src="04-regression-01-Bayesian-simple-regression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>With the exception of the one observation for the individual with the largest waist measurement, the residual plot suggests that the linear regression is a reasonable approximation.</p>
+<p>Furthermore, we can check the normal probability plot of the residuals for the assumption of normally distributed errors. We see that only observation 39 is exceptionally away from the normal quantile.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(bodyfat.lm, <span class="dt">which =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="04-regression-01-Bayesian-simple-regression_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The confidence interval of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> can be constructed using the standard errors <span class="math inline">\(\text{sd}_{\hat{\alpha}}\)</span> and <span class="math inline">\(\text{sd}_{\hat{\beta}}\)</span> respectively. To proceed, we introduce notations of some “sums of squares” <span class="math display">\[
+\begin{aligned}
+\text{S}_{xx} = &amp; \sum_i^n (x_i-\bar{x})^2\\
+\text{S}_{yy} = &amp; \sum_i^n (y_i-\bar{x})^2 \\
+\text{S}_{xy} = &amp; \sum_i^n (x_i-bar{x})(y_i-\bar{y}) \\
+\text{SSE}    = &amp; \sum_i^n (y_i-\hat{y}_i)^2 = \sum_i^n \hat{\epsilon}_i^2. 
+\end{aligned}
+\]</span></p>
+<p><span class="math inline">\(\hat{\alpha}\)</span> and <span class="math inline">\(\hat{\beta}\)</span> can be calculated using these “sums of squares” <span class="math display">\[ \hat{\beta} = \frac{\sum_i (x_i-\bar{x})(y_i-\bar{y})}{\sum_i (x_i-\bar{x})^2} = \frac{\text{S}_{xy}}{\text{S}_{xx}},\qquad \hat{\alpha} = \bar{y} - \hat{\beta}\bar{x} = \bar{y}-\frac{\text{S}_{xy}}{\text{S}_{xx}}\bar{x} \]</span></p>
+<p>The last “sum of square” is the <em>sum of squars of errors</em>. Its sample mean is exactly the mean squared error (MSE) we introduced previously <span class="math display">\[
+\hat{\sigma}^2 = \frac{\text{SSE}}{n-2} = \text{MSE}
+\]</span></p>
+<p><span class="math inline">\(\text{sd}_{\hat{\alpha}}\)</span> and <span class="math inline">\(\text{sd}_{\hat{\beta}}\)</span> are given as <span class="math display">\[ 
+\begin{aligned}
+\text{sd}_{\hat{\alpha}} = &amp;  \sqrt{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)} = \hat{\sigma}\sqrt{\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}}\\
+\text{sd}_{\hat{\beta}} = &amp; \sqrt{\frac{\text{SSE}}{n-2}\frac{1}{\text{S}_xx}} = \frac{\hat{\sigma}}{\sqrt{\text{S}_{xx}}}
+\end{aligned}
+\]</span></p>
+<p>We may construct the confidence intervals of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> using the <span class="math inline">\(t\)</span>-statistics <span class="math display">\[ 
+t_\alpha^\ast = \frac{\alpha - \hat{\alpha}}{\text{sd}_{\hat{\alpha}}},\qquad t_\beta^\ast = \frac{\beta-\hat{\beta}}{\text{sd}_{\hat{\beta}}} 
+\]</span></p>
+<p>They both have degrees of freedom <span class="math inline">\(n-2\)</span>.</p>
+</div>
+<div id="bayesian-simple-linear-regression-using-reference-prior" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Bayesian Simple Linear Regression Using Reference Prior</h3>
+<p>Let us now turn to the Bayesian version and show how to obtain the posterior distributions of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> under the reference prior.</p>
+<p>The Bayesian model starts with the same model as the classical frequentist approach: <span class="math display">\[ y_i = \alpha + \beta x_i + \epsilon_i, \]</span> with the assumption that the errors, <span class="math inline">\(\epsilon_i\)</span>, are independent and identically distributed as normal random variables with mean zero and constant variance <span class="math inline">\(\sigma^2\)</span>. This assumption is exactly the same as the classical inference for testing and constructing confidence intervals for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.</p>
+<p>Our goal is to update the distributions of the unknown parameters <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span>, based on the data <span class="math inline">\(x_1, y_1, \cdots, x_n, y_n\)</span>, where <span class="math inline">\(n\)</span> is the number of observations.</p>
+<p>Under the assumption that the errors <span class="math inline">\(\epsilon_i\)</span> are normally distributed with constant variance <span class="math inline">\(\sigma^2\)</span>, we have for each response <span class="math inline">\(y_i\)</span>, conditioning on the observed data <span class="math inline">\(x_i\)</span> and the parameters <span class="math inline">\(\alpha,\ \beta,\ \sigma^2\)</span>, is normally distributed: <span class="math display">\[ y_i~|~x_i, \alpha, \beta,\sigma^2 \sim \mathcal{N}(\alpha + \beta x_i, \sigma^2),\qquad i = 1,\cdots, n. \]</span> That is, the likelihood of <span class="math inline">\(y_i\)</span> given <span class="math inline">\(x_i, \alpha, \beta\)</span>, and <span class="math inline">\(\sigma^2\)</span> is <span class="math display">\[ \pi(y_i~|~x_i, \alpha, \beta, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y_i-(\alpha+\beta  x_i))^2}{2\sigma^2}\right). \]</span></p>
+<p>We will first consider the standard noninformative prior (reference prior). Using the reference prior, we will obtain familiar distributions as the posterior distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span>, which gives the analogue to the frequentist results. Here we assume <span class="math display">\[ \pi(\alpha, \beta, \sigma^2)\propto \frac{1}{\sigma^2}. \]</span> Using the hierachical model framework, we may equivalently assume that the joint prior distribution of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> under <span class="math inline">\(\sigma^2\)</span> is the uniform prior, while the prior distribution of <span class="math inline">\(\sigma^2\)</span> is proportional to <span class="math inline">\(\displaystyle \frac{1}{\sigma^2}\)</span>. That is <span class="math display">\[ \pi(\alpha, \beta~|~\sigma^2) \propto 1, \qquad \pi(\sigma^2) \propto \frac{1}{\sigma^2}, \]</span> Combining the two using conditional probability, we will get the same joint prior distribution.</p>
+<p>Then we apply the Bayes’ rule to derive the posterior joint distribution after observing <span class="math inline">\(y_1,\cdots, y_n\)</span>: <span class="math display">\[
+\begin{aligned}
+\pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto &amp; \left[\prod_i^n\pi(y_i~|~x_i,\alpha,\beta,\sigma^2)\right]\pi(\alpha, \beta,\sigma^2) \\
+\propto &amp; \left[\left(\frac{1}{(\sigma^2)^{1/2}}\exp\left(-\frac{(y_1-(\alpha+\beta x_1 ))^2}{2\sigma^2}\right)\right)\times\cdots \right.\\
+&amp; \left. \times \left(\frac{1}{(\sigma^2)^{1/2}}\exp\left(-\frac{(y_n-(\alpha +\beta x_n))^2}{2\sigma^2}\right)\right)\right]\times\left(\frac{1}{\sigma^2}\right)\\
+\propto &amp; \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\sum_i\left(y_i-\alpha-\beta  x_i\right)^2}{2\sigma^2}\right)
+\end{aligned}
+\]</span></p>
+<p>For example, to obtain the marginal distribution of <span class="math inline">\(\beta\)</span>, the slope of the linear regression model, we integrate <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\sigma^2\)</span> out: <span class="math display">\[ \pi^*(\beta~|~y_1,\cdots,y_n) = \int_0^\infty \left(\int_{-\infty}^\infty \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\right)\, d\sigma^2. \]</span></p>
+<p>It can be shown that the marginal posterior distribution of <span class="math inline">\(\beta\)</span> is the Student’s <span class="math inline">\(t\)</span>-distribution <span class="math display">\[ \beta~|~y_1,\cdots,y_n \sim t_{n-2}\left(\hat{\beta}, \frac{\hat{\sigma}^2}{\text{S}_{xx}}\right) = t_{n-2}\left(\hat{\beta}, (\text{sd}_{\hat{\beta}})^2\right) \]</span> with degrees of freedom <span class="math inline">\(n-2\)</span>, center at <span class="math inline">\(\hat{\beta}\)</span>, the coefficient we obtain from the frequentist OLS model, and scale parameter <span class="math inline">\(\displaystyle \frac{\hat{\sigma}^2}{\text{S}_{xx}}=\left(\text{sd}_{\hat{\beta}}\right)^2\)</span>, which is the square of the standard error of <span class="math inline">\(\hat{\beta}\)</span> under the frequentist OLS model.</p>
+<p>Similarly, we can integrate out <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span> from the joint posterior distribution to get the marginal posterior distribution of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\pi^*(\alpha~|~y_1,\cdots, y_n)\)</span>. It turns out that <span class="math inline">\(\pi^*(\alpha~|~y_1,\cdots,y_n)\)</span> is again the Student’s <span class="math inline">\(t\)</span>-distribution with degrees of freedom <span class="math inline">\(n-2\)</span>, center at <span class="math inline">\(\hat{\alpha}\)</span>, the <span class="math inline">\(y\)</span>-intercept from the frequentist OLS model, and scale parameter <span class="math inline">\(\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right) = \left(\text{sd}_{\hat{\alpha}}\right)^2\)</span>, which is the square of the standard error of <span class="math inline">\(\hat{\alpha}\)</span> under the frequentist OLS model.</p>
+<p>Moreover, we can show that the marginal posterior distribution of <span class="math inline">\(\sigma^2\)</span> is the inverse Gamma distribution <span class="math display">\[ \sigma^2~|~y_1,\cdots,y_n \sim \text{IG}\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). \]</span></p>
+<p>We provide the detailed deviations in section ??? (how to do reference in R Markdown?)</p>
+<p><strong>Credible Intervals for the Slope <span class="math inline">\(\beta\)</span> and the Intercept <span class="math inline">\(\alpha\)</span> </strong></p>
+<p>The Bayesian posterior distribution results of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> show that under the reference prior, the posterior credible intervals are in fact numerically equivalent to the confidence intervals from the classical frequentist analysis, providing a baseline for other Bayesian analyses with more informative prior distributions or perhaps other “objective” prior distributions, such as a Student’s <span class="math inline">\(t\)</span> prior with 1 degree of freedome which is known as the Cauchy distribution.</p>
+<p>We can use the <code>lm</code> function to obtain the OLS estimates and construct the credible intervals of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output =<span class="st"> </span><span class="kw">summary</span>(bodyfat.lm)<span class="op">$</span>coef[, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]
+output</code></pre></div>
+<pre><code>##                Estimate Std. Error
+## (Intercept) -39.2801847 2.66033696
+## Abdomen       0.6313044 0.02855067</code></pre>
+<p>The columns labeled <code>Estimate</code> and <code>Std. Error</code> are equivalent to the centers (or posterior means) and scale parameters (or standard deviations) in the two <span class="math inline">\(t\)</span>-distributions respetively. The credible intervals of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are the same as the frequentist ocnfidence intervals, but we now can interpret them from a Bayesian perspective.</p>
+<p>The <code>confint</code> function provides 95% confidence intervals, which under the reference prior are equivalent to the 95% credible intervals. The code below extracts them and relabels the output as the Bayesian results.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out =<span class="st"> </span><span class="kw">cbind</span>(output, <span class="kw">confint</span>(bodyfat.lm))
+<span class="kw">colnames</span>(out) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;posterior mean&quot;</span>, <span class="st">&quot;posterior std&quot;</span>, <span class="st">&quot;2.5&quot;</span>, <span class="st">&quot;97.5&quot;</span>)
+<span class="kw">round</span>(out, <span class="dv">2</span>)</code></pre></div>
+<pre><code>##             posterior mean posterior std    2.5   97.5
+## (Intercept)         -39.28          2.66 -44.52 -34.04
+## Abdomen               0.63          0.03   0.58   0.69</code></pre>
+<p>These intervals coincide with the confidence intervals from the frequentist approach. The primary difference is the interpretation. For example, based on the data, we believe that there is 95% chance that body fat will increase by 5.8% up to 6.9% for every additional 10 centimeter increase in the waist circumference.</p>
+<p><strong>Credible Intervals for the Mean <span class="math inline">\(\mu_Y\)</span> and the Prediction <span class="math inline">\(y_{n+1}\)</span></strong></p>
+<p>Under the reference prior, the mean of <span class="math inline">\(Y\)</span>, <span class="math inline">\(\mu_Y\)</span>, at the point <span class="math inline">\(x_i\)</span> is given by <span class="math inline">\(\alpha + \beta x_i\)</span>, with a posterior distributuion <span class="math display">\[ 
+\alpha + \beta x_i ~|~ \text{data} \sim t_{n-2}(\hat{\alpha} + \hat{\beta} x_i, \text{S}_{Y|X_i}^2), 
+\]</span> where <span class="math display">\[
+\text{S}_{Y|X_i}^2 = \hat{\sigma}^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})^2}{\text{S}_{xx}}\right)
+\]</span></p>
+<p>A new prediction <span class="math inline">\(y_{n+1}\)</span> at a point <span class="math inline">\(x_{n+1}\)</span> follows the Student’s <span class="math inline">\(t\)</span>-distribution <span class="math display">\[ 
+y_{n+1}~|~\text{data}, x_{n+1}\ \sim t_{n-2}\left(\hat{\alpha}+\hat{\beta} x_{n+1},\text{S}_{Y|X_{n+1}}^2\right), 
+\]</span></p>
+<p>where <span class="math display">\[ 
+\text{S}_{Y|X_{n+1}}^2 =\hat{\sigma}^2+\hat{\sigma}^2\left(\frac{1}{n}+\frac{(x_{n+1}-\bar{x})^2}{\text{S}_{xx}}\right) = \hat{\sigma}^2\left(1+\frac{1}{n}+\frac{(x_{n+1}-\bar{x})^2}{\text{S}_{xx}}\right).
+\]</span></p>
+<p>The variance for predicting a new observation <span class="math inline">\(y_{n+1}\)</span> has an extra <span class="math inline">\(\hat{\sigma}^2\)</span> which comes from the uncertainty of a new observation about the mean <span class="math inline">\(\mu_Y\)</span> estimated by the regressio line.</p>
+<p>We can extract these intervals using the <code>predict</code> function</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x =<span class="st"> </span>bodyfat<span class="op">$</span>Abdomen
+y =<span class="st"> </span>bodyfat<span class="op">$</span>Bodyfat
+xnew &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(x), <span class="kw">max</span>(x), <span class="dt">length.out =</span> <span class="dv">100</span>)
+ynew &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">predict</span>(bodyfat.lm, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">Abdomen =</span> xnew),
+                           <span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>, <span class="dt">level =</span> <span class="fl">0.95</span>))
+
+<span class="co"># plot the data with the credible intervals of the mean</span>
+<span class="kw">plot</span>(x, y, <span class="dt">xlab =</span> <span class="st">&quot;abdomen&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;bodyfat&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)
+<span class="kw">lines</span>(ynew<span class="op">$</span>lwr <span class="op">~</span><span class="st"> </span>xnew, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>)
+<span class="kw">lines</span>(ynew<span class="op">$</span>upr <span class="op">~</span><span class="st"> </span>xnew, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>)
+<span class="kw">abline</span>(bodyfat.lm, <span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>)
+
+<span class="co"># plot the credible intervals of the prediction</span>
+ypred &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">predict</span>(bodyfat.lm, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">Abdomen =</span> xnew),
+                            <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>, <span class="dt">level =</span> <span class="fl">0.95</span>))
+<span class="kw">lines</span>(ypred<span class="op">$</span>lwr <span class="op">~</span><span class="st"> </span>xnew, <span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>)
+<span class="kw">lines</span>(ypred<span class="op">$</span>upr <span class="op">~</span><span class="st"> </span>xnew, <span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>)
+
+<span class="co"># identify the potential outlier: observation 39</span>
+<span class="kw">points</span>(bodyfat[<span class="dv">39</span>, <span class="st">&quot;Abdomen&quot;</span>], bodyfat[<span class="dv">39</span>, <span class="st">&quot;Bodyfat&quot;</span>], <span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">cex =</span> <span class="dv">5</span>)
+<span class="kw">legend</span>(<span class="dv">110</span>, <span class="dv">15</span>, <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Posterior mean&quot;</span>, <span class="st">&quot;95% CI for mean&quot;</span>, <span class="st">&quot;95% CI for predictions&quot;</span>),
+       <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;orange&quot;</span>, <span class="kw">rep</span>(<span class="st">&quot;darkgrey&quot;</span>, <span class="dv">2</span>)), <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</code></pre></div>
+<p><img src="04-regression-01-Bayesian-simple-regression_files/figure-html/predict-intervals-1.png" width="672" /></p>
+<p>Note in the ablve the legend “CI” can mean either confidence interval or credible interval. The difference comes down to the interpretation. For example, the prediction at the same abdominal circumference as in Case 39 is</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred.<span class="dv">39</span> =<span class="st"> </span><span class="kw">predict</span>(bodyfat.lm, <span class="dt">newdata =</span> bodyfat[<span class="dv">39</span>, ], <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>, <span class="dt">level =</span> <span class="fl">0.95</span>)
+out &lt;-<span class="st"> </span><span class="kw">cbind</span>(bodyfat[<span class="dv">39</span>,]<span class="op">$</span>Abdomen, pred.<span class="dv">39</span>)
+<span class="kw">colnames</span>(out) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;abdomen&quot;</span>, <span class="st">&quot;prediction&quot;</span>, <span class="st">&quot;lower&quot;</span>, <span class="st">&quot;upper&quot;</span>)
+out</code></pre></div>
+<pre><code>##    abdomen prediction   lower    upper
+## 39   148.1   54.21599 44.0967 64.33528</code></pre>
+<p>Based on the data, a Bayesian would expect that a man with waist circumference of 148.1 centermeters should have bodyfat of 54.216 with 95% chance thta it is between 44.097 and 64.335 percent.</p>
+<p>While we expect the majority of the data will be within the prediction intervals (the short dashed grey lines), Case 39 seems to be well below the interval. We next use Bayesian methods to calculate the probability that this case is abnormal or an outlier by falling more than <span class="math inline">\(k\)</span> standard deviations from either side of the mean.</p>
+</div>
+<div id="ourliers" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Ourliers</h3>
+<p>The plot and predictive intervals suggest that predictions for Case 39 are not well captured by the model. There is always the possibility that this case does not meet the assumptions of the simple linear regression model (wrong mean or variance) or could be in error. Model diagnostics such as plots of residuals versus fitted values are useful in identifying potential outliers. Now with the interpretation of Bayesian paradigm, we can go further to calculate the probability to demonstrate whether a case falls too far from the mean.</p>
+<p>The article by Chaloner &amp; Brant (1988) (???reference????) suggested an approach for defining outliers and then calculating the probability that a case or multiple cases were outliers. The assumed model for our simple linear regression is <span class="math inline">\(y_i=\alpha + \beta x_i+\epsilon_i\)</span>, with <span class="math inline">\(\epsilon_i\)</span> having independent, identical distributions that are normal with mean zero and constant variance <span class="math inline">\(\sigma^2\)</span>, i.e., <span class="math inline">\(\epsilon_i \sim \mathcal{N}(0, \sigma^2)\)</span>. Chaloner &amp; Brant consider outliers to be points where the error or the model discrepancy <span class="math inline">\(\epsilon_i\)</span> is greater than <span class="math inline">\(k\)</span> standard deviation for some large <span class="math inline">\(k\)</span>, and then proceed to calculate the posterior probability that a case is an outlier to be <span class="math display">\[ \mathbb{P}(|\epsilon_i| &gt; k\sigma ~|~\text{data}) \]</span></p>
+<p>Since <span class="math inline">\(\epsilon_i = y_i - \alpha-\beta x_i\)</span>, this is equivalent to calculating <span class="math display">\[ \mathbb{P}(|y_i-\alpha-\beta x_i| &gt; k\sigma~|~\text{data}).\]</span></p>
+<p>The code for calculating the probability of outliers involves integration. We have implemented this in the function <code>Bayes.outlier.prob</code> that can be sourced from the file <code>bayes-outliers.R</code>. Applying this to the <code>bodyfat</code> data for Case 39, we get</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#source(&quot;bayes-outliers.R&quot;)</span>
+<span class="co">#library(mvtnorm)</span>
+<span class="co">#outliers = Bayes.outlier.prob(bodyfat.lm)</span>
+
+<span class="co"># The default is to consider k=3</span>
+<span class="co">#prob.39 = outliers$prob.outlier[39]</span>
+<span class="co">#prob.39</span></code></pre></div>
+<p>We see that this case has an extremely high probability (0.9917) of being more an outlier, that is, the error is greater than <span class="math inline">\(k=3\)</span> standard deviations, based on the fitted model and data.</p>
+<p>With <span class="math inline">\(k=3\)</span>, however, there may be a high probability a priori of at least one outlier in a large sample. We can compute this using</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n =<span class="st"> </span><span class="kw">nrow</span>(bodyfat)
+<span class="co"># probability of no outliers if outliers are error greater than 3 standard deviation</span>
+prob =<span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">3</span>))) <span class="op">^</span><span class="st"> </span>n
+prob</code></pre></div>
+<pre><code>## [1] 0.5059747</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># probability of at least one outlier</span>
+prob.least1 =<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">3</span>))) <span class="op">^</span><span class="st"> </span>n
+prob.least1</code></pre></div>
+<pre><code>## [1] 0.4940253</code></pre>
+<p>With <span class="math inline">\(n=252\)</span>, the probability of at least one outlier is much larger than say the marginal probability that one point is an outlier of 0.05. So we would expect that there will be at least one point where the error is more than 3 standard deviations from zero almost 50% of the time. Rather than fixing <span class="math inline">\(k\)</span>, we can fix the prior probability of no outliers to be say 0.95, and solve for the value of <span class="math inline">\(k\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">k =<span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.95</span> <span class="op">^</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n))
+k</code></pre></div>
+<pre><code>## [1] 3.714602</code></pre>
+<p>This leads to a larger value of <span class="math inline">\(k\)</span> after adjusting <span class="math inline">\(k\)</span> so that there is at least one outlier. We examine Case 39 again under this <span class="math inline">\(k\)</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#outliers.no = Bayes.outlier.prob(bodyfat.lm, k = k)</span>
+<span class="co">#prob.no.39 = outliers.no$prob.outlier[39]</span>
+<span class="co">#prob.no.39</span></code></pre></div>
+<p>The posterior probability of Case 39 being an outlier is 0.68475. While this is not strikingly large, it is much larger than the marginal prior probability of</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span>k)</code></pre></div>
+<pre><code>## [1] 0.0002035241</code></pre>
+<p><strong>Summary</strong></p>
+<p>There is a substantial probability that Case 39 is an outlier. If you do view it as an outlier, what are your options? One option is to investigate the case and determine if the data are input incorrectly, and fix it. Another option is when you cannot confirm there is a data entry error, you may delete the observation from the analysis and refit the model without the case. If you do take this option, be sure to describe what you did so that your research is reproducible. You may want to apply diagnostics and calculate the probability of a case being an outlier using this reduced data. As a word of caution, if you discover that there are a large number of points that appear to be outliers, take a second look at your model assumptions, since the problem may be with the model rather than the data! A third option we will talk about later, is to combine inference under the model that retains this case as part of the population, and the model that treats it as coming from another population. This approach incorporates our uncertainty about whether the case is an outlier given the data.</p>
+<p>The source code is based on using a reference prior for the linear model and extends to multiple regression.</p>
+</div>
+<div id="informative-priors" class="section level3">
+<h3><span class="header-section-number">4.1.4</span> Informative Priors</h3>
+<p>Except from the noninformative reference prior, we may also consider using a more general semi-conjugate prior distribution of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span> when there is information available about the parameters.</p>
+<p>Since the data <span class="math inline">\(y_1,\cdots,y_n\)</span> are normally distributed, from Chapter 3 we see that a Normal-Gamma distribution will form a conjugacy in this situation. We then set up the prior distributions through a hierarchical model. We first assume that, given <span class="math inline">\(\sigma^2\)</span>, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> together follow the bivariate normal prior distribution, from which their marginal distributions are both normal, <span class="math display">\[ 
+\begin{aligned}
+\alpha~|~\sigma^2 \sim &amp; \mathcal{N}(a_0, \sigma^2\text{S}_\alpha) \\
+\beta ~|~ \sigma^2 \sim &amp; \mathcal{N}(b_0, \sigma^2\text{S}_\beta),
+\end{aligned}
+\]</span> with covariance <span class="math display">\[ \text{Cov}(\alpha, \beta ~|~\sigma^2) =\sigma^2 \text{S}_{\alpha\beta}. \]</span></p>
+<p>This is equivalent to setting the coefficient vector <span class="math inline">\((\alpha, \beta)\)</span> to have a biraviate normal distribution with convariance matrix <span class="math inline">\(\Sigma_0\)</span> given by <span class="math inline">\(\text{S}_\alpha\)</span>, <span class="math inline">\(\text{S}_{\beta}\)</span>, and <span class="math inline">\(\text{S}_{\alpha\beta}\)</span> <span class="math display">\[ (\alpha, \beta) ~|~\sigma^2 \sim \text{BiraviateNormal}((a_0, b_0), \sigma^2\Sigma_0). \]</span></p>
+<p>Then for <span class="math inline">\(\sigma^2\)</span>, we will use a Inverse Gamma distribution <span class="math display">\[ \sigma^2 \sim \text{IG}\left(\frac{\nu_0}{2}, \frac{\nu_0\sigma_0}{2}\right). \]</span> Now the join prior distribution of <span class="math inline">\(\alpha, \beta\)</span>, and <span class="math inline">\(\sigma^2\)</span> form a distribution that is analogous to the Normal-Gamma distribution. Prior information about <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span> are encoded in the hyperparameters <span class="math inline">\(a_0\)</span>, <span class="math inline">\(b_0\)</span>, <span class="math inline">\(\text{S}_\alpha\)</span>, <span class="math inline">\(\text{S}_\beta\)</span>, <span class="math inline">\(\text{S}_{\alpha\beta}\)</span>, <span class="math inline">\(\nu_0\)</span>, and <span class="math inline">\(\sigma_0\)</span>.</p>
+<p>The marginal posterior distribution of the coefficient vector <span class="math inline">\((\alpha, \beta)\)</span> will be biraviate normal, and the marginal posterior distribution of <span class="math inline">\(\sigma^2\)</span> is again a Inverse Gamma distribution <span class="math display">\[ \sigma^2~|~y_1,\cdots,y_n \sim \text{IG}\left(\frac{\nu_0+n}{2}, \frac{\nu_0\sigma_0^2+\text{SSE}}{2}\right). \]</span></p>
+<p>One can see that the reference prior is the limiting case of this conjugate prior we impose. We usually use Gibbs sampling to approximate the joint posterior distribution instead of using the result directly, especially later in multiple linear regression when we have more coefficients. We omit the deviations of the posterior distributions due to the heavy use of advanced linear algebra. One can refer to (Hopf’s book, how to reference????) for more details.</p>
+<p>Based on any prior information we have for the model, we can also impose other priors and assumptions on <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span> to get different Bayesian results. Most of these priors will not form any conjugacy and will require us to use simulation methods such as MCMC for approximations.</p>
+</div>
+<div id="deviations-of-marginal-posterior-distributions-of-alpha-beta-and-sigma2" class="section level3">
+<h3><span class="header-section-number">4.1.5</span> Deviations of Marginal Posterior Distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span></h3>
+<p>In this section, we will use the notations we introduced earlier such as <span class="math inline">\(\text{SSE}\)</span>, the sum of squares of errors, <span class="math inline">\(\hat{\sigma}^2\)</span>, the mean squared error, <span class="math inline">\(\text{S}_{xx}\)</span>, <span class="math inline">\(\text{sd}_{\hat{\alpha}}\)</span>, <span class="math inline">\(\text{sd}_{\hat{\beta}}\)</span> and so on to simplify our calculations.</p>
+<p>We will also use the following quantities derived from the formula of <span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>, <span class="math inline">\(\hat{\alpha}\)</span>, and <span class="math inline">\(\hat{\beta}\)</span> <span class="math display">\[
+\begin{aligned}
+&amp; \sum_i^n (x_i-\bar{x}) = 0 \\
+&amp; \sum_i^n (y_i-\bar{y}) = 0 \\
+&amp; \sum_i^n (y_i - \hat{y}_i) = \sum_i^n (y_i - (\hat{\alpha} + \hat{\beta} x_i)) = 0\\
+&amp; \sum_i^n (x_i-\bar{x})(y_i - \hat{y}_i) = \sum_i^n (x_i-\bar{x})(y_i-\bar{y}-\hat{\beta}(x_i-\bar{x})) = \sum_i^n (x_i-\bar{x})(y_i-\bar{y})-\hat{\beta}\sum_i^n(x_i-\bar{x})^2 = 0\\
+&amp; \sum_i^n x_i^2 = \sum_i^(x_i-\bar{x})^2 + n\bar{x}^2 = \text{S}_{xx}+n\bar{x}^2
+\end{aligned}
+\]</span></p>
+<p>We first further simplify the numerator inside the exponential function in the formula of <span class="math inline">\(\pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n)\)</span>: <span class="math display">\[ 
+\begin{aligned}
+\sum_i^n \left(y_i - \alpha - \beta x_i\right)^2 = &amp; \sum_i^n \left(y_i - \hat{\alpha} - \hat{\beta}x_i - (\alpha - \hat{\alpha}) - (\beta - \hat{\beta})x_i\right)^2 \\
+= &amp; \sum_i^n \left(y_i - \hat{\alpha} - \hat{\beta}x_i\right)^2 + \sum_i^n (\alpha - \hat{\alpha})^2 + \sum_i^n (\beta-\hat{\beta})^2(x_i)^2 \\
+  &amp; - 2\sum_i^n (\alpha - \hat{\alpha})(y_i-\hat{\alpha}-\hat{\beta}x_i)\\
+  &amp; - 2\sum_i^n (\beta-\hat{\beta})(x_i)(y_i-\hat{\alpha}-\hat{\beta}x_i)\\
+  &amp; + 2\sum_i^n(\alpha - \hat{\alpha})(\beta-\hat{\beta})(x_i)\\
+= &amp; \text{SSE} + n(\alpha-\hat{\alpha})^2 + (\beta-\hat{\beta})^2\sum_i^n x_i^2 - 2(\alpha-\hat{\alpha})\sum_i^n (y_i-\hat{y}_i) \\
+  &amp; -2(\beta-\hat{\beta})\sum_i^n x_i(y_i-\hat{y}_i)+2(\alpha-\hat{\alpha})(\beta-\hat{\beta})(n\bar{x})
+\end{aligned}
+\]</span></p>
+<p>It is clear that <span class="math display">\[ -2(\alpha-\hat{\alpha})\sum_i^n(y_i-\hat{y}_i) = 0 \]</span></p>
+<p>And <span class="math display">\[
+\begin{aligned}
+-2(\beta-\hat{\beta})\sum_i^n x_i(y_i-\hat{y}_i) = &amp; -2(\beta-\hat{\beta})\sum_i(x_i-\bar{x})(y_i-\hat{y}_i) - 2(\beta-\hat{\beta})\sum_i^n \bar{x}(y_i-\hat{y}_i) \\
+= &amp; -2(\beta-\hat{\beta})\times 0 - 2(\beta-\hat{\beta})\bar{x}\sum_i^n(y_i-\hat{y}_i) = 0
+\end{aligned}
+\]</span></p>
+<p>Finally, we use the quantity that <span class="math inline">\(\displaystyle \sum_i^n x_i^2 = \sum_i^n(x_i-\bar{x})^2+ n\bar{x}^2\)</span> to combine the terms <span class="math inline">\(n(\alpha-\hat{\alpha})^2\)</span>, <span class="math inline">\(2\displaystyle (\alpha-\hat{\alpha})(\beta-\hat{\beta})\sum_i^n x_i\)</span>, and <span class="math inline">\(\displaystyle (\beta-\hat{\beta})^2\sum_i^n x_i^2\)</span> together.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum_i^n (y_i-\alpha-\beta x_i)^2 = &amp; \text{SSE} + n(\alpha-\hat{\alpha})^2 +(\beta-\hat{\beta})^2\sum_i^n (x_i-\bar{x})^2 + (\beta-\hat{\beta})^2 (n\bar{x}^2) \\
+&amp; +2(\alpha-\hat{\alpha})(\beta-\hat{\beta})(n\bar{x})\\
+= &amp; \text{SSE} + (\beta-\hat{\beta})^2\text{S}_{xx} + n\left[(\alpha-\hat{\alpha}) +(\beta-\hat{\beta})\bar{x}\right]^2
+\end{aligned}
+\]</span></p>
+<p>Therefore, the posterior joint distribution of <span class="math inline">\(\alpha, \beta, \sigma^2\)</span> is <span class="math display">\[ 
+\begin{aligned}
+\pi^*(\alpha^*, \beta,\sigma^2 ~|~y_1,\cdots, y_n) \propto &amp; \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\sum_i(y_i - \alpha - \beta x_i)^2}{2\sigma^2}\right) \\
+= &amp; \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)
+\end{aligned}
+\]</span></p>
+<p><strong>Marginal Posterior Distribution of <span class="math inline">\(\beta\)</span></strong></p>
+<p>To get the marginal posterior distribution of <span class="math inline">\(\beta\)</span>, we need to integrate out <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\sigma^2\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\pi^*(\beta ~|~y_1,\cdots,y_n) = &amp; \int_0^\infty \int_{-\infty}^\infty \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\, d\sigma^2 \\
+= &amp; \int_0^\infty \left(\int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2+(\beta-\hat{\beta})\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\alpha\right)\, d\sigma^2
+\end{aligned}
+\]</span></p>
+<p>The integral inside is the joint posterior distribution of <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span> <span class="math display">\[
+\begin{aligned}
+&amp; \pi^*(\beta, \sigma^2~|~y_1,\cdots,y_n) \\
+= &amp; \int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\alpha\\
+= &amp; \int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) \exp\left(-\frac{n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2}{2\sigma^2}\right)\, d\alpha \\
+= &amp; \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) \int_{-\infty}^\infty \exp\left(-\frac{n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2}{2\sigma^2}\right)\, d\alpha
+\end{aligned}
+\]</span></p>
+<p>Here, <span class="math display">\[ \exp\left(-\frac{n(\alpha-\hat{\alpha}+(\beta - \hat{\beta})\bar{x})^2}{2\sigma^2}\right) \]</span> can be viewed as part of a normal distribution of <span class="math inline">\(\alpha\)</span>, with mean <span class="math inline">\(\hat{\alpha}-(\beta-\hat{\beta})\bar{x}\)</span>, and variance <span class="math inline">\(\sigma^2/n\)</span>. Therefore, the integral from the last line above is proportional to <span class="math inline">\(\sqrt{\sigma^2/n}\)</span>. We get</p>
+<p><span class="math display">\[
+\begin{aligned}
+\pi^*(\beta, \sigma^2~|~y_1,\cdots,y_n) 
+\propto &amp; \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) \times \sqrt{\sigma^2}\\
+= &amp; \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)
+\end{aligned}
+\]</span></p>
+<p>We then integrate <span class="math inline">\(\sigma^2\)</span> out to get the marginal distribution of <span class="math inline">\(\beta\)</span>. Here we first perform change of variable and set <span class="math inline">\(\sigma^2 = \frac{1}{\phi}\)</span>. Then the integral becomes <span class="math display">\[
+\begin{aligned}
+\pi^*(\beta~|~y_1,\cdots, y_n) \propto &amp; \int_0^\infty \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE} + (\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\sigma^2 \\
+\propto &amp; \int_0^\infty \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\phi\right)\, d\phi\\
+\propto &amp; \left(\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\right)^{-\frac{(n-2)+1}{2}}\int_0^\infty s^{\frac{n-3}{2}}e^{-s}\, ds
+\end{aligned}
+\]</span></p>
+<p>Here we use another change of variable by setting <span class="math inline">\(\displaystyle s= \frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\phi\)</span>, and the fact that <span class="math inline">\(\displaystyle \int_0^\infty s^{(n-3)/2}e^{-s}\, ds\)</span> gives us the Gamma function, which is a constant.</p>
+<p>We can rewrite the last line from above to obtain the marginal posterior distribution of <span class="math inline">\(\beta\)</span> to be the Student’s <span class="math inline">\(t\)</span>-distribution with degrees of freedom <span class="math inline">\(n-2\)</span>, center <span class="math inline">\(\hat{\beta}\)</span>, and scale parameter <span class="math inline">\(\displaystyle \frac{\hat{\sigma}^2}{\sum_i(x_i-\bar{x})^2}\)</span></p>
+<p><span class="math display">\[ \pi^*(\beta~|~y_1,\cdots,y_n) \propto
+ \left[1+\frac{1}{n-2}\frac{(\beta - \hat{\beta})^2}{\frac{\text{SSE}}{n-2}/(\sum_i (x_i-\bar{x})^2)}\right]^{-\frac{(n-2)+1}{2}} = \left[1 + \frac{1}{n-2}\frac{(\beta - \hat{\beta})^2}{\hat{\sigma}^2/(\sum_i (x_i-\bar{x})^2)}\right]^{-\frac{(n-2)+1}{2}},
+\]</span></p>
+<p>where <span class="math inline">\(\displaystyle \frac{\hat{\sigma}^2}{\sum_i (x_i-\bar{x})^2}\)</span> is exactly the square of the standard error of <span class="math inline">\(\hat{\beta}\)</span> from the frequentist OLS model.</p>
+<p>To summarize, under the reference prior, the marginal posterior distribution of the slope of the Bayesian simple linear regression follows the Student’s <span class="math inline">\(t\)</span>-distribution <span class="math display">\[ 
+\beta ~|~y_1,\cdots, y_n \sim t_{n-2}\left(\hat{\beta}, \left(\text{sd}_{\hat{\beta}}\right)^2\right) 
+\]</span></p>
+<p><strong>Marginal Posterior Distribution of <span class="math inline">\(\alpha\)</span></strong></p>
+<p>A similar approach will lead us to the marginal distribution of <span class="math inline">\(\alpha\)</span>. We again start from the joint posterior distribution <span class="math display">\[ \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}-(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right) \]</span></p>
+<p>This time we integrate <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span> out to get the marginal posterior distribution of <span class="math inline">\(\alpha\)</span>. We first compute the integral <span class="math display">\[
+\begin{aligned}
+\pi^*(\alpha, \sigma^2~|~y_1,\cdots, y_n) = &amp; \int_{-\infty}^\infty \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\beta\\
+= &amp; \int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)\, d\beta 
+\end{aligned}
+\]</span></p>
+<p>Here we group the terms with <span class="math inline">\(\beta-\hat{\beta}\)</span> together, then complete the square so that we can treat is as part of a normal distribution function to simplify the integral <span class="math display">\[
+\begin{aligned}
+&amp; n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2 \\
+= &amp; (\beta-\hat{\beta})^2\left(\sum_i (x_i-\bar{x})^2 + n\bar{x}^2\right) + 2n\bar{x}(\alpha-\hat{\alpha})(\beta-\hat{\beta}) + n(\alpha-\hat{\alpha})^2 \\
+= &amp; \left(\sum_i (x_i-\bar{x})^2 + n\bar{x}^2\right)\left[(\beta-\hat{\beta})+\frac{n\bar{x}(\alpha-\hat{\alpha})}{\sum_i(x_i-\bar{x})^2+n\bar{x}^2}\right]^2+ n(\alpha-\hat{\alpha})^2\left[\frac{\sum_i(x_i-\bar{x})^2}{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}\right]\\
+= &amp; \left(\sum_i (x_i-\bar{x})^2 + n\bar{x}^2\right)\left[(\beta-\hat{\beta})+\frac{n\bar{x}(\alpha-\hat{\alpha})}{\sum_i(x_i-\bar{x})^2+n\bar{x}^2}\right]^2+\frac{(\alpha-\hat{\alpha})^2}{\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}}
+\end{aligned}
+\]</span></p>
+<p>When integrating, we can then view <span class="math display">\[ \exp\left(-\frac{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}{2\sigma^2}\left(\beta-\hat{\beta}+\frac{n\bar{x}(\alpha-\hat{\alpha})}{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}\right)^2\right) \]</span> as part of a normal distribution function, and get <span class="math display">\[
+\begin{aligned}
+&amp; \pi^*(\alpha, \sigma^2~|~y_1,\cdots,y_n) \\
+\propto &amp; \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2\sigma^2}\right)\\
+&amp; \times\int_{-\infty}^\infty \exp\left(-\frac{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}{2\sigma^2}\left(\beta-\hat{\beta}+\frac{n\bar{x}(\alpha-\hat{\alpha})}{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}\right)^2\right)\, d\beta \\
+\propto &amp; \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2\sigma^2}\right)
+\end{aligned}
+\]</span></p>
+<p>To get the marginal posterior distribution of <span class="math inline">\(\alpha\)</span>, we again integrate <span class="math inline">\(\sigma^2\)</span> out. using the same change of variable <span class="math inline">\(\displaystyle \sigma^2=\frac{1}{\phi}\)</span>, and <span class="math inline">\(s=\displaystyle \frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2}\phi\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \pi^*(\alpha~|~y_1,\cdots,y_n) \\
+= &amp; \int_0^\infty \pi^*(\alpha, \sigma^2~|~y_1,\cdots, y_n)\, d\sigma^2 \\
+\propto &amp; \int_0^\infty \phi^{(n-3)/2}\exp\left(-\frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2}\phi\right)\, d\phi\\
+\propto &amp; \left(\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})\right)^{-\frac{(n-2)+1}{2}}\int_0^\infty s^{(n-3)/2}e^{-s}\, ds\\
+\propto &amp; \left[1+\frac{1}{n-2}\frac{(\alpha-\hat{\alpha})^2}{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)}\right]^{-\frac{(n-2)+1}{2}} = \left[1 + \frac{1}{n-2}\left(\frac{\alpha-\hat{\alpha}}{\text{sd}_{\hat{\alpha}}}\right)^2\right]^{-\frac{(n-2)+1}{2}}
+\end{aligned}
+\]</span></p>
+<p>This shows that the marginal posterior distribution of <span class="math inline">\(\alpha\)</span> also follows a Student’s <span class="math inline">\(t\)</span>-distribution, with <span class="math inline">\(n-2\)</span> degrees of freedom. Its center is <span class="math inline">\(\hat{\alpha}\)</span>, the usual coefficient in the frequentist OLS estimate, and its scale parameter is <span class="math inline">\(\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)\)</span>, which is the square of the standard error of <span class="math inline">\(\hat{\alpha}\)</span>.</p>
+<p><strong>Marginal Posterior Distribution of <span class="math inline">\(\sigma^2\)</span></strong></p>
+<p>To show that the marginal posterior distribution of <span class="math inline">\(\sigma^2\)</span> follows the inverse Gamma distribution, we only need to show the precision <span class="math inline">\(\displaystyle \phi = \frac{1}{\sigma^2}\)</span> follows a Gamma distribution.</p>
+<p>We have shown in Week 3 that taking the prior distribution of <span class="math inline">\(\sigma^2\)</span> proportional to <span class="math inline">\(\displaystyle \frac{1}{\sigma^2}\)</span> is equivalent to taking the prior distribution of <span class="math inline">\(\phi\)</span> proportional to <span class="math inline">\(\displaystyle \frac{1}{\phi}\)</span> <span class="math display">\[ \pi(\sigma^2) \propto \frac{1}{\sigma^2}\qquad \Longrightarrow \qquad \pi(\phi)\propto \frac{1}{\phi} \]</span></p>
+<p>Therefore, under the parameters <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and the precision <span class="math inline">\(\phi\)</span>, we have the joint prior distribution as <span class="math display">\[ \pi(\alpha, \beta, \phi) \propto \frac{1}{\phi} \]</span> and the joint posterior distribution as <span class="math display">\[ 
+\pi^*(\alpha, \beta, \phi~|~y_1,\cdots,y_n) \propto \phi^{\frac{n}{2}-1}\exp\left(-\frac{\sum_i(y_i-\alpha-\beta x_i)}{2}\phi\right) 
+\]</span></p>
+<p>Using the partial results we have calculated previously, we get <span class="math display">\[
+\pi^*(\beta, \phi~|~y_1,\cdots,y_n) = \int_{-\infty}^\infty \pi^*(\alpha, \beta, \phi~|~y_1,\cdots,y_n)\, d\alpha \propto \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2}\phi\right) 
+\]</span></p>
+<p>Intergrating over <span class="math inline">\(\beta\)</span>, we finally have <span class="math display">\[
+\begin{aligned}
+&amp; \pi^*(\phi~|~y_1,\cdots,y_n) \\
+\propto &amp; \int_{-\infty}^\infty \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2}\phi\right)\, d\beta\\
+= &amp; \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}}{2}\phi\right)\int_{-\infty}^\infty \exp\left(-\frac{(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\phi\right)\, d\beta\\
+\propto &amp; \phi^{\frac{n-4}{2}}\exp\left(-\frac{\text{SSE}}{2}\phi\right) = \phi^{\frac{n-2}{2}-1}\exp\left(-\frac{\text{SSE}}{2}\phi\right).
+\end{aligned}
+\]</span></p>
+<p>This is a Gamma distribution with shape parameter <span class="math inline">\(\displaystyle \frac{n-2}{2}\)</span> and rate parameter <span class="math inline">\(\displaystyle \frac{\text{SSE}}{2}\)</span>. Therefore, the updated <span class="math inline">\(\sigma^2\)</span> follows the inverse Gamma distribution <span class="math display">\[ \sigma^2~|~y_1,\cdots,y_n \sim \text{IG}\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). \]</span></p>
+
+</div>
+</div>
+<div id="bayesian-multiple-linear-regression" class="section level2">
+<h2><span class="header-section-number">4.2</span> Bayesian Multiple Linear Regression</h2>
+<p>In this section, we will discuss Bayesian inference in multiple linear regression. We will use the reference prior to provide the default, or base line analysis of the model, which provides the correspondence between Bayesian and frequentist approaches.</p>
+<div id="the-model" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> The Model</h3>
+<p>To illustrate the idea, we use the data set that we examined earlier on kids’ cognitive scores, where we predicted the value of the kid’s cognitive score from the mother’s high school status, mother’s IQ score, whether or not the mother worked during the first three years of the kid’s life, and the mother’s age. We set up the model as follows <span class="math display">\[ \text{score}_i = \beta_0 + \beta_1 \text{hs}_i + \beta_2\text{IQ}_i + \beta_3\text{work}_i + \beta_4 \text{age}_i + \epsilon_i. \]</span></p>
+<p>Here, <span class="math inline">\(\text{score}_i\)</span> is the <span class="math inline">\(i\)</span>th kid’s cognitive score. <span class="math inline">\(\text{hs}_i\)</span>, <span class="math inline">\(\text{IQ}_i\)</span>, <span class="math inline">\(\text{work}_i\)</span>, and <span class="math inline">\(\text{age}_i\)</span> represent the high school status, the IQ score, work status during the first three years and the age of the <span class="math inline">\(i\)</span>th kid’s mother. <span class="math inline">\(\epsilon_i\)</span> is the error term.</p>
+</div>
+<div id="data-pre-processing" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Data Pre-processing</h3>
+<p>We can download the data set from Gelman’s website and read the summary information of the data set.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+cognitive =<span class="st"> </span><span class="kw">read.dta</span>(<span class="st">&quot;http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta&quot;</span>)
+<span class="kw">summary</span>(cognitive)</code></pre></div>
+<pre><code>##    kid_score         mom_hs           mom_iq          mom_work    
+##  Min.   : 20.0   Min.   :0.0000   Min.   : 71.04   Min.   :1.000  
+##  1st Qu.: 74.0   1st Qu.:1.0000   1st Qu.: 88.66   1st Qu.:2.000  
+##  Median : 90.0   Median :1.0000   Median : 97.92   Median :3.000  
+##  Mean   : 86.8   Mean   :0.7857   Mean   :100.00   Mean   :2.896  
+##  3rd Qu.:102.0   3rd Qu.:1.0000   3rd Qu.:110.27   3rd Qu.:4.000  
+##  Max.   :144.0   Max.   :1.0000   Max.   :138.89   Max.   :4.000  
+##     mom_age     
+##  Min.   :17.00  
+##  1st Qu.:21.00  
+##  Median :23.00  
+##  Mean   :22.79  
+##  3rd Qu.:25.00  
+##  Max.   :29.00</code></pre>
+<p>As we see that variables <code>mom_hs</code> and <code>mom_work</code> should be considered as categorical variables. We transform them into indicator variables where <code>mom_work</code> shows whether the mother worked for 1 or more years, and <code>mom_hs</code> indicates whether the mother had more than a high school education.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cognitive<span class="op">$</span>mom_work &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(cognitive<span class="op">$</span>mom_work <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)
+cognitive<span class="op">$</span>mom_hs &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(cognitive<span class="op">$</span>mom_hs <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
+
+<span class="co"># Modify column names of the data set</span>
+<span class="kw">colnames</span>(cognitive) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;kid_score&quot;</span>, <span class="st">&quot;hs&quot;</span>, <span class="st">&quot;IQ&quot;</span>, <span class="st">&quot;work&quot;</span>, <span class="st">&quot;age&quot;</span>)</code></pre></div>
+<p>(how to put footnote in r markdown????) Note: <code>as.numeric</code> is not necessary here. We use <code>as.numeric</code> to keep the names of the levels of the two variables short.</p>
+</div>
+<div id="specify-bayesian-prior-distributions" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Specify Bayesian Prior Distributions</h3>
+<p>For Bayesian inference, we need to specify a prior distribution of the error terms. Since the kid’s cognitive scores <span class="math inline">\(\text{score}_i\)</span> are continuous, we assume that <span class="math inline">\(\epsilon_i\)</span> are independent, and identically distributed with the normal distribution <span class="math display">\[ \epsilon_i \overset{\text{iid}}{\sim} \mathcal{N}(0, \sigma^2), \]</span> where <span class="math inline">\(\sigma^2\)</span> is the commonly shared variance of all observations.</p>
+<p>We will also need to specify the prior distribution for all the coefficients <span class="math inline">\(\beta_0,\ \beta_1,\ \beta_2,\ \beta_3\)</span>, and <span class="math inline">\(\beta_4\)</span>. An informative prior, which assumes that the <span class="math inline">\(\beta\)</span>’s follow the multivariate normal distribution with covariance matrix <span class="math inline">\(\sigma^2\Sigma_0\)</span> can be used. We may further impose the inverse Gamma distribution to <span class="math inline">\(\sigma^2\)</span>, to complete the hierachical model <span class="math display">\[ 
+\begin{aligned}
+\beta_0, \beta_1, \beta_2, \beta_3, \beta_4 ~|~\sigma^2 \ \sim &amp; \mathcal{N}((b_0, b_1, b_2, b_3, b_4), \sigma^2\Sigma_0)\\
+\sigma^2 \ \sim &amp; \text{IG}(\nu_0/2, \nu_0\sigma_0^2/2) 
+\end{aligned}
+\]</span></p>
+<p>This gives us the multivariate normal-gamma conjugate family, with hyperparameters <span class="math inline">\(b_0, b_1, b_2, b_3, b_4, \Sigma_0, \nu_0\)</span>, and <span class="math inline">\(\sigma_0^2\)</span>. For this prior, we will need to specify the values of all the hyperparameters. This elicitation can be quite involved, especially when we do not have enough prior information about the variances, covariances of the coefficients and other prior hyperparameters. Therefore, we are going to adopt the noninformative prior (i.e., the reference prior), which is a limiting case of this multivariate normal-gamma prior.</p>
+<p>The reference prior in the multiple linear regression model is similar to the reference prior we used in the simple linear regression model, where the prior distribution of all the coefficients <span class="math inline">\(\beta\)</span>’s is the uniform prior, and the prior of <span class="math inline">\(\sigma^2\)</span> is proportional to its reciprocal <span class="math display">\[ \pi(\beta_0,\beta_1,\beta_2,\beta_3,\beta_4~|~\sigma^2) \propto 1,\qquad \pi(\sigma^2) \propto \frac{1}{\sigma^2}. \]</span></p>
+<p>Under this reference prior, the posterior distributions of the coefficients, <span class="math inline">\(\beta\)</span>’s, are parallel to the ones in simple linear regression. The marginal posterior distributions of <span class="math inline">\(\beta\)</span>’s are the Student’s <span class="math inline">\(t\)</span>-distributions with centers given by the frequentist OLS estimates <span class="math inline">\(\hat{\beta}\)</span>’s, scale parameters given by the standard errors <span class="math inline">\(\text{SE}_{\hat{\beta}}^2\)</span> obtained from the OLS estimates <span class="math display">\[
+\beta_j~|~y_1,\cdots,y_n\ \sim t_{n-p-1}(\hat{\beta}_j, \text{SE}_{\hat{\beta}_j}^2),\qquad j = 0, 1, \cdots, p.
+\]</span></p>
+<p>The degrees of freedom of these <span class="math inline">\(t\)</span>-distributions are <span class="math inline">\(n-p-1\)</span>, where <span class="math inline">\(p\)</span> is the number of predictors. In the kid cognitive score example, <span class="math inline">\(p=4\)</span>. The posterior mean, <span class="math inline">\(\hat{\beta}_j\)</span>, is the center of the <span class="math inline">\(t\)</span>-distributions of <span class="math inline">\(\beta_j\)</span>, which is the same as the OLS estimates of <span class="math inline">\(\beta_j\)</span>. The posterior standard deviation of <span class="math inline">\(\beta_j\)</span>, which is the square root of the scale parameter of the <span class="math inline">\(t\)</span>-distribution, is <span class="math inline">\(\text{SE}_{\beta_j}\)</span>, the standard error of <span class="math inline">\(\beta_j\)</span> under the OLS estimates. That means, under the reference prior, we can easily obtain the posterior mean and posterior standard deviation from using the <code>lm</code> function, since they are numerically equivalent to the counterpart of the frequentist approach.</p>
+</div>
+<div id="fitting-the-bayesian-model" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Fitting the Bayesian Model</h3>
+<p>To gain more flexibility in choosing priors, we will instead use the <code>bas.lm</code> function in the <code>BAS</code> library, which allows us to specify different model priors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(BAS)</code></pre></div>
+<pre><code>## Warning: package &#39;BAS&#39; was built under R version 3.4.2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cog.bas =<span class="st"> </span><span class="kw">bas.lm</span>(kid_score <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> cognitive, <span class="dt">prior =</span> <span class="st">&quot;BIC&quot;</span>, 
+                 <span class="dt">modelprior =</span> <span class="kw">Bernoulli</span>(<span class="dv">1</span>), <span class="dt">bestmodel =</span> <span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="dt">n.models =</span> <span class="dv">1</span>)</code></pre></div>
+<p>The above <code>bas.lm</code> function uses the model formula the same as in the <code>lm</code>. It first specifies the response and predictor variables, a data argument to provide the data frame. The addition arguments further include the prior on the coefficients. We use <code>&quot;BIC&quot;</code> here to indicate that the model is based on the non-informative reference prior. (We will explain in the later section why we use the name <code>&quot;BIC&quot;</code>.) The <code>modelprior</code> argument tells the function to include all variables, which can be viewed as every variable is included with probability 1 under a Bernoulli trial. Because we want to fit just the full model, we use <code>bestmodel = rep(1,5)</code> to indicate that the intercept and all 4 predictors are included. The argument <code>n.models = 1</code> fit just this one model.</p>
+</div>
+<div id="posterior-means-and-posterior-standard-deviations" class="section level3">
+<h3><span class="header-section-number">4.2.5</span> Posterior Means and Posterior Standard Deviations</h3>
+<p>Similar to the OLS regression process, we can extract the posterior means and standard deviations of the coefficients using the <code>coef</code> function</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cog.coef &lt;-<span class="st"> </span><span class="kw">coef</span>(cog.bas)
+cog.coef</code></pre></div>
+<pre><code>## 
+##  Marginal Posterior Summaries of Coefficients: 
+## 
+##  Using  BMA 
+## 
+##  Based on the top  1 models 
+##            post mean  post SD   post p(B != 0)
+## Intercept  86.79724    0.87092   1.00000      
+## hs          5.09482    2.31450   1.00000      
+## IQ          0.56147    0.06064   1.00000      
+## work        2.53718    2.35067   1.00000      
+## age         0.21802    0.33074   1.00000</code></pre>
+<p>From the last column in this summary, we see that the probability of the coefficients to be non-zero is always 1. This is because we specify the argument <code>Bernoulli(1)</code> to force the model to include all variables.</p>
+<p>We can visualize the coefficients in front of the predictors <span class="math inline">\(\beta_1,\beta_2, \beta_3, \beta_4\)</span> using the <code>plot</code> function. We use the <code>subset</code> argument to plot only the coefficients of the predictors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">col.lab =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">col.axis =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>)
+<span class="kw">plot</span>(cog.coef, <span class="dt">subset =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">ask =</span> F)</code></pre></div>
+<p><img src="04-regression-02-Bayesian-multi-regression_files/figure-html/plot-coef-1.png" width="672" /></p>
+<p>These distributions all center at their respetive OLS estimates <span class="math inline">\(\hat{\beta}_j\)</span>, with the spread of the distribution related to the standard errors.</p>
+</div>
+<div id="credible-intervals-summary" class="section level3">
+<h3><span class="header-section-number">4.2.6</span> Credible Intervals Summary</h3>
+<p>We can also report the posterior means, posterior standard deviations, and the 95% credible intervals of the coefficients of all 4 predictors, which may give a clearer and more useful summary. The <code>BAS</code> library provides the method <code>confint</code> to extract the credible intervals from the output <code>cog.coef</code>. If we are only interested in the distributions of the coefficients of the 4 predictors, we may use the <code>parm</code> argument to restrict the variables shown in the summary</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">confint</span>(cog.coef, <span class="dt">parm =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">5</span>)</code></pre></div>
+<pre><code>##            2.5%     97.5%      beta
+## hs    0.5456507 9.6439990 5.0948248
+## IQ    0.4422784 0.6806616 0.5614700
+## work -2.0830879 7.1574454 2.5371788
+## age  -0.4320547 0.8680925 0.2180189
+## attr(,&quot;Probability&quot;)
+## [1] 0.95
+## attr(,&quot;class&quot;)
+## [1] &quot;confint.bas&quot;</code></pre>
+<p>All together, we can generate a summary table showing the posterior means, posterior standard deviations, the upper and lower bounds of the 95% credible intervals of all coefficients <span class="math inline">\(\beta_0, \beta_1, \beta_2, \beta_3\)</span>, and <span class="math inline">\(\beta_4\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span><span class="kw">confint</span>(cog.coef)[, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]  <span class="co"># only extract the upper and lower bounds of the credible intervals</span>
+names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;posterior mean&quot;</span>, <span class="st">&quot;posterior std&quot;</span>, <span class="kw">colnames</span>(out))
+out &lt;-<span class="st"> </span><span class="kw">cbind</span>(cog.coef<span class="op">$</span>postmean, cog.coef<span class="op">$</span>postsd, out)
+<span class="kw">colnames</span>(out) &lt;-<span class="st"> </span>names
+
+<span class="kw">round</span>(out, <span class="dv">2</span>)</code></pre></div>
+<pre><code>##           posterior mean posterior std  2.5% 97.5%
+## Intercept          86.80          0.87 85.09 88.51
+## hs                  5.09          2.31  0.55  9.64
+## IQ                  0.56          0.06  0.44  0.68
+## work                2.54          2.35 -2.08  7.16
+## age                 0.22          0.33 -0.43  0.87</code></pre>
+<p>As in the simple linear aggression, the posterior estimates from the reference prior, that are in the table, are equivalent to the numbers reported from the <code>lm</code> function in R, or using the confident function in the OLS estimates. These intervals are centered at the posterior mean with width given by the appropriate <span class="math inline">\(t\)</span> quantile with <span class="math inline">\(n-p-1\)</span> degrees of freedom times the posterior standard deviation. The primary difference is the interpretation of the intervals. For example, given this data we believe there is a 95% chance that the kid’s cognitive score increases by 0.44 to 0.68 with an additional increase of the mother’s IQ score. The mother’s high school status has a larger effect where we believe that there is a 95% chance the kid would score of 0.55 up to 9.64 points higher if the mother had three or more years of high school. The credible intervals of the predictors <code>work</code> and <code>age</code> include 0, which implies that we may improve this model so that the model will accomplish a desired level of explanation or prediction with fewer predictors.</p>
+
+<div id="refs" class="references">
+<div>
+<p>Jeffreys, Sir Harold. 1961. <em>Theory of Probability: 3rd Edition</em>. Clarendon Press.</p>
+</div>
+<div>
+<p>Kass, Robert E, and Adrian E Raftery. 1995. “Bayes Factors.” <em>Journal of the American Statistical Association</em> 90 (430). Taylor &amp; Francis Group: 773–95.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-losses-and-decision-making.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-regression-00-intro.Rmd",
+"text": "Edit"
+},
+"download": ["Bayes_Book.pdf", "Bayes_Book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
