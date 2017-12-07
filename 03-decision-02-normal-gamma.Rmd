@@ -124,8 +124,6 @@ data(tapwater)
 
 
 ```{r loadpackage, warning=FALSE, message=FALSE, echo=FALSE}
-suppressWarnings(library(statsr))
-data(tapwater)
 m_0 = 35; 
 n_0 = 25; 
 s2_0 = 156.25;
@@ -310,15 +308,11 @@ phi = rgamma(1000, shape = v_n/2, rate=s2_n*v_n/2)
 Figure \@ref(fig:phi-plot) shows the histogram of the 1,000 draws of $\phi$ generated from the Monte Carlo simulation, representing the empirical distribution. The orange line represents the actual gamma posterior density.
 
 ```{r phi-plot, warning=FALSE, message=FALSE, echo=FALSE, fig.width=4,fig.height=4, fig.align="center",fig.cap="Empirical distribution of the tap water example"}
-library(ggplot2)
-
 d.temp = data.frame(phi)
 
-mcmc.plot = ggplot(d.temp,aes(phi))+ 
-      geom_histogram(aes(phi, ..density..),binwidth = 10e-6)+
-      geom_density(aes(phi, ..density..),color="orange",size=2)
-
-mcmc.plot
+ggplot(d.temp,aes(phi)) + 
+  geom_histogram(aes(phi, ..density..), binwidth=1e-5) +
+  geom_density(aes(phi, ..density..), color="orange", size=2)
 ```
 
 Try changing the random seed or increasing the number of simulations, and see how the approximation changes.
@@ -411,28 +405,25 @@ quantile(y, c(0.025,0.975))
 Figure \@ref(fig:hist-prior) shows an estimate of the prior distribution of $\mu$ in gray and the more dispersed prior predictive distribution in TTHM in orange, obtained from the Monte Carlo samples.
 
 ```{r hist-prior, fig.align="center", fig.cap="Prior density", echo=FALSE}
-library(ggplot2)
-
 # The palette with grey:
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
-nsim =length(mu)
-#df = data.frame(mu, sigma, y)
+nsim = length(mu)
+
 df = data.frame(parameter = c(rep("mu", nsim), rep("Y", nsim)), x = c(mu, y))
 #priorpred= ggplot(data=df, aes(x=y)) + geom_histogram(aes(x=y, y=..density..)) +
 #         geom_density() + geom_density(aes(x=mu), col="blue")
-priorpred =  ggplot(data=df, aes(x=y)) +
-             geom_density(aes(x=x, colour=parameter, linetype=parameter),
-                          size=1.2, show.legend=FALSE) +
-             stat_density(aes(x=x, colour=parameter, linetype=parameter),
-                  geom="line",position="identity", size=1.2) +
-                  xlab("TTHM (ppb)") + scale_colour_manual(values=cbPalette) +
-            theme(panel.background = element_rect(fill = "transparent", colour = NA),
-                 legend.key = element_rect(colour = "transparent", fill = NA),
-                  plot.background = element_rect(fill = "transparent", colour = NA)) +
-                     theme(legend.position=c(.75, .75)) +
-  theme(text = element_text(size=20))
-priorpred
+ggplot(data=df, aes(x=y)) +
+  geom_density(aes(x=x, colour=parameter, linetype=parameter),
+               size=1.2, show.legend=FALSE) +
+  stat_density(aes(x=x, colour=parameter, linetype=parameter),
+               geom="line",position="identity", size=1.2) +
+               xlab("TTHM (ppb)") + scale_colour_manual(values=cbPalette) +
+  theme(panel.background = element_rect(fill = "transparent", colour = NA),
+        legend.key = element_rect(colour = "transparent", fill = NA),
+        plot.background = element_rect(fill = "transparent", colour = NA),
+        legend.position = c(.75, .75),
+        text = element_text(size=20))
 ```
 
 Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations. 
@@ -461,25 +452,24 @@ quantile(pred_y, c(.025, .975))
 Figure \@ref(fig:hist-pred) shows the Monte Carlo approximation to the prior distribution of $\mu$, and the posterior distribution of $\mu$ which is shifted to the right. The prior and posterior predictive distributions are also depicted, showing how the data have updated the prior information.
 
 ```{r hist-pred, fig.align="center", fig.cap="Posterior densities", echo=FALSE, message=FALSE, warning=FALSE}
-library(ggplot2)
-nsim =length(post_mu)
-#df = data.frame(mu, sigma, y)
+
+nsim = length(post_mu)
+
 df = data.frame(parameter = c(rep("prior mu", nsim), rep("prior predictive Y", nsim), rep("posterior mu", nsim), rep("posterior predictive Y", nsim)), x = c(mu, y, post_mu, pred_y))
-#priorpred= ggplot(data=df, aes(x=y)) + geom_histogram(aes(x=y, y=..density..)) +
-#         geom_density() + geom_density(aes(x=mu), col="blue")
-postpred =  ggplot(data=df, aes(x=pred_y)) +
-               geom_density(aes(x=x, colour=parameter, linetype=parameter),
-                            size=1.2, show.legend=FALSE) +
-               stat_density(aes(x=x, colour=parameter, linetype=parameter),
-                  geom="line",position="identity", size=1.2) +
-                  xlab("TTHM (ppb)") + scale_colour_manual(values=cbPalette) +
-               xlab("TTHM (ppb)") +
-               scale_colour_manual(values=cbPalette) + theme(panel.background = element_rect(fill = "transparent", colour = NA),
-                 legend.key = element_rect(colour = "transparent", fill = NA),
-                  plot.background = element_rect(fill = "transparent", colour = NA)) +
-                     theme(legend.position=c(.75, .75)) +
-  theme(text = element_text(size=20))
-postpred
+
+ggplot(data=df, aes(x=pred_y)) +
+  geom_density(aes(x=x, colour=parameter, linetype=parameter),
+               size=1.2, show.legend=FALSE) +
+  stat_density(aes(x=x, colour=parameter, linetype=parameter),
+     geom="line",position="identity", size=1.2) +
+     xlab("TTHM (ppb)") + scale_colour_manual(values=cbPalette) +
+  xlab("TTHM (ppb)") +
+  scale_colour_manual(values=cbPalette) + 
+  theme(panel.background = element_rect(fill = "transparent", colour = NA),
+        legend.key = element_rect(colour = "transparent", fill = NA),
+        plot.background = element_rect(fill = "transparent", colour = NA),
+        legend.position=c(.75, .75),
+        text = element_text(size=20))
 ```
 
 Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06. 
@@ -601,30 +591,26 @@ quantile(pred_y, c(.025, .975))
 Using the Monte Carlo samples, Figure \@ref(fig:plot-post-pred) shows the posterior distribution based on the informative Normal-Gamma prior and the reference prior. Both the posterior distribution for $\mu$ and the posterior predictive distribution for a new sample are shifted to the right, and are centered at the sample mean. The posterior for $\mu$ under the reference prior is less concentrated around its mean than the posterior under the informative prior, which leads to an increased posterior sample size and hence increased precision.
 
 ```{r plot-post-pred, echo=FALSE, message=FALSE, warning=FALSE, fig.align="center", fig.height=5, fig.cap="Comparison of posterior densities"}
-library(ggplot2)
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#000000", "#009E73", "#0072B2", "#D55E00", "#CC79A7")
 
-nsim =length(post_mu)
-#df = data.frame(mu, sigma, y)
+nsim = length(post_mu)
+
 df = data.frame(
   parameter = c(rep("NG posterior mu", nsim), rep("NG posterior predictive", nsim),
                 rep("ref posterior mu", nsim), rep("ref posterior predictive", nsim)),
   x = c(mu, y,  post_mu, pred_y))
-#priorpred= ggplot(data=df, aes(x=y)) + geom_histogram(aes(x=y, y=..density..)) +
-#         geom_density() + geom_density(aes(x=mu), col="blue")
-postpred =  ggplot(data=df, aes(x=pred_y)) +
-             geom_density(aes(x=x, colour=parameter, linetype=parameter),
-                          show_guide=FALSE, size=1.0)+
-             stat_density(aes(x=x, colour=parameter, linetype=parameter),
-                  geom="line",position="identity") + xlab("TTHM (ppb)") +
-            scale_colour_manual(values=cbPalette) +
-            theme(panel.background = element_rect(fill = "transparent", colour = NA),
-                  legend.key = element_rect(colour = "transparent", fill = NA),
-                  plot.background = element_rect(fill = "transparent", colour = NA)) +
-            theme(legend.position=c(.76, .85)) +
-  theme(text = element_text(size=15))
 
-postpred
+ggplot(data=df, aes(x=pred_y)) +
+  geom_density(aes(x=x, colour=parameter, linetype=parameter),
+              show_guide=FALSE, size=1.0)+
+  stat_density(aes(x=x, colour=parameter, linetype=parameter),
+               geom="line",position="identity") + xlab("TTHM (ppb)") +
+  scale_colour_manual(values=cbPalette) +
+  theme(panel.background = element_rect(fill = "transparent", colour = NA),
+        legend.key = element_rect(colour = "transparent", fill = NA),
+        plot.background = element_rect(fill = "transparent", colour = NA),
+        legend.position=c(.76, .85),
+        text = element_text(size=15))
 ```
 
 The posterior probability that a new sample will exceed the legal limit of 80 ppb under the reference prior is roughly 0.15, which is more than double the probability of 0.06 from the posterior under the informative prior.
@@ -682,7 +668,6 @@ As Figure \@ref(fig:cauchy-plot) shows, the standard Cauchy distribution with $r
 
 
 ```{r cauchy-plot, echo=FALSE, message=FALSE, warning=FALSE, fig.align="center", fig.cap="Cauchy distribution", fig.height=5, fig.width=5}
-library(ggplot2)
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#000000", "#009E73", "#0072B2", "#D55E00", "#CC79A7")
 N = 1000
 x=seq(-5,5, length=N)
@@ -690,15 +675,16 @@ no = dnorm(x)
 ca = dt(x, 1)
 df = data.frame(x= c(x,x), y = c(no, ca), distribution = rep(c("Normal", "Cauchy"), c(N, N)))
 
-cauchy.plot = ggplot(data=df, aes(x=x,y=y, group=distribution)) +
-         geom_line(aes(linetype=distribution, colour=distribution), size=1.5) + xlab("y") + ylab("density") + scale_colour_manual(values=cbPalette) +
-            theme(panel.background = element_rect(fill = "transparent", colour = NA),
-                  legend.key = element_rect(colour = "transparent", fill = NA),
-                  plot.background = element_rect(fill = "transparent", colour = NA)) +
-            theme(legend.position=c(.75, .75)) +
-  theme(text = element_text(size=20))
-
-cauchy.plot
+ggplot(data=df, aes(x=x,y=y, group=distribution)) +
+  geom_line(aes(linetype=distribution, colour=distribution), size=1.5) + 
+  xlab("y") + 
+  ylab("density") + 
+  scale_colour_manual(values=cbPalette) +
+  theme(panel.background = element_rect(fill = "transparent", colour = NA),
+        legend.key = element_rect(colour = "transparent", fill = NA),
+        plot.background = element_rect(fill = "transparent", colour = NA),
+        legend.position=c(.75, .75),
+        text = element_text(size=20))
 ```
 
 ADD MORE DETAILS BEYOND THE VIDEO?
@@ -749,7 +735,8 @@ library(statsr)
 data(tapwater)
 
 m_0 = 35; n_0 = 25; s2_0 = ((60-10)/4)^2; v_0 = n_0 - 1
-data(tapwater); Y = tapwater$tthm
+
+Y = tapwater$tthm
 ybar = round(mean(Y), 1); s2 = round(var(Y), 1); n = length(Y)
 n_n = n_0 + n
 m_n = round((n*ybar + n_0*m_0)/n_n, 1)
@@ -771,8 +758,6 @@ sigma = 1/sqrt(phi)
 post_mu = rnorm(nsim, mean=ybar, sd=sigma/(sqrt(n)))
 pred_y =  rnorm(nsim,post_mu, sigma)
 
-library(ggplot2)
-
 #df = data.frame(mu, sigma, y)
 tap.JZS = bayes_inference(y=tthm, data=tapwater, statistic="mean",
                           mu_0 = 35, rscale=1, prior="JZS", nsim=nsim,
@@ -783,13 +768,8 @@ tap.JZS = bayes_inference(y=tthm, data=tapwater, statistic="mean",
 df = data.frame(
   parameter = c(rep("NG posterior mu", nsim),
                 rep("NG posterior predictive", nsim),
-#               rep("ref posterior mu", nsim), rep("posterior predictive Y", nsim),
-               rep("JZS posterior mu", nsim), rep("JZS posterior predictive", nsim)
-                ),
-
-
-  x = c(mu, y,  #post_mu, pred_y,
-        mu.cauchy, pred_y_cauchy)
+                rep("JZS posterior mu", nsim), rep("JZS posterior predictive", nsim)),
+  x = c(mu, y, mu.cauchy, pred_y_cauchy)
 )
 ```
 
@@ -808,19 +788,17 @@ This is **the robustness property of the Cauchy prior**, leading the posterior t
 Using the MCMC draws of $\mu, \sigma$, we can obtain Monte Carlo samples from the predictive distribution of $y$, by plugging $\mu$ and $\sigma$ into the corresponding functions. Figure \@ref(fig:hist-ref-pred) compares the posterior densities estimated from the simulative values of $\mu$ and the predicted draws of TTHM under the Jeffrey Zellner-Siow prior, and the informative normal prior from $\mu$ with $n_0 = 25$ and the reference prior on $\sigma^2$.
 
 ```{r hist-ref-pred, echo=FALSE, fig.align="center", fig.cap="Comparison of posterior densities", warning=FALSE}
-postpred =  ggplot(data=df, aes(x=pred_y)) +
-             geom_density(aes(x=x, colour=parameter, linetype=parameter), show_guide=FALSE, size=1.2)+
-            stat_density(aes(x=x, colour=parameter, linetype=parameter),
-                  geom="line",position="identity") +
-            xlab("TTHM (ppb)") +
-            scale_colour_manual(values=cbPalette) +
-   theme(panel.background = element_rect(fill = "transparent", colour = NA),
-                  legend.key = element_rect(colour = "transparent", fill = NA),
-                  plot.background = element_rect(fill = "transparent", colour = NA)) +
-            theme(legend.position=c(.8, .8)) +
-  theme(text = element_text(size=15))
-
-postpred
+ggplot(data=df, aes(x=pred_y)) +
+  geom_density(aes(x=x, colour=parameter, linetype=parameter), show_guide=FALSE, size=1.2)+
+  stat_density(aes(x=x, colour=parameter, linetype=parameter),
+               geom="line",position="identity") +
+  xlab("TTHM (ppb)") +
+  scale_colour_manual(values=cbPalette) +
+  theme(panel.background = element_rect(fill = "transparent", colour = NA),
+        legend.key = element_rect(colour = "transparent", fill = NA),
+        plot.background = element_rect(fill = "transparent", colour = NA),
+        legend.position=c(.8, .8),
+        text = element_text(size=15))
 ```
 
 To recap, we have shown how to create more flexible prior distributions, such as the Cauchy distribution using mixtures of conjugate priors. As the posterior distributions are not available in closed form, we demonstrated how MCMC can be used for inference using the hierarchical prior distribution. Starting in the late 1980's, MCMC algorithms have led to an exponential rise in the use of Bayes in methods, because complex models built through hierarchical distributions suddenly were tractable. The Cauchy prior is well-known for being robust prior mis-specifications. For example, having a prior mean that is far from the observed mean. This provides an alternative to the reference prior as a default or objective distribution that is proper.
