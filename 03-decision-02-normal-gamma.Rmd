@@ -758,7 +758,7 @@ sigma = 1/sqrt(phi)
 post_mu = rnorm(nsim, mean=ybar, sd=sigma/(sqrt(n)))
 pred_y =  rnorm(nsim,post_mu, sigma)
 
-#df = data.frame(mu, sigma, y)
+library(BayesFactor)
 tap.JZS = bayes_inference(y=tthm, data=tapwater, statistic="mean",
                           mu_0 = 35, rscale=1, prior="JZS", nsim=nsim,
                           type="ci", method="sim")
