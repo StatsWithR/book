@@ -39,6 +39,7 @@ library(mvtnorm)
 library(latex2exp)
 library(knitr)
 library(foreign)
+library(BHH2)
 
 
 # need source("bayes-outliers.R"), where can I find it?
