@@ -117,7 +117,7 @@ The Student $t$ distribution is similar to the normal distribution as it is symm
 
 Let's look at an example based on a sample of total trihalomethanes or TTHM in tap water from a city in NC.  The data can be loaded from the `statsr` package
 
-```{r package, echo=TRUE, warning=FALSE, message=FALSE,  eval=FALSE}
+```{r package, echo=TRUE, warning=FALSE, message=FALSE,  eval=TRUE}
 library(statsr)
 data(tapwater)
 ```

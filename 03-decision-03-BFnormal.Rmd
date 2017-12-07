@@ -1,3 +1,7 @@
+```{r include=FALSE}
+library(ggplot2)
+```
+
 ## Hypothesis Testing with Normal Populations
 
 In Section \@ref(sec:bayes-factors), we described how the Bayes factors can be used for hypothesis testing. Now we will use the Bayes factors to test normal means, i.e. compare two groups of normally-distributed populations. We divide this mission into four cases: known variance, unknown variance, paired data, and independent groups.

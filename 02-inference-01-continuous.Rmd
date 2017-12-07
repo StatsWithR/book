@@ -1,3 +1,7 @@
+```{r include=FALSE}
+library(ggplot2)
+```
+
 ## Continuous Variables and Eliciting Probability Distributions
 
 ### From the Discrete to the Continuous

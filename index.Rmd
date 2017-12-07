@@ -41,6 +41,10 @@ library(knitr)
 library(foreign)
 library(BHH2)
 
+library(scales)
+library(mvtnorm)
+
+
 
 # need source("bayes-outliers.R"), where can I find it?
 data(tapwater)

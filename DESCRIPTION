@@ -1,7 +1,7 @@
 Package: placeholder
 Title: Does not matter.
 Version: 0.0.1
-Imports: ggplot2,devtools,BAS,coda,mvtnorm,latex2exp,knitr,foreign,BayesFactor,rmarkdown,BHH2
+Imports: ggplot2,devtools,BAS,coda,mvtnorm,latex2exp,knitr,foreign,BayesFactor,rmarkdown,BHH2,scales,foreign,mvtnorm
 r_github_packages: statswithr/statsr
 Remotes: statswithr/book
 
