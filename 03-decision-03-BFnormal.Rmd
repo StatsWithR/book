@@ -5,27 +5,30 @@ In Section \@ref(sec:bayes-factors), we described how the Bayes factors can be u
 ### Bayes Factors for Testing a Normal Mean: variance known {#sec:known-var}
 
 ```{r setup, echo=FALSE, include=FALSE}
-library(knitr)
-library(ggplot2)
-library(latex2exp)
-
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#000000", "#009E73", "#0072B2", "#D55E00", "#CC79A7")
 
 bf12 = function(n, Z, n0=1) {
-return(exp(.5*(log(n + n0) - log(n0) - n*Z^2/(n + n0))))}
-postprob = function(x){return(1/(1 + 1/x))}
+  exp(.5*(log(n + n0) - log(n0) - n*Z^2/(n + n0)))
+}
+
+postprob = function(x){
+  1/(1 + 1/x)
+}
 
 bf12_Cauchy = function(n, Z, r=1) {
- int = integrate(f =function(x, n, z) {
-   dgamma(x, shape=.5, rate=r^2/2)/bf12(n,z,x)}, lower=0, upper =Inf, n=n,z=Z)
- return(1/int$value)
+  int = integrate(
+    f = function(x, n, z) {
+      dgamma(x, shape=.5, rate=r^2/2)/bf12(n,z,x)
+    }, 
+    lower=0, upper=Inf, n=n, z=Z
+  )
+  return(1/int$value)
 }
 
 bf12_point = function(ybar, m_1, m_2, n=100, sigma=1) {
-  bf = exp(dnorm(ybar, m_1, sigma/sqrt(n), log=T) -
-           dnorm(ybar, m_2, sigma/sqrt(n), log=T))
-  return(bf)
-  }
+  exp(dnorm(ybar, m_1, sigma/sqrt(n), log=T) -
+      dnorm(ybar, m_2, sigma/sqrt(n), log=T))
+}
 ```
 
 Now we show how to obtain base factors for testing hypothesis about a normal mean, where **the variance is known**. To start, let's consider a random sample of observations from a normal population with mean $\mu$ and pre-specified variance $\sigma^2$. We consider testing whether the population mean $\mu$ is equal to $m_0$ or not. 
