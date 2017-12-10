@@ -260,7 +260,7 @@ For those that are ready to move on, we will introduce Monte Carlo sampling  in 
 
 TBA
 
-```{r echo=FALSE, include=FALSE}
+```{r echo=FALSE, include=FALSE, eval=FALSE}
 library(knitr)
 purl("04-normalgamma-01-inference.md")
 ```

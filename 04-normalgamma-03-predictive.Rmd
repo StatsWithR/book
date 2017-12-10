@@ -1,7 +1,7 @@
 
 ### Predictive Distributions {#sec:NG-predictive}
 
-```{r echo=FALSE, include=FALSE}
+```{r echo=FALSE, include=FALSE, eval=FALSE}
 library(knitr)
 read_chunk("04-normalgamma-01-inference.R")
 ```
