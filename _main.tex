@@ -27,7 +27,7 @@
 \PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 \hypersetup{unicode=true,
             pdftitle={Bayesian Statistics},
-            pdfauthor={Christine Chai; Lizzy Huang},
+            pdfauthor={Christine Chai; Merlise Clyde; Lizzy Huang; Colin Rundel},
             pdfsubject={A Companion to the Statistics with R Coursera Course},
             pdfborder={0 0 0},
             breaklinks=true}
@@ -110,12 +110,12 @@
   \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
 \subtitle{A Companion to the Statistics with R Coursera Course}
-  \author{Christine Chai \\ Lizzy Huang}
+  \author{Christine Chai \\ Merlise Clyde \\ Lizzy Huang \\ Colin Rundel}
   \preauthor{\centering\large\emph}
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{Last built on 2017-12-07}
+  \date{Last built on 2017-12-10}
 
 
 % Redefines (sub)paragraphs to behave more like sections
@@ -179,6 +179,8 @@ This book is a written companion for the Coursera Course `Bayesian
 Statistics' from the Statistics with R specialization. Materials and
 examples from the course are discussed more extensively and extra
 examples and exercises are provided.
+
+Authors are listed in alphabetical order.
 
 \chapter{The Basics of Bayesian
 Statistics}\label{the-basics-of-bayesian-statistics}
@@ -2783,10 +2785,14 @@ Bayes factor of \(H_2\) versus \(H_1\), \(BF[H_2:H_1]\), is simply the
 reciprocal of the Bayes factor for \(H_1\) versus \(H_2\), that is,
 \(BF[H_1:H_2]\).
 
-\section{Inference and Decision-Making with Multiple
+\section{Exercises}\label{exercises-1}
+
+Test something here
+
+\chapter{Inference and Decision-Making with Multiple
 Parameters}\label{inference-and-decision-making-with-multiple-parameters}
 
-This section is focused on the extending the Normal-Normal conjugate
+This chapter is focused on the extending the Normal-Normal conjugate
 family introduced in \ref{sec:normal-normal} to the problem of inference
 in a Normal population with an unknown mean and variance. We will
 introduce the Normal-Gamma conjugate family for inference about the
@@ -2804,10 +2810,10 @@ Bayesian inference.
 It is assumed that the readers have mastered the concepts of
 one-parameter Normal-Normal conjugate priors. Calculus is not required
 for this section; however, for those who are comfortable with calculus
-and would like to go deeper, we shall present starred sections with more
-details on the derivations.
+and would like to go deeper, we shall present optional sections with
+more details on the derivations.
 
-\subsection{The Normal-Gamma Conjugate Family}\label{sec:normal-gamma}
+\section{The Normal-Gamma Conjugate Family}\label{sec:normal-gamma}
 
 In \ref{sec:normal-normal} we described the normal-normal conjugate
 family for inference about an unknown mean \(\mu\) with a known standard
@@ -2993,7 +2999,7 @@ TTHM in tap water from a city in NC. The data can be loaded from the
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(statsr)}
-\KeywordTok{data}\NormalTok{(tapwater)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3053,7 +3059,7 @@ To find a credible interval for the mean \(\mu\), we use the Student
 symmetric, the shortest 95 percent credible interval or the
 \textbf{Highest Posterior Density} interval, HPD for short,
 
-\includegraphics{03-decision-02-normal-gamma_files/figure-latex/tapwater-post-mu-1.pdf}
+\includegraphics{04-normalgamma-01-inference_files/figure-latex/tapwater-post-mu-1.pdf}
 
 is the orange interval given by the Lower endpoint L and upper endpoint
 U where the probability that mu is in the interval (L, U) is the shaded
@@ -3108,11 +3114,75 @@ transformations of the parameters without using calculus or change of
 variables, as well as aid exploratory data analysis of the prior or
 posterior distribution.
 
-\textbf{Details of Results (optional reading)}
+\subsection{Details of Results (optional
+reading)**}\label{details-of-results-optional-reading}
 
 TBA
 
-\subsection{Monte Carlo Inference}\label{sec:NG-MC}
+\section{Monte Carlo Inference}\label{sec:NG-MC}
+
+Figure out how to reuse code chunks with purl(), read\_chunk() ref.label
+as in post
+\url{http://jeromyanglim.tumblr.com/post/113132013271/how-to-run-r-code-in-subset-of-named-code-chunks}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(statsr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: BayesFactor
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: coda
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## ************
+## Welcome to BayesFactor 0.9.12-2. If you have questions, please contact Richard Morey (richarddmorey@gmail.com).
+## 
+## Type BFManual() to open the manual.
+## ************
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(tapwater)}
+\NormalTok{m_0 =}\StringTok{ }\DecValTok{35}\NormalTok{; }
+\NormalTok{n_0 =}\StringTok{ }\DecValTok{25}\NormalTok{; }
+\NormalTok{s2_0 =}\StringTok{ }\FloatTok{156.25}\NormalTok{;}
+\NormalTok{v_0 =}\StringTok{ }\NormalTok{n_0 -}\StringTok{ }\DecValTok{1}
+\NormalTok{Y =}\StringTok{ }\NormalTok{tapwater$tthm}
+\NormalTok{ybar =}\StringTok{ }\KeywordTok{mean}\NormalTok{(Y)}
+\NormalTok{s2 =}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{var}\NormalTok{(Y),}\DecValTok{1}\NormalTok{)}
+\NormalTok{n =}\StringTok{ }\KeywordTok{length}\NormalTok{(Y)}
+\NormalTok{n_n =}\StringTok{ }\NormalTok{n_0 +}\StringTok{ }\NormalTok{n}
+\NormalTok{m_n =}\StringTok{ }\KeywordTok{round}\NormalTok{((n*ybar +}\StringTok{ }\NormalTok{n_0*m_0)/n_n, }\DecValTok{1}\NormalTok{)}
+\NormalTok{v_n =}\StringTok{ }\NormalTok{v_0 +}\StringTok{ }\NormalTok{n}
+\NormalTok{s2_n =}\StringTok{ }\KeywordTok{round}\NormalTok{( ((n}\DecValTok{-1}\NormalTok{)*s2 +}\StringTok{ }\NormalTok{v_0*s2_0 +}\StringTok{ }\NormalTok{n_0*n*(m_0 -}\StringTok{ }\NormalTok{ybar)^}\DecValTok{2}\NormalTok{/n_n)/v_n, }\DecValTok{1}\NormalTok{)}
+\NormalTok{L =}\StringTok{ }\KeywordTok{qt}\NormalTok{(.}\DecValTok{025}\NormalTok{, v_n)*}\KeywordTok{sqrt}\NormalTok{(s2_n/n_n) +}\StringTok{ }\NormalTok{m_n}
+\NormalTok{U =}\StringTok{ }\KeywordTok{qt}\NormalTok{(.}\DecValTok{975}\NormalTok{, v_n)*}\KeywordTok{sqrt}\NormalTok{(s2_n/n_n) +}\StringTok{ }\NormalTok{m_n}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(statsr)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
 
 In this section, we will illustrate Monte Carlo sampling from posterior
 distributions and how it can be used for inference. In Section
@@ -3186,6 +3256,26 @@ from last time.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(tapwater)}
+\NormalTok{m_0 =}\StringTok{ }\DecValTok{35}\NormalTok{; }
+\NormalTok{n_0 =}\StringTok{ }\DecValTok{25}\NormalTok{; }
+\NormalTok{s2_0 =}\StringTok{ }\FloatTok{156.25}\NormalTok{;}
+\NormalTok{v_0 =}\StringTok{ }\NormalTok{n_0 -}\StringTok{ }\DecValTok{1}
+\NormalTok{Y =}\StringTok{ }\NormalTok{tapwater$tthm}
+\NormalTok{ybar =}\StringTok{ }\KeywordTok{mean}\NormalTok{(Y)}
+\NormalTok{s2 =}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{var}\NormalTok{(Y),}\DecValTok{1}\NormalTok{)}
+\NormalTok{n =}\StringTok{ }\KeywordTok{length}\NormalTok{(Y)}
+\NormalTok{n_n =}\StringTok{ }\NormalTok{n_0 +}\StringTok{ }\NormalTok{n}
+\NormalTok{m_n =}\StringTok{ }\KeywordTok{round}\NormalTok{((n*ybar +}\StringTok{ }\NormalTok{n_0*m_0)/n_n, }\DecValTok{1}\NormalTok{)}
+\NormalTok{v_n =}\StringTok{ }\NormalTok{v_0 +}\StringTok{ }\NormalTok{n}
+\NormalTok{s2_n =}\StringTok{ }\KeywordTok{round}\NormalTok{( ((n}\DecValTok{-1}\NormalTok{)*s2 +}\StringTok{ }\NormalTok{v_0*s2_0 +}\StringTok{ }\NormalTok{n_0*n*(m_0 -}\StringTok{ }\NormalTok{ybar)^}\DecValTok{2}\NormalTok{/n_n)/v_n, }\DecValTok{1}\NormalTok{)}
+\NormalTok{L =}\StringTok{ }\KeywordTok{qt}\NormalTok{(.}\DecValTok{025}\NormalTok{, v_n)*}\KeywordTok{sqrt}\NormalTok{(s2_n/n_n) +}\StringTok{ }\NormalTok{m_n}
+\NormalTok{U =}\StringTok{ }\KeywordTok{qt}\NormalTok{(.}\DecValTok{975}\NormalTok{, v_n)*}\KeywordTok{sqrt}\NormalTok{(s2_n/n_n) +}\StringTok{ }\NormalTok{m_n}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{8675309}\NormalTok{)}
 \NormalTok{phi =}\StringTok{ }\KeywordTok{rgamma}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DataTypeTok{shape =} \NormalTok{v_n/}\DecValTok{2}\NormalTok{, }\DataTypeTok{rate=}\NormalTok{s2_n*v_n/}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
@@ -3198,7 +3288,7 @@ posterior density.
 
 \begin{figure}
 
-{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/phi-plot-1} 
+{\centering \includegraphics{04-normalgamma-02-monte-carlo_files/figure-latex/phi-plot-1} 
 
 }
 
@@ -3222,7 +3312,7 @@ calculating the sample mean of the 1,000 draws.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 21.81346
+## [1] 21.814
 \end{verbatim}
 
 Similarly, we can obtain a 95\% credible interval for \(\sigma\) by
@@ -3236,8 +3326,10 @@ finding the sample quantiles of the distribution.
 
 \begin{verbatim}
 ##     2.5%    97.5% 
-## 18.20655 26.53671
+## 18.20700 26.53736
 \end{verbatim}
+
+ADD HPD interval ???
 
 \textbf{Summary}
 
@@ -3253,6 +3345,65 @@ simulation may be used to help choose prior hyperparameters, using the
 prior predictive distribution of data.
 
 \subsection{Predictive Distributions}\label{sec:NG-predictive}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(statsr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: BayesFactor
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: coda
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## ************
+## Welcome to BayesFactor 0.9.12-2. If you have questions, please contact Richard Morey (richarddmorey@gmail.com).
+## 
+## Type BFManual() to open the manual.
+## ************
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(tapwater)}
+\NormalTok{m_0 =}\StringTok{ }\DecValTok{35}\NormalTok{; }
+\NormalTok{n_0 =}\StringTok{ }\DecValTok{25}\NormalTok{; }
+\NormalTok{s2_0 =}\StringTok{ }\FloatTok{156.25}\NormalTok{;}
+\NormalTok{v_0 =}\StringTok{ }\NormalTok{n_0 -}\StringTok{ }\DecValTok{1}
+\NormalTok{Y =}\StringTok{ }\NormalTok{tapwater$tthm}
+\NormalTok{ybar =}\StringTok{ }\KeywordTok{mean}\NormalTok{(Y)}
+\NormalTok{s2 =}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{var}\NormalTok{(Y),}\DecValTok{1}\NormalTok{)}
+\NormalTok{n =}\StringTok{ }\KeywordTok{length}\NormalTok{(Y)}
+\NormalTok{n_n =}\StringTok{ }\NormalTok{n_0 +}\StringTok{ }\NormalTok{n}
+\NormalTok{m_n =}\StringTok{ }\KeywordTok{round}\NormalTok{((n*ybar +}\StringTok{ }\NormalTok{n_0*m_0)/n_n, }\DecValTok{1}\NormalTok{)}
+\NormalTok{v_n =}\StringTok{ }\NormalTok{v_0 +}\StringTok{ }\NormalTok{n}
+\NormalTok{s2_n =}\StringTok{ }\KeywordTok{round}\NormalTok{( ((n}\DecValTok{-1}\NormalTok{)*s2 +}\StringTok{ }\NormalTok{v_0*s2_0 +}\StringTok{ }\NormalTok{n_0*n*(m_0 -}\StringTok{ }\NormalTok{ybar)^}\DecValTok{2}\NormalTok{/n_n)/v_n, }\DecValTok{1}\NormalTok{)}
+\NormalTok{L =}\StringTok{ }\KeywordTok{qt}\NormalTok{(.}\DecValTok{025}\NormalTok{, v_n)*}\KeywordTok{sqrt}\NormalTok{(s2_n/n_n) +}\StringTok{ }\NormalTok{m_n}
+\NormalTok{U =}\StringTok{ }\KeywordTok{qt}\NormalTok{(.}\DecValTok{975}\NormalTok{, v_n)*}\KeywordTok{sqrt}\NormalTok{(s2_n/n_n) +}\StringTok{ }\NormalTok{m_n}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(statsr)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
 
 In this section, we will discuss prior and posterior \textbf{predictive}
 distributions of the data and show how Monte Carlo sampling from the
@@ -3381,7 +3532,7 @@ in TTHM in orange, obtained from the Monte Carlo samples.
 
 \begin{figure}
 
-{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/hist-prior-1} 
+{\centering \includegraphics{04-normalgamma-03-predictive_files/figure-latex/hist-prior-1} 
 
 }
 
@@ -3430,7 +3581,7 @@ hyper parameters from last time.
 
 \begin{verbatim}
 ##      2.5%     97.5% 
-##  3.324087 89.871964
+##  3.280216 89.830212
 \end{verbatim}
 
 Figure \ref{fig:hist-pred} shows the Monte Carlo approximation to the
@@ -3441,7 +3592,7 @@ prior information.
 
 \begin{figure}
 
-{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/hist-pred-1} 
+{\centering \includegraphics{04-normalgamma-03-predictive_files/figure-latex/hist-pred-1} 
 
 }
 
@@ -3460,7 +3611,7 @@ approximately 0.06.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.0623
+## [1] 0.0619
 \end{verbatim}
 
 By using Monte-Carlo methods, we can obtain prior and posterior
@@ -3482,7 +3633,14 @@ predictive distributions of the data.
   families of prior distributions.
 \end{itemize}
 
-\subsection{Reference Priors}\label{sec:NG-reference}
+\section{Reference Priors}\label{sec:NG-reference}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(statsr)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
 
 In Section \ref{sec:NG-predictive}, we described a way of specifying an
 informative prior distribution for inference about TTHM in tapwater
@@ -3654,7 +3812,7 @@ posterior sample size and hence increased precision.
 
 \begin{figure}
 
-{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/plot-post-pred-1} 
+{\centering \includegraphics{04-normalgamma-04-reference_files/figure-latex/plot-post-pred-1} 
 
 }
 
@@ -3724,7 +3882,14 @@ While we will no longer have nice analytical expressions for the
 posterior, we can simulate from the posterior distribution using a Monte
 Carlo algorithm called Markov chain Monte Carlo (MCMC).
 
-\subsection{Mixtures of Conjugate Priors}\label{sec:NG-Cauchy}
+\section{Mixtures of Conjugate Priors}\label{sec:NG-Cauchy}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(statsr)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
 
 In this section, we will describe priors that are constructed as a
 mixture of conjugate priors -- in particular, the Cauchy distribution.
@@ -3775,7 +3940,7 @@ and testing.
 
 \begin{figure}
 
-{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/cauchy-plot-1} 
+{\centering \includegraphics{04-normalgamma-05-mixtures_files/figure-latex/cauchy-plot-1} 
 
 }
 
@@ -3784,7 +3949,14 @@ and testing.
 
 ADD MORE DETAILS BEYOND THE VIDEO?
 
-\subsection{Markov Chain Monte Carlo (MCMC)}\label{sec:NG-MCMC}
+\section{Markov Chain Monte Carlo (MCMC)}\label{sec:NG-MCMC}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(statsr)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
 
 The Cauchy prior described in Section \ref{sec:NG-Cauchy} is not a
 contrary prior, and therefore, the posterior distribution from
@@ -3863,7 +4035,7 @@ prior or ``JZS'' in the R \texttt{statsr} package.
 ## 95% CI for mu: (45.5714, 64.2048)
 \end{verbatim}
 
-\includegraphics{03-decision-02-normal-gamma_files/figure-latex/tapwater-inference-1.pdf}
+\includegraphics{04-normalgamma-06-MCMC_files/figure-latex/tapwater-inference-1.pdf}
 
 Using the \texttt{bayes$\_$inference} function from the \texttt{statsr}
 package, we can obtain summary statistics and a plot from the MCMC
@@ -3894,7 +4066,7 @@ the Jeffrey Zellner-Siow prior, and the informative normal prior from
 
 \begin{figure}
 
-{\centering \includegraphics{03-decision-02-normal-gamma_files/figure-latex/hist-ref-pred-1} 
+{\centering \includegraphics{04-normalgamma-06-MCMC_files/figure-latex/hist-ref-pred-1} 
 
 }
 
@@ -3916,16 +4088,18 @@ as a default or objective distribution that is proper.
 In the next sections, we will return to Bayes factors and hypothesis
 testing where the Cauchy prior plays an important role.
 
-\section{Hypothesis Testing with Normal
+\chapter{Hypothesis Testing with Normal
 Populations}\label{hypothesis-testing-with-normal-populations}
 
 In Section \ref{sec:bayes-factors}, we described how the Bayes factors
 can be used for hypothesis testing. Now we will use the Bayes factors to
-test normal means, i.e.~compare two groups of normally-distributed
-populations. We divide this mission into four cases: known variance,
-unknown variance, paired data, and independent groups.
+compare normal means, i.e.~test whether the mean of a population is zero
+or compare two groups of normally-distributed populations. We divide
+this mission into three cases: known variance for a single population,
+unknown variance for a single population using paired data, and unknown
+variance using two independent groups.
 
-\subsection{Bayes Factors for Testing a Normal Mean: variance
+\section{Bayes Factors for Testing a Normal Mean: variance
 known}\label{sec:known-var}
 
 Now we show how to obtain base factors for testing hypothesis about a
@@ -3979,7 +4153,7 @@ the distribution of the data under \(H_2\).
 
 \[\begin{aligned}
 \BF[H_1 : H_2] &= \frac{p(\data \mid \mu = m_0, \sigma^2 )}
- {\int p(\data \mid \mu, \sigma^2) p(\mu \mid m_0, \mathbf{n_0}, \sigma^2)\, d \mu} \\ 
+ {\int p(\data \mid \mu, \sigma^2) p(\mu \mid m_0, \mathbf{n_0}, \sigma^2)\, d \mu} \\
 \BF[H_1 : H_2] &=\left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}} \right)^{1/2} \exp\left\{-\frac 1 2 \frac{n }{n + \mathbf{n_0}} Z^2 \right\} \\
  Z   &=  \frac{(\bar{Y} - m_0)}{\sigma/\sqrt{n}}
 \end{aligned}\]
@@ -4008,7 +4182,7 @@ expected, larger values of the \(Z\) score favor \(H_2\).
 
 \begin{figure}[htbp]
 \centering
-\includegraphics{03-decision-03-BFnormal_files/figure-latex/vague-prior-1.pdf}
+\includegraphics{05-BFnormal-01-known-variance_files/figure-latex/vague-prior-1.pdf}
 \caption{\label{fig:vague-prior}Vague prior for mu: n=100}
 \end{figure}
 
@@ -4055,7 +4229,7 @@ orange with \(n_0 = 4\). So they expected the mean to be within
 
 \begin{figure}[htbp]
 \centering
-\includegraphics{03-decision-03-BFnormal_files/figure-latex/effect-size-1.pdf}
+\includegraphics{05-BFnormal-01-known-variance_files/figure-latex/effect-size-1.pdf}
 \caption{\label{fig:effect-size}Prior on standard effect size}
 \end{figure}
 
@@ -4083,7 +4257,7 @@ interested.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics{03-decision-03-BFnormal_files/figure-latex/prior-effect-1.pdf}
+\includegraphics{05-BFnormal-01-known-variance_files/figure-latex/prior-effect-1.pdf}
 \caption{\label{fig:prior-effect}Prior effect in the extra sensory
 perception test}
 \end{figure}
@@ -4150,11 +4324,8 @@ Next, we will look at Bayes factors in normal models with unknown
 variances using the Cauchy prior so that results are less sensitive to
 the choice of \(n_0\).
 
-\subsection{Bayes Factors for Testing a Normal Mean: unknown
-variance}\label{bayes-factors-for-testing-a-normal-mean-unknown-variance}
-
-\subsection{Testing Normal Means: paired
-data}\label{testing-normal-means-paired-data}
+\section{Comparing Two Paired Means using Bayes
+Factors}\label{comparing-two-paired-means-using-bayes-factors}
 
 We previously learned that we can use a paired t-test to compare means
 from two paired samples. In this section, we will show how Bayes factors
@@ -4176,13 +4347,33 @@ the bottom and the surface in randomly sampled locations are independent
 of each other.
 \EndKnitrBlock{example}
 
+\begin{verbatim}
+## Loading required package: BayesFactor
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: coda
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## ************
+## Welcome to BayesFactor 0.9.12-2. If you have questions, please contact Richard Morey (richarddmorey@gmail.com).
+## 
+## Type BFManual() to open the manual.
+## ************
+\end{verbatim}
+
 \begin{table}
 
 \caption{\label{tab:zinc-table}Zinc in drinking water}
 \centering
 \begin{tabular}[t]{rrrr}
 \toprule
-Location & Surface & Bottom & Difference\\
+location & bottom & surface & difference\\
 \midrule
 1 & 0.430 & 0.415 & 0.015\\
 2 & 0.266 & 0.238 & 0.028\\
@@ -4332,7 +4523,7 @@ prior.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(statsr)}
-\KeywordTok{bayes_inference}\NormalTok{(Difference, }\DataTypeTok{data=}\NormalTok{zinc, }\DataTypeTok{statistic=}\StringTok{"mean"}\NormalTok{, }\DataTypeTok{type=}\StringTok{"ht"}\NormalTok{,}
+\KeywordTok{bayes_inference}\NormalTok{(difference, }\DataTypeTok{data=}\NormalTok{zinc, }\DataTypeTok{statistic=}\StringTok{"mean"}\NormalTok{, }\DataTypeTok{type=}\StringTok{"ht"}\NormalTok{,}
                 \DataTypeTok{prior=}\StringTok{"JZS"}\NormalTok{, }\DataTypeTok{mu_0=}\DecValTok{0}\NormalTok{, }\DataTypeTok{method=}\StringTok{"theo"}\NormalTok{, }\DataTypeTok{alt=}\StringTok{"twosided"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -4359,14 +4550,14 @@ prior.
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03645025 0.06329458 0.07536501  0.08722383  0.11242548
-## sigma 0.03668670 0.04739626 0.05530682  0.06557755  0.09559353
-## n_0   0.16241330 1.89539211 4.74232848 10.08733346 32.34900646
+## mu    0.03642218 0.06329551 0.07537815  0.08716159  0.11211728
+## sigma 0.03665661 0.04740042 0.05532381  0.06559931  0.09547736
+## n_0   0.16192355 1.89277407 4.72932972 10.09690049 32.52647254
 ## 
-## 95% CI for mu: (0.0365, 0.1124)
+## 95% CI for mu: (0.0364, 0.1121)
 \end{verbatim}
 
-\includegraphics{03-decision-03-BFnormal_files/figure-latex/bayes-inference-1.pdf}
+\includegraphics{05-BFnormal-02-paired-means_files/figure-latex/bayes-inference-1.pdf}
 
 With equal prior probabilities on the two hypothesis, the Bayes factor
 is the posterior odds. From the output, we see this indicates that the
@@ -4389,8 +4580,8 @@ value of \(n_0\) (prior sample size) in both cases.
 Next, we will illustrate using the Cauchy prior for comparing two means
 from independent normal samples.
 
-\subsection{Testing Normal Means: independent
-groups}\label{testing-normal-means-independent-groups}
+\section{Comparing Independent Means: hypothesis
+testing}\label{comparing-independent-means-hypothesis-testing}
 
 In the previous section, we described Bayes factors for testing whether
 the mean difference of \textbf{paired} samples was zero. In this
@@ -4470,11 +4661,9 @@ data under the two hypotheses.
  {\int \iint p(\data \mid \alpha, \mu, \sigma^2) p(\alpha \mid \sigma^2) p(\mu, \sigma^2 \mid H_2) \, d \mu \, d\sigma^2 \, d \alpha}
 \end{aligned}\]
 
-\subsection{Inference after Testing}\label{inference-after-testing}
+\section{Inference after Testing}\label{inference-after-testing}
 
-\section{Exercises}\label{exercises-1}
-
-Test something here
+TBA
 
 \chapter{Introduction to Bayesian
 Regression}\label{introduction-to-bayesian-regression}
@@ -5664,7 +5853,7 @@ and \texttt{age} include 0, which implies that we may improve this model
 so that the model will accomplish a desired level of explanation or
 prediction with fewer predictors.
 
-\section{Bayesian Model Selection}\label{bayesian-model-selection}
+\chapter{Bayesian Model Selection}\label{bayesian-model-selection}
 
 In the last section, we provided a Bayesian inference analysis for kid's
 cognitive scores using multiple linear regression. We found that several
@@ -5675,7 +5864,7 @@ regression based on Bayesian information criterion, or BIC. In the next
 section, we will discuss other model selection methods, such as using
 Bayes factors.
 
-\subsection{Bayesian Information Criterion
+\section{Bayesian Information Criterion
 (BIC)}\label{bayesian-information-criterion-bic}
 
 Bayesian information criterion (BIC) is one of the Bayesian criteria
