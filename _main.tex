@@ -4550,11 +4550,11 @@ prior.
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03642218 0.06329551 0.07537815  0.08716159  0.11211728
-## sigma 0.03665661 0.04740042 0.05532381  0.06559931  0.09547736
-## n_0   0.16192355 1.89277407 4.72932972 10.09690049 32.52647254
+## mu    0.03644494 0.06330816 0.07537333  0.08718227  0.11224561
+## sigma 0.03661645 0.04739187 0.05528334  0.06550043  0.09526989
+## n_0   0.16162771 1.88361269 4.72221980 10.07426648 32.33220594
 ## 
-## 95% CI for mu: (0.0364, 0.1121)
+## 95% CI for mu: (0.0364, 0.1122)
 \end{verbatim}
 
 \includegraphics{05-BFnormal-02-paired-means_files/figure-latex/bayes-inference-1.pdf}
@@ -5625,6 +5625,10 @@ variables where \texttt{mom\_work} shows whether the mother worked for 1
 or more years, and \texttt{mom\_hs} indicates whether the mother had
 more than a high school education.
 
+The code is as below:\footnote{Note: \texttt{as.numeric} is not
+  necessary here. We use \texttt{as.numeric} to keep the names of the
+  levels of the two variables short.}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{cognitive$mom_work <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(cognitive$mom_work >}\StringTok{ }\DecValTok{1}\NormalTok{)}
@@ -5634,10 +5638,6 @@ more than a high school education.
 \KeywordTok{colnames}\NormalTok{(cognitive) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"kid_score"}\NormalTok{, }\StringTok{"hs"}\NormalTok{, }\StringTok{"IQ"}\NormalTok{, }\StringTok{"work"}\NormalTok{, }\StringTok{"age"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-(how to put footnote in r markdown????) Note: \texttt{as.numeric} is not
-necessary here. We use \texttt{as.numeric} to keep the names of the
-levels of the two variables short.
 
 \subsection{Specify Bayesian Prior
 Distributions}\label{specify-bayesian-prior-distributions}

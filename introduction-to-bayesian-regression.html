@@ -634,12 +634,12 @@ k</code></pre></div>
 ##  3rd Qu.:25.00  
 ##  Max.   :29.00</code></pre>
 <p>As we see that variables <code>mom_hs</code> and <code>mom_work</code> should be considered as categorical variables. We transform them into indicator variables where <code>mom_work</code> shows whether the mother worked for 1 or more years, and <code>mom_hs</code> indicates whether the mother had more than a high school education.</p>
+<p>The code is as below:<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cognitive$mom_work &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(cognitive$mom_work &gt;<span class="st"> </span><span class="dv">1</span>)
 cognitive$mom_hs &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(cognitive$mom_hs &gt;<span class="st"> </span><span class="dv">0</span>)
 
 <span class="co"># Modify column names of the data set</span>
 <span class="kw">colnames</span>(cognitive) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;kid_score&quot;</span>, <span class="st">&quot;hs&quot;</span>, <span class="st">&quot;IQ&quot;</span>, <span class="st">&quot;work&quot;</span>, <span class="st">&quot;age&quot;</span>)</code></pre></div>
-<p>(how to put footnote in r markdown????) Note: <code>as.numeric</code> is not necessary here. We use <code>as.numeric</code> to keep the names of the levels of the two variables short.</p>
 </div>
 <div id="specify-bayesian-prior-distributions" class="section level3">
 <h3><span class="header-section-number">6.3.3</span> Specify Bayesian Prior Distributions</h3>
@@ -719,6 +719,12 @@ out &lt;-<span class="st"> </span><span class="kw">cbind</span>(cog.coef$postmea
 
 </div>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>Note: <code>as.numeric</code> is not necessary here. We use <code>as.numeric</code> to keep the names of the levels of the two variables short.<a href="introduction-to-bayesian-regression.html#fnref2">↩</a></p></li>
+</ol>
 </div>
             </section>
 
