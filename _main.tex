@@ -4550,11 +4550,11 @@ prior.
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03644494 0.06330816 0.07537333  0.08718227  0.11224561
-## sigma 0.03661645 0.04739187 0.05528334  0.06550043  0.09526989
-## n_0   0.16162771 1.88361269 4.72221980 10.07426648 32.33220594
+## mu    0.03638650 0.06334389 0.07542476  0.08717534  0.11212999
+## sigma 0.03664537 0.04738931 0.05529361  0.06556642  0.09554585
+## n_0   0.16300910 1.89247546 4.74394702 10.10143459 32.38707771
 ## 
-## 95% CI for mu: (0.0364, 0.1122)
+## 95% CI for mu: (0.0364, 0.1121)
 \end{verbatim}
 
 \includegraphics{05-BFnormal-02-paired-means_files/figure-latex/bayes-inference-1.pdf}
@@ -5426,12 +5426,12 @@ identifying potential outliers. Now with the interpretation of Bayesian
 paradigm, we can go further to calculate the probability to demonstrate
 whether a case falls too far from the mean.
 
-The article by Chaloner \& Brant (1988) (???reference????) suggested an
-approach for defining outliers and then calculating the probability that
-a case or multiple cases were outliers. The assumed model for our simple
-linear regression is \(y_i=\alpha + \beta x_i+\epsilon_i\), with
-\(\epsilon_i\) having independent, identical distributions that are
-normal with mean zero and constant variance \(\sigma^2\), i.e.,
+The article by \citet{chaloner1988bayesian} suggested an approach for
+defining outliers and then calculating the probability that a case or
+multiple cases were outliers. The assumed model for our simple linear
+regression is \(y_i=\alpha + \beta x_i+\epsilon_i\), with \(\epsilon_i\)
+having independent, identical distributions that are normal with mean
+zero and constant variance \(\sigma^2\), i.e.,
 \(\epsilon_i \sim \mathcal{N}(0, \sigma^2)\). Chaloner \& Brant consider
 outliers to be points where the error or the model discrepancy
 \(\epsilon_i\) is greater than \(k\) standard deviation for some large

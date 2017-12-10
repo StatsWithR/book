@@ -452,11 +452,11 @@ Water samples collected at the the same location, on the surface and the bottom,
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03651698 0.06328316 0.07537074  0.08717016  0.11236181
-## sigma 0.03666697 0.04741226 0.05533302  0.06558950  0.09564505
-## n_0   0.16335897 1.89072468 4.73851067 10.10272876 32.37457912
+## mu    0.03653640 0.06333527 0.07540603  0.08718931  0.11230071
+## sigma 0.03667321 0.04740417 0.05528437  0.06553212  0.09529834
+## n_0   0.16200216 1.89488389 4.74081473 10.08229348 32.35835853
 ## 
-## 95% CI for mu: (0.0365, 0.1124)</code></pre>
+## 95% CI for mu: (0.0365, 0.1123)</code></pre>
 <p><img src="05-BFnormal-02-paired-means_files/figure-html/bayes-inference-1.png" width="672" /></p>
 <p>With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis <span class="math inline">\(H_2\)</span>, the mean difference is different from 0, is almost 51 times more likely than the hypothesis <span class="math inline">\(H_1\)</span> that the average concentration is the same at the surface and the bottom.</p>
 <p>To sum up, we have used the <strong>Cauchy prior</strong> as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the  function from the  package. If you expect that the effect sizes will be small, smaller values of <span class="math inline">\(r\)</span> are recommended.</p>
