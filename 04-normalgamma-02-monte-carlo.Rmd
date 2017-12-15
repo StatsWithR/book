@@ -2,7 +2,6 @@
 
 Figure out how to reuse code chunks with purl(), read_chunk() ref.label as in post http://jeromyanglim.tumblr.com/post/113132013271/how-to-run-r-code-in-subset-of-named-code-chunks
 
-
 ```{r packages, echo=TRUE, warning=FALSE, message=FALSE,  eval=TRUE}
 library(statsr)
 library(ggplot2)
