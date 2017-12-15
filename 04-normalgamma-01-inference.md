@@ -218,6 +218,3 @@ For those that are ready to move on, we will introduce Monte Carlo sampling  in 
 ### Details of Results (optional reading)**
 
 TBA
-
-
-

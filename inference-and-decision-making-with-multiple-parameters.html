@@ -6,21 +6,21 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Bayesian Statistics</title>
-  <meta name="description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization.">
+  <meta name="description" content="Bayesian Statistics">
   <meta name="generator" content="bookdown 0.5.10 and GitBook 2.6.7">
 
   <meta property="og:title" content="Bayesian Statistics" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="http://www.coursera.org/learn/bayesian/home/info/" />
-  <meta property="og:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
-  <meta property="og:description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  
+  
+  
   <meta name="github-repo" content="StatsWithR/book" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Bayesian Statistics" />
   
-  <meta name="twitter:description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
-  <meta name="twitter:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+  
+  
 
 <meta name="author" content="Christine Chai">
 <meta name="author" content="Merlise Clyde">
@@ -325,31 +325,6 @@ s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)*s2 +<span class="s
 <div id="sec:NG-MC" class="section level2">
 <h2><span class="header-section-number">4.2</span> Monte Carlo Inference</h2>
 <p>Figure out how to reuse code chunks with purl(), read_chunk() ref.label as in post <a href="http://jeromyanglim.tumblr.com/post/113132013271/how-to-run-r-code-in-subset-of-named-code-chunks" class="uri">http://jeromyanglim.tumblr.com/post/113132013271/how-to-run-r-code-in-subset-of-named-code-chunks</a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)</code></pre></div>
-<pre><code>## Loading required package: BayesFactor</code></pre>
-<pre><code>## Loading required package: coda</code></pre>
-<pre><code>## Loading required package: Matrix</code></pre>
-<pre><code>## ************
-## Welcome to BayesFactor 0.9.12-2. If you have questions, please contact Richard Morey (richarddmorey@gmail.com).
-## 
-## Type BFManual() to open the manual.
-## ************</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(tapwater)
-m_0 =<span class="st"> </span><span class="dv">35</span>; 
-n_0 =<span class="st"> </span><span class="dv">25</span>; 
-s2_0 =<span class="st"> </span><span class="fl">156.25</span>;
-v_0 =<span class="st"> </span>n_0 -<span class="st"> </span><span class="dv">1</span>
-Y =<span class="st"> </span>tapwater$tthm
-ybar =<span class="st"> </span><span class="kw">mean</span>(Y)
-s2 =<span class="st"> </span><span class="kw">round</span>(<span class="kw">var</span>(Y),<span class="dv">1</span>)
-n =<span class="st"> </span><span class="kw">length</span>(Y)
-n_n =<span class="st"> </span>n_0 +<span class="st"> </span>n
-m_n =<span class="st"> </span><span class="kw">round</span>((n*ybar +<span class="st"> </span>n_0*m_0)/n_n, <span class="dv">1</span>)
-v_n =<span class="st"> </span>v_0 +<span class="st"> </span>n
-s2_n =<span class="st"> </span><span class="kw">round</span>( ((n<span class="dv">-1</span>)*s2 +<span class="st"> </span>v_0*s2_0 +<span class="st"> </span>n_0*n*(m_0 -<span class="st"> </span>ybar)^<span class="dv">2</span>/n_n)/v_n, <span class="dv">1</span>)
-L =<span class="st"> </span><span class="kw">qt</span>(.<span class="dv">025</span>, v_n)*<span class="kw">sqrt</span>(s2_n/n_n) +<span class="st"> </span>m_n
-U =<span class="st"> </span><span class="kw">qt</span>(.<span class="dv">975</span>, v_n)*<span class="kw">sqrt</span>(s2_n/n_n) +<span class="st"> </span>m_n</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
 <span class="kw">library</span>(ggplot2)</code></pre></div>
 <p>In this section, we will illustrate Monte Carlo sampling from posterior distributions and how it can be used for inference. In Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma">4.1</a>, we can get the posterior distributions for the precision (inverse variance), and the mean given the precision. Then the marginal distribution of the mean can be obtained via integration.</p>
@@ -411,31 +386,6 @@ Figure 4.1: Empirical distribution of the tap water example
 
 <div id="sec:NG-predictive" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Predictive Distributions</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)</code></pre></div>
-<pre><code>## Loading required package: BayesFactor</code></pre>
-<pre><code>## Loading required package: coda</code></pre>
-<pre><code>## Loading required package: Matrix</code></pre>
-<pre><code>## ************
-## Welcome to BayesFactor 0.9.12-2. If you have questions, please contact Richard Morey (richarddmorey@gmail.com).
-## 
-## Type BFManual() to open the manual.
-## ************</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(tapwater)
-m_0 =<span class="st"> </span><span class="dv">35</span>; 
-n_0 =<span class="st"> </span><span class="dv">25</span>; 
-s2_0 =<span class="st"> </span><span class="fl">156.25</span>;
-v_0 =<span class="st"> </span>n_0 -<span class="st"> </span><span class="dv">1</span>
-Y =<span class="st"> </span>tapwater$tthm
-ybar =<span class="st"> </span><span class="kw">mean</span>(Y)
-s2 =<span class="st"> </span><span class="kw">round</span>(<span class="kw">var</span>(Y),<span class="dv">1</span>)
-n =<span class="st"> </span><span class="kw">length</span>(Y)
-n_n =<span class="st"> </span>n_0 +<span class="st"> </span>n
-m_n =<span class="st"> </span><span class="kw">round</span>((n*ybar +<span class="st"> </span>n_0*m_0)/n_n, <span class="dv">1</span>)
-v_n =<span class="st"> </span>v_0 +<span class="st"> </span>n
-s2_n =<span class="st"> </span><span class="kw">round</span>( ((n<span class="dv">-1</span>)*s2 +<span class="st"> </span>v_0*s2_0 +<span class="st"> </span>n_0*n*(m_0 -<span class="st"> </span>ybar)^<span class="dv">2</span>/n_n)/v_n, <span class="dv">1</span>)
-L =<span class="st"> </span><span class="kw">qt</span>(.<span class="dv">025</span>, v_n)*<span class="kw">sqrt</span>(s2_n/n_n) +<span class="st"> </span>m_n
-U =<span class="st"> </span><span class="kw">qt</span>(.<span class="dv">975</span>, v_n)*<span class="kw">sqrt</span>(s2_n/n_n) +<span class="st"> </span>m_n</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
 <span class="kw">library</span>(ggplot2)</code></pre></div>
 <p>In this section, we will discuss prior and posterior <strong>predictive</strong> distributions of the data and show how Monte Carlo sampling from the prior predictive distribution can help select hyper parameters.</p>
@@ -727,10 +677,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-normalgamma-00-intro.Rmd",
+"link": "https://github.com/statswithr/book/edit/master/04-normalgamma-00-intro.Rmd",
 "text": "Edit"
 },
-"download": ["_main.pdf", "_main.epub"],
+"download": ["_main.pdf"],
 "toc": {
 "collapse": "subsection"
 }

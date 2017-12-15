@@ -6,21 +6,21 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Bayesian Statistics</title>
-  <meta name="description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization.">
+  <meta name="description" content="Bayesian Statistics">
   <meta name="generator" content="bookdown 0.5.10 and GitBook 2.6.7">
 
   <meta property="og:title" content="Bayesian Statistics" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="http://www.coursera.org/learn/bayesian/home/info/" />
-  <meta property="og:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
-  <meta property="og:description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
+  
+  
+  
   <meta name="github-repo" content="StatsWithR/book" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Bayesian Statistics" />
   
-  <meta name="twitter:description" content="This book is a written companion for the Coursera Course ‘Bayesian Statistics’ from the Statistics with R specialization." />
-  <meta name="twitter:image" content="http://www.coursera.org/learn/bayesian/home/info/cover.png" />
+  
+  
 
 <meta name="author" content="Christine Chai">
 <meta name="author" content="Merlise Clyde">
@@ -451,12 +451,12 @@ Water samples collected at the the same location, on the surface and the bottom,
 ## (Assuming improper Jeffreys prior: p(sigma^2) = 1/sigma^2
 ## 
 ## Posterior Summaries
-##             2.5%        25%        50%         75%       97.5%
-## mu    0.03653640 0.06333527 0.07540603  0.08718931  0.11230071
-## sigma 0.03667321 0.04740417 0.05528437  0.06553212  0.09529834
-## n_0   0.16200216 1.89488389 4.74081473 10.08229348 32.35835853
+##             2.5%        25%        50%        75%       97.5%
+## mu    0.03656218 0.06329276 0.07535343  0.0871844  0.11214669
+## sigma 0.03666651 0.04743674 0.05531800  0.0655539  0.09547239
+## n_0   0.16319636 1.89898388 4.74614532 10.1011718 32.49631475
 ## 
-## 95% CI for mu: (0.0365, 0.1123)</code></pre>
+## 95% CI for mu: (0.0366, 0.1121)</code></pre>
 <p><img src="05-BFnormal-02-paired-means_files/figure-html/bayes-inference-1.png" width="672" /></p>
 <p>With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis <span class="math inline">\(H_2\)</span>, the mean difference is different from 0, is almost 51 times more likely than the hypothesis <span class="math inline">\(H_1\)</span> that the average concentration is the same at the surface and the bottom.</p>
 <p>To sum up, we have used the <strong>Cauchy prior</strong> as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the  function from the  package. If you expect that the effect sizes will be small, smaller values of <span class="math inline">\(r\)</span> are recommended.</p>
@@ -543,10 +543,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-BFnormal-00-intro.Rmd",
+"link": "https://github.com/statswithr/book/edit/master/05-BFnormal-00-intro.Rmd",
 "text": "Edit"
 },
-"download": ["_main.pdf", "_main.epub"],
+"download": ["_main.pdf"],
 "toc": {
 "collapse": "subsection"
 }

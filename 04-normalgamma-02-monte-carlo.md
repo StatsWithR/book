@@ -3,57 +3,6 @@
 Figure out how to reuse code chunks with purl(), read_chunk() ref.label as in post http://jeromyanglim.tumblr.com/post/113132013271/how-to-run-r-code-in-subset-of-named-code-chunks
 
 
-
-
-
-```r
-library(statsr)
-```
-
-```
-## Loading required package: BayesFactor
-```
-
-```
-## Loading required package: coda
-```
-
-```
-## Loading required package: Matrix
-```
-
-```
-## ************
-## Welcome to BayesFactor 0.9.12-2. If you have questions, please contact Richard Morey (richarddmorey@gmail.com).
-## 
-## Type BFManual() to open the manual.
-## ************
-```
-
-```r
-library(ggplot2)
-```
-
-
-```r
-data(tapwater)
-m_0 = 35; 
-n_0 = 25; 
-s2_0 = 156.25;
-v_0 = n_0 - 1
-Y = tapwater$tthm
-ybar = mean(Y)
-s2 = round(var(Y),1)
-n = length(Y)
-n_n = n_0 + n
-m_n = round((n*ybar + n_0*m_0)/n_n, 1)
-v_n = v_0 + n
-s2_n = round( ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n, 1)
-L = qt(.025, v_n)*sqrt(s2_n/n_n) + m_n
-U = qt(.975, v_n)*sqrt(s2_n/n_n) + m_n
-```
-
-
 ```r
 library(statsr)
 library(ggplot2)
