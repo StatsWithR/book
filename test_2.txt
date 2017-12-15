@@ -1,2 +1,0 @@
-Another test.
-This should be deleted afterwards.
