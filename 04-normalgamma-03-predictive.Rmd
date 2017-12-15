@@ -1,18 +1,6 @@
 
 ### Predictive Distributions {#sec:NG-predictive}
 
-```{r echo=FALSE, include=FALSE, eval=FALSE}
-library(knitr)
-read_chunk("04-normalgamma-01-inference.R")
-```
-
-```{r ref.label="packages"}
-```
-
-```{r ref.label="tapwater"}
-
-```
-
 ```{r packages, echo=TRUE, warning=FALSE, message=FALSE,  eval=TRUE}
 library(statsr)
 library(ggplot2)
