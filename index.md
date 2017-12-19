@@ -2,7 +2,7 @@
 title: "Bayesian Statistics"
 subtitle: "A Companion to the Statistics with R Coursera Course"
 author: ["Christine Chai","Merlise Clyde","Lizzy Huang","Colin Rundel"]
-date: "Last built on 2017-12-15"
+date: "Last built on 2017-12-19"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib, references.bib]

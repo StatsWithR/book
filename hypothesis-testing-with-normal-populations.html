@@ -452,11 +452,11 @@ Water samples collected at the the same location, on the surface and the bottom,
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%        75%       97.5%
-## mu    0.03656218 0.06329276 0.07535343  0.0871844  0.11214669
-## sigma 0.03666651 0.04743674 0.05531800  0.0655539  0.09547239
-## n_0   0.16319636 1.89898388 4.74614532 10.1011718 32.49631475
+## mu    0.03665171 0.06332324 0.07538011  0.0871725  0.11219013
+## sigma 0.03665089 0.04740931 0.05529176  0.0655179  0.09540367
+## n_0   0.16251388 1.88917464 4.73238486 10.0838959 32.41051956
 ## 
-## 95% CI for mu: (0.0366, 0.1121)</code></pre>
+## 95% CI for mu: (0.0367, 0.1122)</code></pre>
 <p><img src="05-BFnormal-02-paired-means_files/figure-html/bayes-inference-1.png" width="672" /></p>
 <p>With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis <span class="math inline">\(H_2\)</span>, the mean difference is different from 0, is almost 51 times more likely than the hypothesis <span class="math inline">\(H_1\)</span> that the average concentration is the same at the surface and the bottom.</p>
 <p>To sum up, we have used the <strong>Cauchy prior</strong> as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the  function from the  package. If you expect that the effect sizes will be small, smaller values of <span class="math inline">\(r\)</span> are recommended.</p>
@@ -493,13 +493,40 @@ Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2,
 <li><span class="math inline">\(H_2: \alpha \neq 0 \Leftrightarrow\)</span> The means are different.</li>
 </ul>
 <p>In this representation, <span class="math inline">\(\mu\)</span> represents the overall weight gain for all women. (Does the model in Equation <a href="#eq:half-alpha">(<strong>??</strong>)</a> make more sense now?) To test the hypothesis, we need to specify prior distributions for <span class="math inline">\(\alpha\)</span> under <span class="math inline">\(H_2\)</span> (c.f. <span class="math inline">\(\alpha = 0\)</span> under <span class="math inline">\(H_1\)</span>) and priors for <span class="math inline">\(\mu,\sigma^2\)</span> under both hypotheses.</p>
-<p>UNFINISHED BELOW</p>
 <p>Recall that the Bayes factor is the ratio of the distribution of the data under the two hypotheses.</p>
 <p><span class="math display">\[\begin{aligned}
  {\textsf{BF}}[H_1 : H_2] &amp;=  \frac{p({\text{data}}\mid H_1)} {p({\text{data}}\mid H_2)} \\
   &amp;= \frac{\iint p({\text{data}}\mid \alpha = 0,\mu,  \sigma^2 )p(\mu, \sigma^2 \mid H_1) \, d\mu \,d\sigma^2}
  {\int \iint p({\text{data}}\mid \alpha, \mu, \sigma^2) p(\alpha \mid \sigma^2) p(\mu, \sigma^2 \mid H_2) \, d \mu \, d\sigma^2 \, d \alpha}
 \end{aligned}\]</span></p>
+<p>As before, we need to average over uncertainty and the parameters to obtain the unconditional distribution of the data. Now, as in the test about a single mean, we cannot use improper or non-informative priors for <span class="math inline">\(\alpha\)</span> for testing.</p>
+<p>Under <span class="math inline">\(H_2\)</span>, we use the Cauchy prior for <span class="math inline">\(\alpha\)</span>, or equivalently, the Cauchy prior on the standardized effect <span class="math inline">\(\delta\)</span> with the scale of <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[\delta = \alpha/\sigma^2 \sim {\textsf{C}}(0, r^2)\]</span></p>
+<p>Now, under both <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>, we use the Jeffrey’s reference prior on <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>:</p>
+<p><span class="math display">\[p(\mu, \sigma^2) \propto 1/\sigma^2\]</span></p>
+<p>While this is an improper prior on <span class="math inline">\(\mu\)</span>, this does not suffer from the Bartlett’s-Lindley’s-Jeffreys’ paradox as <span class="math inline">\(\mu\)</span> is a common parameter in the model in <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>. This is another example of the Jeffreys-Zellner-Siow prior.</p>
+<p>As in the single mean case, we will need numerical algorithms to obtain the Bayes factor. Now the following output illustrates testing of Bayes factors, using the Bayes inference function from the  package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
+<span class="kw">data</span>(nc)
+<span class="kw">bayes_inference</span>(<span class="dt">y=</span>gained, <span class="dt">x=</span>mature, <span class="dt">data=</span>nc,<span class="dt">type=</span><span class="st">&#39;ht&#39;</span>, 
+                <span class="dt">statistic=</span><span class="st">&#39;mean&#39;</span>,  <span class="dt">alternative=</span><span class="st">&#39;twosided&#39;</span>, <span class="dt">null=</span><span class="dv">0</span>,
+                <span class="dt">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="dt">r=</span><span class="dv">1</span>, <span class="dt">method=</span><span class="st">&#39;theo&#39;</span>, <span class="dt">show_summ=</span><span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## Hypotheses:
+## H1: mu_mature mom  = mu_younger mom
+## H2: mu_mature mom != mu_younger mom
+## 
+## Priors: P(H1) = 0.5  P(H2) = 0.5 
+## 
+## Results:
+## BF[H1:H2] = 5.7162
+## P(H1|data) = 0.8511 
+## P(H2|data) = 0.1489 
+## 
+## Posterior summaries for under H2:
+## 95% Cred. Int.: (-4.4217 , 0.9162)</code></pre>
+<p><img src="05-BFnormal-03-independent-means_files/figure-html/bf-1.png" width="672" /></p>
+<p>We see that the Bayes factor for <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> is about 5.7, with positive support for <span class="math inline">\(H_1\)</span> that there is no difference in average weight gain between younger and older women. Using equal prior probabilities, the probability that there is a difference in average weight gain between the two groups is about 0.15 given the data. Based on the interpretation of Bayes factors from Table <a href="introduction-to-losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “positive” (between 3 and 20).</p>
+<p>To recap, we have illustrated testing hypotheses about population means with two independent samples, using a Cauchy prior on the difference in the means. One assumption that we have made is that <strong>the variances are equal in both groups</strong>. The case where the variances are unequal is referred to as the Behren-Fisher problem, and this is beyond the scope for this course. Next, we will look at another example to put everything together with testing and discuss summarizing results.</p>
 
 </div>
 <div id="inference-after-testing" class="section level2">
