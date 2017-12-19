@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ## Comparing Independent  Means: hypothesis testing
 
 In the previous section, we described Bayes factors for testing whether the mean difference of **paired** samples was zero. In this section, we will consider a slightly different problem -- we have two **independent** samples, and we would like to test the hypothesis that the means are different or equal.
@@ -57,12 +62,16 @@ $$p(\mu, \sigma^2) \propto 1/\sigma^2$$
 
 While this is an improper prior on $\mu$, this does not suffer from the Bartlett's-Lindley's-Jeffreys' paradox as $\mu$ is a common parameter in the model in $H_1$ and $H_2$. This is another example of the Jeffreys-Zellner-Siow prior.
 
-UNFINISHED BELOW
+As in the single mean case, we will need numerical algorithms to obtain the Bayes factor. Now the following output illustrates testing of Bayes factors, using the Bayes inference function from the \texttt{statsr} package.
 
-```{r bf}
+```{r bf, message=FALSE, warning=FALSE}
 library(statsr)
 data(nc)
 bayes_inference(y=gained, x=mature, data=nc,type='ht', 
                 statistic='mean',  alternative='twosided', null=0,
                 prior='JZS', r=1, method='theo', show_summ=FALSE)
 ```
+
+We see that the Bayes factor for $H_1$ to $H_2$ is about 5.7, with positive support for $H_1$ that there is no difference in average weight gain between younger and older women. Using equal prior probabilities, the probability that there is a difference in average weight gain between the two groups is about 0.15 given the data. Based on the interpretation of Bayes factors from Table \@ref(tab:jeffreys1961), this is in the range of "positive" (between 3 and 20).
+
+To recap, we have illustrated testing hypotheses about population means with two independent samples, using a Cauchy prior on the difference in the means. One assumption that we have made is that **the variances are equal in both groups**. The case where the variances are unequal is referred to as the Behren-Fisher problem, and this is beyond the scope for this course. Next, we will look at another example to put everything together with testing and discuss summarizing results.
