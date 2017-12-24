@@ -3,7 +3,7 @@ output:
   pdf_document: default
   html_document: default
 ---
-## Comparing Independent  Means: hypothesis testing
+## Comparing Independent  Means: hypothesis testing {#sec:indep-means}
 
 In the previous section, we described Bayes factors for testing whether the mean difference of **paired** samples was zero. In this section, we will consider a slightly different problem -- we have two **independent** samples, and we would like to test the hypothesis that the means are different or equal.
 
@@ -84,7 +84,7 @@ bayes_inference(y=gained, x=mature, data=nc,type='ht',
 ## P(H2|data) = 0.1489 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (-4.3828 , 0.8451)
+## 95% Cred. Int.: (-4.4126 , 0.8086)
 ```
 
 ![](05-BFnormal-03-independent-means_files/figure-latex/bf-1.pdf)<!-- --> 
