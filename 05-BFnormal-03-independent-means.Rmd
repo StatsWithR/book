@@ -3,7 +3,7 @@ output:
   pdf_document: default
   html_document: default
 ---
-## Comparing Independent  Means: hypothesis testing
+## Comparing Independent  Means: hypothesis testing {#sec:indep-means}
 
 In the previous section, we described Bayes factors for testing whether the mean difference of **paired** samples was zero. In this section, we will consider a slightly different problem -- we have two **independent** samples, and we would like to test the hypothesis that the means are different or equal.
 
