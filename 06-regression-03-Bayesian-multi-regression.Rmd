@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ## Bayesian Multiple Linear Regression
 
 In this section, we will discuss Bayesian inference in multiple linear regression. We will use the reference prior to provide the default, or base line analysis of the model, which provides the correspondence between Bayesian and frequentist approaches.
@@ -19,6 +24,8 @@ summary(cognitive)
 
 As we see that variables `mom_hs` and `mom_work` should be considered as categorical variables. We transform them into indicator variables where `mom_work` shows whether the mother worked for 1 or more years, and `mom_hs` indicates whether the mother had more than a high school education.
 
+The code is as below:^[Note: `as.numeric` is not necessary here. We use `as.numeric` to keep the names of the levels of the two variables short.]
+
 ```{r process-categorical}
 cognitive$mom_work <- as.numeric(cognitive$mom_work > 1)
 cognitive$mom_hs <- as.numeric(cognitive$mom_hs > 0)
@@ -26,8 +33,6 @@ cognitive$mom_hs <- as.numeric(cognitive$mom_hs > 0)
 # Modify column names of the data set
 colnames(cognitive) <- c("kid_score", "hs", "IQ", "work", "age")
 ```
-
-(how to put footnote in r markdown????) Note: `as.numeric` is not necessary here. We use `as.numeric` to keep the names of the levels of the two variables short.
 
 ### Specify Bayesian Prior Distributions
 

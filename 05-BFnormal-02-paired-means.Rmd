@@ -1,5 +1,9 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ## Comparing Two Paired Means using Bayes Factors
-_(check title so that it agrees with video)_
 
 We previously learned that we can use a paired t-test to compare means from two paired samples. In this section, we will show how Bayes factors can be expressed as a function of the t-statistic for comparing the means and provide posterior probabilities of the hypothesis that whether the means are equal or different.
 
