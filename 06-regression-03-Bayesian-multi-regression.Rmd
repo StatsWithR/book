@@ -79,7 +79,7 @@ The above `bas.lm` function uses the model formula the same as in the `lm`. It f
 Similar to the OLS regression process, we can extract the posterior means and standard deviations of the coefficients using the `coef` function
 
 ```{r post-mean-and-std}
-cog.coef <- coef(cog.bas)
+cog.coef = coef(cog.bas)
 cog.coef
 ```
 
