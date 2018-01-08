@@ -13,7 +13,7 @@ Trace metals in drinking water affect the flavor, and unusually high concentrati
 Water samples collected at the the same location, on the surface and the bottom, cannot be assumed to be independent of each other. However, it may be reasonable to assume that the differences in the concentration at the bottom and the surface in randomly sampled locations are independent of each other.
 ```
 
-```{r zinc-table, echo=FALSE}
+```{r zinc-table, echo=FALSE, message=FALSE, warning=FALSE}
 library(statsr)
 data(zinc)
 knitr::kable(
@@ -65,7 +65,7 @@ $$\BF[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
 
 This is a function of the t-statistic
 
-$$t = \frac{|\bar{Y}|}{s/\sqrt{n}}$$,
+$$t = \frac{|\bar{Y}|}{s/\sqrt{n}},$$
 
 where $s$ is the sample standard deviation and the degrees of freedom $\nu = n-1$ (sample size minus one).
 

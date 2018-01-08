@@ -76,40 +76,12 @@ In particular, the Cauchy prior arises by placing a gamma prior on $n_0$ and the
 
 The row labeled effect size is the standardized effect size $\delta$, indicating that the effects are indeed small relative to the noise in the data.
 
-```{r BF-NC-plot, echo=FALSE, warning=FALSE, fig.cap="Estimates of effect under H2", fig.align='center', fig.height=2}
+```{r BF-NC-plot, echo=FALSE, warning=FALSE, fig.cap="Estimates of effect under H2", fig.align='center'}
 library(ggplot2)
 out = bayes_inference(y=weight, x=habit, data=nc,type='ht',
                 statistic='mean',  alternative='twosided',
                 prior='JZS', null=0, r=.5, method='theo',
                 show_summ=FALSE, show_res=FALSE, show_plot=TRUE)
-
-
- den = out$post_den
-
- ci = out$ci
- d = data.frame(mu = den$x, dens = den$y)
-
-
-    li = min(which(d$mu >= ci[1]))
-    ui = max(which(d$mu <  ci[2]))
-
-    ci_poly = data.frame(mu = c(d$mu[c(li,li:ui,ui)]),
-                         dens = c(0, d$dens[li:ui], 0))
-
-
-    ci_interval = data.frame(mu = ci, dens = 0)
-    pos_plot = ggplot(d, aes_string(x="mu", y="dens")) +
-               geom_line() +
-               ylab("Density") +
-               xlab(expression(mu[nonsmoker] - mu[smoker])) +
-               geom_line(data  = ci_interval, size=1.5, colour="orange") +
-               geom_point(data = ci_interval, size=2) +
-               geom_polygon(data = ci_poly, alpha=0.5) +
-               theme(panel.background = element_rect(fill = "transparent", colour = NA),
-                     plot.background = element_rect(fill = "transparent", colour = NA)) +
-               theme(text = element_text(size=20))
-
-print(pos_plot)
 ```
 
 Figure \@ref(fig:BF-NC-plot) shows the posterior density for
