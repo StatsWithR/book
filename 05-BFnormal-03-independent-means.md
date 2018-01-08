@@ -84,7 +84,7 @@ bayes_inference(y=gained, x=mature, data=nc,type='ht',
 ## P(H2|data) = 0.1489 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (-4.4126 , 0.8086)
+## 95% Cred. Int.: (-4.3134 , 0.8695)
 ```
 
 ![](05-BFnormal-03-independent-means_files/figure-latex/bf-1.pdf)<!-- --> 

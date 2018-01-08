@@ -69,7 +69,7 @@ out =bayes_inference(y=weight, x=habit, data=nc,type='ht', null=0,
 ## P(H2|data) = 0.5902 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (0.0305 , 0.5767)
+## 95% Cred. Int.: (0.0214 , 0.5673)
 ```
 
 ![](05-BFnormal-04-inference_files/figure-latex/BF-NC-1.pdf)<!-- --> 
@@ -90,11 +90,11 @@ print(out.ci$summary, digits=2)
 
 ```
 ##                             2.5%     25%    50%     75%   97.5%
-## overall mean               6.856    6.95    7.0    7.04 7.1e+00
-## mu_nonsmoker - mu_smoker   0.029    0.21    0.3    0.39 5.7e-01
-## sigma^2                    2.071    2.19    2.3    2.33 2.5e+00
-## effect size                0.020    0.14    0.2    0.26 3.8e-01
-## n_0                      181.545 1863.60 4621.9 9317.93 2.5e+04
+## overall mean               6.851    6.94    7.0    7.04 7.1e+00
+## mu_nonsmoker - mu_smoker   0.029    0.21    0.3    0.40 5.8e-01
+## sigma^2                    2.070    2.19    2.3    2.33 2.5e+00
+## effect size                0.019    0.14    0.2    0.26 3.9e-01
+## n_0                      198.020 1925.45 4532.5 9100.82 2.5e+04
 ```
 
 The 2.5 and 97.5 percentiles for the difference in the means provide a 95% credible interval of 0.023 to 0.57 pounds for the difference in average birth weight. The MCMC output shows not only summaries about the difference in the mean $\alpha$, but the other parameters in the model.

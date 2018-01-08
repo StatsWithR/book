@@ -188,7 +188,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="bayesian-model-selection.html"><a href="bayesian-model-selection.html"><i class="fa fa-check"></i><b>7</b> Bayesian Model Selection</a><ul>
-<li class="chapter" data-level="7.1" data-path="bayesian-model-selection.html"><a href="bayesian-model-selection.html#bayesian-information-criterion-bic"><i class="fa fa-check"></i><b>7.1</b> Bayesian Information Criterion (BIC)</a></li>
+<li class="chapter" data-level="7.1" data-path="bayesian-model-selection.html"><a href="bayesian-model-selection.html#bayesian-information-criterion-bic"><i class="fa fa-check"></i><b>7.1</b> Bayesian Information Criterion (BIC)</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="bayesian-model-selection.html"><a href="bayesian-model-selection.html#bic"><i class="fa fa-check"></i><b>7.1.1</b> BIC</a></li>
+<li class="chapter" data-level="7.1.2" data-path="bayesian-model-selection.html"><a href="bayesian-model-selection.html#backward-elimination-with-bic"><i class="fa fa-check"></i><b>7.1.2</b> Backward Elimination with BIC</a></li>
+<li class="chapter" data-level="7.1.3" data-path="bayesian-model-selection.html"><a href="bayesian-model-selection.html#coefficient-estimates-under-reference-prior-for-best-bic-model"><i class="fa fa-check"></i><b>7.1.3</b> Coefficient Estimates Under Reference Prior for Best BIC Model</a></li>
+<li class="chapter" data-level="7.1.4" data-path="bayesian-model-selection.html"><a href="bayesian-model-selection.html#other-criteria"><i class="fa fa-check"></i><b>7.1.4</b> Other Criteria</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -213,9 +218,116 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="bayesian-model-selection" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Bayesian Model Selection</h1>
 <p>In the last section, we provided a Bayesian inference analysis for kid’s cognitive scores using multiple linear regression. We found that several credible intervals of the coefficients contain zero, suggesting that we could potentially simplify the model. In this section, we will discuss model selection, which is picking variables for multiple linear regression based on Bayesian information criterion, or BIC. In the next section, we will discuss other model selection methods, such as using Bayes factors.</p>
+
 <div id="bayesian-information-criterion-bic" class="section level2">
 <h2><span class="header-section-number">7.1</span> Bayesian Information Criterion (BIC)</h2>
-<p>Bayesian information criterion (BIC) is one of the Bayesian criteria used for Bayesian model selection, and tends to be one of the most popular criteria.</p>
+<p>In inferential statistics, we compare model selections using <span class="math inline">\(p\)</span>-values or adjusted <span class="math inline">\(R^2\)</span>. Here we will take the Bayesian propectives. We are going to discuss the Bayesian model selections using the Bayesian information criterion, or BIC. BIC is one of the Bayesian criteria used for Bayesian model selection, and tends to be one of the most popular criteria.</p>
+<div id="bic" class="section level3">
+<h3><span class="header-section-number">7.1.1</span> BIC</h3>
+<p>The Bayesian information criterion, BIC, is defined to be <span class="math display">\[ \text{BIC} = -2\ln(\text{likelihood}) + (p+1)\ln(n), \]</span> where <span class="math inline">\(n\)</span> is the number of observations in the model, and <span class="math inline">\(p\)</span> is the number of predictors. That is, <span class="math inline">\(p+1\)</span> is the number of total parameters (also the total number of coefficients, including the intercept) in the model.</p>
+<p>Similar to AIC, the Akaike information criterion, the model with the smallest BIC score is preferrable. The above formula can be re-expressed using the model <span class="math inline">\(R^2\)</span> that we are familiar with: <span class="math display">\[ \text{BIC} = n\ln(1-R^2)+(p+1)\ln(n), \]</span> with the same <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>. From this expression, we see that adding more predictors, that is, increasing <span class="math inline">\(p\)</span>, will result in larger <span class="math inline">\(R^2\)</span>, which leads to a smaller <span class="math inline">\(\ln(1-R^2)\)</span> in the first term of the BIC expression. While larger <span class="math inline">\(R^2\)</span> means better goodness of fit of the model, too many predictors may result in overfitting the data. Therefore, the second term <span class="math inline">\((p+1)\ln(n)\)</span> is added in the BIC expression to penalize models with too many parameters. When <span class="math inline">\(p\)</span> increases, the second term increases as well. This provides a trade-off between the goodness of fit given by the first term and the model complexity represented by the second term.</p>
+</div>
+<div id="backward-elimination-with-bic" class="section level3">
+<h3><span class="header-section-number">7.1.2</span> Backward Elimination with BIC</h3>
+<p>We will use the kids’ cognitive score data set <code>cognitive</code> as an example. We first read in the data set from Gelman’s website and transform the data types of the two variables <code>mom_work</code> and <code>mom_hs</code>, as what we did in the previous sections.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load the library in order to read in data from website</span>
+<span class="kw">library</span>(foreign)    
+
+<span class="co"># Read in cognitive score data set and process data tranformations</span>
+cognitive =<span class="st"> </span><span class="kw">read.dta</span>(<span class="st">&quot;http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta&quot;</span>)
+
+cognitive$mom_work =<span class="st"> </span><span class="kw">as.numeric</span>(cognitive$mom_work &gt;<span class="st"> </span><span class="dv">1</span>)
+cognitive$mom_hs =<span class="st">  </span><span class="kw">as.numeric</span>(cognitive$mom_hs &gt;<span class="st"> </span><span class="dv">0</span>)
+<span class="kw">colnames</span>(cognitive) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;kid_score&quot;</span>, <span class="st">&quot;hs&quot;</span>,<span class="st">&quot;IQ&quot;</span>, <span class="st">&quot;work&quot;</span>, <span class="st">&quot;age&quot;</span>)</code></pre></div>
+<p>We will start with the full model, with all possible predictors: <code>hs</code>, <code>iq</code>, <code>work</code>, and <code>age</code>. We will drop one variable at a time and record all BIC scores. Then we will choose the model with the smallest BIC score. We will repeat this process until none of the models yield a decrease in BIC. We use the <code>step</code> function in R to perform the BIC model selection. Notice the default <code>k</code> argument in the <code>step</code> function is <code>k=2</code>, which is for the AIC score. For BIC, <code>k</code> should be <code>log(n)</code> correspondingly.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute the total number of observations</span>
+n =<span class="st"> </span><span class="kw">nrow</span>(cognitive)
+
+<span class="co"># Full model using all predictors</span>
+cog.lm =<span class="st"> </span><span class="kw">lm</span>(kid_score ~<span class="st"> </span>., <span class="dt">data=</span>cognitive)
+
+<span class="co"># Perform BIC elimination from full model</span>
+cog.step =<span class="st"> </span><span class="kw">step</span>(cog.lm, <span class="dt">k=</span><span class="kw">log</span>(n))   <span class="co"># penalty for BIC rather than AIC</span></code></pre></div>
+<pre><code>## Start:  AIC=2541.07
+## kid_score ~ hs + IQ + work + age
+## 
+##        Df Sum of Sq    RSS    AIC
+## - age   1     143.0 141365 2535.4
+## - work  1     383.5 141605 2536.2
+## - hs    1    1595.1 142817 2539.9
+## &lt;none&gt;              141222 2541.1
+## - IQ    1   28219.9 169441 2614.1
+## 
+## Step:  AIC=2535.44
+## kid_score ~ hs + IQ + work
+## 
+##        Df Sum of Sq    RSS    AIC
+## - work  1     392.5 141757 2530.6
+## - hs    1    1845.7 143210 2535.0
+## &lt;none&gt;              141365 2535.4
+## - IQ    1   28381.9 169747 2608.8
+## 
+## Step:  AIC=2530.57
+## kid_score ~ hs + IQ
+## 
+##        Df Sum of Sq    RSS    AIC
+## &lt;none&gt;              141757 2530.6
+## - hs    1    2380.2 144137 2531.7
+## - IQ    1   28504.1 170261 2604.0</code></pre>
+<p>In the summary chart, the <code>AIC</code> should be interpreted as BIC, since we have chosen to use the BIC expression where <span class="math inline">\(k=\ln(n)\)</span>.</p>
+<p>From the full model, we predict the kid’s cognitive score from mom’s high school status, mom’s IQ score, mom’s work status and mom’s age. The BIC for the full model is 2541.1 <!--(from the row starting with `<none>`).--></p>
+<p>At the first step, we try to remove each variable from the full model. From the summary statistics, we can see that removing variable <code>age</code> results in the smallest BIC. But if we try to drop the <code>IQ</code> variable, this will increase the BIC, which implies that <code>IQ</code> would be a really important predictor of <code>kid_score</code>. Comparing all the results, we drop the <code>age</code> variable at the first step. After dropping <code>age</code>, the new BIC is now 2535.4.</p>
+<p>At the next step, we see that dropping <code>work</code> variable will result in the lowest BIC, which is 2530.6. Now the model has become <span class="math display">\[ \text{score} \sim \text{hs} + \text{IQ} \]</span></p>
+<p>Finally, when we try dropping either <code>hs</code> or <code>IQ</code>, it will result in higher BIC than 2530.6. This suggests that we have reached to our best model, which predicts kid’s cognitive score using mom’s high school status and mom’s IQ score.</p>
+<p>However, using the adjusted <span class="math inline">\(R^2\)</span>, the best model would be the one including not only <code>hs</code> and <code>IQ</code> variables, but also mom’s work status, <code>work</code>. In general, using BIC leads to fewer variables for the best model compared to using adjusted <span class="math inline">\(R^2\)</span> or AIC.</p>
+<p>We can also use the <code>BAS</code> package to find the best BIC model without taking the stepwise backward process.</p>
+<p>Here we set the <code>modelprior</code> argument as <code>uniform()</code> to assign equal prior probability for each possible model.</p>
+<p>The <code>logmarg</code> information inside the <code>cog.bic</code> summary list records the log-marginal likelihood of each model, which is proportional to negative BIC. We can use this information to retreat the model with the largest log-marginal likelihood, which corresponds to the model with the smallest BIC.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find the index of the model with the largest logmarg</span>
+best =<span class="st"> </span><span class="kw">which.max</span>(cog.bic$logmarg)
+
+<span class="co"># Retreat the variables that are in the best model, with 0 as the index of the intercept</span>
+bestmodel =<span class="st"> </span>cog.bic$which[[best]]
+bestmodel</code></pre></div>
+<pre><code>## [1] 0 1 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a indicator vector indicating which variables are used in the best model</span>
+bestgamma =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, cog.bic$n.vars) <span class="co"># Create a 0 vector with the same dimension of the number of variables in the full model</span>
+bestgamma[bestmodel +<span class="st"> </span><span class="dv">1</span>] =<span class="st"> </span><span class="dv">1</span>  <span class="co"># Change the indicator to 1 where variables are used</span>
+bestgamma</code></pre></div>
+<pre><code>## [1] 1 1 1 0 0</code></pre>
+<p>From the indicator vector <code>bestgamma</code> we see that only the intercept (indexed as 0), mom’s high school status variable <code>hs</code> (indexed as 1), and mom’s IQ score <code>IQ</code> (indexed as 2) are used in the best model, with 1’s in these indexes.</p>
+</div>
+<div id="coefficient-estimates-under-reference-prior-for-best-bic-model" class="section level3">
+<h3><span class="header-section-number">7.1.3</span> Coefficient Estimates Under Reference Prior for Best BIC Model</h3>
+<p>The best BIC model can be set up as follows: <span class="math display">\[ \text{score}_i = \beta_0 + \beta_1(\text{hs}_i - \bar{\text{hs}})+\beta_2(\text{IQ}_i-\bar{\text{IQ}})+\epsilon_i, \]</span> where <span class="math inline">\(\bar{\text{hs}}\)</span> and <span class="math inline">\(\bar{\text{IQ}}\)</span> are the centers of the <code>hs</code> and <code>IQ</code> variables respectively. It is common to apply the reference prior again, and to compare with the results that we have obtained previously for the full model. In this case, the mean of <span class="math inline">\(\beta_0\)</span> we obtain later will be the mean of the kid’s cognitive scores, or <span class="math inline">\(\bar{\text{score}}\)</span>. Here we assume the joint prior of <span class="math inline">\(\beta_0,\ \beta_1,\ \beta_2\)</span> is <span class="math display">\[ \pi(\beta_0,\beta_1,\beta_2~|~\sigma^2) \propto 1, \]</span> and using the hierachical model, the prior of <span class="math inline">\(\sigma^2\)</span> is set to be <span class="math display">\[ \pi(\sigma^2)\propto \frac{1}{\sigma^2}. \]</span></p>
+<p>Under this reference prior, BIC is proportional to the log-marginal likelihood, and therefore, we can use argument <code>prior = BIC</code> in the <code>bas.lm</code> function to obtain the statistics of these coefficients, when we impose the model in the <code>bas.lm</code> function to use only the variables shown in the best model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit the best BIC model by imposing which variables to be used using the indicators</span>
+cog.bestbic =<span class="st"> </span><span class="kw">bas.lm</span>(kid_score ~<span class="st"> </span>., <span class="dt">data =</span> cognitive,
+                     <span class="dt">prior =</span> <span class="st">&quot;BIC&quot;</span>, <span class="dt">n.models =</span> <span class="dv">1</span>,  <span class="co"># We only fit 1 model</span>
+<span class="co"># Imposing the model to use the variables we want in the best model</span>
+                     <span class="dt">bestmodel =</span> bestgamma,        
+                     <span class="dt">modelprior =</span> <span class="kw">uniform</span>())
+
+<span class="co"># Retreat coefficients information</span>
+cog.coef =<span class="st"> </span><span class="kw">coef</span>(cog.bestbic)
+
+out =<span class="st"> </span><span class="kw">confint</span>(cog.coef)
+names =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;post mean&quot;</span>, <span class="st">&quot;post sd&quot;</span>, <span class="kw">colnames</span>(out))
+coef.bic =<span class="st"> </span><span class="kw">cbind</span>(cog.coef$postmean, cog.coef$postsd, out)
+<span class="kw">colnames</span>(coef.bic) =<span class="st"> </span>names
+coef.bic</code></pre></div>
+<pre><code>##           post mean    post sd       2.5%      97.5%      beta
+## Intercept 86.797235 0.87054033 85.0862025 88.5082675 86.797235
+## hs         5.950117 2.21181218  1.6028370 10.2973969  5.950117
+## IQ         0.563906 0.06057408  0.4448487  0.6829634  0.563906
+## work       0.000000 0.00000000  0.0000000  0.0000000  0.000000
+## age        0.000000 0.00000000  0.0000000  0.0000000  0.000000</code></pre>
+<p>Compared the coefficients in the best model with the ones in the full model (which can be found in the Bayesian multiple regression section), we see that the 95% credible interval for <code>IQ</code> variable is the same. However, the credible interval for high school status <code>hs</code> slightly shifted to the right, and it is also slighly shorter, meaning a smaller posterior standard deviation. All credible intervals of coefficients exclude 0, suggesting that we have found a parsimonious model, a model that accomplishes a desired level of explanation or prediction with as few predictor variables as possible.</p>
+</div>
+<div id="other-criteria" class="section level3">
+<h3><span class="header-section-number">7.1.4</span> Other Criteria</h3>
+<p>BIC is one of the criteria based on penalized likelihood. Other examples such as AIC (Akaike information criterion) or adjusted <span class="math inline">\(R^2\)</span>, employ the form of <span class="math display">\[ -2\ln(\text{likelihood}) + (p+1)k,\]</span> where <span class="math inline">\(p\)</span> is the number of predictors and <span class="math inline">\(k\)</span> is a constant taking different values in different criteria. BIC tends to select parsimonious models (with fewer predictor variables) while AIC and adjusted <span class="math inline">\(R^2\)</span> may include variables that are not statistically significant, but may do better for predictions.</p>
+<p>Other Bayesian model selection decisions may be based on selecting models with the highest posterior probability. If predictions are important, we can use decision theory to help pick the model with the smallest expected prediction error. In addiciton to goodness of fit and parsimony, lost functions that include costs associated with collecting variables for predictive models may be of important consideration.</p>
 
 <div id="refs" class="references">
 <div>
@@ -226,6 +338,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div>
 <p>Kass, Robert E, and Adrian E Raftery. 1995. “Bayes Factors.” <em>Journal of the American Statistical Association</em> 90 (430). Taylor &amp; Francis Group: 773–95.</p>
+</div>
 </div>
 </div>
 </div>

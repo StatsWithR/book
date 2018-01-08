@@ -100,7 +100,7 @@ Similar to the OLS regression process, we can extract the posterior means and st
 
 
 ```r
-cog.coef <- coef(cog.bas)
+cog.coef = coef(cog.bas)
 cog.coef
 ```
 
