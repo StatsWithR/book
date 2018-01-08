@@ -11,27 +11,6 @@ We previously learned that we can use a paired t-test to compare means from two 
 
 Water samples collected at the the same location, on the surface and the bottom, cannot be assumed to be independent of each other. However, it may be reasonable to assume that the differences in the concentration at the bottom and the surface in randomly sampled locations are independent of each other.</div>\EndKnitrBlock{example}
 
-
-```
-## Loading required package: BayesFactor
-```
-
-```
-## Loading required package: coda
-```
-
-```
-## Loading required package: Matrix
-```
-
-```
-## ************
-## Welcome to BayesFactor 0.9.12-2. If you have questions, please contact Richard Morey (richarddmorey@gmail.com).
-## 
-## Type BFManual() to open the manual.
-## ************
-```
-
 \begin{table}
 
 \caption{(\#tab:zinc-table)Zinc in drinking water}
@@ -97,7 +76,7 @@ $$\BF[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
 
 This is a function of the t-statistic
 
-$$t = \frac{|\bar{Y}|}{s/\sqrt{n}}$$,
+$$t = \frac{|\bar{Y}|}{s/\sqrt{n}},$$
 
 where $s$ is the sample standard deviation and the degrees of freedom $\nu = n-1$ (sample size minus one).
 
@@ -151,11 +130,11 @@ bayes_inference(difference, data=zinc, statistic="mean", type="ht",
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03651753 0.06331176 0.07540560  0.08719987  0.11223659
-## sigma 0.03665562 0.04740375 0.05531461  0.06553146  0.09542154
-## n_0   0.16233564 1.88631875 4.72601362 10.07795438 32.29412354
+## mu    0.03640911 0.06329377 0.07536809  0.08716443  0.11223090
+## sigma 0.03663149 0.04740901 0.05531407  0.06556447  0.09560031
+## n_0   0.16256360 1.89456677 4.74660303 10.10617111 32.54362752
 ## 
-## 95% CI for mu: (0.0365, 0.1122)
+## 95% CI for mu: (0.0364, 0.1122)
 ```
 
 ![](05-BFnormal-02-paired-means_files/figure-latex/bayes-inference-1.pdf)<!-- --> 

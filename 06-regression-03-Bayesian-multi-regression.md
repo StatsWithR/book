@@ -3,7 +3,7 @@ output:
   pdf_document: default
   html_document: default
 ---
-## Bayesian Multiple Linear Regression
+## Bayesian Multiple Linear Regression {#sec:Bayes-multiple-regression}
 
 In this section, we will discuss Bayesian inference in multiple linear regression. We will use the reference prior to provide the default, or base line analysis of the model, which provides the correspondence between Bayesian and frequentist approaches.
 
@@ -157,7 +157,8 @@ All together, we can generate a summary table showing the posterior means, poste
 
 
 ```r
-out <- confint(cog.coef)[, 1:2]  # only extract the upper and lower bounds of the credible intervals
+out <- confint(cog.coef)[, 1:2]  
+# only extract the upper and lower bounds of the credible intervals
 names <- c("posterior mean", "posterior std", colnames(out))
 out <- cbind(cog.coef$postmean, cog.coef$postsd, out)
 colnames(out) <- names

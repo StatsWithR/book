@@ -171,14 +171,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.1.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#frequentist-ordinary-least-square-simple-linear-regression"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist Ordinary Least Square Simple Linear Regression</a></li>
 <li class="chapter" data-level="6.1.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-simple-linear-regression-using-reference-prior"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Simple Linear Regression Using Reference Prior</a></li>
 <li class="chapter" data-level="6.1.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#informative-priors"><i class="fa fa-check"></i><b>6.1.3</b> Informative Priors</a></li>
-<li class="chapter" data-level="6.1.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#deviations-of-marginal-posterior-distributions-of-alpha-beta-and-sigma2"><i class="fa fa-check"></i><b>6.1.4</b> Deviations of Marginal Posterior Distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="6.1.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:derivations"><i class="fa fa-check"></i><b>6.1.4</b> Derivations of Marginal Posterior Distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\sigma^2\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#checking-outliers"><i class="fa fa-check"></i><b>6.2</b> Checking Outliers</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#posterior-distribution-of-epsilon_i-conditioning-on-sigma"><i class="fa fa-check"></i><b>6.2.1</b> Posterior Distribution of <span class="math inline">\(\epsilon_i\)</span> Conditioning On <span class="math inline">\(\sigma\)</span></a></li>
 <li class="chapter" data-level="6.2.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#implementation-using-bas-package"><i class="fa fa-check"></i><b>6.2.2</b> Implementation Using <code>BAS</code> Package</a></li>
 <li class="chapter" data-level="6.2.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#summary"><i class="fa fa-check"></i><b>6.2.3</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-multiple-linear-regression"><i class="fa fa-check"></i><b>6.3</b> Bayesian Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="6.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression"><i class="fa fa-check"></i><b>6.3</b> Bayesian Multiple Linear Regression</a><ul>
 <li class="chapter" data-level="6.3.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#the-model"><i class="fa fa-check"></i><b>6.3.1</b> The Model</a></li>
 <li class="chapter" data-level="6.3.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#data-pre-processing"><i class="fa fa-check"></i><b>6.3.2</b> Data Pre-processing</a></li>
 <li class="chapter" data-level="6.3.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#specify-bayesian-prior-distributions"><i class="fa fa-check"></i><b>6.3.3</b> Specify Bayesian Prior Distributions</a></li>
@@ -281,6 +281,10 @@ cog.step =<span class="st"> </span><span class="kw">step</span>(cog.lm, <span cl
 <p>Finally, when we try dropping either <code>hs</code> or <code>IQ</code>, it will result in higher BIC than 2530.6. This suggests that we have reached to our best model, which predicts kid’s cognitive score using mom’s high school status and mom’s IQ score.</p>
 <p>However, using the adjusted <span class="math inline">\(R^2\)</span>, the best model would be the one including not only <code>hs</code> and <code>IQ</code> variables, but also mom’s work status, <code>work</code>. In general, using BIC leads to fewer variables for the best model compared to using adjusted <span class="math inline">\(R^2\)</span> or AIC.</p>
 <p>We can also use the <code>BAS</code> package to find the best BIC model without taking the stepwise backward process.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(BAS)
+cog.bic =<span class="st"> </span><span class="kw">bas.lm</span>(kid_score ~<span class="st"> </span>., <span class="dt">data =</span> cognitive,
+                 <span class="dt">prior =</span> <span class="st">&quot;BIC&quot;</span>,
+                 <span class="dt">modelprior =</span> <span class="kw">uniform</span>())</code></pre></div>
 <p>Here we set the <code>modelprior</code> argument as <code>uniform()</code> to assign equal prior probability for each possible model.</p>
 <p>The <code>logmarg</code> information inside the <code>cog.bic</code> summary list records the log-marginal likelihood of each model, which is proportional to negative BIC. We can use this information to retreat the model with the largest log-marginal likelihood, which corresponds to the model with the smallest BIC.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find the index of the model with the largest logmarg</span>
@@ -291,8 +295,10 @@ bestmodel =<span class="st"> </span>cog.bic$which[[best]]
 bestmodel</code></pre></div>
 <pre><code>## [1] 0 1 2</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a indicator vector indicating which variables are used in the best model</span>
-bestgamma =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, cog.bic$n.vars) <span class="co"># Create a 0 vector with the same dimension of the number of variables in the full model</span>
-bestgamma[bestmodel +<span class="st"> </span><span class="dv">1</span>] =<span class="st"> </span><span class="dv">1</span>  <span class="co"># Change the indicator to 1 where variables are used</span>
+bestgamma =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, cog.bic$n.vars) 
+<span class="co"># Create a 0 vector with the same dimension of the number of variables in the full model</span>
+bestgamma[bestmodel +<span class="st"> </span><span class="dv">1</span>] =<span class="st"> </span><span class="dv">1</span>  
+<span class="co"># Change the indicator to 1 where variables are used</span>
 bestgamma</code></pre></div>
 <pre><code>## [1] 1 1 1 0 0</code></pre>
 <p>From the indicator vector <code>bestgamma</code> we see that only the intercept (indexed as 0), mom’s high school status variable <code>hs</code> (indexed as 1), and mom’s IQ score <code>IQ</code> (indexed as 2) are used in the best model, with 1’s in these indexes.</p>
@@ -322,7 +328,7 @@ coef.bic</code></pre></div>
 ## IQ         0.563906 0.06057408  0.4448487  0.6829634  0.563906
 ## work       0.000000 0.00000000  0.0000000  0.0000000  0.000000
 ## age        0.000000 0.00000000  0.0000000  0.0000000  0.000000</code></pre>
-<p>Compared the coefficients in the best model with the ones in the full model (which can be found in the Bayesian multiple regression section), we see that the 95% credible interval for <code>IQ</code> variable is the same. However, the credible interval for high school status <code>hs</code> slightly shifted to the right, and it is also slighly shorter, meaning a smaller posterior standard deviation. All credible intervals of coefficients exclude 0, suggesting that we have found a parsimonious model, a model that accomplishes a desired level of explanation or prediction with as few predictor variables as possible.</p>
+<p>Comparing the coefficients in the best model with the ones in the full model (which can be found in Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.3</a>), we see that the 95% credible interval for <code>IQ</code> variable is the same. However, the credible interval for high school status <code>hs</code> slightly shifted to the right, and it is also slighly shorter, meaning a smaller posterior standard deviation. All credible intervals of coefficients exclude 0, suggesting that we have found a parsimonious model, a model that accomplishes a desired level of explanation or prediction with as few predictor variables as possible.</p>
 </div>
 <div id="other-criteria" class="section level3">
 <h3><span class="header-section-number">7.1.4</span> Other Criteria</h3>
@@ -332,6 +338,9 @@ coef.bic</code></pre></div>
 <div id="refs" class="references">
 <div>
 <p>Chaloner, Kathryn, and Rollin Brant. 1988. “A Bayesian Approach to Outlier Detection and Residual Analysis.” <em>Biometrika</em> 75 (4). Oxford University Press: 651–59.</p>
+</div>
+<div>
+<p>Hoff, Peter D. 2009. <em>A First Course in Bayesian Statistical Methods</em>. Springer Science &amp; Business Media.</p>
 </div>
 <div>
 <p>Jeffreys, Sir Harold. 1961. <em>Theory of Probability: 3rd Edition</em>. Clarendon Press.</p>

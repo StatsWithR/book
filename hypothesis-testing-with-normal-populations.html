@@ -171,14 +171,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.1.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#frequentist-ordinary-least-square-simple-linear-regression"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist Ordinary Least Square Simple Linear Regression</a></li>
 <li class="chapter" data-level="6.1.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-simple-linear-regression-using-reference-prior"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Simple Linear Regression Using Reference Prior</a></li>
 <li class="chapter" data-level="6.1.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#informative-priors"><i class="fa fa-check"></i><b>6.1.3</b> Informative Priors</a></li>
-<li class="chapter" data-level="6.1.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#deviations-of-marginal-posterior-distributions-of-alpha-beta-and-sigma2"><i class="fa fa-check"></i><b>6.1.4</b> Deviations of Marginal Posterior Distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="6.1.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:derivations"><i class="fa fa-check"></i><b>6.1.4</b> Derivations of Marginal Posterior Distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\sigma^2\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#checking-outliers"><i class="fa fa-check"></i><b>6.2</b> Checking Outliers</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#posterior-distribution-of-epsilon_i-conditioning-on-sigma"><i class="fa fa-check"></i><b>6.2.1</b> Posterior Distribution of <span class="math inline">\(\epsilon_i\)</span> Conditioning On <span class="math inline">\(\sigma\)</span></a></li>
 <li class="chapter" data-level="6.2.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#implementation-using-bas-package"><i class="fa fa-check"></i><b>6.2.2</b> Implementation Using <code>BAS</code> Package</a></li>
 <li class="chapter" data-level="6.2.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#summary"><i class="fa fa-check"></i><b>6.2.3</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-multiple-linear-regression"><i class="fa fa-check"></i><b>6.3</b> Bayesian Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="6.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression"><i class="fa fa-check"></i><b>6.3</b> Bayesian Multiple Linear Regression</a><ul>
 <li class="chapter" data-level="6.3.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#the-model"><i class="fa fa-check"></i><b>6.3.1</b> The Model</a></li>
 <li class="chapter" data-level="6.3.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#data-pre-processing"><i class="fa fa-check"></i><b>6.3.2</b> Data Pre-processing</a></li>
 <li class="chapter" data-level="6.3.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#specify-bayesian-prior-distributions"><i class="fa fa-check"></i><b>6.3.3</b> Specify Bayesian Prior Distributions</a></li>
@@ -311,14 +311,6 @@ Figure 5.3: Prior effect in the extra sensory perception test
 Water samples collected at the the same location, on the surface and the bottom, cannot be assumed to be independent of each other. However, it may be reasonable to assume that the differences in the concentration at the bottom and the surface in randomly sampled locations are independent of each other.
 </div>
 <p></p>
-<pre><code>## Loading required package: BayesFactor</code></pre>
-<pre><code>## Loading required package: coda</code></pre>
-<pre><code>## Loading required package: Matrix</code></pre>
-<pre><code>## ************
-## Welcome to BayesFactor 0.9.12-2. If you have questions, please contact Richard Morey (richarddmorey@gmail.com).
-## 
-## Type BFManual() to open the manual.
-## ************</code></pre>
 <table>
 <caption><span id="tab:zinc-table">Table 5.1: </span>Zinc in drinking water</caption>
 <thead>
@@ -421,7 +413,7 @@ Water samples collected at the the same location, on the surface and the bottom,
   \frac{ t^2  \frac{n_0}{n + n_0} + \nu }
   { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}\]</span></p>
 <p>This is a function of the t-statistic</p>
-<p><span class="math display">\[t = \frac{|\bar{Y}|}{s/\sqrt{n}}\]</span>,</p>
+<p><span class="math display">\[t = \frac{|\bar{Y}|}{s/\sqrt{n}},\]</span></p>
 <p>where <span class="math inline">\(s\)</span> is the sample standard deviation and the degrees of freedom <span class="math inline">\(\nu = n-1\)</span> (sample size minus one).</p>
 <p>As we saw in the case of Bayes factors with known variance, we cannot use the improper prior on <span class="math inline">\(\mu\)</span> because when <span class="math inline">\(n_0 \to 0\)</span>, then <span class="math inline">\({\textsf{BF}}[H1:H_2] \to \infty\)</span> favoring <span class="math inline">\(H_1\)</span> regardless of the magnitude of the t-statistic. Arbitrary, vague small choices for <span class="math inline">\(n_0\)</span> also lead to arbitrary large Bayes factors in favor of <span class="math inline">\(H_1\)</span>. Another example of the Barlett’s or Jeffreys-Lindley paradox.</p>
 <p>Sir Herald Jeffrey discovered another paradox testing using the conjugant normal prior, known as the <strong>information paradox</strong>. His thought experiment assumed that our sample size <span class="math inline">\(n\)</span> and the prior sample size <span class="math inline">\(n_0\)</span>. He then considered what would happen to the Bayes factor as the sample mean moved further and further away from the hypothesized mean, measured in terms standard errors with the t-statistic, i.e., <span class="math inline">\(|t| \to \infty\)</span>. As the t-statistic or information about the mean moved further and further from zero, the Bayes factor goes to a constant depending on <span class="math inline">\(n, n_0\)</span> rather than providing overwhelming support for <span class="math inline">\(H_2\)</span>.</p>
@@ -457,9 +449,9 @@ Water samples collected at the the same location, on the surface and the bottom,
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03656412 0.06324536 0.07533751  0.08715934  0.11223723
-## sigma 0.03669397 0.04741224 0.05532864  0.06563496  0.09555522
-## n_0   0.16326225 1.88818023 4.73965880 10.10972499 32.55097595
+## mu    0.03660365 0.06332737 0.07539886  0.08718070  0.11223954
+## sigma 0.03667225 0.04741635 0.05530385  0.06556198  0.09540109
+## n_0   0.16340372 1.89691758 4.74013433 10.09452722 32.35706052
 ## 
 ## 95% CI for mu: (0.0366, 0.1122)</code></pre>
 <p><img src="05-BFnormal-02-paired-means_files/figure-html/bayes-inference-1.png" width="672" /></p>
@@ -528,7 +520,7 @@ Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2,
 ## P(H2|data) = 0.1489 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (-4.2999 , 0.8463)</code></pre>
+## 95% Cred. Int.: (-4.3306 , 0.9164)</code></pre>
 <p><img src="05-BFnormal-03-independent-means_files/figure-html/bf-1.png" width="672" /></p>
 <p>We see that the Bayes factor for <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> is about 5.7, with positive support for <span class="math inline">\(H_1\)</span> that there is no difference in average weight gain between younger and older women. Using equal prior probabilities, the probability that there is a difference in average weight gain between the two groups is about 0.15 given the data. Based on the interpretation of Bayes factors from Table <a href="introduction-to-losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “positive” (between 3 and 20).</p>
 <p>To recap, we have illustrated testing hypotheses about population means with two independent samples, using a Cauchy prior on the difference in the means. One assumption that we have made is that <strong>the variances are equal in both groups</strong>. The case where the variances are unequal is referred to as the Behren-Fisher problem, and this is beyond the scope for this course. Next, we will look at another example to put everything together with testing and discuss summarizing results.</p>
@@ -581,7 +573,7 @@ out =<span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <
 ## P(H2|data) = 0.5902 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (0.0224 , 0.5766)</code></pre>
+## 95% Cred. Int.: (0.0274 , 0.5731)</code></pre>
 <p><img src="05-BFnormal-04-inference_files/figure-html/BF-NC-1.png" width="672" /></p>
 <p>We see that the Bayes factor is 1.44, which weakly favors there being a difference in average birth weights for babies whose mothers are smokers versus mothers who did not smoke. Converting this to a probability, we find that there is about a 60% chance of the average birth weights are different.</p>
 <p>While looking at evidence of there being a difference is useful, Bayes factors and posterior probabilities do <strong>not</strong> convey any information about the magnitude of the effect. Reporting a credible interval or the complete posterior distribution is more relevant for quantifying the magnitude of the effect.</p>
@@ -591,22 +583,16 @@ out =<span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <
                          <span class="dt">r=</span>.<span class="dv">5</span>, <span class="dt">method=</span><span class="st">&#39;sim&#39;</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)
 <span class="kw">print</span>(out.ci$summary, <span class="dt">digits=</span><span class="dv">2</span>)</code></pre></div>
 <pre><code>##                             2.5%     25%    50%     75%   97.5%
-## overall mean               6.853    6.94    7.0    7.04 7.1e+00
-## mu_nonsmoker - mu_smoker   0.021    0.20    0.3    0.39 5.8e-01
-## sigma^2                    2.072    2.19    2.3    2.33 2.5e+00
-## effect size                0.014    0.13    0.2    0.26 3.9e-01
-## n_0                      155.845 1903.75 4598.5 9394.85 2.5e+04</code></pre>
+## overall mean               6.853    6.95    7.0    7.04 7.1e+00
+## mu_nonsmoker - mu_smoker   0.028    0.20    0.3    0.39 5.8e-01
+## sigma^2                    2.071    2.19    2.3    2.33 2.5e+00
+## effect size                0.019    0.13    0.2    0.26 3.8e-01
+## n_0                      172.132 1920.28 4599.2 9332.71 2.6e+04</code></pre>
 <p>The 2.5 and 97.5 percentiles for the difference in the means provide a 95% credible interval of 0.023 to 0.57 pounds for the difference in average birth weight. The MCMC output shows not only summaries about the difference in the mean <span class="math inline">\(\alpha\)</span>, but the other parameters in the model.</p>
 <p>In particular, the Cauchy prior arises by placing a gamma prior on <span class="math inline">\(n_0\)</span> and the conjugate normal prior. This provides quantiles about <span class="math inline">\(n_0\)</span> after updating with the current data.</p>
 <p>The row labeled effect size is the standardized effect size <span class="math inline">\(\delta\)</span>, indicating that the effects are indeed small relative to the noise in the data.</p>
 <div class="figure" style="text-align: center"><span id="fig:BF-NC-plot"></span>
 <img src="05-BFnormal-04-inference_files/figure-html/BF-NC-plot-1.png" alt="Estimates of effect under H2" width="672" />
-<p class="caption">
-Figure 5.4: Estimates of effect under H2
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:BF-NC-plot"></span>
-<img src="05-BFnormal-04-inference_files/figure-html/BF-NC-plot-2.png" alt="Estimates of effect under H2" width="672" />
 <p class="caption">
 Figure 5.4: Estimates of effect under H2
 </p>
