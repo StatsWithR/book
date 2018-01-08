@@ -130,7 +130,7 @@ Similarly, we can integrate out $\beta$ and $\sigma^2$ from the joint posterior 
 Moreover, we can show that the marginal posterior distribution of $\sigma^2$ is the inverse Gamma distribution
 $$ \sigma^2~|~y_1,\cdots,y_n \sim \text{IG}\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
 
-We provide the detailed deviations in section ??? (how to do reference in R Markdown?)
+We provide the detailed derivations in Section \@ref(sec:derivations).
 
 **Credible Intervals for the Slope $\beta$ and the Intercept $\alpha$ **
 
@@ -242,12 +242,12 @@ Now the join prior distribution of $\alpha, \beta$, and $\sigma^2$ form a distri
 The marginal posterior distribution of the coefficient vector $(\alpha, \beta)$ will be biraviate normal, and the marginal posterior distribution of $\sigma^2$ is again a Inverse Gamma distribution
 $$ \sigma^2~|~y_1,\cdots,y_n \sim \text{IG}\left(\frac{\nu_0+n}{2}, \frac{\nu_0\sigma_0^2+\text{SSE}}{2}\right). $$
 
-One can see that the reference prior is the limiting case of this conjugate prior we impose. We usually use Gibbs sampling to approximate the joint posterior distribution instead of using the result directly, especially later in multiple linear regression when we have more coefficients. We omit the deviations of the posterior distributions due to the heavy use of advanced linear algebra. One can refer to (Hopf's book, how to reference????) for more details.
+One can see that the reference prior is the limiting case of this conjugate prior we impose. We usually use Gibbs sampling to approximate the joint posterior distribution instead of using the result directly, especially later in multiple linear regression when we have more coefficients. We omit the deviations of the posterior distributions due to the heavy use of advanced linear algebra. One can refer to @hoff2009first for more details.
 
 Based on any prior information we have for the model, we can also impose other priors and assumptions on $\alpha$, $\beta$, and $\sigma^2$ to get different Bayesian results. Most of these priors will not form any conjugacy and will require us to use simulation methods such as MCMC for approximations.
 
 
-### Deviations of Marginal Posterior Distributions of $\alpha$, $\beta$, and $\sigma^2$
+### Derivations of Marginal Posterior Distributions of $\alpha$, $\beta$, $\sigma^2$ {#sec:derivations}
 
 In this section, we will use the notations we introduced earlier such as $\text{SSE}$, the sum of squares of errors, $\hat{\sigma}^2$, the mean squared error, $\text{S}_{xx}$, $\text{sd}_{\hat{\alpha}}$, $\text{sd}_{\hat{\beta}}$ and so on to simplify our calculations.
 
