@@ -1,1 +1,61 @@
 ## R Demo
+
+We continue our tour of Bayesian model selection and model averaging. Today we will demo the BAS package with a data set with 15 predictors using MCMC. We'll introduce some additional diagnostic plots and talk about the effect of multicollinearity in model uncertainty. 
+0:18
+To illustrate the command we'll use the US crime data set available in the R library MASS. This contains data on 47 states of the US from 1960. The response variable y is the rate of crimes per head of population for each state. Criminologists are interested in the effect of punishment regimes on crime rates, and there are 15 potential explanatory variables with values for each of the 47 states related to crime and other demographics. 
+0:47
+Let's go through the variables. M is the percentage of males age 14 to 24, while So is an indicator variable for a southern state. Ed is the mean years of schooling, while Po1 is police expenditures in 1960 and Po2 is the police expenditures in the previous year, 1959. LF is the labor force participation rate, while M.F is the number of males per 1,000 females. Pop is the state population, while NW is the number of non-whites per 1,000 people in the state. U1 is the unemployment rate of urban males age 14 to 24, while U2 is the unemployment rate for urban males 35 to 39. 
+1:37
+GDP is the gross domestic product per head, and Ineq is a measure of income inequality. 
+1:46
+Prob is the probability of imprisonment in that state, while Time is the average time served in state prisons. 
+1:55
+These values have been aggregated over each state, so this is a case of what is known as ecological regression. I do not directly model whether a person committed a crime or not with their predictors such as whether they had spent time in prison. But instead I use the total number of crimes and average values of predictors at the state level. 
+2:18
+Based on other analysis of this data, I'm going to take natural logarithms of all the variable except for So, the indicator of the state being in the southern US. 
+2:31
+I'm going to provide all the R commands so that you may follow along. Pause now if you wish to start up R and need to install the BAS package. 
+2:41
+First I will load the MASS library, and then load the US crime data frame from that library. 
+2:49
+Note I'm overwriting the original data while log transforming the variables except for So, which is the second variable in the data frame. This way the names will stay the same. You could instead make a copy of the data frame and then transform. We are going to use the library BAS, so we'll need to load that as well. 
+3:09
+I will now run BAS with all 15 predictor variables, and assign the output to the object crime.ZS. Of course you may use any name for that object. 
+3:19
+In the model formula I have the response y, and to save some typing I'm using the shorthand notation of dot to indicate that I'm going to include all of the 15 predictor variables from the data frame. 
+3:33
+Next we specify the name of the data frame for US crime. 
+3:37
+I'm going to use the Zellner-Siow Cauchy prior that we introduced in the last video, which I specify with the prior option ZS-null. I'm also going to assign equal prior probabilities to all models using the uniform function. 
+3:54
+And last I'm going to tell R to use MCMC sampling rather than enumeration. This problem is small enough to enumerate pretty quickly, so you can compare the results later if you wish. 
+4:08
+First, let's look at a diagnostic plot to see if we've run the MCMC long enough with the default options. 
+4:15
+We have two ways that we can estimate marginal posterior inclusion probabilities when we use MCMC, that are depicted here in the figure. 
+4:25
+We could apply the formula based on enumeration, but now we're summing over just the sample models from the MCMC. This is based on using the renormalized marginal likelihoods times prior for the S unique bottles that were discovered in our MCMC samples. These are depicted on the x-axis. The second is based on the relative Monte Carlo frequencies of sampled models. If we've run the MCMC long enough these will be in close agreement, and eventually will be the same. Each point represents a posterior inclusion probability for one variable, and we can see that they're in pretty close agreement. You can make a similar plot to compare the posterior model probabilities using this function. Next, we'll look at four other plots of the BAS object. To see them clearly, I'm going to just show them one at a time using the which argument. The first is a plot of residuals and fitted values. This should look familiar to you based on residual plots from other regression models. The only difference is that the fitted values are obtained using Bayesian model averaging. The residuals are the observed values minus the BMA-fitted values. As with other residual plots, we are looking to see whether the spread is more or less constant over the range of the fitted values. And if there are extreme residuals that might be outliers. 
+5:46
+The second plot shows the cumulative model probabilities, adding up the model probabilities each time a new model is sampled. We can see that we discovered about 5,000 unique models with MCMC sampling. The probability is starting to level off, indicating that these additional models are not adding much more additional probability. These probabilities are proportional to the marginal likelihoods times priors, rather than Monte Carlo frequencies. 
+6:15
+Next is the plot of model size versus the log of the marginal likelihood, our Bayes factor to compare each model to the null model. We can see that the models with the highest Bayes factors or marginal likelihoods have around eight or nine predictors. The null model has a log marginal of 0, or a Bayes factor of 1. 
+6:36
+And last we have a plot showing the importance of different predictors. This plot has been rotated in the video so that the labels are clearer. The lines in blue correspond to the variables where the marginal posterior inclusion probability, or PIP, is greater than 0.5 suggesting that these variables are important for predicting the crime rate. While the variables in gray have posterior inclusion probabilities less than 0.5. Now small PIPs can arise when two or more variables are highly correlated, similar to large p-values with multicollinearity, so caution should be used in using the PIPs to eliminate variables. We'll talk about this more in the decision making video coming up. 
+7:17
+To focus in on the high probability models, we can look at an image of the model space. I am not rotating it so that the labels are on the x-axis. The highest probability model is the leftmost column, and as before each row corresponds to one of the predictor variables. By default this shows just the top 20 models. Similar to the posterior inclusion probabilities we can see which variables are routinely included in the top 20 models. 
+7:45
+Now an interesting feature that this plot shows is the effect of correlation between variables. The police expenditures in 1960, Po1, and 1958, Po2, are highly correlated with a positive correlation of 0.993. The plot indicates that in the top 20 models Po1 is included more often, but expenditures in the previous year, Po2, is included when Po1 is excluded such as in the third best model and others. 
+8:15
+Let's extract the coefficients under model averaging and look at the plots for the coefficients for Po1 and Po2. 
+8:23
+Under model averaging we see that there is more mass at 0 for Po2. The distribution is a mixture over all of the other models adjusting for the other predictors. When Po1 is excluded, the coefficient has a distribution similar to the coefficient for Po1. However when both predictors are included, the adjusted coefficient for Po2 has more support on negative values as we are over compensating for having both variables included in the model. In extreme cases of correlation, you may find that the coefficient plot is multimodal. If that is the case the posterior mean may not be in a region of high probability, and it's not necessarily an informative summary. 
+9:04
+So to recap what we have done today, we've gone through a demo of the R package BAS and explored some of its functionality. 
+9:13
+We used the MCMC option, and talked about some diagnostic plots to assess if we've run the Markov chain adequately. 
+9:21
+We've looked at other diagnostic residual plots for model checking as well. 
+9:26
+Finally, we looked at the effect of correlation in model averaging on posterior distributions of models and the parameters. 
+9:34
+In the next video, we will continue with this example and talk about some commonly used approaches for selecting models, and corresponding options for prediction. 

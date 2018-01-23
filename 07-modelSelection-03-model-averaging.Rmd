@@ -12,7 +12,7 @@ that has $p$ predictors, there will be in total $2^p$ possible models.
 
 We can also visualize model uncertainty from the `bas` object `cog_bas`. 
 
-```{r read-data}
+```{r read-data echo = F}
 # Load the library in order to read in data from website
 library(foreign)    
 
