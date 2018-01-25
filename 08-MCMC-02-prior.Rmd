@@ -36,8 +36,9 @@ From the posterior mean formula, we can see that the posterior mean is a weighte
 
 Similarly, the posterior variancc is a shrunken version of the OLS variance, by a factor $\displaystyle \frac{g}{1+g}$. The posterior distribution of $\vec{beta}$ has a normal distribution
 $$ \vec{\beta}~|~\sigma^2, \text{data}~\sim~ \text{N}(\frac{g}{1+g}\vec{\hat{\beta}} + \frac{1}{1+g}\vec{b}_0,\ \frac{g}{1+g}\sigma^2S_{\bf{xx}}^{-1}). $$
+### Bayes Factors of Zellner's $g$-prior 
 
-Because of this simplicity, Zellner's $g$-prior has been widely used in Bayesian model selection and Bayesian model averaging. One of the most popular versions uses the g prior for all coefficients except the intercept, and takes the prior mean $\vec{b}_0 = \vec{0}$. If we are not testing any hypotheses about the intercept, we may combine this $g$-prior with the reference prior for the intercept $\beta_0$ and $\sigma^2$, that is, we set
+Because of this simplicity, Zellner's $g$-prior has been widely used in Bayesian model selection and Bayesian model averaging. One of the most popular versions uses the $g$-prior for all coefficients except the intercept, and takes the prior mean $\vec{b}_0 = \vec{0}$. If we are not testing any hypotheses about the intercept, we may combine this $g$-prior with the reference prior for the intercept $\beta_0$ and $\sigma^2$, that is, we set
 $$ p(\beta_0, \sigma^2) \propto \frac{1}{\sigma^2}. $$
 
 Under this prior, the Bayes factor for comparing model $M_m$ to the null model $M_0$, which only has the intercept, is simply
@@ -53,24 +54,85 @@ Now the question is, how do we pick $g$? As we see that, the Bayes factor depend
 
 On the other hand, if we use any arbitrary fixed value of $g$, and include more and more predictors. $R$-squared $R_m^2$ will get closer and closer to 1, but the Bayes factor will maintain bounded. With $R_m^2$ getting larger and larger, we would expect the alternative model $M_m$ would be supported. However, a bounded Bayes factor would not provide overwhelming support for $M_m$, even in the frequentist approach we are getting better and better fit for the data. This is the information paradox, when the Bayes factor comes to a different conclusions. 
 
-<!--
-However, there's some solutions that appear to lead to reasonable results in small and large samples. Based on empirical results with real data to theory and provide a resolution to these two paradoxes. In the cases below, the prior distribution depends on n. Now, that might be troubling but remember, that the sum of squares term in the prior is likely getting larger with n. So, this serves to balance the growth of that term. And in the limit converges to prior that depends on the variance of x from the population. 
-5:25
-The unit information prior takes g = n, so that the information the prior is worth a single observation. This is the same as saying n over g = one. Taking g = n though ignores our uncertainty in the choice of g. Since we don't know g a priori, we could use a prior distribution where the expected value of n over g is 1. One such example is the prior. This is obtained by putting a gamma prior on n over g. A third example puts the beta distribution on one over one plus g over n. The name of hyper g over n is, because the base factor can be expressed in terms of a special hyper g metric function. 
-6:07
--->
+There are some solutions which appear to lead to reasonable results in small and large samples based on empirical results with real data to theory, and provide resolution to these two paradoxes. In the following examples, we let the prior distribution depend on $n$, the size of the data. Since $S_{\bf{xx}}$ is getting larger with larger $n$, $g\sigma^2S_{\bf{xx}}^{-1}$ may get balanced if $g$ also grows relatively to the size of $n$. 
+
+In the case of the unit information, we let $g=n$. This is the same as saying $\displaystyle \frac{n}{g}=1$. In this prior, we will only need to specify the prior mean $\vec{b}_0$ for the coefficients of the predicor variables $(\beta_1,\cdots,\beta_p)$. 
+
+However, taking $g=n$ ignores the uncertainty of the choice of $g$. Since we do not know $g$ a priori, we may pick a prior so that the expected value of $\displaystyle \frac{n}{g}=1$. One exmaple is the Zellner-Siow cauchy prior. In this prior, we let 
+$$ \frac{n}{g}~\sim~ \text{Gamma}(\frac{1}{2}, \frac{1}{2}). $$
+
+Another example is to set 
+$$ \frac{1}{1+n/g}~\sim~ \text{Beta}(\frac{a}{2}, \frac{b}{2}), $$
+with hyperparameters $a$ and $b$. Since the Bayes factor under this prior distribution can be expressed in terms of hypergeometric functions, this is called the hyper-$g/n$ prior.
+
 
 ### Kid's Cognitive Score Example
 
+We apply these priors on the kid's cognitive score example and compare the posterior probabilities that each coefficient $\beta_i,\ i = 1,2,3,4$ to be non-zero. We first read in data and store the size of the data into $n$. We will use this $n$ later, when setting prior for $n/g$.
+
+```{r}
+library(foreign)
+cognitive = read.dta("http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta")
+cognitive$mom_work = as.numeric(cognitive$mom_work > 1)
+cognitive$mom_hs =  as.numeric(cognitive$mom_hs > 0)
+colnames(cognitive) = c("kid_score", "hs","IQ", "work", "age") 
+n = nrow(cognitive)
+```
+
+We then fit the full model using different priors. Here we set model prior to be `uniform()`, meaning each model has equal prior.
+
+```{r priors echo = F}
+library(BAS)
+cog.g = bas.lm(kid_score ~ ., data=cognitive, prior="g-prior", 
+               a=n, modelprior=uniform())
+# a is the hyperparameter in this case g=a
+cog.ZS = bas.lm(kid_score ~ ., data=cognitive, prior="ZS-null", 
+                a=n, modelprior=uniform())
+cog.HG = bas.lm(kid_score ~ ., data=cognitive, prior="hyper-g-n", 
+                a=3, modelprior=uniform()) 
+# hyperparameter a=3
+
+cog.EB = bas.lm(kid_score ~ ., data=cognitive, prior="EB-local", 
+                a=n, modelprior=uniform())
+cog.BIC = bas.lm(kid_score ~ ., data=cognitive, prior="BIC", 
+                 a=n, modelprior=uniform())
+cog.AIC = bas.lm(kid_score ~ ., data=cognitive, prior="AIC", 
+                 modelprior=uniform())
+```
+
+Here `cog.g` is the model corresponding to the unit information $g=n$. `cog.ZS` is the model under the Zellner-Siow cauchy prior. `cog.HG` gives the model under the hyper-$g/n$ prior. `cog.EB` is the empirical Bayesian estimates which minimize the likelihood. `cog.BIC` and `cog.AIC` are the ones corresponding to the `BIC` and `AIC`.
+
+In order to compare the posterior inclusion probability (pip) of each coefficient, we group the results $p(\beta_i\neq 0)$ from the `probne0` attributes of each model
+
+```{r probne0}
+probne0 = cbind(cog.BIC$probne0, cog.g$probne0, cog.ZS$probne0, cog.HG$probne0, cog.EB$probne0, cog.AIC$probne0)
+
+colnames(probne0) = c("BIC", "g", "ZS", "HG", "EB", "AIC")
+rownames(probne0) = c(cog.BIC$namesx)
+```
+
+We can compare the results by printing the matrix `probne0` that we just generated. If we want to visualize them to get a clearer idea, we may plot them using bar plots.
+
+```{r plots}
+P = list()
+for (i in 2:5){
+  mydata = data.frame(prior = colnames(probne0), posterior = probne0[i, ])
+  mydata$prior = factor(mydata$prior, levels = colnames(probne0))
+  p = ggplot(mydata, aes(x = prior, y = posterior)) +
+    geom_bar(stat = "identity", fill = "blue") + xlab("") +
+    ylab("") + 
+    ggtitle(cog.g$namesx[i])
+  P = c(P, list(p))
+}
+
+library(cowplot)
+do.call(plot_grid, c(P))
+```
+In the plots above, the $x$-axis lists all the prior distributions we consider, and the bar heights represent the posterior inclusion probability of each coefficient, i.e., $p(\beta_i\neq 0)$. 
+
+We can see that mom's IQ is included as probability 1 in all priors. So all methods agree that we should include variable `IQ`. Mom's high school status also has probabilities of more than 0.5 in each prior, suggesting that we may also consider including variable `hs`. However, mom's work status and mom's age have much lower posterior inclusion probability in all priors. From left to right in each bar plot, we see that method `BIC` is the most conservative (meaning will exclude more variables), while `AIC` is being the less conservative method.
+
 <!--
-Let's look at these priors and a couple of others for the kids cognitive scores example. For each prior, I found the posture of probabilities that each of the four productive variables would be included in the model. This is the posterior probability that each beta equals zero. 
-6:24
-Each bar plot corresponds to one of the four predictor variables. High school status, mom's IQ. Whether the mom worked during the first three years and mom's age. From left to write in each bar plot, we have the posterior inclusion probabilities under BIC. The g prior, which equals n. The Zellner shell prior. The hyper g over n prior. The empirical Bayes method, where we estimate g and AIC. Where the AIC values are converted to posterior probabilities, like we did with BIC. 
-6:55
-All the methods agree that we should include mom's IQ. 
-6:59
-Mom's high school status has a probability included that is over 0.5 across all the methods. With BIC the g prior being the most conservative. Also, all approaches are great at the probabilities that worker A should be included are less than 0.5. With AIC being the least conservative and the AC and the G prior being the most conservative. AIC is designed to find good predictive models and including a predictor whose coefficient is really 0. Does not impact predictions, although a simpler model may be true. In this case, the methods all agree loosely on what are the most important variables. But differ in the magnitudes of the posterior inclusion probabilities. The Zone E Kal Sochi Prior and the Hyper G over N Prior provide results that are between the two extremes of BIC and AIC. And overall perform well in a range a problems. 
-7:52
 To recap, we've introduced Zellner's g prior a conjugate prior distribution for basic model selection and model averaging. We've discussed some of the problems with choosing g. Where g's that are too large or small lead to inconsistent behavior from what one might expect. To resolve the Bartlett's paradox and information paradox, we recommend g equals n. Or, placing a prior distribution on g over n. 
 8:18
 We compare posterior inclusion probabilities using a range of priors. Overall, priors agree on the most important variables. 
