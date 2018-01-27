@@ -51,7 +51,7 @@ $$
 This gives us the multivariate normal-gamma conjugate family, with hyperparameters $b_0, b_1, b_2, b_3, b_4, \Sigma_0, \nu_0$, and $\sigma_0^2$. For this prior, we will need to specify the values of all the hyperparameters. This elicitation can be quite involved, especially when we do not have enough prior information about the variances, covariances of the coefficients and other prior hyperparameters. Therefore, we are going to adopt the noninformative prior (i.e., the reference prior), which is a limiting case of this multivariate normal-gamma prior.
 
 The reference prior in the multiple linear regression model is similar to the reference prior we used in the simple linear regression model, where the prior distribution of all the coefficients $\beta$'s is the uniform prior, and the prior of $\sigma^2$ is proportional to its reciprocal
-$$ \pi(\beta_0,\beta_1,\beta_2,\beta_3,\beta_4~|~\sigma^2) \propto 1,\qquad \pi(\sigma^2) \propto \frac{1}{\sigma^2}. $$
+$$ p(\beta_0,\beta_1,\beta_2,\beta_3,\beta_4~|~\sigma^2) \propto 1,\qquad p(\sigma^2) \propto \frac{1}{\sigma^2}. $$
 
 Under this reference prior, the posterior distributions of the coefficients, $\beta$'s, are parallel to the ones in simple linear regression. The marginal posterior distributions of $\beta$'s are the Student's $t$-distributions with centers given by the frequentist OLS estimates  $\hat{\beta}$'s, scale parameters given by the standard errors $\text{SE}_{\hat{\beta}}^2$ obtained from the OLS estimates
 $$

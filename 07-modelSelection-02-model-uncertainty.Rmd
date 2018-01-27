@@ -55,7 +55,7 @@ colnames(cognitive) = c("kid_score", "hs","IQ", "work", "age")
 
 
 To represent model certainty, we construct the probability distribution overall possible 16 models where the probabilities provide a measure of how likely the different models are. Inside the `bas.lm` function, we first specify the full model, which in this case is the `kid_score`, regressed by all predictors: mom's high school status, mom's IQ, mom's work status and mom's age. We take the `data = cognitive` in the next argument. For the prior distribution of the coefficients for calculating marginal likelihoods, we use `prior = "BIC"` is used to approximate the likelihoods. We then use `modelprior = uniform()` in the argument to assign equal prior probability $p(M_m),\ m=1,\cdots, 16$ to all 16 models.
-```{r bas-model-uncertain echo = F}
+```{r bas-model-uncertain, echo = F}
 # import libary BAS
 library(BAS)
 
@@ -70,5 +70,32 @@ cog_bas = bas.lm(kid_score ~ hs + IQ + work + age, data = cognitive,
 names(cog_bas)
 ```
 one can see the outputs that we can extract and use from a `bas` object.
+
+The `bas` object takes the `summary` method
+```{r summary}
+round(summary(cog_bas), 3)
+```
+
+The summary table shows us the following information of the top 5 models
+
+Item          | Description
+--------------| -------------------------------------------------
+`P(B!=0 | Y)` | the posterior inclusion probability (pip) of the coefficient
+`0` or `1` in the column | indicator of whether the variable is included in the model
+`BF`          | the Bayes factor $\text{BF}[M_m:M_b]$, where $M_b$ is the model with highest posterior probability
+`PostProbs`   | posterior probability of each model
+`R2`          | the $R$-squared in the ordinary least square regression
+`dim`         | the number of variables (including intercept) included in the model
+`logmarg`     | the log of marginal likelihood of the model, which is $-\displaystyle\frac{1}{2}\text{BIC}$
+
+<br/>
+
+All top 5 models suggest to exclude `age` variable and include `IQ` variable. The top 1 model includes intercept and only `hs` and `IQ`, with a posterior probability of about 0.529. The top 2 model, which includes only the intercept and the variable `IQ`, has posterior probability of about 0.293. These two models compose of posterior probability of about 0.83, leaving only 0.17 posterior probability to the remaining 14 models. 
+
+Using the `print` method, we obtain the marginal posterior inclusion probabilities of each variable.
+```[r print-pip}
+print(cog_bas)
+```
+
 
 

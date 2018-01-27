@@ -7,7 +7,7 @@ We applied the ideas with the kid's cognitive score data set. With 4 predictors,
 
 Let us assume that we have a pseudo population of possible models that we obtained from all the possible combinations of regression models from the kid's cognitive score example. We prepare the data set and first run `bas.lm` to obtain posterior probabilities of each model.
 
-```{r prep echo = F}
+```{r prep, echo = F}
 # data processing
 library(foreign)
 cognitive = read.dta("http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta")
@@ -65,11 +65,3 @@ After obtaining $J$ models, $M^{(1)}, M^{(2)}, \cdots, M^{(J)}$, we can count ho
 
 We proposed model randomly in the above algorithm, i.e., all models were equally likely to be proposed. This can be pretty inefficient if there are lots of models with low probabilities. We may come up with other ways to propose models. For example, we may look at neighboring models of our current model by either adding one predictor that is currently not in the model, or randomly dropping one of the current predictors from the model. We may flip a coin to decide whether to add or to drop. This forms a random walk acroos neighboring models. We may also propose to swap out a current predictor with one that is currently not in the model, which maintains the size of the model. This has the potential to take bigger jumps in the model space. There are other possible moves that can be designed to help move around over the model space. However, we have to be careful to adjust for any potential bias, due to how we propose new models, to ensure that our relative frequencies eventually would converge to the posterior probabilities. In the lecture video, we have demonstrated the Markov Chain Monte Carlo method on the kid's cognitive score. 
 
-
-<!--
-To sum up, we've explored a simple Markov Chain Monte Carlo algorithm to explore the space of models. Except for plotting, we did not actually need to know the model probabilities to run our sampler. This makes it easy to implement in problems where we cannot enumerate the models to obtain exact posterior model probabilities. 
-7:00
-These Monte Carlo frequencies and the sampled models can be used in BMA in place of the normalized marginal likelihoods times prior, allowing us to carry out Bayesian inference even when we cannot enumerate all models. 
-7:16
-Our MCMC was designed to provide estimates of probabilities that converged to the true posterior probabilities. There is quite a bit of art and science to designing a good Markov Chain algorithm to explore the space of models. In theory, if we run any MCMC sampler long enough, we will visit all the models. However, we do not necessarily have the time to do so. In large problems, having an efficient MCMC becomes more important. Now there are other stochastic search algorithms that try to find the models with highest posterior probability or that might sample models without replacement. These can be more efficient in some cases for model selection, but may not provide unbiased estimates of model probabilities or other quantities in large problems. In the next video, we will explore alternative prior distributions as part of prior sensitivity and give some examples using Markov Chain Monte Carlo. 
--->

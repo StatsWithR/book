@@ -212,23 +212,3 @@ crime.BMA$fit
 
 From here we can use the fitted values for further error calculations. We will talk about decisions on models and how to obtain predictions under different models in the next section.
 
-
-
-<!--
-```{r pred}
-HPM = predict(crime.ZS, estimator = "HPM")
-
-```
-
-
-9:04
-So to recap what we have done today, we've gone through a demo of the R package BAS and explored some of its functionality. 
-9:13
-We used the MCMC option, and talked about some diagnostic plots to assess if we've run the Markov chain adequately. 
-9:21
-We've looked at other diagnostic residual plots for model checking as well. 
-9:26
-Finally, we looked at the effect of correlation in model averaging on posterior distributions of models and the parameters. 
-9:34
-In the next video, we will continue with this example and talk about some commonly used approaches for selecting models, and corresponding options for prediction. 
--->

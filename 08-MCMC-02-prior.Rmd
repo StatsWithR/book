@@ -81,7 +81,7 @@ n = nrow(cognitive)
 
 We then fit the full model using different priors. Here we set model prior to be `uniform()`, meaning each model has equal prior.
 
-```{r priors echo = F}
+```{r priors, echo = F}
 library(BAS)
 cog.g = bas.lm(kid_score ~ ., data=cognitive, prior="g-prior", 
                a=n, modelprior=uniform())
@@ -114,6 +114,7 @@ rownames(probne0) = c(cog.BIC$namesx)
 We can compare the results by printing the matrix `probne0` that we just generated. If we want to visualize them to get a clearer idea, we may plot them using bar plots.
 
 ```{r plots}
+library(ggplot2)
 P = list()
 for (i in 2:5){
   mydata = data.frame(prior = colnames(probne0), posterior = probne0[i, ])
@@ -131,12 +132,3 @@ do.call(plot_grid, c(P))
 In the plots above, the $x$-axis lists all the prior distributions we consider, and the bar heights represent the posterior inclusion probability of each coefficient, i.e., $p(\beta_i\neq 0)$. 
 
 We can see that mom's IQ is included as probability 1 in all priors. So all methods agree that we should include variable `IQ`. Mom's high school status also has probabilities of more than 0.5 in each prior, suggesting that we may also consider including variable `hs`. However, mom's work status and mom's age have much lower posterior inclusion probability in all priors. From left to right in each bar plot, we see that method `BIC` is the most conservative (meaning will exclude more variables), while `AIC` is being the less conservative method.
-
-<!--
-To recap, we've introduced Zellner's g prior a conjugate prior distribution for basic model selection and model averaging. We've discussed some of the problems with choosing g. Where g's that are too large or small lead to inconsistent behavior from what one might expect. To resolve the Bartlett's paradox and information paradox, we recommend g equals n. Or, placing a prior distribution on g over n. 
-8:18
-We compare posterior inclusion probabilities using a range of priors. Overall, priors agree on the most important variables. 
-8:27
-In the next videos, we will put everything together with the larger example. And we'll talk more about decision making and what to report in the presence of model and certainty. 
-
--->

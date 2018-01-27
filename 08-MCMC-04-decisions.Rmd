@@ -88,11 +88,11 @@ coef.crime.ZS$conditionalsd[crime.HPM$best, ]
 
 We can also obtain the posterior probability of this model using
 ```{r postprob}
-postprobHPM = crime.ZS$postprobs[crime.HPM$best]
-postprobHPM
+postprob.HPM = crime.ZS$postprobs[crime.HPM$best]
+postprob.HPM
 ```
 
-we see that this highest probability model has posterior probability of only `r postprobsHPM`. There are many models that have comparable posterior probabilities. So even this model has the highest posterior probability, we are still pretty unsure about whether it is the best model.
+we see that this highest probability model has posterior probability of only `r postprob.HPM`. There are many models that have comparable posterior probabilities. So even this model has the highest posterior probability, we are still pretty unsure about whether it is the best model.
 
 **Median probability model**
 
@@ -148,8 +148,8 @@ cbind(crime.BPM$fit, crime.BPM.conf.fit, crime.BPM.conf.pred)
 
 We can use similar method as in HPM to find the coefficients of BPM
 ```{r BPM-coef}
-crime.coef.ZS$conditionalmeans[crime.BPM$best,]
-crime.coef.ZS$conditionalsd[crime.BPM$best,]
+coef.crime.ZS$conditionalmeans[crime.BPM$best,]
+coef.crime.ZS$conditionalsd[crime.BPM$best,]
 ```
 
 
