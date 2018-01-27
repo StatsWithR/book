@@ -1,0 +1,101 @@
+## Bayesian Model Uncertainty
+
+In the last section, we discussed how to use Bayesian Information Criterion (BIC) to pick the best model, and we demonstrated this on the kid's cognitive scores data set. However, it is often that we may have several models with similar BIC. If we only pick the one with the lowest BIC, we may ignore the presence of other models that are equally good or can provide useful information. The credible intervals or confidence intervals may be narrower since the uncertainty is being ignored when we report the results. Narrower intervals are not always better if they miss the true values of the estimates. To account for the uncertainty, getting the posterior probabilities of all possible models is necessary. In this section, we will talk about how to convert BIC into Bayes factor to find the posterior probabilities of all possible models. We will again use the `BAS` package in R to achieve this goal.
+
+### Model Uncertainty
+
+When forecasting the path of a hurricane, having an accurate prediction and measure of uncertainty is important for early warning. In this case, we would consider the probability of several potential paths that the hurricane may make land fall. Similar to hurricane forecasting, we would also like to obtain the posterior probabilities of all possible models for uncertainty measurement. 
+
+To represent model uncertainty we will construct a probability distribution over all possible models where the probabilities provided measure of how likely the different models are. 
+
+Suppose we have a multiple linear regression
+$$ y_i = \beta_0+\beta_1x_{1,i}+\beta_2x_{2,i}+\cdots+\beta_px_{p,i}+\epsilon_i, \quad 1\leq i \leq n,$$
+with $p$ predictor variables $x_1,\cdots, x_p$. There are in total $2^p$ different models, corresponding to $2^p$ combinations of variable selections. Denote each model by $M_m,\ m=1,\cdots,p$. We start by assigning a prior probability to each model, $p(M_m)$, where $m$ is the number of all possible models. Recall from Bayes' Theorem, we update the posterior probability of each model $M_m$ after seeing the date, via marginal likelihood of model $M_m$:
+
+\begin{equation} p(M_m~|~\text{data}) = \frac{\text{marginal likelihood of }M_m\times p(M_m)}{\sum_{j=1}^{2^p}\text{marginal likelihood of }M_j\times p(M_j)}. 
+(\#eq:model-post-prob) 
+\end{equation}
+The marginal likelihoods of each model serve to reweight the prior probabilities, so that models with higher likelihood have higher weights. Deviding the sum of all products of likelihoods and priors renormalizes the reweighted prior probabilities, which become the posterior probabilities of each model.
+
+Recall that the odd between two models $M_1$ and $M_2$ is defined as
+
+$$
+\text{O}[M_1:M_2] =  \frac{p(M_1)}{p(M_2)},
+$$
+and the Bayes factor is defined to be the ratio of the likelihoods of two models
+$$ \text{BF}[M_1:M_2] = \frac{\text{marginal likelihood of }M_1}{\text{marginal likelihood of }M_2}. $$
+
+Suppose we have chosen a base model $M_b$, we may divide both the numerator and the denominator of the formula \@ref(eq:model-post-prob) by $\text{marginal likelihood of }M_b\times p(M_b)$. This gives us a new formula to calculate the posterior probability of model $M_m$ based on the prior odds and the Bayes factors. In this new formula, we can see that the evidence from the data in the Bayes factors $\text{BF}[M_j:M_b],\ j=1,\cdots, 2^p$ serve to upweight or downweight the prior odds $\text{O}[M_j:M_b],\ j=1,\cdots,2^p$.
+$$
+\begin{aligned}
+& p(M_m~|~\text{data})\\
+ = & \frac{\text{marginal likelihood of }M_m\times p(M_m)/(\text{marginal likelihood of }M_b\times p(M_b))}{\sum_{j=1}^{2^p}(\text{marginal likelihood of }M_j\times p(M_j))/(\text{marginal likelihood of }M_b\times p(M_b))} \\
+ & \\
+= & \frac{\text{BF}[M_m:M_b]\times \text{O}[M_m:M_b]}{\sum_{j=1}^{2^p}\text{BF}[M_j:M_b]\times \text{O}[M_j:M_b]}.
+\end{aligned}
+$$
+Any model can be used as the base model $M_b$. It could be the model with the highest posterior probability, or the one with just the intercept. 
+
+### Calculating Posterior Probabilities in R
+
+Back to the kid's cognitive score example, we will see how the summary of results using `bas.lm` tell us about the posterior probabilities of all possible models.
+
+We read in the data and transform `mom_work` and `mom_hs` into indicator variables as before.
+```{r read-data}
+# Load the library in order to read in data from website
+library(foreign)    
+
+# Read in cognitive score data set and process data tranformations
+cognitive = read.dta("http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta")
+
+cognitive$mom_work = as.numeric(cognitive$mom_work > 1)
+cognitive$mom_hs =  as.numeric(cognitive$mom_hs > 0)
+colnames(cognitive) = c("kid_score", "hs","IQ", "work", "age")
+```
+
+
+To represent model certainty, we construct the probability distribution overall possible 16 models where the probabilities provide a measure of how likely the different models are. Inside the `bas.lm` function, we first specify the full model, which in this case is the `kid_score`, regressed by all predictors: mom's high school status, mom's IQ, mom's work status and mom's age. We take the `data = cognitive` in the next argument. For the prior distribution of the coefficients for calculating marginal likelihoods, we use `prior = "BIC"` is used to approximate the likelihoods. We then use `modelprior = uniform()` in the argument to assign equal prior probability $p(M_m),\ m=1,\cdots, 16$ to all 16 models.
+```{r bas-model-uncertain, echo = F}
+# import libary BAS
+library(BAS)
+
+# Use bas.lm function for regression and other results
+cog_bas = bas.lm(kid_score ~ hs + IQ + work + age, data = cognitive,
+                 prior = "BIC",
+                 modelprior = uniform())
+```
+
+`cog_bas` is a `bas` object. The usual `print`, `summary`, `plot`, `coef`, `fitted`, `predict` functions are available and can be used similar to the `lm` object created by the usual `lm` function. From calling 
+```{r col-bas}
+names(cog_bas)
+```
+one can see the outputs that we can extract and use from a `bas` object.
+
+The `bas` object takes the `summary` method
+```{r summary}
+round(summary(cog_bas), 3)
+```
+
+The summary table shows us the following information of the top 5 models
+
+Item          | Description
+--------------| -------------------------------------------------
+`P(B!=0 | Y)` | the posterior inclusion probability (pip) of the coefficient
+`0` or `1` in the column | indicator of whether the variable is included in the model
+`BF`          | the Bayes factor $\text{BF}[M_m:M_b]$, where $M_b$ is the model with highest posterior probability
+`PostProbs`   | posterior probability of each model
+`R2`          | the $R$-squared in the ordinary least square regression
+`dim`         | the number of variables (including intercept) included in the model
+`logmarg`     | the log of marginal likelihood of the model, which is $-\displaystyle\frac{1}{2}\text{BIC}$
+
+<br/>
+
+All top 5 models suggest to exclude `age` variable and include `IQ` variable. The top 1 model includes intercept and only `hs` and `IQ`, with a posterior probability of about 0.529. The top 2 model, which includes only the intercept and the variable `IQ`, has posterior probability of about 0.293. These two models compose of posterior probability of about 0.83, leaving only 0.17 posterior probability to the remaining 14 models. 
+
+Using the `print` method, we obtain the marginal posterior inclusion probabilities of each variable.
+```[r print-pip}
+print(cog_bas)
+```
+
+
+

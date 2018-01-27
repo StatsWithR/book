@@ -1,0 +1,3 @@
+# Markov Chain Monte Carlo
+
+In this chapter, we will discuss using Markov Chain Monte Carlo method to explore the model space when the number of all possible models is relatively large, which may lead to long computational time. We will introduce the idea and the algorithm that we apply on the kid's cognitive score example. We will then introduce some other priors for the coefficients. We will demonstrate using Markov Chain Monte Carlo on the crime data set to see how to use this stochastic method to explore model spaces and how different priors may lead to different posterior inclusion probabilities of coefficients. Finally, we will summarize decision making strategies under Bayesian model uncertainty.

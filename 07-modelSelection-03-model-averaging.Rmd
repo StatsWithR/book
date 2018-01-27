@@ -1,0 +1,94 @@
+## Bayesian Model Averaging
+
+In the last section, we explored model uncertainty using posterior probabilities of models based on BIC. In this section, we will continue the kid's cognitive score example to see how to obtain an Bayesian model averaging results using model posterior probabilities 
+### Visualizing Model Uncertainty
+
+Recall that in the last section, we used the `bas.lm` function in the `BAS` package to obtain posterior probabilities of all models in the kid's cognitive score example. 
+$$ \text{score} ~\sim~ \text{hq} + \text{IQ} + \text{work} + \text{age} $$
+
+We have found the posterior distribution under model uncertainty using all possible combinations of the predictors, the mom's high school status `hs`, mom's IQ score `IQ`, whether the mom worked during the first three years of the kid's life `work`, and mom's age `age`. With 4 predictors, there are $2^4 = 16$ possible models. In general, for linear regression model
+$$ y_i = \beta_0+\beta_1x_{1,i} + \cdots + \beta_px_{p,i},\qquad i = 1, \cdots,n$$
+that has $p$ predictors, there will be in total $2^p$ possible models.
+
+We can also visualize model uncertainty from the `bas` object `cog_bas`. 
+
+```{r read-data, echo = F}
+# Load the library in order to read in data from website
+library(foreign)    
+
+# Read in cognitive score data set and process data tranformations
+cognitive = read.dta("http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta")
+
+cognitive$mom_work = as.numeric(cognitive$mom_work > 1)
+cognitive$mom_hs =  as.numeric(cognitive$mom_hs > 0)
+colnames(cognitive) = c("kid_score", "hs","IQ", "work", "age")
+
+library(BAS)
+cog_bas = bas.lm(kid_score ~ hs + IQ + work + age, data = cognitive,
+                 prior = "BIC",
+                 modelprior = uniform())
+```
+
+In R, the image function may be used to create an image of the model space that looks like a crossword puzzle. 
+```{r visualize}
+image(cog_bas, rotate = F)
+```
+
+To obtain a clearer view for comparison of models, we did not rotate the image. Here, the predictors, including the intercept, are on the $y$-axis, while the $x$-axis corresponds to each different model. Each vertical column corresponds to one model. For variables that are not included, they will be represented by a black block. For example, model 1 includes the intercept, `hs`, and `IQ`, but not `work` or `age`. These models are ordered according to the log of posterior odds over the null model. This is the same as $\ln (\text{BF}[M_m:M_0])$ since here we use same prior distribution for all models. (Recall that $\text{PO}[M_m:M_b] = \text{BF}[M_m:M_b]\times \text{O}[M_m:M_b]$.) The colors are proportional to the log of the posterior probabilities. Models with same colors have similar posterior probabilities. This allows us to view models that are clustered together, where the differences are not worth a bare mention.
+
+If we view the image by rows, we can see whether one variable is included in the particular model. For each variable, there are only 8 models in which it will appear. For example, we see that `IQ` appears in all the top 8 models with larger posterior probabilities, but not the last 8 models. The `image` function will show up to 20 models by default.
+
+### Bayesian Model Averaging Using Posterior Probabilities
+
+Once we have obtained the posterior probabilities of each model, we may view them as our weights and make inference using these weights. Models with higher posterior probabilities receive higher weights, while models with lower posterior probabilities receive lower weights. We may average a quantity using the posterior probabilities of models as weights over all models, which gives the name "Bayesian  Model Averaging" (BMA). For example, the probability of the next prediction $\hat{Y}^*$ after seeing the data can be calculated as a "weighted average" of the prediction of next observation $\hat{Y}^*$ under each model $M_j$, with the posterior probabilities of $M_j$ being the "weights"
+$$ \hat{Y}^* = \sum_{j=1}^{2^p}\hat{Y}^*_j\ p(M_j~|~\text{data}), $$
+where $\hat{Y}^*_j$ is the prediction under model $M_j$.
+
+In general, for a quantity of interest $\Delta$, which may be $Y^*$, the next observation, $\beta_j$, the coefficient of a variable, even $p(\beta_j~|~\text{data})$, the posterior probability of $\beta_j$ after seeing the data, its posterior probability of seeing the data can be calculated using the formula
+
+$$ p(\Delta~|~\text{data}) = \sum_{j=1}^{2^p}p(\Delta~|~ M_j,\ \text{data})p(M_j~|~\text{data}) $$
+
+This formula is similar to those in Week 1 when we used posterior probabilities of the two competing hypotheses to calculate the predictive probability of an event. For example, when we have two hypothese about the probability of getting heads in a coin flip $p$:
+$$ H_1: p=p_0,\qquad \text{vs}\qquad H_2: p\neq p_0. $$
+After obtaining the posterior probabilities seeing the data $P(H_1~|~\text{data})$ and $P(H_2~|~\text{data})$, we can calculate the predictive probability of getting the next coin using the two posterior probabilities as weights:
+$$ P(\text{next head}~|~\text{data}) = P(\text{next head}~|~H_1)P(H_1~|~\text{data})+P(\text{next head}~|~H_2)P(H_2~|~\text{data}). $$
+
+Moreover, the expected value of $\Delta$ can also be obtained by a weighted average of conditional expected values on each model
+$$ E[\Delta~|~\text{data}] = \sum_{j=1}^{2^p}E[\Delta~|~M_j,\ \text{data}]p(M_j~|~\text{data}).$$
+
+
+Since the weights $p(M_j~|~\text{data})$ are probabilities and have to sum to one, if the best model has posterior probability one, all of the weights will be placed on that single best model, and using BMA would be equivalent to selecting the best model with the highest posterior probability. However, if there's several models that receive substantial probability, they would all be included in the inference and account for the uncertainty about the true model. 
+
+### Coefficient Summary under BMA
+
+We can obtain the coefficients by the `coef` function. 
+
+```{r coef}
+cog_coef = coef(cog_bas)
+cog_coef
+```
+
+Under Bayesian model averaging, the table above provides the posterior means, the posterior standard deviations, and the posterior inclusion probabilities of the coefficients. The posterior mean of the coefficient $\hat{\beta}_j$ under BMA would be used for future predictions. The posterior standard deviation $\text{se}(\beta_j)$ provides measure of the variability of the coefficients. An approximate range of plausible values for each of the coefficients may be obtained via the empirical rule
+$$ (\hat{\beta}_j-\text{critical value}\times \text{se}(\beta_j),\  \hat{\beta}_j+\text{critical value}\times \text{se}(\beta_j)).$$
+
+However, this only applies if the posterior distribution is symmetric or unimodal. 
+
+The posterior mean of the intercept, $\hat{\beta}_0$, is obtained after we have centered the variables. That is, we are considering the regression
+$$ y_i = \beta_0 + \beta_1(x_{\text{hs}, i} - \bar{x}_{\text{hs}}) + \beta_2(x_{\text{IQ}, i} - \bar{x}_{\text{IQ}}) + \beta_3(x_{\text{work}, i} - \bar{x}_{\text{work}}) + \beta_4(x_{\text{age}, i} - \bar{x}_{\text{age}}) + \epsilon_i.$$
+when using the `BAS` package `bas.lm` function. Therefore, the posterior mean of the intercept coefficient $\beta_0$ is the sample mean of the observations $Y$, instead of the usual $y$-intercept we used in ordinary least square linear regression.
+
+We see that the posterior means, standard deviations and inclusion probabilities are slightly different than the ones we obtained in Section 6.3 when we forced the model to include all variables. Here `IQ` has posterior inclusion probability 1, suggesting that it is very likely that `IQ` should be included in the model. `hs` also has a high probability of about 0.61. However, the posterior inclusion probabilities of mom's work status `work` and mom's age `age` are relatively small compared to `IQ` and `hs`.
+
+We can also `plot` the posterior distributions of these coefficients to take a closer look at the distributions
+```{r plot-dis}
+par(mfrow = c(2, 2))
+plot(cog_coef, subset = c(2:5))
+```
+
+
+This plot agrees with the summary table we obtained above, which shows that the posterior probability distributions of `work` and `age` have a very large point mass at 0, while the distribution of `hs` has a relatively small mass at 0. There is a slighly little tip at 0 for the variable `IQ`, indicating that the posterior inclusion probability of `IQ` is not exactly 1. However, since the probability mass for `IQ` to be 0 is so small, that we are almost certain that `IQ` should be included under Bayesian model averaging.
+
+## Summary
+
+In this chapter, we have discussed Bayesian model uncertainty and Bayesian model averaging. We have shown how Bayesian model averaging can be used to address model uncertainty using the ensemble of models for inference, rather than selecting a single model. We applied this to the kid's cognitive score data set using `BAS` package in R. Here we illustrated the concepts using BIC and reference prior on the coefficients. In the next chapter, we will explore alternative priors for coefficients, since model selection is sensitive to prior choices. We will also explore Markov Chain Monte Carlo algorithm for model sampling when the model space is large for theoretical calculations.
+

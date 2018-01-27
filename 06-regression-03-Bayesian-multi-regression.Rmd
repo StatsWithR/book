@@ -51,11 +51,11 @@ $$
 This gives us the multivariate normal-gamma conjugate family, with hyperparameters $b_0, b_1, b_2, b_3, b_4, \Sigma_0, \nu_0$, and $\sigma_0^2$. For this prior, we will need to specify the values of all the hyperparameters. This elicitation can be quite involved, especially when we do not have enough prior information about the variances, covariances of the coefficients and other prior hyperparameters. Therefore, we are going to adopt the noninformative prior (i.e., the reference prior), which is a limiting case of this multivariate normal-gamma prior.
 
 The reference prior in the multiple linear regression model is similar to the reference prior we used in the simple linear regression model, where the prior distribution of all the coefficients $\beta$'s is the uniform prior, and the prior of $\sigma^2$ is proportional to its reciprocal
-$$ \pi(\beta_0,\beta_1,\beta_2,\beta_3,\beta_4~|~\sigma^2) \propto 1,\qquad \pi(\sigma^2) \propto \frac{1}{\sigma^2}. $$
+$$ p(\beta_0,\beta_1,\beta_2,\beta_3,\beta_4~|~\sigma^2) \propto 1,\qquad p(\sigma^2) \propto \frac{1}{\sigma^2}. $$
 
 Under this reference prior, the posterior distributions of the coefficients, $\beta$'s, are parallel to the ones in simple linear regression. The marginal posterior distributions of $\beta$'s are the Student's $t$-distributions with centers given by the frequentist OLS estimates  $\hat{\beta}$'s, scale parameters given by the standard errors $\text{SE}_{\hat{\beta}}^2$ obtained from the OLS estimates
 $$
-\beta_j~|~y_1,\cdots,y_n\ \sim t_{n-p-1}(\hat{\beta}_j, \text{SE}_{\hat{\beta}_j}^2),\qquad j = 0, 1, \cdots, p.
+\beta_j~|~y_1,\cdots,y_n\ \sim t_{n-p-1}(\hat{\beta}_j, \text{se}_{\hat{\beta}_j}^2),\qquad j = 0, 1, \cdots, p.
 $$
 
 The degrees of freedom of these $t$-distributions are $n-p-1$, where $p$ is the number of predictors. In the kid cognitive score example, $p=4$. The posterior mean, $\hat{\beta}_j$, is the center of the $t$-distributions of $\beta_j$, which is the same as the OLS estimates of $\beta_j$. The posterior standard deviation of $\beta_j$, which is the square root of the scale parameter of the $t$-distribution, is $\text{SE}_{\beta_j}$, the standard error of $\beta_j$ under the OLS estimates. That means, under the reference prior, we can easily obtain the posterior mean and posterior standard deviation from using the `lm` function, since they are numerically equivalent to the counterpart of the frequentist approach.
