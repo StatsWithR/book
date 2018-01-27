@@ -56,7 +56,7 @@ Finally, when we try dropping either `hs` or `IQ`, it will result in higher BIC 
 However, using the adjusted $R^2$, the best model would be the one including not only `hs` and `IQ` variables, but also mom's work status, `work`. In general, using BIC leads to fewer variables for the best model compared to using adjusted $R^2$ or AIC.
 
 We can also use the `BAS` package to find the best BIC model without taking the stepwise backward process.
-```{r bas.lm-approach, echo = F}
+```{r bas.lm-approach, echo=TRUE, message=FALSE, warning=FALSE}
 library(BAS)
 cog.bic = bas.lm(kid_score ~ ., data = cognitive,
                  prior = "BIC",
@@ -75,8 +75,10 @@ bestmodel = cog.bic$which[[best]]
 bestmodel
 
 # Create a indicator vector indicating which variables are used in the best model
-bestgamma = rep(0, cog.bic$n.vars) # Create a 0 vector with the same dimension of the number of variables in the full model
-bestgamma[bestmodel + 1] = 1  # Change the indicator to 1 where variables are used
+bestgamma = rep(0, cog.bic$n.vars) 
+# Create a 0 vector with the same dimension of the number of variables in the full model
+bestgamma[bestmodel + 1] = 1  
+# Change the indicator to 1 where variables are used
 bestgamma
 ```
 
@@ -111,7 +113,7 @@ colnames(coef.bic) = names
 coef.bic
 ```
 
-Compared the coefficients in the best model with the ones in the full model (which can be found in the Bayesian multiple regression section), we see that the 95\% credible interval for `IQ` variable is the same. However, the credible interval for high school status `hs` slightly shifted to the right, and it is also slighly shorter, meaning a smaller posterior standard deviation. All credible intervals of coefficients exclude 0, suggesting that we have found a parsimonious model, a model that accomplishes a desired level of explanation or prediction with as few predictor variables as possible.
+Comparing the coefficients in the best model with the ones in the full model (which can be found in Section \@ref(sec:Bayes-multiple-regression)), we see that the 95\% credible interval for `IQ` variable is the same. However, the credible interval for high school status `hs` slightly shifted to the right, and it is also slighly shorter, meaning a smaller posterior standard deviation. All credible intervals of coefficients exclude 0, suggesting that we have found a parsimonious model, a model that accomplishes a desired level of explanation or prediction with as few predictor variables as possible.
 
 ### Other Criteria
 

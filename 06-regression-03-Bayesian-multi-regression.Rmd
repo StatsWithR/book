@@ -3,7 +3,7 @@ output:
   pdf_document: default
   html_document: default
 ---
-## Bayesian Multiple Linear Regression
+## Bayesian Multiple Linear Regression {#sec:Bayes-multiple-regression}
 
 In this section, we will discuss Bayesian inference in multiple linear regression. We will use the reference prior to provide the default, or base line analysis of the model, which provides the correspondence between Bayesian and frequentist approaches.
 
@@ -65,7 +65,7 @@ The degrees of freedom of these $t$-distributions are $n-p-1$, where $p$ is the 
 
 To gain more flexibility in choosing priors, we will instead use the `bas.lm` function in the `BAS` library, which allows us to specify different model priors.
 
-```{r bas-model, ecoh = F}
+```{r bas-model, message=FALSE, warning=FALSE}
 library(BAS)
 cog.bas = bas.lm(kid_score ~ ., data = cognitive, prior = "BIC", 
                  modelprior = Bernoulli(1), bestmodel = rep(1, 5), n.models = 1)
@@ -104,7 +104,8 @@ confint(cog.coef, parm = 2:5)
 All together, we can generate a summary table showing the posterior means, posterior standard deviations, the upper and lower bounds of the 95% credible intervals of all coefficients $\beta_0, \beta_1, \beta_2, \beta_3$, and $\beta_4$.
 
 ```{r summary}
-out <- confint(cog.coef)[, 1:2]  # only extract the upper and lower bounds of the credible intervals
+out <- confint(cog.coef)[, 1:2]  
+# only extract the upper and lower bounds of the credible intervals
 names <- c("posterior mean", "posterior std", colnames(out))
 out <- cbind(cog.coef$postmean, cog.coef$postsd, out)
 colnames(out) <- names
