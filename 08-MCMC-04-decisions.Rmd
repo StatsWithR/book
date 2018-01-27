@@ -1,5 +1,6 @@
 ## Decisions Under Model Uncertainty
 
+<!--
 In this video, we'll talk about decision making under model uncertainty. In particular, we'll talk about different methods for selecting models for the posterior distribution and prediction. We will continue the US crime data example to illustrate selection prediction using our package bass. 
 0:19
 For Bayesian model choice, we start with the full model, including all predictors. 
@@ -27,3 +28,4 @@ We've used the Zellner Shell Prior, which is a mixture of the Zellner G Prior. L
 There are other forms of model uncertainty that you may want to consider. Such as linearity in the relationship between the predictors and the response. Uncertainty about the presence of out wires and uncertainty about the distribution of the response. These forms of uncertainty can be incorporated by expanding the model and priors similar to what we have covered here. 
 7:24
 Multiple regression is one of the most widely used statistical methods, however, this is just the tip of the iceberg of what you can do with Bayesian methods. 
+-->

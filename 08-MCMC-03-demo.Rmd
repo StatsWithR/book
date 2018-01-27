@@ -1,54 +1,209 @@
-## R Demo
+## R Demo on `BAS` Package
 
-We continue our tour of Bayesian model selection and model averaging. Today we will demo the BAS package with a data set with 15 predictors using MCMC. We'll introduce some additional diagnostic plots and talk about the effect of multicollinearity in model uncertainty. 
-0:18
-To illustrate the command we'll use the US crime data set available in the R library MASS. This contains data on 47 states of the US from 1960. The response variable y is the rate of crimes per head of population for each state. Criminologists are interested in the effect of punishment regimes on crime rates, and there are 15 potential explanatory variables with values for each of the 47 states related to crime and other demographics. 
-0:47
-Let's go through the variables. M is the percentage of males age 14 to 24, while So is an indicator variable for a southern state. Ed is the mean years of schooling, while Po1 is police expenditures in 1960 and Po2 is the police expenditures in the previous year, 1959. LF is the labor force participation rate, while M.F is the number of males per 1,000 females. Pop is the state population, while NW is the number of non-whites per 1,000 people in the state. U1 is the unemployment rate of urban males age 14 to 24, while U2 is the unemployment rate for urban males 35 to 39. 
-1:37
-GDP is the gross domestic product per head, and Ineq is a measure of income inequality. 
-1:46
-Prob is the probability of imprisonment in that state, while Time is the average time served in state prisons. 
-1:55
-These values have been aggregated over each state, so this is a case of what is known as ecological regression. I do not directly model whether a person committed a crime or not with their predictors such as whether they had spent time in prison. But instead I use the total number of crimes and average values of predictors at the state level. 
-2:18
-Based on other analysis of this data, I'm going to take natural logarithms of all the variable except for So, the indicator of the state being in the southern US. 
-2:31
-I'm going to provide all the R commands so that you may follow along. Pause now if you wish to start up R and need to install the BAS package. 
-2:41
-First I will load the MASS library, and then load the US crime data frame from that library. 
-2:49
-Note I'm overwriting the original data while log transforming the variables except for So, which is the second variable in the data frame. This way the names will stay the same. You could instead make a copy of the data frame and then transform. We are going to use the library BAS, so we'll need to load that as well. 
-3:09
-I will now run BAS with all 15 predictor variables, and assign the output to the object crime.ZS. Of course you may use any name for that object. 
-3:19
-In the model formula I have the response y, and to save some typing I'm using the shorthand notation of dot to indicate that I'm going to include all of the 15 predictor variables from the data frame. 
-3:33
-Next we specify the name of the data frame for US crime. 
-3:37
-I'm going to use the Zellner-Siow Cauchy prior that we introduced in the last video, which I specify with the prior option ZS-null. I'm also going to assign equal prior probabilities to all models using the uniform function. 
-3:54
-And last I'm going to tell R to use MCMC sampling rather than enumeration. This problem is small enough to enumerate pretty quickly, so you can compare the results later if you wish. 
-4:08
-First, let's look at a diagnostic plot to see if we've run the MCMC long enough with the default options. 
-4:15
-We have two ways that we can estimate marginal posterior inclusion probabilities when we use MCMC, that are depicted here in the figure. 
-4:25
-We could apply the formula based on enumeration, but now we're summing over just the sample models from the MCMC. This is based on using the renormalized marginal likelihoods times prior for the S unique bottles that were discovered in our MCMC samples. These are depicted on the x-axis. The second is based on the relative Monte Carlo frequencies of sampled models. If we've run the MCMC long enough these will be in close agreement, and eventually will be the same. Each point represents a posterior inclusion probability for one variable, and we can see that they're in pretty close agreement. You can make a similar plot to compare the posterior model probabilities using this function. Next, we'll look at four other plots of the BAS object. To see them clearly, I'm going to just show them one at a time using the which argument. The first is a plot of residuals and fitted values. This should look familiar to you based on residual plots from other regression models. The only difference is that the fitted values are obtained using Bayesian model averaging. The residuals are the observed values minus the BMA-fitted values. As with other residual plots, we are looking to see whether the spread is more or less constant over the range of the fitted values. And if there are extreme residuals that might be outliers. 
-5:46
-The second plot shows the cumulative model probabilities, adding up the model probabilities each time a new model is sampled. We can see that we discovered about 5,000 unique models with MCMC sampling. The probability is starting to level off, indicating that these additional models are not adding much more additional probability. These probabilities are proportional to the marginal likelihoods times priors, rather than Monte Carlo frequencies. 
-6:15
-Next is the plot of model size versus the log of the marginal likelihood, our Bayes factor to compare each model to the null model. We can see that the models with the highest Bayes factors or marginal likelihoods have around eight or nine predictors. The null model has a log marginal of 0, or a Bayes factor of 1. 
-6:36
-And last we have a plot showing the importance of different predictors. This plot has been rotated in the video so that the labels are clearer. The lines in blue correspond to the variables where the marginal posterior inclusion probability, or PIP, is greater than 0.5 suggesting that these variables are important for predicting the crime rate. While the variables in gray have posterior inclusion probabilities less than 0.5. Now small PIPs can arise when two or more variables are highly correlated, similar to large p-values with multicollinearity, so caution should be used in using the PIPs to eliminate variables. We'll talk about this more in the decision making video coming up. 
-7:17
-To focus in on the high probability models, we can look at an image of the model space. I am not rotating it so that the labels are on the x-axis. The highest probability model is the leftmost column, and as before each row corresponds to one of the predictor variables. By default this shows just the top 20 models. Similar to the posterior inclusion probabilities we can see which variables are routinely included in the top 20 models. 
-7:45
-Now an interesting feature that this plot shows is the effect of correlation between variables. The police expenditures in 1960, Po1, and 1958, Po2, are highly correlated with a positive correlation of 0.993. The plot indicates that in the top 20 models Po1 is included more often, but expenditures in the previous year, Po2, is included when Po1 is excluded such as in the third best model and others. 
-8:15
-Let's extract the coefficients under model averaging and look at the plots for the coefficients for Po1 and Po2. 
-8:23
-Under model averaging we see that there is more mass at 0 for Po2. The distribution is a mixture over all of the other models adjusting for the other predictors. When Po1 is excluded, the coefficient has a distribution similar to the coefficient for Po1. However when both predictors are included, the adjusted coefficient for Po2 has more support on negative values as we are over compensating for having both variables included in the model. In extreme cases of correlation, you may find that the coefficient plot is multimodal. If that is the case the posterior mean may not be in a region of high probability, and it's not necessarily an informative summary. 
+In this section, we will apply Bayesian model selection and model averaging on the US crime data set `UScrime` using the `BAS` package. We will introduce some additional diagnostic plots, and talk about the effect of multicollinearity in model uncertainty.
+
+### The `UScrime` Data Set and Data Processing
+
+
+
+We will demo the `BAS` commands using the US crime data set. 
+
+```{r read-in-data}
+
+library(MASS)
+data(UScrime)
+#summary(UScrime)
+
+```
+
+
+This data set is available in the R library `MASS`. It contains data on 47 states of the US for the year 1960. The response variable $Y$ is the rate of crimes in a particular category per head of population of each state. There are 15 potential explanatory variables with values for each of the 47 states related to crime and other demographics. Here is the table of all the potential explanatory variables and their descriptions
+
+Variable | Description
+---------|--------------------------------
+`M`      | percentage of males aged 14-24
+`So`     | indicator variable for a Southern state
+`Ed`     | mean years of schooling
+`Po1`    | police expenditure in 1960
+`Po2`    | police expenditure in 1959
+`LF`     | labour force participation rate
+`M.F`    | number of males per 1000 females
+`Pop`    | state population
+`NW`     | number of non-whites per 1000 people
+`U1`     | unemployment rate of urban males 14-24
+`U2`     | unemployment rate of urban males 35-39
+`GDP`    | gross domestic product per head
+`Ineq`   | income inequality
+`Prob`   | probability of imprisonment
+`Time`   | average time served in state prisons
+
+<br/>
+
+The values of all these variables have been aggregated over each state, so this is a case of ecological regression. We will not model directly whether a person committed a crime or not. Instead, we will use the total number of crimes and average values of predictors at the state level to predict the total crime rate of each state.
+
+We transform the variables using the natural log function, except the indicator variable `So`. We perform this transformation based on other analysis of this data set. Notice that `So` is already a numeric variable (`1` indicating Southern state and `0` otherwise), not as a categorical variable. Hence we do not need any data processing of this variable, unlike mom's high school status `hs` and mom's work status `work` in the kid's cognitive score data set.
+
+```{r data-transform}
+UScrime[,-2] = log(UScrime[,-2])
+```
+
+
+### Bayesian Models and Diagnostics
+
+We then run `bas.lm` function from the `BAS` package. We first run the full model and use this information for later decision what variables to include. Here we have 15 potential predictors. The total number of models would be $2^{15} = 32768	$. This is not a very large number and `BAS` can enumerate all the models pretty quickly. However, we want to illustrate how to explore models using stochastic methods. Hence we indicate this by setting argument `method = MCMC` inside the `bas.lm` function. We also use the Zellner-Siow cauchy prior for the prior distributions of the coefficients in this regression.
+
+```{r run-bas}
+library(BAS)
+crime.ZS =  bas.lm(y ~ ., 
+                   data=UScrime,
+                   prior="ZS-null",
+                   modelprior=uniform(),
+                   method = "MCMC") 
+```
+
+`BAS` will run the MCMC sampler until the number of unique models in the sample exceeds $\text{number of models} = 2^{p}$ (when $p < 19$), where $p$ is the number of predictors, or until the number of MCMC iterations exceeds $2\times\text{number of models}$ by default, whichever is smaller.
+
+**Diagnostic plot**
+
+
+To analyze the result, we first look at the diagnostic plot using `diagnostics` function to see whether we have run the MCMC exploration long enough so that the posterior probabilities have converged.
+
+```{r diagnostics}
+diagnostics(crime.ZS, type="pip", col = "blue", pch = 16, cex = 1.5)
+```
+
+In this plot, the $x$-axis is the renormalized posterior inclusion probability (pip) of each coefficient $\beta_i,\ i=1,\cdots, 15$ in this model. This can be calculated as
+$$ p(\beta_i\neq 0~|~\text{data}) = \sum_{M_m\in\text{model space}}I(X_i\in M_m)\left(\frac{\text{BF}[M_m:M_0]\text{O}[M_m:M_0]}{\displaystyle \sum_{M_j}\text{BF}[M_j:M_0]\text{O}[M_j:M_0]}\right).$$
+
+Here, $X_i$ is the $i$th predictor variable, and $I(X_i\in M_m)$ is the indicator function which is 1 if $X_i$ is included in model $M_m$ and 0 if $X_i$ is not included. In each term of the sum that sums over all models $M_m$ in the model space, we use 
+$$ \frac{\text{BF}[M_m:M_0]\text{O}[M_m:M_0]}{\displaystyle \sum_{M_j}\text{BF}[M_j:M_0]\text{O}[M_j:M_0]} $$
+as the weights. You may recognize that this is exactly the ratio of the posterior probability of model $M_m$ over the posterior probability of the null model $M_0$. The null model, as we recall, is the model that only includes the intercept.
+
+On the $y$-axis of the plot above, we lay out the posterior inclusion probability of coefficient $\beta_i$, which is calculated using
+$$ p(\beta_i\neq 0~|~\text{data}) = \frac{1}{J}\sum_{j=1}^J I(X_i\in M^{(j)}).$$
+Here $J$ is the total number of models that we sample using MCMC; each model is denoted as $M^{(j)}$ (some models may repeat themselves in the sample). We count the frequency of variable $X_i$ occuring in model $M^{(j)}$, and divide this number by the total number of models $J$. This is a frequentist approach to approximate the posterior probability of including $X_i$ after seeing the data.
+
+When all points are on the 45 degree diagonal, we say that the posterior inclusion probabilities of each variable from MCMC have converged well enough to the theoretical posterior inclusion probabilities.
+
+We can also use `diagnostics` function to see whether the model posterior probabilities have converged:
+```{r model-prob}
+diagnostics(crime.ZS, type = "model", col = "blue", pch = 16, cex = 1.5)
+```
+
+We can see that some of the points are still away from the 45 degree diagonal line. This may suggest we should increase the number of MCMC iterations. We may do that by imposing the argument on `MCMC.iterations` inside the `bas.lm` function
+
+```{r more-MCMC, echo = F}
+crime.ZS = bas.lm(y ~ ., 
+                  data = UScrime,
+                  prior = "ZS-null", 
+                  modelprior = uniform(),
+                  method = "MCMC", MCMC.iterations = 10 ^ 6)
+
+# plot diagnostics again
+diagnostics(crime.ZS, type = "model", col = "blue", pch = 16, cex = 1.5)
+```
+
+With more number of iterations, we see that the results from the MCMC methods converge to the theoretical posterior inclusion probabilities.
+
+We will next look at four other plots of the `BAS` object, `crime.ZS`. 
+
+**Residuals versus fitted values using BMA**
+
+The first plot is the residuals over the fitted value under Bayesian model averaging results.
+
+```{r plot1}
+plot(crime.ZS, which = 1, add.smooth = F, 
+     ask = F, pch = 16, sub.caption="", caption="")
+```
+
+We can see that the residuals lie around the dash line $y=0$, and has a constant variance. Observation 11, 22, 46 may be the potential outliers, which are indicated in the plot.
+
+**Cumulative sampled probability**
+
+The second plot shows the cumulative sampled model probabilities.
+
+```{r CMP}
+plot(crime.ZS, which=2, add.smooth = F, sub.caption="", caption="")
+```
+
+We can see that we have discovered about 5,000 unique models with MCMC sampling. The probability is starting to level off, indicating that these additional models have very small probabilities and do not contribute substantially to the posterior distribution. These probabilities are proportional to the product of marginal likelihoods of models and priors, rather than Monte Carlo frequencies.
+
+**Model complexity**
+
+The third plot is the model size versus the natural log of the marginal likelihood, or the Bayes factor, to compare each model to the null model.
+
+```{r model-comp}
+plot(crime.ZS, which=3, ask=F, caption="", sub.caption="")
+
+```
+
+
+We see that the models with the highest Bayes factors or marginal likelihoods have around 8 or 9 predictors. The null model has a log marginal likelihood of 0, or a Bayes factor of 1.
+
+**Marginal inclusion probability**
+
+Finally, we have a plot showing the importance of different predictors. 
+
+```{r}
+plot(crime.ZS, which = 4, ask = F, caption = "", sub.caption = "", 
+     col.in = "blue", col.ex = "darkgrey", lwd = 3)
+```
+
+The lines in blue correspond to the variables where the marginal posterior inclusion probability (pip), is greater than 0.5, suggesting that these variables are important for prediction. The variables in grey have posterior inclusion probabilities less than 0.5. Small posterior inclusion probabilies may arise when two or more variables are highly correlated, similar to large $p$-values with multicollinearity. So we should be cautious to use these posterior inclusion probabilities to eliminate variables.
+
+**Model space visualization**
+
+To focus on the high posterior probability models, we can look at the image of the model space.
+
+```{r model-space}
+image(crime.ZS, rotate = F)
+```
+
+By default, we only include the top 20 models. An interesting feature of this plot is that, whenever `Po1`, the police expenditures in 1960, is included, `Po2`, the police expenditures in 1959, will be excluded from the model, and vice versa. Calculating the correlation between the two variables, we see that that `Po1` and `Po2` are highly correlated with positive correlation 0.993.
+
+```{r}
+cor(UScrime$Po1, UScrime$Po2)
+```
+
+We will discuss more in the next section how to make decisions on highly correlated variables.
+
+### Posterior Uncertainty in Coefficients
+
+Due to the interesting inclusion relationship between `Po1` and `Po2` in the top 20 models, we extract the coefficients under Bayesian model averaging and take a look at the plots for the coefficients for `Po1` and `Po2`.
+
+```{r}
+
+coef.ZS=coef(crime.ZS)
+
+# Po1 and Po2 are in the 5th and 6th columns in UScrime
+par(mfrow = c(1,2))
+plot(coef.ZS, subset = c(5:6), 
+     col.lab = "darkgrey", 
+     col.axis = "darkgrey", 
+     col = "darkgrey", ask = F)
+
+```
+
+Under Bayesian model averaging, there is more mass at 0 for `Po2` than `Po1`, giving more posterior inclusion probability for `Po1`. This is also why in the marginal posterior plot of variable importance, `Po1` has a blue line while `Po2` has a grey line. When `Po1` is excluded, the distributions of other coefficients in the model, except the one for `Po2`, will have similar distributions as when both `Po1` and `Po2` are in the model. However, when both predictors are included, the adjusted coefficient for `Po2` has more support on negative values, as we are over compensating for having both variables included in the model. In extreme cases of correlations, one may find that the coefficient plot is multimodal. If this is the case, the posterior mean may not be in the highest probability density credible interval, and it is not necessarility an informative summary. 
+
+We can read the credible intervals of each variable using the `confint` function on the coefficient object `coef.ZS` of the model. Here we round the results in 4 decimal places.
+
+```{r coef-plot}
+round(confint(coef.ZS), 4)
+```
+
+
+
+### Prediction
+
+
+<!--
+```{r pred}
+HPM = predict(crime.ZS, estimator = "HPM")
+
+```
+
+
 9:04
 So to recap what we have done today, we've gone through a demo of the R package BAS and explored some of its functionality. 
 9:13
@@ -59,3 +214,4 @@ We've looked at other diagnostic residual plots for model checking as well.
 Finally, we looked at the effect of correlation in model averaging on posterior distributions of models and the parameters. 
 9:34
 In the next video, we will continue with this example and talk about some commonly used approaches for selecting models, and corresponding options for prediction. 
+-->
