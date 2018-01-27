@@ -12,12 +12,10 @@ We will demo the `BAS` commands using the US crime data set.
 
 library(MASS)
 data(UScrime)
-#summary(UScrime)
-
 ```
 
 
-This data set is available in the R library `MASS`. It contains data on 47 states of the US for the year 1960. The response variable $Y$ is the rate of crimes in a particular category per head of population of each state. There are 15 potential explanatory variables with values for each of the 47 states related to crime and other demographics. Here is the table of all the potential explanatory variables and their descriptions
+This data set is available in the R library `MASS`. It contains data on 47 states of the US for the year 1960. The response variable $Y$ is the rate of crimes in a particular category per head of population of each state. There are 15 potential explanatory variables with values for each of the 47 states related to crime and other demographics. Here is the table of all the potential explanatory variables and their descriptions.
 
 Variable | Description
 ---------|--------------------------------
@@ -39,9 +37,14 @@ Variable | Description
 
 <br/>
 
-The values of all these variables have been aggregated over each state, so this is a case of ecological regression. We will not model directly whether a person committed a crime or not. Instead, we will use the total number of crimes and average values of predictors at the state level to predict the total crime rate of each state.
+We may use the `summary` function to describe each variable in the data set. 
+```{r summary}
+summary(UScrime)
+```
 
-We transform the variables using the natural log function, except the indicator variable `So`. We perform this transformation based on other analysis of this data set. Notice that `So` is already a numeric variable (`1` indicating Southern state and `0` otherwise), not as a categorical variable. Hence we do not need any data processing of this variable, unlike mom's high school status `hs` and mom's work status `work` in the kid's cognitive score data set.
+However, these variables have been pre-processed for modeling purpose, so the summary statistics may not be that meaningful. The values of all these variables have been aggregated over each state, so this is a case of ecological regression. We will not model directly whether a person committed a crime or not. Instead, we will use the total number of crimes and average values of predictors at the state level to predict the total crime rate of each state.
+
+We transform the variables using the natural log function, except the indicator variable `So` (2nd column of the data set). We perform this transformation based on other analysis of this data set. Notice that `So` is already a numeric variable (`1` indicating Southern state and `0` otherwise), not as a categorical variable. Hence we do not need any data processing of this variable, unlike mom's high school status `hs` and mom's work status `work` in the kid's cognitive score data set.
 
 ```{r data-transform}
 UScrime[,-2] = log(UScrime[,-2])
@@ -52,7 +55,7 @@ UScrime[,-2] = log(UScrime[,-2])
 
 We then run `bas.lm` function from the `BAS` package. We first run the full model and use this information for later decision what variables to include. Here we have 15 potential predictors. The total number of models would be $2^{15} = 32768	$. This is not a very large number and `BAS` can enumerate all the models pretty quickly. However, we want to illustrate how to explore models using stochastic methods. Hence we indicate this by setting argument `method = MCMC` inside the `bas.lm` function. We also use the Zellner-Siow cauchy prior for the prior distributions of the coefficients in this regression.
 
-```{r run-bas}
+```{r run-bas, echo = F}
 library(BAS)
 crime.ZS =  bas.lm(y ~ ., 
                    data=UScrime,
@@ -116,7 +119,7 @@ plot(crime.ZS, which = 1, add.smooth = F,
      ask = F, pch = 16, sub.caption="", caption="")
 ```
 
-We can see that the residuals lie around the dash line $y=0$, and has a constant variance. Observation 11, 22, 46 may be the potential outliers, which are indicated in the plot.
+We can see that the residuals lie around the dash line $y=0$, and has a constant variance. Observations 11, 22, and 46 may be the potential outliers, which are indicated in the plot.
 
 **Cumulative sampled probability**
 
@@ -172,7 +175,6 @@ We will discuss more in the next section how to make decisions on highly correla
 Due to the interesting inclusion relationship between `Po1` and `Po2` in the top 20 models, we extract the coefficients under Bayesian model averaging and take a look at the plots for the coefficients for `Po1` and `Po2`.
 
 ```{r}
-
 coef.ZS=coef(crime.ZS)
 
 # Po1 and Po2 are in the 5th and 6th columns in UScrime
@@ -195,6 +197,21 @@ round(confint(coef.ZS), 4)
 
 
 ### Prediction
+
+We can use the usual `predict` function that we used for `lm` to obtain prediction from the `BAS` object `crime.ZS`. However, since we have different models to choose from under the Bayesian's framework, we need to first specify which particular model we use to obtain the prediction. For example, if we would like to use the Bayesian model averaging results for coefficients to obtain predictions, we would specify the `estimator` argument in the `predict` function like the following
+
+```{r BMA-pred}
+crime.BMA = predict(crime.ZS, estimator = "BMA", se.fit = TRUE)
+```
+
+The fitted values can be obtained using the `fit` attribute of `crime.BMA`
+
+```{r fitted}
+crime.BMA$fit
+```
+
+From here we can use the fitted values for further error calculations. We will talk about decisions on models and how to obtain predictions under different models in the next section.
+
 
 
 <!--
