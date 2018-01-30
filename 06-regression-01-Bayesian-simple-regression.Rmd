@@ -99,18 +99,18 @@ Our goal is to update the distributions of the unknown parameters $\alpha$, $\be
 Under the assumption that the errors $\epsilon_i$ are normally distributed with constant variance $\sigma^2$, we have for each response $y_i$, conditioning on the observed data $x_i$ and the parameters $\alpha,\ \beta,\ \sigma^2$, is normally distributed: 
 $$ y_i~|~x_i, \alpha, \beta,\sigma^2 \sim \mathcal{N}(\alpha + \beta x_i, \sigma^2),\qquad i = 1,\cdots, n. $$
 That is, the likelihood of $y_i$ given $x_i, \alpha, \beta$, and $\sigma^2$ is
-$$ \pi(y_i~|~x_i, \alpha, \beta, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y_i-(\alpha+\beta  x_i))^2}{2\sigma^2}\right). $$
+$$ p(y_i~|~x_i, \alpha, \beta, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y_i-(\alpha+\beta  x_i))^2}{2\sigma^2}\right). $$
 
 We will first consider the standard noninformative prior (reference prior). Using the reference prior, we will obtain familiar distributions as the posterior distributions of $\alpha$, $\beta$, and $\sigma^2$, which gives the analogue to the frequentist results. Here we assume 
-$$ \pi(\alpha, \beta, \sigma^2)\propto \frac{1}{\sigma^2}. $$
+$$ p(\alpha, \beta, \sigma^2)\propto \frac{1}{\sigma^2}. $$
 Using the hierachical model framework, we may equivalently assume that the joint prior distribution of $\alpha$ and $\beta$ under $\sigma^2$ is the uniform prior, while the prior distribution of $\sigma^2$ is proportional to $\displaystyle \frac{1}{\sigma^2}$. That is
-$$ \pi(\alpha, \beta~|~\sigma^2) \propto 1, \qquad \pi(\sigma^2) \propto \frac{1}{\sigma^2}, $$
+$$ p(\alpha, \beta~|~\sigma^2) \propto 1, \qquad p(\sigma^2) \propto \frac{1}{\sigma^2}, $$
 Combining the two using conditional probability, we will get the same joint prior distribution. 
 
 Then we apply the Bayes' rule to derive the posterior joint distribution after observing $y_1,\cdots, y_n$: 
 $$
 \begin{aligned}
-\pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto & \left[\prod_i^n\pi(y_i~|~x_i,\alpha,\beta,\sigma^2)\right]\pi(\alpha, \beta,\sigma^2) \\
+p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto & \left[\prod_i^n p(y_i~|~x_i,\alpha,\beta,\sigma^2)\right]p(\alpha, \beta,\sigma^2) \\
 \propto & \left[\left(\frac{1}{(\sigma^2)^{1/2}}\exp\left(-\frac{(y_1-(\alpha+\beta x_1 ))^2}{2\sigma^2}\right)\right)\times\cdots \right.\\
 & \left. \times \left(\frac{1}{(\sigma^2)^{1/2}}\exp\left(-\frac{(y_n-(\alpha +\beta x_n))^2}{2\sigma^2}\right)\right)\right]\times\left(\frac{1}{\sigma^2}\right)\\
 \propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\sum_i\left(y_i-\alpha-\beta  x_i\right)^2}{2\sigma^2}\right)
@@ -118,13 +118,13 @@ $$
 $$
 
 For example, to obtain the marginal distribution of $\beta$, the slope of the linear regression model, we integrate $\alpha$ and $\sigma^2$ out:
-$$ \pi^*(\beta~|~y_1,\cdots,y_n) = \int_0^\infty \left(\int_{-\infty}^\infty \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\right)\, d\sigma^2. $$
+$$ p^*(\beta~|~y_1,\cdots,y_n) = \int_0^\infty \left(\int_{-\infty}^\infty p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\right)\, d\sigma^2. $$
 
 It can be shown that the marginal posterior distribution of $\beta$ is the Student's $t$-distribution
 $$ \beta~|~y_1,\cdots,y_n \sim t_{n-2}\left(\hat{\beta}, \frac{\hat{\sigma}^2}{\text{S}_{xx}}\right) = t_{n-2}\left(\hat{\beta}, (\text{sd}_{\hat{\beta}})^2\right) $$
 with degrees of freedom $n-2$, center at $\hat{\beta}$, the coefficient we obtain from the frequentist OLS model, and scale parameter $\displaystyle \frac{\hat{\sigma}^2}{\text{S}_{xx}}=\left(\text{sd}_{\hat{\beta}}\right)^2$, which is the square of the standard error of $\hat{\beta}$ under the frequentist OLS model.
 
-Similarly, we can integrate out $\beta$ and $\sigma^2$ from the joint posterior distribution to get the marginal posterior distribution of $\alpha$, $\pi^*(\alpha~|~y_1,\cdots, y_n)$. It turns out that $\pi^*(\alpha~|~y_1,\cdots,y_n)$ is again the Student's $t$-distribution with degrees of freedom $n-2$, center at $\hat{\alpha}$, the $y$-intercept from the frequentist OLS model, and scale parameter $\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right) = \left(\text{sd}_{\hat{\alpha}}\right)^2$, which is the square of the standard error of $\hat{\alpha}$ under the frequentist OLS model.
+Similarly, we can integrate out $\beta$ and $\sigma^2$ from the joint posterior distribution to get the marginal posterior distribution of $\alpha$, $p^*(\alpha~|~y_1,\cdots, y_n)$. It turns out that $p^*(\alpha~|~y_1,\cdots,y_n)$ is again the Student's $t$-distribution with degrees of freedom $n-2$, center at $\hat{\alpha}$, the $y$-intercept from the frequentist OLS model, and scale parameter $\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right) = \left(\text{sd}_{\hat{\alpha}}\right)^2$, which is the square of the standard error of $\hat{\alpha}$ under the frequentist OLS model.
 
 
 Moreover, we can show that the marginal posterior distribution of $\sigma^2$ is the inverse Gamma distribution
@@ -247,7 +247,7 @@ One can see that the reference prior is the limiting case of this conjugate prio
 Based on any prior information we have for the model, we can also impose other priors and assumptions on $\alpha$, $\beta$, and $\sigma^2$ to get different Bayesian results. Most of these priors will not form any conjugacy and will require us to use simulation methods such as MCMC for approximations.
 
 
-### Derivations of Marginal Posterior Distributions of $\alpha$, $\beta$, $\sigma^2$ {#sec:derivations}
+### (Optional) Derivations of Marginal Posterior Distributions of $\alpha$, $\beta$, $\sigma^2$ {#sec:derivations}
 
 In this section, we will use the notations we introduced earlier such as $\text{SSE}$, the sum of squares of errors, $\hat{\sigma}^2$, the mean squared error, $\text{S}_{xx}$, $\text{sd}_{\hat{\alpha}}$, $\text{sd}_{\hat{\beta}}$ and so on to simplify our calculations.
 
@@ -262,7 +262,7 @@ $$
 \end{aligned}
 $$
 
-We first further simplify the numerator inside the exponential function in the formula of $\pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n)$:
+We first further simplify the numerator inside the exponential function in the formula of $p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n)$:
 $$ 
 \begin{aligned}
 \sum_i^n \left(y_i - \alpha - \beta x_i\right)^2 = & \sum_i^n \left(y_i - \hat{\alpha} - \hat{\beta}x_i - (\alpha - \hat{\alpha}) - (\beta - \hat{\beta})x_i\right)^2 \\
@@ -300,7 +300,7 @@ $$
 Therefore, the posterior joint distribution of $\alpha, \beta, \sigma^2$ is
 $$ 
 \begin{aligned}
-\pi^*(\alpha^*, \beta,\sigma^2 ~|~y_1,\cdots, y_n) \propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\sum_i(y_i - \alpha - \beta x_i)^2}{2\sigma^2}\right) \\
+p^*(\alpha^*, \beta,\sigma^2 ~|~y_1,\cdots, y_n) \propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\sum_i(y_i - \alpha - \beta x_i)^2}{2\sigma^2}\right) \\
 = & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)
 \end{aligned}
 $$
@@ -311,7 +311,7 @@ To get the marginal posterior distribution of $\beta$, we need to integrate out 
 
 $$
 \begin{aligned}
-\pi^*(\beta ~|~y_1,\cdots,y_n) = & \int_0^\infty \int_{-\infty}^\infty \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\, d\sigma^2 \\
+p^*(\beta ~|~y_1,\cdots,y_n) = & \int_0^\infty \int_{-\infty}^\infty p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\, d\sigma^2 \\
 = & \int_0^\infty \left(\int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2+(\beta-\hat{\beta})\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\alpha\right)\, d\sigma^2
 \end{aligned}
 $$
@@ -319,7 +319,7 @@ $$
 The integral inside is the joint posterior distribution of $\beta$ and $\sigma^2$
 $$
 \begin{aligned}
-& \pi^*(\beta, \sigma^2~|~y_1,\cdots,y_n) \\
+& p^*(\beta, \sigma^2~|~y_1,\cdots,y_n) \\
 = & \int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\alpha\\
 = & \int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) \exp\left(-\frac{n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2}{2\sigma^2}\right)\, d\alpha \\
 = & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) \int_{-\infty}^\infty \exp\left(-\frac{n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2}{2\sigma^2}\right)\, d\alpha
@@ -333,7 +333,7 @@ can be viewed as part of a normal distribution of $\alpha$, with mean $\hat{\alp
 
 $$
 \begin{aligned}
-\pi^*(\beta, \sigma^2~|~y_1,\cdots,y_n) 
+p^*(\beta, \sigma^2~|~y_1,\cdots,y_n) 
 \propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) \times \sqrt{\sigma^2}\\
 = & \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)
 \end{aligned}
@@ -342,7 +342,7 @@ $$
 We then integrate $\sigma^2$ out to get the marginal distribution of $\beta$. Here we first  perform change of variable and set $\sigma^2 = \frac{1}{\phi}$. Then the integral becomes
 $$
 \begin{aligned}
-\pi^*(\beta~|~y_1,\cdots, y_n) \propto & \int_0^\infty \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE} + (\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\sigma^2 \\
+p^*(\beta~|~y_1,\cdots, y_n) \propto & \int_0^\infty \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE} + (\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\sigma^2 \\
 \propto & \int_0^\infty \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\phi\right)\, d\phi\\
 \propto & \left(\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\right)^{-\frac{(n-2)+1}{2}}\int_0^\infty s^{\frac{n-3}{2}}e^{-s}\, ds
 \end{aligned}
@@ -352,7 +352,7 @@ Here we use another change of variable by setting $\displaystyle s=  \frac{\text
 
 We can rewrite the last line from above to obtain the marginal posterior distribution of $\beta$ to be the Student's $t$-distribution with degrees of freedom $n-2$, center $\hat{\beta}$, and scale parameter $\displaystyle \frac{\hat{\sigma}^2}{\sum_i(x_i-\bar{x})^2}$
 
-$$ \pi^*(\beta~|~y_1,\cdots,y_n) \propto
+$$ p^*(\beta~|~y_1,\cdots,y_n) \propto
  \left[1+\frac{1}{n-2}\frac{(\beta - \hat{\beta})^2}{\frac{\text{SSE}}{n-2}/(\sum_i (x_i-\bar{x})^2)}\right]^{-\frac{(n-2)+1}{2}} = \left[1 + \frac{1}{n-2}\frac{(\beta - \hat{\beta})^2}{\hat{\sigma}^2/(\sum_i (x_i-\bar{x})^2)}\right]^{-\frac{(n-2)+1}{2}},
 $$
 
@@ -366,12 +366,12 @@ $$
 **Marginal Posterior Distribution of $\alpha$**
 
 A similar approach will lead us to the marginal distribution of $\alpha$. We again start from the joint posterior distribution
-$$ \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}-(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right) $$
+$$ p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}-(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right) $$
 
 This time we integrate $\beta$ and $\sigma^2$ out to get the marginal posterior distribution of $\alpha$. We first compute the integral
 $$
 \begin{aligned}
-\pi^*(\alpha, \sigma^2~|~y_1,\cdots, y_n) = & \int_{-\infty}^\infty \pi^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\beta\\
+p^*(\alpha, \sigma^2~|~y_1,\cdots, y_n) = & \int_{-\infty}^\infty p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\beta\\
 = & \int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)\, d\beta 
 \end{aligned}
 $$
@@ -391,7 +391,7 @@ $$ \exp\left(-\frac{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}{2\sigma^2}\left(\beta-\ha
 as part of a normal distribution function, and get
 $$
 \begin{aligned}
-& \pi^*(\alpha, \sigma^2~|~y_1,\cdots,y_n) \\
+& p^*(\alpha, \sigma^2~|~y_1,\cdots,y_n) \\
 \propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2\sigma^2}\right)\\
 & \times\int_{-\infty}^\infty \exp\left(-\frac{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}{2\sigma^2}\left(\beta-\hat{\beta}+\frac{n\bar{x}(\alpha-\hat{\alpha})}{\sum_i (x_i-\bar{x})^2+n\bar{x}^2}\right)^2\right)\, d\beta \\
 \propto & \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2\sigma^2}\right)
@@ -402,8 +402,8 @@ To get the marginal posterior distribution of $\alpha$, we again integrate $\sig
 
 $$
 \begin{aligned}
-& \pi^*(\alpha~|~y_1,\cdots,y_n) \\
-= & \int_0^\infty \pi^*(\alpha, \sigma^2~|~y_1,\cdots, y_n)\, d\sigma^2 \\
+& p^*(\alpha~|~y_1,\cdots,y_n) \\
+= & \int_0^\infty p^*(\alpha, \sigma^2~|~y_1,\cdots, y_n)\, d\sigma^2 \\
 \propto & \int_0^\infty \phi^{(n-3)/2}\exp\left(-\frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2}\phi\right)\, d\phi\\
 \propto & \left(\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})\right)^{-\frac{(n-2)+1}{2}}\int_0^\infty s^{(n-3)/2}e^{-s}\, ds\\
 \propto & \left[1+\frac{1}{n-2}\frac{(\alpha-\hat{\alpha})^2}{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)}\right]^{-\frac{(n-2)+1}{2}} = \left[1 + \frac{1}{n-2}\left(\frac{\alpha-\hat{\alpha}}{\text{sd}_{\hat{\alpha}}}\right)^2\right]^{-\frac{(n-2)+1}{2}}
@@ -417,25 +417,25 @@ This shows that the marginal posterior distribution of $\alpha$ also follows a S
 To show that the marginal posterior distribution of $\sigma^2$ follows the inverse Gamma distribution, we only need to show the precision $\displaystyle \phi = \frac{1}{\sigma^2}$ follows a Gamma distribution. 
 
 We have shown in Week 3 that taking the prior distribution of $\sigma^2$ proportional to $\displaystyle \frac{1}{\sigma^2}$ is equivalent to taking the prior distribution of $\phi$ proportional to $\displaystyle \frac{1}{\phi}$
-$$ \pi(\sigma^2) \propto \frac{1}{\sigma^2}\qquad \Longrightarrow \qquad \pi(\phi)\propto \frac{1}{\phi} $$
+$$ p(\sigma^2) \propto \frac{1}{\sigma^2}\qquad \Longrightarrow \qquad p(\phi)\propto \frac{1}{\phi} $$
 
 Therefore, under the parameters $\alpha$, $\beta$, and the precision $\phi$, we have the joint prior distribution as
-$$ \pi(\alpha, \beta, \phi) \propto \frac{1}{\phi} $$
+$$ p(\alpha, \beta, \phi) \propto \frac{1}{\phi} $$
 and the joint posterior distribution as
 $$ 
-\pi^*(\alpha, \beta, \phi~|~y_1,\cdots,y_n) \propto \phi^{\frac{n}{2}-1}\exp\left(-\frac{\sum_i(y_i-\alpha-\beta x_i)}{2}\phi\right) 
+p^*(\alpha, \beta, \phi~|~y_1,\cdots,y_n) \propto \phi^{\frac{n}{2}-1}\exp\left(-\frac{\sum_i(y_i-\alpha-\beta x_i)}{2}\phi\right) 
 $$
 
 
 Using the partial results we have calculated previously, we get
 $$
-\pi^*(\beta, \phi~|~y_1,\cdots,y_n) = \int_{-\infty}^\infty \pi^*(\alpha, \beta, \phi~|~y_1,\cdots,y_n)\, d\alpha \propto \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2}\phi\right) 
+p^*(\beta, \phi~|~y_1,\cdots,y_n) = \int_{-\infty}^\infty p^*(\alpha, \beta, \phi~|~y_1,\cdots,y_n)\, d\alpha \propto \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2}\phi\right) 
 $$
 
 Intergrating over $\beta$, we finally have
 $$
 \begin{aligned}
-& \pi^*(\phi~|~y_1,\cdots,y_n) \\
+& p^*(\phi~|~y_1,\cdots,y_n) \\
 \propto & \int_{-\infty}^\infty \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2}\phi\right)\, d\beta\\
 = & \phi^{\frac{n-3}{2}}\exp\left(-\frac{\text{SSE}}{2}\phi\right)\int_{-\infty}^\infty \exp\left(-\frac{(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\phi\right)\, d\beta\\
 \propto & \phi^{\frac{n-4}{2}}\exp\left(-\frac{\text{SSE}}{2}\phi\right) = \phi^{\frac{n-2}{2}-1}\exp\left(-\frac{\text{SSE}}{2}\phi\right).

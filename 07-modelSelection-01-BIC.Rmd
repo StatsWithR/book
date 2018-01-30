@@ -90,9 +90,9 @@ From the indicator vector `bestgamma` we see that only the intercept (indexed as
 The best BIC model can be set up as follows:
 $$ \text{score}_i = \beta_0 + \beta_1(\text{hs}_i - \bar{\text{hs}})+\beta_2(\text{IQ}_i-\bar{\text{IQ}})+\epsilon_i, $$
 where $\bar{\text{hs}}$ and $\bar{\text{IQ}}$ are the centers of the `hs` and `IQ` variables respectively. It is common to apply the reference prior again, and to compare with the results that we have obtained previously for the full model. In this case, the mean of $\beta_0$ we obtain later will be the mean of the kid's cognitive scores, or $\bar{\text{score}}$. Here we assume the joint prior of $\beta_0,\ \beta_1,\ \beta_2$ is
-$$ \pi(\beta_0,\beta_1,\beta_2~|~\sigma^2) \propto 1, $$
+$$ p(\beta_0,\beta_1,\beta_2~|~\sigma^2) \propto 1, $$
 and using the hierachical model, the prior of $\sigma^2$ is set to be
-$$ \pi(\sigma^2)\propto \frac{1}{\sigma^2}. $$
+$$ p(\sigma^2)\propto \frac{1}{\sigma^2}. $$
 
 Under this reference prior, BIC is proportional to the log-marginal likelihood, and therefore, we can use argument `prior = BIC` in the `bas.lm` function to obtain the statistics of these coefficients, when we impose the model in the `bas.lm` function to use only the variables shown in the best model.
 ```{r coefficients}
