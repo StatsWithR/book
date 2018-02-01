@@ -93,7 +93,8 @@ Item          | Description
 All top 5 models suggest to exclude `age` variable and include `IQ` variable. The top 1 model includes intercept and only `hs` and `IQ`, with a posterior probability of about 0.529. The top 2 model, which includes only the intercept and the variable `IQ`, has posterior probability of about 0.293. These two models compose of posterior probability of about 0.83, leaving only 0.17 posterior probability to the remaining 14 models. 
 
 Using the `print` method, we obtain the marginal posterior inclusion probabilities of each variable.
-```[r print-pip}
+
+```{r print-pip}
 print(cog_bas)
 ```
 
