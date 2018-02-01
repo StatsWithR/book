@@ -58,7 +58,7 @@ Furthermore, we can check the normal probability plot of the residuals for the a
 plot(bodyfat.lm, which = 2)
 ```
 
-The confidence interval of $\alpha$ and $\beta$ can be constructed using the standard errors $\text{se}_{\hat{\alpha}}$ and $\text{se_{\hat{\beta}}$ respectively. To proceed, we introduce notations of some "sums of squares"
+The confidence interval of $\alpha$ and $\beta$ can be constructed using the standard errors $\text{se}_{\hat{\alpha}}$ and $\text{se}_{\hat{\beta}}$ respectively. To proceed, we introduce notations of some "sums of squares"
 $$
 \begin{aligned}
 \text{S}_{xx} = & \sum_i^n (x_i-\bar{x})^2\\
