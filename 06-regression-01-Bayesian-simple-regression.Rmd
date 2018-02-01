@@ -1,58 +1,64 @@
 ## Bayesian Simple Linear Regression
 
-In this section, we turn to Bayesian inference in simple linear regression. We will use reference prior distribution which will provide a connection between the frequentist solution and Bayesian answers. This provides a baseline analysis for comparions with more informative prior distributions. To illustrate the ideas, we will use an example of predicting body fat. 
+In this section, we will turn to Bayesian inference in simple linear regressions. We will use the reference prior distribution on coefficients, which will provide a connection between the frequentist solutions and Bayesian answers. This provides a baseline analysis for comparions with more informative prior distributions. To illustrate the ideas, we will use an example of predicting body fat. 
 
-### Frequentist Ordinary Least Square Simple Linear Regression
+### Frequentist Ordinary Least Square (OLS) Simple Linear Regression
 
-Obtaining accurate measurements of body fat is expensive and not easy to be done. Instaed, predictive models which predict the percentage of body fat using readily available measurements such as abdominal circumference are easy to use and inexpensive. We will illustrate this using the `bodyfat` data from the library `BAS`. 
+Obtaining accurate measurements of body fat is expensive and not easy to be done. Instead, predictive models that predict the percentage of body fat which use readily available measurements such as abdominal circumference are easy to use and inexpensive. We will apply a simple linear regression to predict body fat using abdominal circumference as an example to illustrate the Bayesian approach of linear regression. The data set `bodyfat` can be found from the library `BAS`. 
 
-To start, we load the `BAS` library (you may download the package from CRAN) to access the dataframe. We print out a summary of the variables in this dataframe.
+To start, we load the `BAS` library (which can be downloaded from CRAN) to access the dataframe. We print out a summary of the variables in this dataframe.
 
-```{r load-package-data, warning=FALSE, message=FALSE}
-# Suppress warning messages
+```{r load-data, warning=FALSE, message=FALSE}
 library(BAS)
 data(bodyfat)
 summary(bodyfat)
 ```
 
-This dataframe includes 252 measurements on men of body fat and other measurements, such as waist circumference (`Abdomen`). We will use `Abdomen` to illustrate Bayesian simple linear regression. We regress the response variable `Bodyfat` on the predictor `Abdomen`, which gives us the model
-$$ y_i = \alpha + \beta x_i + \epsilon_i, $$
-which the assumption that the errors $\epsilon_i$ are independent and identically distributed as normal random variables with mean zero and constant variance $\sigma^2$. 
+This dataframe includes 252 observations of men's body fat and other measurements, such as waist circumference (`Abdomen`). We will construct a Bayesian model of simple linear regression, which uses `Abdomen` to predict the response variable `Bodyfat`. Let $y_i,\ i=1,\cdots, 252$ denote the measurements of the response variable `Bodyfat`, and let $x_i$ be the waist circumference measurements `Abdomen`. We regress `Bodyfat` on the predictor `Abdomen`. This regression model can be formulated as
+$$ y_i = \alpha + \beta x_i + \epsilon_i, \quad i = 1,\cdots, 252.$$
+Here, we assume error $\epsilon_i$ is independent and identically distributed as normal random variables with mean zero and constant variance $\sigma^2$:
+$$ \epsilon_i \iid \No(0, \sigma^2). $$
 
-The figure below shows the percentage body fat obtained from under water weighing and the abdominal circumference for 252 men. To predict body fat, the line overlayed on the scatter plot illustrates the best fitting ordinary least squares line obtained with the `lm` function in R.
+The figure below shows the percentage body fat obtained from under water weighing and the abdominal circumference measurements for 252 men. To predict body fat, the line overlayed on the scatter plot illustrates the best fitting ordinary least squares (OLS) line obtained with the `lm` function in R.
 
-```{r message = F}
-plot(Bodyfat ~ Abdomen, data = bodyfat, 
-     xlab = "abdomen circumference (cm)", 
-     col = "blue", pch = 16, main = "")
-
-# Ordinary least square linear regression
+```{r message = F,out.width = '70%', fig.align = "center"}
+# Frequentist OLS linear regression
 bodyfat.lm = lm(Bodyfat ~ Abdomen, data = bodyfat)
 summary(bodyfat.lm)
+
+# Extract coefficients
 beta = coef(bodyfat.lm)
-abline(beta, lwd = 4, col = 1)
+
+# Visualize regression line on the scatter plot
+library(ggplot2)
+ggplot(data = bodyfat, aes(x = Abdomen, y = Bodyfat)) +
+  geom_point(color = "blue") +
+  geom_abline(intercept = beta[1], slope = beta[2], size = 1) +
+  xlab("abdomen circumference (cm)") 
 ```
 
-From the summary, we see that this model has an estimated slope, $\hat{\beta}$, of 0.63 and an estimated intercept, $\hat{\alpha}$, of about -39.28%. For every additional centimeter, we expect body fat to increase by 0.63%. The negative interceptive course does not make sense as a physical model, but neither does predicting a male with a waist of zero centimeters. Nevertheless, this linear regression may be an accurate approximation for prediction purposes for measurements that are in the observed range for this population. 
+From the summary, we see that this model has an estimated slope, $\hat{\beta}$, of `r round(beta[2], 2)` and an estimated $y$-intercept, $\hat{\alpha}$, of about `r round(beta[1], 2)`%. This gives us the prediction formula 
+$$ \widehat{\text{Bodyfat}} = -39.28 + 0.63\text{Abdomen}. $$
+For every additional centimeter, we expect body fat to increase by `r round(beta[2], 2)`%. The negative $y$-intercept of course does not make sense as a physical model, but neither does predicting a male with a waist of zero centimeter. Nevertheless, this linear regression may be an accurate approximation for prediction purpose for measurements that are in the observed range for this population. 
 
-The residuals, which provide an estimate of the fitting error, are equal to $\hat{\epsilon}_i = Y_i - \hat{Y}_i$, the difference between the observed values $Y_i$ and the fited values $\hat{Y}_i = \hat{\alpha} + \hat{\beta}X_i$, where $X_i$ is the abdominal circumference for the $i$th male. $\hat{\epsilon}_i$ are used for diagnostics as well as estimating the constant variance in the assumption of the model $\sigma^2$ via the mean squared error (MSE):
+Each of the residuals, which provide an estimate of the fitting error, is equal to $\hat{\epsilon}_i = y_i - \hat{y}_i$, the difference between the observed value $y_i$ and the fited value $\hat{y}_i = \hat{\alpha} + \hat{\beta}x_i$, where $x_i$ is the abdominal circumference for the $i$th male. $\hat{\epsilon}_i$ is used for diagnostics as well as estimating the constant variance in the assumption of the model $\sigma^2$ via the mean squared error (MSE):
 $$ \hat{\sigma}^2 = \frac{1}{n-2}\sum_i^n (y_i-\hat{y}_i)^2 = \frac{1}{n-2}\sum_i^n \hat{\epsilon}_i^2. $$
 Here the degrees of freedom $n-2$ are the number of observations adjusted for the number of parameters that we estimated in the regression. The MSE, $\hat{\sigma}^2$, may be obtained from the output as the square of the entry labeled "residual standard error".
 
-Since residuals and fitted values are uncorrelated with the expected value of the residuals equal to zero if the model is correct, the scatterplot of residuals versus fitted values provides an additional visual check of the model adequacy.
-```{r}
-plot(residuals(bodyfat.lm) ~ fitted(bodyfat.lm))
+If this model is correct, the residuals and fitted values should be uncorrelated, and the expected value of the residuals is zero. We apply the scatterplot of residuals versus fitted values, which provides an additional visual check of the model adequacy.
+```{r out.width= "70%", fig.align= "center"}
+plot(residuals(bodyfat.lm) ~ fitted(bodyfat.lm), xlab = "fitted values", ylab = "residuals")
 abline(h = 0)
 ```
 
-With the exception of the one observation for the individual with the largest waist measurement, the residual plot suggests that the linear regression is a reasonable approximation.
+With the exception of the one observation for the individual with the largest waist measurement, the residual plot suggests that this linear regression is a reasonable approximation.
 
-Furthermore, we can check the normal probability plot of the residuals for the assumption of normally distributed errors. We see that only observation 39 is exceptionally away from the normal quantile. 
-```{r}
+Furthermore, we can check the normal probability plot of the residuals for the assumption of normally distributed errors. We see that only Case 39 is exceptionally away from the normal quantile. 
+```{r out.width="70%", fig.align="center"}
 plot(bodyfat.lm, which = 2)
 ```
 
-The confidence interval of $\alpha$ and $\beta$ can be constructed using the standard errors $\text{sd}_{\hat{\alpha}}$ and $\text{sd}_{\hat{\beta}}$ respectively. To proceed, we introduce notations of some "sums of squares"
+The confidence interval of $\alpha$ and $\beta$ can be constructed using the standard errors $\text{se}_{\hat{\alpha}}$ and $\text{se_{\hat{\beta}}$ respectively. To proceed, we introduce notations of some "sums of squares"
 $$
 \begin{aligned}
 \text{S}_{xx} = & \sum_i^n (x_i-\bar{x})^2\\
@@ -70,17 +76,17 @@ $$
 \hat{\sigma}^2 = \frac{\text{SSE}}{n-2} = \text{MSE}
 $$
 
-$\text{sd}_{\hat{\alpha}}$ and $\text{sd}_{\hat{\beta}}$ are given as
+$\text{se}_{\hat{\alpha}}$ and $\text{se}_{\hat{\beta}}$ are given as
 $$ 
 \begin{aligned}
-\text{sd}_{\hat{\alpha}} = &  \sqrt{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)} = \hat{\sigma}\sqrt{\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}}\\
-\text{sd}_{\hat{\beta}} = & \sqrt{\frac{\text{SSE}}{n-2}\frac{1}{\text{S}_xx}} = \frac{\hat{\sigma}}{\sqrt{\text{S}_{xx}}}
+\text{se}_{\hat{\alpha}} = &  \sqrt{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)} = \hat{\sigma}\sqrt{\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}},\\
+\text{se}_{\hat{\beta}} = & \sqrt{\frac{\text{SSE}}{n-2}\frac{1}{\text{S}_xx}} = \frac{\hat{\sigma}}{\sqrt{\text{S}_{xx}}}.
 \end{aligned}
 $$
 
 We may construct the confidence intervals of $\alpha$ and $\beta$ using the $t$-statistics
 $$ 
-t_\alpha^\ast = \frac{\alpha - \hat{\alpha}}{\text{sd}_{\hat{\alpha}}},\qquad t_\beta^\ast = \frac{\beta-\hat{\beta}}{\text{sd}_{\hat{\beta}}} 
+t_\alpha^\ast = \frac{\alpha - \hat{\alpha}}{\text{se}_{\hat{\alpha}}},\qquad t_\beta^\ast = \frac{\beta-\hat{\beta}}{\text{se}_{\hat{\beta}}}.
 $$
 
 They both have degrees of freedom $n-2$.
