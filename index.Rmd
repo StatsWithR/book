@@ -20,7 +20,7 @@ github-repo: StatsWithR/book
 \newcommand{\data}{\text{data}}
 \newcommand{\iid}{\mathrel{\mathop{\sim}\limits^{\rm iid}}}
 \newcommand{\Ca}{\textsf{C}}
-\newcommand{\Be}{\bf{\beta}}
+\newcommand{\BoldB}{\boldsymbol{\beta}}
 
 ```{r code, warning=FALSE, message=FALSE, echo=FALSE, results='hide'}
 # If you are using any R packages, please add it here AND

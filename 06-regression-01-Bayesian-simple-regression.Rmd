@@ -8,13 +8,17 @@ Obtaining accurate measurements of body fat is expensive and not easy to be done
 
 To start, we load the `BAS` library (which can be downloaded from CRAN) to access the dataframe. We print out a summary of the variables in this dataframe.
 
+\indent
+
 ```{r load-data, warning=FALSE, message=FALSE}
 library(BAS)
 data(bodyfat)
 summary(bodyfat)
 ```
 
-This dataframe includes 252 observations of men's body fat and other measurements, such as waist circumference (`Abdomen`). We will construct a Bayesian model of simple linear regression, which uses `Abdomen` to predict the response variable `Bodyfat`. Let $y_i,\ i=1,\cdots, 252$ denote the measurements of the response variable `Bodyfat`, and let $x_i$ be the waist circumference measurements `Abdomen`. We regress `Bodyfat` on the predictor `Abdomen`. This regression model can be formulated as
+</br>
+
+This data frame includes 252 observations of men's body fat and other measurements, such as waist circumference (`Abdomen`). We will construct a Bayesian model of simple linear regression, which uses `Abdomen` to predict the response variable `Bodyfat`. Let $y_i,\ i=1,\cdots, 252$ denote the measurements of the response variable `Bodyfat`, and let $x_i$ be the waist circumference measurements `Abdomen`. We regress `Bodyfat` on the predictor `Abdomen`. This regression model can be formulated as
 $$ y_i = \alpha + \beta x_i + \epsilon_i, \quad i = 1,\cdots, 252.$$
 Here, we assume error $\epsilon_i$ is independent and identically distributed as normal random variables with mean zero and constant variance $\sigma^2$:
 $$ \epsilon_i \iid \No(0, \sigma^2). $$
@@ -38,25 +42,61 @@ ggplot(data = bodyfat, aes(x = Abdomen, y = Bodyfat)) +
 ```
 
 From the summary, we see that this model has an estimated slope, $\hat{\beta}$, of `r round(beta[2], 2)` and an estimated $y$-intercept, $\hat{\alpha}$, of about `r round(beta[1], 2)`%. This gives us the prediction formula 
-$$ \widehat{\text{Bodyfat}} = -39.28 + 0.63\text{Abdomen}. $$
+$$ \widehat{\text{Bodyfat}} = -39.28 + 0.63\times\text{Abdomen}. $$
 For every additional centimeter, we expect body fat to increase by `r round(beta[2], 2)`%. The negative $y$-intercept of course does not make sense as a physical model, but neither does predicting a male with a waist of zero centimeter. Nevertheless, this linear regression may be an accurate approximation for prediction purpose for measurements that are in the observed range for this population. 
 
 Each of the residuals, which provide an estimate of the fitting error, is equal to $\hat{\epsilon}_i = y_i - \hat{y}_i$, the difference between the observed value $y_i$ and the fited value $\hat{y}_i = \hat{\alpha} + \hat{\beta}x_i$, where $x_i$ is the abdominal circumference for the $i$th male. $\hat{\epsilon}_i$ is used for diagnostics as well as estimating the constant variance in the assumption of the model $\sigma^2$ via the mean squared error (MSE):
 $$ \hat{\sigma}^2 = \frac{1}{n-2}\sum_i^n (y_i-\hat{y}_i)^2 = \frac{1}{n-2}\sum_i^n \hat{\epsilon}_i^2. $$
-Here the degrees of freedom $n-2$ are the number of observations adjusted for the number of parameters that we estimated in the regression. The MSE, $\hat{\sigma}^2$, may be obtained from the output as the square of the entry labeled "residual standard error".
+Here the degrees of freedom $n-2$ are the number of observations adjusted for the number of parameters (which is 2) that we estimated in the regression. The MSE, $\hat{\sigma}^2$, may be calculated through squaring the residuals of the output of `bodyfat.lm`.
 
-If this model is correct, the residuals and fitted values should be uncorrelated, and the expected value of the residuals is zero. We apply the scatterplot of residuals versus fitted values, which provides an additional visual check of the model adequacy.
-```{r out.width= "70%", fig.align= "center"}
-plot(residuals(bodyfat.lm) ~ fitted(bodyfat.lm), xlab = "fitted values", ylab = "residuals")
-abline(h = 0)
+
+```{r MSE}
+# Obtain residuals and n
+resid = residuals(bodyfat.lm)
+n = length(resid)
+
+# Calculate MSE
+MSE = 1/ (n - 2) * sum((resid ^ 2))
+MSE
 ```
 
-With the exception of the one observation for the individual with the largest waist measurement, the residual plot suggests that this linear regression is a reasonable approximation.
 
-Furthermore, we can check the normal probability plot of the residuals for the assumption of normally distributed errors. We see that only Case 39 is exceptionally away from the normal quantile. 
+If this model is correct, the residuals and fitted values should be uncorrelated, and the expected value of the residuals is zero. We apply the scatterplot of residuals versus fitted values, which provides an additional visual check of the model adequacy.
+
+```{r out.width= "70%", fig.align= "center"}
+# Combine residuals and fitted values into a data frame
+result = data.frame(fitted_values = fitted.values(bodyfat.lm),
+                    residuals = residuals(bodyfat.lm))
+
+# Load library and plot residuals versus fitted values
+library(ggplot2)
+ggplot(data = result, aes(x = fitted_values, y = residuals)) +
+  geom_point(pch = 1, size = 2) + 
+  geom_abline(intercept = 0, slope = 0) + 
+  xlab(expression(paste("fitted value ", widehat(Bodyfat)))) + 
+  ylab("residuals")
+
+# Readers may also use `plot` function
+```
+
+With the exception of one observation for the individual with the largest fitted value, the residual plot suggests that this linear regression is a reasonable approximation. The case number of the observation with the largest fitted value can be obtained using the `which` function in R. Further examination of the data frame shows that this case also has the largest waist measurement `Abdomen`. This may be our potential outlier and we will have more discussion on outlier in Section \@ref(sec:Checking-outliers).
+
+```{r outlier}
+# Find the observation with the largest fitted value
+which.max(as.vector(fitted.values(bodyfat.lm)))
+
+# Shows this observation has the largest Abdomen
+which.max(bodyfat$Abdomen)
+```
+
+Furthermore, we can check the normal probability plot of the residuals for the assumption of normally distributed errors. We see that only Case 39, the one with the largest waist measurement, is exceptionally away from the normal quantile. 
+
+
 ```{r out.width="70%", fig.align="center"}
 plot(bodyfat.lm, which = 2)
 ```
+
+
 
 The confidence interval of $\alpha$ and $\beta$ can be constructed using the standard errors $\text{se}_{\hat{\alpha}}$ and $\text{se}_{\hat{\beta}}$ respectively. To proceed, we introduce notations of some "sums of squares"
 $$
@@ -68,25 +108,25 @@ $$
 \end{aligned}
 $$
 
-$\hat{\alpha}$ and $\hat{\beta}$ can be calculated using these "sums of squares"
-$$ \hat{\beta} = \frac{\sum_i (x_i-\bar{x})(y_i-\bar{y})}{\sum_i (x_i-\bar{x})^2} = \frac{\text{S}_{xy}}{\text{S}_{xx}},\qquad \hat{\alpha} = \bar{y} - \hat{\beta}\bar{x} = \bar{y}-\frac{\text{S}_{xy}}{\text{S}_{xx}}\bar{x} $$
+The estimates of the $y$-intercept $\alpha$, and the slope $\beta$, which are denoted as $\hat{\alpha}$ and $\hat{\beta}$ respectively, can be calculated using these "sums of squares"
+$$ \hat{\beta} = \frac{\sum_i (x_i-\bar{x})(y_i-\bar{y})}{\sum_i (x_i-\bar{x})^2} = \frac{\text{S}_{xy}}{\text{S}_{xx}},\qquad \qquad \hat{\alpha} = \bar{y} - \hat{\beta}\bar{x} = \bar{y}-\frac{\text{S}_{xy}}{\text{S}_{xx}}\bar{x}. $$
 
-The last "sum of square" is the *sum of squars of errors*. Its sample mean is exactly the mean squared error (MSE) we introduced previously
+The last "sum of square" is the *sum of squars of errors* (SSE). Its sample mean is exactly the mean squared error (MSE) we introduced previously
 $$
-\hat{\sigma}^2 = \frac{\text{SSE}}{n-2} = \text{MSE}
+\hat{\sigma}^2 = \frac{\text{SSE}}{n-2} = \text{MSE}.
 $$
 
-$\text{se}_{\hat{\alpha}}$ and $\text{se}_{\hat{\beta}}$ are given as
+The standard errors, $\text{se}_{\hat{\alpha}}$ and $\text{se}_{\hat{\beta}}$, are given as
 $$ 
 \begin{aligned}
 \text{se}_{\hat{\alpha}} = &  \sqrt{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)} = \hat{\sigma}\sqrt{\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}},\\
-\text{se}_{\hat{\beta}} = & \sqrt{\frac{\text{SSE}}{n-2}\frac{1}{\text{S}_xx}} = \frac{\hat{\sigma}}{\sqrt{\text{S}_{xx}}}.
+\text{se}_{\hat{\beta}} = & \sqrt{\frac{\text{SSE}}{n-2}\frac{1}{\text{S}_{xx}}} = \frac{\hat{\sigma}}{\sqrt{\text{S}_{xx}}}.
 \end{aligned}
 $$
 
 We may construct the confidence intervals of $\alpha$ and $\beta$ using the $t$-statistics
 $$ 
-t_\alpha^\ast = \frac{\alpha - \hat{\alpha}}{\text{se}_{\hat{\alpha}}},\qquad t_\beta^\ast = \frac{\beta-\hat{\beta}}{\text{se}_{\hat{\beta}}}.
+t_\alpha^\ast = \frac{\alpha - \hat{\alpha}}{\text{se}_{\hat{\alpha}}},\qquad \qquad t_\beta^\ast = \frac{\beta-\hat{\beta}}{\text{se}_{\hat{\beta}}}.
 $$
 
 They both have degrees of freedom $n-2$.
@@ -94,26 +134,37 @@ They both have degrees of freedom $n-2$.
 
 ### Bayesian Simple Linear Regression Using Reference Prior
 
-Let us now turn to the Bayesian version and show how to obtain the posterior distributions of $\alpha$ and $\beta$ under the reference prior. 
+Let us now turn to the Bayesian version and show that under the reference prior, we will obtain the posterior distributions of $\alpha$ and $\beta$ analogous with the frequentist OLS results.
 
 The Bayesian model starts with the same model as the classical frequentist approach:
-$$ y_i = \alpha + \beta x_i + \epsilon_i, $$
+$$ y_i = \alpha + \beta x_i + \epsilon_i,\quad i = 1,\cdots, n. $$
 with the assumption that the errors, $\epsilon_i$, are independent and identically distributed as normal random variables with mean zero and constant variance $\sigma^2$. This assumption is exactly the same as the classical inference for testing and constructing confidence intervals for $\alpha$ and $\beta$. 
 
-Our goal is to update the distributions of the unknown parameters $\alpha$, $\beta$, and $\sigma^2$, based on the data $x_1, y_1, \cdots, x_n, y_n$, where $n$ is the number of observations. 
 
-Under the assumption that the errors $\epsilon_i$ are normally distributed with constant variance $\sigma^2$, we have for each response $y_i$, conditioning on the observed data $x_i$ and the parameters $\alpha,\ \beta,\ \sigma^2$, is normally distributed: 
-$$ y_i~|~x_i, \alpha, \beta,\sigma^2 \sim \mathcal{N}(\alpha + \beta x_i, \sigma^2),\qquad i = 1,\cdots, n. $$
-That is, the likelihood of $y_i$ given $x_i, \alpha, \beta$, and $\sigma^2$ is
+Our goal is to update the distributions of the unknown parameters $\alpha$, $\beta$, and $\sigma^2$, based on the data $x_1, y_1, \cdots, x_n, y_n$, where $n$ is the number of observations.   
+
+
+Under the assumption that the errors $\epsilon_i$ are normally distributed with constant variance $\sigma^2$, we have for the random variable of each response $Y_i$, conditioning on the observed data $x_i$ and the parameters $\alpha,\ \beta,\ \sigma^2$, is normally distributed: 
+$$ Y_i~|~x_i, \alpha, \beta,\sigma^2~ \sim~ \No(\alpha + \beta x_i, \sigma^2),\qquad i = 1,\cdots, n. $$
+
+That is, the likelihood of each $Y_i$ given $x_i, \alpha, \beta$, and $\sigma^2$ is given by
 $$ p(y_i~|~x_i, \alpha, \beta, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y_i-(\alpha+\beta  x_i))^2}{2\sigma^2}\right). $$
 
-We will first consider the standard noninformative prior (reference prior). Using the reference prior, we will obtain familiar distributions as the posterior distributions of $\alpha$, $\beta$, and $\sigma^2$, which gives the analogue to the frequentist results. Here we assume 
-$$ p(\alpha, \beta, \sigma^2)\propto \frac{1}{\sigma^2}. $$
-Using the hierachical model framework, we may equivalently assume that the joint prior distribution of $\alpha$ and $\beta$ under $\sigma^2$ is the uniform prior, while the prior distribution of $\sigma^2$ is proportional to $\displaystyle \frac{1}{\sigma^2}$. That is
-$$ p(\alpha, \beta~|~\sigma^2) \propto 1, \qquad p(\sigma^2) \propto \frac{1}{\sigma^2}, $$
-Combining the two using conditional probability, we will get the same joint prior distribution. 
+The likelihood of $Y_1,\cdots,Y_n$ is the product of each likelihood $p(y_i~|~x_i, \alpha, \beta,\ sigma^2$, since we assume each response $Y_i$ is independent from each other. Since this likelihood depends on the values of $\alpha$, $\beta$, and $\sigma^2$, it is sometimes denoted as a function of $\alpha$, $\beta$, and $\sigma^2$: $\mathcal{L}(\alpha, \beta, \sigma^2)$. 
 
-Then we apply the Bayes' rule to derive the posterior joint distribution after observing $y_1,\cdots, y_n$: 
+
+We first consider the case under the reference prior, which is our standard noninformative prior. Using the reference prior, we will obtain familiar distributions as the posterior distributions of $\alpha$, $\beta$, and $\sigma^2$, which gives the analogue to the frequentist results. Here we assume the joint prior distribution of $\alpha,\ \beta$, and $\sigma^2$ to be proportional to the inverse of $\sigma^2$
+
+\begin{equation} 
+p(\alpha, \beta, \sigma^2)\propto \frac{1}{\sigma^2}.
+(\#eq:joint-prior)
+\end{equation}
+
+Using the hierachical model framework, this is equivalent to assuming that the joint prior distribution of $\alpha$ and $\beta$ under $\sigma^2$ is the uniform prior, while the prior distribution of $\sigma^2$ is proportional to $\displaystyle \frac{1}{\sigma^2}$. That is
+$$ p(\alpha, \beta~|~\sigma^2) \propto 1, \qquad\qquad p(\sigma^2) \propto \frac{1}{\sigma^2}, $$
+Combining the two using conditional probability, we will get the same joint prior distribution \@ref(eq:joint-prior).
+
+Then we apply the Bayes' rule to derive the joint posterior distribution after observing data $y_1,\cdots, y_n$. Bayes' rule states that the joint posterior distribution of $\alpha$, $\beta$, and $\sigma^2$ is proportional to the product of the likelihood and the joint prior distribution: 
 $$
 \begin{aligned}
 p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto & \left[\prod_i^n p(y_i~|~x_i,\alpha,\beta,\sigma^2)\right]p(\alpha, \beta,\sigma^2) \\
@@ -123,26 +174,25 @@ p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto & \left[\prod_i^n p(y_i~|~
 \end{aligned}
 $$
 
-For example, to obtain the marginal distribution of $\beta$, the slope of the linear regression model, we integrate $\alpha$ and $\sigma^2$ out:
+To obtain the marginal posterior distribution of $\beta$,  we need to integrate $\alpha$ and $\sigma^2$ out from the joint posterior distribution
 $$ p^*(\beta~|~y_1,\cdots,y_n) = \int_0^\infty \left(\int_{-\infty}^\infty p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\right)\, d\sigma^2. $$
 
-It can be shown that the marginal posterior distribution of $\beta$ is the Student's $t$-distribution
-$$ \beta~|~y_1,\cdots,y_n \sim t_{n-2}\left(\hat{\beta}, \frac{\hat{\sigma}^2}{\text{S}_{xx}}\right) = t_{n-2}\left(\hat{\beta}, (\text{sd}_{\hat{\beta}})^2\right) $$
-with degrees of freedom $n-2$, center at $\hat{\beta}$, the coefficient we obtain from the frequentist OLS model, and scale parameter $\displaystyle \frac{\hat{\sigma}^2}{\text{S}_{xx}}=\left(\text{sd}_{\hat{\beta}}\right)^2$, which is the square of the standard error of $\hat{\beta}$ under the frequentist OLS model.
+We leave the detialed calculation in Section \@ref(sec:deviations). It can be shown that the marginal posterior distribution of $\beta$ is the Student's $t$-distribution
+$$ \beta~|~y_1,\cdots,y_n \sim \St\left(n-2,\ \hat{\beta},\ \frac{\hat{\sigma}^2}{\text{S}_{xx}}\right) = \St\left(n-2,\  \hat{\beta},\ (\text{se}_{\hat{\beta}})^2\right), $$
+with degrees of freedom $n-2$, center at $\hat{\beta}$, the slope estimate we obtained from the frequentist OLS model, and scale parameter $\displaystyle \frac{\hat{\sigma}^2}{\text{S}_{xx}}=\left(\text{se}_{\hat{\beta}}\right)^2$, which is the square of the standard error of $\hat{\beta}$ under the frequentist OLS model.
 
-Similarly, we can integrate out $\beta$ and $\sigma^2$ from the joint posterior distribution to get the marginal posterior distribution of $\alpha$, $p^*(\alpha~|~y_1,\cdots, y_n)$. It turns out that $p^*(\alpha~|~y_1,\cdots,y_n)$ is again the Student's $t$-distribution with degrees of freedom $n-2$, center at $\hat{\alpha}$, the $y$-intercept from the frequentist OLS model, and scale parameter $\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right) = \left(\text{sd}_{\hat{\alpha}}\right)^2$, which is the square of the standard error of $\hat{\alpha}$ under the frequentist OLS model.
+Similarly, we can integrate out $\beta$ and $\sigma^2$ from the joint posterior distribution to get the marginal posterior distribution of $\alpha$, $p^*(\alpha~|~y_1,\cdots, y_n)$. It turns out that $p^*(\alpha~|~y_1,\cdots,y_n)$ is again a Student's $t$-distribution with degrees of freedom $n-2$, center at $\hat{\alpha}$, the $y$-intercept estimate from the frequentist OLS model, and scale parameter $\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right) = \left(\text{se}_{\hat{\alpha}}\right)^2$, which is the square of the standard error of $\hat{\alpha}$ under the frequentist OLS model.
 
 
-Moreover, we can show that the marginal posterior distribution of $\sigma^2$ is the inverse Gamma distribution
-$$ \sigma^2~|~y_1,\cdots,y_n \sim \text{IG}\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
+Finally, we can show that the marginal posterior distribution of $\sigma^2$ is the inverse Gamma distribution, or equivalently, the reciprocal of $\sigma^2$, which is the precision $\phi$, follows the Gamme distribution
+$$ \phi = \frac{1}{\sigma^2}~|~y_1,\cdots,y_n \sim \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
 
-We provide the detailed derivations in Section \@ref(sec:derivations).
 
-**Credible Intervals for the Slope $\beta$ and the Intercept $\alpha$ **
+**Credible Intervals for Slope $\beta$ and $y$-Intercept $\alpha$ **
 
-The Bayesian posterior distribution results of $\alpha$ and $\beta$ show that under the reference prior, the posterior credible intervals are in fact numerically equivalent to the confidence intervals from the classical frequentist analysis, providing a baseline for other Bayesian analyses with more informative prior distributions or perhaps other "objective" prior distributions, such as a Student's $t$ prior with 1 degree of freedome which is known as the Cauchy distribution.
+The Bayesian posterior distribution results of $\alpha$ and $\beta$ show that under the reference prior, the posterior credible intervals are in fact **numerically equivalent** to the confidence intervals from the classical frequentist OLS analysis. This provides a baseline analysis for other Bayesian analyses with other informative prior distributions or perhaps other "objective" prior distributions, such as the Cauchy distribution. (Cauchy distribution is the Student's $t$ prior with 1 degree of freedom.)
 
-We can use the `lm` function to obtain the OLS estimates and construct the credible intervals of $\alpha$ and $\beta$
+Since the credible intervals are numerically the same as the confidence intervals, We can use the `lm` function to obtain the OLS estimates and construct the credible intervals of $\alpha$ and $\beta$
 
 ```{r summary-mean-std}
 output = summary(bodyfat.lm)$coef[, 1:2]
@@ -150,32 +200,37 @@ output
 ```
 
 
-The columns labeled `Estimate` and `Std. Error` are equivalent to the centers (or posterior means) and scale parameters (or standard deviations) in the two $t$-distributions respetively. The credible intervals of $\alpha$ and $\beta$ are the same as the frequentist ocnfidence intervals, but we now can interpret them from a Bayesian perspective. 
+The columns labeled `Estimate` and `Std. Error` are equivalent to the centers (or posterior means) and scale parameters (or standard deviations) in the two Student's $t$-distributions respectively. The credible intervals of $\alpha$ and $\beta$ are the same as the frequentist confidence intervals, but now we can interpret them from the Bayesian perspective. 
 
-The `confint` function provides 95% confidence intervals, which under the reference prior are equivalent to the 95% credible intervals. The code below extracts them and relabels the output as the Bayesian results.
+The `confint` function provides 95% confidence intervals. Under the reference prior, they are equivalent to the 95% credible intervals. The code below extracts them and relabels the output as the Bayesian results.
 ```{r cred-int}
 out = cbind(output, confint(bodyfat.lm))
 colnames(out) = c("posterior mean", "posterior std", "2.5", "97.5")
 round(out, 2)
 ```
 
-These intervals coincide with the confidence intervals from the frequentist approach. The primary difference is the interpretation. For example, based on the data, we believe that there is 95% chance that body fat will increase by 5.8% up to 6.9% for every additional 10 centimeter increase in the waist circumference.
+These intervals coincide with the confidence intervals from the frequentist approach. The primary difference is the interpretation. For example, based on the data, we believe that there is 95% chance that body fat will increase by `r round(out[2, 3] * 10, 2)`% up to `r round(out[2, 4] * 10, 2)`% for every additional 10 centimeter increase in the waist circumference.
 
 
 **Credible Intervals for the Mean $\mu_Y$ and the Prediction $y_{n+1}$**
 
-Under the reference prior, the mean of $Y$, $\mu_Y$, at the point $x_i$ is given by $\alpha + \beta x_i$, with a posterior distributuion 
+From our assumption of the model
+$$ y_i = \alpha + \beta x_i + \epsilon_i, $$
+the mean of the response variable $Y$, $\mu_Y$, at the point $x_i$ is
+$$ \mu_Y~|~x_i = E[Y~|~x_i] = \alpha + \beta x_i. $$
+
+Under the reference prior, $\mu_Y$ has a posterior distributuion 
 $$ 
-\alpha + \beta x_i ~|~ \text{data} \sim t_{n-2}(\hat{\alpha} + \hat{\beta} x_i, \text{S}_{Y|X_i}^2), 
+\alpha + \beta x_i ~|~ \text{data} \sim \St(n-2,\ \hat{\alpha} + \hat{\beta} x_i,\ \text{S}_{Y|X_i}^2), 
 $$
 where
 $$
 \text{S}_{Y|X_i}^2 = \hat{\sigma}^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})^2}{\text{S}_{xx}}\right)
 $$
 
-A new prediction $y_{n+1}$ at a point $x_{n+1}$ follows the Student's $t$-distribution
+Any new prediction $y_{n+1}$ at a point $x_{n+1}$ also follows the Student's $t$-distribution
 $$ 
-y_{n+1}~|~\text{data}, x_{n+1}\ \sim t_{n-2}\left(\hat{\alpha}+\hat{\beta} x_{n+1},\text{S}_{Y|X_{n+1}}^2\right), 
+y_{n+1}~|~\text{data}, x_{n+1}\ \sim \St\left(n-2,\  \hat{\alpha}+\hat{\beta} x_{n+1},\ \text{S}_{Y|X_{n+1}}^2\right), 
 $$
 
 where
@@ -183,79 +238,107 @@ $$
 \text{S}_{Y|X_{n+1}}^2 =\hat{\sigma}^2+\hat{\sigma}^2\left(\frac{1}{n}+\frac{(x_{n+1}-\bar{x})^2}{\text{S}_{xx}}\right) = \hat{\sigma}^2\left(1+\frac{1}{n}+\frac{(x_{n+1}-\bar{x})^2}{\text{S}_{xx}}\right).
 $$
 
-The variance for predicting a new observation $y_{n+1}$ has an extra $\hat{\sigma}^2$ which comes from the uncertainty of a new observation about the mean $\mu_Y$ estimated by the regressio line. 
+The variance for predicting a new observation $y_{n+1}$ has an extra $\hat{\sigma}^2$ which comes from the uncertainty of a new observation about the mean $\mu_Y$ estimated by the regression line. 
 
 We can extract these intervals using the `predict` function
-```{r predict-intervals}
-x = bodyfat$Abdomen
-y = bodyfat$Bodyfat
-xnew <- seq(min(x), max(x), length.out = 100)
-ynew <- data.frame(predict(bodyfat.lm, newdata = data.frame(Abdomen = xnew),
-                           interval = "confidence", level = 0.95))
+```{r predict-intervals, out.width= "80%", fig.align= "center"}
+library(ggplot2)
+# Construct current prediction
+alpha = bodyfat.lm$coefficients[1]
+beta = bodyfat.lm$coefficients[2]
+new_x = seq(min(bodyfat$Abdomen), max(bodyfat$Abdomen), 
+            length.out = 100)
+y_hat = alpha + beta * new_x
 
-# plot the data with the credible intervals of the mean
-plot(x, y, xlab = "abdomen", ylab = "bodyfat", col = "blue", pch = 16)
-lines(ynew$lwr ~ xnew, lty = 2, lwd = 3, col = "darkgrey")
-lines(ynew$upr ~ xnew, lty = 2, lwd = 3, col = "darkgrey")
-abline(bodyfat.lm, col = "orange")
+# Get lower and upper bounds for mean
+ymean = data.frame(predict(bodyfat.lm,
+                            newdata = data.frame(Abdomen = new_x),
+                            interval = "confidence",
+                            level = 0.95))
 
-# plot the credible intervals of the prediction
-ypred <- data.frame(predict(bodyfat.lm, newdata = data.frame(Abdomen = xnew),
-                            interval = "prediction", level = 0.95))
-lines(ypred$lwr ~ xnew, lty = 3, lwd = 3, col = "darkgrey")
-lines(ypred$upr ~ xnew, lty = 3, lwd = 3, col = "darkgrey")
+# Get lower and upper bounds for prediction
+ypred = data.frame(predict(bodyfat.lm,
+                          newdata = data.frame(Abdomen = new_x),
+                          interval = "prediction",
+                          level = 0.95))
 
-# identify the potential outlier: observation 39
-points(bodyfat[39, "Abdomen"], bodyfat[39, "Bodyfat"], col = "orange", cex = 5)
-legend(110, 15, legend = c("Posterior mean", "95% CI for mean", "95% CI for predictions"),
-       col = c("orange", rep("darkgrey", 2)), lwd = 3, lty = c(1, 2, 3))
+output = data.frame(x = new_x, y_hat = y_hat, ymean_lwr = ymean$lwr, ymean_upr = ymean$upr, 
+                    ypred_lwr = ypred$lwr, ypred_upr = ypred$upr)
+
+# Extract potential outlier data point
+outlier = data.frame(x = bodyfat$Abdomen[39], y = bodyfat$Bodyfat[39])
+
+# Scatter plot of original
+plot1 = ggplot(data = bodyfat, aes(x = Abdomen, y = Bodyfat)) + geom_point(color = "blue")
+
+# Add bounds of mean and prediction
+plot2 = plot1 + 
+  geom_line(data = output, aes(x = new_x, y = y_hat, color = "first"), lty = 1) +
+  geom_line(data = output, aes(x = new_x, y = ymean_lwr, lty = "second")) +
+  geom_line(data = output, aes(x = new_x, y = ymean_upr, lty = "second")) +
+  geom_line(data = output, aes(x = new_x, y = ypred_upr, lty = "third")) +
+  geom_line(data = output, aes(x = new_x, y = ypred_lwr, lty = "third")) + 
+  scale_colour_manual(values = c("orange"), labels = "Posterior mean", name = "") + 
+  scale_linetype_manual(values = c(2, 3), labels = c("95% CI for mean", "95% CI for predictions")
+                        , name = "") + 
+  theme_bw() + 
+  theme(legend.position = c(1, 0), legend.justification = c(1.5, 0))
+
+# Identify potential outlier
+plot2 + geom_point(data = outlier, aes(x = x, y = y), color = "orange", pch = 1, cex = 6)
 ```
 
-Note in the ablve the legend "CI" can mean either confidence interval or credible interval. The difference comes down to the interpretation. For example, the prediction at the same abdominal circumference as in Case 39 is
+
+Note in the above plot, the legend "CI" can mean either confidence interval or credible interval. The difference comes down to the interpretation. For example, the prediction at the same abdominal circumference as in Case 39 is
+
 ```{r pred-39}
 pred.39 = predict(bodyfat.lm, newdata = bodyfat[39, ], interval = "prediction", level = 0.95)
-out <- cbind(bodyfat[39,]$Abdomen, pred.39)
-colnames(out) <- c("abdomen", "prediction", "lower", "upper")
+out = cbind(bodyfat[39,]$Abdomen, pred.39)
+colnames(out) = c("abdomen", "prediction", "lower", "upper")
 out
 ```
 
-Based on the data, a Bayesian would expect that a man with waist circumference of 148.1 centermeters should have bodyfat of 54.216 with 95% chance thta it is between 44.097 and 64.335 percent.
+Based on the data, a Bayesian would expect that a man with waist circumference of `r round(out[1], 1)` centermeters should have bodyfat of `r round(out[2], 3)`% with 95% chance thta it is between `r round(out[3], 3)`% and `r round(out[4], 3)`%.
 
-While we expect the majority of the data will be within the prediction intervals (the short dashed grey lines), Case 39 seems to be well below the interval. We next use Bayesian methods to calculate the probability that this case is abnormal or an outlier by falling more than $k$ standard deviations from either side of the mean.
+While we expect the majority of the data will be within the prediction intervals (the short dashed grey lines), Case 39 seems to be well below the interval. We next use Bayesian methods in Section \@ref(sec:Checking-outliers) to calculate the probability that this case is abnormal or is an outlier by falling more than $k$ standard deviations from either side of the mean.
 
 
-### Informative Priors
+### Informative Priors {#sec:informative-prior}
 
 Except from the noninformative reference prior, we may also consider using a more general semi-conjugate prior distribution of $\alpha$, $\beta$, and $\sigma^2$ when there is information available about the parameters. 
 
-Since the data $y_1,\cdots,y_n$ are normally distributed, from Chapter 3 we see that a Normal-Gamma distribution will form a conjugacy in this situation. We then set up the prior distributions through a hierarchical model. We first assume that, given $\sigma^2$, $\alpha$ and $\beta$ together follow the bivariate normal prior distribution, from which their marginal distributions are both normal, 
+Since the data $y_1,\cdots,y_n$ are normally distributed, from Chapter 3 we see that a Normal-Gamma distribution will form a conjugacy in this situation. We then set up prior distributions through a hierarchical model. We first assume that, given $\sigma^2$, $\alpha$ and $\beta$ together follow the bivariate normal prior distribution, from which their marginal distributions are both normal, 
 $$ 
 \begin{aligned}
-\alpha~|~\sigma^2 \sim & \mathcal{N}(a_0, \sigma^2\text{S}_\alpha) \\
-\beta ~|~ \sigma^2 \sim & \mathcal{N}(b_0, \sigma^2\text{S}_\beta),
+\alpha~|~\sigma^2 \sim & \No(a_0, \sigma^2\text{S}_\alpha) \\
+\beta ~|~ \sigma^2 \sim & \No(b_0, \sigma^2\text{S}_\beta),
 \end{aligned}
 $$
 with covariance
 $$ \text{Cov}(\alpha, \beta ~|~\sigma^2) =\sigma^2 \text{S}_{\alpha\beta}. $$
 
-This is equivalent to setting the coefficient vector $(\alpha, \beta)$ to have a biraviate normal distribution with convariance matrix $\Sigma_0$ given by $\text{S}_\alpha$, $\text{S}_{\beta}$, and $\text{S}_{\alpha\beta}$
-$$ (\alpha, \beta) ~|~\sigma^2 \sim \text{BiraviateNormal}((a_0, b_0), \sigma^2\Sigma_0). $$
+Here, $\sigma^2$, $S_\alpha$, $S_\beta$, and $S_{\alpha\beta}$ are hyperparameters. This is equivalent to setting the coefficient vector $\BoldB = (\alpha, \beta)^T$^[$(\alpha, \beta)^T$ means we transpose the row vector $(\alpha, \beta)$ into a column vector $\left(\begin{array}{c} \alpha \\ \beta \end{array}\right)$.] to have a biraviate normal distribution with convariance matrix $\Sigma_0$
+$$ \Sigma_0 = \sigma^2\left(\begin{array}{cc} S_\alpha & S_{\alpha\beta} \\
+S_{\alpha\beta} & S_\beta \end{array} \right). $$
+That is,
+$$ \BoldB = (\alpha, \beta)^T ~|~\sigma^2 \sim \textsf{BiraviateNormal}(\mathbf{b} = (a_0, b_0)^T, \sigma^2\Sigma_0). $$
 
-Then for $\sigma^2$, we will use a Inverse Gamma distribution 
-$$ \sigma^2 \sim \text{IG}\left(\frac{\nu_0}{2}, \frac{\nu_0\sigma_0}{2}\right). $$
+Then for $\sigma^2$, we will impose an inverse Gamma distribution as its prior distribution
+$$ 1/\sigma^2 \sim \Ga\left(\frac{\nu_0}{2}, \frac{\nu_0\sigma_0}{2}\right). $$
+
 Now the join prior distribution of $\alpha, \beta$, and $\sigma^2$ form a distribution that is analogous to the Normal-Gamma distribution. Prior information about $\alpha$, $\beta$, and $\sigma^2$ are encoded in the hyperparameters $a_0$, $b_0$, $\text{S}_\alpha$, $\text{S}_\beta$, $\text{S}_{\alpha\beta}$, $\nu_0$, and $\sigma_0$. 
 
-The marginal posterior distribution of the coefficient vector $(\alpha, \beta)$ will be biraviate normal, and the marginal posterior distribution of $\sigma^2$ is again a Inverse Gamma distribution
-$$ \sigma^2~|~y_1,\cdots,y_n \sim \text{IG}\left(\frac{\nu_0+n}{2}, \frac{\nu_0\sigma_0^2+\text{SSE}}{2}\right). $$
+The marginal posterior distribution of the coefficient vector $\BoldB = (\alpha, \beta)$ will be biraviate normal, and the marginal posterior distribution of $\sigma^2$ is again an inverse Gamma distribution
+$$ 1/\sigma^2~|~y_1,\cdots,y_n \sim \Ga\left(\frac{\nu_0+n}{2}, \frac{\nu_0\sigma_0^2+\text{SSE}}{2}\right). $$
 
-One can see that the reference prior is the limiting case of this conjugate prior we impose. We usually use Gibbs sampling to approximate the joint posterior distribution instead of using the result directly, especially later in multiple linear regression when we have more coefficients. We omit the deviations of the posterior distributions due to the heavy use of advanced linear algebra. One can refer to @hoff2009first for more details.
+One can see that the reference prior is the limiting case of this conjugate prior we impose. We usually use Gibbs sampling to approximate the joint posterior distribution instead of using the result directly, especially when we have more regression coefficients in multiple linear regression models. We omit the deviations of the posterior distributions due to the heavy use of advanced linear algebra. One can refer to @hoff2009first for more details.
 
-Based on any prior information we have for the model, we can also impose other priors and assumptions on $\alpha$, $\beta$, and $\sigma^2$ to get different Bayesian results. Most of these priors will not form any conjugacy and will require us to use simulation methods such as MCMC for approximations.
+Based on any prior information we have for the model, we can also impose other priors and assumptions on $\alpha$, $\beta$, and $\sigma^2$ to get different Bayesian results. Most of these priors will not form any conjugacy and will require us to use simulation methods such as Markov Chain Monte Carlo (MCMC) for approximations. We will introduce the general idea of MCMC in Chapter 8.
 
 
-### (Optional) Derivations of Marginal Posterior Distributions of $\alpha$, $\beta$, $\sigma^2$ {#sec:derivations}
+## (Optional) Derivations of Marginal Posterior Distributions of $\alpha$, $\beta$, $\sigma^2$ {#sec:derivations}
 
-In this section, we will use the notations we introduced earlier such as $\text{SSE}$, the sum of squares of errors, $\hat{\sigma}^2$, the mean squared error, $\text{S}_{xx}$, $\text{sd}_{\hat{\alpha}}$, $\text{sd}_{\hat{\beta}}$ and so on to simplify our calculations.
+In this section, we will use the notations we introduced earlier such as $\text{SSE}$, the sum of squares of errors, $\hat{\sigma}^2$, the mean squared error, $\text{S}_{xx}$, $\text{se}_{\hat{\alpha}}$, $\text{se}_{\hat{\beta}}$ and so on to simplify our calculations.
 
 We will also use the following quantities derived from the formula of $\bar{x}$, $\bar{y}$, $\hat{\alpha}$, and $\hat{\beta}$
 $$
@@ -264,20 +347,18 @@ $$
 & \sum_i^n (y_i-\bar{y}) = 0 \\
 & \sum_i^n (y_i - \hat{y}_i) = \sum_i^n (y_i - (\hat{\alpha} + \hat{\beta} x_i)) = 0\\
 & \sum_i^n (x_i-\bar{x})(y_i - \hat{y}_i) = \sum_i^n (x_i-\bar{x})(y_i-\bar{y}-\hat{\beta}(x_i-\bar{x})) = \sum_i^n (x_i-\bar{x})(y_i-\bar{y})-\hat{\beta}\sum_i^n(x_i-\bar{x})^2 = 0\\
-& \sum_i^n x_i^2 = \sum_i^(x_i-\bar{x})^2 + n\bar{x}^2 = \text{S}_{xx}+n\bar{x}^2
+& \sum_i^n x_i^2 = \sum_i^n (x_i-\bar{x})^2 + n\bar{x}^2 = \text{S}_{xx}+n\bar{x}^2
 \end{aligned}
 $$
 
 We first further simplify the numerator inside the exponential function in the formula of $p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n)$:
 $$ 
 \begin{aligned}
-\sum_i^n \left(y_i - \alpha - \beta x_i\right)^2 = & \sum_i^n \left(y_i - \hat{\alpha} - \hat{\beta}x_i - (\alpha - \hat{\alpha}) - (\beta - \hat{\beta})x_i\right)^2 \\
+ & \sum_i^n \left(y_i - \alpha - \beta x_i\right)^2 \\
+ = & \sum_i^n \left(y_i - \hat{\alpha} - \hat{\beta}x_i - (\alpha - \hat{\alpha}) - (\beta - \hat{\beta})x_i\right)^2 \\
 = & \sum_i^n \left(y_i - \hat{\alpha} - \hat{\beta}x_i\right)^2 + \sum_i^n (\alpha - \hat{\alpha})^2 + \sum_i^n (\beta-\hat{\beta})^2(x_i)^2 \\
-  & - 2\sum_i^n (\alpha - \hat{\alpha})(y_i-\hat{\alpha}-\hat{\beta}x_i)\\
-  & - 2\sum_i^n (\beta-\hat{\beta})(x_i)(y_i-\hat{\alpha}-\hat{\beta}x_i)\\
-  & + 2\sum_i^n(\alpha - \hat{\alpha})(\beta-\hat{\beta})(x_i)\\
-= & \text{SSE} + n(\alpha-\hat{\alpha})^2 + (\beta-\hat{\beta})^2\sum_i^n x_i^2 - 2(\alpha-\hat{\alpha})\sum_i^n (y_i-\hat{y}_i) \\
-  & -2(\beta-\hat{\beta})\sum_i^n x_i(y_i-\hat{y}_i)+2(\alpha-\hat{\alpha})(\beta-\hat{\beta})(n\bar{x})
+  & - 2\sum_i^n (\alpha - \hat{\alpha})(y_i-\hat{\alpha}-\hat{\beta}x_i) - 2\sum_i^n (\beta-\hat{\beta})(x_i)(y_i-\hat{\alpha}-\hat{\beta}x_i) + 2\sum_i^n(\alpha - \hat{\alpha})(\beta-\hat{\beta})(x_i)\\
+= & \text{SSE} + n(\alpha-\hat{\alpha})^2 + (\beta-\hat{\beta})^2\sum_i^n x_i^2 - 2(\alpha-\hat{\alpha})\sum_i^n (y_i-\hat{y}_i) -2(\beta-\hat{\beta})\sum_i^n x_i(y_i-\hat{y}_i)+2(\alpha-\hat{\alpha})(\beta-\hat{\beta})(n\bar{x})
 \end{aligned}
 $$
 
@@ -296,33 +377,34 @@ Finally, we use the quantity that $\displaystyle \sum_i^n x_i^2 = \sum_i^n(x_i-\
 
 $$
 \begin{aligned}
-\sum_i^n (y_i-\alpha-\beta x_i)^2 = & \text{SSE} + n(\alpha-\hat{\alpha})^2 +(\beta-\hat{\beta})^2\sum_i^n (x_i-\bar{x})^2 + (\beta-\hat{\beta})^2 (n\bar{x}^2) \\
-& +2(\alpha-\hat{\alpha})(\beta-\hat{\beta})(n\bar{x})\\
+ & \sum_i^n (y_i-\alpha-\beta x_i)^2 \\
+ = & \text{SSE} + n(\alpha-\hat{\alpha})^2 +(\beta-\hat{\beta})^2\sum_i^n (x_i-\bar{x})^2 + (\beta-\hat{\beta})^2 (n\bar{x}^2)  +2(\alpha-\hat{\alpha})(\beta-\hat{\beta})(n\bar{x})\\
 = & \text{SSE} + (\beta-\hat{\beta})^2\text{S}_{xx} + n\left[(\alpha-\hat{\alpha}) +(\beta-\hat{\beta})\bar{x}\right]^2
 \end{aligned}
 $$
 
 
-Therefore, the posterior joint distribution of $\alpha, \beta, \sigma^2$ is
+Therefore, the posterior joint distribution of $\alpha, \beta, \sigma^2$ can be simplied as
 $$ 
 \begin{aligned}
-p^*(\alpha^*, \beta,\sigma^2 ~|~y_1,\cdots, y_n) \propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\sum_i(y_i - \alpha - \beta x_i)^2}{2\sigma^2}\right) \\
+p^*(\alpha, \beta,\sigma^2 ~|~y_1,\cdots, y_n) \propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\sum_i(y_i - \alpha - \beta x_i)^2}{2\sigma^2}\right) \\
 = & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)
 \end{aligned}
 $$
 
 **Marginal Posterior Distribution of $\beta$**
 
-To get the marginal posterior distribution of $\beta$, we need to integrate out $\alpha$ and $\sigma^2$:
+To get the marginal posterior distribution of $\beta$, we need to integrate out $\alpha$ and $\sigma^2$ from $p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n)$:
 
 $$
 \begin{aligned}
 p^*(\beta ~|~y_1,\cdots,y_n) = & \int_0^\infty \int_{-\infty}^\infty p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\, d\sigma^2 \\
-= & \int_0^\infty \left(\int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2+(\beta-\hat{\beta})\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\alpha\right)\, d\sigma^2
+= & \int_0^\infty \left(\int_{-\infty}^\infty \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}+(\beta-\hat{\beta})\bar{x})^2+(\beta-\hat{\beta})\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\alpha\right)\, d\sigma^2\\
+= & \int_0^\infty p^*(\beta, \sigma^2~|~y_1,\cdots, y_n)\, d\sigma^2
 \end{aligned}
 $$
 
-The integral inside is the joint posterior distribution of $\beta$ and $\sigma^2$
+We first calculate the inside integral, which gives us the joint posterior distribution of $\beta$ and $\sigma^2$
 $$
 \begin{aligned}
 & p^*(\beta, \sigma^2~|~y_1,\cdots,y_n) \\
@@ -340,12 +422,12 @@ can be viewed as part of a normal distribution of $\alpha$, with mean $\hat{\alp
 $$
 \begin{aligned}
 p^*(\beta, \sigma^2~|~y_1,\cdots,y_n) 
-\propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) \times \sqrt{\sigma^2}\\
-= & \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)
+\propto & \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right) \times \sqrt{\frac{\sigma^2}{n}}\\
+\propto & \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right)
 \end{aligned}
 $$
 
-We then integrate $\sigma^2$ out to get the marginal distribution of $\beta$. Here we first  perform change of variable and set $\sigma^2 = \frac{1}{\phi}$. Then the integral becomes
+We then integrate $\sigma^2$ out to get the marginal distribution of $\beta$. Here we first perform change of variable and set $\sigma^2 = \frac{1}{\phi}$. Then the integral becomes
 $$
 \begin{aligned}
 p^*(\beta~|~y_1,\cdots, y_n) \propto & \int_0^\infty \frac{1}{(\sigma^2)^{(n+1)/2}}\exp\left(-\frac{\text{SSE} + (\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right)\, d\sigma^2 \\
@@ -354,9 +436,9 @@ p^*(\beta~|~y_1,\cdots, y_n) \propto & \int_0^\infty \frac{1}{(\sigma^2)^{(n+1)/
 \end{aligned}
 $$
 
-Here we use another change of variable by setting $\displaystyle s=  \frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\phi$, and the fact that $\displaystyle \int_0^\infty s^{(n-3)/2}e^{-s}\, ds$ gives us the Gamma function, which is a constant.
+Here we use another change of variable by setting $\displaystyle s=  \frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2}\phi$, and the fact that $\displaystyle \int_0^\infty s^{(n-3)/2}e^{-s}\, ds$ gives us the Gamma function $\Gamma(n-2)$, which is a constant.
 
-We can rewrite the last line from above to obtain the marginal posterior distribution of $\beta$ to be the Student's $t$-distribution with degrees of freedom $n-2$, center $\hat{\beta}$, and scale parameter $\displaystyle \frac{\hat{\sigma}^2}{\sum_i(x_i-\bar{x})^2}$
+We can rewrite the last line from above to obtain the marginal posterior distribution of $\beta$. This marginal distribution is the Student's $t$-distribution with degrees of freedom $n-2$, center $\hat{\beta}$, and scale parameter $\displaystyle \frac{\hat{\sigma}^2}{\sum_i(x_i-\bar{x})^2}$
 
 $$ p^*(\beta~|~y_1,\cdots,y_n) \propto
  \left[1+\frac{1}{n-2}\frac{(\beta - \hat{\beta})^2}{\frac{\text{SSE}}{n-2}/(\sum_i (x_i-\bar{x})^2)}\right]^{-\frac{(n-2)+1}{2}} = \left[1 + \frac{1}{n-2}\frac{(\beta - \hat{\beta})^2}{\hat{\sigma}^2/(\sum_i (x_i-\bar{x})^2)}\right]^{-\frac{(n-2)+1}{2}},
@@ -366,7 +448,7 @@ where $\displaystyle \frac{\hat{\sigma}^2}{\sum_i (x_i-\bar{x})^2}$ is exactly t
 
 To summarize, under the reference prior, the marginal posterior distribution of the slope of the Bayesian simple linear regression follows the Student's $t$-distribution
 $$ 
-\beta ~|~y_1,\cdots, y_n \sim t_{n-2}\left(\hat{\beta}, \left(\text{sd}_{\hat{\beta}}\right)^2\right) 
+\beta ~|~y_1,\cdots, y_n \sim \St\left(n-2, \ \hat{\beta},\  \left(\text{se}_{\hat{\beta}}\right)^2\right) 
 $$
 
 **Marginal Posterior Distribution of $\alpha$**
@@ -412,11 +494,12 @@ $$
 = & \int_0^\infty p^*(\alpha, \sigma^2~|~y_1,\cdots, y_n)\, d\sigma^2 \\
 \propto & \int_0^\infty \phi^{(n-3)/2}\exp\left(-\frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2}\phi\right)\, d\phi\\
 \propto & \left(\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})\right)^{-\frac{(n-2)+1}{2}}\int_0^\infty s^{(n-3)/2}e^{-s}\, ds\\
-\propto & \left[1+\frac{1}{n-2}\frac{(\alpha-\hat{\alpha})^2}{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)}\right]^{-\frac{(n-2)+1}{2}} = \left[1 + \frac{1}{n-2}\left(\frac{\alpha-\hat{\alpha}}{\text{sd}_{\hat{\alpha}}}\right)^2\right]^{-\frac{(n-2)+1}{2}}
+\propto & \left[1+\frac{1}{n-2}\frac{(\alpha-\hat{\alpha})^2}{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)}\right]^{-\frac{(n-2)+1}{2}} = \left[1 + \frac{1}{n-2}\left(\frac{\alpha-\hat{\alpha}}{\text{se}_{\hat{\alpha}}}\right)^2\right]^{-\frac{(n-2)+1}{2}}
 \end{aligned}
 $$
 
-This shows that the marginal posterior distribution of $\alpha$ also follows a Student's $t$-distribution, with $n-2$ degrees of freedom. Its center is $\hat{\alpha}$, the usual coefficient in the frequentist OLS estimate, and its scale parameter is $\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)$, which is the square of the standard error of $\hat{\alpha}$.
+In the last line, we use the same trick as we did for $\beta$ to derive the form of the Student's $t$-distribution. This shows that the marginal posterior distribution of $\alpha$ also follows a Student's $t$-distribution, with $n-2$ degrees of freedom. Its center is $\hat{\alpha}$, the estimate of 
+$\alpha$ in the frequentist OLS estimate, and its scale parameter is $\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)$, which is the square of the standard error of $\hat{\alpha}$.
 
 **Marginal Posterior Distribution of $\sigma^2$**
 
@@ -449,5 +532,24 @@ $$
 $$
 
 This is a Gamma distribution with shape parameter $\displaystyle \frac{n-2}{2}$ and rate parameter $\displaystyle \frac{\text{SSE}}{2}$. Therefore, the updated $\sigma^2$ follows the inverse Gamma distribution
-$$ \sigma^2~|~y_1,\cdots,y_n \sim \text{IG}\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
+$$ \phi = 1/\sigma^2~|~y_1,\cdots,y_n \sim \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
+That is,
+$$ p(\phi~|~\text{data}) \propto \phi^{\frac{n-2}{2}-1}\exp\left(-\frac{\text{SSE}}{2}\phi\right). $$
 
+Recall that the joint posterior distribution of $\beta$ and $\sigma^2$ is
+$$ p^*(\beta, \sigma^2~|~\text{data}) \propto \frac{1}{\sigma^{n+1}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right). $$
+
+If we rewrite this using precision $\phi=1/\sigma^2$, we get the joint posterior distribution of $\beta$ and $\phi$ to be
+$$ p^*(\beta, \phi~|~\text{data}) \propto \phi^{\frac{n-2}{2}}\exp\left(-\frac{\phi}{2}\left(\text{SSE}+(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2\right)\right). $$
+This joint posterior distribution can be viewed as the product of the posterior distribution of $\beta$ conditioning on $\phi$ and the posterior distribution of $\phi$,
+$$ \pi^*(\beta~|~\phi,\text{data}) \times \pi^*(\phi~|~\text{data}) \propto \left[\phi\exp\left(-\frac{\phi}{2}(\beta-\hat{\beta})^2\sum_i (x_i-\bar{x})^2\right)\right] \times \left[\phi^{\frac{n-2}{2}-1}\exp\left(-\frac{\text{SSE}}{2}\phi\right)\right]. $$
+The first term in the product is exactly the Normal distribution with mean $\hat{\beta}$ and standard deviation $\displaystyle \frac{\sigma^2}{\sum_i(x_i-\bar{x})^2} = \frac{\sigma^2}{\text{S}_{xx}}$
+
+$$ \beta ~|~\sigma^2,\ \text{data}~ \sim ~ \No\left(\hat{\beta},\ \frac{\sigma^2}{\text{S}_{xx}}\right). $$
+The second term, is the Gamma distribution of the precision $\phi$, or the inverse Gamma distribution of the variance $\sigma^2$
+$$ 1/\sigma^2~|~\text{data}~\sim~\Ga\left(\frac{n-2}{2},\frac{\text{SSE}}{2}\right).$$
+
+This means, the join posterior distribution of $\beta$ and $\sigma^2$, under the reference prior, is a Normal-Gamma distribution. Similarly, the joint posterior distribution of $\alpha$ and $\sigma^2$ is also a Normal-Gamma distribution.
+$$ \alpha~|~\sigma^2, \text{data} ~\sim~\No\left(\hat{\alpha}, \frac{\sigma^2}{\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}}\right),\qquad \qquad 1/\sigma^2~|~\text{data}~\sim~ \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
+
+In fact, when we impose the bivariate normal distribution on $\BoldB = (\alpha, \beta)^T$, and inverse Gamma distribution on $\sigma^2$,  as we have discussed in Section \@ref(sec:informative-prior), the joint posterior distribution of $\BoldB$ and $\sigma^2$ is a Normal-Gamma distribution. Since reference prior is just the limiting case of this informative prior, it is not surprising that we will also get the limiting case Normal-Gamma distribution for $\alpha$, $\beta$, and $\sigma^2$.
