@@ -12,7 +12,8 @@ Suppose we have a multiple linear regression
 $$ y_i = \beta_0+\beta_1x_{1,i}+\beta_2x_{2,i}+\cdots+\beta_px_{p,i}+\epsilon_i, \quad 1\leq i \leq n,$$
 with $p$ predictor variables $x_1,\cdots, x_p$. There are in total $2^p$ different models, corresponding to $2^p$ combinations of variable selections. Denote each model by $M_m,\ m=1,\cdots,p$. We start by assigning a prior probability to each model, $p(M_m)$, where $m$ is the number of all possible models. Recall from Bayes' Theorem, we update the posterior probability of each model $M_m$ after seeing the date, via marginal likelihood of model $M_m$:
 
-\begin{equation} p(M_m~|~\text{data}) = \frac{\text{marginal likelihood of }M_m\times p(M_m)}{\sum_{j=1}^{2^p}\text{marginal likelihood of }M_j\times p(M_j)}. 
+\begin{equation} 
+p(M_m~|~\text{data}) = \frac{\text{marginal likelihood of }M_m\times p(M_m)}{\sum_{j=1}^{2^p}\text{marginal likelihood of }M_j\times p(M_j)}. 
 (\#eq:model-post-prob) 
 \end{equation}
 The marginal likelihoods of each model serve to reweight the prior probabilities, so that models with higher likelihood have higher weights. Deviding the sum of all products of likelihoods and priors renormalizes the reweighted prior probabilities, which become the posterior probabilities of each model.

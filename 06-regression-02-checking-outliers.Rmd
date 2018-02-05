@@ -1,16 +1,55 @@
-## Checking Outliers
+## Checking Outliers {#sec:Checking-outliers}
 
 The plot and predictive intervals suggest that predictions for Case 39 are not well captured by the model. There is always the possibility that this case does not meet the assumptions of the simple linear regression model (wrong mean or variance) or could be in error. Model diagnostics such as plots of residuals versus fitted values are useful in identifying potential outliers. Now with the interpretation of Bayesian paradigm, we can go further to calculate the probability to demonstrate whether a case falls too far from the mean. 
 
-The article by @chaloner1988bayesian suggested an approach for defining outliers and then calculating the probability that a case or multiple cases were outliers. The assumed model for our simple linear regression is $y_i=\alpha + \beta x_i+\epsilon_i$, with $\epsilon_i$ having independent, identical distributions that are normal with mean zero and constant variance $\sigma^2$, i.e., $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$. Chaloner & Brant consider outliers to be points where the error or the model discrepancy $\epsilon_i$ is greater than $k$ standard deviation for some large $k$, and then proceed to calculate the posterior probability that a case is an outlier to be
-$$ P(|\epsilon_i| > k\sigma ~|~\text{data}) $$
+The article by @chaloner1988bayesian suggested an approach for defining outliers and then calculating the probability that a case or multiple cases were outliers, based on the posterior information of all observations. The assumed model for our simple linear regression is $y_i=\alpha + \beta x_i+\epsilon_i$, with $\epsilon_i$ having independent, identical distributions that are normal with mean zero and constant variance $\sigma^2$, i.e., $\epsilon_i \iid \No(0, \sigma^2)$. Chaloner & Brant considered outliers to be points where the error or the model discrepancy $\epsilon_i$ is greater than $k$ standard deviations for some large $k$, and then proceed to calculate the posterior probability that a case $j$ is an outlier to be
+\begin{equation} 
+P(|\epsilon_j| > k\sigma ~|~\text{data})
+(\#eq:outlier-prob)
+\end{equation}
 
-Since $\epsilon_i = y_i - \alpha-\beta x_i$, this is equivalent to calculating
-$$ P(|y_i-\alpha-\beta x_i| > k\sigma~|~\text{data}).$$
+Since $\epsilon_j = y_j - \alpha-\beta x_j$, this is equivalent to calculating
+$$ P(|y_j-\alpha-\beta x_j| > k\sigma~|~\text{data}).$$
 
-<!--
-### Posterior Distribution of $\epsilon_i$ Conditioning On $\sigma$
--->
+
+
+### Posterior Distribution of $\epsilon_j$ Conditioning On $\sigma^2$
+
+In Section \@ref(sec:deviations), we have discussed the posterior distributions of $\alpha$ and $\beta$. It turns out that under the reference prior, both posterior distrubtions of $\alpha$ and $\beta$, conditioning on $\sigma^2$, are both normal
+$$ 
+\begin{aligned}
+\alpha ~|~\sigma^2, \text{data}~ & \sim ~ \No\left(\hat{\alpha}, \frac{\sigma^2}{\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}}\right), \\
+\beta ~|~ \sigma^2, \text{data}~ &\sim ~\No\left(\hat{\beta}, \frac{\sigma^2}{\text{S}_{xx}}\right).
+\end{aligned}
+$$
+Using this information, we can obtain the posterior distribution of any residual $\epsilon_j = y_j-\alpha-\beta x_j$ conditioning on $\sigma^2$
+\begin{equation} 
+\epsilon_j~|~\sigma^2, \text{data} ~\sim ~ \No\left(y_j-\hat{\alpha}-\hat{\beta}x_j,\ \frac{\sigma^2\sum_i(x_i-x_j)^2}{n\text{S}_{xx}}\right).
+(\#eq:post-distribution)
+\end{equation}
+Since $\hat{\alpha}+\hat{\beta}x_j$ is exactly the fitted value $\hat{y}_j$, the mean of this Normal distribution is $y_j-\hat{y}_j=\hat{\epsilon}_j$, which is the residual under the OLS estimates of the $j$th observation.  
+
+Using this posterior distribution and the property of conditional probability, we can calculate the probability that the error $\epsilon_j$ lies outside of $k$ standard deviation of the mean, defined in equation \@ref(eq:outlier-prob)
+\begin{equation} 
+P(|\epsilon_j|>k\sigma~|~\text{data}) = \int_0^\infty P(|\epsilon_j|>k\sigma~|~\sigma^2,\text{data})p(\sigma^2~|~\text{data})\, d\sigma^2.
+(\#eq:total-prob)
+\end{equation}
+
+The probability $P(|\epsilon_j|>k\sigma~|~\sigma^2, \text{data})$ can be calculated using the posterior distribution of $\epsilon_j$ conditioning on $\sigma^2$ (\@ref(eq:post-distribution))
+$$ P(|\epsilon_j|>k\sigma~|~\sigma^2,\text{data}) = \int_{|\epsilon_j|>k\sigma}p(\epsilon_j~|~\sigma^2, \text{data})\, d\epsilon_j = \int_{k\sigma}^\infty p(\epsilon_j~|~\sigma^2, \text{data})\, d\epsilon_j+\int_{-\infty}^{-k\sigma}p(\epsilon_j~|~\sigma^2, \text{data})\, d\epsilon_j. $$
+
+Recall that $p(\epsilon_j~|~\sigma^2, \text{data})$ is just a Normal distribution with mean $\hat{\epsilon}_j$, standard deviation $\displaystyle s=\sigma\sqrt{\frac{\sum_i (x_i-x_j)^2}{n\text{S}_{xx}}}$, we can use the $Z$-score and $Z$-table to look for this number. Let 
+$$ Z^* = \frac{\epsilon_j-\hat{\epsilon}_j}{s}. $$
+
+The first integral $\displaystyle \int_{k\sigma}^\infty p(\epsilon_j~|~\sigma^2,\text{data})\, d\epsilon_j$ is equivalent to the probability
+$$ P\left(Z^* > \frac{k\sigma - \hat{\epsilon}_j}{s}\right) = P\left(Z^*> \frac{k\sigma-\hat{\epsilon}_j}{\sigma\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right) = P \left(Z^* > \frac{k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right). $$
+That is the upper tail of the area under the standard Normal distribution when $Z^*$ is larger than the critical value $\displaystyle \frac{k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
+
+The second integral, $\displaystyle \int_{-\infty}^{-k\sigma} p(\epsilon_j~|~\sigma^2, \text{data}\, d\epsilon_j$, is the same as the probability
+$$ P\left(Z^* < \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right), $$
+which is the lower tail of the area under the standard Normal distribution when $Z^*$ is smaller than the critical value $\displaystyle \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
+
+After obtaining the two probabilities, we can move on to calculate the probability $P(|\epsilon_j|>k\sigma~|~\text{data})$ using the formula given by (\@ref(eq:total-prob)). Since manual calculation is complicated, we often use the numerical integration provided in R to finish this step.
 
 
 ### Implementation Using `BAS` Package
@@ -19,11 +58,11 @@ The code for calculating the probability of outliers involves integration. We ha
 ```{r outlier, message=FALSE, warning=FALSE}
 library(BAS)
 data(bodyfat)
-#source("bayes-outliers.R")
-#library(mvtnorm)
+
+# The default of the function is k=3
 #outliers = Bayes.outlier.prob(bodyfat.lm)
 
-# The default is to consider k=3
+# Extract the probability that Case 39 is an outlier
 #prob.39 = outliers$prob.outlier[39]
 #prob.39
 ```
