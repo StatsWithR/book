@@ -38,7 +38,7 @@ P(|\epsilon_j|>k\sigma~|~\text{data}) = \int_0^\infty P(|\epsilon_j|>k\sigma~|~\
 (\#eq:total-prob)
 \end{equation}
 
-The probability $P(|\epsilon_j|>k\sigma~|~\sigma^2, \text{data})$ can be calculated using the posterior distribution of $\epsilon_j$ conditioning on $\sigma^2$ (\@ref(eq:post-distribution))
+The probability $P(|\epsilon_j|>k\sigma~|~\sigma^2, \text{data})$ can be calculated using the posterior distribution of $\epsilon_j$ conditioning on $\sigma^2$ \@ref(eq:post-distribution)
 $$ P(|\epsilon_j|>k\sigma~|~\sigma^2,\text{data}) = \int_{|\epsilon_j|>k\sigma}p(\epsilon_j~|~\sigma^2, \text{data})\, d\epsilon_j = \int_{k\sigma}^\infty p(\epsilon_j~|~\sigma^2, \text{data})\, d\epsilon_j+\int_{-\infty}^{-k\sigma}p(\epsilon_j~|~\sigma^2, \text{data})\, d\epsilon_j. $$
 
 Recall that $p(\epsilon_j~|~\sigma^2, \text{data})$ is just a Normal distribution with mean $\hat{\epsilon}_j$, standard deviation $\displaystyle s=\sigma\sqrt{\frac{\sum_i (x_i-x_j)^2}{n\text{S}_{xx}}}$, we can use the $Z$-score and $Z$-table to look for this number. Let 
@@ -52,7 +52,7 @@ The second integral, $\displaystyle \int_{-\infty}^{-k\sigma} p(\epsilon_j~|~\si
 $$ P\left(Z^* < \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right), $$
 which is the lower tail of the area under the standard Normal distribution when $Z^*$ is smaller than the critical value $\displaystyle \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
 
-After obtaining the two probabilities, we can move on to calculate the probability $P(|\epsilon_j|>k\sigma~|~\text{data})$ using the formula given by (\@ref(eq:total-prob)). Since manual calculation is complicated, we often use numerical integration functions provided in R to finish the final integral.
+After obtaining the two probabilities, we can move on to calculate the probability $P(|\epsilon_j|>k\sigma~|~\text{data})$ using the formula given by \@ref(eq:total-prob). Since manual calculation is complicated, we often use numerical integration functions provided in R to finish the final integral.
 
 
 ### Implementation Using `BAS` Package
