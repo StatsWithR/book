@@ -1,4 +1,4 @@
-## Bayesian Simple Linear Regression
+## Bayesian Simple Linear Regression {#sec:simple-linear}
 
 In this section, we will turn to Bayesian inference in simple linear regressions. We will use the reference prior distribution on coefficients, which will provide a connection between the frequentist solutions and Bayesian answers. This provides a baseline analysis for comparions with more informative prior distributions. To illustrate the ideas, we will use an example of predicting body fat. 
 
@@ -98,7 +98,7 @@ plot(bodyfat.lm, which = 2)
 
 
 
-The confidence interval of $\alpha$ and $\beta$ can be constructed using the standard errors $\text{se}_{\hat{\alpha}}$ and $\text{se}_{\hat{\beta}}$ respectively. To proceed, we introduce notations of some "sums of squares"
+The confidence interval of $\alpha$ and $\beta$ can be constructed using the standard errors $\text{se}_{\alpha}$ and $\text{se}_{\beta}$ respectively. To proceed, we introduce notations of some "sums of squares"
 $$
 \begin{aligned}
 \text{S}_{xx} = & \sum_i^n (x_i-\bar{x})^2\\
@@ -116,17 +116,17 @@ $$
 \hat{\sigma}^2 = \frac{\text{SSE}}{n-2} = \text{MSE}.
 $$
 
-The standard errors, $\text{se}_{\hat{\alpha}}$ and $\text{se}_{\hat{\beta}}$, are given as
+The standard errors, $\text{se}_{\alpha}$ and $\text{se}_{\beta}$, are given as
 $$ 
 \begin{aligned}
-\text{se}_{\hat{\alpha}} = &  \sqrt{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)} = \hat{\sigma}\sqrt{\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}},\\
-\text{se}_{\hat{\beta}} = & \sqrt{\frac{\text{SSE}}{n-2}\frac{1}{\text{S}_{xx}}} = \frac{\hat{\sigma}}{\sqrt{\text{S}_{xx}}}.
+\text{se}_{\alpha} = &  \sqrt{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)} = \hat{\sigma}\sqrt{\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}},\\
+\text{se}_{\beta} = & \sqrt{\frac{\text{SSE}}{n-2}\frac{1}{\text{S}_{xx}}} = \frac{\hat{\sigma}}{\sqrt{\text{S}_{xx}}}.
 \end{aligned}
 $$
 
 We may construct the confidence intervals of $\alpha$ and $\beta$ using the $t$-statistics
 $$ 
-t_\alpha^\ast = \frac{\alpha - \hat{\alpha}}{\text{se}_{\hat{\alpha}}},\qquad \qquad t_\beta^\ast = \frac{\beta-\hat{\beta}}{\text{se}_{\hat{\beta}}}.
+t_\alpha^\ast = \frac{\alpha - \hat{\alpha}}{\text{se}_{\alpha}},\qquad \qquad t_\beta^\ast = \frac{\beta-\hat{\beta}}{\text{se}_{\beta}}.
 $$
 
 They both have degrees of freedom $n-2$.
@@ -178,15 +178,21 @@ To obtain the marginal posterior distribution of $\beta$,  we need to integrate 
 $$ p^*(\beta~|~y_1,\cdots,y_n) = \int_0^\infty \left(\int_{-\infty}^\infty p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\right)\, d\sigma^2. $$
 
 We leave the detialed calculation in Section \@ref(sec:deviations). It can be shown that the marginal posterior distribution of $\beta$ is the Student's $t$-distribution
-$$ \beta~|~y_1,\cdots,y_n \sim \St\left(n-2,\ \hat{\beta},\ \frac{\hat{\sigma}^2}{\text{S}_{xx}}\right) = \St\left(n-2,\  \hat{\beta},\ (\text{se}_{\hat{\beta}})^2\right), $$
-with degrees of freedom $n-2$, center at $\hat{\beta}$, the slope estimate we obtained from the frequentist OLS model, and scale parameter $\displaystyle \frac{\hat{\sigma}^2}{\text{S}_{xx}}=\left(\text{se}_{\hat{\beta}}\right)^2$, which is the square of the standard error of $\hat{\beta}$ under the frequentist OLS model.
+$$ \beta~|~y_1,\cdots,y_n ~\sim~ \St\left(n-2,\ \hat{\beta},\ \frac{\hat{\sigma}^2}{\text{S}_{xx}}\right) = \St\left(n-2,\  \hat{\beta},\ (\text{se}_{\beta})^2\right), $$
+with degrees of freedom $n-2$, center at $\hat{\beta}$, the slope estimate we obtained from the frequentist OLS model, and scale parameter $\displaystyle \frac{\hat{\sigma}^2}{\text{S}_{xx}}=\left(\text{se}_{\beta}\right)^2$, which is the square of the standard error of $\hat{\beta}$ under the frequentist OLS model.
 
-Similarly, we can integrate out $\beta$ and $\sigma^2$ from the joint posterior distribution to get the marginal posterior distribution of $\alpha$, $p^*(\alpha~|~y_1,\cdots, y_n)$. It turns out that $p^*(\alpha~|~y_1,\cdots,y_n)$ is again a Student's $t$-distribution with degrees of freedom $n-2$, center at $\hat{\alpha}$, the $y$-intercept estimate from the frequentist OLS model, and scale parameter $\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right) = \left(\text{se}_{\hat{\alpha}}\right)^2$, which is the square of the standard error of $\hat{\alpha}$ under the frequentist OLS model.
+Similarly, we can integrate out $\beta$ and $\sigma^2$ from the joint posterior distribution to get the marginal posterior distribution of $\alpha$, $p^*(\alpha~|~y_1,\cdots, y_n)$. It turns out that $p^*(\alpha~|~y_1,\cdots,y_n)$ is again a Student's $t$-distribution with degrees of freedom $n-2$, center at $\hat{\alpha}$, the $y$-intercept estimate from the frequentist OLS model, and scale parameter $\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right) = \left(\text{se}_{\alpha}\right)^2$, which is the square of the standard error of $\hat{\alpha}$ under the frequentist OLS model
+$$ \alpha~|~y_1,\cdots,y_n~\sim~  \St\left(n-2,\ \hat{\alpha},\ \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)\right) = \St\left(n-2,\ \hat{\alpha},\ (\text{se}_{\alpha})^2\right).$$
 
 
 Finally, we can show that the marginal posterior distribution of $\sigma^2$ is the inverse Gamma distribution, or equivalently, the reciprocal of $\sigma^2$, which is the precision $\phi$, follows the Gamme distribution
 $$ \phi = \frac{1}{\sigma^2}~|~y_1,\cdots,y_n \sim \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
 
+Moreover, similar to the Normal-Gamma conjugacy under the reference prior introduced in the previous chapters, the joint posterior distribution of $\beta, \sigma^2$, and the joint posterior distribution of $\alpha, \sigma^2$ are both Normal-Gamma. In particular, the posterior distribution of $\beta$ conditioning on $\sigma^2$ is
+$$ \beta~|~\sigma^2, \text{data}~\sim ~\No\left(\hat{\beta}, \frac{\sigma^2}{\text{S}_{xx}}\right), $$
+
+and the posterior distribution of $\alpha$ conditioning on $\sigma^2$ is
+$$ \alpha~|~\sigma^2, \text{data}~\sim ~\No\left(\hat{\alpha}, \sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)\right).$$
 
 **Credible Intervals for Slope $\beta$ and $y$-Intercept $\alpha$ **
 
@@ -338,7 +344,7 @@ Based on any prior information we have for the model, we can also impose other p
 
 ## (Optional) Derivations of Marginal Posterior Distributions of $\alpha$, $\beta$, $\sigma^2$ {#sec:derivations}
 
-In this section, we will use the notations we introduced earlier such as $\text{SSE}$, the sum of squares of errors, $\hat{\sigma}^2$, the mean squared error, $\text{S}_{xx}$, $\text{se}_{\hat{\alpha}}$, $\text{se}_{\hat{\beta}}$ and so on to simplify our calculations.
+In this section, we will use the notations we introduced earlier such as $\text{SSE}$, the sum of squares of errors, $\hat{\sigma}^2$, the mean squared error, $\text{S}_{xx}$, $\text{se}_{\alpha}$, $\text{se}_{\beta}$ and so on to simplify our calculations.
 
 We will also use the following quantities derived from the formula of $\bar{x}$, $\bar{y}$, $\hat{\alpha}$, and $\hat{\beta}$
 $$
@@ -448,7 +454,7 @@ where $\displaystyle \frac{\hat{\sigma}^2}{\sum_i (x_i-\bar{x})^2}$ is exactly t
 
 To summarize, under the reference prior, the marginal posterior distribution of the slope of the Bayesian simple linear regression follows the Student's $t$-distribution
 $$ 
-\beta ~|~y_1,\cdots, y_n \sim \St\left(n-2, \ \hat{\beta},\  \left(\text{se}_{\hat{\beta}}\right)^2\right) 
+\beta ~|~y_1,\cdots, y_n \sim \St\left(n-2, \ \hat{\beta},\  \left(\text{se}_{\beta}\right)^2\right) 
 $$
 
 **Marginal Posterior Distribution of $\alpha$**
@@ -494,7 +500,7 @@ $$
 = & \int_0^\infty p^*(\alpha, \sigma^2~|~y_1,\cdots, y_n)\, d\sigma^2 \\
 \propto & \int_0^\infty \phi^{(n-3)/2}\exp\left(-\frac{\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})}{2}\phi\right)\, d\phi\\
 \propto & \left(\text{SSE}+(\alpha-\hat{\alpha})^2/(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2})\right)^{-\frac{(n-2)+1}{2}}\int_0^\infty s^{(n-3)/2}e^{-s}\, ds\\
-\propto & \left[1+\frac{1}{n-2}\frac{(\alpha-\hat{\alpha})^2}{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)}\right]^{-\frac{(n-2)+1}{2}} = \left[1 + \frac{1}{n-2}\left(\frac{\alpha-\hat{\alpha}}{\text{se}_{\hat{\alpha}}}\right)^2\right]^{-\frac{(n-2)+1}{2}}
+\propto & \left[1+\frac{1}{n-2}\frac{(\alpha-\hat{\alpha})^2}{\frac{\text{SSE}}{n-2}\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)}\right]^{-\frac{(n-2)+1}{2}} = \left[1 + \frac{1}{n-2}\left(\frac{\alpha-\hat{\alpha}}{\text{se}_{\alpha}}\right)^2\right]^{-\frac{(n-2)+1}{2}}
 \end{aligned}
 $$
 
@@ -550,6 +556,6 @@ The second term, is the Gamma distribution of the precision $\phi$, or the inver
 $$ 1/\sigma^2~|~\text{data}~\sim~\Ga\left(\frac{n-2}{2},\frac{\text{SSE}}{2}\right).$$
 
 This means, the join posterior distribution of $\beta$ and $\sigma^2$, under the reference prior, is a Normal-Gamma distribution. Similarly, the joint posterior distribution of $\alpha$ and $\sigma^2$ is also a Normal-Gamma distribution.
-$$ \alpha~|~\sigma^2, \text{data} ~\sim~\No\left(\hat{\alpha}, \frac{\sigma^2}{\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}}\right),\qquad \qquad 1/\sigma^2~|~\text{data}~\sim~ \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
+$$ \alpha~|~\sigma^2, \text{data} ~\sim~\No\left(\hat{\alpha}, \sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)\right),\qquad \qquad 1/\sigma^2~|~\text{data}~\sim~ \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
 
 In fact, when we impose the bivariate normal distribution on $\BoldB = (\alpha, \beta)^T$, and inverse Gamma distribution on $\sigma^2$,  as we have discussed in Section \@ref(sec:informative-prior), the joint posterior distribution of $\BoldB$ and $\sigma^2$ is a Normal-Gamma distribution. Since reference prior is just the limiting case of this informative prior, it is not surprising that we will also get the limiting case Normal-Gamma distribution for $\alpha$, $\beta$, and $\sigma^2$.
