@@ -72,11 +72,17 @@ data(bodyfat)
 
 We see that this case has an extremely high probability 0.9917 of being more an outlier, that is, the error is greater than $k=3$ standard deviations, based on the fitted model and data.
 
-With $k=3$, however, there may be a high probability a priori of at least one outlier in a large sample. We can compute this using
+With $k=3$, however, there may be a high probability a priori of at least one outlier in a large sample. Let $p = P(\text{any error $\epsilon_j$ lies within 3 standard deviations}) = P(\text{observation $j$ is not a outlier}$. Since we assume the prior distribution of $\epsilon_j$ is normal, we can calculate $p$ using the `pnorm` function. Let $\Phi(z)$ be the cumulative distribution of the standard Normal distribution, that is,
+$$ \Phi(z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{x^2}{2}\right)\, dx. $$
+
+Then $p = 1-2\Phi(-k) = 1 - 2\Phi(-3)$.^[$\Phi(-k)$ actually represents the area of the lower tail under the standard Normal distribution curve $k$ standard deviations away from the mean 0.] Since we assume $\epsilon_j$ is independent, that the probability of no outlier is just the $n$th power of $p$. The event of getting at least 1 outlier is the complement of the event of getting no outliers. Therefore, the probability of getting at least 1 outlier is
+$$ P(\text{at least 1 outlier}) = 1 - P(\text{no outlier}) = 1 - p^n = 1 - (1 - 2\Phi(-3))^n.$$
+
+We can compute this in R using
 
 ```{r outliers}
 n = nrow(bodyfat)
-# probability of no outliers if outliers are error greater than 3 standard deviation
+# probability of no outliers if outliers have errors greater than 3 standard deviation
 prob = (1 - (2 * pnorm(-3))) ^ n
 prob
 
@@ -85,7 +91,7 @@ prob.least1 = 1 - (1 - (2 * pnorm(-3))) ^ n
 prob.least1
 ```
 
-With $n=252$, the probability of at least one outlier is much larger than say the marginal probability that one point is an outlier of 0.05. So we would expect that there will be at least one point where the error is more than 3 standard deviations from zero almost 50% of the time. Rather than fixing $k$, we can fix the prior probability of no outliers to be say 0.95, and solve for the value of $k$.
+With $n=252$, the probability of at least one outlier is much larger than say the marginal probability that one point is an outlier of 0.05. So we would expect that there will be at least one point where the error is more than 3 standard deviations from zero almost 50% of the time. Rather than fixing $k$, we can fix the prior probability of no outliers $P(\text{no outlier}) = 1 - p^n$ to be say 0.95, and back solve the value of $k$ using the `qnorm` function
 
 ```{r find-k}
 new_k = qnorm(0.5 + 0.5 * 0.95 ^ (1 / n))
