@@ -398,7 +398,7 @@ p^*(\alpha, \beta,\sigma^2 ~|~y_1,\cdots, y_n) \propto & \frac{1}{(\sigma^2)^{(n
 \end{aligned}
 $$
 
-**Marginal Posterior Distribution of $\beta$**
+### Marginal Posterior Distribution of $\beta$
 
 To get the marginal posterior distribution of $\beta$, we need to integrate out $\alpha$ and $\sigma^2$ from $p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n)$:
 
@@ -457,7 +457,7 @@ $$
 \beta ~|~y_1,\cdots, y_n \sim \St\left(n-2, \ \hat{\beta},\  \left(\text{se}_{\beta}\right)^2\right) 
 $$
 
-**Marginal Posterior Distribution of $\alpha$**
+### Marginal Posterior Distribution of $\alpha$
 
 A similar approach will lead us to the marginal distribution of $\alpha$. We again start from the joint posterior distribution
 $$ p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots,y_n) \propto \frac{1}{(\sigma^2)^{(n+2)/2}}\exp\left(-\frac{\text{SSE} + n(\alpha-\hat{\alpha}-(\beta-\hat{\beta})\bar{x})^2 + (\beta - \hat{\beta})^2\sum_i (x_i-\bar{x})^2}{2\sigma^2}\right) $$
@@ -507,7 +507,7 @@ $$
 In the last line, we use the same trick as we did for $\beta$ to derive the form of the Student's $t$-distribution. This shows that the marginal posterior distribution of $\alpha$ also follows a Student's $t$-distribution, with $n-2$ degrees of freedom. Its center is $\hat{\alpha}$, the estimate of 
 $\alpha$ in the frequentist OLS estimate, and its scale parameter is $\displaystyle \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\sum_i (x_i-\bar{x})^2}\right)$, which is the square of the standard error of $\hat{\alpha}$.
 
-**Marginal Posterior Distribution of $\sigma^2$**
+### Marginal Posterior Distribution of $\sigma^2$
 
 To show that the marginal posterior distribution of $\sigma^2$ follows the inverse Gamma distribution, we only need to show the precision $\displaystyle \phi = \frac{1}{\sigma^2}$ follows a Gamma distribution. 
 
@@ -541,6 +541,8 @@ This is a Gamma distribution with shape parameter $\displaystyle \frac{n-2}{2}$ 
 $$ \phi = 1/\sigma^2~|~y_1,\cdots,y_n \sim \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
 That is,
 $$ p(\phi~|~\text{data}) \propto \phi^{\frac{n-2}{2}-1}\exp\left(-\frac{\text{SSE}}{2}\phi\right). $$
+
+### Joint Normal-Gamma Posterior Distributions
 
 Recall that the joint posterior distribution of $\beta$ and $\sigma^2$ is
 $$ p^*(\beta, \sigma^2~|~\text{data}) \propto \frac{1}{\sigma^{n+1}}\exp\left(-\frac{\text{SSE}+(\beta-\hat{\beta})^2\sum_i(x_i-\bar{x})^2}{2\sigma^2}\right). $$
