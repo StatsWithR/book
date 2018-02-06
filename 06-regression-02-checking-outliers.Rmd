@@ -15,21 +15,24 @@ $$ P(|y_j-\alpha-\beta x_j| > k\sigma~|~\text{data}).$$
 
 ### Posterior Distribution of $\epsilon_j$ Conditioning On $\sigma^2$
 
-In Section \@ref(sec:deviations), we have discussed the posterior distributions of $\alpha$ and $\beta$. It turns out that under the reference prior, both posterior distrubtions of $\alpha$ and $\beta$, conditioning on $\sigma^2$, are both normal
+At the end of Section \@ref(sec: simple-linear), we have discussed the posterior distributions of $\alpha$ and $\beta$. It turns out that under the reference prior, both posterior distrubtions of $\alpha$ and $\beta$, conditioning on $\sigma^2$, are both normal
 $$ 
 \begin{aligned}
-\alpha ~|~\sigma^2, \text{data}~ & \sim ~ \No\left(\hat{\alpha}, \frac{\sigma^2}{\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}}\right), \\
+\alpha ~|~\sigma^2, \text{data}~ & \sim ~ \No\left(\hat{\alpha}, \sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)\right), \\
 \beta ~|~ \sigma^2, \text{data}~ &\sim ~\No\left(\hat{\beta}, \frac{\sigma^2}{\text{S}_{xx}}\right).
 \end{aligned}
 $$
 Using this information, we can obtain the posterior distribution of any residual $\epsilon_j = y_j-\alpha-\beta x_j$ conditioning on $\sigma^2$
+
 \begin{equation} 
 \epsilon_j~|~\sigma^2, \text{data} ~\sim ~ \No\left(y_j-\hat{\alpha}-\hat{\beta}x_j,\ \frac{\sigma^2\sum_i(x_i-x_j)^2}{n\text{S}_{xx}}\right).
 (\#eq:post-distribution)
 \end{equation}
+
 Since $\hat{\alpha}+\hat{\beta}x_j$ is exactly the fitted value $\hat{y}_j$, the mean of this Normal distribution is $y_j-\hat{y}_j=\hat{\epsilon}_j$, which is the residual under the OLS estimates of the $j$th observation.  
 
 Using this posterior distribution and the property of conditional probability, we can calculate the probability that the error $\epsilon_j$ lies outside of $k$ standard deviation of the mean, defined in equation \@ref(eq:outlier-prob)
+
 \begin{equation} 
 P(|\epsilon_j|>k\sigma~|~\text{data}) = \int_0^\infty P(|\epsilon_j|>k\sigma~|~\sigma^2,\text{data})p(\sigma^2~|~\text{data})\, d\sigma^2.
 (\#eq:total-prob)
@@ -49,7 +52,7 @@ The second integral, $\displaystyle \int_{-\infty}^{-k\sigma} p(\epsilon_j~|~\si
 $$ P\left(Z^* < \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right), $$
 which is the lower tail of the area under the standard Normal distribution when $Z^*$ is smaller than the critical value $\displaystyle \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
 
-After obtaining the two probabilities, we can move on to calculate the probability $P(|\epsilon_j|>k\sigma~|~\text{data})$ using the formula given by (\@ref(eq:total-prob)). Since manual calculation is complicated, we often use the numerical integration provided in R to finish this step.
+After obtaining the two probabilities, we can move on to calculate the probability $P(|\epsilon_j|>k\sigma~|~\text{data})$ using the formula given by (\@ref(eq:total-prob)). Since manual calculation is complicated, we often use numerical integration functions provided in R to finish the final integral.
 
 
 ### Implementation Using `BAS` Package
@@ -59,15 +62,15 @@ The code for calculating the probability of outliers involves integration. We ha
 library(BAS)
 data(bodyfat)
 
-# The default of the function is k=3
-#outliers = Bayes.outlier.prob(bodyfat.lm)
+# The default of Bayes.outlier.prob function is k=3
+# outliers = Bayes.outlier.prob(bodyfat.lm)
 
 # Extract the probability that Case 39 is an outlier
-#prob.39 = outliers$prob.outlier[39]
-#prob.39
+# prob.39 = outliers$prob.outlier[39]
+# prob.39
 ```
 
-We see that this case has an extremely high probability (0.9917) of being more an outlier, that is, the error is greater than $k=3$ standard deviations, based on the fitted model and data.
+We see that this case has an extremely high probability 0.9917 of being more an outlier, that is, the error is greater than $k=3$ standard deviations, based on the fitted model and data.
 
 With $k=3$, however, there may be a high probability a priori of at least one outlier in a large sample. We can compute this using
 
@@ -85,23 +88,23 @@ prob.least1
 With $n=252$, the probability of at least one outlier is much larger than say the marginal probability that one point is an outlier of 0.05. So we would expect that there will be at least one point where the error is more than 3 standard deviations from zero almost 50% of the time. Rather than fixing $k$, we can fix the prior probability of no outliers to be say 0.95, and solve for the value of $k$.
 
 ```{r find-k}
-k = qnorm(0.5 + 0.5 * 0.95 ^ (1 / n))
-k
+new_k = qnorm(0.5 + 0.5 * 0.95 ^ (1 / n))
+new_k
 ```
 
-This leads to a larger value of $k$ after adjusting $k$ so that there is at least one outlier. We examine Case 39 again under this $k$
+This leads to a larger value of $k$. After adjusting $k$ the prior probability of no outliers is 0.95, we examine Case 39 again under this $k$
 
 ```{r Case39-new-k}
-#outliers.no = Bayes.outlier.prob(bodyfat.lm, k = k)
-#prob.no.39 = outliers.no$prob.outlier[39]
-#prob.no.39
+#outliers.new = Bayes.outlier.prob(bodyfat.lm, k = new_k)
+#prob.new.39 = outliers.new$prob.outlier[39]
+#prob.new.39
 ```
 
-The posterior probability of Case 39 being an outlier is 0.68475. While this is not strikingly large, it is much larger than the marginal prior probability of
+The posterior probability of Case 39 being an outlier is about 0.6848<!--r round(prob.new.39, 4)-->. While this is not strikingly large, it is much larger than the marginal prior probability of
 ```{r}
-2 * pnorm(-k)
+2 * pnorm(-new_k)
 ```
-
+if we assume the error $\epsilon_j$ is normall distributed.
 
 
 There is a substantial probability that Case 39 is an outlier. If you do view it as an outlier, what are your options? One option is to investigate the case and determine if the data are input incorrectly, and fix it. Another option is when you cannot confirm there is a data entry error, you may delete the observation from the analysis and refit the model without the case. If you do take this option, be sure to describe what you did so that your research is reproducible. You may want to apply diagnostics and calculate the probability of a case being an outlier using this reduced data. As a word of caution, if you discover that there are a large number of points that appear to be outliers, take a second look at your model assumptions, since the problem may be with the model rather than the data! A third option we will talk about later, is to combine inference under the model that retains this case as part of the population, and the model that treats it as coming from another population. This approach incorporates our uncertainty about whether the case is an outlier given the data.
