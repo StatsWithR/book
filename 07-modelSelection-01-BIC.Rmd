@@ -87,7 +87,10 @@ However, using the adjusted $R^2$, the best model would be the one including not
 
 We can also use the `BAS` package to find the best BIC model without taking the stepwise backward process.
 ```{r bas.lm-approach, echo=TRUE, message=FALSE, warning=FALSE}
+# Import library
 library(BAS)
+
+# Use `bas.lm` to run regression model
 cog.BIC = bas.lm(kid_score ~ ., data = cognitive,
                  prior = "BIC",
                  modelprior = uniform())
