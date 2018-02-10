@@ -60,7 +60,7 @@ colnames(cognitive) = c("kid_score", "hs","IQ", "work", "age")
 Suppose we have already loaded the data and pre-processed the columns `mom_work` and `mom_hs` using `as.numeric` function, as what we did in the last section. To represent model certainty, we construct the probability distribution overall possible 16 (=$2^4$) models where each probability $p(M_m)$ provides a measure of how likely the model $M_m$ is. Inside the `bas.lm` function, we first specify the full model, which in this case is the `kid_score`, being regressed by all predictors: mother's high school status `hs`, mother's IQ `IQ`, mother's work status `work` and mother's age `age`. We take the `data = cognitive` in the next argument. For the prior distribution of the coefficients for calculating marginal likelihoods, we use `prior = "BIC"` to approximate the marginal likelihood $p(\text{data}~|~M_m)$. We then use `modelprior = uniform()` in the argument to assign equal prior probability $p(M_m),\ m=1,\cdots, 16$ to all 16 models. That is, $\displaystyle p(M_m) = \frac{1}{16}$.
 
 ```{r bas-model-uncertain, message = F, warning = F}
-# import libary
+# Import libary
 library(BAS)
 
 # Use `bas.lm` for regression
