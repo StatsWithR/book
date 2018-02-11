@@ -25,7 +25,8 @@ cognitive$mom_hs =  as.numeric(cognitive$mom_hs > 0)
 colnames(cognitive) = c("kid_score", "hs","IQ", "work", "age")
 
 library(BAS)
-cog_bas = bas.lm(kid_score ~ hs + IQ + work + age, data = cognitive,
+cog_bas = bas.lm(kid_score ~ hs + IQ + work + age, 
+                 data = cognitive,
                  prior = "BIC",
                  modelprior = uniform())
 ```
@@ -36,7 +37,7 @@ image(cog_bas, rotate = F)
 ```
 
 To obtain a clearer view for model comparison, we did not rotate the image. Here, the predictors, including the intercept, are on the $y$-axis, while the $x$-axis corresponds to each different model. Each vertical column corresponds to one model. For variables that are not included in one model, they will be represented by black blocks. For example, model 1 includes the intercept, `hs`, and `IQ`, but not `work` or `age`. These models are ordered according to the log of posterior odd over the null model (model with only the intercept). The log of posterior odd is calculated as
-$$\ln(\text{PO}[M_m:M_0]) = \ln (\text{BF}[M_m:M_0]\times \text{O}[M_m:M_0]).$$ 
+$$\ln(\PO[M_m:M_0]) = \ln (\BF[M_m:M_0]\times \Odd[M_m:M_0]).$$ 
 Since we assing same prior probability for all models, $\text{O}[M_m:M_0] = 1$ and therefore, the log of posterior odd is the same as the log of the Bayes factor. The color of each column is proportional to the log of the posterior probability. Models with same colors have similar posterior probabilities. This allows us to view models that are clustered together, when the difference within a cluster is not worth a bare mention.
 
 If we view the image by rows, we can see whether one variable is included in a particular model. For each variable, there are only 8 models in which it will appear. For example, we see that `IQ` appears in all the top 8 models with larger posterior probabilities, but not the last 8 models. The `image` function shows up to 20 models by default.

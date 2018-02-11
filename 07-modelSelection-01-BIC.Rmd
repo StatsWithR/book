@@ -30,7 +30,7 @@ When the sample size $n$ is large enough and the data distribution belongs to th
 Here $p(\boldsymbol{\theta}~|~M)$ is the prior distribution of the parameter $\boldsymbol{\theta}$. We will not go into detail why the approximation holds and how we perform the integration in this book. However, we wanted to remind readers that, since BIC can be approximated by the prior distribution of the parameter $\boldsymbol{\theta}$, we will see later how we utilize BIC to approximate the model likelihood under the reference prior.^[Recall that the reference prior is the limiting case of the multivariate Normal-Gamma distribution.]
 
 One more observation of formula \@ref(eq:BIC-approx) is that it involves the marginal likelihood of data under model $M$, $p(\text{data}~|~M)$. We have seen this quantity when we introduced Bayes factor between two hypotheses or models
-$$ \text{BF}[M_1:M_2] = \frac{p(\text{data}~|~M_1)}{p(\text{data}~|~M_2)}. $$
+$$ \BF[M_1:M_2] = \frac{p(\text{data}~|~M_1)}{p(\text{data}~|~M_2)}. $$
 This also provides connection between BIC and Bayes factor, which we will leverage later.
 
 
@@ -92,8 +92,7 @@ library(BAS)
 
 # Use `bas.lm` to run regression model
 cog.BIC = bas.lm(kid_score ~ ., data = cognitive,
-                 prior = "BIC",
-                 modelprior = uniform())
+                 prior = "BIC", modelprior = uniform())
 
 cog.BIC
 ```

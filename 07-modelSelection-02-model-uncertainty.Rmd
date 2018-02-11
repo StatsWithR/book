@@ -1,4 +1,4 @@
-## Bayesian Model Uncertainty
+## Bayesian Model Uncertainty {#sec:BMU}
 
 In the last section, we discussed how to use Bayesian Information Criterion (BIC) to pick the best model, and we demonstrated the method on the kid's cognitive score data set. However, we may often  have several models with similar BIC. If we only pick the one with the lowest BIC, we may ignore the presence of other models that are equally good or can provide useful information. The credible intervals of coefficients may be narrower since the uncertainty is being ignored when we consider only one model. Narrower intervals are not always better if they miss the true values of the parameters. To account for the uncertainty, getting the posterior probability of all possible models is necessary. In this section, we will talk about how to convert BIC into Bayes factor to find the posterior probability of all possible models. We will again use the `BAS` package in R to achieve this goal.
 
@@ -25,9 +25,9 @@ $$
 \text{O}[M_1:M_2] =  \frac{p(M_1)}{p(M_2)},
 $$
 and the Bayes factor is defined to be the ratio of the likelihoods of two models
-$$ \text{BF}[M_1:M_2] = \frac{p(\text{data}~|~M_1)}{p(\text{data}~|~M_2)}. $$
+$$ \BF[M_1:M_2] = \frac{p(\text{data}~|~M_1)}{p(\text{data}~|~M_2)}. $$
 
-Suppose we have chosen a base model $M_b$, we may divide both the numerator and the denominator of the formula \@ref(eq:model-post-prob) by $p(\text{data}~|~M_b)\times p(M_b)$. This gives us a new formula to calculate the posterior probability of model $M_m$ based on the prior odd and the Bayes factor. In this new formula, we can see that the evidence from the data in the Bayes factor $\text{BF}[M_j:M_b],\ j=1,\cdots, 2^p$ serve to upweight or downweight the prior odd $\text{O}[M_j:M_b],\ j=1,\cdots,2^p$.
+Suppose we have chosen a base model $M_b$, we may divide both the numerator and the denominator of the formula \@ref(eq:model-post-prob) by $p(\text{data}~|~M_b)\times p(M_b)$. This gives us a new formula to calculate the posterior probability of model $M_m$ based on the prior odd and the Bayes factor. In this new formula, we can see that the evidence from the data in the Bayes factor $\BF[M_j:M_b],\ j=1,\cdots, 2^p$ serve to upweight or downweight the prior odd $\Odd[M_j:M_b],\ j=1,\cdots,2^p$.
 
 $$
 \begin{aligned}
@@ -35,7 +35,7 @@ p(M_m~|~\text{data}) = & \frac{p(\text{data}~|~M_m)\times p(M_m)/(p(\text{data}~
  & \\
 = & \frac{[p(\text{data}~|~M_m)/p(\text{data}~|~M_b)]\times[p(M_m)/p(M_b)]}{\sum_{j=1}^{2^p}[p(\text{data}~|~M_j)/p(\text{data}~|~M_b)]\times[p(M_j)/p(M_b)]}\\
   & \\
-= & \frac{\text{BF}[M_m:M_b]\times \text{O}[M_m:M_b]}{\sum_{j=1}^{2^p}\text{BF}[M_j:M_b]\times \text{O}[M_j:M_b]}.
+= & \frac{\BF[M_m:M_b]\times \Odd[M_m:M_b]}{\sum_{j=1}^{2^p}\BF[M_j:M_b]\times \Odd[M_j:M_b]}.
 \end{aligned}
 $$
 Any model can be used as the base model $M_b$. It could be the model with the highest posterior probability, or the one with just the intercept $y_i = \beta_0+\epsilon_i$. 
@@ -64,8 +64,8 @@ Suppose we have already loaded the data and pre-processed the columns `mom_work`
 library(BAS)
 
 # Use `bas.lm` for regression
-cog_bas = bas.lm(kid_score ~ hs + IQ + work + age, data = cognitive,
-                 prior = "BIC",
+cog_bas = bas.lm(kid_score ~ hs + IQ + work + age, 
+                 data = cognitive, prior = "BIC",
                  modelprior = uniform())
 ```
 
@@ -88,7 +88,7 @@ Item          | Description
 --------------| -------------------------------------------------
 `P(B!=0 | Y)` | Posterior inclusion probability (pip) of each coefficient under data $Y$
 `0` or `1` in the column | indicator of whether the variable is included in the model
-`BF`          | Bayes factor $\text{BF}[M_m:M_b]$, where $M_b$ is the model with highest posterior probability
+`BF`          | Bayes factor $\BF[M_m:M_b]$, where $M_b$ is the model with highest posterior probability
 `PostProbs`   | Posterior probability of each model
 `R2`          | $R$-squared in the ordinary least square (OLS) regression
 `dim`         | Number of variables (including the intercept) included in the model

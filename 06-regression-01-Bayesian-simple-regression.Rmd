@@ -25,7 +25,7 @@ $$ \epsilon_i \iid \No(0, \sigma^2). $$
 
 The figure below shows the percentage body fat obtained from under water weighing and the abdominal circumference measurements for 252 men. To predict body fat, the line overlayed on the scatter plot illustrates the best fitting ordinary least squares (OLS) line obtained with the `lm` function in R.
 
-```{r message = F,out.width = '70%', fig.align = "center"}
+```{r message = F, out.width = '70%', fig.align = "center"}
 # Frequentist OLS linear regression
 bodyfat.lm = lm(Bodyfat ~ Abdomen, data = bodyfat)
 summary(bodyfat.lm)
