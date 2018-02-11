@@ -40,7 +40,7 @@ p(M_m~|~\text{data}) = & \frac{p(\text{data}~|~M_m)\times p(M_m)/(p(\text{data}~
 $$
 Any model can be used as the base model $M_b$. It could be the model with the highest posterior probability, or the one with just the intercept $y_i = \beta_0+\epsilon_i$. 
 
-### Calculating Posterior Probabilities in R
+### Calculating Posterior Probability in R
 
 Back to the kid's cognitive score example, we will see how the summary of results using `bas.lm` tells us about the posterior probability of all possible models.
 
