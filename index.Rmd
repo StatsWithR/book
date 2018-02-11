@@ -16,7 +16,10 @@ github-repo: StatsWithR/book
 \newcommand{\Ga}{\textsf{Gamma}}
 \newcommand{\St}{\textsf{t}}
 \newcommand{\NoGa}{\textsf{NormalGamma}}
+\newcommand{\Be}{\textsf{Beta}}
 \newcommand{\BF}{\textsf{BF}}
+\newcommand{\PO}{\textsf{PO}}
+\newcommand{\Odd}{\textsf{O}}
 \newcommand{\data}{\text{data}}
 \newcommand{\iid}{\mathrel{\mathop{\sim}\limits^{\rm iid}}}
 \newcommand{\Ca}{\textsf{C}}
