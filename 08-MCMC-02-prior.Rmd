@@ -141,7 +141,8 @@ Here `cog.g` is the model corresponding to the unit information prior $g=n$. `co
 In order to compare the posterior inclusion probability (pip) of each coefficient, we group the results $p(\beta_i\neq 0)$ obtained from the `probne0` attribute of each model for later comparison
 
 ```{r probne0}
-probne0 = cbind(cog.BIC$probne0, cog.g$probne0, cog.ZS$probne0, cog.HG$probne0, cog.EB$probne0, cog.AIC$probne0)
+probne0 = cbind(cog.BIC$probne0, cog.g$probne0, cog.ZS$probne0, cog.HG$probne0,
+                cog.EB$probne0, cog.AIC$probne0)
 
 colnames(probne0) = c("BIC", "g", "ZS", "HG", "EB", "AIC")
 rownames(probne0) = c(cog.BIC$namesx)
@@ -149,8 +150,10 @@ rownames(probne0) = c(cog.BIC$namesx)
 
 We can compare the results by printing the matrix `probne0` that we just generated. If we want to visualize them to get a clearer idea, we may plot them using bar plots.
 
-```{r plots}
+```{r plots, warning = F, message = F}
 library(ggplot2)
+
+# Generate plot for each variable and save in a list
 P = list()
 for (i in 2:5){
   mydata = data.frame(prior = colnames(probne0), posterior = probne0[i, ])
