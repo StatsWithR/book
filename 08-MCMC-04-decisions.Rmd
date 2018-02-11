@@ -1,10 +1,12 @@
-## Decisions Under Model Uncertainty
+## Decision Making Under Model Uncertainty
 
-We are closing this chapter by presenting the last topic, decision making under model uncertainty. We have seen that under the Bayesian's framework, we can use different priors distributions for coefficients, different model priors for models, and we can even use stochastic exploration methods to complex model selections. After selecting these coefficients priors and model priors, we can obtain the marginal posterior inclusion probabilities for each variable in the full model, which may provide some information about whether or not to include a particular variable in the model for further model analysis and predictions. With all the information presented by the results, which model would be the most appropriate model? In this section, we will talk about different methods for selecting models and decision making for posterior distributions and predictions. We will illustrate this process using the US crime data as an example and process it using the `BAS` package. 
+We are closing this chapter by presenting the last topic, decision making under model uncertainty. We have seen that under the Bayesian framework, we can use different prior distributions for coefficients, different model priors for models, and we can even use stochastic exploration methods for complex model selections. After selecting these coefficient priors and model priors, we can obtain the marginal posterior inclusion probability for each variable in the full model, which may provide some information about whether or not to include a particular variable in the model for further model analysis and predictions. With all the information presented in the results, which model would be the most appropriate model? 
+
+In this section, we will talk about different methods for selecting models and decision making for posterior distributions and predictions. We will illustrate this process using the US crime data `UScrime` as an example and process it using the `BAS` package. 
 
 We first prepare the data as in the last section and run `bas.lm` on the full model
 
-```{r prep, echo = F}
+```{r prep, warning = F, message = F}
 library(MASS)
 data(UScrime)
 
@@ -13,27 +15,26 @@ UScrime[, -2] = log(UScrime[, -2])
 
 # run Bayesian linear regression
 library(BAS)
-crime.ZS =  bas.lm(y ~ ., 
-                   data = UScrime,
-                   prior = "ZS-null",
-                   modelprior = uniform()) 
+crime.ZS =  bas.lm(y ~ ., data = UScrime,
+                   prior = "ZS-null", modelprior = uniform()) 
 ```
 
 
 ### Model Choice
 
-For Bayesian model choice, we start with the full model, which includes all the predictors. The uncertainty of selecting variables, or model uncertainty that we have been discussing, arises when we believe that some of the variables may be unrelated to the response. This corresponds to setting a regression coefficient $\beta_j$ to be exactly zero. We specify prior distributions that reflect our uncertainty about the importance of variables. We then update the model based on the data we obtained, resulting in posterior distributions over all models and the coefficients and variances within each model.
+For Bayesian model choice, we start with the full model, which includes all the predictors. The uncertainty of selecting variables, or model uncertainty that we have been discussing, arises when we believe that some of the explanatory variables may be unrelated to the response variable. This corresponds to setting a regression coefficient $\beta_j$ to be exactly zero. We specify prior distributions that reflect our uncertainty about the importance of variables. We then update the model based on the data we obtained, resulting in posterior distributions over all models and the coefficients and variances within each model.
 
 Now the question has become, how to select a single model from the posterior distribution and use it for furture inference? What are the objectives from inference?
 
-**BMA model**
+**BMA Model**
 
 We do have a single model, the one that is obtained by averaging all models using their posterior probabilities, the Bayesian model averaging model, or BMA. This is referred to as a hierarchical model and it is composed of many simpler models as building blocks. This represents the full posterior uncertainty after seeing the data. 
 
 We can obtain the posterior predictive mean by using the weighted average of all of the predictions from each sub model
 
-$$\hat{\mu} = E[\hat{Y}] = \sum_{M_m \in \text{model space}}\hat{Y}\times p(M_m~|~\text{data}).$$
+$$\hat{\mu} = E[\hat{Y}~|~\text{data}] = \sum_{M_m \in \text{ model space}}\hat{Y}\times p(M_m~|~\text{data}).$$
 This prediction is the best under the squared error loss $L_2$. From `BAS`, we can obtain predictions and fitted values using the usual `predict` and `fitted` functions. To specify which model we use for these results, we need to include argument `estimator`.
+
 ```{r pred-fitted}
 crime.BMA = predict(crime.ZS, estimator = "BMA")
 mu_hat = fitted(crime.ZS, estimator = "BMA")
@@ -47,17 +48,22 @@ names(crime.BMA)
 
 Plotting the two sets of fitted values, one obtained from the `fitted` function, another obtained from the `fit` attribute of the `predict` object `crime.BMA`, we see that they are in perfect agreement.
 
-```{r}
-par(mar=c(9, 9, 3, 3))
-plot(mu_hat, crime.BMA$fit, 
-     pch=16, col="blue",
-     xlab = expression(hat(mu[i])), ylab = expression(hat(Y[i])))
-abline(0,1)
+```{r BMA-fit, out.width = '70%', fig.align = "center"}
+# Load library and prepare data frame
+library(ggplot2)
+output = data.frame(mu_hat = mu_hat, fitted = crime.BMA$fit)
+
+# Plot result from `fitted` function and result from `fit` attribute
+ggplot(data = output, aes(x = mu_hat, y = fitted)) + 
+  geom_point(pch = 16, color = "blue", size = 3) + 
+  geom_abline(intercept = 0, slope = 1) + 
+  xlab(expression(hat(mu[i]))) + ylab(expression(hat(Y[i])))
 ```
 
-**Highest probability model**
 
-If your objective is to learn what is the most likely model to have generated the data using a 0-1 loss $L_0$, then the highest probability model, HPM, is optimal. 
+**Highest Probability Model**
+
+If our objective is to learn what is the most likely model to have generated the data using a 0-1 loss $L_0$, then the highest probability model (HPM) is optimal. 
 
 ```{r pred-HPM}
 crime.HPM = predict(crime.ZS, estimator = "HPM")
@@ -75,14 +81,15 @@ We see that, except the intercept, which is always in any models, the highest pr
 To obtain the coefficients and their posterior means and posterior standard deviations, we can extract the model by using the `best` attribute of `crime.HPM` object. 
 
 ```{r coef}
-# obtain coefficients of all models
+# Obtain coefficients of all models
 coef.crime.ZS = coef(crime.ZS)
 
-# select coefficients of HPM
-# the posterior means of coefficients
+# Select coefficients of HPM
+
+# Posterior means of coefficients
 coef.crime.ZS$conditionalmeans[crime.HPM$best, ]
 
-# the posterior standard deviation of coefficients
+# Posterior standard deviation of coefficients
 coef.crime.ZS$conditionalsd[crime.HPM$best, ]
 ```
 
@@ -92,39 +99,37 @@ postprob.HPM = crime.ZS$postprobs[crime.HPM$best]
 postprob.HPM
 ```
 
-we see that this highest probability model has posterior probability of only `r postprob.HPM`. There are many models that have comparable posterior probabilities. So even this model has the highest posterior probability, we are still pretty unsure about whether it is the best model.
+we see that this highest probability model has posterior probability of only `r round(postprob.HPM, 3)`. There are many models that have comparable posterior probabilities. So even this model has the highest posterior probability, we are still pretty unsure about whether it is the best model.
 
-**Median probability model**
+**Median Probability Model**
 
-Another model that is frequently reported, is the median probability model, MPM. This model includes all predictors whose marginal posterior inclusion probabilities are greater than 0.5. If the variables are all uncorrelated, this will be the same as the highest posterior probability model. For a sequence of nested models such as polynomial regression with increasing powers, the median probability model is the best single model for prediction.  
+Another model that is frequently reported, is the median probability model (MPM). This model includes all predictors whose marginal posterior inclusion probabilities are greater than 0.5. If the variables are all uncorrelated, this will be the same as the highest posterior probability model. For a sequence of nested models such as polynomial regression with increasing powers, the median probability model is the best single model for prediction.  
 
-However, since in the US crime example, `Po1` and `Po2` are highly correlated, we see that the variables included in MPM are slightly different than variables included in HPM.
+However, since in the US crime example, `Po1` and `Po2` are highly correlated, we see that the variables included in MPM are slightly different than the variables included in HPM.
 
-```{r MPM-var}
+```{r MPM-var, warning = F}
 crime.MPM = predict(crime.ZS, estimator = "MPM")
 crime.ZS$namesx[crime.MPM$bestmodel +1]
 ```
 
-As we see, this model only includes 7 variables, `M`, `Ed`, `Po1`, `NW`, `U2`, `Ineq`, and `Prob`. It does not include `Time` variable as HPM. 
+As we see, this model only includes 7 variables, `M`, `Ed`, `Po1`, `NW`, `U2`, `Ineq`, and `Prob`. It does not include `Time` variable as in HPM. 
 
-When there are correlated predictors in non-nexted models, MPM in general does well. However, if the correlations among variables increase, it may miss important variables as the correlations tend to dilute the posterior inclusing probabilities of related variables.  
+When there are correlated predictors in non-nexted models, MPM in general does well. However, if the correlations among variables increase, MPM may miss important variables as the correlations tend to dilute the posterior inclusing probabilities of related variables.  
 
 To obtain the coefficients in the median probability model, we need to redo `bas.lm` to specify in `bestmodel` argument that we would like to keep only the variables with posterior inclusion probabilities greater than 0.5, and we would only want to have 1 model by setting `n.models = 1`. In this way, we will force other low probability variables not to show up in the model, and we will re-calculate the posterior means and standard deviations for the variables that are included in MPM.
 
-```{r MPM-bas.lm}
-crime.ZS.MPM = bas.lm(y ~ .,
-                      data = UScrime,
-                      prior = "ZS-null",
-                      modelprior = uniform(),
-                      bestmodel = crime.ZS$probne0 > 0.5, 
-                      n.models = 1)
+```{r MPM-bas.lm, warning = F, message = F}
+# Re-run regression and specify `bestmodel` and `n.models`
+crime.ZS.MPM = bas.lm(y ~ ., data = UScrime,
+                      prior = "ZS-null", modelprior = uniform(),
+                      bestmodel = crime.ZS$probne0 > 0.5, n.models = 1)
 
-# obtain coefficients of MPM
+# Obtain coefficients of MPM
 coef(crime.ZS.MPM)
 ```
 
 
-**Best predictive model**
+**Best Predictive Model**
 
 If our objective is prediction from a single model, the best choice is to find the model whose predictions are closet to those given by BMA. "Closest" could be based on squared error loss for predictions, or be based on any other loss functions. Unfortunately, there is no nice expression for this model. However, we can still calculate the loss for each of our sampled models to try to identify this best predictive model, or BPM.
 
@@ -135,11 +140,32 @@ crime.BPM = predict(crime.ZS, estimator = "BPM")
 crime.ZS$namesx[crime.BPM$bestmodel + 1]
 ```
 
-The best predictive model, or BPM, includes not only the 7 variables that MPM includes, but also `M.F`, number of males per 1000 females, and `Po2`, the police expenditures in 1959. 
+The best predictive model includes not only the 7 variables that MPM includes, but also `M.F`, number of males per 1000 females, and `Po2`, the police expenditures in 1959. 
 
-Using the `se.fit = TRUE` option with `predict` we can also calculate standard deviations for the predictions or for the mean. Then we can use this as input for the `confint` function for the prediction object.
+Using the `se.fit = TRUE` option with `predict` we can calculate standard deviations for the predictions or for the mean. Then we can use this as input for the `confint` function for the prediction object. Here we only show the results of the first 20 data points.
 
-```{r se.fit}
+```{r, echo = F, warning = F, message = F}
+# This code chunk is for function which provides options to show partial results
+library(knitr)
+# the default output hook
+hook_output <- knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  if (!is.null(n <- options$out.lines)) {
+    n <- as.numeric(n)
+    x <- unlist(stringr::str_split(x, "\n"))
+    nx <- length(x) 
+    x <- x[pmin(n,nx)]
+    if(min(n) > 1)  
+      x <- c(paste(options$comment, "[...]"), x)
+    if(max(n) < nx) 
+      x <- c(x, paste(options$comment, "[...]"))
+    x <- paste(c(x, "\n"), collapse = "\n")
+  }
+  hook_output(x, options)
+    })
+```
+
+```{r se.fit, out.lines = 1:21, collapse = T}
 crime.BPM = predict(crime.ZS, estimator = "BPM", se.fit = TRUE)
 crime.BPM.conf.fit = confint(crime.BPM, parm = "mean")
 crime.BPM.conf.pred = confint(crime.BPM, parm = "pred")
@@ -148,50 +174,53 @@ cbind(crime.BPM$fit, crime.BPM.conf.fit, crime.BPM.conf.pred)
 
 We can use similar method as in HPM to find the coefficients of BPM
 ```{r BPM-coef}
+# Posterior mean
 coef.crime.ZS$conditionalmeans[crime.BPM$best,]
+
+# Posterior standard deviation
 coef.crime.ZS$conditionalsd[crime.BPM$best,]
 ```
 
 
-After discussing all 4 different models, let us compare their prediction results. From the following paired correlation plots, we see that the correlations among them are extremely high. As expected, the single best predictive model (BPM) has the highest correlation with BMA, with a correlation of 0.994. However, the highest posterior model (HPM) and the median probability model (MPM) are nearly equally as good.
+After discussing all 4 different models, let us compare their prediction results. 
 
-```{r paired -cor}
-par(cex = 1.8, cex.axis = 1.8, cex.lab = 2,
-    mfrow = c(2,2), mar = c(5, 5, 3, 3),
+```{r paired-cor, out.width = '70%', fig.align = "center", warning = F, message = F}
+# Set plot settings
+par(cex = 1.8, cex.axis = 1.8, cex.lab = 2, mfrow = c(2,2), mar = c(5, 5, 3, 3),
     col.lab = "darkgrey", col.axis = "darkgrey", col = "darkgrey")
 
+# Load library and plot paired-correlations
 library(GGally)
-ggpairs(data.frame(HPM = as.vector(crime.HPM$fit),  #this used predict so we need to extract fitted values
-                   MPM = as.vector(crime.MPM$fit),  # this used fitted
-                   BPM = as.vector(crime.BPM$fit),  # this used fitted
-                   BMA = as.vector(crime.BMA$fit))) # this used predict
+ggpairs(data.frame(HPM = as.vector(crime.HPM$fit),  
+                   MPM = as.vector(crime.MPM$fit),  
+                   BPM = as.vector(crime.BPM$fit),  
+                   BMA = as.vector(crime.BMA$fit))) 
 ```
 
+From the above paired correlation plots, we see that the correlations among them are extremely high. As expected, the single best predictive model (BPM) has the highest correlation with MPM, with a correlation of 0.998. However, the highest posterior model (HPM) and the Bayesian model averaging model (BMA) are nearly equally as good.
 
  
 ### Prediction with New Data
 
-Using the `newdata` option in the `predict` function, we can obtain prediction from a new data set. Here we pretend that `UScrime` is an another new data set, and we use BMA to obtain the prediction of new observations.
+Using the `newdata` option in the `predict` function, we can obtain prediction from a new data set. Here we pretend that `UScrime` is an another new data set, and we use BMA to obtain the prediction of new observations. Here we only show the results of the first 20 data points.
 
-```{r pred-new}
+```{r pred-new, out.lines = 1:21, collapse = T}
 BMA.new = predict(crime.ZS, newdata = UScrime, estimator = "BMA",
                   se.fit = TRUE, nsim = 10000)
 crime.conf.fit.new = confint(BMA.new, parm = "mean")
 crime.conf.pred.new = confint(BMA.new, parm = "pred")
 
-# show the combined results compared to the fitted values in BPM
+# Show the combined results compared to the fitted values in BPM
 cbind(crime.BPM$fit, crime.conf.fit.new, crime.conf.pred.new)
 ```
 
 ## Summary
 
-In this chapter, we have introduced stochastic exploration method, Markov Chain Monte Carlo, to go over all models to obtain approximations of posterior probabilities. We see that model selection is very sensitive to the prior distributions of coefficients. Besices the reference priors, we also introduced the Zellner's $g$-prior, and the priors based on it, such as the unit information $g$-prior, the Zellner-Siow cauchy prior, and the hyper-$g/n$ prior, which are aimed to solve the paradox problems. 
+In this chapter, we have introduced one of the common stochastic exploration methods, Markov Chain Monte Carlo, to explore the model space to obtain approximation of posterior probability of each model when the model space is too large for theoretical enumeration. We see that model selection is very sensitive to the prior distributions of coefficients. Therefore, besides the reference prior, we have also introduced the Zellner's $g$-prior. To solve the paradoc problems, we have improved this Zellner's $g$-prior by imposing relationship between the scalar $g$ and the sample size $n$, which leads to other priors, such as the unit information $g$-prior, the Zellner-Siow cauchy prior, and the hyper-$g/n$ prior. 
 
-After that, we have demonstrated the linear regression process using `BAS` package and the US crime data. We have diagnosed the results using the Zellner-Siow cauchy prior, and have tried to understand the importance of variables. Finally, we have compared the prediction results from different models, such as the ones from Bayesian model average (BMA), the highest probability model (HPM), the median probability model (MPM), and the best predictive model (BPM). 
-
-Here we have used the Zellner-Siow cauchy prior. But of course there is not one single best prior that is the best overall. If you do have prior information about a variable, you should include it. If you expect that there should be many predictors related to the response variable $Y$, but that each has a small effect, an alternate prior may be better. Also, think critically about whether model selection is important. If you believe that all the variables should be relevant but are worried about over fitting, there are alternative priors that will avoid putting probabilities that coefficients are exactly zero and will still prevent over fitting by shrinkage of coefficients to prior means. Examples include the Bayesian lasso or Bayesian horseshoe.
-
+We later have demonstrated a multiple linear regression process using `BAS` package and the US crime data `UScrime`. We have diagnosed the results using the Zellner-Siow cauchy prior, and have tried to understand the importance of variables. 
+Finally, we have compared the prediction results from different models, such as the ones from Bayesian model average (BMA), the highest probability model (HPM), the median probability model (MPM), and the best predictive model (BPM). For the comparison, we have used the Zellner-Siow cauchy prior. But of course there is not one single best prior that is the best overall. If you do have prior information about a variable, you should include it. If you expect that there should be many predictors related to the response variable $Y$, but that each has a small effect, an alternate prior may be better. Also, think critically about whether model selection is important. If you believe that all the variables should be relevant but are worried about over fitting, there are alternative priors that will avoid putting probabilities on coefficients that are exactly zero and will still prevent over fitting by shrinkage of coefficients to prior means. Examples include the Bayesian lasso or Bayesian horseshoe.
 
 There are other forms of model uncertainty that you may want to consider, such as linearity in the relationship between the predictors and the response, uncertainty about the presence of outliers, and uncertainty about the distribution of the response. These forms of uncertainty can be incorporated by expanding the models and priors similar to what we have covered here. 
 
-Multiple regression is one of the most widely used statistical methods, however, this is just the tip of the iceberg of what you can do with Bayesian methods. 
+Multiple linear regression is one of the most widely used statistical methods, however, this is just the tip of the iceberg of what you can do with Bayesian methods. 
