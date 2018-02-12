@@ -1,6 +1,6 @@
 ## Mixtures of Conjugate Priors  {#sec:NG-Cauchy}
 
-```{r packages, echo=TRUE, warning=FALSE, message=FALSE,  eval=TRUE}
+```{r packages, echo=FALSE, warning=FALSE, message=FALSE,  eval=TRUE}
 library(statsr)
 library(ggplot2)
 ```
@@ -50,4 +50,3 @@ ggplot(data=df, aes(x=x,y=y, group=distribution)) +
         text = element_text(size=20))
 ```
 
-ADD MORE DETAILS BEYOND THE VIDEO?

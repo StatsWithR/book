@@ -158,7 +158,7 @@ Again, Figure \@ref(fig:L1-median) is a visualization of the posterior distribut
 # xi = c(4,19,20,"...",30,"...",47,49)
 L1_loss = c(26,11,10,"...",0,"...",17,19)
 
-temp <- cbind(i,xi,L0_loss)
+temp <- cbind(i,xi,L1_loss)
 temp <- rbind(temp, c("","Total",346))
 temp <- data.frame(temp)
 names(temp) <- c("i","x_i","L1: |x_i-30|")
@@ -212,7 +212,7 @@ Creating the visualization in Figure \@ref(fig:L2-mean) had the same steps. Go t
 # xi = c(4,19,20,"...",30,"...",47,49)
 L2_loss = c(676,121,100,"...",0,"...",289,361)
 
-temp <- cbind(i,xi,L0_loss)
+temp <- cbind(i,xi,L2_loss)
 temp <- rbind(temp, c("","Total",3732))
 temp <- data.frame(temp)
 names(temp) <- c("i","x_i","L2: (x_i-30)^2")
@@ -266,7 +266,7 @@ Suppose we have two competing hypothesis, $H_1$ and $H_2$. Then we get
 
 One straightforward way of choosing between $H_1$ and $H_2$ would be to **choose the one with the higher posterior probability**. In other words, the potential decision criterion is to
 
-* Reject $H_1$ if $P(H_1 \text{ is true } | \text{ data}) < P(H_1 \text{ is true } | \text{ data})$.
+* Reject $H_1$ if $P(H_1 \text{ is true } | \text{ data}) < P(H_2 \text{ is true } | \text{ data})$.
 
 However, since hypothesis testing is a decision problem, we should also consider a loss function. Let's revisit the HIV testing example in Section \@ref(sec:diagnostic-testing), and suppose we want to test the two competing hypotheses below:
 

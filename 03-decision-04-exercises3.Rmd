@@ -1,3 +1,0 @@
-## Exercises
-
-Test something here
