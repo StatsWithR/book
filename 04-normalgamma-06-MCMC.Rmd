@@ -1,14 +1,14 @@
 ## Markov Chain Monte Carlo (MCMC)  {#sec:NG-MCMC}
 
-```{r packages, echo=TRUE, warning=FALSE, message=FALSE,  eval=TRUE}
+```{r packages, echo=FALSE, warning=FALSE, message=FALSE,  eval=TRUE}
 library(statsr)
 library(ggplot2)
 ```
 
 
-The Cauchy prior described in Section \@ref(sec:NG-Cauchy) is not a contrary prior, and therefore, the posterior distribution from $(\mu \mid \sigma)$, is not Cauchy or any well-known distribution. Fortunately, the conditional distribution of $(\mu, \sigma \mid n_0, \data)$,is normal gamma and easy to simulate from, as we learned in the previous sections. The conditional distribution of $(n_0 \mid \mu, \sigma, \data$) is a gamma distribution, also easy to simulate from the given $\mu, \sigma$.
+The Cauchy prior described in Section \@ref(sec:NG-Cauchy) is not a contrary prior, and therefore, the posterior distribution from $(\mu \mid \sigma^2)$, is not Cauchy or any well-known distribution. Fortunately, the conditional distribution of $(\mu, \sigma^2 \mid n_0, \data)$,is normal-gamma and easy to simulate from, as we learned in the previous sections. The conditional distribution of $(n_0 \mid \mu, \sigma^2, \data$) is a gamma distribution, also easy to simulate from the given $\mu, \sigma^2$.
 
-It turns out that if we alternate generating Monte Carlo samples from these conditional distributions, the sequence of samples converges to samples from the joint distribution of $(\mu, \sigma, n_0)$, as the number of simulated values increases. The Monte Carlo algorithm we have just described is a special case of Markov chain Monte Carlo (MCMC), known as the Gibbs sampler.
+It turns out that if we alternate generating Monte Carlo samples from these conditional distributions, the sequence of samples converges to samples from the joint distribution of $(\mu, \sigma^2, n_0)$, as the number of simulated values increases. The Monte Carlo algorithm we have just described is a special case of Markov chain Monte Carlo (MCMC), known as the Gibbs sampler.
 
 Let's look at the pseudo code for the algorithm.
 
