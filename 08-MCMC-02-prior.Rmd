@@ -1,6 +1,6 @@
 ## Other Priors for Bayesian Model Uncertainty
 
-So far, we have discussed Bayesian model selection and Bayesian model averaging using BIC. BIC is an asymptotic approximation of the log of marginal likelihood of models when the number of data points is large. Under BIC, prior distribution of $\BoldB = (\beta_0, \beta_1,\cdots, \beta_p)^T$ is uniformaly flat, which is the same as applying the reference prior on $\BoldB$ conditioning on $\sigma^2$. In this section, we will introduce a new conjugate prior distribution, called the Zellner's $g$-prior. We will see that this prior leads to simple expressions for the Bayes factor, in terms of summary statistics from ordinary least square (OLS). We will talk about choosing the parameter $g$ in the prior and conduct a sensitivity analysis, using the kid's cognitive score data that we used in earlier sections.
+So far, we have discussed Bayesian model selection and Bayesian model averaging using BIC. BIC is an asymptotic approximation of the log of marginal likelihood of models when the number of data points is large. Under BIC, prior distribution of $\bv = (\beta_0, \beta_1,\cdots, \beta_p)^T$ is uniformaly flat, which is the same as applying the reference prior on $\bv$ conditioning on $\sigma^2$. In this section, we will introduce a new conjugate prior distribution, called the Zellner's $g$-prior. We will see that this prior leads to simple expressions for the Bayes factor, in terms of summary statistics from ordinary least square (OLS). We will talk about choosing the parameter $g$ in the prior and conduct a sensitivity analysis, using the kid's cognitive score data that we used in earlier sections.
 
 ### Zellner's $g$-Prior
 
@@ -8,18 +8,18 @@ To analyze the model more conveniently, we still stick with the "centered" regre
 
 $$ y_i = \beta_0 + \beta_1(x_{1,i}-\bar{x}_1) + \beta_2(x_{2, i}-\bar{x}_2)+\cdots +\beta_p(x_{p, i}-\bar{x}_p)+\epsilon_i, \quad 1\leq i\leq n.$$
 
-As before, $\bar{x}_1, \cdots,\bar{x}_p$, are the sample means of the variables $X_1,\cdots,X_p$. Since we have centered all the variables, $\beta_0$ is no longer the $y$-intercept. Instead, it is the sample mean of $Y$ when taking $X_1=\bar{x}_1,\cdots, X_p=\bar{x}_p$. $\beta_1,\cdots,\beta_p$ are the coefficients for the $p$ variables. $\BoldB=(\beta_0,\beta_1,\cdots,\beta_p)^T$ is the vector notation representing all coefficients, including $\beta_0$.
+As before, $\bar{x}_1, \cdots,\bar{x}_p$, are the sample means of the variables $X_1,\cdots,X_p$. Since we have centered all the variables, $\beta_0$ is no longer the $y$-intercept. Instead, it is the sample mean of $Y$ when taking $X_1=\bar{x}_1,\cdots, X_p=\bar{x}_p$. $\beta_1,\cdots,\beta_p$ are the coefficients for the $p$ variables. $\bv=(\beta_0,\beta_1,\cdots,\beta_p)^T$ is the vector notation representing all coefficients, including $\beta_0$.
 
 Under this model, we assume
 
-$$ y_i~|~ \BoldB, \sigma^2~\iid~\No(\beta_0+\beta_1(x_{1,i}-\bar{x}_1)+\cdots+\beta_p(x_{p,i}-\bar{x}_p), \sigma^2), $$
+$$ y_i~|~ \bv, \sigma^2~\iid~\No(\beta_0+\beta_1(x_{1,i}-\bar{x}_1)+\cdots+\beta_p(x_{p,i}-\bar{x}_p), \sigma^2), $$
 which is equivalent to
-$$ \epsilon_i~|~ \BoldB, \sigma^2 ~\iid~\No(0, \sigma^2). $$
+$$ \epsilon_i~|~ \bv, \sigma^2 ~\iid~\No(0, \sigma^2). $$
 
 
-We then specify the prior distributions for $\beta_j,\ 0\leq j\leq p$. Zellner proposed a simple informative conjugate multivariate normal prior for $\BoldB$ conditioning on $\sigma^2$ as
+We then specify the prior distributions for $\beta_j,\ 0\leq j\leq p$. Zellner proposed a simple informative conjugate multivariate normal prior for $\bv$ conditioning on $\sigma^2$ as
 
-$$ \BoldB~|~\sigma^2 ~\sim ~\No(\boldsymbol{b}_0, \Sigma = g\sigma^2\text{S}_{\bf{xx}}^{-1}). $$
+$$ \bv~|~\sigma^2 ~\sim ~\No(\boldsymbol{b}_0, \Sigma = g\sigma^2\text{S}_{\bf{xx}}^{-1}). $$
 
 Here
 $$ \text{S}_{\bf{xx}} = (\mathbf{X}-\bar{\mathbf X})^T(\mathbf X - \bar{\mathbf X}), $$
@@ -39,17 +39,17 @@ $$
 
 When $p=1$, this $\text{S}_{\bf{xx}}$ simplifies to $\displaystyle \text{S}_{\text{xx}} = \sum_{i=1}^n(x_{i}-bar{x})^2$, the sum of squares of a single variable $X$ that we used in Section \@ref(sec:simple-linear). In multiple regression, $\text{S}_{\bf{xx}}$ provides the variance and covariance for OLS. 
 
-The parameter $g$ scales the prior variance of $\BoldB$, over the OLS variances $\sigma^2\text{S}_{\bf{xx}}^{-1}$.  One of the advantages of using this prior is ,that it reduces prior elicitation down to two components; the prior mean $\boldsymbol{b}_0$ and the scalar $g$. We use $g$ to control the size of the variance of the prior, rather than set separate priors for all the variances and covariances (there would be $p(p+1)/2$ such priors for a $p+1$ dimensional multivariate normal distribution).
+The parameter $g$ scales the prior variance of $\bv$, over the OLS variances $\sigma^2\text{S}_{\bf{xx}}^{-1}$.  One of the advantages of using this prior is ,that it reduces prior elicitation down to two components; the prior mean $\boldsymbol{b}_0$ and the scalar $g$. We use $g$ to control the size of the variance of the prior, rather than set separate priors for all the variances and covariances (there would be $p(p+1)/2$ such priors for a $p+1$ dimensional multivariate normal distribution).
 
 Another advantage of using Zellner's $g$-prior is that it leads to simple updating rules, like all conjugate priors. Moreover, the posterior mean and posterior variance have simple forms. The posterior mean is
-$$ \frac{g}{1+g}\hat{\BoldB} + \frac{1}{1+g}\boldsymbol{b}_0, $$
-where $\hat{\BoldB}$ is the frequentist OLS estimates of coefficients $\BoldB$. The posterior variance is
+$$ \frac{g}{1+g}\hat{\bv} + \frac{1}{1+g}\boldsymbol{b}_0, $$
+where $\hat{\bv}$ is the frequentist OLS estimates of coefficients $\bv$. The posterior variance is
 $$  \frac{g}{1+g}\sigma^2\text{S}_{\bf{xx}}^{-1}. $$
 
-From the posterior mean formula, we can see that the posterior mean is a weighted average of the prior mean $\boldsymbol{b}_0$ and the OLS estimate $\hat{\BoldB}$. Since $\displaystyle \frac{g}{1+g}$ is strictly less than 1, Zellner's $g$-prior shrinks the OLS estimates $\hat{\BoldB}$ towards the prior mean $\boldsymbol{b}_0$. As $g\rightarrow \infty$, $\displaystyle \frac{g}{1+g}\rightarrow 1$ and $\displaystyle \frac{1}{1+g}\rightarrow 0$, and we recover the OLS estimate as in the reference prior.
+From the posterior mean formula, we can see that the posterior mean is a weighted average of the prior mean $\boldsymbol{b}_0$ and the OLS estimate $\hat{\bv}$. Since $\displaystyle \frac{g}{1+g}$ is strictly less than 1, Zellner's $g$-prior shrinks the OLS estimates $\hat{\bv}$ towards the prior mean $\boldsymbol{b}_0$. As $g\rightarrow \infty$, $\displaystyle \frac{g}{1+g}\rightarrow 1$ and $\displaystyle \frac{1}{1+g}\rightarrow 0$, and we recover the OLS estimate as in the reference prior.
 
-Similarly, the posterior variancc is a shrunken version of the OLS variance, by a factor of $\displaystyle \frac{g}{1+g}$. The posterior distribution of $\BoldB$ conditioning on $\sigma^2$ is a normal distribution
-$$ \BoldB~|~\sigma^2, \text{data}~\sim~ \No(\frac{g}{1+g}\hat{\BoldB} + \frac{1}{1+g}\boldsymbol{b}_0,\ \frac{g}{1+g}\sigma^2\text{S}_{\bf{xx}}^{-1}). $$
+Similarly, the posterior variancc is a shrunken version of the OLS variance, by a factor of $\displaystyle \frac{g}{1+g}$. The posterior distribution of $\bv$ conditioning on $\sigma^2$ is a normal distribution
+$$ \bv~|~\sigma^2, \text{data}~\sim~ \No(\frac{g}{1+g}\hat{\bv} + \frac{1}{1+g}\boldsymbol{b}_0,\ \frac{g}{1+g}\sigma^2\text{S}_{\bf{xx}}^{-1}). $$
 
 
 ### Bayes Factor of Zellner's $g$-Prior 
@@ -115,7 +115,7 @@ cog.g = bas.lm(kid_score ~ ., data=cognitive, prior="g-prior",
 # a is the hyperparameter in this case g=n
 
 # Zellner-Siow prior with Jeffrey's reference prior on sigma^2
-cog.ZS = bas.lm(kid_score ~ ., data=cognitive, prior="ZS-null", 
+cog.ZS = bas.lm(kid_score ~ ., data=cognitive, prior="JZS", 
                modelprior=uniform())
 
 # Hyper g/n prior

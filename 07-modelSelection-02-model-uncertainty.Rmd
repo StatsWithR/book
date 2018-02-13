@@ -104,6 +104,14 @@ All top 5 models suggest to exclude `age` variable and include `IQ` variable. Th
 
 Using the `print` method, we obtain the marginal posterior inclusion probability (pip) $p(\beta_j\neq 0)$ of each variable $x_j$.
 
+<!--
+```{r, echo = F, message = F}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy = F)
+```
+-->
+
+
 ```{r print-pip}
 print(cog_bas)
 ```

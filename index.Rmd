@@ -17,13 +17,13 @@ github-repo: StatsWithR/book
 \newcommand{\St}{\textsf{t}}
 \newcommand{\NoGa}{\textsf{NormalGamma}}
 \newcommand{\Be}{\textsf{Beta}}
-\newcommand{\BF}{\textsf{BF}}
-\newcommand{\PO}{\textsf{PO}}
-\newcommand{\Odd}{\textsf{O}}
+\newcommand{\BF}{\textit{BF}}
+\newcommand{\PO}{\textit{PO}}
+\newcommand{\Odd}{\textit{O}}
 \newcommand{\data}{\text{data}}
 \newcommand{\iid}{\mathrel{\mathop{\sim}\limits^{\rm iid}}}
 \newcommand{\Ca}{\textsf{C}}
-\newcommand{\BoldB}{\boldsymbol{\beta}}
+\newcommand{\bv}{\boldsymbol{\beta}}
 
 ```{r code, warning=FALSE, message=FALSE, echo=FALSE, results='hide'}
 # If you are using any R packages, please add it here AND
