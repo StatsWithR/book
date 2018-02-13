@@ -1,7 +1,6 @@
+## Predictive Distributions {#sec:NG-predictive}
 
-### Predictive Distributions {#sec:NG-predictive}
-
-```{r packages, echo=TRUE, warning=FALSE, message=FALSE,  eval=TRUE}
+```{r packages, echo=FALSE, warning=FALSE, message=FALSE,  eval=TRUE}
 library(statsr)
 library(ggplot2)
 ```
@@ -58,7 +57,7 @@ A report from the city water department suggests that levels of TTHM are expecte
 
 * Prior estimate of sigma: $s_0 = (60-10)/4 = 12.5$ or $s_0^2 = [(60-10)/4]^2 = 156.25$
 
-To complete the specification, we also need to choose the prior sample size $n_0$ and degrees of freedom $v_0$. As the degrees of freedom of the variance are $n-1$, we set $v_0 = n_0 - 1$. We will draw samples from the prior predictive distribution and modify $n_0$ so that the simulated data agree with our prior assumptions.
+To complete the specification, we also need to choose the prior sample size $n_0$ and degrees of freedom $v_0$. As the variance has $n-1$ degrees of freedom, we set $v_0 = n_0 - 1$. We will draw samples from the prior predictive distribution and modify $n_0$ so that the simulated data agree with our prior assumptions.
 
 The following `R` code shows a simulation from the predictive distribution with the prior sample size of 2. Please note that the number of Monte Carlo simulations should not be confused with the prior sample size $n_0$.
 

@@ -20,7 +20,7 @@ Therefore, we can form the hypotheses as below:
 
 * $H_A: p < 0.5$ (treatment is more effective, a pregnancy is less likely to come from the treatment group)
  
-A p-value is needed to make an inference decision with the frequentist approach. The definition of p-value is the probability of observing something *at least* as extreme as the data, given that the null hypothesis ($H_0$) is true. "More extreme" means in the direction of the alternative hypothesis ($H_A$).
+A p-value is needed to make an inference decision with the frequentist approach. The definition of p-value is the probability of observing something **at least** as extreme as the data, given that the null hypothesis ($H_0$) is true. "More extreme" means in the direction of the alternative hypothesis ($H_A$).
 
 Since $H_0$ states that the probability of success (pregnancy) is 0.5, we can calculate the p-value from 20 independent Bernoulli trials where the probability of success is 0.5. The outcome of this experiment is 4 successes in 20 trials, so the goal is to obtain 4 or fewer successes in the 20 Bernoulli trials. 
 
@@ -60,10 +60,10 @@ temp <- matrix(c(p,
                  numerator,
                  posterior), 
                nrow = 5, byrow = TRUE)
-rownames(temp) <- c("Model ($p$)", "Prior $P(model)$", 
-                    "Likelihood $P(data|model)$",
-                    "$P(data|model)$ x $P(model)$",
-                    "Posterior $P(model|data)$")
+rownames(temp) <- c("Model (p)", "Prior P(model)", 
+                    "Likelihood P(data|model)",
+                    "P(data|model) x P(model)",
+                    "Posterior P(model|data)")
 
 knitr::kable(
   x = temp,
@@ -137,6 +137,6 @@ barplot(likelihood, names.arg = p, las = 2, main = "Likelihood")
 barplot(posterior, names.arg = p, las = 2, main = "Posterior")
 ```
 
-To illustrate the effect of the sample size even further, we're going to keep increasing our sample size, but still maintain the the 20% ratio between the sample size and the number of successes. So let's consider a sample with 200 observations and 40 successes. Once again, we're going to use the same prior and the likelihood is again centered at 20% and almost all of the probability mass in the posterior is at p is equal to 0.20. The other models do not have zero probability mass, but they're posterior probabilities are very close to zero. 
+To illustrate the effect of the sample size even further, we are going to keep increasing our sample size, but still maintain the the 20% ratio between the sample size and the number of successes. So let's consider a sample with 200 observations and 40 successes. Once again, we are going to use the same prior and the likelihood is again centered at 20% and almost all of the probability mass in the posterior is at p is equal to 0.20. The other models do not have zero probability mass, but they're posterior probabilities are very close to zero. 
 
-Figure \@ref(fig:RU-486plotX10) demonstrates that **as more data are collected, the likelihood ends up dominating the prior**. This is why, while a good prior helps, a bad prior can be overcome with a large sample. However, it's important to note that this will only work as long as we don't place a zero probability mass on any of the models in the prior. 
+Figure \@ref(fig:RU-486plotX10) demonstrates that **as more data are collected, the likelihood ends up dominating the prior**. This is why, while a good prior helps, a bad prior can be overcome with a large sample. However, it's important to note that this will only work as long as we do not place a zero probability mass on any of the models in the prior. 
