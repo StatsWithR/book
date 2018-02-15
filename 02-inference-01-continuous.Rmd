@@ -4,6 +4,8 @@ library(ggplot2)
 
 ## Continuous Variables and Eliciting Probability Distributions
 
+We are going to introduce continuous variables and how to elicit probability distributions, from a prior belief to a posterior distribution using the Bayesian framework.
+
 ### From the Discrete to the Continuous
 
 This section leads the reader from the discrete random variable to continuous random variables. Let's start with the binomial random variable such as the number of heads in ten coin tosses, can only take a discrete number of values: 0, 1, 2, up to 10.
@@ -79,7 +81,7 @@ Here is a summary of the key ideas in this section:
 
 ### Elicitation
 
-Next, we introduce the concept of prior elicitation in base and statistics. Often, one has a belief about the distribution of one's data. You may think that your data come from a binomial distribution and in that case you typically know the $n$, the number of trials but you usually do not know $p$, the probability of success. Or you may think that your data come from a normal distribution. But you do not know the mean $\mu$ or the standard deviation $\sigma$ of the normal. Beside to knowing the distribution of one's data, you may also have beliefs about the unknown $p$ in the binomial or the unknown mean $\mu$ in the normal. 
+Next, we introduce the concept of prior elicitation in Bayesian statistics. Often, one has a belief about the distribution of one's data. You may think that your data come from a binomial distribution and in that case you typically know the $n$, the number of trials but you usually do not know $p$, the probability of success. Or you may think that your data come from a normal distribution. But you do not know the mean $\mu$ or the standard deviation $\sigma$ of the normal. Beside to knowing the distribution of one's data, you may also have beliefs about the unknown $p$ in the binomial or the unknown mean $\mu$ in the normal. 
 
 Bayesians express their belief in terms of personal probabilities. These personal probabilities encapsulate everything a Bayesian knows or believes about the problem. But these beliefs must obey the laws of probability, and be consistent with everything else the Bayesian knows. 
 
