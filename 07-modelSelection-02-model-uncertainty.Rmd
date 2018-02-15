@@ -22,7 +22,7 @@ The marginal likelihood $p(\text{data}~|~M_m)$ of each model $M_m$ serves to rew
 Recall that the prior odd between two models $M_1$ and $M_2$ is defined to be
 
 $$
-\text{O}[M_1:M_2] =  \frac{p(M_1)}{p(M_2)},
+\Odd[M_1:M_2] =  \frac{p(M_1)}{p(M_2)},
 $$
 and the Bayes factor is defined to be the ratio of the likelihoods of two models
 $$ \BF[M_1:M_2] = \frac{p(\text{data}~|~M_1)}{p(\text{data}~|~M_2)}. $$
@@ -38,7 +38,27 @@ p(M_m~|~\text{data}) = & \frac{p(\text{data}~|~M_m)\times p(M_m)/(p(\text{data}~
 = & \frac{\BF[M_m:M_b]\times \Odd[M_m:M_b]}{\sum_{j=1}^{2^p}\BF[M_j:M_b]\times \Odd[M_j:M_b]}.
 \end{aligned}
 $$
-Any model can be used as the base model $M_b$. It could be the model with the highest posterior probability, or the one with just the intercept $y_i = \beta_0+\epsilon_i$. 
+Any model can be used as the base model $M_b$. It could be the model with the highest posterior probability, or the null model $M_0$ with just the intercept $y_i = \beta_0+\epsilon_i$. 
+
+Using BIC, we can approximate the Bayes factor between two models by their OLS $R$-squared's and the numbers of predictors used in the models, when we have large sample of data. This provides a much easier way to approximate the posterior probability of models since obtaining $R^2$ can be done by the usual OLS linear regression. Recall that in Section \@ref(sec:BIC), we provided the fact that BIC of any model $M_m$ (denoted as $\text{BIC}_m$) is an asymptotic approximation of the log of marginal likelihood of $M_m$ when the sample size $n$ is large (Equation \@ref(eq:BIC-approx))
+$$ \text{BIC}_m \approx -2 \ln(\text{marginal likelihood}) = -2\ln(p(\text{data}~|~M_m)). $$
+
+Using this fact, we can approximate Bayes factor between two models by their BICs
+$$ \BF[M_1:M_2] = \frac{p(\text{data}~|~M_1)}{p(\text{data}~|~M_2)} \approx \frac{\exp(-\text{BIC}_1/2)}{\exp(-\text{BIC}_2/2)}=\exp\left(-\frac{1}{2}(\text{BIC}_1-\text{BIC}_2)\right).$$
+
+We also know that BIC can be calculated by the OLS $R^2$ and the number of predictors $p$ from Equation \@ref(eq:BIC-new) in Section \@ref(sec:BIC)
+$$ \text{BIC} = n\ln(1-R^2) + (p+1)\ln(n) + \text{constant}. $$
+(We usually ignore the constant in the last term since it does not affect the difference betweeen two BICs.)
+
+Using this formula, we can approximate Bayes factor between model $M_1$ and $M_2$ by their corresponding $R$-squared's and the numbers of predictors
+\begin{equation}
+\BF[M_1:M_2]\approx \left(\frac{1-R_1^2}{1-R_2^2}\right)^{\frac{n}{2}}\times n^{\frac{p_1-p_2}{2}}.
+(\#eq:BF-Rsquared)
+\end{equation}
+
+As for the null model $M_0:\ y_i = \beta_0+\epsilon_i$, $R_0^2 = 0$ and $p_0=0$. Equation \@ref(eq:BF-Rsquared) can be further simplified as 
+$$ \BF[M_m:M_0] = (1-R_m^2)^{\frac{n}{2}}\times n^{\frac{p_m}{2}}. $$
+
 
 ### Calculating Posterior Probability in R
 
