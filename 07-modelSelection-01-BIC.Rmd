@@ -1,4 +1,4 @@
-## Bayesian Information Criterion (BIC)
+## Bayesian Information Criterion (BIC) {#sec:BIC}
 
 In inferential statistics, we compare model selections using $p$-values or adjusted $R^2$. Here we will take the Bayesian propectives. We are going to discuss the Bayesian model selections using the Bayesian information criterion, or BIC. BIC is one of the Bayesian criteria used for Bayesian model selection, and tends to be one of the most popular criteria. 
 
@@ -35,9 +35,14 @@ This also provides connection between BIC and Bayes factor, which we will levera
 
 
 Similar to AIC, the Akaike information criterion, the model with the smallest BIC is preferrable. Formula \@ref(eq:BIC-def) can be re-expressed using the model $R^2$, which is easier to calculate
-$$ \text{BIC} = n\ln(1-R^2)+(p+1)\ln(n)+\text{constant}, $$
+\begin{equation}
+\text{BIC} = n\ln(1-R^2)+(p+1)\ln(n)+\text{constant},
+(\#eq:BIC-new)
+\end{equation}
 where the last term constant only depends on the sample size $n$, and the observed data $y_1,\cdots, y_n$. Since this constant does not depend on the choice of model, i.e., the choice of variables, ignoring this constant will not affect the comparison of BICs between models. Therefore, we usually define BIC to be
-$$ \text{BIC} = n\ln(1-R^2) + (p+1)\ln(n).$$
+\begin{equation*}
+\text{BIC} = n\ln(1-R^2) + (p+1)\ln(n).
+\end{equation*}
 
 
 From this expression, we see that adding more predictors, that is, increasing $p$, will result in larger $R^2$, which leads to a smaller $\ln(1-R^2)$ in the first term of BIC. While larger $R^2$ means better goodness of fit of the data, too many predictors may result in overfitting the data. Therefore, the second term $(p+1)\ln(n)$ is added in the BIC expression to penalize models with too many predictors. When $p$ increases, the second term increases as well. This provides a trade-off between the goodness of fit given by the first term and the model complexity represented by the second term.
@@ -98,7 +103,7 @@ cog.BIC
 ```
 Here we set the `modelprior` argument as `uniform()` to assign equal prior probability for each possible model.
 
-The `logmarg` information inside the `cog.BIC` summary list records the log of marginal likelihood of each model after seeing the data $\ln(p(\text{data}~|~M)$. Recall that this is approximately proportional to negative BIC when the sample size $n$ is large
+The `logmarg` information inside the `cog.BIC` summary list records the log of marginal likelihood of each model after seeing the data $\ln(p(\text{data}~|~M))$. Recall that this is approximately proportional to negative BIC when the sample size $n$ is large
 $$ \text{BIC}\approx -2 \ln(p(\text{data}~|~M)).$$
 
 We can use this information to retreat the model with the largest log of marginal likelihood, which corresponds to the model with the smallest BIC. 
