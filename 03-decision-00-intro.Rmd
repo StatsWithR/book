@@ -1,4 +1,4 @@
-# Introduction to Losses and Decision-Making
+# Losses and Decision Making
 
 In the previous chapter, we learned about continuous random variables. That enabled us to study conjugate families, such as the beta binomial, the Poisson gamma, and the normal normal. We also considered the difficulties of eliciting a personal prior, and of handling inference in nonconjugate cases. Finally, we introduced the credible interval and studied predictive inference. 
 
