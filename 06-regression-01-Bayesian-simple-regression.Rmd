@@ -150,7 +150,7 @@ $$ Y_i~|~x_i, \alpha, \beta,\sigma^2~ \sim~ \No(\alpha + \beta x_i, \sigma^2),\q
 That is, the likelihood of each $Y_i$ given $x_i, \alpha, \beta$, and $\sigma^2$ is given by
 $$ p(y_i~|~x_i, \alpha, \beta, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y_i-(\alpha+\beta  x_i))^2}{2\sigma^2}\right). $$
 
-The likelihood of $Y_1,\cdots,Y_n$ is the product of each likelihood $p(y_i~|~x_i, \alpha, \beta,\ sigma^2$, since we assume each response $Y_i$ is independent from each other. Since this likelihood depends on the values of $\alpha$, $\beta$, and $\sigma^2$, it is sometimes denoted as a function of $\alpha$, $\beta$, and $\sigma^2$: $\mathcal{L}(\alpha, \beta, \sigma^2)$. 
+The likelihood of $Y_1,\cdots,Y_n$ is the product of each likelihood $p(y_i~|~x_i, \alpha, \beta,\sigma^2)$, since we assume each response $Y_i$ is independent from each other. Since this likelihood depends on the values of $\alpha$, $\beta$, and $\sigma^2$, it is sometimes denoted as a function of $\alpha$, $\beta$, and $\sigma^2$: $\mathcal{L}(\alpha, \beta, \sigma^2)$. 
 
 
 We first consider the case under the reference prior, which is our standard noninformative prior. Using the reference prior, we will obtain familiar distributions as the posterior distributions of $\alpha$, $\beta$, and $\sigma^2$, which gives the analogue to the frequentist results. Here we assume the joint prior distribution of $\alpha,\ \beta$, and $\sigma^2$ to be proportional to the inverse of $\sigma^2$
