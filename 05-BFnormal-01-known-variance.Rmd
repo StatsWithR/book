@@ -32,7 +32,7 @@ bf12_point = function(ybar, m_1, m_2, n=100, sigma=1) {
 }
 ```
 
-Now we show how to obtain base factors for testing hypothesis about a normal mean, where **the variance is known**. To start, let's consider a random sample of observations from a normal population with mean $\mu$ and pre-specified variance $\sigma^2$. We consider testing whether the population mean $\mu$ is equal to $m_0$ or not.
+Now we show how to obtain Bayes factors for testing hypothesis about a normal mean, where **the variance is known**. To start, let's consider a random sample of observations from a normal population with mean $\mu$ and pre-specified variance $\sigma^2$. We consider testing whether the population mean $\mu$ is equal to $m_0$ or not.
 
 Therefore, we can formulate the data and hypotheses as below:
 
@@ -119,7 +119,7 @@ The takeaway from this is that we cannot use improper priors with $n_0 = 0$, if 
 
 This problem arises with vague priors -- the Bayes factor favors the null model $H_1$ even when the data are far away from the value under the null -- are known as the Bartlett's paradox or the Jeffrey's-Lindleys paradox.
 
-Now one way to try to understand the effect of prior is through the standard effect size
+Now, one way to understand the effect of prior is through the standard effect size
 
 $$\delta = \frac{\mu - m_0}{\sigma}.$$
 The prior of the standard effect size is
@@ -200,6 +200,6 @@ lead to Bayes factors that favor the null hypothesis regardless of the data, and
 
 Bayes factors with normal priors can be sensitive to the choice of the $n_0$. While the default value of $n_0 = 1$ is reasonable in many cases, this may be too non-informative if one expects more effects. Wherever possible, think about how large an effect you expect and use that information to help select the $n_0$.
 
-All the ESP examples suggest weak evidence and favored the machine generating random 0's and 1's with a probability that is different from 0.5. Note that ESP is not the only explanation -- a deviation from 0.5 can also occur if the random number generator is biased. Bias in the stream of random numbers in our pseudorandom numbers has huge implications for numerous fields that depend on simulation. If the context had been about detecting a small bias in random numbers what prior would you use and how would it change the outcome? You can try to experiment in R or other software packages that generate random Bernoullis.
+All the ESP examples suggest weak evidence and favored the machine generating random 0's and 1's with a probability that is different from 0.5. Note that ESP is not the only explanation -- a deviation from 0.5 can also occur if the random number generator is biased. Bias in the stream of random numbers in our pseudorandom numbers has huge implications for numerous fields that depend on simulation. If the context had been about detecting a small bias in random numbers what prior would you use and how would it change the outcome? You can experiment it in `R` or other software packages that generate random Bernoulli trials.
 
 Next, we will look at Bayes factors in normal models with unknown variances using the Cauchy prior so that results are less sensitive to the choice of $n_0$.
