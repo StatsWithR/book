@@ -119,7 +119,7 @@ Using the Monte Carlo samples, we can also estimate the prior probability of neg
 sum(y < 0)/length(y)  # P(Y < 0) a priori
 ```
 
-With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we can still use the conjugate normal gamma model for analysis.
+With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we can still use the conjugate normal-gamma model for analysis.
 
 We can use the same strategy to generate samples from the predictive distribution of a new measurement $Y_{n+1}$ given the observed data. In mathematical terms, the posterior predictive distribution is written as
 
@@ -159,13 +159,13 @@ ggplot(data=df, aes(x=pred_y)) +
         text = element_text(size=20))
 ```
 
-Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06.
+Using the Monte Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06.
 
 ```{r negative-pred}
 sum(pred_y > 80)/length(pred_y)  # P(Y > 80 | data)
 ```
 
-By using Monte-Carlo methods, we can obtain prior and posterior predictive distributions of the data.
+By using Monte Carlo methods, we can obtain prior and posterior predictive distributions of the data.
 
 * Sampling from the prior predictive distribution can help with the selection of prior hyper parameters and verify that these choices reflect the prior information that is available.
 

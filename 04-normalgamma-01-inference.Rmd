@@ -1,7 +1,7 @@
 ## The Normal-Gamma Conjugate Family {#sec:normal-gamma}
 
 
-In \@ref(sec:normal-normal) we described the normal-normal conjugate  family for inference about an unknown mean $\mu$ with a known standard deviation $\sigma$ when the data were assumed to be a random sample from a normal population. In this section we will introduce the normal-gamma conjugate family for the common situation when $\sigma$ is unknown.  As both $\mu$ and $\sigma^2$ unknown, we will need to specify a **joint** prior distribution to describe our prior uncertainty about them.
+In Section \@ref(sec:normal-normal) we described the normal-normal conjugate  family for inference about an unknown mean $\mu$ with a known standard deviation $\sigma$ when the data were assumed to be a random sample from a normal population. In this section we will introduce the normal-gamma conjugate family for the common situation when $\sigma^2$ is unknown.  As both $\mu$ and $\sigma^2$ unknown, we will need to specify a **joint** prior distribution to describe our prior uncertainty about them.
 
 **Sampling Model**
 
@@ -25,15 +25,16 @@ with hyper-parameters $m_0$, the prior mean for $\mu$, and $\sigma^2/n_0$ the pr
 
 As $\sigma^2$ is unknown, a Bayesian would use a
 prior distribution to describe the uncertainty about the variance before seeing data.  Since the variance is non-negative, continuous, and with no upper limit,  a gamma distribution is a candidate  prior for the variance, based on the distributions that we have seen so far. However, that choice does not lead to a posterior distribution in the same family or that is recognizable as any common distribution. It turns out that the the inverse of the variance, which is known as the precision, has a conjugate gamma prior distribution.
-Letting $\phi = 1/\sigma^2$ denote the precision or inverse variance,  the conjugate prior for $\phi$,
+
+Let $\phi = 1/\sigma^2$ denote the precision or inverse variance, and the conjugate prior for $\phi$,
 \begin{equation}
 \phi \sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right)
 (\#eq:04-conjugate-gamma)
 \end{equation}
-is a gamma distribution with hyper-parameters $v_0$,  prior degrees of freedom, and $s^2_0$ a prior variance or guess for $\sigma^2$.  Equivalently we may say that the inverse of the variance has a 
+is a gamma distribution with hyper-parameters $v_0$ as the prior degrees of freedom, and $s^2_0$ a prior variance or guess for $\sigma^2$.  Equivalently we may say that the inverse of the variance has a 
 $$1/\sigma^2 \sim \textsf{Gamma}(v_0/2, s^2_0 v_0/2)$$
 
-gamma distribution to avoid using a new symbol.  Together the Normal conditional distribution for $\mu$ given $\sigma^2$ in \@ref(eq:04-conjugate-normal)  and the marginal Gamma distribution for $\phi$ in \@ref(eq:04-conjugate-gamma) lead to a joint distribution for the pair $(\mu, \phi)$ that we will call the Normal-Gamma family of distributions:
+gamma distribution to avoid using a new symbol.  Together the Normal conditional distribution for $\mu$ given $\sigma^2$ in \@ref(eq:04-conjugate-normal)  and the marginal gamma distribution for $\phi$ in \@ref(eq:04-conjugate-gamma) lead to a joint distribution for the pair $(\mu, \phi)$ that we will call the normal-gamma family of distributions:
 \begin{equation}(\mu, \phi) \sim \textsf{NormalGamma}(m_0, n_0, s^2_0, v_0)
 (\#eq:04-conjugate-normal-gamma)
 \end{equation}
@@ -42,7 +43,7 @@ with the four hyper-parameters $m_0$, $n_0$, $s^2_0$, and $v_0$.
 **Posterior Distribution**
 
 As a conjugate family, the posterior
-distribution of the pair of parameters ($\mu, \phi$) is in the same family as the prior distribution when the sample data arise from a  normal distribution, that is the posterior is also Normal-Gamma 
+distribution of the pair of parameters ($\mu, \phi$) is in the same family as the prior distribution when the sample data arise from a normal distribution, that is the posterior is also Normal-Gamma 
 \begin{equation}
 (\mu, \phi) \mid \text{data} \sim \textsf{NormalGamma}(m_n, n_n, s^2_n, v_n)
 \end{equation}
@@ -135,10 +136,10 @@ U = qt(.975, v_n)*sqrt(s2_n/n_n) + m_n
 ```
 
 
-Using prior information about TTHM from the city, we will use a Normal-Gamma prior distribution,
+Using prior information about TTHM from the city, we will use a normal-gamma prior distribution,
 $\textsf{NormalGamma}(`r m_0`, `r n_0`, `r s2_0`, `r v_0`)$ with
 a prior mean of `r m_0` parts per billion, a prior sample
-size of `r n_0`, an estimate of the variance of `r s2_0` with degrees of freedom `r v_0`.  In section \@ref(sec:NG-predictive), we will describe how we arrived at these values.
+size of `r n_0`, an estimate of the variance of `r s2_0` with degrees of freedom `r v_0`.  In Section \@ref(sec:NG-predictive), we will describe how we arrived at these values.
 
 Using the summaries of the data, $\bar{Y} = `r round(ybar, 1)`$,
 variance $s^2 = `r s2`$ and sample size of $n = `r n`$ with the
@@ -238,16 +239,16 @@ m_n + qt(c(0.025, 0.975), v_n)*sqrt(s2_n/n_n)
 
 
 
-Based on the updated posterior, we find that there is a 95 chance that
+Based on the updated posterior, we find that there is a 95% chance that
 the mean TTHM concentration is between `r round(L, 1)`
 parts per billion and `r round(U, 1)` parts per billion.
 
 **Summary**
 
-The Normal-Gamma conjugate prior for
+The normal-gamma conjugate prior for
 inference about an unknown mean and variance for samples from a normal
-distribution allows simple expressions for updating prior beliefs given the data.   The joint Normal-Gamma distribution leads to the
-Student $t$ distribution for inference about $\mu$ when $\sigma$ is unknown.  The Student $t$ distribution can be used to provide 
+distribution allows simple expressions for updating prior beliefs given the data.   The joint normal-gamma distribution leads to the
+Student $t$ distribution for inference about $\mu$ when $\sigma^2$ is unknown.  The Student $t$ distribution can be used to provide 
 credible intervals for $\mu$  using `R` or other software that provides quantiles of a standard $t$ distribution.
 
 For the energetic learner who is comfortable with calculus, the following optional material provides more details on how the posterior distributions were obtained and other results in this section.
