@@ -74,7 +74,7 @@ prob.39
 
 We see that this case has an extremely high probability of `r round(prob.39, 3)` of being more an outlier, that is, the error is greater than $k=3$ standard deviations, based on the fitted model and data.
 
-With $k=3$, however, there may be a high probability a priori of at least one outlier in a large sample. Let $p = P(\text{any error $\epsilon_j$ lies within 3 standard deviations}) = P(\text{observation $j$ is not a outlier}$. Since we assume the prior distribution of $\epsilon_j$ is normal, we can calculate $p$ using the `pnorm` function. Let $\Phi(z)$ be the cumulative distribution of the standard Normal distribution, that is,
+With $k=3$, however, there may be a high probability a priori of at least one outlier in a large sample. Let $p = P(\text{any error $\epsilon_j$ lies within 3 standard deviations}) = P(\text{observation $j$ is not a outlier})$. Since we assume the prior distribution of $\epsilon_j$ is normal, we can calculate $p$ using the `pnorm` function. Let $\Phi(z)$ be the cumulative distribution of the standard Normal distribution, that is,
 $$ \Phi(z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{x^2}{2}\right)\, dx. $$
 
 Then $p = 1-2\Phi(-k) = 1 - 2\Phi(-3)$.^[$\Phi(-k)$ actually represents the area of the lower tail under the standard Normal distribution curve $k$ standard deviations away from the mean 0.] Since we assume $\epsilon_j$ is independent, that the probability of no outlier is just the $n$th power of $p$. The event of getting at least 1 outlier is the complement of the event of getting no outliers. Therefore, the probability of getting at least 1 outlier is
