@@ -177,7 +177,7 @@ $$
 To obtain the marginal posterior distribution of $\beta$,  we need to integrate $\alpha$ and $\sigma^2$ out from the joint posterior distribution
 $$ p^*(\beta~|~y_1,\cdots,y_n) = \int_0^\infty \left(\int_{-\infty}^\infty p^*(\alpha, \beta, \sigma^2~|~y_1,\cdots, y_n)\, d\alpha\right)\, d\sigma^2. $$
 
-We leave the detialed calculation in Section \@ref(sec:deviations). It can be shown that the marginal posterior distribution of $\beta$ is the Student's $t$-distribution
+We leave the detailed calculation in Section \@ref(sec:derivations). It can be shown that the marginal posterior distribution of $\beta$ is the Student's $t$-distribution
 $$ \beta~|~y_1,\cdots,y_n ~\sim~ \St\left(n-2,\ \hat{\beta},\ \frac{\hat{\sigma}^2}{\text{S}_{xx}}\right) = \St\left(n-2,\  \hat{\beta},\ (\text{se}_{\beta})^2\right), $$
 with degrees of freedom $n-2$, center at $\hat{\beta}$, the slope estimate we obtained from the frequentist OLS model, and scale parameter $\displaystyle \frac{\hat{\sigma}^2}{\text{S}_{xx}}=\left(\text{se}_{\beta}\right)^2$, which is the square of the standard error of $\hat{\beta}$ under the frequentist OLS model.
 
