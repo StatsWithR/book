@@ -60,7 +60,7 @@ The updated hyper-parameter $m_n$ in the posterior distribution of $\mu$ is the 
 The posterior sample size $n_n$ is the sum of the prior sample
 size $n_n$ and the sample size $n$, representing the combined precision of the estimate for $\mu$.  The posterior degrees of freedom $v_n$ are also increased by adding the  sample size $n$ to the prior degrees of freedom $v_0$. 
 
-Finally, the posterior variance hyper-parameter $s^2_n$ combines three sources of information about $\sigma$ in terms of sums of squared deviations. **FILL IN MORE DETAILS** The first term in
+Finally, the posterior variance hyper-parameter $s^2_n$ combines three sources of information about $\sigma^2$ in terms of sums of squared deviations. The first term in
 the square brackets is the sample variance times the sample degrees of
 freedom which is the sample sum of squares. The second term represents
 the prior sum of squares, while the third term is based on the squared

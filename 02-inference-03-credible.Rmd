@@ -12,7 +12,7 @@ In mathematical notation, the probability density function of $p$ is
 
 $$f_p(x) = \left\{ \begin{array}{ccc}
 1 & \text{for} & 0 \leq x < 0.5 \\
-1 & \text{for} & x = 0.5 \\
+0.5 & \text{for} & x = 0.5 \\
 0 & \text{for} & x < 0 \text{ or } x > 0.5
 \end{array}\right.$$
 
@@ -32,8 +32,52 @@ As previously mentioned, there is no way to compute the posterior distribution f
 
 If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution, as in Figure \@ref(fig:JAGS-screenshot). At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results. 
 
-```{r JAGS-screenshot, fig.align="center", fig.cap="Posterior with JAGS", echo=FALSE}
-knitr::include_graphics("JAGS_screenshot.png")
+```{r JAGS-screenshot, out.width = '80%', fig.align="center", fig.cap="Posterior with JAGS", echo=FALSE, message=FALSE, warning=FALSE}
+library(rjags)
+library(logspline)
+
+# Run JAGS model
+
+str <- "model {
+dummy ~ dunif(0, 1)  # this step should be fine
+p = ifelse(dummy > 0.5, 0.5, dummy)
+y ~ dbin(p, 4)
+}"
+
+set.seed(1234)
+
+data_jags = list(y = 0)
+params = c('dummy', 'p')
+init = function(){
+  init = list('dummy' = 0.2)   # just a random number
+}
+
+mod = jags.model(textConnection(str), data = data_jags, inits = init)
+
+mod_sim = coda.samples(model = mod, variable.names = params, n.iter = 10000)
+
+# Extract data for p
+
+p <- mod_sim[[1]][, 2]
+
+# Split p into p != 0.5 and p == 0.5 for later density function
+
+p.pointMass = p[p == 0.5]
+p.notPointMass = p[p != 0.5]
+
+# Plot the truncated density of p.notPointMass using logspline method
+# Then add the line segment to represent p.pointMass
+
+fit = logspline(p.notPointMass)
+
+# Set the margin of the graphic windwo
+mar.default <- c(5,4,4,2) + 0.1
+par(mar = mar.default + c(0, 4, 0, 0))
+
+# Plot. Shrink the range of "x" so that we won't see the sudden jump at the boundaries 
+plot(fit, xlim = c(0.001, 0.495), ylim = c(0, 5.5), xlab = "p", 
+     ylab = expression(paste("posterior distribution, ", pi, "*", "(p)")))
+segments(0.5, 0, 0.5, length(p.pointMass) / length(p), col = "black", lwd = 5)
 ```
 
 That histogram is lightly smooth to generate the posterior density you see. There is still a point mass of probability at 0.5, but now it has less weight than before. Also, note how the data have changed the posterior away from the prior. The analyst sees a lot of probability under the curve near 0.2, but responds to the fact that no children were born to RU-486 mothers. 
@@ -62,7 +106,7 @@ Recall the RU-486 example. When the analyst used the beta-binomial family, she t
 
 After we observed four children born to mothers who received conventional therapy, her posterior is $p|x \sim \text{beta}(1,5)$. In Figure \@ref(fig:posterior), the posterior probability density for $\text{beta}(1,5)$ puts a lot of probability near zero and very little probability near one.
 
-```{r posterior, fig.cap="RU-486 Posterior",echo=FALSE}
+```{r posterior, out.width = '80%', fig.cap="RU-486 Posterior",echo=FALSE}
 x.vector = seq(from=0, to=1, by=0.001)
 y.vector = dbeta(x.vector,1,5)
 

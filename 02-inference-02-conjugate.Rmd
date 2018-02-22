@@ -88,7 +88,7 @@ Modern computing was unavailable at that time yet, so the Prussian general will 
 
 The gamma family is flexible, and Figure \@ref(fig:gamma) illustrates a wide range of gamma shapes. 
 
-```{r gamma, fig.align="center", fig.cap="Gamma family", echo=FALSE}
+```{r gamma, out.width = '80%', fig.align="center", fig.cap="Gamma family", echo=FALSE}
 x = seq(from=0, to=20, by=0.005)
 
 texts = c("k=1.0, theta=2.0", "k=2.0, theta=2.0", "k=3.0, theta=2.0",
@@ -131,8 +131,6 @@ $$f(x) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$$
 
 For this example, we use the $k$-$\theta$ parameterization, but you should always check which parameterization is being used. For example, $\mathsf{R}$ uses the $\alpha$-$\beta$ parameterization by default.  
 In the the later material we find that  using the rate parameterization is more convenient.
-
-** ANY WAY TO MAKE THE MATERIAL MORE IN SYNC AS LABS LATER SECTIONS ALL USE THE RATE PARAMETERIZATION **
 
 For our parameterization, the mean of $\text{Gamma}(k,\theta)$ is $k\theta$, and the variance is $k\theta^2$. We can get the general's prior as below:
 
