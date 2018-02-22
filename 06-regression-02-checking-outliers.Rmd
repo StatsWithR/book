@@ -41,38 +41,40 @@ P(|\epsilon_j|>k\sigma~|~\text{data}) = \int_0^\infty P(|\epsilon_j|>k\sigma~|~\
 The probability $P(|\epsilon_j|>k\sigma~|~\sigma^2, \text{data})$ can be calculated using the posterior distribution of $\epsilon_j$ conditioning on $\sigma^2$ \@ref(eq:post-distribution)
 $$ P(|\epsilon_j|>k\sigma~|~\sigma^2,\text{data}) = \int_{|\epsilon_j|>k\sigma}p(\epsilon_j~|~\sigma^2, \text{data})\, d\epsilon_j = \int_{k\sigma}^\infty p(\epsilon_j~|~\sigma^2, \text{data})\, d\epsilon_j+\int_{-\infty}^{-k\sigma}p(\epsilon_j~|~\sigma^2, \text{data})\, d\epsilon_j. $$
 
-Recall that $p(\epsilon_j~|~\sigma^2, \text{data})$ is just a Normal distribution with mean $\hat{\epsilon}_j$, standard deviation $\displaystyle s=\sigma\sqrt{\frac{\sum_i (x_i-x_j)^2}{n\text{S}_{xx}}}$, we can use the $Z$-score and $Z$-table to look for this number. Let 
-$$ Z^* = \frac{\epsilon_j-\hat{\epsilon}_j}{s}. $$
+Recall that $p(\epsilon_j~|~\sigma^2, \text{data})$ is just a Normal distribution with mean $\hat{\epsilon}_j$, standard deviation $\displaystyle s=\sigma\sqrt{\frac{\sum_i (x_i-x_j)^2}{n\text{S}_{xx}}}$, we can use the $z$-score and $z$-table to look for this number. Let 
+$$ z^* = \frac{\epsilon_j-\hat{\epsilon}_j}{s}. $$
 
 The first integral $\displaystyle \int_{k\sigma}^\infty p(\epsilon_j~|~\sigma^2,\text{data})\, d\epsilon_j$ is equivalent to the probability
-$$ P\left(Z^* > \frac{k\sigma - \hat{\epsilon}_j}{s}\right) = P\left(Z^*> \frac{k\sigma-\hat{\epsilon}_j}{\sigma\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right) = P \left(Z^* > \frac{k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right). $$
-That is the upper tail of the area under the standard Normal distribution when $Z^*$ is larger than the critical value $\displaystyle \frac{k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
+$$ P\left(z^* > \frac{k\sigma - \hat{\epsilon}_j}{s}\right) = P\left(z^*> \frac{k\sigma-\hat{\epsilon}_j}{\sigma\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right) = P \left(z^* > \frac{k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right). $$
+That is the upper tail of the area under the standard Normal distribution when $z^*$ is larger than the critical value $\displaystyle \frac{k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
 
 The second integral, $\displaystyle \int_{-\infty}^{-k\sigma} p(\epsilon_j~|~\sigma^2, \text{data}\, d\epsilon_j$, is the same as the probability
-$$ P\left(Z^* < \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right), $$
-which is the lower tail of the area under the standard Normal distribution when $Z^*$ is smaller than the critical value $\displaystyle \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
+$$ P\left(z^* < \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right), $$
+which is the lower tail of the area under the standard Normal distribution when $z^*$ is smaller than the critical value $\displaystyle \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
 
 After obtaining the two probabilities, we can move on to calculate the probability $P(|\epsilon_j|>k\sigma~|~\text{data})$ using the formula given by \@ref(eq:total-prob). Since manual calculation is complicated, we often use numerical integration functions provided in R to finish the final integral.
 
 
 ### Implementation Using `BAS` Package
 
-The code for calculating the probability of outliers involves integration. We have implemented this in the function `Bayes.outlier.prob` that can be sourced from the file `bayes-outliers.R`. Applying this to the `bodyfat` data for Case 39, we get
+The code for calculating the probability of outliers involves integration. We have implemented this in the function `Bayes.outlier` from the `BAS` package. This function takes an `lm` object and the value of `k` as arguments. Applying this to the `bodyfat` data for Case 39, we get
 ```{r outlier, message=FALSE, warning=FALSE}
+# Load `BAS` library and data. Run linear regression as in Section 6.1
 library(BAS)
 data(bodyfat)
+bodyfat.lm = lm(Bodyfat ~ Abdomen, data = bodyfat)
 
-# The default of Bayes.outlier.prob function is k=3
-# outliers = Bayes.outlier.prob(bodyfat.lm)
+# The default value of `k` in `Bayes.outlier` function is 3
+outliers = Bayes.outlier(bodyfat.lm)
 
 # Extract the probability that Case 39 is an outlier
-# prob.39 = outliers$prob.outlier[39]
-# prob.39
+prob.39 = outliers$prob.outlier[39]
+prob.39
 ```
 
-We see that this case has an extremely high probability 0.9917 of being more an outlier, that is, the error is greater than $k=3$ standard deviations, based on the fitted model and data.
+We see that this case has an extremely high probability of `r round(prob.39, 3)` of being more an outlier, that is, the error is greater than $k=3$ standard deviations, based on the fitted model and data.
 
-With $k=3$, however, there may be a high probability a priori of at least one outlier in a large sample. Let $p = P(\text{any error $\epsilon_j$ lies within 3 standard deviations}) = P(\text{observation $j$ is not a outlier}$. Since we assume the prior distribution of $\epsilon_j$ is normal, we can calculate $p$ using the `pnorm` function. Let $\Phi(z)$ be the cumulative distribution of the standard Normal distribution, that is,
+With $k=3$, however, there may be a high probability a priori of at least one outlier in a large sample. Let $p = P(\text{any error $\epsilon_j$ lies within 3 standard deviations}) = P(\text{observation $j$ is not a outlier})$. Since we assume the prior distribution of $\epsilon_j$ is normal, we can calculate $p$ using the `pnorm` function. Let $\Phi(z)$ be the cumulative distribution of the standard Normal distribution, that is,
 $$ \Phi(z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{x^2}{2}\right)\, dx. $$
 
 Then $p = 1-2\Phi(-k) = 1 - 2\Phi(-3)$.^[$\Phi(-k)$ actually represents the area of the lower tail under the standard Normal distribution curve $k$ standard deviations away from the mean 0.] Since we assume $\epsilon_j$ is independent, that the probability of no outlier is just the $n$th power of $p$. The event of getting at least 1 outlier is the complement of the event of getting no outliers. Therefore, the probability of getting at least 1 outlier is
@@ -101,18 +103,21 @@ new_k
 This leads to a larger value of $k$. After adjusting $k$ the prior probability of no outliers is 0.95, we examine Case 39 again under this $k$
 
 ```{r Case39-new-k}
-#outliers.new = Bayes.outlier.prob(bodyfat.lm, k = new_k)
-#prob.new.39 = outliers.new$prob.outlier[39]
-#prob.new.39
+# Calculate probability of being outliers using new `k` value
+outliers.new = Bayes.outlier(bodyfat.lm, k = new_k)
+
+# Extract the probability of Case 39
+prob.new.39 = outliers.new$prob.outlier[39]
+prob.new.39
 ```
 
-The posterior probability of Case 39 being an outlier is about 0.6848<!--r round(prob.new.39, 4)-->. While this is not strikingly large, it is much larger than the marginal prior probability of
+The posterior probability of Case 39 being an outlier is about `r round(prob.new.39, 3)`. While this is not strikingly large, it is much larger than the marginal prior probability of for a value lying about `r round(new_k, 1)`$\sigma$ away from 0, if we assume the error $\epsilon_j$ is normally distributed with mean 0 and variance $\sigma^2$.
+
 ```{r}
 2 * pnorm(-new_k)
 ```
-if we assume the error $\epsilon_j$ is normall distributed.
 
 
 There is a substantial probability that Case 39 is an outlier. If you do view it as an outlier, what are your options? One option is to investigate the case and determine if the data are input incorrectly, and fix it. Another option is when you cannot confirm there is a data entry error, you may delete the observation from the analysis and refit the model without the case. If you do take this option, be sure to describe what you did so that your research is reproducible. You may want to apply diagnostics and calculate the probability of a case being an outlier using this reduced data. As a word of caution, if you discover that there are a large number of points that appear to be outliers, take a second look at your model assumptions, since the problem may be with the model rather than the data! A third option we will talk about later, is to combine inference under the model that retains this case as part of the population, and the model that treats it as coming from another population. This approach incorporates our uncertainty about whether the case is an outlier given the data.
 
-The source code is based on using a reference prior for the linear model and extends to multiple regression.
+The code of `Bayes.outlier` function is based on using a **reference prior** for the linear model and extends to multiple regression.
