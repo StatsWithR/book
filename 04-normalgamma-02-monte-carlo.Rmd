@@ -92,8 +92,6 @@ Similarly, we can obtain a 95% credible interval for $\sigma$ by finding the sam
 quantile(sigma, c(0.025, 0.975))
 ```
 
-ADD HPD interval ???
-
 **Summary**
 
 To recap, we have introduced the powerful method of Monte Carlo simulation for posterior inference. Monte Carlo methods provide estimates of expectations, probabilities, and quantiles of distributions from the simulated values. Monte Carlo simulation also allows us to approximate distributions of functions of the parameters, or the transformations of the parameters.

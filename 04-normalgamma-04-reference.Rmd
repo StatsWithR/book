@@ -109,7 +109,7 @@ quantile(pred_y, c(.025, .975))
 
 Using the Monte Carlo samples, Figure \@ref(fig:plot-post-pred) shows the posterior distribution based on the informative Normal-Gamma prior and the reference prior. Both the posterior distribution for $\mu$ and the posterior predictive distribution for a new sample are shifted to the right, and are centered at the sample mean. The posterior for $\mu$ under the reference prior is less concentrated around its mean than the posterior under the informative prior, which leads to an increased posterior sample size and hence increased precision.
 
-```{r plot-post-pred, echo=FALSE, message=FALSE, warning=FALSE, fig.align="center", fig.height=5, fig.cap="Comparison of posterior densities"}
+```{r plot-post-pred, echo=FALSE, message=FALSE, warning=FALSE, fig.align="center", fig.width=5, fig.height=4, fig.cap="Comparison of posterior densities"}
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#000000", "#009E73", "#0072B2", "#D55E00", "#CC79A7")
 
 nsim = length(post_mu)

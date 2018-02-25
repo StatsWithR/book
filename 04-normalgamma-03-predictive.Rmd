@@ -91,7 +91,7 @@ quantile(y, c(0.025,0.975))
 
 Figure \@ref(fig:hist-prior) shows an estimate of the prior distribution of $\mu$ in gray and the more dispersed prior predictive distribution in TTHM in orange, obtained from the Monte Carlo samples.
 
-```{r hist-prior, fig.align="center", fig.cap="Prior density", echo=FALSE}
+```{r hist-prior, fig.align="center", fig.width=5, fig.height=3, fig.cap="Prior density", echo=FALSE}
 # The palette with grey:
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
@@ -110,7 +110,7 @@ ggplot(data=df, aes(x=y)) +
         legend.key = element_rect(colour = "transparent", fill = NA),
         plot.background = element_rect(fill = "transparent", colour = NA),
         legend.position = c(.75, .75),
-        text = element_text(size=20))
+        text = element_text(size=15))
 ```
 
 Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations.
@@ -138,7 +138,7 @@ quantile(pred_y, c(.025, .975))
 
 Figure \@ref(fig:hist-pred) shows the Monte Carlo approximation to the prior distribution of $\mu$, and the posterior distribution of $\mu$ which is shifted to the right. The prior and posterior predictive distributions are also depicted, showing how the data have updated the prior information.
 
-```{r hist-pred, fig.align="center", fig.cap="Posterior densities", echo=FALSE, message=FALSE, warning=FALSE}
+```{r hist-pred, fig.align="center", fig.width=5, fig.height=3, fig.cap="Posterior densities", echo=FALSE, message=FALSE, warning=FALSE}
 
 nsim = length(post_mu)
 
@@ -156,7 +156,7 @@ ggplot(data=df, aes(x=pred_y)) +
         legend.key = element_rect(colour = "transparent", fill = NA),
         plot.background = element_rect(fill = "transparent", colour = NA),
         legend.position=c(.75, .75),
-        text = element_text(size=20))
+        text = element_text(size=15))
 ```
 
 Using the Monte Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06.

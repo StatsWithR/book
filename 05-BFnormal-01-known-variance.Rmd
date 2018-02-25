@@ -75,7 +75,7 @@ Let's explore how the hyperparameters in $n_0$ influences the Bayes factor in Eq
 
 Figure \@ref(fig:vague-prior) shows the Bayes factor for comparing $H_1$ to $H_2$ on the y-axis as $n_0$ changes on the x-axis. The different lines correspond to different values of the $Z$ score or how many standard errors $\bar{y}$ is from the hypothesized mean. As expected, larger values of the $Z$ score favor $H_2$.
 
-```{r vague-prior, fig.cap="Vague prior for mu: n=100",fig.height=5, echo=FALSE}
+```{r vague-prior, fig.cap="Vague prior for mu: n=100", fig.height=4, fig.width=4, fig.align="center", echo=FALSE}
 myblue = rgb(86,155,189, name="myblue", max=256)
 mydarkgrey = rgb(.5,.5,.5, name="mydarkgrey", max=1)
 Z = c(1.65, 1.96, 2.81, 3.62 )
@@ -98,8 +98,8 @@ bfplot = ggplot(df, aes(x=n0, y=bf, group=Z, colour=Z, linetype=Z)) +
                theme(panel.background = element_rect(fill = "transparent", colour = NA),
                  legend.key = element_rect(colour = "transparent", fill = NA),
                   plot.background = element_rect(fill = "transparent", colour = NA)) +
-                     theme(legend.position=c(.75, .75)) +
-  theme(text = element_text(size=20))
+                     theme(legend.position=c(.85, .85)) +
+  theme(text = element_text(size=15))
 
 #legend(30, .95, legend=paste("Z = ", as.character(Z), "p-value = ",
 #                             as.character(round(2*pnorm(-Z),4))),
@@ -130,9 +130,9 @@ This allows us to think about a standardized effect independent of the units of 
 
 In many fields we expect that the effect will be small relative to $\sigma$. If we do not expect to see large effects, then we may want to use a more informative prior on the effect size as the density in orange with $n_0 = 4$. So they expected the mean to be within $\pm 1/\sqrt{n_0}$ or five standard deviations of the prior mean.
 
-```{r effect-size, fig.cap="Prior on standard effect size", echo=FALSE}
+```{r effect-size, fig.height=4, fig.width=5, fig.align="center", fig.cap="Prior on standard effect size", echo=FALSE}
 x = seq(-6,5, length=1000)
-par(cex=1.55, cex.axis=1.5, cex.lab=2, mar=c(5, 5, 2, 2), col.lab=mydarkgrey, col.axis=mydarkgrey, col=mydarkgrey)
+par(cex=1, cex.axis=1, cex.lab=1, mar=c(5, 5, 2, 2), col.lab=mydarkgrey, col.axis=mydarkgrey, col=mydarkgrey)
 plot(x, dnorm(x) , type="l", lwd=3, ylab="density", xlab=expression(delta), col=myblue, ylim=c(0, .9), bty="n")
 #lines(x, dt(x, df=1), lwd=3, col="orange")
 lines(x, dnorm(x, sd=.5), lwd=3,  lty = 2, col="orange")
@@ -169,9 +169,9 @@ bfUI = bf12(n, Zobs, 1)
 #pp = postprob(bf)
 ```
 
-```{r prior-effect, echo=FALSE, fig.cap="Prior effect in the extra sensory perception test"}
+```{r prior-effect, echo=FALSE, fig.height=4, fig.width=5, fig.align="center", fig.cap="Prior effect in the extra sensory perception test"}
 x = seq(-.1,.1, length=1000) + .5
-par(cex=1.55, cex.axis=1.5, cex.lab=2, mar=c(5, 5, 2, 2), col.lab=mydarkgrey, col.axis=mydarkgrey, col=mydarkgrey)
+par(cex=1, cex.axis=1, cex.lab=1, mar=c(5, 5, 2, 2), col.lab=mydarkgrey, col.axis=mydarkgrey, col=mydarkgrey)
 plot(x, dnorm(x, .5, .5/n0.5) , type="l", lwd=3, ylab="density", xlab=expression(mu), col=myblue, bty="n", ylim=c(0,60))
 #lines(x, dt(x, df=1), lwd=3, col="orange")
 lines(x, dnorm(x,0.5, sd=1), lwd=3,  lty = 2, col="orange")

@@ -49,7 +49,7 @@ p(\sigma^2) &\propto 1/\sigma^2
 
 The input to the base inference function is similar, but now we will specify that $r = 0.5$.
 
-```{r BF-NC, message=FALSE}
+```{r BF-NC, message=FALSE, fig.width=4, fig.height=4, fig.align='center'}
 library(statsr)
 data(nc)
 out =bayes_inference(y=weight, x=habit, data=nc,type='ht', null=0,
@@ -76,7 +76,7 @@ In particular, the Cauchy prior arises by placing a gamma prior on $n_0$ and the
 
 The row labeled effect size is the standardized effect size $\delta$, indicating that the effects are indeed small relative to the noise in the data.
 
-```{r BF-NC-plot, echo=FALSE, warning=FALSE, fig.cap="Estimates of effect under H2", fig.align='center'}
+```{r BF-NC-plot, warning=FALSE, fig.width=4, fig.height=4, fig.align='center', fig.cap="Estimates of effect under H2", fig.align='center'}
 library(ggplot2)
 out = bayes_inference(y=weight, x=habit, data=nc,type='ht',
                 statistic='mean',  alternative='twosided',

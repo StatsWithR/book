@@ -179,7 +179,7 @@ s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
 
 To find a credible interval for the mean $\mu$, we use the Student $t$
 distribution.  Since the distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
-```{r tplot, echo=F, warning=FALSE, message=FALSE, fig.width=6, fig.height=6, caption="Highest Posterior Density region for the mean in the total trihalomethanes example."}
+```{r tplot, echo=F, warning=FALSE, message=FALSE}
 require(ggplot2)
 out =bayes_inference(tthm, data=tapwater,prior="NG",
                 mu_0 = m_0, n_0=n_0, s_0 = sqrt(s2_0), v_0 = v_0,
@@ -211,7 +211,7 @@ out =bayes_inference(tthm, data=tapwater,prior="NG",
                theme(text = element_text(size=12))
 ```
 
-```{r tapwater-post-mu, echo=FALSE, fig.width=4,fig.height=4}
+```{r tapwater-post-mu, echo=FALSE, fig.width=4, fig.height=4, fig.align="center", fig.cap="Highest Posterior Density region for the mean in the total trihalomethanes example."}
 print(pos_plot)
 ```
 
@@ -254,9 +254,3 @@ credible intervals for $\mu$  using `R` or other software that provides quantile
 For the energetic learner who is comfortable with calculus, the following optional material provides more details on how the posterior distributions were obtained and other results in this section.
 
 For those that are ready to move on, we will introduce Monte Carlo sampling  in the next section; Monte Carlo Sampling is a simulation method that will allow us to approximate distributions of transformations of the parameters without using calculus or change of variables, as well as aid exploratory data analysis of the prior or posterior distribution.
-
-
-
-### Details of Results (optional reading)**
-
-TBA

@@ -88,7 +88,7 @@ df = data.frame(
 )
 ```
 
-```{r tapwater-inference}
+```{r tapwater-inference, fig.align="center", fig.height=4, fig.width=4}
 bayes_inference(y=tthm, data=tapwater, statistic="mean",
                 mu_0 = 35, rscale=1, prior="JZS",
                 type="ci", method="sim")
@@ -102,7 +102,7 @@ This is **the robustness property of the Cauchy prior**, leading the posterior t
 
 Using the MCMC draws of $\mu, \sigma$, we can obtain Monte Carlo samples from the predictive distribution of $y$, by plugging $\mu$ and $\sigma$ into the corresponding functions. Figure \@ref(fig:hist-ref-pred) compares the posterior densities estimated from the simulative values of $\mu$ and the predicted draws of TTHM under the Jeffrey Zellner-Siow prior, and the informative normal prior from $\mu$ with $n_0 = 25$ and the reference prior on $\sigma^2$.
 
-```{r hist-ref-pred, echo=FALSE, fig.align="center", fig.cap="Comparison of posterior densities", warning=FALSE}
+```{r hist-ref-pred, echo=FALSE, fig.align="center", fig.align="center", fig.height=3, fig.width=6, fig.cap="Comparison of posterior densities", warning=FALSE}
 
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#000000", "#009E73", "#0072B2", "#D55E00", "#CC79A7")
 

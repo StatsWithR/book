@@ -106,7 +106,7 @@ Recall the RU-486 example. When the analyst used the beta-binomial family, she t
 
 After we observed four children born to mothers who received conventional therapy, her posterior is $p|x \sim \text{beta}(1,5)$. In Figure \@ref(fig:posterior), the posterior probability density for $\text{beta}(1,5)$ puts a lot of probability near zero and very little probability near one.
 
-```{r posterior, out.width = '80%', fig.cap="RU-486 Posterior",echo=FALSE}
+```{r posterior, out.width = '80%', fig.align="center", fig.cap="RU-486 Posterior",echo=FALSE}
 x.vector = seq(from=0, to=1, by=0.001)
 y.vector = dbeta(x.vector,1,5)
 
