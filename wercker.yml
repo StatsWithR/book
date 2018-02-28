@@ -4,6 +4,7 @@ build:
     - script:
         name: Fixes
         code: |
+          mkdir ~/.R
           echo "CXXFLAGS=`R CMD config CXXFLAGS` -Wno-ignored-attributes" > ~/.R/Makevars
     - script:
         name: Update Libraries
