@@ -28,7 +28,7 @@ build:
         code: |
           if [[ "$WERCKER_GIT_BRANCH" = "master" ]]; then
             mkdir ~/.ssh
-            echo ${ID_RSA} > ~/.ssh/id_rsa
+            printf "${ID_RSA}" > ~/.ssh/id_rsa
             
             git config --global user.name "Colin Rundel (Wercker)"
             git config --global user.email "rundel@gmail.com"
