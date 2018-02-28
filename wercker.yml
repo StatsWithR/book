@@ -10,7 +10,7 @@ build:
         code: |
           apt-get update -q
           apt-get install -y jags
-          install2.r rjags bookdown BAS latex2exp
+          install2.r rjags bookdown BAS latex2exp BHH2
     - script:
         name: Install statsr
         code: |
