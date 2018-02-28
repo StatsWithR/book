@@ -4,6 +4,7 @@ build:
     - script:
         name: Update Libraries
         code: |
+          apt-get update -q
           apt-get install -y jags
           install2.r rjags bookdown BAS
     - script:
