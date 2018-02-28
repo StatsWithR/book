@@ -27,13 +27,10 @@ build:
         name: Publish book
         code: |
           if [[ "$WERCKER_GIT_BRANCH" = "master" ]]; then
-            mkdir ~/.ssh
-            echo -e "${ID_RSA}" > ~/.ssh/id_rsa
+            git config --global user.name "statswithr-bots"
+            git config --global user.email "statswithr.bot@gmail.com"
             
-            git config --global user.name "Colin Rundel (Wercker)"
-            git config --global user.email "rundel@gmail.com"
-            
-            git clone -b gh-pages git@github.com:StatsWithR/book.git book-output
+            git clone -b gh-pages https://${GITHUB_TOKEN}@github.com/StatsWithR/book.git book-output
             cd book-output
             
             cp -r ../_book/* ./
