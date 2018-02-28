@@ -2,6 +2,10 @@ box: rocker/verse
 build:
   steps:
     - script:
+        name: Fixes
+        code: |
+          echo "CXXFLAGS=`R CMD config CXXFLAGS` -Wno-ignored-attributes" > ~/.R/Makevars
+    - script:
         name: Update Libraries
         code: |
           apt-get update -q
