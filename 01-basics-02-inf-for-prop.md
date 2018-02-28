@@ -18,7 +18,7 @@ Therefore, we can form the hypotheses as below:
 
 * $H_A: p < 0.5$ (treatment is more effective, a pregnancy is less likely to come from the treatment group)
  
-A p-value is needed to make an inference decision with the frequentist approach. The definition of p-value is the probability of observing something *at least* as extreme as the data, given that the null hypothesis ($H_0$) is true. "More extreme" means in the direction of the alternative hypothesis ($H_A$).
+A p-value is needed to make an inference decision with the frequentist approach. The definition of p-value is the probability of observing something **at least** as extreme as the data, given that the null hypothesis ($H_0$) is true. "More extreme" means in the direction of the alternative hypothesis ($H_A$).
 
 Since $H_0$ states that the probability of success (pregnancy) is 0.5, we can calculate the p-value from 20 independent Bernoulli trials where the probability of success is 0.5. The outcome of this experiment is 4 successes in 20 trials, so the goal is to obtain 4 or fewer successes in the 20 Bernoulli trials. 
 
@@ -51,11 +51,11 @@ Table \@ref(tab:RU-486prior) specifies the prior probabilities that we want to a
 \centering
 \begin{tabular}[t]{lrrrrrrrrr}
 \toprule
-Model (\$p\$) & 0.1000 & 0.2000 & 0.3000 & 0.4000 & 0.5000 & 6e-01 & 0.70 & 0.80 & 0.90\\
-Prior \$P(model)\$ & 0.0600 & 0.0600 & 0.0600 & 0.0600 & 0.5200 & 6e-02 & 0.06 & 0.06 & 0.06\\
-Likelihood \$P(data|model)\$ & 0.0898 & 0.2182 & 0.1304 & 0.0350 & 0.0046 & 3e-04 & 0.00 & 0.00 & 0.00\\
-\$P(data|model)\$ x \$P(model)\$ & 0.0054 & 0.0131 & 0.0078 & 0.0021 & 0.0024 & 0e+00 & 0.00 & 0.00 & 0.00\\
-Posterior \$P(model|data)\$ & 0.1748 & 0.4248 & 0.2539 & 0.0681 & 0.0780 & 5e-04 & 0.00 & 0.00 & 0.00\\
+Model (p) & 0.1000 & 0.2000 & 0.3000 & 0.4000 & 0.5000 & 6e-01 & 0.70 & 0.80 & 0.90\\
+Prior P(model) & 0.0600 & 0.0600 & 0.0600 & 0.0600 & 0.5200 & 6e-02 & 0.06 & 0.06 & 0.06\\
+Likelihood P(data|model) & 0.0898 & 0.2182 & 0.1304 & 0.0350 & 0.0046 & 3e-04 & 0.00 & 0.00 & 0.00\\
+P(data|model) x P(model) & 0.0054 & 0.0131 & 0.0078 & 0.0021 & 0.0024 & 0e+00 & 0.00 & 0.00 & 0.00\\
+Posterior P(model|data) & 0.1748 & 0.4248 & 0.2539 & 0.0681 & 0.0780 & 5e-04 & 0.00 & 0.00 & 0.00\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -93,6 +93,6 @@ Suppose our sample size was 40 instead of 20, and the number of successes was 8 
 
 ![(\#fig:RU-486plotX10)More data: sample size $n=200$ and number of successes $k=40$](01-basics-02-inf-for-prop_files/figure-latex/RU-486plotX10-1.pdf) 
 
-To illustrate the effect of the sample size even further, we're going to keep increasing our sample size, but still maintain the the 20% ratio between the sample size and the number of successes. So let's consider a sample with 200 observations and 40 successes. Once again, we're going to use the same prior and the likelihood is again centered at 20% and almost all of the probability mass in the posterior is at p is equal to 0.20. The other models do not have zero probability mass, but they're posterior probabilities are very close to zero. 
+To illustrate the effect of the sample size even further, we are going to keep increasing our sample size, but still maintain the the 20% ratio between the sample size and the number of successes. So let's consider a sample with 200 observations and 40 successes. Once again, we are going to use the same prior and the likelihood is again centered at 20% and almost all of the probability mass in the posterior is at p is equal to 0.20. The other models do not have zero probability mass, but they're posterior probabilities are very close to zero. 
 
-Figure \@ref(fig:RU-486plotX10) demonstrates that **as more data are collected, the likelihood ends up dominating the prior**. This is why, while a good prior helps, a bad prior can be overcome with a large sample. However, it's important to note that this will only work as long as we don't place a zero probability mass on any of the models in the prior. 
+Figure \@ref(fig:RU-486plotX10) demonstrates that **as more data are collected, the likelihood ends up dominating the prior**. This is why, while a good prior helps, a bad prior can be overcome with a large sample. However, it's important to note that this will only work as long as we do not place a zero probability mass on any of the models in the prior. 

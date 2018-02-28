@@ -1,10 +1,6 @@
 ## Reference Priors  {#sec:NG-reference}
 
 
-```r
-library(statsr)
-library(ggplot2)
-```
 
 In Section \@ref(sec:NG-predictive), we described a way of specifying an informative prior distribution for inference about TTHM in tapwater based on additional prior information. We had to use a prior sample size that was comparable to the observed sample size for the prior predictive under the Normal-Gamma distribution to agree with the reported prior interval.
 
@@ -12,7 +8,7 @@ However, there may be cases where prior information is not available, or you may
 
 In this section, we will present reference priors for normal data, which can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution. **Can you actually perform a Bayesian analysis without using prior information?**
 
-Conjugate priors can be interpreted to be based on a prior sample. What happens in the conjugate Normal-Gamma prior if we take our prior sample size $n_0$ to go to zero?  If we have no data, then we will define the prior sample variance $s_0^2$ to go to  0, and based on the relationship between prior sample sized and prior degrees of freedom, we will let the prior degrees of freedom go to the prior sample size minus one, or negative 1, i.e. $v_0 = n_0 - 1 \rightarrow -1$.
+Conjugate priors can be interpreted to be based on a prior sample. What happens in the conjugate Normal-Gamma prior if we take our prior sample size $n_0$ to go to zero?  If we have no data, then we will define the prior sample variance $s_0^2$ to go to  0, and based on the relationship between prior sample sized and prior degrees of freedom, we will let the prior degrees of freedom go to the prior sample size minus one, or negative one, i.e. $v_0 = n_0 - 1 \rightarrow -1$.
 
 With this limit, we have the following properties:
 
@@ -35,7 +31,7 @@ v_n &= v_0 + n  \rightarrow n-1 \\
 s^2_n &= \frac{1}{v_n}\left[s^2_0 v_0 + s^2 (n-1) + \frac{n_0 n}{n_n} (\bar{Y} - m_0)^2 \right] \rightarrow s^2
 \end{aligned}$$
 
-This limiting Normal-gamma distribution, $\No-\Ga(0,0,0,-1)$, is not really a normal gamma distribution, as the density does not integrate to 1. The form of the limit can be viewed as a prior for $\mu$ that is proportional to a constant, or uniform/flat on the whole real line. And a prior for the variance is proportional to 1 over the variance. The joint prior is taken as the product of the two.
+This limiting normal-gamma distribution, $\textsf{NormalGamma}(0,0,0,-1)$, is not really a normal-gamma distribution, as the density does not integrate to 1. The form of the limit can be viewed as a prior for $\mu$ that is proportional to a constant, or uniform/flat on the whole real line. And a prior for the variance is proportional to 1 over the variance. The joint prior is taken as the product of the two.
 
 
 $$\begin{aligned}
@@ -61,20 +57,21 @@ $$\begin{aligned}
 1/\sigma^2  \mid \data & \sim \Ga((n-1)/2, s^2(n - 1)/2).
 \end{aligned}$$
 
-* Under the reference prior $p(\mu, \sigma^2) \propto 1/\sigma^2$, the posterior distribution  after standardizing $\mu$ has a Student $t$  distribution with n minus one degrees of freedom.
+* Under the reference prior $p(\mu, \sigma^2) \propto 1/\sigma^2$, the posterior distribution  after standardizing $\mu$ has a Student $t$  distribution with $n-1$ degrees of freedom.
 
 $$\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid \data \sim  \St(n-1, 0, 1)$$
+
 * Prior to seeing the data, the distribution of the standardized sample mean given $\mu$ and $\sigma$ also has a Student t distribution.
 
 $$\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid \mu, \sigma^2 \sim  \St(n-1, 0, 1) $$
 
 * Both frequentist sampling distributions and Bayesian reference posterior distributions lead to intervals of this form:
 
-$$(\bar{Y} - t_{1 - \alpha/2} s/\sqrt{n}, \, \bar{Y} + t_{1 - \alpha/2} s/\sqrt{n})$$
+$$(\bar{Y} - t_{1 - \alpha/2}\times s/\sqrt{n}, \, \bar{Y} + t_{1 - \alpha/2} \times s/\sqrt{n})$$
 
 * However, only the Bayesian approach justifies the probability statements about $\mu$ being in the interval after seeing the data.
 
-$$P(\bar{Y} - t_{1 - \alpha/2} s/\sqrt{n} < \mu <  \bar{Y} + t_{1 - \alpha/2} s/\sqrt{n}) = 1 - \alpha$$
+$$P(\bar{Y} - t_{1 - \alpha/2}\times s/\sqrt{n} < \mu <  \bar{Y} + t_{1 - \alpha/2}\times s/\sqrt{n}) = 1 - \alpha$$
 
 We can use either analytic expressions based on the t-distribution, or Monte Carlo samples from the posterior predictive distribution, to make predictions about a new sample.
 

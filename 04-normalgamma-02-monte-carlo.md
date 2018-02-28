@@ -1,12 +1,6 @@
 ## Monte Carlo Inference  {#sec:NG-MC}
 
-Figure out how to reuse code chunks with purl(), read_chunk() ref.label as in post http://jeromyanglim.tumblr.com/post/113132013271/how-to-run-r-code-in-subset-of-named-code-chunks
 
-
-```r
-library(statsr)
-library(ggplot2)
-```
 
 
 
@@ -22,7 +16,7 @@ Here is a recap of the joint posterior distribution for the mean $\mu$ and the p
 
 What if we are interested in the distribution of the standard deviation $\sigma$ itself, or other transformations of the parameters? There may not be a closed-form expression for the distributions.
 
-However, it turns out that **Monte Carlo sampling** is an easy way to make inference, when we cannot analytically calculate distributions of parameters, expectations, or probabilities. Monte Carlo methods are computational algorithms that rely on repeated random sampling to calculate numerical results. The name refers to the famous Monte Carlo Casino in Monaco, home to games of chance such as Roulette.
+However, it turns out that **Monte Carlo sampling** is an easy way to make an inference, when we cannot analytically calculate distributions of parameters, expectations, or probabilities. Monte Carlo methods are computational algorithms that rely on repeated random sampling to calculate numerical results. The name refers to the famous Monte Carlo Casino in Monaco, home to games of chance such as Roulette.
 
 Let's start with a case where we know the posterior distribution.
 
@@ -43,7 +37,7 @@ $$\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)}) \rightarrow E(g(\phi \mid \data))$$
 
 **Example**
 
-We will apply this with the tap water example. To start, we will set a random seed, which allows the results to be replicated. To generate 1,000 draws from the gamma posterior distribution, we use the `rgamma` function `R` with the posterior hyperparameters from last time.
+We will apply this to the tap water example. To start, we will set a random seed, which allows the results to be replicated. To generate 1,000 draws from the gamma posterior distribution, we use the `rgamma` function `R` with the posterior hyperparameters from last time.
 
 
 ```r
@@ -106,8 +100,6 @@ quantile(sigma, c(0.025, 0.975))
 ##     2.5%    97.5% 
 ## 18.20700 26.53736
 ```
-
-ADD HPD interval ???
 
 **Summary**
 

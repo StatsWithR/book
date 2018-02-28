@@ -1,10 +1,6 @@
 ## Mixtures of Conjugate Priors  {#sec:NG-Cauchy}
 
 
-```r
-library(statsr)
-library(ggplot2)
-```
 
 In this section, we will describe priors that are constructed as a mixture of conjugate priors -- in particular, the Cauchy distribution. As these are no longer conjugate priors, nice analytic expressions for the posterior distribution are not available. However, we can use a Monte Carlo algorithm called Markov chain Monte Carlo (MCMC) for posterior inference.
 
@@ -40,4 +36,3 @@ As Figure \@ref(fig:cauchy-plot) shows, the standard Cauchy distribution with $r
 \caption{Cauchy distribution}(\#fig:cauchy-plot)
 \end{figure}
 
-ADD MORE DETAILS BEYOND THE VIDEO?

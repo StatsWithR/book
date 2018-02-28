@@ -1,11 +1,6 @@
+## Predictive Distributions {#sec:NG-predictive}
 
-### Predictive Distributions {#sec:NG-predictive}
 
-
-```r
-library(statsr)
-library(ggplot2)
-```
 
 
 
@@ -43,7 +38,7 @@ A report from the city water department suggests that levels of TTHM are expecte
 
 * Prior estimate of sigma: $s_0 = (60-10)/4 = 12.5$ or $s_0^2 = [(60-10)/4]^2 = 156.25$
 
-To complete the specification, we also need to choose the prior sample size $n_0$ and degrees of freedom $v_0$. As the degrees of freedom of the variance are $n-1$, we set $v_0 = n_0 - 1$. We will draw samples from the prior predictive distribution and modify $n_0$ so that the simulated data agree with our prior assumptions.
+To complete the specification, we also need to choose the prior sample size $n_0$ and degrees of freedom $v_0$. As the variance has $n-1$ degrees of freedom, we set $v_0 = n_0 - 1$. We will draw samples from the prior predictive distribution and modify $n_0$ so that the simulated data agree with our prior assumptions.
 
 The following `R` code shows a simulation from the predictive distribution with the prior sample size of 2. Please note that the number of Monte Carlo simulations should not be confused with the prior sample size $n_0$.
 
@@ -109,7 +104,7 @@ sum(y < 0)/length(y)  # P(Y < 0) a priori
 ## [1] 0.0049
 ```
 
-With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we can still use the conjugate normal gamma model for analysis.
+With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we can still use the conjugate normal-gamma model for analysis.
 
 We can use the same strategy to generate samples from the predictive distribution of a new measurement $Y_{n+1}$ given the observed data. In mathematical terms, the posterior predictive distribution is written as
 
@@ -143,7 +138,7 @@ Figure \@ref(fig:hist-pred) shows the Monte Carlo approximation to the prior dis
 \caption{Posterior densities}(\#fig:hist-pred)
 \end{figure}
 
-Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06.
+Using the Monte Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06.
 
 
 ```r
@@ -154,7 +149,7 @@ sum(pred_y > 80)/length(pred_y)  # P(Y > 80 | data)
 ## [1] 0.0619
 ```
 
-By using Monte-Carlo methods, we can obtain prior and posterior predictive distributions of the data.
+By using Monte Carlo methods, we can obtain prior and posterior predictive distributions of the data.
 
 * Sampling from the prior predictive distribution can help with the selection of prior hyper parameters and verify that these choices reflect the prior information that is available.
 

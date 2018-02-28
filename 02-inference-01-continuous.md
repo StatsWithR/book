@@ -2,9 +2,11 @@
 
 ## Continuous Variables and Eliciting Probability Distributions
 
+We are going to introduce continuous variables and how to elicit probability distributions, from a prior belief to a posterior distribution using the Bayesian framework.
+
 ### From the Discrete to the Continuous
 
-This section leads the reader from the discrete random variable to continuous random variables. Let's start with the binomial random variable such as the number of heads in ten coin tosses, can only take a discrete number of values -- 0, 1, 2, up to 10.
+This section leads the reader from the discrete random variable to continuous random variables. Let's start with the binomial random variable such as the number of heads in ten coin tosses, can only take a discrete number of values: 0, 1, 2, up to 10.
 
 When the probability of a coin landing heads is $p$, the chance of getting $k$ heads in $n$ tosses is
 
@@ -30,13 +32,13 @@ In general, if the set of possible values a random variable can take are separat
 
 When the random variable is **discrete**, it has a **probability mass function** or pmf. That pmf tells us the probability that the random variable takes each of the possible values. But when the random variable is continuous, it has probability zero of taking any single value. (Hence probability zero does not equal to impossible, an event of probabilty zero can still happen.)
 
-We can only talk about the probability of a continuous random variable lined within some interval. For example, suppose that heights are approximately normally distributed. The probability of finding someone who is exactly 6 feet tall at 0.0000 inches tall for an infinite number of 0s after the decimal point is 0. But we can easily calculate the probability of finding someone who is between 5'11" inches tall and 6'1" inches tall. 
+We can only talk about the probability of a continuous random variable lined within some interval. For example, suppose that heights are approximately normally distributed. The probability of finding someone who is exactly 6 feet and 0.0000 inches tall (for an infinite number of 0s after the decimal point) is 0. But we can easily calculate the probability of finding someone who is between 5'11" inches tall and 6'1" inches tall. 
 
 A **continuous** random variable has a **probability density function** or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5'11" (71 inches) and 6'1" (73 inches) is the area under the pdf curve for height between those two values, as shown in the blue area of Figure \@ref(fig:pdf-auc).^[Code reference: http://www.statmethods.net/advgraphs/probability.html]
 
 \begin{figure}
 
-{\centering \includegraphics{02-inference-01-continuous_files/figure-latex/pdf-auc-1} 
+{\centering \includegraphics[width=0.7\linewidth]{02-inference-01-continuous_files/figure-latex/pdf-auc-1} 
 
 }
 
@@ -71,7 +73,7 @@ Here is a summary of the key ideas in this section:
 
 ### Elicitation
 
-Next, we introduce the concept of prior elicitation in base and statistics. Often, one has a belief about the distribution of one's data. You may think that your data come from a binomial distribution and in that case you typically know the $n$, the number of trials but you usually do not know $p$, the probability of success. Or you may think that your data come from a normal distribution. But you do not know the mean $\mu$ or the standard deviation $\sigma$ of the normal. Beside to knowing the distribution of one's data, you may also have beliefs about the unknown $p$ in the binomial or the unknown mean $\mu$ in the normal. 
+Next, we introduce the concept of prior elicitation in Bayesian statistics. Often, one has a belief about the distribution of one's data. You may think that your data come from a binomial distribution and in that case you typically know the $n$, the number of trials but you usually do not know $p$, the probability of success. Or you may think that your data come from a normal distribution. But you do not know the mean $\mu$ or the standard deviation $\sigma$ of the normal. Beside to knowing the distribution of one's data, you may also have beliefs about the unknown $p$ in the binomial or the unknown mean $\mu$ in the normal. 
 
 Bayesians express their belief in terms of personal probabilities. These personal probabilities encapsulate everything a Bayesian knows or believes about the problem. But these beliefs must obey the laws of probability, and be consistent with everything else the Bayesian knows. 
 
@@ -79,7 +81,7 @@ Bayesians express their belief in terms of personal probabilities. These persona
 
 \BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:binomial-data"><strong>(\#exm:binomial-data) </strong></span>You may know nothing at all about the value of $p$ that generated some binomial data. In which case any value between zero and one is equally likely, you may want to make an inference on the proportion of people who would buy a new band of toothpaste. If you have industry experience, you may have a strong belief about the value of $p$, but if you are new to the industry you would do nothing about $p$. In any value between zero and one seems equally like a deal. This major personal probability is the uniform distribution whose probably density function is flat, denoted as $\text{Unif}(0,1)$.</div>\EndKnitrBlock{example}
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:coin-toss"><strong>(\#exm:coin-toss) </strong></span>If you were tossing a coin, most people believed that the probability of heads is pretty close to half. They know that some coin are loaded and they know that some coins may have two heads or two tails. And they probably also know that coins are not perfectly balanced. Nonetheless, before they start to collect data by tossing the coin and counting the number of heads their belief is that values of $p$ near 0.5 are very likely, where's values of $p$ near 0 or 1 are very unlikely. </div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:coin-toss"><strong>(\#exm:coin-toss) </strong></span>If you were tossing a coin, most people believed that the probability of heads is pretty close to half. They know that some coins are biased and that some coins may have two heads or two tails. And they probably also know that coins are not perfectly balanced. Nonetheless, before they start to collect data by tossing the coin and counting the number of heads their belief is that values of $p$ near 0.5 are very likely, whereas values of $p$ near 0 or 1 are very unlikely. </div>\EndKnitrBlock{example}
 
 \BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:marriage"><strong>(\#exm:marriage) </strong></span>In real life, here are two ways to elicit a probability that you cousin will get married. A frequentist might go to the U.S. Census records and determine what proportion of people get married (or, better, what proportion of people of your cousin's ethnicity, education level, religion, and age cohort are married). In contrast, a Bayesian might think "My cousin is brilliant, attractive, and fun. The probability that my cousin gets married is really high -- probably around 0.97."</div>\EndKnitrBlock{example}
 
@@ -100,7 +102,7 @@ The expected value of $p$ is $\frac{\alpha}{\alpha+\beta}$, so $\alpha$ can be r
 
 \begin{figure}
 
-{\centering \includegraphics{02-inference-01-continuous_files/figure-latex/beta-1} 
+{\centering \includegraphics[width=0.8\linewidth]{02-inference-01-continuous_files/figure-latex/beta-1} 
 
 }
 
@@ -157,7 +159,7 @@ $$P(A_i|B) = \frac{P(B|A_i)P(A_i)}{\sum^n_{j=1}P(B|A_j)P(A_j)}$$
 
 However, this formula does not apply to continuous random variables, such as the $p$ which follows a beta distribution, because the denominator sums over all possible values (must be finitely many) of the random variable. 
 
-But the good news is that the $p$ has a finite range -- it can tak any value **only** between 0 and 1. Hence we can perform integration, which is a generalization of the summation. The Bayes' rule can also be written in continuous form as:
+But the good news is that the $p$ has a finite range -- it can take any value **only** between 0 and 1. Hence we can perform integration, which is a generalization of the summation. The Bayes' rule can also be written in continuous form as:
 
 $$\pi^*(p|x) = \frac{P(x|p)\pi(p)}{\int^1_0 P(x|p)\pi(p) dp}.$$
 
@@ -185,6 +187,6 @@ We can recognize the posterior distribution from the numerator $p^{\alpha+x-1}$ 
 
 This is a cute trick. We can find the answer without doing the integral simply by looking at form of the numerator. 
 
-Without conjugacy, one has to do the integral. Often, the integral is impossible to evaluate. That obstacle is the primary reason that most statistical theory in the 20th century was not Bayesian. The situation didn't change until modern computing allowed researchers to compute integrals numerically. 
+Without conjugacy, one has to do the integral. Often, the integral is impossible to evaluate. That obstacle is the primary reason that most statistical theory in the 20th century was not Bayesian. The situation did not change until modern computing allowed researchers to compute integrals numerically. 
 
 In summary, some pairs of distributions are conjugate. If your prior is in one and your data comes from the other, then your posterior is in the same family as the prior, but with new parameters. We explored this in the context of the beta-binomial conjugate families. And we saw that conjugacy meant that we could apply the continuous version of Bayes' rule without having to do any integration. 

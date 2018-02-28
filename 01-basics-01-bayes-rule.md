@@ -5,7 +5,7 @@ This section introduces how the Bayes' rule is applied to calculating conditiona
 ### Conditional Probabilities & Bayes' Rule {#sec:bayes-rule}
 
 Consider Table \@ref(tab:2015gallupDating).
-It shows the results of a poll among 1738 adult Americans. This table allows us to calculate probabilities.
+It shows the results of a poll among 1,738 adult Americans. This table allows us to calculate probabilities.
 
 \begin{table}
 
@@ -34,7 +34,7 @@ This is the overall probability of using an online dating site. Say, we are now 
 	\frac{\text{Number in age group 30-49 that indicated they used an online dating site}}{\text{Total number in age group 30-49}}
 	= \frac{86}{512} \approx 17\%.
 \end{multline*}
-Here, the pipe symbol `|' means *conditional on*. This is a *conditional probability* as one can consider it the probability of using an online dating site conditional on being in age group 30-49.
+Here, the pipe symbol `|' means **conditional on**. This is a **conditional probability** as one can consider it the probability of using an online dating site conditional on being in age group 30-49.
 
 We can rewrite this conditional probability in terms of 'regular' probabilities by dividing both numerator and the denominator by the total number of people in the poll. That is,
 \begin{multline*}
@@ -72,11 +72,11 @@ Bayes' rule provides a way to compute this conditional probability:
 
 To better understand conditional probabilities and their importance, let us consider an example involving the human immunodeficiency virus (HIV). In the early 1980s, HIV had just been discovered and was rapidly expanding. There was major concern with the safety of the blood supply. Also, virtually no cure existed making an HIV diagnosis basically a death sentence, in addition to the stigma that was attached to the disease.
 
-These made false positives and false negatives in HIV testing highly undesirable. A *false positive* is when a test returns postive while the truth is negative. That would for instance be that someone without HIV is wrongly diagnosed with HIV, wrongly telling that person they are going to die and casting the stigma on them. A *false negative* is when a test returns negative while the truth is positive. That is when someone with HIV undergoes an HIV test which wrongly comes back negative. The latter poses a threat to the blood supply if that person is about to donate blood.
+These made false positives and false negatives in HIV testing highly undesirable. A **false positive** is when a test returns postive while the truth is negative. That would for instance be that someone without HIV is wrongly diagnosed with HIV, wrongly telling that person they are going to die and casting the stigma on them. A **false negative** is when a test returns negative while the truth is positive. That is when someone with HIV undergoes an HIV test which wrongly comes back negative. The latter poses a threat to the blood supply if that person is about to donate blood.
 
 [comment]: # (The following paragraph could be deleted: The next one does not use false positive/negative rate but rather true positive/negative rate.)
 
-The probability of a false positive if the truth is negative is called the false positive rate. Similarly, the false negative rate is the probability of a false negative if the truth is positive. Note that both these rates are conditional probabilities: The false positive rate of an HIV test is the probability of a positive result *conditional on* the person tested having no HIV.
+The probability of a false positive if the truth is negative is called the false positive rate. Similarly, the false negative rate is the probability of a false negative if the truth is positive. Note that both these rates are conditional probabilities: The false positive rate of an HIV test is the probability of a positive result **conditional on** the person tested having no HIV.
 
 The HIV test we consider is an enzyme-linked immunosorbent assay, commonly known as an ELISA.
 We would like to know the probability that someone (in the early 1980s) has HIV if ELISA tests positive. For this, we need the following information.
@@ -97,15 +97,12 @@ Note that the above numbers are estimates. For our purposes, however, we will tr
 
 Our goal is to compute the probability of HIV if ELISA is positive, that is $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$. In none of the above numbers did we condition on the outcome of ELISA. Fortunately, Bayes' rule allows is to use the above numbers to compute the probability we seek. Bayes' rule states that
 
-$$
-  \begin{aligned}
-  P(&\text{Person tested has HIV}  \mid \text{ELISA is positive}) \\
-   & = \frac{P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive})}{P(\text{ELISA is positive})}.
-\end{aligned}  
-(\#eq:HIVconditional)
-$$
+\begin{equation}
+  P(\text{Person tested has HIV}  \mid \text{ELISA is positive}) = \frac{P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive})}{P(\text{ELISA is positive})}.
+   (\#eq:HIVconditional)
+\end{equation}  
 
-The can be derived as follows. For someone to test positive and be HIV positive, that person first needs to be HIV positive and then seconldy test positive. The probability of the first thing happening is $P(\text{HIV positive}) = 0.00148$. The probability of then testing positive is $P(\text{ELISA is positive} \mid \text{Person tested has HIV}) = 0.93$, the true positive rate. This yields for the numerator
+This can be derived as follows. For someone to test positive and be HIV positive, that person first needs to be HIV positive and then secondly test positive. The probability of the first thing happening is $P(\text{HIV positive}) = 0.00148$. The probability of then testing positive is $P(\text{ELISA is positive} \mid \text{Person tested has HIV}) = 0.93$, the true positive rate. This yields for the numerator
 
 \begin{multline}
   P(\text{Person tested has HIV} \,\&\, \text{ELISA is positive}) \\
@@ -195,7 +192,7 @@ In the last section, we used $P(\text{Person tested has HIV}) = 0.00148$, see \@
 Since we are considering the same ELISA test, we used the same true positive and true negative rates as in Section \@ref(sec:diagnostic-testing).
 We see that two positive tests makes it much more probable for someone to have HIV than when only one test comes up positive.
 
-This process, of using Bayes' rule to update a probability based on an event affecting it, is called Bayes' updating. More generally, the what one tries to update can be considered 'prior' information, sometimes simply called the *prior*. The event providing information about this can also be data. Then, updating this prior using Bayes' rule gives the information conditional on the data, also known as the *posterior*, as in the information *after* having seen the data. Going from the prior to the posterior is Bayes updating.
+This process, of using Bayes' rule to update a probability based on an event affecting it, is called Bayes' updating. More generally, the what one tries to update can be considered 'prior' information, sometimes simply called the **prior**. The event providing information about this can also be data. Then, updating this prior using Bayes' rule gives the information conditional on the data, also known as the **posterior**, as in the information **after** having seen the data. Going from the prior to the posterior is Bayes updating.
 
 The probability of HIV after one positive ELISA, 0.12, was the posterior in the previous section as it was an update of the overall prevalence of HIV, \@ref(eq:HIVpositive). However, in this section we answered a question where we used this posterior information as the prior. This process of using a posterior as prior in a new problem is natural in the Bayesian framework of updating knowledge based on the data.
 

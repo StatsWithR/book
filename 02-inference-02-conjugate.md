@@ -40,7 +40,7 @@ $$p \sim \text{beta}(\alpha,\beta) \Rightarrow \text{Standard deviation} = \sqrt
 
 Before she saw the data, the Bayesian's uncertainty expressed by her standard deviation was 0.71. After seeing the data, it was much reduced -- her posterior standard deviation is just 0.13. 
 
-We promised not to do much calculus, so I hope you will trust me to tell you that this Bayesian now believes that her posterior probability that $p < 0.5$ is 0.96875. She thought there was a 50-50 chance that RU-486 is better. But now she thinks there's about a 97% chance that RU-486 is better. 
+We promised not to do much calculus, so I hope you will trust me to tell you that this Bayesian now believes that her posterior probability that $p < 0.5$ is 0.96875. She thought there was a 50-50 chance that RU-486 is better. But now she thinks there is about a 97% chance that RU-486 is better. 
 
 Suppose a fifth child were born, also to a mother who received standard chip therapy. Now the Bayesian's prior is beta(1, 5) and the additional data point further updates her to a new posterior beta of 1 and 6. **As data comes in, the Bayesian's previous posterior becomes her new prior, so learning is self-consistent.** 
 
@@ -65,7 +65,7 @@ Moreover, the Poisson distribution has been used to describe the number of phone
 
 The Poisson distribution has a single parameter $\lambda$, and it is denoted as $X \sim \text{Pois}(\lambda)$ with $\lambda>0$. The probability mass function is
 
-$$P(X=k) = \frac{\lambda^k}{k!} \exp^{-\lambda} \text{ for } k=0,1,\cdots,$$
+$$P(X=k) = \frac{\lambda^k}{k!} e^{-\lambda} \text{ for } k=0,1,\cdots,$$
 
 where $k! = k \times (k-1) \times \cdots \times 1$. This gives the probability of observing a random variable equal to $k$. 
 
@@ -80,13 +80,13 @@ One can imagine that a Prussian general might want to estimate $\lambda$. The av
 
 Suppose the Prussian general is a Bayesian. Introspective elicitation leads him to think that $\lambda=0.75$ and standard deviation 1.
 
-Modern computing was unavailable at that time yet, so the general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of $\lambda$ in the Poisson can take any non-negative value so this fits. 
+Modern computing was unavailable at that time yet, so the Prussian general will need to express his prior as a member of a family conjugate to the Poisson. It turns out that this family consists of the gamma distributions. Gamma distributions describe continuous non-negative random variables. As we know, the value of $\lambda$ in the Poisson can take any non-negative value so this fits. 
 
 The gamma family is flexible, and Figure \@ref(fig:gamma) illustrates a wide range of gamma shapes. 
 
 \begin{figure}
 
-{\centering \includegraphics{02-inference-02-conjugate_files/figure-latex/gamma-1} 
+{\centering \includegraphics[width=0.8\linewidth]{02-inference-02-conjugate_files/figure-latex/gamma-1} 
 
 }
 
@@ -109,8 +109,6 @@ $$f(x) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$$
 
 For this example, we use the $k$-$\theta$ parameterization, but you should always check which parameterization is being used. For example, $\mathsf{R}$ uses the $\alpha$-$\beta$ parameterization by default.  
 In the the later material we find that  using the rate parameterization is more convenient.
-
-** ANY WAY TO MAKE THE MATERIAL MORE IN SYNC AS LABS LATER SECTIONS ALL USE THE RATE PARAMETERIZATION **
 
 For our parameterization, the mean of $\text{Gamma}(k,\theta)$ is $k\theta$, and the variance is $k\theta^2$. We can get the general's prior as below:
 
@@ -153,14 +151,14 @@ In summary, we learned about the Poisson and gamma distributions; we also knew t
 
 ###  The Normal-Normal Conjugate Families {#sec:normal-normal}
 
-There are other conjugate families, and one is the normal-normal pair. If your data come from a normal distribution with known standard deviation $\sigma$ but unknown mean $\mu$, and if your prior on the mean $\mu$, has a normal distribution with self-elicited mean $\nu$ and self-elicited standard deviation $\tau$, then your posterior density for the mean, after seeing a sample of size $n$ with sample mean $\bar{x}$, is also normal. In mathematical notation, we have
+There are other conjugate families, and one is the normal-normal pair. If your data come from a normal distribution with known variance $\sigma^2$ but unknown mean $\mu$, and if your prior on the mean $\mu$, has a normal distribution with self-elicited mean $\nu$ and self-elicited variance $\tau^2$, then your posterior density for the mean, after seeing a sample of size $n$ with sample mean $\bar{x}$, is also normal. In mathematical notation, we have
 
 $$\begin{aligned}
-x|\mu &\sim N(\mu,\sigma) \\
-\mu &\sim N(\nu, \tau)
+x|\mu &\sim N(\mu,\sigma^2) \\
+\mu &\sim N(\nu, \tau^2)
 \end{aligned}$$
 
-As a practical matter, one often does not know sigma, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family that we will describe in \@ref(sec:normal-gamma). But there are cases in which it is reasonable to treat the $\sigma$ as known. 
+As a practical matter, one often does not know $\sigma^2$, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family that we will describe in \@ref(sec:normal-gamma). But there are cases in which it is reasonable to treat the $\sigma^2$ as known. 
 
 \BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:chemist"><strong>(\#exm:chemist) </strong></span>An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.
 
@@ -171,11 +169,11 @@ Note that this normal-normal assumption made by the anayltical chemist is techni
 2. Even if the chemist has repeatedly calibrated her balance with standards from the National Institute of Standards and Technology, she still will not know its standard deviation precisely. However, if she has done it often and well, it is probably a sufficiently good approximation to assume that the standard deviation is known.
 </div>\EndKnitrBlock{example}
 
-For the normal-normal conjugate families, assume the prior on the unknown mean follows a normal distribution, i.e. $\mu \sim N(\nu, \tau)$. We also assume that the data $x_1,x_2,\cdots,x_n$ are independent and come from a normal with standard deviation $\sigma$.
+For the normal-normal conjugate families, assume the prior on the unknown mean follows a normal distribution, i.e. $\mu \sim N(\nu, \tau^2)$. We also assume that the data $x_1,x_2,\cdots,x_n$ are independent and come from a normal with variance $\sigma^2$.
 
 Then the posterior distribution of $\mu$ is also normal, with mean as a weighted average of the prior mean and the sample mean. We have
 
-$$\mu|x_1,x_2,\cdots,x_n \sim N(\nu^*, \tau^*),$$
+$$\mu|x_1,x_2,\cdots,x_n \sim N(\nu^*, \tau^{*2}),$$
 
 where
 
@@ -190,7 +188,7 @@ Now she collects five measurements on the sample and finds that the average of t
 The new mean of that posterior normal is found by plugging into the formula:
 
 $$\begin{aligned}
-\mu &\sim N(\nu=10, \tau=2) \\
+\mu &\sim N(\nu=10, \tau^2=2^2) \\
 \nu^*  &= \frac{\nu\sigma^2 + n\bar{x}\tau^2}{\sigma^2 + n\tau^2} = \frac{10\times(0.2)^2+5\times10.5\times2^2}{(0.2)^2+5\times2^2} = 10.499\\
 \tau^* &= \sqrt{\frac{\sigma^2\tau^2}{\sigma^2 + n\tau^2}} = \sqrt{(0.2)^2\times2^2}{(0.2)^2+5\times2^2} = 0.089.
 \end{aligned}$$

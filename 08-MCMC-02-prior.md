@@ -1,0 +1,179 @@
+## Other Priors for Bayesian Model Uncertainty
+
+So far, we have discussed Bayesian model selection and Bayesian model averaging using BIC. BIC is an asymptotic approximation of the log of marginal likelihood of models when the number of data points is large. Under BIC, prior distribution of $\bv = (\beta_0, \beta_1,\cdots, \beta_p)^T$ is uniformaly flat, which is the same as applying the reference prior on $\bv$ conditioning on $\sigma^2$. In this section, we will introduce a new conjugate prior distribution, called the Zellner's $g$-prior. We will see that this prior leads to simple expressions for the Bayes factor, in terms of summary statistics from ordinary least square (OLS). We will talk about choosing the parameter $g$ in the prior and conduct a sensitivity analysis, using the kid's cognitive score data that we used in earlier sections.
+
+### Zellner's $g$-Prior
+
+To analyze the model more conveniently, we still stick with the "centered" regression model. Let $y_1,\cdots,y_n$ to be the observations of the response variable $Y$. The multiple regression model is
+
+$$ y_i = \beta_0 + \beta_1(x_{1,i}-\bar{x}_1) + \beta_2(x_{2, i}-\bar{x}_2)+\cdots +\beta_p(x_{p, i}-\bar{x}_p)+\epsilon_i, \quad 1\leq i\leq n.$$
+
+As before, $\bar{x}_1, \cdots,\bar{x}_p$, are the sample means of the variables $X_1,\cdots,X_p$. Since we have centered all the variables, $\beta_0$ is no longer the $y$-intercept. Instead, it is the sample mean of $Y$ when taking $X_1=\bar{x}_1,\cdots, X_p=\bar{x}_p$. $\beta_1,\cdots,\beta_p$ are the coefficients for the $p$ variables. $\bv=(\beta_0,\beta_1,\cdots,\beta_p)^T$ is the vector notation representing all coefficients, including $\beta_0$.
+
+Under this model, we assume
+
+$$ y_i~|~ \bv, \sigma^2~\iid~\No(\beta_0+\beta_1(x_{1,i}-\bar{x}_1)+\cdots+\beta_p(x_{p,i}-\bar{x}_p), \sigma^2), $$
+which is equivalent to
+$$ \epsilon_i~|~ \bv, \sigma^2 ~\iid~\No(0, \sigma^2). $$
+
+
+We then specify the prior distributions for $\beta_j,\ 0\leq j\leq p$. Zellner proposed a simple informative conjugate multivariate normal prior for $\bv$ conditioning on $\sigma^2$ as
+
+$$ \bv~|~\sigma^2 ~\sim ~\No(\boldsymbol{b}_0, \Sigma = g\sigma^2\text{S}_{\bf{xx}}^{-1}). $$
+
+Here
+$$ \text{S}_{\bf{xx}} = (\mathbf{X}-\bar{\mathbf X})^T(\mathbf X - \bar{\mathbf X}), $$
+
+where the matrix $\mathbf{X}-\bar{\mathbf X}$ is
+$$ \mathbf{X}-\bar{\mathbf X} = \left(\begin{array}{cccc}
+|  & |  & \cdots & | \\
+X_1-\bar{X}_1 & X_2 - \bar{X}_2 & \cdots & X_p-\bar{X}_p \\
+|  & |  & \cdots & | 
+\end{array}\right) = \left(\begin{array}{cccc}
+x_{1, 1} - \bar{x}_1 & x_{2, 1} - \bar{x}_2 & \cdots & x_{p, 1} - \bar{x}_p \\
+\vdots & \vdots &  & \vdots \\
+x_{1, n} - \bar{x}_1 & x_{2, n} - \bar{x}_2 & \cdots & x_{p, n} - \bar{x}_p
+\end{array}
+\right).
+$$
+
+When $p=1$, this $\text{S}_{\bf{xx}}$ simplifies to $\displaystyle \text{S}_{\text{xx}} = \sum_{i=1}^n(x_{i}-bar{x})^2$, the sum of squares of a single variable $X$ that we used in Section \@ref(sec:simple-linear). In multiple regression, $\text{S}_{\bf{xx}}$ provides the variance and covariance for OLS. 
+
+The parameter $g$ scales the prior variance of $\bv$, over the OLS variances $\sigma^2\text{S}_{\bf{xx}}^{-1}$.  One of the advantages of using this prior is ,that it reduces prior elicitation down to two components; the prior mean $\boldsymbol{b}_0$ and the scalar $g$. We use $g$ to control the size of the variance of the prior, rather than set separate priors for all the variances and covariances (there would be $p(p+1)/2$ such priors for a $p+1$ dimensional multivariate normal distribution).
+
+Another advantage of using Zellner's $g$-prior is that it leads to simple updating rules, like all conjugate priors. Moreover, the posterior mean and posterior variance have simple forms. The posterior mean is
+$$ \frac{g}{1+g}\hat{\bv} + \frac{1}{1+g}\boldsymbol{b}_0, $$
+where $\hat{\bv}$ is the frequentist OLS estimates of coefficients $\bv$. The posterior variance is
+$$  \frac{g}{1+g}\sigma^2\text{S}_{\bf{xx}}^{-1}. $$
+
+From the posterior mean formula, we can see that the posterior mean is a weighted average of the prior mean $\boldsymbol{b}_0$ and the OLS estimate $\hat{\bv}$. Since $\displaystyle \frac{g}{1+g}$ is strictly less than 1, Zellner's $g$-prior shrinks the OLS estimates $\hat{\bv}$ towards the prior mean $\boldsymbol{b}_0$. As $g\rightarrow \infty$, $\displaystyle \frac{g}{1+g}\rightarrow 1$ and $\displaystyle \frac{1}{1+g}\rightarrow 0$, and we recover the OLS estimate as in the reference prior.
+
+Similarly, the posterior variancc is a shrunken version of the OLS variance, by a factor of $\displaystyle \frac{g}{1+g}$. The posterior distribution of $\bv$ conditioning on $\sigma^2$ is a normal distribution
+$$ \bv~|~\sigma^2, \text{data}~\sim~ \No(\frac{g}{1+g}\hat{\bv} + \frac{1}{1+g}\boldsymbol{b}_0,\ \frac{g}{1+g}\sigma^2\text{S}_{\bf{xx}}^{-1}). $$
+
+
+### Bayes Factor of Zellner's $g$-Prior 
+
+Because of this simplicity, Zellner's $g$-prior has been widely used in Bayesian model selection and Bayesian model averaging. One of the most popular versions uses the $g$-prior for all coefficients except the intercept, and takes the prior mean to be the zero vector $\boldsymbol{b}_0 = \bf{0}$. If we are not testing any hypotheses about the intercept $\beta_0$, we may combine this $g$-prior with the reference prior for the intercept $\beta_0$ and $\sigma^2$, that is, we set
+$$ p(\beta_0, \sigma^2) \propto \frac{1}{\sigma^2}, $$
+and use the $g$-prior for the rest of the coefficients $(\beta_1, \cdots, \beta_p)^T$.
+
+Under this prior, the Bayes factor for comparing model $M_m$ to the null model $M_0$, which only has the intercept, is simply
+$$ \BF[M_m:M_0] = (1+g)^{(n-p_m-1)/2}(1+g(1-R_m^2))^{-(n-1)/2}. $$
+
+Here $p_m$ is the number of predictors in $M_m$, $R_m^2$ is the $R$-squared of model $M_m$.
+
+With the Bayes factor, we can compare any two models using posterior odds. For example, we can compare model $M_m$ with the null model $M_0$ by
+$$ \frac{p(M_m~|~\text{data}, g)}{p(M_0~|~\text{data}, g)} = \PO[M_m:M_0] =  \BF[M_m:M_0]\frac{p(M_m)}{p(M_0)}. $$
+
+
+Now the question is, how do we pick $g$? As we see that, the Bayes factor depends on $g$. If $g\rightarrow \infty$,  $\BF[M_m:M_0]\rightarrow 0$. This provides overwhelming evidence against model $M_m$, no matter how many predictors we pick for $M_m$ and the data. This is the Bartlett's/Jeffrey-Lindley's paradox.
+
+On the other hand, if we use any arbitrary fixed value of $g$, and include more and more predictors, the $R$-squared $R_m^2$ will get closer and closer to 1, but the Bayes factor will remain bounded. With $R_m^2$ getting larger and larger, we would expect the alternative model $M_m$ would be supported. However, a bounded Bayes factor would not provide overwhelming support for $M_m$, even in the frequentist approach we are getting better and better fit for the data. This is the information paradox, when the Bayes factor comes to a different conclusion from the frequentist approach due to the boundedness of Bayes factor in the limiting case. 
+
+There are some solutions which appear to lead to reasonable results in small and large samples based on empirical results with real data to theory, and provide resolution to these two paradoxes. In the following examples, we let the prior distribution of $g$ depend on $n$, the size of the data. Since $\text{S}_{\bf{xx}}$ is getting larger with larger $n$, $g\sigma^2\text{S}_{\bf{xx}}^{-1}$ may get balanced if $g$ also grows relatively to the size of $n$. 
+
+**Unit Information Prior**
+
+In the case of the unit information prior, we let $g=n$. This is the same as saying $\displaystyle \frac{n}{g}=1$. In this prior, we will only need to specify the prior mean $\boldsymbol{b}_0$ for the coefficients of the predicor variables $(\beta_1,\cdots,\beta_p)^T$. 
+
+**Zellner-Siow Cauchly Prior**
+
+However, taking $g=n$ ignores the uncertainty of the choice of $g$. Since we do not know $g$ a priori, we may pick a prior so that the expected value of $\displaystyle \frac{n}{g}=1$. One exmaple is the Zellner-Siow cauchy prior. In this prior, we let 
+$$ \frac{n}{g}~\sim~ \Ga(\frac{1}{2}, \frac{1}{2}). $$
+
+**Hyper-$g/n$ Prior**
+
+Another example is to set 
+$$ \frac{1}{1+n/g}~\sim~ \Be(\frac{a}{2}, \frac{b}{2}), $$
+with hyperparameters $a$ and $b$. Since the Bayes factor under this prior distribution can be expressed in terms of hypergeometric functions, this is called the hyper-$g/n$ prior.
+
+
+### Kid's Cognitive Score Example
+
+We apply these priors on the kid's cognitive score example and compare the posterior probability that each coefficient $\beta_i,\ i = 1,2,3,4$ to be non-zero. We first read in data and store the size of the data into $n$. We will use this $n$ later, when setting priors for $n/g$.
+
+
+```r
+library(foreign)
+cognitive = read.dta("http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta")
+cognitive$mom_work = as.numeric(cognitive$mom_work > 1)
+cognitive$mom_hs =  as.numeric(cognitive$mom_hs > 0)
+colnames(cognitive) = c("kid_score", "hs","IQ", "work", "age") 
+
+# Extract size of data set
+n = nrow(cognitive)
+```
+
+
+We then fit the full model using different priors. Here we set model prior to be `uniform()`, meaning each model has equal prior probability.
+
+
+```r
+library(BAS)
+# Unit information prior
+cog.g = bas.lm(kid_score ~ ., data=cognitive, prior="g-prior", 
+               a=n, modelprior=uniform())
+# a is the hyperparameter in this case g=n
+
+# Zellner-Siow prior with Jeffrey's reference prior on sigma^2
+cog.ZS = bas.lm(kid_score ~ ., data=cognitive, prior="JZS", 
+               modelprior=uniform())
+
+# Hyper g/n prior
+cog.HG = bas.lm(kid_score ~ ., data=cognitive, prior="hyper-g-n", 
+                a=3, modelprior=uniform()) 
+# hyperparameter a=3
+
+# Empirical Bayesian estimation under maximum marginal likelihood
+cog.EB = bas.lm(kid_score ~ ., data=cognitive, prior="EB-local", 
+                a=n, modelprior=uniform())
+
+# BIC to approximate reference prior
+cog.BIC = bas.lm(kid_score ~ ., data=cognitive, prior="BIC", 
+                 modelprior=uniform())
+
+# AIC
+cog.AIC = bas.lm(kid_score ~ ., data=cognitive, prior="AIC", 
+                 modelprior=uniform())
+```
+
+Here `cog.g` is the model corresponding to the unit information prior $g=n$. `cog.ZS` is the model under the Zellner-Siow cauchy prior with Jeffrey's reference prior on $\sigma^2$. `cog.HG` gives the model under the hyper-$g/n$ prior. `cog.EB` is the empirical Bayesian estimates which maximizes the marginal likelihood. `cog.BIC` and `cog.AIC` are the ones corresponding to using `BIC` and `AIC` for marginal likelihood approximation.
+
+In order to compare the posterior inclusion probability (pip) of each coefficient, we group the results $p(\beta_i\neq 0)$ obtained from the `probne0` attribute of each model for later comparison
+
+
+```r
+probne0 = cbind(cog.BIC$probne0, cog.g$probne0, cog.ZS$probne0, cog.HG$probne0,
+                cog.EB$probne0, cog.AIC$probne0)
+
+colnames(probne0) = c("BIC", "g", "ZS", "HG", "EB", "AIC")
+rownames(probne0) = c(cog.BIC$namesx)
+```
+
+We can compare the results by printing the matrix `probne0` that we just generated. If we want to visualize them to get a clearer idea, we may plot them using bar plots.
+
+
+```r
+library(ggplot2)
+
+# Generate plot for each variable and save in a list
+P = list()
+for (i in 2:5){
+  mydata = data.frame(prior = colnames(probne0), posterior = probne0[i, ])
+  mydata$prior = factor(mydata$prior, levels = colnames(probne0))
+  p = ggplot(mydata, aes(x = prior, y = posterior)) +
+    geom_bar(stat = "identity", fill = "blue") + xlab("") +
+    ylab("") + 
+    ggtitle(cog.g$namesx[i])
+  P = c(P, list(p))
+}
+
+library(cowplot)
+do.call(plot_grid, c(P))
+```
+
+![](08-MCMC-02-prior_files/figure-latex/plots-1.pdf)<!-- --> 
+In the plots above, the $x$-axis lists all the prior distributions we consider, and the bar heights represent the posterior inclusion probability of each coefficient, i.e., $p(\beta_i\neq 0)$. 
+
+We can see that mother's IQ score is included almost as probability 1 in all priors. So all methods agree that we should include variable `IQ`. Mother's high school status also has probability of more than 0.5 in each prior, suggesting that we may also consider including the variable `hs`. However, mother's work status and mother's age have much lower posterior inclusion probability in all priors. From left to right in each bar plot, we see that method `BIC` is the most conservative method (meaning it will exclude the most variables), while `AIC` is being the less conservative method.

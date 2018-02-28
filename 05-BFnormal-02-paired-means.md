@@ -130,19 +130,19 @@ bayes_inference(difference, data=zinc, statistic="mean", type="ht",
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03640911 0.06329377 0.07536809  0.08716443  0.11223090
-## sigma 0.03663149 0.04740901 0.05531407  0.06556447  0.09560031
-## n_0   0.16256360 1.89456677 4.74660303 10.10617111 32.54362752
+## mu    0.03643272 0.06327167 0.07539929  0.08721644  0.11222304
+## sigma 0.03665850 0.04741062 0.05532001  0.06559627  0.09545967
+## n_0   0.16213904 1.88558194 4.73309451 10.09013621 32.27311840
 ## 
 ## 95% CI for mu: (0.0364, 0.1122)
 ```
 
-![](05-BFnormal-02-paired-means_files/figure-latex/bayes-inference-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics{05-BFnormal-02-paired-means_files/figure-latex/bayes-inference-1} \end{center}
 
 With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis $H_2$, the mean difference is different from 0, is almost 51 times more likely than the hypothesis $H_1$ that the average concentration is the same at the surface and the bottom.
 
 To sum up, we have used the **Cauchy prior** as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the \texttt{bayes$\_$inference} function from the \texttt{statsr} package. If you expect that the effect sizes will be small, smaller values of $r$ are recommended.
 
-It is often important to quantify the magnitude of the difference in addition to testing. The Cauchy Prior provides a default prior for both testing and inference; it avoids problems that arise with choosing a value of $n_0$ (prior sample size) in both cases.
-
-Next, we will illustrate using the Cauchy prior for comparing two means from independent normal samples.
+It is often important to quantify the magnitude of the difference in addition to testing. The Cauchy Prior provides a default prior for both testing and inference; it avoids problems that arise with choosing a value of $n_0$ (prior sample size) in both cases. In the next section, we will illustrate using the Cauchy prior for comparing two means from independent normal samples.

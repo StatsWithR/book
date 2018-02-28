@@ -1,15 +1,11 @@
 ## Markov Chain Monte Carlo (MCMC)  {#sec:NG-MCMC}
 
 
-```r
-library(statsr)
-library(ggplot2)
-```
 
 
-The Cauchy prior described in Section \@ref(sec:NG-Cauchy) is not a contrary prior, and therefore, the posterior distribution from $(\mu \mid \sigma)$, is not Cauchy or any well-known distribution. Fortunately, the conditional distribution of $(\mu, \sigma \mid n_0, \data)$,is normal gamma and easy to simulate from, as we learned in the previous sections. The conditional distribution of $(n_0 \mid \mu, \sigma, \data$) is a gamma distribution, also easy to simulate from the given $\mu, \sigma$.
+The Cauchy prior described in Section \@ref(sec:NG-Cauchy) is not a contrary prior, and therefore, the posterior distribution from $(\mu \mid \sigma^2)$, is not a Cauchy or any well-known distribution. Fortunately, the conditional distribution of $(\mu, \sigma^2 \mid n_0, \data)$, is normal-gamma and easy to simulate from, as we learned in the previous sections. The conditional distribution of $(n_0 \mid \mu, \sigma^2, \data$) is a gamma distribution, also easy to simulate from the given $\mu, \sigma^2$.
 
-It turns out that if we alternate generating Monte Carlo samples from these conditional distributions, the sequence of samples converges to samples from the joint distribution of $(\mu, \sigma, n_0)$, as the number of simulated values increases. The Monte Carlo algorithm we have just described is a special case of Markov chain Monte Carlo (MCMC), known as the Gibbs sampler.
+It turns out that if we alternate generating Monte Carlo samples from these conditional distributions, the sequence of samples converges to samples from the joint distribution of $(\mu, \sigma^2, n_0)$, as the number of simulated values increases. The Monte Carlo algorithm we have just described is a special case of Markov chain Monte Carlo (MCMC), known as the Gibbs sampler.
 
 Let's look at the pseudo code for the algorithm.
 
@@ -61,7 +57,9 @@ bayes_inference(y=tthm, data=tapwater, statistic="mean",
 ## 95% CI for mu: (45.5714, 64.2048)
 ```
 
-![](04-normalgamma-06-MCMC_files/figure-latex/tapwater-inference-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics{04-normalgamma-06-MCMC_files/figure-latex/tapwater-inference-1} \end{center}
 
 Using the \texttt{bayes$\_$inference} function from the \texttt{statsr} package, we can obtain summary statistics and a plot from the MCMC output -- not only $\mu$, but also inference about $\sigma^2$ and the prior sample size.
 

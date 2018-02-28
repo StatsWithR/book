@@ -3,7 +3,7 @@ output:
   pdf_document: default
   html_document: default
 ---
-## Comparing Independent  Means: hypothesis testing {#sec:indep-means}
+## Comparing Independent  Means: Hypothesis Testing {#sec:indep-means}
 
 In the previous section, we described Bayes factors for testing whether the mean difference of **paired** samples was zero. In this section, we will consider a slightly different problem -- we have two **independent** samples, and we would like to test the hypothesis that the means are different or equal.
 
@@ -23,7 +23,7 @@ Y_{Y,i} &\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2, \si
 (\#eq:half-alpha)
 \end{equation}
 
-The model for weight gain for older moms using the subscript $O$, and it assumes that the observations $Y$ are independent and identically distributed, with a mean $\mu+\alpha/2$ and variance $\sigma^2$.
+The model for weight gain for older moms using the subscript $O$, and it assumes that the observations are independent and identically distributed, with a mean $\mu+\alpha/2$ and variance $\sigma^2$.
 
 For the younger women, the observations with the subscript $Y$ are independent and identically distributed with a mean $\mu-\alpha/2$ and variance $\sigma^2$.
 
@@ -84,11 +84,13 @@ bayes_inference(y=gained, x=mature, data=nc,type='ht',
 ## P(H2|data) = 0.1489 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (-4.4141 , 0.8489)
+## 95% Cred. Int.: (-4.4051 , 0.8083)
 ```
 
-![](05-BFnormal-03-independent-means_files/figure-latex/bf-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics{05-BFnormal-03-independent-means_files/figure-latex/bf-1} \end{center}
 
 We see that the Bayes factor for $H_1$ to $H_2$ is about 5.7, with positive support for $H_1$ that there is no difference in average weight gain between younger and older women. Using equal prior probabilities, the probability that there is a difference in average weight gain between the two groups is about 0.15 given the data. Based on the interpretation of Bayes factors from Table \@ref(tab:jeffreys1961), this is in the range of "positive" (between 3 and 20).
 
-To recap, we have illustrated testing hypotheses about population means with two independent samples, using a Cauchy prior on the difference in the means. One assumption that we have made is that **the variances are equal in both groups**. The case where the variances are unequal is referred to as the Behren-Fisher problem, and this is beyond the scope for this course. Next, we will look at another example to put everything together with testing and discuss summarizing results.
+To recap, we have illustrated testing hypotheses about population means with two independent samples, using a Cauchy prior on the difference in the means. One assumption that we have made is that **the variances are equal in both groups**. The case where the variances are unequal is referred to as the Behren-Fisher problem, and this is beyond the scope for this course. In the next section, we will look at another example to put everything together with testing and discuss summarizing results.

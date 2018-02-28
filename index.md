@@ -2,7 +2,7 @@
 title: "Bayesian Statistics"
 subtitle: "A Companion to the Statistics with R Coursera Course"
 author: ["Christine Chai","Merlise Clyde","Lizzy Huang","Colin Rundel"]
-date: "Last built on 2018-01-08"
+date: "Last built on 2018-02-28"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib, references.bib]
@@ -16,10 +16,14 @@ github-repo: StatsWithR/book
 \newcommand{\Ga}{\textsf{Gamma}}
 \newcommand{\St}{\textsf{t}}
 \newcommand{\NoGa}{\textsf{NormalGamma}}
-\newcommand{\BF}{\textsf{BF}}
+\newcommand{\Be}{\textsf{Beta}}
+\newcommand{\BF}{\textit{BF}}
+\newcommand{\PO}{\textit{PO}}
+\newcommand{\Odd}{\textit{O}}
 \newcommand{\data}{\text{data}}
 \newcommand{\iid}{\mathrel{\mathop{\sim}\limits^{\rm iid}}}
 \newcommand{\Ca}{\textsf{C}}
+\newcommand{\bv}{\boldsymbol{\beta}}
 
 
 
