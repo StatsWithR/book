@@ -5,7 +5,7 @@ build:
         name: Update Libraries
         code: |
           apt-get install -y jags
-          install2.r rjags bookdown
+          install2.r rjags bookdown BAS
     - script:
         name: Install statsr
         code: |
