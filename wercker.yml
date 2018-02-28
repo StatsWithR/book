@@ -1,5 +1,4 @@
 box: rocker/tidyverse
-
 build:
   steps:
     - script:
@@ -10,15 +9,15 @@ build:
     - script:
         name: Install statsr
         code: |
-          Rscript -e "devtools::install_github("statswithr/statsr@BayesFactor")"
+          Rscript -e "devtools::install_github('statswithr/statsr@BayesFactor')"
     - script:
         name: Render Book (html)
         code: |
-          Rscript -e "bookdown::render_book("index.Rmd", "bookdown::gitbook")"
+          Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
     - script:
         name: Render Book (pdf)
         code: |
-          Rscript -e "bookdown::render_book("index.Rmd", "bookdown::pdf_book")"
+          Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
     - script:
         name: Publish book
         code: |
