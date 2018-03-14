@@ -1,8 +1,8 @@
 --- 
-title: "Bayesian Statistics"
-subtitle: "A Companion to the Statistics with R Coursera Course"
-author: ["Christine Chai","Merlise Clyde","Lizzy Huang","Colin Rundel"]
-date: "Last built on 2018-02-28"
+title: "An Introduction to Bayesian Thinking"
+subtitle: "A Companion to the Statistics with R Course"
+author: ["David Banks", "Mine Cetinkaya-Rundel", "Christine Chai","Merlise Clyde","Lizzy Huang","Colin Rundel"]
+date: "Last built on 2018-03-14"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib, references.bib]
@@ -27,6 +27,6 @@ github-repo: StatsWithR/book
 
 
 
-This book is a written companion for the Coursera Course 'Bayesian Statistics' from the Statistics with R specialization. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided.
+This book is a written companion for the Course 'Bayesian Statistics' from the Statistics with R specialization available on Coursera, but may be used on its own as an open-access introduction to Bayesian inference using R. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided.
 
 Authors are listed in alphabetical order.

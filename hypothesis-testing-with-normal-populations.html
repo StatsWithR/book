@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Bayesian Statistics</title>
-  <meta name="description" content="Bayesian Statistics">
+  <title>An Introduction to Bayesian Thinking</title>
+  <meta name="description" content="An Introduction to Bayesian Thinking">
   <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Bayesian Statistics" />
+  <meta property="og:title" content="An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
   
   
@@ -17,11 +17,13 @@
   <meta name="github-repo" content="StatsWithR/book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bayesian Statistics" />
+  <meta name="twitter:title" content="An Introduction to Bayesian Thinking" />
   
   
   
 
+<meta name="author" content="David Banks">
+<meta name="author" content="Mine Cetinkaya-Rundel">
 <meta name="author" content="Christine Chai">
 <meta name="author" content="Merlise Clyde">
 <meta name="author" content="Lizzy Huang">
@@ -238,7 +240,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Statistics</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Bayesian Thinking</a>
           </h1>
         </div>
 
@@ -480,11 +482,11 @@ Water samples collected at the the same location, on the surface and the bottom,
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03641360 0.06328256 0.07536234  0.08719914  0.11227533
-## sigma 0.03666408 0.04742567 0.05533724  0.06559797  0.09555502
-## n_0   0.16520337 1.88854009 4.72647705 10.08410944 32.33941915
+## mu    0.03658094 0.06331669 0.07538082  0.08719025  0.11226414
+## sigma 0.03668691 0.04743162 0.05533101  0.06559939  0.09553156
+## n_0   0.16255988 1.89084301 4.73267925 10.09781299 32.37160753
 ## 
-## 95% CI for mu: (0.0364, 0.1123)</code></pre>
+## 95% CI for mu: (0.0366, 0.1123)</code></pre>
 <p><img src="05-BFnormal-02-paired-means_files/figure-html/bayes-inference-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis <span class="math inline">\(H_2\)</span>, the mean difference is different from 0, is almost 51 times more likely than the hypothesis <span class="math inline">\(H_1\)</span> that the average concentration is the same at the surface and the bottom.</p>
 <p>To sum up, we have used the <strong>Cauchy prior</strong> as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the  function from the  package. If you expect that the effect sizes will be small, smaller values of <span class="math inline">\(r\)</span> are recommended.</p>
@@ -550,7 +552,7 @@ Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2,
 ## P(H2|data) = 0.1489 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (-4.4607 , 0.9137)</code></pre>
+## 95% Cred. Int.: (-4.4472 , 0.8629)</code></pre>
 <p><img src="05-BFnormal-03-independent-means_files/figure-html/bf-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>We see that the Bayes factor for <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> is about 5.7, with positive support for <span class="math inline">\(H_1\)</span> that there is no difference in average weight gain between younger and older women. Using equal prior probabilities, the probability that there is a difference in average weight gain between the two groups is about 0.15 given the data. Based on the interpretation of Bayes factors from Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “positive” (between 3 and 20).</p>
 <p>To recap, we have illustrated testing hypotheses about population means with two independent samples, using a Cauchy prior on the difference in the means. One assumption that we have made is that <strong>the variances are equal in both groups</strong>. The case where the variances are unequal is referred to as the Behren-Fisher problem, and this is beyond the scope for this course. In the next section, we will look at another example to put everything together with testing and discuss summarizing results.</p>
@@ -603,7 +605,7 @@ out =<span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <
 ## P(H2|data) = 0.5902 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (0.0227 , 0.5744)</code></pre>
+## 95% Cred. Int.: (0.0287 , 0.5754)</code></pre>
 <p><img src="05-BFnormal-04-inference_files/figure-html/BF-NC-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>We see that the Bayes factor is 1.44, which weakly favors there being a difference in average birth weights for babies whose mothers are smokers versus mothers who did not smoke. Converting this to a probability, we find that there is about a 60% chance of the average birth weights are different.</p>
 <p>While looking at evidence of there being a difference is useful, Bayes factors and posterior probabilities do <strong>not</strong> convey any information about the magnitude of the effect. Reporting a credible interval or the complete posterior distribution is more relevant for quantifying the magnitude of the effect.</p>
@@ -614,10 +616,10 @@ out =<span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <
 <span class="kw">print</span>(out.ci<span class="op">$</span>summary, <span class="dt">digits=</span><span class="dv">2</span>)</code></pre></div>
 <pre><code>##                             2.5%     25%    50%     75%   97.5%
 ## overall mean               6.853    6.94    7.0    7.04 7.1e+00
-## mu_nonsmoker - mu_smoker   0.024    0.21    0.3    0.39 5.8e-01
-## sigma^2                    2.071    2.19    2.3    2.33 2.5e+00
-## effect size                0.016    0.14    0.2    0.26 3.8e-01
-## n_0                      177.817 1966.14 4690.1 9364.57 2.5e+04</code></pre>
+## mu_nonsmoker - mu_smoker   0.028    0.21    0.3    0.40 5.7e-01
+## sigma^2                    2.066    2.19    2.3    2.32 2.5e+00
+## effect size                0.018    0.14    0.2    0.26 3.8e-01
+## n_0                      157.792 1931.51 4659.7 9295.70 2.6e+04</code></pre>
 <p>The 2.5 and 97.5 percentiles for the difference in the means provide a 95% credible interval of 0.023 to 0.57 pounds for the difference in average birth weight. The MCMC output shows not only summaries about the difference in the mean <span class="math inline">\(\alpha\)</span>, but the other parameters in the model.</p>
 <p>In particular, the Cauchy prior arises by placing a gamma prior on <span class="math inline">\(n_0\)</span> and the conjugate normal prior. This provides quantiles about <span class="math inline">\(n_0\)</span> after updating with the current data.</p>
 <p>The row labeled effect size is the standardized effect size <span class="math inline">\(\delta\)</span>, indicating that the effects are indeed small relative to the noise in the data.</p>
