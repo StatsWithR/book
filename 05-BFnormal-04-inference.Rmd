@@ -31,7 +31,7 @@ $$Y_{S,i} \iid \No(\mu - \alpha/2, \sigma^2)$$
 
 The difference in the average birth weights is the parameter $\alpha$, because
 
-$$\mu + \alpha/2  - (\mu - \alpha/2) =  \alpha$$.
+$$(\mu + \alpha/2) - (\mu - \alpha/2) =  \alpha$$.
 
 The hypotheses that we will test are $H_1:  \alpha = 0$  versus $H_2:  \alpha \ne 0$.
 
@@ -43,13 +43,13 @@ $$\delta = \alpha/\sigma \sim \Ca(0, r^2), \text{ with } r = 0.5.$$
 Under both $H_1$ and $H_2$, we will use the reference priors on $\mu$ and $\sigma^2$:
 
 $$\begin{aligned}
-p(\mu) &\propto 1
+p(\mu) &\propto 1 \\
 p(\sigma^2) &\propto 1/\sigma^2
 \end{aligned}$$
 
 The input to the base inference function is similar, but now we will specify that $r = 0.5$.
 
-```{r BF-NC, message=FALSE}
+```{r BF-NC, message=FALSE, fig.width=4, fig.height=4, fig.align='center'}
 library(statsr)
 data(nc)
 out =bayes_inference(y=weight, x=habit, data=nc,type='ht', null=0,
@@ -76,7 +76,7 @@ In particular, the Cauchy prior arises by placing a gamma prior on $n_0$ and the
 
 The row labeled effect size is the standardized effect size $\delta$, indicating that the effects are indeed small relative to the noise in the data.
 
-```{r BF-NC-plot, echo=FALSE, warning=FALSE, fig.cap="Estimates of effect under H2", fig.align='center'}
+```{r BF-NC-plot, warning=FALSE, fig.width=4, fig.height=4, fig.align='center', fig.cap="Estimates of effect under H2", fig.align='center'}
 library(ggplot2)
 out = bayes_inference(y=weight, x=habit, data=nc,type='ht',
                 statistic='mean',  alternative='twosided',
@@ -99,11 +99,11 @@ Using the law of total probability, we can compute the probability that $\mu$ is
 
 $$\begin{aligned}
 & P(0.023 < \alpha < 0.57 \mid \data) \\
-= & P(0.023 < \alpha < 0.57 \mid \data, H_1)P(H_1 \mid \data)  + & P(0.023 < \alpha < 0.57 \mid \data, H_2)P(H_2 \mid \data) \\
+= & P(0.023 < \alpha < 0.57 \mid \data, H_1)P(H_1 \mid \data)  + P(0.023 < \alpha < 0.57 \mid \data, H_2)P(H_2 \mid \data) \\
 = & I( 0 \text{ in CI }) P(H_1 \mid \data)  + 0.95 \times P(H_2 \mid \data) \\
 = & 0 \times 0.41 + 0.95 \times 0.59 = 0.5605
 \end{aligned}$$
 
 Finally, we get that the probability that $\alpha$ is in the interval, given the data, averaging over both hypotheses, is roughly 0.56. The unconditional statement is the average birth weight of babies born to nonsmokers is 0.023 to 0.57 pounds higher than that of babies born to smokers with probability 0.56. This adjustment addresses the posterior uncertainty and how likely $H_2$ is.
 
-To recap, we have illustrated testing, followed by reporting credible intervals, and using a Cauchy prior distribution that assumed smaller standardized effects. After testing, it is common to report credible intervals conditional on $H_2$. We also have shown how to adjust the probability of the interval to reflect our posterior uncertainty about $H_2$. Next, we will turn to regression models to incorporate continuous explanatory variables.
+To recap, we have illustrated testing, followed by reporting credible intervals, and using a Cauchy prior distribution that assumed smaller standardized effects. After testing, it is common to report credible intervals conditional on $H_2$. We also have shown how to adjust the probability of the interval to reflect our posterior uncertainty about $H_2$. In the next chapter, we will turn to regression models to incorporate continuous explanatory variables.

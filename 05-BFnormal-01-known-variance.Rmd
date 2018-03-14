@@ -32,7 +32,7 @@ bf12_point = function(ybar, m_1, m_2, n=100, sigma=1) {
 }
 ```
 
-Now we show how to obtain base factors for testing hypothesis about a normal mean, where **the variance is known**. To start, let's consider a random sample of observations from a normal population with mean $\mu$ and pre-specified variance $\sigma^2$. We consider testing whether the population mean $\mu$ is equal to $m_0$ or not.
+Now we show how to obtain Bayes factors for testing hypothesis about a normal mean, where **the variance is known**. To start, let's consider a random sample of observations from a normal population with mean $\mu$ and pre-specified variance $\sigma^2$. We consider testing whether the population mean $\mu$ is equal to $m_0$ or not.
 
 Therefore, we can formulate the data and hypotheses as below:
 
@@ -75,7 +75,7 @@ Let's explore how the hyperparameters in $n_0$ influences the Bayes factor in Eq
 
 Figure \@ref(fig:vague-prior) shows the Bayes factor for comparing $H_1$ to $H_2$ on the y-axis as $n_0$ changes on the x-axis. The different lines correspond to different values of the $Z$ score or how many standard errors $\bar{y}$ is from the hypothesized mean. As expected, larger values of the $Z$ score favor $H_2$.
 
-```{r vague-prior, fig.cap="Vague prior for mu: n=100",fig.height=5, echo=FALSE}
+```{r vague-prior, fig.cap="Vague prior for mu: n=100", fig.height=4, fig.width=4, fig.align="center", echo=FALSE}
 myblue = rgb(86,155,189, name="myblue", max=256)
 mydarkgrey = rgb(.5,.5,.5, name="mydarkgrey", max=1)
 Z = c(1.65, 1.96, 2.81, 3.62 )
@@ -98,8 +98,8 @@ bfplot = ggplot(df, aes(x=n0, y=bf, group=Z, colour=Z, linetype=Z)) +
                theme(panel.background = element_rect(fill = "transparent", colour = NA),
                  legend.key = element_rect(colour = "transparent", fill = NA),
                   plot.background = element_rect(fill = "transparent", colour = NA)) +
-                     theme(legend.position=c(.75, .75)) +
-  theme(text = element_text(size=20))
+                     theme(legend.position=c(.85, .85)) +
+  theme(text = element_text(size=15))
 
 #legend(30, .95, legend=paste("Z = ", as.character(Z), "p-value = ",
 #                             as.character(round(2*pnorm(-Z),4))),
@@ -119,7 +119,7 @@ The takeaway from this is that we cannot use improper priors with $n_0 = 0$, if 
 
 This problem arises with vague priors -- the Bayes factor favors the null model $H_1$ even when the data are far away from the value under the null -- are known as the Bartlett's paradox or the Jeffrey's-Lindleys paradox.
 
-Now one way to try to understand the effect of prior is through the standard effect size
+Now, one way to understand the effect of prior is through the standard effect size
 
 $$\delta = \frac{\mu - m_0}{\sigma}.$$
 The prior of the standard effect size is
@@ -130,9 +130,9 @@ This allows us to think about a standardized effect independent of the units of 
 
 In many fields we expect that the effect will be small relative to $\sigma$. If we do not expect to see large effects, then we may want to use a more informative prior on the effect size as the density in orange with $n_0 = 4$. So they expected the mean to be within $\pm 1/\sqrt{n_0}$ or five standard deviations of the prior mean.
 
-```{r effect-size, fig.cap="Prior on standard effect size", echo=FALSE}
+```{r effect-size, fig.height=4, fig.width=5, fig.align="center", fig.cap="Prior on standard effect size", echo=FALSE}
 x = seq(-6,5, length=1000)
-par(cex=1.55, cex.axis=1.5, cex.lab=2, mar=c(5, 5, 2, 2), col.lab=mydarkgrey, col.axis=mydarkgrey, col=mydarkgrey)
+par(cex=1, cex.axis=1, cex.lab=1, mar=c(5, 5, 2, 2), col.lab=mydarkgrey, col.axis=mydarkgrey, col=mydarkgrey)
 plot(x, dnorm(x) , type="l", lwd=3, ylab="density", xlab=expression(delta), col=myblue, ylim=c(0, .9), bty="n")
 #lines(x, dt(x, df=1), lwd=3, col="orange")
 lines(x, dnorm(x, sd=.5), lwd=3,  lty = 2, col="orange")
@@ -169,9 +169,9 @@ bfUI = bf12(n, Zobs, 1)
 #pp = postprob(bf)
 ```
 
-```{r prior-effect, echo=FALSE, fig.cap="Prior effect in the extra sensory perception test"}
+```{r prior-effect, echo=FALSE, fig.height=4, fig.width=5, fig.align="center", fig.cap="Prior effect in the extra sensory perception test"}
 x = seq(-.1,.1, length=1000) + .5
-par(cex=1.55, cex.axis=1.5, cex.lab=2, mar=c(5, 5, 2, 2), col.lab=mydarkgrey, col.axis=mydarkgrey, col=mydarkgrey)
+par(cex=1, cex.axis=1, cex.lab=1, mar=c(5, 5, 2, 2), col.lab=mydarkgrey, col.axis=mydarkgrey, col=mydarkgrey)
 plot(x, dnorm(x, .5, .5/n0.5) , type="l", lwd=3, ylab="density", xlab=expression(mu), col=myblue, bty="n", ylim=c(0,60))
 #lines(x, dt(x, df=1), lwd=3, col="orange")
 lines(x, dnorm(x,0.5, sd=1), lwd=3,  lty = 2, col="orange")
@@ -200,6 +200,6 @@ lead to Bayes factors that favor the null hypothesis regardless of the data, and
 
 Bayes factors with normal priors can be sensitive to the choice of the $n_0$. While the default value of $n_0 = 1$ is reasonable in many cases, this may be too non-informative if one expects more effects. Wherever possible, think about how large an effect you expect and use that information to help select the $n_0$.
 
-All the ESP examples suggest weak evidence and favored the machine generating random 0's and 1's with a probability that is different from 0.5. Note that ESP is not the only explanation -- a deviation from 0.5 can also occur if the random number generator is biased. Bias in the stream of random numbers in our pseudorandom numbers has huge implications for numerous fields that depend on simulation. If the context had been about detecting a small bias in random numbers what prior would you use and how would it change the outcome? You can try to experiment in R or other software packages that generate random Bernoullis.
+All the ESP examples suggest weak evidence and favored the machine generating random 0's and 1's with a probability that is different from 0.5. Note that ESP is not the only explanation -- a deviation from 0.5 can also occur if the random number generator is biased. Bias in the stream of random numbers in our pseudorandom numbers has huge implications for numerous fields that depend on simulation. If the context had been about detecting a small bias in random numbers what prior would you use and how would it change the outcome? You can experiment it in `R` or other software packages that generate random Bernoulli trials.
 
 Next, we will look at Bayes factors in normal models with unknown variances using the Cauchy prior so that results are less sensitive to the choice of $n_0$.

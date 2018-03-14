@@ -1,7 +1,6 @@
+## Predictive Distributions {#sec:NG-predictive}
 
-### Predictive Distributions {#sec:NG-predictive}
-
-```{r packages, echo=TRUE, warning=FALSE, message=FALSE,  eval=TRUE}
+```{r packages, echo=FALSE, warning=FALSE, message=FALSE,  eval=TRUE}
 library(statsr)
 library(ggplot2)
 ```
@@ -58,7 +57,7 @@ A report from the city water department suggests that levels of TTHM are expecte
 
 * Prior estimate of sigma: $s_0 = (60-10)/4 = 12.5$ or $s_0^2 = [(60-10)/4]^2 = 156.25$
 
-To complete the specification, we also need to choose the prior sample size $n_0$ and degrees of freedom $v_0$. As the degrees of freedom of the variance are $n-1$, we set $v_0 = n_0 - 1$. We will draw samples from the prior predictive distribution and modify $n_0$ so that the simulated data agree with our prior assumptions.
+To complete the specification, we also need to choose the prior sample size $n_0$ and degrees of freedom $v_0$. As the variance has $n-1$ degrees of freedom, we set $v_0 = n_0 - 1$. We will draw samples from the prior predictive distribution and modify $n_0$ so that the simulated data agree with our prior assumptions.
 
 The following `R` code shows a simulation from the predictive distribution with the prior sample size of 2. Please note that the number of Monte Carlo simulations should not be confused with the prior sample size $n_0$.
 
@@ -92,7 +91,7 @@ quantile(y, c(0.025,0.975))
 
 Figure \@ref(fig:hist-prior) shows an estimate of the prior distribution of $\mu$ in gray and the more dispersed prior predictive distribution in TTHM in orange, obtained from the Monte Carlo samples.
 
-```{r hist-prior, fig.align="center", fig.cap="Prior density", echo=FALSE}
+```{r hist-prior, fig.align="center", fig.width=5, fig.height=3, fig.cap="Prior density", echo=FALSE}
 # The palette with grey:
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
@@ -111,7 +110,7 @@ ggplot(data=df, aes(x=y)) +
         legend.key = element_rect(colour = "transparent", fill = NA),
         plot.background = element_rect(fill = "transparent", colour = NA),
         legend.position = c(.75, .75),
-        text = element_text(size=20))
+        text = element_text(size=15))
 ```
 
 Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations.
@@ -120,7 +119,7 @@ Using the Monte Carlo samples, we can also estimate the prior probability of neg
 sum(y < 0)/length(y)  # P(Y < 0) a priori
 ```
 
-With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we can still use the conjugate normal gamma model for analysis.
+With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we can still use the conjugate normal-gamma model for analysis.
 
 We can use the same strategy to generate samples from the predictive distribution of a new measurement $Y_{n+1}$ given the observed data. In mathematical terms, the posterior predictive distribution is written as
 
@@ -139,7 +138,7 @@ quantile(pred_y, c(.025, .975))
 
 Figure \@ref(fig:hist-pred) shows the Monte Carlo approximation to the prior distribution of $\mu$, and the posterior distribution of $\mu$ which is shifted to the right. The prior and posterior predictive distributions are also depicted, showing how the data have updated the prior information.
 
-```{r hist-pred, fig.align="center", fig.cap="Posterior densities", echo=FALSE, message=FALSE, warning=FALSE}
+```{r hist-pred, fig.align="center", fig.width=5, fig.height=3, fig.cap="Posterior densities", echo=FALSE, message=FALSE, warning=FALSE}
 
 nsim = length(post_mu)
 
@@ -157,16 +156,16 @@ ggplot(data=df, aes(x=pred_y)) +
         legend.key = element_rect(colour = "transparent", fill = NA),
         plot.background = element_rect(fill = "transparent", colour = NA),
         legend.position=c(.75, .75),
-        text = element_text(size=20))
+        text = element_text(size=15))
 ```
 
-Using the Monte-Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06.
+Using the Monte Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06.
 
 ```{r negative-pred}
 sum(pred_y > 80)/length(pred_y)  # P(Y > 80 | data)
 ```
 
-By using Monte-Carlo methods, we can obtain prior and posterior predictive distributions of the data.
+By using Monte Carlo methods, we can obtain prior and posterior predictive distributions of the data.
 
 * Sampling from the prior predictive distribution can help with the selection of prior hyper parameters and verify that these choices reflect the prior information that is available.
 

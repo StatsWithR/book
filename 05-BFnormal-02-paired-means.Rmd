@@ -90,7 +90,7 @@ numerical integration or simulation methods.
 
 We will use the \texttt{bayes$\_$inference} function from the \texttt{statsr} package to test whether the mean difference is zero in Example \@ref(exm:zinc) (zinc), using the JZS (Jeffreys-Zellener-Siow) prior.
 
-```{r bayes-inference, message=FALSE, warning=FALSE}
+```{r bayes-inference, fig.align='center', fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
 library(statsr)
 bayes_inference(difference, data=zinc, statistic="mean", type="ht",
                 prior="JZS", mu_0=0, method="theo", alt="twosided")
@@ -100,6 +100,4 @@ With equal prior probabilities on the two hypothesis, the Bayes factor is the po
 
 To sum up, we have used the **Cauchy prior** as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the \texttt{bayes$\_$inference} function from the \texttt{statsr} package. If you expect that the effect sizes will be small, smaller values of $r$ are recommended.
 
-It is often important to quantify the magnitude of the difference in addition to testing. The Cauchy Prior provides a default prior for both testing and inference; it avoids problems that arise with choosing a value of $n_0$ (prior sample size) in both cases.
-
-Next, we will illustrate using the Cauchy prior for comparing two means from independent normal samples.
+It is often important to quantify the magnitude of the difference in addition to testing. The Cauchy Prior provides a default prior for both testing and inference; it avoids problems that arise with choosing a value of $n_0$ (prior sample size) in both cases. In the next section, we will illustrate using the Cauchy prior for comparing two means from independent normal samples.

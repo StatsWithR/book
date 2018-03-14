@@ -1,6 +1,6 @@
 ## Mixtures of Conjugate Priors  {#sec:NG-Cauchy}
 
-```{r packages, echo=TRUE, warning=FALSE, message=FALSE,  eval=TRUE}
+```{r packages, echo=FALSE, warning=FALSE, message=FALSE,  eval=TRUE}
 library(statsr)
 library(ggplot2)
 ```
@@ -30,7 +30,7 @@ $$\mu \mid \sigma^2  \sim  \Ca(m_0, \sigma^2 r^2)$$
 As Figure \@ref(fig:cauchy-plot) shows, the standard Cauchy distribution with $r=1$ and the standard normal distribution $\No(0,1)$ are centered at the same location. But the Cauchy distribution has heavier tails -- more probability on extreme values than the normal distribution with the same scale parameter $\sigma$. Cauchy priors were recommended by Sir Harold Jeffreys as a default objective prior for both estimation and testing.
 
 
-```{r cauchy-plot, echo=FALSE, message=FALSE, warning=FALSE, fig.align="center", fig.cap="Cauchy distribution", fig.height=5, fig.width=5}
+```{r cauchy-plot, echo=FALSE, message=FALSE, warning=FALSE, fig.align="center", fig.cap="Cauchy distribution", fig.height=4, fig.width=5}
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#000000", "#009E73", "#0072B2", "#D55E00", "#CC79A7")
 N = 1000
 x=seq(-5,5, length=N)
@@ -47,7 +47,6 @@ ggplot(data=df, aes(x=x,y=y, group=distribution)) +
         legend.key = element_rect(colour = "transparent", fill = NA),
         plot.background = element_rect(fill = "transparent", colour = NA),
         legend.position=c(.75, .75),
-        text = element_text(size=20))
+        text = element_text(size=15))
 ```
 
-ADD MORE DETAILS BEYOND THE VIDEO?

@@ -81,7 +81,10 @@ The degree of freedom of these $t$-distributions is $n-p-1$, where $p$ is the nu
 To gain more flexibility in choosing priors, we will instead use the `bas.lm` function in the `BAS` library, which allows us to specify different model priors and coefficient priors.
 
 ```{r bas-model, message=FALSE, warning=FALSE}
+# Import library
 library(BAS)
+
+# Use `bas.lm` to run regression model
 cog.bas = bas.lm(kid_score ~ ., data = cognitive, prior = "BIC", 
                  modelprior = Bernoulli(1), bestmodel = rep(1, 5), n.models = 1)
 ```

@@ -1,16 +1,18 @@
 ## Credible Intervals and Predictive Inference
 
+In this part, we are going to quantify the uncertainty of the parameter by credible intervals after incorporating the data. Then we can use predictive inference to identify the posterior distribution for a new random variable.
+
 ### Non-Conjugate Priors
 
 In many applications, a Bayesian may not be able to use a conjugate prior. Sometimes she may want to use a reference prior, which injects the minimum amount of personal belief into the analysis. But most often, a Bayesian will have a personal belief about the problem that cannot be expressed in terms of a convenient conjugate prior. 
 
-For example, we shall reconsider the RU-486 case from earlier in which four children were born to standard therapy mothers. But no children were born to RU-486 mothers. This time, the Bayesian believes that the probability p of an RU-486 baby is uniformly distributed between 0 and one-half, but has a point mass of 0.5 at one-half. That is, she believes there's a 50% chance that there is no difference between standard therapy and RU-486. But if there is a difference, she thinks that RU-486 is better, but she is completely unsure about how much better it would be. 
+For example, we shall reconsider the RU-486 case from earlier in which four children were born to standard therapy mothers. But no children were born to RU-486 mothers. This time, the Bayesian believes that the probability p of an RU-486 baby is uniformly distributed between 0 and one-half, but has a point mass of 0.5 at one-half. That is, she believes there is a 50% chance that no difference exists between standard therapy and RU-486. But if a difference exists, she thinks that RU-486 is better, but she is completely unsure about how much better it would be. 
 
 In mathematical notation, the probability density function of $p$ is
 
 $$f_p(x) = \left\{ \begin{array}{ccc}
 1 & \text{for} & 0 \leq x < 0.5 \\
-1 & \text{for} & x = 0.5 \\
+0.5 & \text{for} & x = 0.5 \\
 0 & \text{for} & x < 0 \text{ or } x > 0.5
 \end{array}\right.$$
 
@@ -24,14 +26,58 @@ x & \text{for} & 0 \leq x < 0.5  \\
 1 & \text{for} & x \geq 0.5
 \end{array}\right.$$
 
-Why would this be a reasonable prior for an analyst to self-elicit? One reason is that in clinical trials, there's actually quite a lot of preceding research on the efficacy of the drug. This research might be based on animal studies or knowledge of the chemical activity of the molecule. So the Bayesian might feel sure that there is no possibility that RU-486 is worse than the standard treatment. And her interest is on whether the therapies are equivalent and if not, how much better RU-486 is than the standard therapy. 
+Why would this be a reasonable prior for an analyst to self-elicit? One reason is that in clinical trials, there is actually quite a lot of preceding research on the efficacy of the drug. This research might be based on animal studies or knowledge of the chemical activity of the molecule. So the Bayesian might feel sure that there is no possibility that RU-486 is worse than the standard treatment. And her interest is on whether the therapies are equivalent and if not, how much better RU-486 is than the standard therapy. 
 
 As previously mentioned, there is no way to compute the posterior distribution for $p$ in a simple or even a complex mathematical form. And that is why Bayesian inference languished for so many decades until computational power enabled numerical solutions. But now we have such tools, and one of them is called **JAGS (Just Another Gibbs Sampler)**.
 
 If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution, as in Figure \@ref(fig:JAGS-screenshot). At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results. 
 
-```{r JAGS-screenshot, fig.align="center", fig.cap="Posterior with JAGS", echo=FALSE}
-knitr::include_graphics("JAGS_screenshot.png")
+```{r JAGS-screenshot, out.width = '80%', fig.align="center", fig.cap="Posterior with JAGS", echo=FALSE, message=FALSE, warning=FALSE}
+library(rjags)
+library(logspline)
+
+# Run JAGS model
+
+str <- "model {
+dummy ~ dunif(0, 1)  # this step should be fine
+p = ifelse(dummy > 0.5, 0.5, dummy)
+y ~ dbin(p, 4)
+}"
+
+set.seed(1234)
+
+data_jags = list(y = 0)
+params = c('dummy', 'p')
+init = function(){
+  init = list('dummy' = 0.2)   # just a random number
+}
+
+mod = jags.model(textConnection(str), data = data_jags, inits = init)
+
+mod_sim = coda.samples(model = mod, variable.names = params, n.iter = 10000)
+
+# Extract data for p
+
+p <- mod_sim[[1]][, 2]
+
+# Split p into p != 0.5 and p == 0.5 for later density function
+
+p.pointMass = p[p == 0.5]
+p.notPointMass = p[p != 0.5]
+
+# Plot the truncated density of p.notPointMass using logspline method
+# Then add the line segment to represent p.pointMass
+
+fit = logspline(p.notPointMass)
+
+# Set the margin of the graphic windwo
+mar.default <- c(5,4,4,2) + 0.1
+par(mar = mar.default + c(0, 4, 0, 0))
+
+# Plot. Shrink the range of "x" so that we won't see the sudden jump at the boundaries 
+plot(fit, xlim = c(0.001, 0.495), ylim = c(0, 5.5), xlab = "p", 
+     ylab = expression(paste("posterior distribution, ", pi, "*", "(p)")))
+segments(0.5, 0, 0.5, length(p.pointMass) / length(p), col = "black", lwd = 5)
 ```
 
 That histogram is lightly smooth to generate the posterior density you see. There is still a point mass of probability at 0.5, but now it has less weight than before. Also, note how the data have changed the posterior away from the prior. The analyst sees a lot of probability under the curve near 0.2, but responds to the fact that no children were born to RU-486 mothers. 
@@ -60,7 +106,7 @@ Recall the RU-486 example. When the analyst used the beta-binomial family, she t
 
 After we observed four children born to mothers who received conventional therapy, her posterior is $p|x \sim \text{beta}(1,5)$. In Figure \@ref(fig:posterior), the posterior probability density for $\text{beta}(1,5)$ puts a lot of probability near zero and very little probability near one.
 
-```{r posterior, fig.cap="RU-486 Posterior",echo=FALSE}
+```{r posterior, out.width = '80%', fig.align="center", fig.cap="RU-486 Posterior",echo=FALSE}
 x.vector = seq(from=0, to=1, by=0.001)
 y.vector = dbeta(x.vector,1,5)
 
@@ -77,7 +123,7 @@ $$f(p) = 5 (1-p)^4 \text{ for } 0 \leq p \leq 1,$$
 and the area under the density between $0$ and $x$ is
 $$F(x) = 1 - (1-x)^5 \text{ for } 0 \leq p \leq 1.$$
 
-The Bayesian can use this to find $L, U$ with area 0.95 under the density curve between them, i.e. $F(U) − F(L) = 0.95$. Note that the Bayesian credible interval is asymmetric, unlike the symmetric confidence intervals that frequentists often obtain. It turns out that $L = 0$ and $U = 0.45$ is the shortest interval with probability 0.95 of containing $p$. 
+The Bayesian can use this to find $L, U$ with area 0.95 under the density curve between them, i.e. $F(U) - F(L) = 0.95$. Note that the Bayesian credible interval is asymmetric, unlike the symmetric confidence intervals that frequentists often obtain. It turns out that $L = 0$ and $U = 0.45$ is the shortest interval with probability 0.95 of containing $p$. 
 
 What have we done? We have seen the difference in interpretations between the frequentist confidence interval and the Bayesian credible interval. Also, we have seen the general form of a credible interval. Finally, we have done a practical example constructing a 95% credible interval for the RU-486 data set. 
 
@@ -90,7 +136,7 @@ Specifically, we want to make an inference on a random variable $X$ with probabi
 To solve this, one needs to integrate:
 $$P(X \leq x) = \int^{\infty}_{-\infty} P(X \leq x | \theta)\pi(\theta)d\theta$$
 
-The equation gives us the weighted average of the probabilities for $X$, where the weights correspond to the personal probability on $\theta$. But we won't do an integral; instead, we will illustrate the thinking with a trivial example. 
+The equation gives us the weighted average of the probabilities for $X$, where the weights correspond to the personal probability on $\theta$. But we will not do an integral; instead, we will illustrate the thinking with a trivial example. 
 
 ```{example}
 Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 

@@ -1,0 +1,42 @@
+box: rocker/verse
+build:
+  steps:
+    - script:
+        name: Fixes
+        code: |
+          mkdir ~/.R
+          echo "CXXFLAGS=`R CMD config CXXFLAGS` -Wno-ignored-attributes" > ~/.R/Makevars
+    - script:
+        name: Install Packages
+        code: |
+          apt-get update -q
+          apt-get install -y jags
+          Rscript -e "devtools::install_github('merliseclyde/BAS')"
+          Rscript -e "devtools::install_github('statswithr/statsr@BayesFactor')"
+          install2.r packrat
+          install2.r `Rscript -e "cat(paste( setdiff( packrat:::dirDependencies('.'), row.names(installed.packages()) ), collapse=' '))"`      
+    - script:
+        name: Render Book (html)
+        code: |
+          Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
+    - script:
+        name: Render Book (pdf)
+        code: |
+          Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
+    - script:
+        name: Publish book
+        code: |
+          if [[ "$WERCKER_GIT_BRANCH" = "master" ]]; then
+            git config --global user.name "statswithr-bots"
+            git config --global user.email "statswithr.bot@gmail.com"
+            
+            git clone -b gh-pages https://${GITHUB_TOKEN}@github.com/StatsWithR/book.git book-output
+            cd book-output
+            
+            cp -r ../_book/* ./
+            
+            git add .
+            git commit -a -m "Updating book"
+            git push -q origin gh-pages
+          fi
+          

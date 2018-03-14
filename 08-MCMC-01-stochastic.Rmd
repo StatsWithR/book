@@ -1,67 +1,71 @@
 ## Stochastic Exploration
 
-In the last chapter, we explored model uncertainty using posterior probabilities of models and Bayesian model averaging based on BIC. 
-We applied the ideas with the kid's cognitive score data set. With 4 predictors, we had $2^4 = 16$ possible models. Since the total number of models is relatively small, it is easy to enumerate all possible models to obtain Bayesian model averaging results. However, in general we often have data sets with large number of variables, which may lead to long computational time if we still enumerate all possible models. In this section, we will present one of the stochastic methods, Markov Chain Monte Carlo, to explore model spaces and implement Bayesian model averaging to estimate quantities of interest.
+In the last chapter, we explored model uncertainty using posterior probability of each model and Bayesian model averaging based on BIC. We applied the idea on the kid's cognitive score data set. With 4 predictors, we had $2^4 = 16$ possible models. Since the total number of models is relatively small, it is easy to enumerate all possible models to obtain Bayesian model averaging results. However, in general we often have data sets with large number of variables, which may lead to long computating time via enumeration. In this section, we will present one of the common stochastic methods, Markov Chain Monte Carlo (MCMC), to explore model spaces and implement Bayesian model averaging to estimate quantities of interest.
 
 ### Markov Chain Monte Carlo Exploration
 
-Let us assume that we have a pseudo population of possible models that we obtained from all the possible combinations of regression models from the kid's cognitive score example. We prepare the data set and first run `bas.lm` to obtain posterior probabilities of each model.
+Let us assume that we have a pseudo population of possible models that we obtained from all the possible combinations of regression models from the kid's cognitive score example. We prepare the data set as in Section \@ref(sec:Bayes-multiple-regression) and run `bas.lm` to obtain posterior probability of each model as we did in Section \@ref(sec:BMU).
 
-```{r prep, echo = F}
-# data processing
+```{r prep, warning = F}
+# Data processing
 library(foreign)
 cognitive = read.dta("http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta")
 cognitive$mom_work = as.numeric(cognitive$mom_work > 1)
 cognitive$mom_hs =  as.numeric(cognitive$mom_hs > 0)
-colnames(cognitive) = c("kid_score", "hs","iq", "work", "age") 
+colnames(cognitive) = c("kid_score", "hs","IQ", "work", "age") 
 
-# run bas.lm
+# Run regression
 library(BAS)
-cog_bas = bas.lm(kid_score ~ hs + iq + work + age,
-                prior="BIC",
-                modelprior=uniform(),
-                data=cognitive)
+cog_bas = bas.lm(kid_score ~ hs + IQ + work + age,
+                prior = "BIC",
+                modelprior = uniform(),
+                data = cognitive)
 ```
 
 
-We will use this example to explore the idea and generalize it to regression models with much larger model spaces. To explore the models, we may arrange them by their model sizes, the number of predictors plus the intercept,  on the $x$-axis, and their posterior probabilities on the $y$-axis.
+We will use this example to explore the idea of MCMC and generalize it to regression models with much larger model spaces. To explore the models, we may arrange them by their model sizes, the number of predictors plus the intercept,  on the $x$-axis, and their posterior probabilities on the $y$-axis.
 
-```{r model-space}
-plot(cog_bas$size, cog_bas$postprobs, 
-     xlab ="model size", 
-     ylab ="model posterior probability", pch=17,
-     col = "blue",
-     col.lab = "darkgrey",
-     col.axis = "darkgrey")
+```{r model-space, out.width = '70%', fig.align = "center"}
+library(ggplot2)
+
+# Construct data frame for plotting
+output = data.frame(model.size = cog_bas$size, model.prob = cog_bas$postprobs)
+
+# Plot model size vs mode posterior probability
+ggplot(data = output, aes(x = model.size, y = model.prob)) +
+  geom_point(color = "blue", pch = 17, size = 3) +
+  xlab("model size") + ylab("model posterior probability")
 ```
 
 
-We could then take a sample from this population with replacement (therefore, some models may repeat in this sample). This process could be done using the `sample` function in R. We hope that the frequency of appearance of a model can be a good approximation of the posterior probability of this model. If we use $I(M_j = M_m)$ as the indicator function to indicate that the current model we sample is the model of interest $M_m$, that is
+We could then take a sample from this population of models with replacement (therefore, some models may be selected more than once in this sample). This process could be done using the `sample` function in R. We hope that the frequency of appearance of a model would be a good approximation of the posterior probability of this model. We use $I(M_j = M_m)$ as the indicator function to indicate that the current model $M_j$ we sample is the model of interest $M_m$, that is
 $$ I(M_j=M_m) = \left\{\begin{array}{ll} 1, & \text{if $M_j = M_m$} \\ 0, & \text{if $M_j\neq M_m$}\end{array}\right. $$
 
 Suppose we are going to sample $J$ models in total, we hope that
-\begin{equation*} 
-P(M_m~|~\text{data}) \approx \frac{\sum_{j=1}^J I(M_j=M_m)}{J} = \sum_{j=1}^J \frac{I(M_j=M_m)}{J}.
+\begin{equation} 
+p(M_m~|~\text{data}) \approx \frac{\sum_{j=1}^J I(M_j=M_m)}{J} = \sum_{j=1}^J \frac{I(M_j=M_m)}{J}.
 (\#eq:MCMC-formula)
-\end{equation*}
+\end{equation}
 
 After all, we would not need to calculate the model posterior probability $P(M_m~|~\text{data})$. The quantity from the sampling $\displaystyle \sum_{j=1}^J\frac{I(M_j=M_m)}{J}$ would provide a good approximation, which only requires simple counting. 
 
-In order to ensure that we would sample models with a probability that is equal to their posterior probability, or in a simpler way, proportional to the marginal likelihood times the prior probability, we need to design a sampling method that replaces old models with new models when the posterior probability goes up, and keeps the old models when the posterior probability isn't improved. 
+In order to ensure that we would sample models with a probability that is equal to their posterior probability, or in a simpler way, proportional to the marginal likelihood times the prior probability $p(\text{data}~|~M_m)\times p(M_m)$, we need to design a sampling method that replaces old models with new models when the posterior probability goes up, and keeps the old models when the posterior probability is not improved. 
 
-Here, we propose the Metropolis-Hastings algorithm. We start with an initial model $M^{(0)}$. This could be any model we like in the model space. We start iterating over the entire model space, randomly pick the next model $M^{*(1)}$ and see whether this model improves the posterior probability. We use the notation $M^{*(1)}$ instead of $M^{(1)}$ because we are not sure whether we should include this model in our final sample, or we should consider other models. Therefore, we calculate the ratio between the posterior probability of the two models, the original model $M^{(0)}$, and the proposed model $M^{*(1)}$. 
-$$ R=\frac{P(M^{*(1)}~|~\text{data})}{P(M^{(0)}~|~\text{data})}. $$
+Here, we propose the Metropolis-Hastings algorithm. We start with an initial model $M^{(0)}$. This could be any model we like in the model space. We start iterating over the entire model space, randomly pick the next model $M^{*(1)}$ and see whether this model improves the posterior probability. We use the notation $M^{*(1)}$ instead of $M^{(1)}$ because we are not sure whether we should include this model in our final sample, or we should consider other models. Therefore, we calculate the ratio between the posterior probability of the two models, the original model $M^{(0)}$, and the proposed model $M^{*(1)}$, which turns out to be the posterior odd between the two models
+$$ R=\frac{p(M^{*(1)}~|~\text{data})}{p(M^{(0)}~|~\text{data})}=\text{PO}[M^{*(1)}:M^{(0)}]. $$
 
-Our goal is to avoid actually calculating the posterior probabilities of each model, so we instead would compute $R$ using the Bayes factor and the prior odds of the two models, which we derived in the previous chapter.
-$$ R=\frac{P(M^{*(1)}~|~\text{data})}{P(M^{(0)}~|~\text{data})}=\text{BF}[M^{*(1)}:M^{(0)}]\times \text{O}[M^{*(1)}:M^{(0)}]. $$
+Our goal is to avoid actually calculating the posterior probability of each model, so we instead would compute $R$ using the Bayes factor and the prior odd of the two models.
+$$ R=\frac{p(M^{*(1)}~|~\text{data})}{p(M^{(0)}~|~\text{data})}=\PO[M^{*(1)}:M^{(0)}]=\BF[M^{*(1)}:M^{(0)}]\times \Odd[M^{*(1)}:M^{(0)}]. $$
 
-If $R\geq 1$, that means $M^{*(1)}$ will surely improve the posterior probability after seeing the data compared to $M^{(0)}$. So we would like to include $M^{*(1)}$ into our sample, because $M^{*(1)}$ deserves more occurrence. In this case, we set $M^{*(1)}$ to be $M^{(1)}$, indicating that it is part of our final sample. However, if $R<1$, we are not that sure whether $M^{*(1)}$ should be in the sample. But we also do not want to only include models with higher posterior probabilities. Remember that the purpose of this algorithm is to reproduce the frequencies of models in the final sample so that the relative frequencies of occurrence could be a good approximation of the posterior probabilities. Even though the proposed model has lower posterior probability, we should still have some representatives of this model in our final sample. Hence we set $M^{*(1)}$ to be $M^{(1)}$ with probability $R$, reflecting the chance that this model should be in our sample. 
+If $R\geq 1$, that means $M^{*(1)}$ will surely improve the posterior probability after seeing the data compared to $M^{(0)}$. So we would like to include $M^{*(1)}$ into our sample, because $M^{*(1)}$ deserves more occurrence. In this case, we set $M^{*(1)}$ to be $M^{(1)}$, indicating that it is part of our final sample. However, if $R<1$, we are not that sure whether $M^{*(1)}$ should be in the sample. But we also do not want to only include models with higher posterior probabilities. Remember that the purpose of this algorithm is to reproduce the frequency of model occurance in the final sample so that the relative frequency of occurrence of each model could be a good proxy of its posterior probability. Even though the proposed model $M^{*(1)}$ has lower posterior probability, we should still have some representatives of this model in our final sample. Hence we set $M^{*(1)}$ to be $M^{(1)}$ with probability $R$, reflecting the chance that this model would be in our sample is $R$.
+
+To include $M^{*(1)}$ in the final sample with probability $R$, we may use a random number generator to generate number between 0 and 1 and see whether this number is larger than $R$. Or we may set a coin flip with heads showing up with probability $R$. If the random number is larger than $R$, or the head shows up using the biased coin, we include this model. Otherwise, we neglect this proposed model and keep on selecting the next model.
 
 Once the first model $M^*{(1))}$ is sampled, we move onto the second model $M^{(2)}$ with the same process. In general, after we have obtained model $M^{(i)}$, we propose a model $M^{*(i+1)}$ and calculate the ratio of the posterior probabilities of the two models
-$$ R = \frac{P(M^{*(i+1)}~|~\text{data})}{P(M^{(i)}~|~\text{data})}=\text{BF}[M^{*(i+1)}:M^{(i)}]\times \text{O}[M^{*(i+1)}:M^{(i)}].$$
+$$ R = \frac{p(M^{*(i+1)}~|~\text{data})}{p(M^{(i)}~|~\text{data})}=\BF[M^{*(i+1)}:M^{(i)}]\times \Odd[M^{*(i+1)}:M^{(i)}].$$
 If $R\geq 1$, we unconditionally accept $M^{*(i+1)}$ to be our next model $M^{(i)}$. If $R<1$, we accept $M^{*(i+1)}$ to be $M^{(i)}$ with probability $R$. 
 
-After obtaining $J$ models, $M^{(1)}, M^{(2)}, \cdots, M^{(J)}$, we can count how many models inside this sample is $M_m$, the model of interest, and then use the formula \@ref(eq:MCMC-formula) to approximate the posterior probability of $M_m$. These estimated probabilities can be used in model selection or BMA instead of the exact expressions.
+After obtaining $J$ models, $M^{(1)}, M^{(2)}, \cdots, M^{(J)}$, we can count how many models inside this sample is $M_m$, the model we are interested. Then we use the formula \@ref(eq:MCMC-formula) to approximate the posterior probability of $M_m$. These estimated probabilities can be used in model selection or BMA instead of the exact expressions.
 
-We proposed model randomly in the above algorithm, i.e., all models were equally likely to be proposed. This can be pretty inefficient if there are lots of models with low probabilities. We may come up with other ways to propose models. For example, we may look at neighboring models of our current model by either adding one predictor that is currently not in the model, or randomly dropping one of the current predictors from the model. We may flip a coin to decide whether to add or to drop. This forms a random walk acroos neighboring models. We may also propose to swap out a current predictor with one that is currently not in the model, which maintains the size of the model. This has the potential to take bigger jumps in the model space. There are other possible moves that can be designed to help move around over the model space. However, we have to be careful to adjust for any potential bias, due to how we propose new models, to ensure that our relative frequencies eventually would converge to the posterior probabilities. In the lecture video, we have demonstrated the Markov Chain Monte Carlo method on the kid's cognitive score. 
+We propose model randomly in the above algorithm, i.e., all models are equally likely to be proposed. This can be pretty inefficient if there are lots of models with low probabilities. We may come up with other ways to propose models. For example, we may look at neighboring models of our current model by either adding one predictor that is currently not in the model, or randomly dropping one of the current predictors from the model. We may flip a fair coin to decide whether to add or to drop. This forms a random walk across neighboring models. We may also propose to swap out a current predictor with one that is currently not in the model, which maintains the size of the model. This has the potential to take bigger jumps in the model space. There are other possible moves that can be designed to help move around over the model space. However, we have to be careful to adjust for any potential bias, due to how we propose new models, to ensure that the relative frequency eventually would converge to the posterior probability. In the lecture video, we have demonstrated the Markov Chain Monte Carlo method on the kid's cognitive score using animation to show how each model was proposed and finally selected. 
 
