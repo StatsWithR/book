@@ -103,7 +103,7 @@ $$
 \begin{aligned}
 \text{S}_{xx} = & \sum_i^n (x_i-\bar{x})^2\\
 \text{S}_{yy} = & \sum_i^n (y_i-\bar{x})^2 \\
-\text{S}_{xy} = & \sum_i^n (x_i-bar{x})(y_i-\bar{y}) \\
+\text{S}_{xy} = & \sum_i^n (x_i-\bar{x})(y_i-\bar{y}) \\
 \text{SSE}    = & \sum_i^n (y_i-\hat{y}_i)^2 = \sum_i^n \hat{\epsilon}_i^2. 
 \end{aligned}
 $$
