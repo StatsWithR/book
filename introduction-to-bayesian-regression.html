@@ -709,8 +709,8 @@ P(|\epsilon_j|&gt;k\sigma~|~\text{data}) = \int_0^\infty P(|\epsilon_j|&gt;k\sig
 <span class="kw">data</span>(bodyfat)
 bodyfat.lm =<span class="st"> </span><span class="kw">lm</span>(Bodyfat <span class="op">~</span><span class="st"> </span>Abdomen, <span class="dt">data =</span> bodyfat)
 
-<span class="co"># The default value of `k` in `Bayes.outlier` function is 3</span>
-outliers =<span class="st"> </span><span class="kw">Bayes.outlier</span>(bodyfat.lm)
+<span class="co">#</span>
+outliers =<span class="st"> </span><span class="kw">Bayes.outlier</span>(bodyfat.lm, <span class="dt">k=</span><span class="dv">3</span>)
 
 <span class="co"># Extract the probability that Case 39 is an outlier</span>
 prob.<span class="dv">39</span> =<span class="st"> </span>outliers<span class="op">$</span>prob.outlier[<span class="dv">39</span>]
