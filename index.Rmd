@@ -40,9 +40,11 @@ library(latex2exp)
 library(knitr)
 library(foreign)
 library(BHH2)
-
 library(scales)
-library(mvtnorm)
+library(rjags)
+library(logspline)
+library(cowplot)
+
 
 
 
