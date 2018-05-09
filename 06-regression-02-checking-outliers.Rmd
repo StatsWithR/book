@@ -64,8 +64,8 @@ library(BAS)
 data(bodyfat)
 bodyfat.lm = lm(Bodyfat ~ Abdomen, data = bodyfat)
 
-# The default value of `k` in `Bayes.outlier` function is 3
-outliers = Bayes.outlier(bodyfat.lm)
+#
+outliers = Bayes.outlier(bodyfat.lm, k=3)
 
 # Extract the probability that Case 39 is an outlier
 prob.39 = outliers$prob.outlier[39]
