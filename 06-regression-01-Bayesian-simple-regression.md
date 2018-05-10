@@ -191,7 +191,7 @@ $$
 \begin{aligned}
 \text{S}_{xx} = & \sum_i^n (x_i-\bar{x})^2\\
 \text{S}_{yy} = & \sum_i^n (y_i-\bar{x})^2 \\
-\text{S}_{xy} = & \sum_i^n (x_i-bar{x})(y_i-\bar{y}) \\
+\text{S}_{xy} = & \sum_i^n (x_i-\bar{x})(y_i-\bar{y}) \\
 \text{SSE}    = & \sum_i^n (y_i-\hat{y}_i)^2 = \sum_i^n \hat{\epsilon}_i^2. 
 \end{aligned}
 $$
@@ -199,7 +199,7 @@ $$
 The estimates of the $y$-intercept $\alpha$, and the slope $\beta$, which are denoted as $\hat{\alpha}$ and $\hat{\beta}$ respectively, can be calculated using these "sums of squares"
 $$ \hat{\beta} = \frac{\sum_i (x_i-\bar{x})(y_i-\bar{y})}{\sum_i (x_i-\bar{x})^2} = \frac{\text{S}_{xy}}{\text{S}_{xx}},\qquad \qquad \hat{\alpha} = \bar{y} - \hat{\beta}\bar{x} = \bar{y}-\frac{\text{S}_{xy}}{\text{S}_{xx}}\bar{x}. $$
 
-The last "sum of square" is the *sum of squars of errors* (SSE). Its sample mean is exactly the mean squared error (MSE) we introduced previously
+The last "sum of square" is the *sum of squares of errors* (SSE). Its sample mean is exactly the mean squared error (MSE) we introduced previously
 $$
 \hat{\sigma}^2 = \frac{\text{SSE}}{n-2} = \text{MSE}.
 $$
@@ -220,13 +220,13 @@ $$
 They both have degrees of freedom $n-2$.
 
 
-### Bayesian Simple Linear Regression Using Reference Prior
+### Bayesian Simple Linear Regression Using the Reference Prior
 
 Let us now turn to the Bayesian version and show that under the reference prior, we will obtain the posterior distributions of $\alpha$ and $\beta$ analogous with the frequentist OLS results.
 
 The Bayesian model starts with the same model as the classical frequentist approach:
 $$ y_i = \alpha + \beta x_i + \epsilon_i,\quad i = 1,\cdots, n. $$
-with the assumption that the errors, $\epsilon_i$, are independent and identically distributed as normal random variables with mean zero and constant variance $\sigma^2$. This assumption is exactly the same as the classical inference for testing and constructing confidence intervals for $\alpha$ and $\beta$. 
+with the assumption that the errors, $\epsilon_i$, are independent and identically distributed as normal random variables with mean zero and constant variance $\sigma^2$. This assumption is exactly the same as in the classical inference case for testing and constructing confidence intervals for $\alpha$ and $\beta$. 
 
 
 Our goal is to update the distributions of the unknown parameters $\alpha$, $\beta$, and $\sigma^2$, based on the data $x_1, y_1, \cdots, x_n, y_n$, where $n$ is the number of observations.   
@@ -673,4 +673,4 @@ $$ 1/\sigma^2~|~\text{data}~\sim~\Ga\left(\frac{n-2}{2},\frac{\text{SSE}}{2}\rig
 This means, the join posterior distribution of $\beta$ and $\sigma^2$, under the reference prior, is a Normal-Gamma distribution. Similarly, the joint posterior distribution of $\alpha$ and $\sigma^2$ is also a Normal-Gamma distribution.
 $$ \alpha~|~\sigma^2, \text{data} ~\sim~\No\left(\hat{\alpha}, \sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)\right),\qquad \qquad 1/\sigma^2~|~\text{data}~\sim~ \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
 
-In fact, when we impose the bivariate normal distribution on $\bv = (\alpha, \beta)^T$, and inverse Gamma distribution on $\sigma^2$,  as we have discussed in Section \@ref(sec:informative-prior), the joint posterior distribution of $\bv$ and $\sigma^2$ is a Normal-Gamma distribution. Since reference prior is just the limiting case of this informative prior, it is not surprising that we will also get the limiting case Normal-Gamma distribution for $\alpha$, $\beta$, and $\sigma^2$.
+In fact, when we impose the bivariate normal distribution on $\bv = (\alpha, \beta)^T$, and inverse Gamma distribution on $\sigma^2$,  as we have discussed in Section \@ref(sec:informative-prior), the joint posterior distribution of $\bv$ and $\sigma^2$ is a Normal-Gamma distribution. Since the reference prior is just the limiting case of this informative prior, it is not surprising that we will also get the limiting case Normal-Gamma distribution for $\alpha$, $\beta$, and $\sigma^2$.
