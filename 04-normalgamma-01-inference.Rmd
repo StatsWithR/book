@@ -40,7 +40,7 @@ gamma distribution to avoid using a new symbol.  Together the Normal conditional
 \end{equation}
 with the four hyper-parameters $m_0$, $n_0$, $s^2_0$, and $v_0$.
 
-**Posterior Distribution**
+### Conjugate Posterior Distribution
 
 As a conjugate family, the posterior
 distribution of the pair of parameters ($\mu, \phi$) is in the same family as the prior distribution when the sample data arise from a normal distribution, that is the posterior is also Normal-Gamma 
@@ -80,7 +80,7 @@ $$
 having a gamma distribution.  We will see in the next section how this representation is convenient for generating samples from the posterior distribution.
 
 
-**Marginal Distribution for $\mu$**
+### Marginal Distribution for $\mu$: Student t
 
 We are generally interested in inference about $\mu$ unconditionally
 as $\sigma^2$ is unknown. This marginal inference requires the unconditional or marginal distribution of $\mu$ that `averages' over the uncertainty in $\sigma$. For continuous variables like $\sigma$, this averaging is performed by integration leading to the following result:  
@@ -107,7 +107,7 @@ This latter representation allows us to use standard statistical functions for p
 The Student $t$ distribution is similar to the normal distribution as it is symmetric and bell shaped, however, the __tails__ of the distribution are fatter or heavier than the normal distribution. The parameters $m_n$ and $s^2_n$ play similar roles in determining the center and spread of the distribution, as in the Normal distribution, however,  as Student $t$ distributions with degrees of freedom less than 3 do not have a mean or variance, the parameter $m_n$ is called the location or center of the distribution and the $s_n/\sqrt{n}$ is the scale.
 
 
-**Example**
+### Example: Tap Water
 
 Let's look at an example based on a sample of total trihalomethanes or TTHM in tap water from a city in North Carolina.  The data can be loaded from the `statsr` package in `R`.
 
@@ -175,7 +175,7 @@ v_n = v_0 + n
 s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
 ```
 
-**Credible intervals for $\mu$**
+### Credible Intervals for $\mu$
 
 To find a credible interval for the mean $\mu$, we use the Student $t$
 distribution.  Since the distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
@@ -243,14 +243,18 @@ Based on the updated posterior, we find that there is a 95% chance that
 the mean TTHM concentration is between `r round(L, 1)`
 parts per billion and `r round(U, 1)` parts per billion.
 
-**Summary**
+### Summary
 
-The normal-gamma conjugate prior for
+The Normal-Gamma conjugate prior for
 inference about an unknown mean and variance for samples from a normal
-distribution allows simple expressions for updating prior beliefs given the data.   The joint normal-gamma distribution leads to the
+distribution allows simple expressions for updating prior beliefs given the data.   The joint Normal-Gamma distribution leads to the
 Student $t$ distribution for inference about $\mu$ when $\sigma^2$ is unknown.  The Student $t$ distribution can be used to provide 
 credible intervals for $\mu$  using `R` or other software that provides quantiles of a standard $t$ distribution.
 
-For the energetic learner who is comfortable with calculus, the following optional material provides more details on how the posterior distributions were obtained and other results in this section.
+For the energetic learner who is comfortable with calculus, the  optional material at the end of this section provides more details on how the posterior distributions were obtained and other results in this section.
 
 For those that are ready to move on, we will introduce Monte Carlo sampling  in the next section; Monte Carlo Sampling is a simulation method that will allow us to approximate distributions of transformations of the parameters without using calculus or change of variables, as well as aid exploratory data analysis of the prior or posterior distribution.
+
+### (Optional) Derivations 
+
+TBA
