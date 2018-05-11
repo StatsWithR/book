@@ -43,7 +43,7 @@ with the four hyper-parameters $m_0$, $n_0$, $s^2_0$, and $v_0$.
 ### Conjugate Posterior Distribution
 
 As a conjugate family, the posterior
-distribution of the pair of parameters ($\mu, \phi$) is in the same family as the prior distribution when the sample data arise from a normal distribution, that is the posterior is also Normal-Gamma 
+distribution of the pair of parameters ($\mu, \phi$) is in the same family as the prior distribution when the sample data arise from a normal distribution, that is the posterior is also normal-gamma 
 \begin{equation}
 (\mu, \phi) \mid \text{data} \sim \textsf{NormalGamma}(m_n, n_n, s^2_n, v_n)
 \end{equation}
@@ -67,7 +67,7 @@ the prior sum of squares, while the third term is based on the squared
 difference of the sample mean and prior mean.  We then divide by the
 posterior degrees of freedom to get the new hyper-parameter.
 
-The joint Normal-Gamma distribution for the pair $\mu$ and
+The joint normal-gamma distribution for the pair $\mu$ and
 $\phi$, 
 $$(\mu, \phi) \mid \data \sim \NoGa(m_n, n_n, s^2_n, v_n)$$
 is equivalent to a **hierarchical model** specified in two stages with $\mu$ given $\sigma$
@@ -245,9 +245,9 @@ parts per billion and `r round(U, 1)` parts per billion.
 
 ### Summary
 
-The Normal-Gamma conjugate prior for
+The normal-gamma conjugate prior for
 inference about an unknown mean and variance for samples from a normal
-distribution allows simple expressions for updating prior beliefs given the data.   The joint Normal-Gamma distribution leads to the
+distribution allows simple expressions for updating prior beliefs given the data.   The joint normal-gamma distribution leads to the
 Student $t$ distribution for inference about $\mu$ when $\sigma^2$ is unknown.  The Student $t$ distribution can be used to provide 
 credible intervals for $\mu$  using `R` or other software that provides quantiles of a standard $t$ distribution.
 

@@ -2,3 +2,4 @@ language:
   ui:
     chapter_name: "Chapter "
 new_session: yes
+delete_merged_file: true
