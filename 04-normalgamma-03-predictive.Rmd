@@ -62,11 +62,11 @@ A report from the city water department suggests that levels of TTHM are expecte
 First, the normal distribution and Student t distributions are symmetric around the mean or center parameter, so we will set the prior mean $\mu$ to be at the midpoint of the interval 10-60, which  would lead to  $$m_0 = (60+10)/2 = 35$$
 as our prior hyper-parameter $m_0$.
 
-** Prior Variance **
+**Prior Variance**
 Based on the empirical rule for bell-shaped distributions, we would expect that 95% of observations are within plus or minus two standard deviations from the mean, $\pm 2\sigma$ of $\mu$.  Using this we expect that the range of the data should be approximately $4\sigma$.  Using the  values from the report, we can use this to find our prior estimate of $\sigma$, $s_0 = (60-10)/4 = 12.5$ or 
 $$s_0^2 = [(60-10)/4]^2 = 156.25$$
 
-** Prior Sample Size and Degrees of Freedom **
+**Prior Sample Size and Degrees of Freedom**
 To complete the specification, we also need to choose the prior sample size $n_0$ and degrees of freedom $v_0$. For a sample of size $n$, the sample variance has $n-1$ degrees of freedom.  Thinking about a possible historic set of data of size $n_0$ that led to the reported interval,  we will adopt that rule to obtain the prior degrees of freedom  $v_0 = n_0 - 1$, leaving only the prior sample size to be determined. We will draw samples from the prior predictive distribution and modify $n_0$ so that the simulated data agree with our prior assumptions.
 
 ### Sampling from the Prior Predictive in `R`
