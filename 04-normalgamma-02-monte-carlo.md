@@ -25,7 +25,7 @@ $$\phi^{(1)},\phi^{(2)},\cdots,\phi^{(S)} \iid \Ga(v_n/2,s^2_n v_n/2)$$
 
 Recall that the term **iid** stands for **i**ndependent and **i**dentically **d**istributed. In other words, the $S$ draws of $\phi$ are independent and identically distributed from the gamma distribution.
 
-We can use the empirical distribution of the $S$ samples  to approximate the actual posterior distribution. The sample mean of the $S$ random draws of $\phi$ can be used to approximate the posterior mean of $\phi$.
+We can use the empirical distribution (histogram) from the $S$ samples  to approximate the actual posterior distribution and the sample mean of the $S$ random draws of $\phi$ can be used to approximate the posterior mean of $\phi$.
 Likewise, we can calculate probabilities, quantiles and other functions using the $S$ samples from the posterior distribution. For example, if we want to calculate the posterior expectation of some function of $\phi$, written as $g(\phi)$, we can approximate that by taking the average of the function, and evaluate it at the $S$ draws of $\phi$, written as $\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)})$.
 
 The approximation to the expectation of the function, $E[g(\phi \mid \data)]$ improves 
@@ -100,7 +100,7 @@ ggplot(data=df, aes(x=phi)) +
 
 Figure \@ref(fig:phi-plot) shows the histogram of the $1,000$ draws of $\phi$ generated from the Monte Carlo simulation, representing the empirical distribution approximation to the gamma posterior distribution. The orange line represents the actual gamma posterior density, while the black line represents a *smoothed* version of the histogram.
 
-We can estimate the posterior mean or a 95\% equal tail area credible region using the Monte Carlo samples 
+We can estimate the posterior mean or a 95\% equal tail area credible region using the Monte Carlo samples  using `R`
 
 
 ```r
@@ -184,10 +184,10 @@ and finally approximate the posterior distribution using a smoothed density esti
 
 **Exercise**
 
-Using the $10,000$ draws of $\phi$, create a histogram with a smoothed density overlay for the tap water example.
+Using the $10,000$ draws of $\phi$ for the tap water example, create a histogram for $\sigma$ with a smoothed density overlay for  the tap water example.
 
 ### Summary
 
-To recap, we have introduced the powerful method of Monte Carlo simulation for posterior inference. Monte Carlo methods provide estimates of expectations, probabilities, and quantiles of distributions from the simulated values. Monte Carlo simulation also allows us to approximate distributions of functions of the parameters, or the transformations of the parameters.
+To recap, we have introduced the powerful method of Monte Carlo simulation for posterior inference. Monte Carlo methods provide estimates of expectations, probabilities, and quantiles of distributions from the simulated values. Monte Carlo simulation also allows us to approximate distributions of functions of the parameters, or the transformations of the parameters where it may be difficult to get exact theoretical values.
 
-Next we will discuss predictive distributions and show how Monte Carlo simulation may be used to help choose prior hyperparameters, using the prior predictive distribution of data.
+Next, we will discuss predictive distributions and show how Monte Carlo simulation may be used to help choose prior hyperparameters, using the prior predictive distribution of data and draw samples from the posterior predictive distribution for predicting future observations.

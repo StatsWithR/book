@@ -2,13 +2,12 @@
 
 
 
-In Section \@ref(sec:NG-predictive), we described a way of specifying an informative prior distribution for inference about TTHM in tapwater based on additional prior information. We had to use a prior sample size that was comparable to the observed sample size for the prior predictive under the Normal-Gamma distribution to agree with the reported prior interval.
+In Section \@ref(sec:NG-predictive), we demonstrated how to specify an informative prior distribution for inference about TTHM in tapwater using additional prior information. The resulting informative  Normal-Gamma prior distribution had an effective prior sample size that was comparable to the observed sample size to be compatible with the reported prior interval.
 
-However, there may be cases where prior information is not available, or you may wish to present an objective analysis where minimal prior information is used. Or perhaps, you want to use the Bayesian paradigm to make probability statements about parameters, but not use any prior information.
+There are, however, situations where you may wish to provide an analysis that does not depend on prior information.  There may be cases where prior information is simply not available.  Or, you may wish to present an **objective** analysis where minimal prior information is used to provide a baseline or reference analysis to contrast with other analyses based on informative prior distributions. Or perhaps, you want to use the Bayesian paradigm to make probability statements about parameters, but not use any prior information.  In this section, we will examine the qustion of  **Can you actually perform a Bayesian analysis without using prior information?**
+We will present reference priors for normal data, which can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution.
 
-In this section, we will present reference priors for normal data, which can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution. **Can you actually perform a Bayesian analysis without using prior information?**
-
-Conjugate priors can be interpreted to be based on a prior sample. What happens in the conjugate Normal-Gamma prior if we take our prior sample size $n_0$ to go to zero?  If we have no data, then we will define the prior sample variance $s_0^2$ to go to  0, and based on the relationship between prior sample sized and prior degrees of freedom, we will let the prior degrees of freedom go to the prior sample size minus one, or negative one, i.e. $v_0 = n_0 - 1 \rightarrow -1$.
+Conjugate priors can be interpreted to be based on a historical or imaginary prior sample. What happens in the conjugate Normal-Gamma prior if we take our prior sample size $n_0$ to go to zero?  If we have no data, then we will define the prior sample variance $s_0^2$ to go to  0, and based on the relationship between prior sample sized and prior degrees of freedom, we will let the prior degrees of freedom go to the prior sample size minus one, or negative one, i.e. $v_0 = n_0 - 1 \rightarrow -1$.
 
 With this limit, we have the following properties:
 

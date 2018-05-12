@@ -6,54 +6,65 @@
 
 
 
-In this section, we will discuss prior and posterior **predictive** distributions of the data and show how Monte Carlo sampling from the prior predictive distribution can help select hyper parameters.
+In this section, we will discuss prior and posterior **predictive** distributions of the data and show how Monte Carlo sampling from the prior predictive distribution can help select hyper-parameters, while sampling from the posterior predictive distribution can be used for predicting future events or model checking.
 
-We can obtain the prior predictive distribution of the data, by taking the joint distribution of the data and the parameters in averaging over the possible values of the parameters from the prior.
+### Prior Predictive Distribution
 
-* Prior:
+We can obtain the prior predictive distribution of the data from  the joint distribution of the data and the parameters  $(\mu, \sigma^2)$ or equivalently $(\mu, \phi)$, where $\phi = 1/\sigma^2$ is the precision:
+
+**Prior:**
 
 $$ \begin{aligned}
-\frac{1}{\sigma^2} = \phi &\sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right) \\
+ \phi &\sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right) \\
+ \sigma^2 & = 1/\phi \\
 \mu \mid \sigma^2  &\sim  \textsf{N}(m_0, \sigma^2/n_0)
 \end{aligned} $$
 
-* Sampling model:
+**Sampling model:**
 
 $$Y_i \mid \mu,\sigma^2 \iid \No(\mu, \sigma^2) $$
 
-* Prior predictive distribution for $Y$:
+
+**Prior predictive distribution for $Y$:**
 
 $$\begin{aligned}
 p(Y) &= \iint p(Y \mid \mu,\sigma^2) p(\mu \mid \sigma^2) p(\sigma^2) d\mu \, d\sigma^2 \\
 Y &\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
 \end{aligned}$$
 
-This distribution of the observables can be used to help elicit prior hyper parameters as in the tap water example.
+By *averaging* over the possible values of the parameters from the prior distribution in the joint distribution, technically done by a double integral, we obtain the Student t as our prior predictive distribution. For those interested, details of this derivation are provided later in an optional section.
+This distribution of the observables depends only on  our four  hyper-parameters from the normal-gamma family.  We can use Monte Carlo simulation  to sample from the prior predictive distribution to help elicit prior hyper-parameters as we now illustrate with the tap water example from earlier.
 
-A report from the city water department suggests that levels of TTHM are expected to be between 10-60 parts per billion (ppb).
+### Tap Water Example (continued)
 
-* Set the prior mean $\mu$ to be at the midpoint of the interval: $m_0 = (60+10)/2 = 35$
+A report from the city water department suggests that levels of TTHM are expected to be between 10-60 parts per billion (ppb).  Let's see how we can use this information to create an informative conjugate prior.
 
-* Standard deviation: Based on the empirical rule, 95% observations are within $\pm 2\sigma$ of $\mu$, we expect that the range of the data should be $4\sigma$.
+**Prior Mean**
+First, the normal distribution and Student t distributions are symmetric around the mean or center parameter, so we will set the prior mean $\mu$ to be at the midpoint of the interval 10-60, which  would lead to  $$m_0 = (60+10)/2 = 35$$
+as our prior hyper-parameter $m_0$.
 
-* Prior estimate of sigma: $s_0 = (60-10)/4 = 12.5$ or $s_0^2 = [(60-10)/4]^2 = 156.25$
+**Prior Variance**
+Based on the empirical rule for bell-shaped distributions, we would expect that 95% of observations are within plus or minus two standard deviations from the mean, $\pm 2\sigma$ of $\mu$.  Using this we expect that the range of the data should be approximately $4\sigma$.  Using the  values from the report, we can use this to find our prior estimate of $\sigma$, $s_0 = (60-10)/4 = 12.5$ or 
+$$s_0^2 = [(60-10)/4]^2 = 156.25$$
 
-To complete the specification, we also need to choose the prior sample size $n_0$ and degrees of freedom $v_0$. As the variance has $n-1$ degrees of freedom, we set $v_0 = n_0 - 1$. We will draw samples from the prior predictive distribution and modify $n_0$ so that the simulated data agree with our prior assumptions.
+**Prior Sample Size and Degrees of Freedom**
+To complete the specification, we also need to choose the prior sample size $n_0$ and degrees of freedom $v_0$. For a sample of size $n$, the sample variance has $n-1$ degrees of freedom.  Thinking about a possible historic set of data of size $n_0$ that led to the reported interval,  we will adopt that rule to obtain the prior degrees of freedom  $v_0 = n_0 - 1$, leaving only the prior sample size to be determined. We will draw samples from the prior predictive distribution and modify $n_0$ so that the simulated data agree with our prior assumptions.
 
-The following `R` code shows a simulation from the predictive distribution with the prior sample size of 2. Please note that the number of Monte Carlo simulations should not be confused with the prior sample size $n_0$.
+### Sampling from the Prior Predictive in `R`
 
-We begin by simulating $\phi$, transfering $\phi$ to calculate $\sigma$, and then simulating values of $\mu$. Finally, the simulated values of $\mu,\sigma$ are used to generate possible values of TTHM denoted by $Y$.
+The following `R` code shows a simulation from the predictive distribution with the prior sample size $n_0 = 2$. Please be careful to not confuse   the prior sample size, $n_0$, that represents the precision of our prior information with  the number of Monte Carlo simulations, $S = 10000$, that are drawn from the distributions.  These Monte Carlo samples are used to estimate quantiles of the prior predictive distribution and a large value of $S$ reduces error in the Monte Carlo approximation.
 
 
 ```r
 m_0 = (60+10)/2; s2_0 = ((60-10)/4)^2;
 n_0 = 2; v_0 = n_0 - 1
 set.seed(1234)
-phi = rgamma(10000, v_0/2, s2_0*v_0/2)
+S = 10000
+phi = rgamma(S, v_0/2, s2_0*v_0/2)
 sigma = 1/sqrt(phi)
-mu = rnorm(10000, mean=m_0, sd=sigma/(sqrt(n_0)))
-y = rnorm(10000, mu, sigma)
-quantile(y, c(0.025,0.975))
+mu = rnorm(S, mean=m_0, sd=sigma/(sqrt(n_0)))
+Y = rnorm(S, mu, sigma)
+quantile(Y, c(0.025,0.975))
 ```
 
 ```
@@ -61,9 +72,12 @@ quantile(y, c(0.025,0.975))
 ## -140.1391  217.7050
 ```
 
-This forward simulation propagates uncertainty in $\mu,\sigma$ to the prior predictive distribution of the data. Calculating the sample quantiles from the samples of the prior predictive for $Y$, we see that the 95% predictive interval includes negative values. Since TTHM is non-negative, we need to adjust $n_0$ and repeat.
+Let's try to understand the code. After setting the prior hyper-parameters and random seed, we begin by simulating $\phi$ from its gamma prior distribution.  We then transform $\phi$ to calculate $\sigma$.  Using the draws of $\sigma$, we feed that into the `rnorm` function to simulate $S$ values of $\mu$ for each value of $\sigma$. The Monte Carlo draws of $\mu,\sigma$ are used to generate $S$ possible values of TTHM denoted by $Y$. In the above code we are exploiting  that all of the functions for simulating from distributions can be vectorized, i.e.  we can provide all $S$ draws of $\phi$ to the functions and get a vector result back without having to write a loop.  Finally,  we obtain the empirical quantiles from our Monte Carlo sample using the `quantile` function to approximate the actual quantiles from the prior predictive distriubtion.
 
-After some trial and error, we find that the prior sample size of 25 (in fact the Central Limit Theorem suggests at least 25 or 30 to be "sufficiently large"), the empirical quantiles from the prior predictive distribution are close to the range of 10 to 16 that we were given as prior information.
+
+This forward simulation propagates uncertainty in $\mu$ and $\sigma$ to the prior predictive distribution of the data. Calculating the sample quantiles from the samples of the prior predictive for $Y$, we see that the 95% predictive interval for TTHM includes negative values. Since TTHM cannot be negative, we can adjust $n_0$ and repeat.  Since we need a narrower interval in order to exclude zero, we can increase $n_0$ until we achieve the desired quantiles.
+
+After some trial and error, we find that the prior sample size of 25, the empirical quantiles from the prior predictive distribution are close to the range of 10 to 60 that we were given as prior information.
 
 
 ```r
@@ -104,7 +118,9 @@ sum(y < 0)/length(y)  # P(Y < 0) a priori
 ## [1] 0.0049
 ```
 
-With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we can still use the conjugate normal-gamma model for analysis.
+With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we may use the conjugate normal-gamma model for analysis.
+
+### Posterior Predictive
 
 We can use the same strategy to generate samples from the predictive distribution of a new measurement $Y_{n+1}$ given the observed data. In mathematical terms, the posterior predictive distribution is written as
 
@@ -148,6 +164,8 @@ sum(pred_y > 80)/length(pred_y)  # P(Y > 80 | data)
 ```
 ## [1] 0.0619
 ```
+
+### Summary
 
 By using Monte Carlo methods, we can obtain prior and posterior predictive distributions of the data.
 
