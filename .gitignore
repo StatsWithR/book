@@ -9,3 +9,5 @@ render*
 tmp*
 Bayes_Book.rds
 _main.rds
+libs/*
+README.html

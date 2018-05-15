@@ -64,7 +64,7 @@ While this is an improper prior on $\mu$, this does not suffer from the Bartlett
 
 As in the single mean case, we will need numerical algorithms to obtain the Bayes factor. Now the following output illustrates testing of Bayes factors, using the Bayes inference function from the \texttt{statsr} package.
 
-```{r bf, message=FALSE, warning=FALSE}
+```{r bf, message=FALSE, warning=FALSE, fig.width=4, fig.height=4, fig.align='center'}
 library(statsr)
 data(nc)
 bayes_inference(y=gained, x=mature, data=nc,type='ht', 

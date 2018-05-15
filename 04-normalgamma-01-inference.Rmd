@@ -40,10 +40,10 @@ gamma distribution to avoid using a new symbol.  Together the Normal conditional
 \end{equation}
 with the four hyper-parameters $m_0$, $n_0$, $s^2_0$, and $v_0$.
 
-**Posterior Distribution**
+### Conjugate Posterior Distribution
 
 As a conjugate family, the posterior
-distribution of the pair of parameters ($\mu, \phi$) is in the same family as the prior distribution when the sample data arise from a normal distribution, that is the posterior is also Normal-Gamma 
+distribution of the pair of parameters ($\mu, \phi$) is in the same family as the prior distribution when the sample data arise from a normal distribution, that is the posterior is also normal-gamma 
 \begin{equation}
 (\mu, \phi) \mid \text{data} \sim \textsf{NormalGamma}(m_n, n_n, s^2_n, v_n)
 \end{equation}
@@ -60,14 +60,14 @@ The updated hyper-parameter $m_n$ in the posterior distribution of $\mu$ is the 
 The posterior sample size $n_n$ is the sum of the prior sample
 size $n_n$ and the sample size $n$, representing the combined precision of the estimate for $\mu$.  The posterior degrees of freedom $v_n$ are also increased by adding the  sample size $n$ to the prior degrees of freedom $v_0$. 
 
-Finally, the posterior variance hyper-parameter $s^2_n$ combines three sources of information about $\sigma$ in terms of sums of squared deviations. **FILL IN MORE DETAILS** The first term in
+Finally, the posterior variance hyper-parameter $s^2_n$ combines three sources of information about $\sigma^2$ in terms of sums of squared deviations. The first term in
 the square brackets is the sample variance times the sample degrees of
 freedom which is the sample sum of squares. The second term represents
 the prior sum of squares, while the third term is based on the squared
 difference of the sample mean and prior mean.  We then divide by the
 posterior degrees of freedom to get the new hyper-parameter.
 
-The joint Normal-Gamma distribution for the pair $\mu$ and
+The joint normal-gamma distribution for the pair $\mu$ and
 $\phi$, 
 $$(\mu, \phi) \mid \data \sim \NoGa(m_n, n_n, s^2_n, v_n)$$
 is equivalent to a **hierarchical model** specified in two stages with $\mu$ given $\sigma$
@@ -80,7 +80,7 @@ $$
 having a gamma distribution.  We will see in the next section how this representation is convenient for generating samples from the posterior distribution.
 
 
-**Marginal Distribution for $\mu$**
+### Marginal Distribution for $\mu$: Student t
 
 We are generally interested in inference about $\mu$ unconditionally
 as $\sigma^2$ is unknown. This marginal inference requires the unconditional or marginal distribution of $\mu$ that `averages' over the uncertainty in $\sigma$. For continuous variables like $\sigma$, this averaging is performed by integration leading to the following result:  
@@ -107,7 +107,7 @@ This latter representation allows us to use standard statistical functions for p
 The Student $t$ distribution is similar to the normal distribution as it is symmetric and bell shaped, however, the __tails__ of the distribution are fatter or heavier than the normal distribution. The parameters $m_n$ and $s^2_n$ play similar roles in determining the center and spread of the distribution, as in the Normal distribution, however,  as Student $t$ distributions with degrees of freedom less than 3 do not have a mean or variance, the parameter $m_n$ is called the location or center of the distribution and the $s_n/\sqrt{n}$ is the scale.
 
 
-**Example**
+### Example: Tap Water
 
 Let's look at an example based on a sample of total trihalomethanes or TTHM in tap water from a city in North Carolina.  The data can be loaded from the `statsr` package in `R`.
 
@@ -175,11 +175,11 @@ v_n = v_0 + n
 s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
 ```
 
-**Credible intervals for $\mu$**
+### Credible Intervals for $\mu$
 
 To find a credible interval for the mean $\mu$, we use the Student $t$
 distribution.  Since the distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
-```{r tplot, echo=F, warning=FALSE, message=FALSE, fig.width=6, fig.height=6, caption="Highest Posterior Density region for the mean in the total trihalomethanes example."}
+```{r tplot, echo=F, warning=FALSE, message=FALSE}
 require(ggplot2)
 out =bayes_inference(tthm, data=tapwater,prior="NG",
                 mu_0 = m_0, n_0=n_0, s_0 = sqrt(s2_0), v_0 = v_0,
@@ -211,7 +211,7 @@ out =bayes_inference(tthm, data=tapwater,prior="NG",
                theme(text = element_text(size=12))
 ```
 
-```{r tapwater-post-mu, echo=FALSE, fig.width=4,fig.height=4}
+```{r tapwater-post-mu, echo=FALSE, fig.width=4, fig.height=4, fig.align="center", fig.cap="Highest Posterior Density region for the mean in the total trihalomethanes example."}
 print(pos_plot)
 ```
 
@@ -243,7 +243,7 @@ Based on the updated posterior, we find that there is a 95% chance that
 the mean TTHM concentration is between `r round(L, 1)`
 parts per billion and `r round(U, 1)` parts per billion.
 
-**Summary**
+### Summary
 
 The normal-gamma conjugate prior for
 inference about an unknown mean and variance for samples from a normal
@@ -251,12 +251,10 @@ distribution allows simple expressions for updating prior beliefs given the data
 Student $t$ distribution for inference about $\mu$ when $\sigma^2$ is unknown.  The Student $t$ distribution can be used to provide 
 credible intervals for $\mu$  using `R` or other software that provides quantiles of a standard $t$ distribution.
 
-For the energetic learner who is comfortable with calculus, the following optional material provides more details on how the posterior distributions were obtained and other results in this section.
+For the energetic learner who is comfortable with calculus, the  optional material at the end of this section provides more details on how the posterior distributions were obtained and other results in this section.
 
 For those that are ready to move on, we will introduce Monte Carlo sampling  in the next section; Monte Carlo Sampling is a simulation method that will allow us to approximate distributions of transformations of the parameters without using calculus or change of variables, as well as aid exploratory data analysis of the prior or posterior distribution.
 
-
-
-### Details of Results (optional reading)**
+### (Optional) Derivations 
 
 TBA

@@ -103,7 +103,7 @@ $$
 \begin{aligned}
 \text{S}_{xx} = & \sum_i^n (x_i-\bar{x})^2\\
 \text{S}_{yy} = & \sum_i^n (y_i-\bar{x})^2 \\
-\text{S}_{xy} = & \sum_i^n (x_i-bar{x})(y_i-\bar{y}) \\
+\text{S}_{xy} = & \sum_i^n (x_i-\bar{x})(y_i-\bar{y}) \\
 \text{SSE}    = & \sum_i^n (y_i-\hat{y}_i)^2 = \sum_i^n \hat{\epsilon}_i^2. 
 \end{aligned}
 $$
@@ -111,7 +111,7 @@ $$
 The estimates of the $y$-intercept $\alpha$, and the slope $\beta$, which are denoted as $\hat{\alpha}$ and $\hat{\beta}$ respectively, can be calculated using these "sums of squares"
 $$ \hat{\beta} = \frac{\sum_i (x_i-\bar{x})(y_i-\bar{y})}{\sum_i (x_i-\bar{x})^2} = \frac{\text{S}_{xy}}{\text{S}_{xx}},\qquad \qquad \hat{\alpha} = \bar{y} - \hat{\beta}\bar{x} = \bar{y}-\frac{\text{S}_{xy}}{\text{S}_{xx}}\bar{x}. $$
 
-The last "sum of square" is the *sum of squars of errors* (SSE). Its sample mean is exactly the mean squared error (MSE) we introduced previously
+The last "sum of square" is the *sum of squares of errors* (SSE). Its sample mean is exactly the mean squared error (MSE) we introduced previously
 $$
 \hat{\sigma}^2 = \frac{\text{SSE}}{n-2} = \text{MSE}.
 $$
@@ -132,13 +132,13 @@ $$
 They both have degrees of freedom $n-2$.
 
 
-### Bayesian Simple Linear Regression Using Reference Prior
+### Bayesian Simple Linear Regression Using the Reference Prior
 
 Let us now turn to the Bayesian version and show that under the reference prior, we will obtain the posterior distributions of $\alpha$ and $\beta$ analogous with the frequentist OLS results.
 
 The Bayesian model starts with the same model as the classical frequentist approach:
 $$ y_i = \alpha + \beta x_i + \epsilon_i,\quad i = 1,\cdots, n. $$
-with the assumption that the errors, $\epsilon_i$, are independent and identically distributed as normal random variables with mean zero and constant variance $\sigma^2$. This assumption is exactly the same as the classical inference for testing and constructing confidence intervals for $\alpha$ and $\beta$. 
+with the assumption that the errors, $\epsilon_i$, are independent and identically distributed as normal random variables with mean zero and constant variance $\sigma^2$. This assumption is exactly the same as in the classical inference case for testing and constructing confidence intervals for $\alpha$ and $\beta$. 
 
 
 Our goal is to update the distributions of the unknown parameters $\alpha$, $\beta$, and $\sigma^2$, based on the data $x_1, y_1, \cdots, x_n, y_n$, where $n$ is the number of observations.   
@@ -323,18 +323,18 @@ $$
 with covariance
 $$ \text{Cov}(\alpha, \beta ~|~\sigma^2) =\sigma^2 \text{S}_{\alpha\beta}. $$
 
-Here, $\sigma^2$, $S_\alpha$, $S_\beta$, and $S_{\alpha\beta}$ are hyperparameters. This is equivalent to setting the coefficient vector $\bv = (\alpha, \beta)^T$^[$(\alpha, \beta)^T$ means we transpose the row vector $(\alpha, \beta)$ into a column vector $\left(\begin{array}{c} \alpha \\ \beta \end{array}\right)$.] to have a biraviate normal distribution with convariance matrix $\Sigma_0$
+Here, $\sigma^2$, $S_\alpha$, $S_\beta$, and $S_{\alpha\beta}$ are hyperparameters. This is equivalent to setting the coefficient vector $\bv = (\alpha, \beta)^T$^[$(\alpha, \beta)^T$ means we transpose the row vector $(\alpha, \beta)$ into a column vector $\left(\begin{array}{c} \alpha \\ \beta \end{array}\right)$.] to have a bivariate normal distribution with convariance matrix $\Sigma_0$
 $$ \Sigma_0 = \sigma^2\left(\begin{array}{cc} S_\alpha & S_{\alpha\beta} \\
 S_{\alpha\beta} & S_\beta \end{array} \right). $$
 That is,
-$$ \bv = (\alpha, \beta)^T ~|~\sigma^2 \sim \textsf{BiraviateNormal}(\mathbf{b} = (a_0, b_0)^T, \sigma^2\Sigma_0). $$
+$$ \bv = (\alpha, \beta)^T ~|~\sigma^2 \sim \textsf{BivariateNormal}(\mathbf{b} = (a_0, b_0)^T, \sigma^2\Sigma_0). $$
 
 Then for $\sigma^2$, we will impose an inverse Gamma distribution as its prior distribution
 $$ 1/\sigma^2 \sim \Ga\left(\frac{\nu_0}{2}, \frac{\nu_0\sigma_0}{2}\right). $$
 
 Now the join prior distribution of $\alpha, \beta$, and $\sigma^2$ form a distribution that is analogous to the Normal-Gamma distribution. Prior information about $\alpha$, $\beta$, and $\sigma^2$ are encoded in the hyperparameters $a_0$, $b_0$, $\text{S}_\alpha$, $\text{S}_\beta$, $\text{S}_{\alpha\beta}$, $\nu_0$, and $\sigma_0$. 
 
-The marginal posterior distribution of the coefficient vector $\bv = (\alpha, \beta)$ will be biraviate normal, and the marginal posterior distribution of $\sigma^2$ is again an inverse Gamma distribution
+The marginal posterior distribution of the coefficient vector $\bv = (\alpha, \beta)$ will be bivariate normal, and the marginal posterior distribution of $\sigma^2$ is again an inverse Gamma distribution
 $$ 1/\sigma^2~|~y_1,\cdots,y_n \sim \Ga\left(\frac{\nu_0+n}{2}, \frac{\nu_0\sigma_0^2+\text{SSE}}{2}\right). $$
 
 One can see that the reference prior is the limiting case of this conjugate prior we impose. We usually use Gibbs sampling to approximate the joint posterior distribution instead of using the result directly, especially when we have more regression coefficients in multiple linear regression models. We omit the deviations of the posterior distributions due to the heavy use of advanced linear algebra. One can refer to @hoff2009first for more details.
@@ -560,4 +560,4 @@ $$ 1/\sigma^2~|~\text{data}~\sim~\Ga\left(\frac{n-2}{2},\frac{\text{SSE}}{2}\rig
 This means, the join posterior distribution of $\beta$ and $\sigma^2$, under the reference prior, is a Normal-Gamma distribution. Similarly, the joint posterior distribution of $\alpha$ and $\sigma^2$ is also a Normal-Gamma distribution.
 $$ \alpha~|~\sigma^2, \text{data} ~\sim~\No\left(\hat{\alpha}, \sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)\right),\qquad \qquad 1/\sigma^2~|~\text{data}~\sim~ \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
 
-In fact, when we impose the bivariate normal distribution on $\bv = (\alpha, \beta)^T$, and inverse Gamma distribution on $\sigma^2$,  as we have discussed in Section \@ref(sec:informative-prior), the joint posterior distribution of $\bv$ and $\sigma^2$ is a Normal-Gamma distribution. Since reference prior is just the limiting case of this informative prior, it is not surprising that we will also get the limiting case Normal-Gamma distribution for $\alpha$, $\beta$, and $\sigma^2$.
+In fact, when we impose the bivariate normal distribution on $\bv = (\alpha, \beta)^T$, and inverse Gamma distribution on $\sigma^2$,  as we have discussed in Section \@ref(sec:informative-prior), the joint posterior distribution of $\bv$ and $\sigma^2$ is a Normal-Gamma distribution. Since the reference prior is just the limiting case of this informative prior, it is not surprising that we will also get the limiting case Normal-Gamma distribution for $\alpha$, $\beta$, and $\sigma^2$.
