@@ -10,7 +10,7 @@ biblio-style: apalike
 link-citations: yes
 github-repo: StatsWithR/book
 ---
-# Welcome {-}
+# Preface {-}
 
 \newcommand{\No}{\textsf{N}}
 \newcommand{\Ga}{\textsf{Gamma}}
@@ -25,38 +25,35 @@ github-repo: StatsWithR/book
 \newcommand{\Ca}{\textsf{C}}
 \newcommand{\bv}{\boldsymbol{\beta}}
 
-```{r code, warning=FALSE, message=FALSE, echo=FALSE, results='hide'}
-# If you are using any R packages, please add it here AND
-# add the package to the DESCRIPTION file as well
+This book was written as a companion for the Course *Bayesian Statistics* from the Statistics with `R` specialization available on Coursera with the goal of providing more details and background on Bayesian Inference. In writing this, we hope that it may be used on its own as an open-access introduction to Bayesian inference using `R` for anyone interested in learning about Bayesian statistics. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided. While learners are not expected to have any background in calculus or linear algebra, for those who do have this background and are interested in diving deeper, we have included optional sub-sections  in each Chapter to provide additional mathematical details.
 
-library(ggplot2)
-library(devtools)
-library(BayesFactor)
+This book is written using the `R` package `bookdown`; any interested learners are welcome to download the source code from [http://github.com/StatsWithR/book ](github) to see the code that was used to create all of the examples and figures within the book.   Learners should have a current version of `R` (3.5.0 at the time of this version of the book) and will need to install `Rstudio` in order to use any of the `shiny` apps. 
+
+Those that are interested in running all of the code in the book or building the book locally, should download all of the following packages from  `CRAN`:
+
+```{r code, warning=FALSE, message=FALSE, results='hide'}
+# R packages used to create the book
+
 library(statsr)
 library(BAS)
-library(coda) 
-library(mvtnorm)
-library(latex2exp)
+library(ggplot2)
+library(dplyr)
+library(BayesFactor)
 library(knitr)
+library(rjags)
+library(coda) 
+library(latex2exp)
 library(foreign)
 library(BHH2)
 library(scales)
-library(rjags)
 library(logspline)
 library(cowplot)
 library(ggthemes)
-
-
-
-
-# need source("bayes-outliers.R"), where can I find it?
-data(tapwater)
-data(bodyfat)
-
-# Just a test for rarely used packages
-# require(stringdist) || install.packages("stringdist",repos="http://cran.us.r-project.org")
 ```
 
-This book is a written companion for the Course 'Bayesian Statistics' from the Statistics with R specialization available on Coursera, but may be used on its own as an open-access introduction to Bayesian inference using R. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided.
 
-Authors are listed in alphabetical order.
+We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contibutions to lab exercises and quizzes in earlier versions of the course.
+
+Sincerely, 
+
+*David Banks, Mine Cetinkaya-Rundel, Christine Chai, Merlise Clyde,Lizzy Huang, and Colin Rundel* (Note authorship is based on alphabetical order)
