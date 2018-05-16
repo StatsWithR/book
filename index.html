@@ -107,7 +107,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">Bayesian Statistics</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
 <li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
 <li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
@@ -277,10 +277,31 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h4 class="author"><em>Colin Rundel</em></h4>
 <h4 class="date"><em>Last built on 2018-05-16</em></h4>
 </div>
-<div id="welcome" class="section level1 unnumbered">
-<h1>Welcome</h1>
-<p>This book is a written companion for the Course ‘Bayesian Statistics’ from the Statistics with R specialization available on Coursera, but may be used on its own as an open-access introduction to Bayesian inference using R. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided.</p>
-<p>Authors are listed in alphabetical order.</p>
+<div id="preface" class="section level1 unnumbered">
+<h1>Preface</h1>
+<p>This book was written as a companion for the Course <em>Bayesian Statistics</em> from the Statistics with <code>R</code> specialization available on Coursera with the goal of providing more details and background on Bayesian Inference. In writing this, we hope that it may be used on its own as an open-access introduction to Bayesian inference using <code>R</code> for anyone interested in learning about Bayesian statistics. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided. While learners are not expected to have any background in calculus or linear algebra, for those who do have this background and are interested in diving deeper, we have included optional sub-sections in each Chapter to provide additional mathematical details.</p>
+<p>This book is written using the <code>R</code> package <code>bookdown</code>; any interested learners are welcome to download the source code from <a href="github">http://github.com/StatsWithR/book</a> to see the code that was used to create all of the examples and figures within the book. Learners should have a current version of <code>R</code> (3.5.0 at the time of this version of the book) and will need to install <code>Rstudio</code> in order to use any of the <code>shiny</code> apps.</p>
+<p>Those that are interested in running all of the code in the book or building the book locally, should download all of the following packages from <code>CRAN</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># R packages used to create the book</span>
+
+<span class="kw">library</span>(statsr)
+<span class="kw">library</span>(BAS)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(BayesFactor)
+<span class="kw">library</span>(knitr)
+<span class="kw">library</span>(rjags)
+<span class="kw">library</span>(coda) 
+<span class="kw">library</span>(latex2exp)
+<span class="kw">library</span>(foreign)
+<span class="kw">library</span>(BHH2)
+<span class="kw">library</span>(scales)
+<span class="kw">library</span>(logspline)
+<span class="kw">library</span>(cowplot)
+<span class="kw">library</span>(ggthemes)</code></pre></div>
+<p>We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contibutions to lab exercises and quizzes in earlier versions of the course.</p>
+<p>Sincerely,</p>
+<p><em>David Banks, Mine Cetinkaya-Rundel, Christine Chai, Merlise Clyde,Lizzy Huang, and Colin Rundel</em> (Note authorship is based on alphabetical order)</p>
 
 </div>
             </section>

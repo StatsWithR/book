@@ -10,7 +10,7 @@ biblio-style: apalike
 link-citations: yes
 github-repo: StatsWithR/book
 ---
-# Welcome {-}
+# Preface {-}
 
 \newcommand{\No}{\textsf{N}}
 \newcommand{\Ga}{\textsf{Gamma}}
@@ -25,8 +25,36 @@ github-repo: StatsWithR/book
 \newcommand{\Ca}{\textsf{C}}
 \newcommand{\bv}{\boldsymbol{\beta}}
 
+This book was written as a companion for the Course *Bayesian Statistics* from the Statistics with `R` specialization available on Coursera with the goal of providing more details and background on Bayesian Inference. In writing this, we hope that it may be used on its own as an open-access introduction to Bayesian inference using `R` for anyone interested in learning about Bayesian statistics. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided. While learners are not expected to have any background in calculus or linear algebra, for those who do have this background and are interested in diving deeper, we have included optional sub-sections  in each Chapter to provide additional mathematical details.
+
+This book is written using the `R` package `bookdown`; any interested learners are welcome to download the source code from [http://github.com/StatsWithR/book ](github) to see the code that was used to create all of the examples and figures within the book.   Learners should have a current version of `R` (3.5.0 at the time of this version of the book) and will need to install `Rstudio` in order to use any of the `shiny` apps. 
+
+Those that are interested in running all of the code in the book or building the book locally, should download all of the following packages from  `CRAN`:
 
 
-This book is a written companion for the Course 'Bayesian Statistics' from the Statistics with R specialization available on Coursera, but may be used on its own as an open-access introduction to Bayesian inference using R. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided.
+```r
+# R packages used to create the book
 
-Authors are listed in alphabetical order.
+library(statsr)
+library(BAS)
+library(ggplot2)
+library(dplyr)
+library(BayesFactor)
+library(knitr)
+library(rjags)
+library(coda) 
+library(latex2exp)
+library(foreign)
+library(BHH2)
+library(scales)
+library(logspline)
+library(cowplot)
+library(ggthemes)
+```
+
+
+We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contibutions to lab exercises and quizzes in earlier versions of the course.
+
+Sincerely, 
+
+*David Banks, Mine Cetinkaya-Rundel, Christine Chai, Merlise Clyde,Lizzy Huang, and Colin Rundel* (Note authorship is based on alphabetical order)
