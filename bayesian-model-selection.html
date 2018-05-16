@@ -286,7 +286,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="math display" id="eq:BIC-approx">\[\begin{equation}
 \text{BIC}\approx -2\ln(p(\text{data}~|~M)) = -2\ln\left(\int p(\text{data}~|~\boldsymbol{\theta}, M)p(\boldsymbol{\theta}~|~M)\, d\boldsymbol{\theta}\right),\qquad \quad \text{when $n$ is large.} \tag{7.2}
 \end{equation}\]</span>
-<p>Here <span class="math inline">\(p(\boldsymbol{\theta}~|~M)\)</span> is the prior distribution of the parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>. We will not go into detail why the approximation holds and how we perform the integration in this book. However, we wanted to remind readers that, since BIC can be approximated by the prior distribution of the parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>, we will see later how we utilize BIC to approximate the model likelihood under the reference prior.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p>
+<p>Here <span class="math inline">\(p(\boldsymbol{\theta}~|~M)\)</span> is the prior distribution of the parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>. We will not go into detail why the approximation holds and how we perform the integration in this book. However, we wanted to remind readers that, since BIC can be approximated by the prior distribution of the parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>, we will see later how we utilize BIC to approximate the model likelihood under the reference prior.<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p>
 <p>One more observation of formula <a href="bayesian-model-selection.html#eq:BIC-approx">(7.2)</a> is that it involves the marginal likelihood of data under model <span class="math inline">\(M\)</span>, <span class="math inline">\(p(\text{data}~|~M)\)</span>. We have seen this quantity when we introduced Bayes factor between two hypotheses or models <span class="math display">\[ {\textit{BF}}[M_1:M_2] = \frac{p(\text{data}~|~M_1)}{p(\text{data}~|~M_2)}. \]</span> This also provides connection between BIC and Bayes factor, which we will leverage later.</p>
 Similar to AIC, the Akaike information criterion, the model with the smallest BIC is preferrable. Formula <a href="bayesian-model-selection.html#eq:BIC-def">(7.1)</a> can be re-expressed using the model <span class="math inline">\(R^2\)</span>, which is easier to calculate
 <span class="math display" id="eq:BIC-new">\[\begin{equation}
@@ -419,7 +419,7 @@ coef.BIC</code></pre></div>
 ## IQ         0.563906 0.06057408  0.4448487  0.6829634
 ## work       0.000000 0.00000000  0.0000000  0.0000000
 ## age        0.000000 0.00000000  0.0000000  0.0000000</code></pre>
-<p>Comparing the coefficients in the best model with the ones in the full model (which can be found in Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.4</a>), we see that the 95% credible interval for <code>IQ</code> variable is the same. However, the credible interval for high school status <code>hs</code> has shifted slightly to the right, and it is also slighly narrower, meaning a smaller posterior standard deviation. All credible intervals of coefficients exclude 0, suggesting that we have found a parsimonious model.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a></p>
+<p>Comparing the coefficients in the best model with the ones in the full model (which can be found in Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.4</a>), we see that the 95% credible interval for <code>IQ</code> variable is the same. However, the credible interval for high school status <code>hs</code> has shifted slightly to the right, and it is also slighly narrower, meaning a smaller posterior standard deviation. All credible intervals of coefficients exclude 0, suggesting that we have found a parsimonious model.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p>
 </div>
 <div id="other-criteria" class="section level3">
 <h3><span class="header-section-number">7.1.4</span> Other Criteria</h3>
@@ -637,9 +637,9 @@ cog_coef</code></pre></div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="6">
-<li id="fn6"><p>Recall that the reference prior is the limiting case of the multivariate Normal-Gamma distribution.<a href="bayesian-model-selection.html#fnref6">↩</a></p></li>
-<li id="fn7"><p>A parsimonious model is a model that accomplishes a desired level of explanation or prediction with as few predictor variables as possible. More discussion of parsimonious models can be found in Course 3 Linear Regression and Modeling.<a href="bayesian-model-selection.html#fnref7">↩</a></p></li>
+<ol start="5">
+<li id="fn5"><p>Recall that the reference prior is the limiting case of the multivariate Normal-Gamma distribution.<a href="bayesian-model-selection.html#fnref5">↩</a></p></li>
+<li id="fn6"><p>A parsimonious model is a model that accomplishes a desired level of explanation or prediction with as few predictor variables as possible. More discussion of parsimonious models can be found in Course 3 Linear Regression and Modeling.<a href="bayesian-model-selection.html#fnref6">↩</a></p></li>
 </ol>
 </div>
             </section>

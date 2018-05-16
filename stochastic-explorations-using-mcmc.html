@@ -543,7 +543,7 @@ P =<span class="st"> </span><span class="kw">list</span>()
 ##  3rd Qu.:227.5   3rd Qu.:0.05445   3rd Qu.:30.45   3rd Qu.:1057.5  
 ##  Max.   :276.0   Max.   :0.11980   Max.   :44.00   Max.   :1993.0</code></pre>
 <p>However, these variables have been pre-processed for modeling purpose, so the summary statistics may not be so meaningful. The values of all these variables have been aggregated over each state, so this is a case of ecological regression. We will not model directly the rate for a person to commit a crime. Instead, we will use the total number of crimes and average values of predictors at the state level to predict the total crime rate of each state.</p>
-<p>We transform the variables using the natural log function, except the indicator variable <code>So</code> (2nd column of the data set). We perform this transformation based on the analysis of this data set.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> Notice that <code>So</code> is already a numeric variable (<code>1</code> indicating Southern state and <code>0</code> otherwise), not as a categorical variable. Hence we do not need any data processing of this variable, unlike mother’s high school status <code>hs</code> and mother’s work status <code>work</code> in the kid’s cognitive score data set.</p>
+<p>We transform the variables using the natural log function, except the indicator variable <code>So</code> (2nd column of the data set). We perform this transformation based on the analysis of this data set.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> Notice that <code>So</code> is already a numeric variable (<code>1</code> indicating Southern state and <code>0</code> otherwise), not as a categorical variable. Hence we do not need any data processing of this variable, unlike mother’s high school status <code>hs</code> and mother’s work status <code>work</code> in the kid’s cognitive score data set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">UScrime[,<span class="op">-</span><span class="dv">2</span>] =<span class="st"> </span><span class="kw">log</span>(UScrime[,<span class="op">-</span><span class="dv">2</span>])</code></pre></div>
 </div>
 <div id="bayesian-models-and-diagnostics" class="section level3">
@@ -632,22 +632,22 @@ coef.ZS=<span class="kw">coef</span>(crime.ZS)
 <p>We can read the credible intervals of each variable using the <code>confint</code> function on the coefficient object <code>coef.ZS</code> of the model. Here we round the results in 4 decimal places.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">confint</span>(coef.ZS), <span class="dv">4</span>)</code></pre></div>
 <pre><code>##              2.5%  97.5%    beta
-## Intercept  6.6699 6.7827  6.7249
-## M          0.0000 2.1629  1.1396
-## So        -0.0656 0.3117  0.0354
-## Ed         0.6562 3.2098  1.8565
-## Po1        0.0000 1.4366  0.6021
-## Po2       -0.1436 1.4242  0.3163
-## LF        -0.5216 1.0315  0.0592
-## M.F       -1.9818 2.2680 -0.0270
-## Pop       -0.1254 0.0038 -0.0227
-## NW         0.0000 0.1646  0.0670
-## U1        -0.5204 0.3528 -0.0252
-## U2         0.0000 0.6681  0.2068
-## GDP       -0.0112 1.2083  0.2052
-## Ineq       0.6729 2.1121  1.3891
-## Prob      -0.4182 0.0000 -0.2162
-## Time      -0.5108 0.0712 -0.0856
+## Intercept  6.6687 6.7810  6.7249
+## M          0.0000 2.1829  1.1467
+## So        -0.0405 0.3255  0.0353
+## Ed         0.6319 3.1933  1.8594
+## Po1        0.0000 1.4407  0.6013
+## Po2       -0.1905 1.4420  0.3171
+## LF        -0.4678 1.0231  0.0593
+## M.F       -2.0588 2.1130 -0.0281
+## Pop       -0.1245 0.0087 -0.0224
+## NW         0.0000 0.1664  0.0669
+## U1        -0.5312 0.3689 -0.0248
+## U2        -0.0051 0.6759  0.2074
+## GDP       -0.1005 1.1605  0.2074
+## Ineq       0.6944 2.1585  1.3893
+## Prob      -0.4093 0.0002 -0.2152
+## Time      -0.5074 0.0550 -0.0843
 ## attr(,&quot;Probability&quot;)
 ## [1] 0.95
 ## attr(,&quot;class&quot;)
@@ -660,13 +660,13 @@ coef.ZS=<span class="kw">coef</span>(crime.ZS)
 <p>The fitted values can be obtained using the <code>fit</code> attribute of <code>crime.BMA</code>. We have transposed the fitted values into a vector to better present all the values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fitted =<span class="st"> </span>crime.BMA<span class="op">$</span>fit
 <span class="kw">as.vector</span>(fitted)</code></pre></div>
-<pre><code>##  [1] 6.661510 7.298908 6.179985 7.610121 7.053912 6.514721 6.785699
-##  [8] 7.266609 6.629208 6.601196 7.055210 6.570552 6.471736 6.582440
-## [15] 6.556731 6.905216 6.228355 6.809175 6.943453 6.961822 6.608705
-## [22] 6.428992 6.899364 6.777484 6.405960 7.401181 6.019391 7.156213
-## [29] 7.089600 6.500027 6.209286 6.605744 6.797993 6.819862 6.625727
-## [36] 7.029605 6.793905 6.364706 6.603552 7.044406 6.548079 6.045829
-## [43] 6.929115 7.005344 6.235745 6.609086 6.830543</code></pre>
+<pre><code>##  [1] 6.661927 7.299033 6.179039 7.610757 7.054199 6.514040 6.784890
+##  [8] 7.265991 6.629693 6.601140 7.054938 6.570890 6.471999 6.582572
+## [15] 6.556835 6.904857 6.229087 6.809819 6.943255 6.962135 6.608562
+## [22] 6.429125 6.898588 6.777057 6.405640 7.401143 6.019372 7.156807
+## [29] 7.089420 6.500660 6.208655 6.606271 6.798028 6.819798 6.625504
+## [36] 7.029109 6.794437 6.363395 6.603112 7.044772 6.548559 6.046002
+## [43] 6.930208 7.006144 6.235951 6.608279 6.830306</code></pre>
 <p>We may use these fitted values for further error calculations. We will talk about decision making on models and how to obtain predictions under different models in the next section.</p>
 
 </div>
@@ -728,20 +728,20 @@ coef.crime.ZS =<span class="st"> </span><span class="kw">coef</span>(crime.ZS)
 
 <span class="co"># Posterior means of coefficients</span>
 coef.crime.ZS<span class="op">$</span>conditionalmeans[crime.HPM<span class="op">$</span>best, ]</code></pre></div>
-<pre><code>##   Intercept           M          So          Ed         Po1         Po2 
-##  6.72493620  0.00000000  0.00000000  0.00000000  0.74531464  0.00000000 
-##          LF         M.F         Pop          NW          U1          U2 
-##  1.29029585  0.00000000  0.00000000  0.12777596  0.00000000  0.16610975 
-##         GDP        Ineq        Prob        Time 
-## -0.05195579  0.00000000  0.00000000  0.00000000</code></pre>
+<pre><code>##  Intercept          M         So         Ed        Po1        Po2 
+##  6.7249362  0.0000000  0.0000000  0.0000000  1.0427981  0.0000000 
+##         LF        M.F        Pop         NW         U1         U2 
+##  0.7676160  0.0000000  0.0000000  0.0000000  0.1215167  0.0000000 
+##        GDP       Ineq       Prob       Time 
+##  0.4508510  1.5171262 -0.1382346  0.0000000</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Posterior standard deviation of coefficients</span>
 coef.crime.ZS<span class="op">$</span>conditionalsd[crime.HPM<span class="op">$</span>best, ]</code></pre></div>
 <pre><code>##  Intercept          M         So         Ed        Po1        Po2 
-## 0.03879985 0.00000000 0.00000000 0.00000000 0.23796291 0.00000000 
+## 0.03540417 0.00000000 0.00000000 0.00000000 0.18922345 0.00000000 
 ##         LF        M.F        Pop         NW         U1         U2 
-## 0.64699167 0.00000000 0.00000000 0.04221302 0.00000000 0.18037756 
+## 0.54611172 0.00000000 0.00000000 0.00000000 0.20394314 0.00000000 
 ##        GDP       Ineq       Prob       Time 
-## 0.44110466 0.00000000 0.00000000 0.00000000</code></pre>
+## 0.46665953 0.34128838 0.08253722 0.00000000</code></pre>
 <p>We can also obtain the posterior probability of this model using</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">postprob.HPM =<span class="st"> </span>crime.ZS<span class="op">$</span>postprobs[crime.HPM<span class="op">$</span>best]
 postprob.HPM</code></pre></div>
@@ -826,20 +826,20 @@ crime.BPM.conf.pred =<span class="st"> </span><span class="kw">confint</span>(cr
 <p>We can use similar method as in HPM to find the coefficients of BPM</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Posterior mean</span>
 coef.crime.ZS<span class="op">$</span>conditionalmeans[crime.BPM<span class="op">$</span>best,]</code></pre></div>
-<pre><code>##  Intercept          M         So         Ed        Po1        Po2 
-##  6.7249362  1.2899625  0.0000000  2.0506360  0.8723301  0.0000000 
-##         LF        M.F        Pop         NW         U1         U2 
-##  0.0000000  0.0000000 -0.0314777  0.1063916  0.0000000  0.2613956 
-##        GDP       Ineq       Prob       Time 
-##  0.0000000  1.2365489 -0.2863636 -0.2133805</code></pre>
+<pre><code>##   Intercept           M          So          Ed         Po1         Po2 
+##  6.72493620  0.00000000 -0.01749964  1.44079984  1.12103805  0.00000000 
+##          LF         M.F         Pop          NW          U1          U2 
+##  0.00000000  0.00000000 -0.06478164  0.09591621  0.00000000  0.00000000 
+##         GDP        Ineq        Prob        Time 
+##  0.00000000  1.29228545  0.00000000  0.00000000</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Posterior standard deviation</span>
 coef.crime.ZS<span class="op">$</span>conditionalsd[crime.BPM<span class="op">$</span>best,]</code></pre></div>
 <pre><code>##  Intercept          M         So         Ed        Po1        Po2 
-## 0.02633235 0.45204344 0.00000000 0.44310387 0.17296292 0.00000000 
+## 0.03287710 0.00000000 0.12177255 0.52019117 0.19047530 0.00000000 
 ##         LF        M.F        Pop         NW         U1         U2 
-## 0.00000000 0.00000000 0.03865526 0.03835980 0.00000000 0.12665288 
+## 0.00000000 0.00000000 0.03989793 0.05055440 0.00000000 0.00000000 
 ##        GDP       Ineq       Prob       Time 
-## 0.00000000 0.28427946 0.08855350 0.16449073</code></pre>
+## 0.00000000 0.34585983 0.00000000 0.00000000</code></pre>
 <p>After discussing all 4 different models, let us compare their prediction results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set plot settings</span>
 <span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">cex.axis =</span> <span class="fl">1.8</span>, <span class="dt">cex.lab =</span> <span class="dv">2</span>, <span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">3</span>),
@@ -865,26 +865,26 @@ crime.conf.pred.new =<span class="st"> </span><span class="kw">confint</span>(BM
 <span class="co"># Show the combined results compared to the fitted values in BPM</span>
 <span class="kw">cbind</span>(crime.BPM<span class="op">$</span>fit, crime.conf.fit.new, crime.conf.pred.new)
 ##                    2.5%    97.5%     mean     2.5%    97.5%     pred
-##  [1,] 6.668988 6.520479 6.818146 6.661770 6.239628 7.067061 6.661770
-##  [2,] 7.290854 7.143482 7.463512 7.298827 6.891643 7.714721 7.298827
-##  [3,] 6.202166 5.951907 6.391821 6.179308 5.737686 6.629162 6.179308
-##  [4,] 7.661307 7.371159 7.821733 7.610585 7.164953 8.064493 7.610585
-##  [5,] 7.015570 6.849117 7.257008 7.054238 6.628592 7.507988 7.054238
-##  [6,] 6.469547 6.284184 6.743448 6.514064 6.051199 6.955002 6.514064
-##  [7,] 6.776133 6.510232 7.074795 6.784846 6.303510 7.267039 6.784846
-##  [8,] 7.299560 7.041769 7.491609 7.266344 6.819340 7.710113 7.266344
-##  [9,] 6.614927 6.481499 6.783600 6.629448 6.208758 7.036757 6.629448
-## [10,] 6.596912 6.462221 6.735372 6.601246 6.200923 7.004643 6.601246
-## [11,] 7.032834 6.864747 7.233534 7.055003 6.606611 7.468745 7.055003
-## [12,] 6.581822 6.420993 6.716698 6.570625 6.172343 6.998697 6.570625
-## [13,] 6.467921 6.214397 6.719998 6.472327 6.021780 6.939328 6.472327
-## [14,] 6.566239 6.393113 6.767788 6.582374 6.149991 7.017161 6.582374
-## [15,] 6.550129 6.356845 6.761531 6.556880 6.092994 6.979442 6.556880
-## [16,] 6.888592 6.748766 7.068469 6.905017 6.501969 7.340184 6.905017
-## [17,] 6.252735 6.005619 6.482712 6.229073 5.760252 6.676681 6.229073
-## [18,] 6.795764 6.555990 7.104339 6.809572 6.357843 7.315775 6.809572
-## [19,] 6.945687 6.751658 7.130520 6.943294 6.512630 7.364953 6.943294
-## [20,] 7.000331 6.776353 7.143706 6.961980 6.519759 7.384316 6.961980
+##  [1,] 6.668988 6.507989 6.808457 6.661770 6.252533 7.081293 6.661770
+##  [2,] 7.290854 7.129272 7.447430 7.298827 6.868528 7.700806 7.298827
+##  [3,] 6.202166 5.946378 6.392468 6.179308 5.745022 6.651802 6.179308
+##  [4,] 7.661307 7.379183 7.828984 7.610585 7.172325 8.052932 7.610585
+##  [5,] 7.015570 6.857198 7.265917 7.054238 6.623049 7.505411 7.054238
+##  [6,] 6.469547 6.286078 6.740386 6.514064 6.063893 6.950209 6.514064
+##  [7,] 6.776133 6.504977 7.072213 6.784846 6.286320 7.256579 6.784846
+##  [8,] 7.299560 7.036561 7.482342 7.266344 6.816179 7.706575 7.266344
+##  [9,] 6.614927 6.479207 6.778159 6.629448 6.203952 7.026656 6.629448
+## [10,] 6.596912 6.462865 6.742903 6.601246 6.179171 7.011037 6.601246
+## [11,] 7.032834 6.871445 7.243482 7.055003 6.616919 7.460614 7.055003
+## [12,] 6.581822 6.425484 6.721808 6.570625 6.150920 6.983896 6.570625
+## [13,] 6.467921 6.212149 6.724308 6.472327 6.018112 6.938221 6.472327
+## [14,] 6.566239 6.394379 6.765623 6.582374 6.155962 7.019085 6.582374
+## [15,] 6.550129 6.363373 6.763665 6.556880 6.131768 6.999143 6.556880
+## [16,] 6.888592 6.747090 7.066442 6.905017 6.504098 7.334035 6.905017
+## [17,] 6.252735 5.987729 6.469837 6.229073 5.780643 6.683393 6.229073
+## [18,] 6.795764 6.552235 7.106656 6.809572 6.350830 7.307559 6.809572
+## [19,] 6.945687 6.753779 7.128746 6.943294 6.509569 7.373155 6.943294
+## [20,] 7.000331 6.774425 7.144757 6.961980 6.521543 7.388364 6.961980
 ## [...]</code></pre></div>
 </div>
 </div>
@@ -926,11 +926,10 @@ crime.conf.pred.new =<span class="st"> </span><span class="kw">confint</span>(BM
 
 
 
-
 <div class="footnotes">
 <hr />
-<ol start="8">
-<li id="fn8"><p>More details can be found in <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>.<a href="stochastic-explorations-using-mcmc.html#fnref8">↩</a></p></li>
+<ol start="7">
+<li id="fn7"><p>More details can be found in <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>.<a href="stochastic-explorations-using-mcmc.html#fnref7">↩</a></p></li>
 </ol>
 </div>
             </section>

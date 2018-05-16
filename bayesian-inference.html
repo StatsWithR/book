@@ -291,7 +291,7 @@ Figure 2.1: Histogram of binomial random variable
 <p>In general, if the set of possible values a random variable can take are separated points, it is a discrete random variable. But if it can take any value in some (possibly infinite) interval, then it is a continuous random variable.</p>
 <p>When the random variable is <strong>discrete</strong>, it has a <strong>probability mass function</strong> or pmf. That pmf tells us the probability that the random variable takes each of the possible values. But when the random variable is continuous, it has probability zero of taking any single value. (Hence probability zero does not equal to impossible, an event of probabilty zero can still happen.)</p>
 <p>We can only talk about the probability of a continuous random variable lined within some interval. For example, suppose that heights are approximately normally distributed. The probability of finding someone who is exactly 6 feet and 0.0000 inches tall (for an infinite number of 0s after the decimal point) is 0. But we can easily calculate the probability of finding someone who is between 5’11&quot; inches tall and 6’1&quot; inches tall.</p>
-<p>A <strong>continuous</strong> random variable has a <strong>probability density function</strong> or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5’11&quot; (71 inches) and 6’1&quot; (73 inches) is the area under the pdf curve for height between those two values, as shown in the blue area of Figure <a href="bayesian-inference.html#fig:pdf-auc">2.2</a>.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p>A <strong>continuous</strong> random variable has a <strong>probability density function</strong> or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5’11&quot; (71 inches) and 6’1&quot; (73 inches) is the area under the pdf curve for height between those two values, as shown in the blue area of Figure <a href="bayesian-inference.html#fig:pdf-auc">2.2</a>.<!--^[Code reference: http://www.statmethods.net/advgraphs/probability.html]--></p>
 <div class="figure" style="text-align: center"><span id="fig:pdf-auc"></span>
 <img src="02-inference-01-continuous_files/figure-html/pdf-auc-1.png" alt="Area under curve for the probability density function" width="70%" />
 <p class="caption">
@@ -563,37 +563,28 @@ x|\mu &amp;\sim N(\mu,\sigma^2) \\
 <p>In many applications, a Bayesian may not be able to use a conjugate prior. Sometimes she may want to use a reference prior, which injects the minimum amount of personal belief into the analysis. But most often, a Bayesian will have a personal belief about the problem that cannot be expressed in terms of a convenient conjugate prior.</p>
 <p>For example, we shall reconsider the RU-486 case from earlier in which four children were born to standard therapy mothers. But no children were born to RU-486 mothers. This time, the Bayesian believes that the probability p of an RU-486 baby is uniformly distributed between 0 and one-half, but has a point mass of 0.5 at one-half. That is, she believes there is a 50% chance that no difference exists between standard therapy and RU-486. But if a difference exists, she thinks that RU-486 is better, but she is completely unsure about how much better it would be.</p>
 <p>In mathematical notation, the probability density function of <span class="math inline">\(p\)</span> is</p>
-<p><span class="math display">\[f_p(x) = \left\{ \begin{array}{ccc}
-1 &amp; \text{for} &amp; 0 \leq x &lt; 0.5 \\
-0.5 &amp; \text{for} &amp; x = 0.5 \\
-0 &amp; \text{for} &amp; x &lt; 0 \text{ or } x &gt; 0.5
+<p><span class="math display">\[\pi(p) = \left\{ \begin{array}{ccc}
+1 &amp; \text{for} &amp; 0 \leq p &lt; 0.5 \\
+0.5 &amp; \text{for} &amp; p = 0.5 \\
+0 &amp; \text{for} &amp; p &lt; 0 \text{ or } p &gt; 0.5
 \end{array}\right.\]</span></p>
 <p>We can check that the area under the density curve, plus the amount of the point mass, equals 1.</p>
-<p>The cumulative distribution function of <span class="math inline">\(p\)</span> is</p>
-<p><span class="math display">\[F_p(p \leq x) = \left\{ \begin{array}{ccc}
+<p>The cumulative distribution function, <span class="math inline">\(P(p\leq x)\)</span> or <span class="math inline">\(F(x)\)</span>, is</p>
+<p><span class="math display">\[P(p \leq x) = F(x) = \left\{ \begin{array}{ccc}
 0 &amp; \text{for} &amp; x &lt; 0 \\
 x &amp; \text{for} &amp; 0 \leq x &lt; 0.5  \\
 1 &amp; \text{for} &amp; x \geq 0.5
 \end{array}\right.\]</span></p>
 <p>Why would this be a reasonable prior for an analyst to self-elicit? One reason is that in clinical trials, there is actually quite a lot of preceding research on the efficacy of the drug. This research might be based on animal studies or knowledge of the chemical activity of the molecule. So the Bayesian might feel sure that there is no possibility that RU-486 is worse than the standard treatment. And her interest is on whether the therapies are equivalent and if not, how much better RU-486 is than the standard therapy.</p>
-<p>As previously mentioned, there is no way to compute the posterior distribution for <span class="math inline">\(p\)</span> in a simple or even a complex mathematical form. And that is why Bayesian inference languished for so many decades until computational power enabled numerical solutions. But now we have such tools, and one of them is called <strong>JAGS (Just Another Gibbs Sampler)</strong>.</p>
-<p>If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution, as in Figure <a href="bayesian-inference.html#fig:JAGS-screenshot">2.5</a>. At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results.</p>
-<pre><code>## Compiling model graph
-##    Resolving undeclared variables
-##    Allocating nodes
-## Graph information:
-##    Observed stochastic nodes: 1
-##    Unobserved stochastic nodes: 1
-##    Total graph size: 13
-## 
-## Initializing model</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:JAGS-screenshot"></span>
-<img src="02-inference-03-credible_files/figure-html/JAGS-screenshot-1.png" alt="Posterior with JAGS" width="80%" />
+<p>As previously mentioned, the posterior distribution <span class="math inline">\(\pi^*(p)\)</span> for <span class="math inline">\(p\)</span> has a complex mathematical form. That is why Bayesian inference languished for so many decades until computational power enabled numerical solutions. But now we have simulation tools to help us, and one of them is called <strong>JAGS (Just Another Gibbs Sampler)</strong>.</p>
+<p>If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution <span class="math inline">\(\pi^*(p)\)</span>, as in Figure <a href="#fig:JAGS-screenshot"><strong>??</strong></a>. At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results.</p>
+<div class="figure" style="text-align: center"><span id="fig:JAGS-plot"></span>
+<img src="02-inference-03-credible_files/figure-html/JAGS-plot-1.png" alt="Posterior with JAGS" width="80%" />
 <p class="caption">
 Figure 2.5: Posterior with JAGS
 </p>
 </div>
-<p>That histogram is lightly smooth to generate the posterior density you see. There is still a point mass of probability at 0.5, but now it has less weight than before. Also, note how the data have changed the posterior away from the prior. The analyst sees a lot of probability under the curve near 0.2, but responds to the fact that no children were born to RU-486 mothers.</p>
+<p>The posterior distribution is decreasing when <span class="math inline">\(p\)</span> is between 0 and 0.5, and has a point mass of probability at 0.5. But now the point mass has less weights than before. Also, note that the data have changed the posterior away from the original uniform prior when <span class="math inline">\(p\)</span> is between 0 and 0.5. The analyst sees a lot of probability under the curve near 0, which responds to the fact that no children were born to RU-486 mothers.</p>
 <p>This section is mostly a look-ahead to future material. We have seen that a Bayesian might reasonably employ a non-conjugate prior in a practical application. But then she will need to employ some kind of numerical computation to approximate the posterior distribution. Additionally, we have used a computational tool, JAGS, to approximate the posterior for <span class="math inline">\(p\)</span>, and identified its three important elements, the probability of the data given <span class="math inline">\(p\)</span>, that is the likelihood, and the prior, and the call to the Gibbs sampler.</p>
 </div>
 <div id="credible-intervals" class="section level3">
@@ -601,10 +592,7 @@ Figure 2.5: Posterior with JAGS
 <p>In this section, we introduce credible intervals, the Bayesian alternative to confidence intervals. Let’s start with the confidence intervals, which are the frequentist way to express uncertainty about an estimate of a population mean, a population proportion or some other parameter.</p>
 <p>A confidence interval has the form of an upper and lower bound.</p>
 <p><span class="math display">\[L, U = \text{pe} \pm \text{se} \times \text{cv}\]</span></p>
-<ul>
-<li>L = lower, U = upper</li>
-<li>pe = point estimate, se = standard error, cv = critical value</li>
-</ul>
+<p>where <span class="math inline">\(L\)</span>, <span class="math inline">\(U\)</span> are the lower bound and upper bound of the confidence interval respectively, <span class="math inline">\(\text{pe}\)</span> represents “point estimates”, <span class="math inline">\(\text{se}\)</span> is the standard error, and <span class="math inline">\(\text{cv}\)</span> is the critical value.</p>
 <p>Most importantly, the interpretation of a 95% confidence interval on the mean is that <strong>“95% of similarly constructed intervals will contain the true mean”</strong>, not “the probability that true mean lies between <span class="math inline">\(L\)</span> and <span class="math inline">\(U\)</span> is 0.95”.</p>
 <p>The reason for this frequentist wording is that a frequentist may not express his uncertainty as a probability. The true mean is either within the interval or not, so the probability is zero or one. The problem is that the frequentist does not know which is the case.</p>
 <p>On the other hand, Bayesians have no such qualms. It is fine for us to say that <strong>“the probability that the true mean is contained within a given interval is 0.95”</strong>. To distinguish our intervals from confidence intervals, we call them <strong>credible intervals</strong>.</p>
@@ -618,17 +606,17 @@ Figure 2.6: RU-486 Posterior
 </div>
 <p>For the Bayesian, her 95% credible interval is just any <span class="math inline">\(L\)</span> and <span class="math inline">\(U\)</span> such that the posterior probability that <span class="math inline">\(L &lt; p &lt; U\)</span> is <span class="math inline">\(0.95\)</span>. The shortest such interval is obviously preferable.</p>
 <p>To find this interval, the Bayesian looks at the area under the <span class="math inline">\(\text{beta}(1,5)\)</span> distribution, that lies to the left of a value x.</p>
-<p>The density of the <span class="math inline">\(\text{beta}(1,5)\)</span> is <span class="math display">\[f(p) = 5 (1-p)^4 \text{ for } 0 \leq p \leq 1,\]</span></p>
-<p>and the area under the density between <span class="math inline">\(0\)</span> and <span class="math inline">\(x\)</span> is <span class="math display">\[F(x) = 1 - (1-x)^5 \text{ for } 0 \leq p \leq 1.\]</span></p>
+<p>The density function of the <span class="math inline">\(\text{beta}(1,5)\)</span> is <span class="math display">\[f(p) = 5 (1-p)^4 \text{ for } 0 \leq p \leq 1,\]</span></p>
+<p>and the cumulative distribution function, which represents the area under the density function <span class="math inline">\(f(p)\)</span> between <span class="math inline">\(0\)</span> and <span class="math inline">\(x\)</span> is <span class="math display">\[P(p\leq x)= F(x) = \int_0^x f(p)\, dp = 1 - (1-x)^5 ~\text{ for } 0 \leq p \leq 1.\]</span></p>
 <p>The Bayesian can use this to find <span class="math inline">\(L, U\)</span> with area 0.95 under the density curve between them, i.e. <span class="math inline">\(F(U) - F(L) = 0.95\)</span>. Note that the Bayesian credible interval is asymmetric, unlike the symmetric confidence intervals that frequentists often obtain. It turns out that <span class="math inline">\(L = 0\)</span> and <span class="math inline">\(U = 0.45\)</span> is the shortest interval with probability 0.95 of containing <span class="math inline">\(p\)</span>.</p>
 <p>What have we done? We have seen the difference in interpretations between the frequentist confidence interval and the Bayesian credible interval. Also, we have seen the general form of a credible interval. Finally, we have done a practical example constructing a 95% credible interval for the RU-486 data set.</p>
 </div>
 <div id="predictive-inference" class="section level3">
 <h3><span class="header-section-number">2.3.3</span> Predictive Inference</h3>
 <p>Predictive inference arises when the goal is not to find a posterior distribution over some parameter, but rather to find a posterior distribution over some random variable depends on the parameter.</p>
-<p>Specifically, we want to make an inference on a random variable <span class="math inline">\(X\)</span> with probability densifity function <span class="math inline">\(f(x|\theta)\)</span>, where you have some personal probability distribution <span class="math inline">\(\pi(\theta)\)</span> for the <span class="math inline">\(\theta\)</span>.</p>
-<p>To solve this, one needs to integrate: <span class="math display">\[P(X \leq x) = \int^{\infty}_{-\infty} P(X \leq x | \theta)\pi(\theta)d\theta\]</span></p>
-<p>The equation gives us the weighted average of the probabilities for <span class="math inline">\(X\)</span>, where the weights correspond to the personal probability on <span class="math inline">\(\theta\)</span>. But we will not do an integral; instead, we will illustrate the thinking with a trivial example.</p>
+<p>Specifically, we want to make an inference on a random variable <span class="math inline">\(X\)</span> with probability densifity function <span class="math inline">\(f(x|\theta)\)</span>, where you have some personal or prior probability distribution <span class="math inline">\(p(\theta)\)</span> for the parameter <span class="math inline">\(\theta\)</span>.</p>
+<p>To solve this, one needs to integrate: <span class="math display">\[P(X \leq x) = \int^{\infty}_{-\infty} P(X \leq x | \theta)\, p(\theta)d\theta = \int_{-\infty}^\infty \left(\int_{-\infty}^x f(s|\theta)\, ds\right)p(\theta)\, d\theta\]</span></p>
+<p>The equation gives us the weighted average of the probabilities for <span class="math inline">\(X\)</span>, where the weights correspond to the personal probability on <span class="math inline">\(\theta\)</span>. Here we will not perform the integral case; instead, we will illustrate the thinking with a discrete example.</p>
 
 <div class="example">
 <p><span id="exm:unnamed-chunk-1" class="example"><strong>Example 2.8  </strong></span>Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag.</p>
@@ -654,12 +642,6 @@ Suppose the game starts, you have tossed twice, and have obtained two heads. The
 
 </div>
 </div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>Code reference: <a href="http://www.statmethods.net/advgraphs/probability.html" class="uri">http://www.statmethods.net/advgraphs/probability.html</a><a href="bayesian-inference.html#fnref1">↩</a></p></li>
-</ol>
 </div>
             </section>
 

@@ -34,7 +34,7 @@ When the random variable is **discrete**, it has a **probability mass function**
 
 We can only talk about the probability of a continuous random variable lined within some interval. For example, suppose that heights are approximately normally distributed. The probability of finding someone who is exactly 6 feet and 0.0000 inches tall (for an infinite number of 0s after the decimal point) is 0. But we can easily calculate the probability of finding someone who is between 5'11" inches tall and 6'1" inches tall. 
 
-A **continuous** random variable has a **probability density function** or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5'11" (71 inches) and 6'1" (73 inches) is the area under the pdf curve for height between those two values, as shown in the blue area of Figure \@ref(fig:pdf-auc).^[Code reference: http://www.statmethods.net/advgraphs/probability.html]
+A **continuous** random variable has a **probability density function** or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5'11" (71 inches) and 6'1" (73 inches) is the area under the pdf curve for height between those two values, as shown in the blue area of Figure \@ref(fig:pdf-auc).<!--^[Code reference: http://www.statmethods.net/advgraphs/probability.html]-->
 
 \begin{figure}
 
