@@ -18,13 +18,13 @@ This formula is called the **probability mass function** (pmf) for the binomial.
 
 The probability mass function can be visualized as a histogram in Figure \@ref(fig:histogram). The area under the histogram is one, and the area of each bar is the probability of seeing a binomial random variable, whose value is equal to the x-value at the center of the bars base. 
 
-```{r histogram, fig.height=3, fig.width=3, fig.align='center', fig.cap="Histogram of binomial random variable", echo=FALSE, message=FALSE}
-
+```{r histogram, fig.height=3, fig.width=3, fig.align='center', fig.cap="Histogram of binomial random variable", echo=FALSE, message=FALSE, warning = F}
+library(ggthemes)
 data = data.frame(trials = c(0,1,1,1,2,2,2,3))
 
 ggplot(data, aes(data$trials)) + 
   geom_histogram(aes(y=..count../sum(..count..))) +
-  xlab("") + ylab("")
+  xlab("") + ylab("") + theme_tufte()
 ```
 
 
@@ -36,20 +36,36 @@ When the random variable is **discrete**, it has a **probability mass function**
 
 We can only talk about the probability of a continuous random variable lined within some interval. For example, suppose that heights are approximately normally distributed. The probability of finding someone who is exactly 6 feet and 0.0000 inches tall (for an infinite number of 0s after the decimal point) is 0. But we can easily calculate the probability of finding someone who is between 5'11" inches tall and 6'1" inches tall. 
 
-A **continuous** random variable has a **probability density function** or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5'11" (71 inches) and 6'1" (73 inches) is the area under the pdf curve for height between those two values, as shown in the blue area of Figure \@ref(fig:pdf-auc).^[Code reference: http://www.statmethods.net/advgraphs/probability.html]
+A **continuous** random variable has a **probability density function** or pdf, instead of probability mass functions. The probability of finding someone whose height lies between 5'11" (71 inches) and 6'1" (73 inches) is the area under the pdf curve for height between those two values, as shown in the blue area of Figure \@ref(fig:pdf-auc).<!--^[Code reference: http://www.statmethods.net/advgraphs/probability.html]-->
 
-```{r pdf-auc, out.width = '70%', fig.align='center', fig.cap="Area under curve for the probability density function", echo=FALSE}
-
+```{r pdf-auc, out.width = '70%', fig.align='center', fig.cap="Area under curve for the probability density function", echo=FALSE, warning=F, message=F}
+library(ggplot2)
+library(ggthemes)
 # 5'11"=71 inches; 6'1"=73 inches
 
-x = seq(from=62, to=82, by=0.001)
-hx = dnorm(x,mean=72,sd=2)
+x = seq(from = 62, to = 82, by = 0.001)
+hx = dnorm(x,mean = 72, sd = 2)
 
-plot(x,hx,type="n",xlab="Height (inches)",ylab="Density")
-lb=+71; ub=+73
-ii <- x >= lb & x <= ub
-lines(x, hx)
-polygon(c(lb,x[ii],ub), c(0,hx[ii],0), col="blue") 
+#plot(x,hx,type="n",xlab="Height (inches)",ylab="Density")
+#lb=+71; ub=+73
+#ii <- x >= lb & x <= ub
+#lines(x, hx)
+#polygon(c(lb,x[ii],ub), c(0,hx[ii],0), col="blue") 
+
+
+# New code
+mydata = data.frame(x = x, y = hx)
+shade = rbind(c(71, 0), subset(mydata, x > 71 & x < 73), 
+                 c(73, 0))
+ytop1 = dnorm(71, mean = 72, sd = 2)
+ytop2 = dnorm(73, mean = 72, sd = 2)
+
+p = qplot(x = mydata$x, y = mydata$y, geom = "line", col = I("black"))
+p = p + geom_segment(aes(x = 71, y = 0, xend = 71, yend = ytop1), color = "dodgerblue3") + 
+  geom_segment(aes(x = 73, y = 0, xend = 73, yend = ytop2), color = "dodgerblue3") +
+  geom_polygon(data = shade, aes(x = x, y = y), fill = "dodgerblue3") + 
+  xlab("Height (inches)") + ylab("Probability Density") + theme_tufte() 
+print(p)
 
 ```
 
@@ -116,7 +132,8 @@ When $\alpha=\beta=1$, the beta distribution becomes a uniform distribution, i.e
 
 The expected value of $p$ is $\frac{\alpha}{\alpha+\beta}$, so $\alpha$ can be regarded as the prior number of successes, and $\beta$ the prior number of failures. When $\alpha=\beta$, then one gets a symmetrical pdf around 0.5. For large but equal values of $\alpha$ and $\beta$, the area under the beta probability density near 0.5 is very large. Figure \@ref(fig:beta) compares the beta distribution with different parameter values.
 
-```{r beta, out.width = '80%', fig.align="center", fig.cap="Beta family", echo=FALSE}
+```{r beta, out.width = '80%', fig.align="center", fig.cap="Beta family", warning = F, message = F, echo=FALSE}
+library(ggthemes)
 p.range = seq(from=0, to=1, by=0.01)
 beta0 = dbeta(p.range, 1, 1)
 beta1 = dbeta(p.range, 0.5, 0.5)
@@ -125,19 +142,40 @@ beta3 = dbeta(p.range, 1, 3)
 beta4 = dbeta(p.range, 2, 2)
 beta5 = dbeta(p.range, 2, 5)
 
-texts = c("alpha=beta=1", "alpha=beta=0.5", "alpha=5, beta=1", 
-          "alpha=1, beta=3", "alpha=2, beta=2", "alpha=2, beta=5")
+
+#texts = c("alpha=beta=1", "alpha=beta=0.5", "alpha=5, beta=1", 
+#          "alpha=1, beta=3", "alpha=2, beta=2", "alpha=2, beta=5")
 colors = c("brown","red","green","blue","pink","black")
 
-plot(p.range,  beta1, type="l", col=colors[2],
-     xlab="p", ylab="probabilty density")
-lines(p.range, beta0, type="l", col=colors[1])
-lines(p.range, beta2, type="l", col=colors[3])
-lines(p.range, beta3, type="l", col=colors[4])
-lines(p.range, beta4, type="l", col=colors[5])
-lines(p.range, beta5, type="l", col=colors[6])
-legend("top", texts, lty=rep(c(1),6), col = colors)
+#plot(p.range,  beta1, type="l", col=colors[2],
+#     xlab="p", ylab="probabilty density")
+# lines(p.range, beta0, type="l", col=colors[1])
+# lines(p.range, beta2, type="l", col=colors[3])
+# lines(p.range, beta3, type="l", col=colors[4])
+# lines(p.range, beta4, type="l", col=colors[5])
+# lines(p.range, beta5, type="l", col=colors[6])
+# legend("top", texts, lty=rep(c(1),6), col = colors)
 
+# New code
+my_beta = data.frame(x = p.range, beta0 = beta0, beta1 = beta1, beta2 = beta2, 
+                     beta3 = beta3, beta4 = beta4, beta5 = beta5)
+
+ggplot(data = my_beta) + geom_line(aes(x = x, y = beta0, col = "a")) + 
+  geom_line(aes(x = x, y = beta1, col = "b")) +
+  geom_line(aes(x = x, y = beta2, col = "c")) + 
+  geom_line(aes(x = x, y = beta3, col = "d")) +
+  geom_line(aes(x = x, y = beta4, col = "e")) +
+  geom_line(aes(x = x, y = beta5, col = "f")) +
+  scale_color_manual(values = colors,
+                     labels = c(bquote(paste(alpha, " = ", 1, ", ", beta, " = ", 1)),
+                                bquote(paste(alpha, " = ", 0.5, ", ", beta, " = ", 0.5)), 
+                                bquote(paste(alpha, " = ", 5, ", ", beta, " = ", 1)),
+                                bquote(paste(alpha, " = ", 1, ", ", beta, " = ", 3)),
+                                bquote(paste(alpha, " = ", 2, ", ", beta, " = ", 2)),
+                                bquote(paste(alpha, " = ", 2, ", ", beta, " = ", 5))),
+                     name = "Beta Distributions") + 
+  ylab("Probability Density") + xlab("p") + theme_tufte() 
+#+ theme(legend.position = c(1, 1), legend.justification = c(1.2, 1.1))
 ```
 
 These kinds of priors are probably appropriate if you want to infer the probability of getting heads in a coin toss. The beta family also includes skewed densities, which is appropriate if you think that $p$ the probability of success in ths binomial trial is close to zero or one. 

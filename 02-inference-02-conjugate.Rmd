@@ -88,13 +88,15 @@ Modern computing was unavailable at that time yet, so the Prussian general will 
 
 The gamma family is flexible, and Figure \@ref(fig:gamma) illustrates a wide range of gamma shapes. 
 
-```{r gamma, out.width = '80%', fig.align="center", fig.cap="Gamma family", echo=FALSE}
+```{r gamma, out.width = '80%', fig.align="center", fig.cap="Gamma family", warning = F, message = F, echo=FALSE}
+library(ggthemes)
+library(ggplot2)
 x = seq(from=0, to=20, by=0.005)
 
-texts = c("k=1.0, theta=2.0", "k=2.0, theta=2.0", "k=3.0, theta=2.0",
-          "k=5.0, theta=1.0", "k=9.0, theta=0.5", "k=7.5, theta=1.0",
-          "k=0.5, theta=1.0")
-color = c("red","orange","yellow","green","black","blue","purple")
+#texts = c("k=1.0, theta=2.0", "k=2.0, theta=2.0", "k=3.0, theta=2.0",
+#          "k=5.0, theta=1.0", "k=9.0, theta=0.5", "k=7.5, theta=1.0",
+#          "k=0.5, theta=1.0")
+colors = c("red","orange","yellow","green","black","blue","purple")
 
 ga1 = dgamma(x,shape=1.0,scale=2.0)
 ga2 = dgamma(x,shape=2.0,scale=2.0)
@@ -104,15 +106,38 @@ ga5 = dgamma(x,shape=9.0,scale=0.5)
 ga6 = dgamma(x,shape=7.5,scale=1.0)
 ga7 = dgamma(x,shape=0.5,scale=1.0)
 
-plot(x,ga1,type="n",xlim=c(0,20),ylim=c(0,0.5))
-lines(x,ga1,type="l",col=color[1])
-lines(x,ga2,type="l",col=color[2])
-lines(x,ga3,type="l",col=color[3])
-lines(x,ga4,type="l",col=color[4])
-lines(x,ga5,type="l",col=color[5])
-lines(x,ga6,type="l",col=color[6])
-lines(x,ga7,type="l",col=color[7])
-legend("topright", texts, lty=rep(c(1),7), col = color)
+# plot(x,ga1,type="n",xlim=c(0,20),ylim=c(0,0.5))
+# lines(x,ga1,type="l",col=color[1])
+# lines(x,ga2,type="l",col=color[2])
+# lines(x,ga3,type="l",col=color[3])
+# lines(x,ga4,type="l",col=color[4])
+# lines(x,ga5,type="l",col=color[5])
+# lines(x,ga6,type="l",col=color[6])
+# lines(x,ga7,type="l",col=color[7])
+# legend("topright", texts, lty=rep(c(1),7), col = color)
+
+# New code
+
+my_gamma = data.frame(x = x, ga1 = ga1, ga2 = ga2, ga3 = ga3, ga4 = ga4, ga5 = ga5, ga6 = ga6, ga7 = ga7)
+
+ggplot(data = my_gamma) + geom_line(aes(x = x, y = ga1, col = "a")) + 
+  geom_line(aes(x = x, y = ga2, col = "b")) +
+  geom_line(aes(x = x, y = ga3, col = "c")) + 
+  geom_line(aes(x = x, y = ga4, col = "d")) +
+  geom_line(aes(x = x, y = ga5, col = "e")) +
+  geom_line(aes(x = x, y = ga6, col = "f")) +
+  geom_line(aes(x = x, y = ga7, col = "g")) +
+  scale_color_manual(values = colors,
+                     labels = c(bquote(paste(k, " = ", 1, ", ", theta, " = ", 2)),
+                                bquote(paste(k, " = ", 2, ", ", theta, " = ", 2)), 
+                                bquote(paste(k, " = ", 3, ", ", theta, " = ", 2)),
+                                bquote(paste(k, " = ", 5, ", ", theta, " = ", 1)),
+                                bquote(paste(k, " = ", 9, ", ", theta, " = ", 0.5)),
+                                bquote(paste(k, " = ", 7.5, ", ", theta, " = ", 1)),
+                                bquote(paste(k, " = ", 0.5, ", ", theta, " = ", 1))),
+                     name = "Gamma Distributions") + 
+  xlim(0, 20) + ylim(0, 0.5) +
+  ylab("Probability Density") + xlab("x") + theme_tufte()
 ```
 
 
