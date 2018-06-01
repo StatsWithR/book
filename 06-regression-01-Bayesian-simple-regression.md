@@ -455,7 +455,7 @@ One can see that the reference prior is the limiting case of this conjugate prio
 Based on any prior information we have for the model, we can also impose other priors and assumptions on $\alpha$, $\beta$, and $\sigma^2$ to get different Bayesian results. Most of these priors will not form any conjugacy and will require us to use simulation methods such as Markov Chain Monte Carlo (MCMC) for approximations. We will introduce the general idea of MCMC in Chapter 8.
 
 
-## (Optional) Derivations of Marginal Posterior Distributions of $\alpha$, $\beta$, $\sigma^2$ {#sec:derivations}
+### (Optional) Derivations of Marginal Posterior Distributions of $\alpha$, $\beta$, $\sigma^2$ {#sec:derivations}
 
 In this section, we will use the notations we introduced earlier such as $\text{SSE}$, the sum of squares of errors, $\hat{\sigma}^2$, the mean squared error, $\text{S}_{xx}$, $\text{se}_{\alpha}$, $\text{se}_{\beta}$ and so on to simplify our calculations.
 
