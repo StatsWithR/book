@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>An Introduction to Bayesian Thinking</title>
+  <meta name="description" content="An Introduction to Bayesian Thinking">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="An Introduction to Bayesian Thinking" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="StatsWithR/book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="An Introduction to Bayesian Thinking" />
+  
+  
+  
+
+<meta name="author" content="David Banks">
+<meta name="author" content="Mine Cetinkaya-Rundel">
+<meta name="author" content="Christine Chai">
+<meta name="author" content="Merlise Clyde">
+<meta name="author" content="Lizzy Huang">
+<meta name="author" content="Colin Rundel">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="introduction-to-bayesian-regression.html">
+<link rel="next" href="stochastic-explorations-using-mcmc.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bayesian Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
+<li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
+<li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
+<li class="chapter" data-level="1.1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
+<li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-frequentist-approach"><i class="fa fa-check"></i><b>1.2.1</b> Inference for a Proportion: Frequentist Approach</a></li>
+<li class="chapter" data-level="1.2.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
+<li class="chapter" data-level="1.2.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#exercises"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#continuous-variables-and-eliciting-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#from-the-discrete-to-the-continuous"><i class="fa fa-check"></i><b>2.1.1</b> From the Discrete to the Continuous</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#elicitation"><i class="fa fa-check"></i><b>2.1.2</b> Elicitation</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#conjugacy"><i class="fa fa-check"></i><b>2.1.3</b> Conjugacy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#three-conjugate-families"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#inference-on-a-binomial-proportion"><i class="fa fa-check"></i><b>2.2.1</b> Inference on a Binomial Proportion</a></li>
+<li class="chapter" data-level="2.2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#the-gamma-poisson-conjugate-families"><i class="fa fa-check"></i><b>2.2.2</b> The Gamma-Poisson Conjugate Families</a></li>
+<li class="chapter" data-level="2.2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#sec:normal-normal"><i class="fa fa-check"></i><b>2.2.3</b> The Normal-Normal Conjugate Families</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals-and-predictive-inference"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#non-conjugate-priors"><i class="fa fa-check"></i><b>2.3.1</b> Non-Conjugate Priors</a></li>
+<li class="chapter" data-level="2.3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals"><i class="fa fa-check"></i><b>2.3.2</b> Credible Intervals</a></li>
+<li class="chapter" data-level="2.3.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#predictive-inference"><i class="fa fa-check"></i><b>2.3.3</b> Predictive Inference</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html"><i class="fa fa-check"></i><b>3</b> Losses and Decision Making</a><ul>
+<li class="chapter" data-level="3.1" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#bayesian-decision-making"><i class="fa fa-check"></i><b>3.1</b> Bayesian Decision Making</a></li>
+<li class="chapter" data-level="3.2" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#loss-functions"><i class="fa fa-check"></i><b>3.2</b> Loss Functions</a></li>
+<li class="chapter" data-level="3.3" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#working-with-loss-functions"><i class="fa fa-check"></i><b>3.3</b> Working with Loss Functions</a></li>
+<li class="chapter" data-level="3.4" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#minimizing-expected-loss-for-hypothesis-testing"><i class="fa fa-check"></i><b>3.4</b> Minimizing Expected Loss for Hypothesis Testing</a></li>
+<li class="chapter" data-level="3.5" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#sec:bayes-factors"><i class="fa fa-check"></i><b>3.5</b> Posterior Probabilities of Hypotheses and Bayes Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html"><i class="fa fa-check"></i><b>4</b> Inference and Decision-Making with Multiple Parameters</a><ul>
+<li class="chapter" data-level="4.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma"><i class="fa fa-check"></i><b>4.1</b> The Normal-Gamma Conjugate Family</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#conjugate-prior-for-mu-and-sigma2"><i class="fa fa-check"></i><b>4.1.1</b> Conjugate Prior for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#conjugate-posterior-distribution"><i class="fa fa-check"></i><b>4.1.2</b> Conjugate Posterior Distribution</a></li>
+<li class="chapter" data-level="4.1.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#marginal-distribution-for-mu-student-t"><i class="fa fa-check"></i><b>4.1.3</b> Marginal Distribution for <span class="math inline">\(\mu\)</span>: Student <span class="math inline">\(t\)</span></a></li>
+<li class="chapter" data-level="4.1.4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#credible-intervals-for-mu"><i class="fa fa-check"></i><b>4.1.4</b> Credible Intervals for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="4.1.5" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:tapwater"><i class="fa fa-check"></i><b>4.1.5</b> Example: TTHM in Tapwater</a></li>
+<li class="chapter" data-level="4.1.6" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#summary"><i class="fa fa-check"></i><b>4.1.6</b> Summary</a></li>
+<li class="chapter" data-level="4.1.7" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#optional-derivations"><i class="fa fa-check"></i><b>4.1.7</b> (Optional) Derivations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MC"><i class="fa fa-check"></i><b>4.2</b> Monte Carlo Inference</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-sampling"><i class="fa fa-check"></i><b>4.2.1</b> Monte Carlo Sampling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#tap-water-example-continued"><i class="fa fa-check"></i><b>4.2.2</b> Tap Water Example (continued)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-inference-for-functions-of-parameters"><i class="fa fa-check"></i><b>4.2.3</b> Monte Carlo Inference for Functions of Parameters</a></li>
+<li class="chapter" data-level="4.2.4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#summary-1"><i class="fa fa-check"></i><b>4.2.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive"><i class="fa fa-check"></i><b>4.3</b> Predictive Distributions</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#prior-predictive-distribution"><i class="fa fa-check"></i><b>4.3.1</b> Prior Predictive Distribution</a></li>
+<li class="chapter" data-level="4.3.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#tap-water-example-continued-1"><i class="fa fa-check"></i><b>4.3.2</b> Tap Water Example (continued)</a></li>
+<li class="chapter" data-level="4.3.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sampling-from-the-prior-predictive-in-r"><i class="fa fa-check"></i><b>4.3.3</b> Sampling from the Prior Predictive in <code>R</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#posterior-predictive"><i class="fa fa-check"></i><b>4.3.4</b> Posterior Predictive</a></li>
+<li class="chapter" data-level="4.3.5" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#summary-2"><i class="fa fa-check"></i><b>4.3.5</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-reference"><i class="fa fa-check"></i><b>4.4</b> Reference Priors</a></li>
+<li class="chapter" data-level="4.5" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-Cauchy"><i class="fa fa-check"></i><b>4.5</b> Mixtures of Conjugate Priors</a></li>
+<li class="chapter" data-level="4.6" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MCMC"><i class="fa fa-check"></i><b>4.6</b> Markov Chain Monte Carlo (MCMC)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Testing with Normal Populations</a><ul>
+<li class="chapter" data-level="5.1" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#sec:known-var"><i class="fa fa-check"></i><b>5.1</b> Bayes Factors for Testing a Normal Mean: variance known</a></li>
+<li class="chapter" data-level="5.2" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#comparing-two-paired-means-using-bayes-factors"><i class="fa fa-check"></i><b>5.2</b> Comparing Two Paired Means using Bayes Factors</a></li>
+<li class="chapter" data-level="5.3" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#sec:indep-means"><i class="fa fa-check"></i><b>5.3</b> Comparing Independent Means: Hypothesis Testing</a></li>
+<li class="chapter" data-level="5.4" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#inference-after-testing"><i class="fa fa-check"></i><b>5.4</b> Inference after Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Regression</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:simple-linear"><i class="fa fa-check"></i><b>6.1</b> Bayesian Simple Linear Regression</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#frequentist-ordinary-least-square-ols-simple-linear-regression"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist Ordinary Least Square (OLS) Simple Linear Regression</a></li>
+<li class="chapter" data-level="6.1.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-simple-linear-regression-using-the-reference-prior"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Simple Linear Regression Using the Reference Prior</a></li>
+<li class="chapter" data-level="6.1.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:informative-prior"><i class="fa fa-check"></i><b>6.1.3</b> Informative Priors</a></li>
+<li class="chapter" data-level="6.1.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:derivations"><i class="fa fa-check"></i><b>6.1.4</b> (Optional) Derivations of Marginal Posterior Distributions of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="6.1.5" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#marginal-posterior-distribution-of-beta"><i class="fa fa-check"></i><b>6.1.5</b> Marginal Posterior Distribution of <span class="math inline">\(\beta\)</span></a></li>
+<li class="chapter" data-level="6.1.6" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#marginal-posterior-distribution-of-alpha"><i class="fa fa-check"></i><b>6.1.6</b> Marginal Posterior Distribution of <span class="math inline">\(\alpha\)</span></a></li>
+<li class="chapter" data-level="6.1.7" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#marginal-posterior-distribution-of-sigma2"><i class="fa fa-check"></i><b>6.1.7</b> Marginal Posterior Distribution of <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="6.1.8" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#joint-normal-gamma-posterior-distributions"><i class="fa fa-check"></i><b>6.1.8</b> Joint Normal-Gamma Posterior Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Checking-outliers"><i class="fa fa-check"></i><b>6.2</b> Checking Outliers</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#posterior-distribution-of-epsilon_j-conditioning-on-sigma2"><i class="fa fa-check"></i><b>6.2.1</b> Posterior Distribution of <span class="math inline">\(\epsilon_j\)</span> Conditioning On <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#implementation-using-bas-package"><i class="fa fa-check"></i><b>6.2.2</b> Implementation Using <code>BAS</code> Package</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression"><i class="fa fa-check"></i><b>6.3</b> Bayesian Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#the-model"><i class="fa fa-check"></i><b>6.3.1</b> The Model</a></li>
+<li class="chapter" data-level="6.3.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#data-pre-processing"><i class="fa fa-check"></i><b>6.3.2</b> Data Pre-processing</a></li>
+<li class="chapter" data-level="6.3.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#specify-bayesian-prior-distributions"><i class="fa fa-check"></i><b>6.3.3</b> Specify Bayesian Prior Distributions</a></li>
+<li class="chapter" data-level="6.3.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#fitting-the-bayesian-model"><i class="fa fa-check"></i><b>6.3.4</b> Fitting the Bayesian Model</a></li>
+<li class="chapter" data-level="6.3.5" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#posterior-means-and-posterior-standard-deviations"><i class="fa fa-check"></i><b>6.3.5</b> Posterior Means and Posterior Standard Deviations</a></li>
+<li class="chapter" data-level="6.3.6" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#credible-intervals-summary"><i class="fa fa-check"></i><b>6.3.6</b> Credible Intervals Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#summary-3"><i class="fa fa-check"></i><b>6.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html"><i class="fa fa-check"></i><b>7</b> Bayesian Model Choice</a><ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#sec:BIC"><i class="fa fa-check"></i><b>7.1</b> Bayesian Information Criterion (BIC)</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#definition-of-bic"><i class="fa fa-check"></i><b>7.1.1</b> Definition of BIC</a></li>
+<li class="chapter" data-level="7.1.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#backward-elimination-with-bic"><i class="fa fa-check"></i><b>7.1.2</b> Backward Elimination with BIC</a></li>
+<li class="chapter" data-level="7.1.3" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#coefficient-estimates-under-reference-prior-for-best-bic-model"><i class="fa fa-check"></i><b>7.1.3</b> Coefficient Estimates Under Reference Prior for Best BIC Model</a></li>
+<li class="chapter" data-level="7.1.4" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#other-criteria"><i class="fa fa-check"></i><b>7.1.4</b> Other Criteria</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#sec:BMU"><i class="fa fa-check"></i><b>7.2</b> Bayesian Model Uncertainty</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#model-uncertainty"><i class="fa fa-check"></i><b>7.2.1</b> Model Uncertainty</a></li>
+<li class="chapter" data-level="7.2.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#calculating-posterior-probability-in-r"><i class="fa fa-check"></i><b>7.2.2</b> Calculating Posterior Probability in R</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#bayesian-model-averaging"><i class="fa fa-check"></i><b>7.3</b> Bayesian Model Averaging</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#visualizing-model-uncertainty"><i class="fa fa-check"></i><b>7.3.1</b> Visualizing Model Uncertainty</a></li>
+<li class="chapter" data-level="7.3.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#bayesian-model-averaging-using-posterior-probability"><i class="fa fa-check"></i><b>7.3.2</b> Bayesian Model Averaging Using Posterior Probability</a></li>
+<li class="chapter" data-level="7.3.3" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#coefficient-summary-under-bma"><i class="fa fa-check"></i><b>7.3.3</b> Coefficient Summary under BMA</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#summary-4"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html"><i class="fa fa-check"></i><b>8</b> Stochastic Explorations Using MCMC</a><ul>
+<li class="chapter" data-level="8.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#stochastic-exploration"><i class="fa fa-check"></i><b>8.1</b> Stochastic Exploration</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#markov-chain-monte-carlo-exploration"><i class="fa fa-check"></i><b>8.1.1</b> Markov Chain Monte Carlo Exploration</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#other-priors-for-bayesian-model-uncertainty"><i class="fa fa-check"></i><b>8.2</b> Other Priors for Bayesian Model Uncertainty</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#zellners-g-prior"><i class="fa fa-check"></i><b>8.2.1</b> Zellner’s <span class="math inline">\(g\)</span>-Prior</a></li>
+<li class="chapter" data-level="8.2.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#bayes-factor-of-zellners-g-prior"><i class="fa fa-check"></i><b>8.2.2</b> Bayes Factor of Zellner’s <span class="math inline">\(g\)</span>-Prior</a></li>
+<li class="chapter" data-level="8.2.3" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#kids-cognitive-score-example"><i class="fa fa-check"></i><b>8.2.3</b> Kid’s Cognitive Score Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#r-demo-on-bas-package"><i class="fa fa-check"></i><b>8.3</b> R Demo on <code>BAS</code> Package</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#the-uscrime-data-set-and-data-processing"><i class="fa fa-check"></i><b>8.3.1</b> The <code>UScrime</code> Data Set and Data Processing</a></li>
+<li class="chapter" data-level="8.3.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#bayesian-models-and-diagnostics"><i class="fa fa-check"></i><b>8.3.2</b> Bayesian Models and Diagnostics</a></li>
+<li class="chapter" data-level="8.3.3" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#posterior-uncertainty-in-coefficients"><i class="fa fa-check"></i><b>8.3.3</b> Posterior Uncertainty in Coefficients</a></li>
+<li class="chapter" data-level="8.3.4" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#prediction"><i class="fa fa-check"></i><b>8.3.4</b> Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#decision-making-under-model-uncertainty"><i class="fa fa-check"></i><b>8.4</b> Decision Making Under Model Uncertainty</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#model-choice"><i class="fa fa-check"></i><b>8.4.1</b> Model Choice</a></li>
+<li class="chapter" data-level="8.4.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#prediction-with-new-data"><i class="fa fa-check"></i><b>8.4.2</b> Prediction with New Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#summary-5"><i class="fa fa-check"></i><b>8.5</b> Summary</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Bayesian Thinking</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bayesian-model-choice" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Bayesian Model Choice</h1>
+<p>In Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.3</a> of Chapter 6, we provided a Bayesian inference analysis for kid’s cognitive scores using multiple linear regression. We found that several credible intervals of the coefficients contain zero, suggesting that we could potentially simplify the model. In this chapter, we will discuss model selection, model uncertainty, and model averaging. Bayesian model selection is to pick variables for multiple linear regression based on Bayesian information criterion, or BIC. Later, we will also discuss other model selection methods, such as using Bayes factors.</p>
+
+<div id="sec:BIC" class="section level2">
+<h2><span class="header-section-number">7.1</span> Bayesian Information Criterion (BIC)</h2>
+<p>In inferential statistics, we compare model selections using <span class="math inline">\(p\)</span>-values or adjusted <span class="math inline">\(R^2\)</span>. Here we will take the Bayesian propectives. We are going to discuss the Bayesian model selections using the Bayesian information criterion, or BIC. BIC is one of the Bayesian criteria used for Bayesian model selection, and tends to be one of the most popular criteria.</p>
+<div id="definition-of-bic" class="section level3">
+<h3><span class="header-section-number">7.1.1</span> Definition of BIC</h3>
+<p>The Bayesian information criterion, BIC, is defined to be</p>
+<span class="math display" id="eq:BIC-def">\[\begin{equation}
+\text{BIC} = -2\ln(\widehat{\text{likelihood}}) + (p+1)\ln(n).
+\tag{7.1}
+\end{equation}\]</span>
+<p>Here <span class="math inline">\(n\)</span> is the number of observations in the model, and <span class="math inline">\(p\)</span> is the number of predictors. That is, <span class="math inline">\(p+1\)</span> is the number of total parameters (also the total number of coefficients, including the intercept) in the model. Recall that in the Bayesian simple linear regression (Section <a href="introduction-to-bayesian-regression.html#sec:simple-linear">6.1</a>), we mentioned the likelihood of the model <span class="math inline">\(y_i=\alpha + \beta x_i+\epsilon_i\)</span> is the probability (or probability distribution) for the observed data <span class="math inline">\(y_i,\  i = 1,\cdots, n\)</span> occur under the given parameters <span class="math inline">\(\alpha,\ \beta,\ \sigma^2\)</span> <span class="math display">\[ \text{likelihood} = p(y_i~|~\alpha,\ \beta, \ \sigma^2) = \mathcal{L}(\alpha,\ \beta,\ \sigma^2), \]</span> where <span class="math inline">\(\sigma^2\)</span> is the variance of the assumed Normal distribution of the error term <span class="math inline">\(\epsilon_i\)</span>. In general, under any model <span class="math inline">\(M\)</span>, we can write the likelihood of this model as the function of parameter <span class="math inline">\(\boldsymbol{\theta}\)</span> (<span class="math inline">\(\boldsymbol{\theta}\)</span> may be a vector of several parameters) and the model <span class="math inline">\(M\)</span> <span class="math display">\[ \text{likelihood} = p(\text{data}~|~\boldsymbol{\theta}, M) = \mathcal{L}(\boldsymbol{\theta}, M). \]</span> If the likelihood function <span class="math inline">\(\mathcal{L}(\boldsymbol{\theta}, M)\)</span> is nice enough (say it has local maximum), the maximized value of the likelihood, <span class="math inline">\(\widehat{\text{likelihood}}\)</span>, can be achieved by some special value of the parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>, denoted as <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> <span class="math display">\[ \widehat{\text{likelihood}} = p(\text{data}~|~\hat{\boldsymbol{\theta}}, M) = \mathcal{L}(\hat{\boldsymbol{\theta}}, M).\]</span></p>
+<p>This is the likelihood that defines BIC.</p>
+<p>When the sample size <span class="math inline">\(n\)</span> is large enough and the data distribution belongs to the exponential family such as the Normal distribution, BIC can be approximated by -2 times likelihood that data are produced under model <span class="math inline">\(M\)</span>:</p>
+<span class="math display" id="eq:BIC-approx">\[\begin{equation}
+\text{BIC}\approx -2\ln(p(\text{data}~|~M)) = -2\ln\left(\int p(\text{data}~|~\boldsymbol{\theta}, M)p(\boldsymbol{\theta}~|~M)\, d\boldsymbol{\theta}\right),\qquad \quad \text{when $n$ is large.} \tag{7.2}
+\end{equation}\]</span>
+<p>Here <span class="math inline">\(p(\boldsymbol{\theta}~|~M)\)</span> is the prior distribution of the parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>. We will not go into detail why the approximation holds and how we perform the integration in this book. However, we wanted to remind readers that, since BIC can be approximated by the prior distribution of the parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>, we will see later how we utilize BIC to approximate the model likelihood under the reference prior.<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p>
+<p>One more observation of formula <a href="bayesian-model-choice.html#eq:BIC-approx">(7.2)</a> is that it involves the marginal likelihood of data under model <span class="math inline">\(M\)</span>, <span class="math inline">\(p(\text{data}~|~M)\)</span>. We have seen this quantity when we introduced Bayes factor between two hypotheses or models <span class="math display">\[ {\textit{BF}}[M_1:M_2] = \frac{p(\text{data}~|~M_1)}{p(\text{data}~|~M_2)}. \]</span> This also provides connection between BIC and Bayes factor, which we will leverage later.</p>
+Similar to AIC, the Akaike information criterion, the model with the smallest BIC is preferrable. Formula <a href="bayesian-model-choice.html#eq:BIC-def">(7.1)</a> can be re-expressed using the model <span class="math inline">\(R^2\)</span>, which is easier to calculate
+<span class="math display" id="eq:BIC-new">\[\begin{equation}
+\text{BIC} = n\ln(1-R^2)+(p+1)\ln(n)+\text{constant},
+\tag{7.3}
+\end{equation}\]</span>
+where the last term constant only depends on the sample size <span class="math inline">\(n\)</span>, and the observed data <span class="math inline">\(y_1,\cdots, y_n\)</span>. Since this constant does not depend on the choice of model, i.e., the choice of variables, ignoring this constant will not affect the comparison of BICs between models. Therefore, we usually define BIC to be
+<span class="math display">\[\begin{equation*}
+\text{BIC} = n\ln(1-R^2) + (p+1)\ln(n).
+\end{equation*}\]</span>
+<p>From this expression, we see that adding more predictors, that is, increasing <span class="math inline">\(p\)</span>, will result in larger <span class="math inline">\(R^2\)</span>, which leads to a smaller <span class="math inline">\(\ln(1-R^2)\)</span> in the first term of BIC. While larger <span class="math inline">\(R^2\)</span> means better goodness of fit of the data, too many predictors may result in overfitting the data. Therefore, the second term <span class="math inline">\((p+1)\ln(n)\)</span> is added in the BIC expression to penalize models with too many predictors. When <span class="math inline">\(p\)</span> increases, the second term increases as well. This provides a trade-off between the goodness of fit given by the first term and the model complexity represented by the second term.</p>
+</div>
+<div id="backward-elimination-with-bic" class="section level3">
+<h3><span class="header-section-number">7.1.2</span> Backward Elimination with BIC</h3>
+<p>We will use the kid’s cognitive score data set <code>cognitive</code> as an example. We first read in the data set from Gelman’s website and transform the data types of the two variables <code>mom_work</code> and <code>mom_hs</code>, like what we did in Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.3</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load the library in order to read in data from website</span>
+<span class="kw">library</span>(foreign)    
+
+<span class="co"># Read in cognitive score data set and process data tranformations</span>
+cognitive =<span class="st"> </span><span class="kw">read.dta</span>(<span class="st">&quot;http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta&quot;</span>)
+
+cognitive<span class="op">$</span>mom_work =<span class="st"> </span><span class="kw">as.numeric</span>(cognitive<span class="op">$</span>mom_work <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)
+cognitive<span class="op">$</span>mom_hs =<span class="st">  </span><span class="kw">as.numeric</span>(cognitive<span class="op">$</span>mom_hs <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
+<span class="kw">colnames</span>(cognitive) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;kid_score&quot;</span>, <span class="st">&quot;hs&quot;</span>,<span class="st">&quot;IQ&quot;</span>, <span class="st">&quot;work&quot;</span>, <span class="st">&quot;age&quot;</span>)</code></pre></div>
+<p>We start with the full model, with all possible predictors: <code>hs</code>, <code>IQ</code>, <code>work</code>, and <code>age</code>. We will drop one variable at a time and record all BICs. Then we will choose the model with the smallest BIC. We will repeat this process until none of the models yields a decrease in BIC. We use the <code>step</code> function in R to perform the BIC model selection. Notice the default value of the <code>k</code> argument in the <code>step</code> function is <code>k=2</code>, which is for the AIC score. For BIC, <code>k</code> should be <code>log(n)</code> correspondingly.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute the total number of observations</span>
+n =<span class="st"> </span><span class="kw">nrow</span>(cognitive)
+
+<span class="co"># Full model using all predictors</span>
+cog.lm =<span class="st"> </span><span class="kw">lm</span>(kid_score <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>cognitive)
+
+<span class="co"># Perform BIC elimination from full model</span>
+<span class="co"># k = log(n): penalty for BIC rather than AIC</span>
+cog.step =<span class="st"> </span><span class="kw">step</span>(cog.lm, <span class="dt">k=</span><span class="kw">log</span>(n))   </code></pre></div>
+<pre><code>## Start:  AIC=2541.07
+## kid_score ~ hs + IQ + work + age
+## 
+##        Df Sum of Sq    RSS    AIC
+## - age   1     143.0 141365 2535.4
+## - work  1     383.5 141605 2536.2
+## - hs    1    1595.1 142817 2539.9
+## &lt;none&gt;              141222 2541.1
+## - IQ    1   28219.9 169441 2614.1
+## 
+## Step:  AIC=2535.44
+## kid_score ~ hs + IQ + work
+## 
+##        Df Sum of Sq    RSS    AIC
+## - work  1     392.5 141757 2530.6
+## - hs    1    1845.7 143210 2535.0
+## &lt;none&gt;              141365 2535.4
+## - IQ    1   28381.9 169747 2608.8
+## 
+## Step:  AIC=2530.57
+## kid_score ~ hs + IQ
+## 
+##        Df Sum of Sq    RSS    AIC
+## &lt;none&gt;              141757 2530.6
+## - hs    1    2380.2 144137 2531.7
+## - IQ    1   28504.1 170261 2604.0</code></pre>
+<p>In the summary chart, the <code>AIC</code> should be interpreted as BIC, since we have chosen to use the BIC expression where <span class="math inline">\(k=\ln(n)\)</span>.</p>
+<p>From the full model, we predict the kid’s cognitive score from mother’s high school status, mother’s IQ score, mother’s work status and mother’s age. The BIC for the full model is 2541.1.</p>
+<p>At the first step, we try to remove each variable from the full model to record the resulting new BIC. From the summary statistics, we see that removing variable <code>age</code> results in the smallest BIC. But if we try to drop the <code>IQ</code> variable, this will increase the BIC, which implies that <code>IQ</code> would be a really important predictor of <code>kid_score</code>. Comparing all the results, we drop the <code>age</code> variable at the first step. After dropping <code>age</code>, the new BIC is 2535.4.</p>
+<p>At the next step, we see that dropping <code>work</code> variable will result in the lowest BIC, which is 2530.6. Now the model has become <span class="math display">\[ \text{score} \sim \text{hs} + \text{IQ} \]</span></p>
+<p>Finally, when we try dropping either <code>hs</code> or <code>IQ</code>, it will result in higher BIC than 2530.6. This suggests that we have reached the best model. This model predicts kid’s cognitive score using mother’s high school status and mother’s IQ score.</p>
+<p>However, using the adjusted <span class="math inline">\(R^2\)</span>, the best model would be the one including not only <code>hs</code> and <code>IQ</code> variables, but also mother’s work status, <code>work</code>. In general, using BIC leads to fewer variables for the best model compared to using adjusted <span class="math inline">\(R^2\)</span> or AIC.</p>
+<p>We can also use the <code>BAS</code> package to find the best BIC model without taking the stepwise backward process.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Import library</span>
+<span class="kw">library</span>(BAS)
+
+<span class="co"># Use `bas.lm` to run regression model</span>
+cog.BIC =<span class="st"> </span><span class="kw">bas.lm</span>(kid_score <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> cognitive,
+                 <span class="dt">prior =</span> <span class="st">&quot;BIC&quot;</span>, <span class="dt">modelprior =</span> <span class="kw">uniform</span>())
+
+cog.BIC</code></pre></div>
+<pre><code>## 
+## Call:
+## bas.lm(formula = kid_score ~ ., data = cognitive, prior = &quot;BIC&quot;, 
+##     modelprior = uniform())
+## 
+## 
+##  Marginal Posterior Inclusion Probabilities: 
+## Intercept         hs         IQ       work        age  
+##   1.00000    0.61064    1.00000    0.11210    0.06898</code></pre>
+<p>Here we set the <code>modelprior</code> argument as <code>uniform()</code> to assign equal prior probability for each possible model.</p>
+<p>The <code>logmarg</code> information inside the <code>cog.BIC</code> summary list records the log of marginal likelihood of each model after seeing the data <span class="math inline">\(\ln(p(\text{data}~|~M))\)</span>. Recall that this is approximately proportional to negative BIC when the sample size <span class="math inline">\(n\)</span> is large <span class="math display">\[ \text{BIC}\approx -2 \ln(p(\text{data}~|~M)).\]</span></p>
+<p>We can use this information to retreat the model with the largest log of marginal likelihood, which corresponds to the model with the smallest BIC.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find the index of the model with the largest logmarg</span>
+best =<span class="st"> </span><span class="kw">which.max</span>(cog.BIC<span class="op">$</span>logmarg)
+
+<span class="co"># Retreat the index of variables in the best model, with 0 as the index of the intercept</span>
+bestmodel =<span class="st"> </span>cog.BIC<span class="op">$</span>which[[best]]
+bestmodel</code></pre></div>
+<pre><code>## [1] 0 1 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create an indicator vector indicating which variables are used in the best model</span>
+bestgamma =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, cog.BIC<span class="op">$</span>n.vars) 
+
+<span class="co"># Create a 0 vector with the same dimension of the number of variables in the full model</span>
+bestgamma[bestmodel <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] =<span class="st"> </span><span class="dv">1</span>  
+
+<span class="co"># Change the indicator to 1 where variables are used</span>
+bestgamma</code></pre></div>
+<pre><code>## [1] 1 1 1 0 0</code></pre>
+<p>From the indicator vector <code>bestgamma</code> we see that only the intercept (indexed as 0), mother’s high school status variable <code>hs</code> (indexed as 1), and mother’s IQ score <code>IQ</code> (indexed as 2) are used in the best model, with 1’s in the corresponding slots of the 5-dimensional vector <span class="math inline">\((1, 1, 1, 0, 0)\)</span>.</p>
+</div>
+<div id="coefficient-estimates-under-reference-prior-for-best-bic-model" class="section level3">
+<h3><span class="header-section-number">7.1.3</span> Coefficient Estimates Under Reference Prior for Best BIC Model</h3>
+<p>The best BIC model <span class="math inline">\(M\)</span> can be set up as follows and we have adopted the “centered” model convention for convenient analyses <span class="math display">\[ y_{\text{score},i} = \beta_0 + \beta_1(x_{\text{hs},i} - \bar{x}_{\text{hs}, i})+\beta_2(x_{\text{IQ},i}-\bar{x}_{\text{IQ}})+\epsilon_i,\qquad \quad i = 1,\cdots, n \]</span></p>
+<p>We would like to get the posterior distributions of the coefficients <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\beta_2\)</span> under this model. Recall that the reference prior imposes a uniformly flat prior distribution on coefficients <span class="math inline">\(p(\beta_0, \beta_1, \beta_2~|~M)\propto 1\)</span> and that <span class="math inline">\(p(\sigma^2~|~M) \propto 1/\sigma^2\)</span>, so together the joint prior distribution <span class="math inline">\(p(\beta_0, \beta_1, \beta_2, \sigma^2~|~M)\)</span> is proportional to <span class="math inline">\(1/\sigma^2\)</span>. When the sample size <span class="math inline">\(n\)</span> is large, any proper prior distribution <span class="math inline">\(p(\beta_0, \beta_1, \beta_2, \sigma^2~|~M)\)</span> is getting flatter and flatter, which can be approximated by the reference prior. At the same time, the log of marginal likelihood <span class="math inline">\(\ln(p(\text{data}~|~M))\)</span> can be approximated by the BIC. Therefore, we use <code>prior = &quot;BIC&quot;</code> in the <code>bas.lm</code> function when we use the BIC as an approximation of the log of marginal likelihood under the reference prior. The posterior mean of <span class="math inline">\(\beta_0\)</span> in the result is the sample mean of the kids’ cognitive scores, or <span class="math inline">\(\bar{Y}_{\text{score}}\)</span>, since we have centered the model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit the best BIC model by imposing which variables to be used using the indicators</span>
+cog.bestBIC =<span class="st"> </span><span class="kw">bas.lm</span>(kid_score <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> cognitive,
+                     <span class="dt">prior =</span> <span class="st">&quot;BIC&quot;</span>, <span class="dt">n.models =</span> <span class="dv">1</span>,  <span class="co"># We only fit 1 model</span>
+                     <span class="dt">bestmodel =</span> bestgamma,  <span class="co"># We use bestgamma to indicate variables </span>
+                     <span class="dt">modelprior =</span> <span class="kw">uniform</span>())
+
+<span class="co"># Retreat coefficients information</span>
+cog.coef =<span class="st"> </span><span class="kw">coef</span>(cog.bestBIC)
+
+<span class="co"># Retreat bounds of credible intervals</span>
+out =<span class="st"> </span><span class="kw">confint</span>(cog.coef)[, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]
+
+<span class="co"># Combine results and construct summary table</span>
+coef.BIC =<span class="st"> </span><span class="kw">cbind</span>(cog.coef<span class="op">$</span>postmean, cog.coef<span class="op">$</span>postsd, out)
+names =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;post mean&quot;</span>, <span class="st">&quot;post sd&quot;</span>, <span class="kw">colnames</span>(out))
+<span class="kw">colnames</span>(coef.BIC) =<span class="st"> </span>names
+coef.BIC</code></pre></div>
+<pre><code>##           post mean    post sd       2.5%      97.5%
+## Intercept 86.797235 0.87054033 85.0862025 88.5082675
+## hs         5.950117 2.21181218  1.6028370 10.2973969
+## IQ         0.563906 0.06057408  0.4448487  0.6829634
+## work       0.000000 0.00000000  0.0000000  0.0000000
+## age        0.000000 0.00000000  0.0000000  0.0000000</code></pre>
+<p>Comparing the coefficients in the best model with the ones in the full model (which can be found in Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.3</a>), we see that the 95% credible interval for <code>IQ</code> variable is the same. However, the credible interval for high school status <code>hs</code> has shifted slightly to the right, and it is also slighly narrower, meaning a smaller posterior standard deviation. All credible intervals of coefficients exclude 0, suggesting that we have found a parsimonious model.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p>
+</div>
+<div id="other-criteria" class="section level3">
+<h3><span class="header-section-number">7.1.4</span> Other Criteria</h3>
+<p>BIC is one of the criteria based on penalized likelihoods. Other examples such as AIC (Akaike information criterion) or adjusted <span class="math inline">\(R^2\)</span>, employ the form of <span class="math display">\[ -2\ln(\widehat{\text{likelihood}}) + (p+1)\times\text{some constant},\]</span> where <span class="math inline">\(p\)</span> is the number of predictor variables and “some constant” is a constant value depending on different criteria. BIC tends to select parsimonious models (with fewer predictor variables) while AIC and adjusted <span class="math inline">\(R^2\)</span> may include variables that are not statistically significant, but may do better for predictions.</p>
+<p>Other Bayesian model selection decisions may be based on selecting models with the highest posterior probability. If predictions are important, we can use decision theory to help pick the model with the smallest expected prediction error. In addiciton to goodness of fit and parsimony, loss functions that include costs associated with collecting variables for predictive models may be of important consideration.</p>
+
+</div>
+</div>
+<div id="sec:BMU" class="section level2">
+<h2><span class="header-section-number">7.2</span> Bayesian Model Uncertainty</h2>
+<p>In the last section, we discussed how to use Bayesian Information Criterion (BIC) to pick the best model, and we demonstrated the method on the kid’s cognitive score data set. However, we may often have several models with similar BIC. If we only pick the one with the lowest BIC, we may ignore the presence of other models that are equally good or can provide useful information. The credible intervals of coefficients may be narrower since the uncertainty is being ignored when we consider only one model. Narrower intervals are not always better if they miss the true values of the parameters. To account for the uncertainty, getting the posterior probability of all possible models is necessary. In this section, we will talk about how to convert BIC into Bayes factor to find the posterior probability of all possible models. We will again use the <code>BAS</code> package in R to achieve this goal.</p>
+<div id="model-uncertainty" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> Model Uncertainty</h3>
+<p>When forecasting the path of a hurricane, having an accurate prediction and measurement of uncertainty is important for early warning. In this case, we would consider the probability of several potential paths that the hurricane may make landfall. Similar to hurricane forecasting, we would also like to obtain the posterior probability of all possible models for uncertainty measurement.</p>
+<p>To represent model uncertainty, we need to construct a probability distribution over all possible models where the each probability provides measure of how likely the model is to happen.</p>
+<p>Suppose we have a multiple linear regression <span class="math display">\[ y_i = \beta_0+\beta_1(x_{1,i} - \bar{x}_1)+\beta_2(x_{2,i} - \bar{x}_2)+\cdots+\beta_p(x_{p,i}-\bar{x}_p)+\epsilon_i, \quad 1\leq i \leq n,\]</span> with <span class="math inline">\(p\)</span> predictor variables <span class="math inline">\(x_1,\cdots, x_p\)</span>. There are in total <span class="math inline">\(2^p\)</span> different models, corresponding to <span class="math inline">\(2^p\)</span> combinations of variable selections. there are 2 possibilities for each variable: either getting selected or not, and we have in total <span class="math inline">\(p\)</span> variables. We denote each model as <span class="math inline">\(M_m,\ m=1,\cdots,2^p\)</span>. To obtian the posterior probability of each model <span class="math inline">\(p(M_m~|~\text{data})\)</span>, Bayes’ rule tells that that we need to assign the prior probability <span class="math inline">\(p(M_m)\)</span> to each model, and to then obtain the marginal likelihood of each model <span class="math inline">\(p(\text{data}~|~M_m)\)</span>. By Bayes’ rule, we update the posterior probability of each model <span class="math inline">\(M_m\)</span> after seeing the date, via marginal likelihood of model <span class="math inline">\(M_m\)</span>:</p>
+<span class="math display" id="eq:model-post-prob">\[\begin{equation} 
+p(M_m~|~\text{data}) = \frac{\text{marginal likelihood of }M_m\times p(M_m)}{\sum_{j=1}^{2^p}\text{marginal likelihood of }M_j\times p(M_j)} = \frac{p(\text{data}~|~M_m)p(M_m)}{\sum_{j=1}^{2^p}p(\text{data}~|~M_m)p(M_m)}. 
+\tag{7.4} 
+\end{equation}\]</span>
+<p>The marginal likelihood <span class="math inline">\(p(\text{data}~|~M_m)\)</span> of each model <span class="math inline">\(M_m\)</span> serves to reweight the prior probability <span class="math inline">\(p(M_m)\)</span>, so that models with higher likelihoods have larger weights, and models with lower likelihoods receive smaller weights. We renormalize this weighted prior probability by dividing it by the sum <span class="math inline">\(\displaystyle \sum_{j=1}^{2^p}p(\text{data}~|~M_j)p(M_j)\)</span> to get the posterior probability of each model.</p>
+<p>Recall that the prior odd between two models <span class="math inline">\(M_1\)</span> and <span class="math inline">\(M_2\)</span> is defined to be</p>
+<p><span class="math display">\[
+{\textit{O}}[M_1:M_2] =  \frac{p(M_1)}{p(M_2)},
+\]</span> and the Bayes factor is defined to be the ratio of the likelihoods of two models <span class="math display">\[ {\textit{BF}}[M_1:M_2] = \frac{p(\text{data}~|~M_1)}{p(\text{data}~|~M_2)}. \]</span></p>
+<p>Suppose we have chosen a base model <span class="math inline">\(M_b\)</span>, we may divide both the numerator and the denominator of the formula <a href="bayesian-model-choice.html#eq:model-post-prob">(7.4)</a> by <span class="math inline">\(p(\text{data}~|~M_b)\times p(M_b)\)</span>. This gives us a new formula to calculate the posterior probability of model <span class="math inline">\(M_m\)</span> based on the prior odd and the Bayes factor. In this new formula, we can see that the evidence from the data in the Bayes factor <span class="math inline">\({\textit{BF}}[M_j:M_b],\ j=1,\cdots, 2^p\)</span> serve to upweight or downweight the prior odd <span class="math inline">\({\textit{O}}[M_j:M_b],\ j=1,\cdots,2^p\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+p(M_m~|~\text{data}) = &amp; \frac{p(\text{data}~|~M_m)\times p(M_m)/(p(\text{data}~|~M_b)\times p(M_b))}{\sum_{j=1}^{2^p}(p(\text{data}~|~M_j)\times p(M_j))/(p(\text{data}~|~M_b)\times p(M_b))} \\
+ &amp; \\
+= &amp; \frac{[p(\text{data}~|~M_m)/p(\text{data}~|~M_b)]\times[p(M_m)/p(M_b)]}{\sum_{j=1}^{2^p}[p(\text{data}~|~M_j)/p(\text{data}~|~M_b)]\times[p(M_j)/p(M_b)]}\\
+  &amp; \\
+= &amp; \frac{{\textit{BF}}[M_m:M_b]\times {\textit{O}}[M_m:M_b]}{\sum_{j=1}^{2^p}{\textit{BF}}[M_j:M_b]\times {\textit{O}}[M_j:M_b]}.
+\end{aligned}
+\]</span> Any model can be used as the base model <span class="math inline">\(M_b\)</span>. It could be the model with the highest posterior probability, or the null model <span class="math inline">\(M_0\)</span> with just the intercept <span class="math inline">\(y_i = \beta_0+\epsilon_i\)</span>.</p>
+<p>Using BIC, we can approximate the Bayes factor between two models by their OLS <span class="math inline">\(R\)</span>-squared’s and the numbers of predictors used in the models, when we have large sample of data. This provides a much easier way to approximate the posterior probability of models since obtaining <span class="math inline">\(R^2\)</span> can be done by the usual OLS linear regression. Recall that in Section <a href="bayesian-model-choice.html#sec:BIC">7.1</a>, we provided the fact that BIC of any model <span class="math inline">\(M_m\)</span> (denoted as <span class="math inline">\(\text{BIC}_m\)</span>) is an asymptotic approximation of the log of marginal likelihood of <span class="math inline">\(M_m\)</span> when the sample size <span class="math inline">\(n\)</span> is large (Equation <a href="bayesian-model-choice.html#eq:BIC-approx">(7.2)</a>) <span class="math display">\[ \text{BIC}_m \approx -2 \ln(\text{marginal likelihood}) = -2\ln(p(\text{data}~|~M_m)). \]</span></p>
+<p>Using this fact, we can approximate Bayes factor between two models by their BICs <span class="math display">\[ {\textit{BF}}[M_1:M_2] = \frac{p(\text{data}~|~M_1)}{p(\text{data}~|~M_2)} \approx \frac{\exp(-\text{BIC}_1/2)}{\exp(-\text{BIC}_2/2)}=\exp\left(-\frac{1}{2}(\text{BIC}_1-\text{BIC}_2)\right).\]</span></p>
+<p>We also know that BIC can be calculated by the OLS <span class="math inline">\(R^2\)</span> and the number of predictors <span class="math inline">\(p\)</span> from Equation <a href="bayesian-model-choice.html#eq:BIC-new">(7.3)</a> in Section <a href="bayesian-model-choice.html#sec:BIC">7.1</a> <span class="math display">\[ \text{BIC} = n\ln(1-R^2) + (p+1)\ln(n) + \text{constant}. \]</span> (We usually ignore the constant in the last term since it does not affect the difference betweeen two BICs.)</p>
+Using this formula, we can approximate Bayes factor between model <span class="math inline">\(M_1\)</span> and <span class="math inline">\(M_2\)</span> by their corresponding <span class="math inline">\(R\)</span>-squared’s and the numbers of predictors
+<span class="math display" id="eq:BF-Rsquared">\[\begin{equation}
+\BF[M_1:M_2]\approx \left(\frac{1-R_1^2}{1-R_2^2}\right)^{\frac{n}{2}}\times n^{\frac{p_1-p_2}{2}}.
+\tag{7.5}
+\end{equation}\]</span>
+<p>As for the null model <span class="math inline">\(M_0:\ y_i = \beta_0+\epsilon_i\)</span>, <span class="math inline">\(R_0^2 = 0\)</span> and <span class="math inline">\(p_0=0\)</span>. Equation <a href="bayesian-model-choice.html#eq:BF-Rsquared">(7.5)</a> can be further simplified as <span class="math display">\[ {\textit{BF}}[M_m:M_0] = (1-R_m^2)^{\frac{n}{2}}\times n^{\frac{p_m}{2}}. \]</span></p>
+</div>
+<div id="calculating-posterior-probability-in-r" class="section level3">
+<h3><span class="header-section-number">7.2.2</span> Calculating Posterior Probability in R</h3>
+<p>Back to the kid’s cognitive score example, we will see how the summary of results using <code>bas.lm</code> tells us about the posterior probability of all possible models.</p>
+<p>Suppose we have already loaded the data and pre-processed the columns <code>mom_work</code> and <code>mom_hs</code> using <code>as.numeric</code> function, as what we did in the last section. To represent model certainty, we construct the probability distribution overall possible 16 (=<span class="math inline">\(2^4\)</span>) models where each probability <span class="math inline">\(p(M_m)\)</span> provides a measure of how likely the model <span class="math inline">\(M_m\)</span> is. Inside the <code>bas.lm</code> function, we first specify the full model, which in this case is the <code>kid_score</code>, being regressed by all predictors: mother’s high school status <code>hs</code>, mother’s IQ <code>IQ</code>, mother’s work status <code>work</code> and mother’s age <code>age</code>. We take the <code>data = cognitive</code> in the next argument. For the prior distribution of the coefficients for calculating marginal likelihoods, we use <code>prior = &quot;BIC&quot;</code> to approximate the marginal likelihood <span class="math inline">\(p(\text{data}~|~M_m)\)</span>. We then use <code>modelprior = uniform()</code> in the argument to assign equal prior probability <span class="math inline">\(p(M_m),\ m=1,\cdots, 16\)</span> to all 16 models. That is, <span class="math inline">\(\displaystyle p(M_m) = \frac{1}{16}\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Import libary</span>
+<span class="kw">library</span>(BAS)
+
+<span class="co"># Use `bas.lm` for regression</span>
+cog_bas =<span class="st"> </span><span class="kw">bas.lm</span>(kid_score <span class="op">~</span><span class="st"> </span>hs <span class="op">+</span><span class="st"> </span>IQ <span class="op">+</span><span class="st"> </span>work <span class="op">+</span><span class="st"> </span>age, 
+                 <span class="dt">data =</span> cognitive, <span class="dt">prior =</span> <span class="st">&quot;BIC&quot;</span>,
+                 <span class="dt">modelprior =</span> <span class="kw">uniform</span>())</code></pre></div>
+<p><code>cog_bas</code> is a <code>bas</code> object. The usual <code>print</code>, <code>summary</code>, <code>plot</code>, <code>coef</code>, <code>fitted</code>, <code>predict</code> functions are available and can be used on <code>bas</code> objects similar to <code>lm</code> objects created by the usual <code>lm</code> function. From calling</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(cog_bas)</code></pre></div>
+<pre><code>##  [1] &quot;probne0&quot;      &quot;which&quot;        &quot;logmarg&quot;      &quot;postprobs&quot;   
+##  [5] &quot;priorprobs&quot;   &quot;sampleprobs&quot;  &quot;mse&quot;          &quot;mle&quot;         
+##  [9] &quot;mle.se&quot;       &quot;shrinkage&quot;    &quot;size&quot;         &quot;R2&quot;          
+## [13] &quot;namesx&quot;       &quot;n&quot;            &quot;prior&quot;        &quot;modelprior&quot;  
+## [17] &quot;alpha&quot;        &quot;probne0.RN&quot;   &quot;postprobs.RN&quot; &quot;n.models&quot;    
+## [21] &quot;df&quot;           &quot;n.vars&quot;       &quot;Y&quot;            &quot;X&quot;           
+## [25] &quot;mean.x&quot;       &quot;call&quot;         &quot;xlevels&quot;      &quot;terms&quot;       
+## [29] &quot;model&quot;</code></pre>
+<p>one can see the outputs and analyses that we can extract from a <code>bas</code> object.</p>
+<p>The <code>bas</code> object takes the <code>summary</code> method</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">summary</span>(cog_bas), <span class="dv">3</span>)</code></pre></div>
+<pre><code>##           P(B != 0 | Y)   model 1   model 2   model 3   model 4   model 5
+## Intercept         1.000     1.000     1.000     1.000     1.000     1.000
+## hs                0.611     1.000     0.000     0.000     1.000     1.000
+## IQ                1.000     1.000     1.000     1.000     1.000     1.000
+## work              0.112     0.000     0.000     1.000     1.000     0.000
+## age               0.069     0.000     0.000     0.000     0.000     1.000
+## BF                   NA     1.000     0.562     0.109     0.088     0.061
+## PostProbs            NA     0.529     0.297     0.058     0.046     0.032
+## R2                   NA     0.214     0.201     0.206     0.216     0.215
+## dim                  NA     3.000     2.000     3.000     4.000     4.000
+## logmarg              NA -2583.135 -2583.712 -2585.349 -2585.570 -2585.939</code></pre>
+<p>The summary table shows us the following information of the top 5 models</p>
+<table style="width:90%;">
+<colgroup>
+<col width="20%" />
+<col width="69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>P(B!=0 | Y)</code></td>
+<td>Posterior inclusion probability (pip) of each coefficient under data <span class="math inline">\(Y\)</span></td>
+</tr>
+<tr class="even">
+<td><code>0</code> or <code>1</code> in the column</td>
+<td>indicator of whether the variable is included in the model</td>
+</tr>
+<tr class="odd">
+<td><code>BF</code></td>
+<td>Bayes factor <span class="math inline">\({\textit{BF}}[M_m:M_b]\)</span>, where <span class="math inline">\(M_b\)</span> is the model with highest posterior probability</td>
+</tr>
+<tr class="even">
+<td><code>PostProbs</code></td>
+<td>Posterior probability of each model</td>
+</tr>
+<tr class="odd">
+<td><code>R2</code></td>
+<td><span class="math inline">\(R\)</span>-squared in the ordinary least square (OLS) regression</td>
+</tr>
+<tr class="even">
+<td><code>dim</code></td>
+<td>Number of variables (including the intercept) included in the model</td>
+</tr>
+<tr class="odd">
+<td><code>logmarg</code></td>
+<td>Log of marginal likelihood of the model, which is approximately <span class="math inline">\(-\displaystyle\frac{1}{2}\text{BIC}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>All top 5 models suggest to exclude <code>age</code> variable and include <code>IQ</code> variable. The first model includes intercept <span class="math inline">\(\beta_0\)</span> and only <code>hs</code> and <code>IQ</code>, with a posterior probability of about 0. The model with the 2nd highest posterior probability, which includes only the intercept and the variable <code>IQ</code>, has posterior probability of about 0. These two models compose of total posterior probability of about 0, leaving only 1 posterior probability to the remaining 14 models.</p>
+<p>Using the <code>print</code> method, we obtain the marginal posterior inclusion probability (pip) <span class="math inline">\(p(\beta_j\neq 0)\)</span> of each variable <span class="math inline">\(x_j\)</span>.</p>
+<!--
+
+-->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(cog_bas)</code></pre></div>
+<pre><code>## 
+## Call:
+## bas.lm(formula = kid_score ~ hs + IQ + work + age, data = cognitive, 
+##     prior = &quot;BIC&quot;, modelprior = uniform())
+## 
+## 
+##  Marginal Posterior Inclusion Probabilities: 
+## Intercept         hs         IQ       work        age  
+##   1.00000    0.61064    1.00000    0.11210    0.06898</code></pre>
+
+</div>
+</div>
+<div id="bayesian-model-averaging" class="section level2">
+<h2><span class="header-section-number">7.3</span> Bayesian Model Averaging</h2>
+<p>In the last section, we explored model uncertainty using posterior probability of models based on BIC. In this section, we will continue the kid’s cognitive score example to see how to obtain an Bayesian model averaging results using model posterior probability.</p>
+<div id="visualizing-model-uncertainty" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> Visualizing Model Uncertainty</h3>
+<p>Recall that in the last section, we used the <code>bas.lm</code> function in the <code>BAS</code> package to obtain posterior probability of all models in the kid’s cognitive score example. <span class="math display">\[ \text{score} ~\sim~ \text{hq} + \text{IQ} + \text{work} + \text{age} \]</span></p>
+<p>We have found the posterior distribution under model uncertainty using all possible combinations of the predictors, the mother’s high school status <code>hs</code>, mother’s IQ score <code>IQ</code>, whether the mother worked during the first three years of the kid’s life <code>work</code>, and mother’s age <code>age</code>. With 4 predictors, there are <span class="math inline">\(2^4 = 16\)</span> possible models. In general, for linear regression model with <span class="math inline">\(p\)</span> predictor variables <span class="math display">\[ y_i = \beta_0+\beta_1(x_{p,i}-\bar{x}) + \cdots + \beta_p(x_{p,i}-\bar{x}_p)+\epsilon_i,\qquad i = 1, \cdots,n,\]</span> there will be in total <span class="math inline">\(2^p\)</span> possible models.</p>
+<p>We can also visualize model uncertainty from the <code>bas</code> object <code>cog_bas</code> that we generated in the previous section.</p>
+<p>In R, the image function may be used to create an image of the model space that looks like a crossword puzzle.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(cog_bas, <span class="dt">rotate =</span> F)</code></pre></div>
+<p><img src="07-modelSelection-03-model-averaging_files/figure-html/visualize-1.png" width="672" /></p>
+<p>To obtain a clearer view for model comparison, we did not rotate the image. Here, the predictors, including the intercept, are on the <span class="math inline">\(y\)</span>-axis, while the <span class="math inline">\(x\)</span>-axis corresponds to each different model. Each vertical column corresponds to one model. For variables that are not included in one model, they will be represented by black blocks. For example, model 1 includes the intercept, <code>hs</code>, and <code>IQ</code>, but not <code>work</code> or <code>age</code>. These models are ordered according to the log of posterior odd over the null model (model with only the intercept). The log of posterior odd is calculated as <span class="math display">\[\ln({\textit{PO}}[M_m:M_0]) = \ln ({\textit{BF}}[M_m:M_0]\times {\textit{O}}[M_m:M_0]).\]</span> Since we assing same prior probability for all models, <span class="math inline">\(\text{O}[M_m:M_0] = 1\)</span> and therefore, the log of posterior odd is the same as the log of the Bayes factor. The color of each column is proportional to the log of the posterior probability. Models with same colors have similar posterior probabilities. This allows us to view models that are clustered together, when the difference within a cluster is not worth a bare mention.</p>
+<p>If we view the image by rows, we can see whether one variable is included in a particular model. For each variable, there are only 8 models in which it will appear. For example, we see that <code>IQ</code> appears in all the top 8 models with larger posterior probabilities, but not the last 8 models. The <code>image</code> function shows up to 20 models by default.</p>
+</div>
+<div id="bayesian-model-averaging-using-posterior-probability" class="section level3">
+<h3><span class="header-section-number">7.3.2</span> Bayesian Model Averaging Using Posterior Probability</h3>
+<p>Once we have obtained the posterior probability of each model, we can make inference and obtain weighted averages of quantities of interest using these probabilities as weights. Models with higher posterior probabilities receive higher weights, while models with lower posterior probabilities receive lower weights. This gives the name “Bayesian Model Averaging” (BMA). For example, the probability of the next prediction <span class="math inline">\(\hat{Y}^*\)</span> after seeing the data can be calculated as a “weighted average” of the prediction of next observation <span class="math inline">\(\hat{Y}^*_j\)</span> under each model <span class="math inline">\(M_j\)</span>, with the posterior probability of <span class="math inline">\(M_j\)</span> being the “weight” <span class="math display">\[ \hat{Y}^* = \sum_{j=1}^{2^p}\hat{Y}^*_j\ p(M_j~|~\text{data}). \]</span></p>
+<p>In general, we can use this weighted average formula to obtain the value of a quantity of interest <span class="math inline">\(\Delta\)</span>. <span class="math inline">\(\Delta\)</span> can <span class="math inline">\(Y^*\)</span>, the next observation; <span class="math inline">\(\beta_j\)</span>, the coefficient of variable <span class="math inline">\(X_j\)</span>; <span class="math inline">\(p(\beta_j~|~\text{data})\)</span>, the posterior probability of <span class="math inline">\(\beta_j\)</span> after seeing the data. The posterior probability of <span class="math inline">\(\Delta\)</span> seeing the data can be calculated using the formula</p>
+<span class="math display" id="eq:general">\[\begin{equation} 
+p(\Delta~|~\text{data}) = \sum_{j=1}^{2^p}p(\Delta~|~ M_j,\ \text{data})p(M_j~|~\text{data}).
+\tag{7.6}
+\end{equation}\]</span>
+<p>This formula is similar to the one we have seen in Week 2 lecture <strong>Predictive Inference</strong> when we used posterior probability of two different success rates of getting the head in a coin flip to calculate the predictive probability of getting heads in <strong>future</strong> coin flips. Recall in that example, we have two competing hypothese, that the success rate (also known as the probability) of getting heads in coin flips, are <span class="math display">\[ H_1: p = 0.7,\qquad \text{vs}\qquad H_2: p=0.4.\]</span></p>
+<p>We calcualted the posterior probability of each success rate. They are <span class="math display">\[ 
+\begin{aligned}
+P(p=0.7~|~\text{data})= &amp; P(H_1~|~\text{data})= p^* = 0.754,\\
+P(p=0.4~|~\text{data}) = &amp; P(H_2~|~\text{data}) = 1-p^* = 0.246.
+\end{aligned}
+\]</span></p>
+We can use these two probabilities to calculate the posterior probability of getting head in the next coin flip
+<span class="math display" id="eq:example">\[\begin{equation}
+P(\text{head}~|~\text{data}) = P(\text{head}~|~H_1,\text{data})P(H_1~|~\text{data}) + P(\text{head}~|~H_2,\text{data})P(H_2~|~\text{data}).
+\tag{7.7}
+\end{equation}\]</span>
+<p>We can see that equation <a href="bayesian-model-choice.html#eq:example">(7.7)</a> is just a special case of the general equation <a href="bayesian-model-choice.html#eq:general">(7.6)</a> when the posterior probability of hypotheses <span class="math inline">\(P(H_1~|~\text{data})\)</span> and <span class="math inline">\(P(H_2~|~\text{data})\)</span> serve as weights.</p>
+<p>Moreover, the expected value of <span class="math inline">\(\Delta\)</span> can also be obtained by a weighted average formula of expected values on each model, using conditional probability</p>
+<p><span class="math display">\[ E[\Delta~|~\text{data}] = \sum_{j=1}^{2^p}E[\Delta~|~M_j,\ \text{data}]p(M_j~|~\text{data}).\]</span></p>
+<p>Since the weights <span class="math inline">\(p(M_j~|~\text{data})\)</span> are probabilities and have to sum to one, if the best model had posterior probability one, all of the weights would be placed on that single best model. In this case, using BMA would be equivalent to selecting the best model with the highest posterior probability. However, if there are several models that receive substantial probability, they would all be included in the inference and account for the uncertainty about the true model.</p>
+</div>
+<div id="coefficient-summary-under-bma" class="section level3">
+<h3><span class="header-section-number">7.3.3</span> Coefficient Summary under BMA</h3>
+<p>We can obtain the coefficients by the <code>coef</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cog_coef =<span class="st"> </span><span class="kw">coef</span>(cog_bas)
+cog_coef</code></pre></div>
+<pre><code>## 
+##  Marginal Posterior Summaries of Coefficients: 
+## 
+##  Using  BMA 
+## 
+##  Based on the top  16 models 
+##            post mean  post SD   post p(B != 0)
+## Intercept  86.79724    0.87287   1.00000      
+## hs          3.59494    3.35643   0.61064      
+## IQ          0.58101    0.06363   1.00000      
+## work        0.36696    1.30939   0.11210      
+## age         0.02089    0.11738   0.06898</code></pre>
+<p>Under Bayesian model averaging, the table above provides the posterior mean, the posterior standard deviation, and the posterior inclusion probability (pip) of each coefficient. The posterior mean of the coefficient <span class="math inline">\(\hat{\beta}_j\)</span> under BMA would be used for future predictions. The posterior standard deviation <span class="math inline">\(\text{se}_{\beta_j}\)</span> provides measure of variability of the coefficient <span class="math inline">\(\beta_j\)</span>. An approximate range of plausible values for each of the coefficients may be obtained via the empirical rule <span class="math display">\[ (\hat{\beta}_j-\text{critical value}\times \text{se}_{\beta_j},\  \hat{\beta}_j+\text{critical value}\times \text{se}_{\beta_j}).\]</span></p>
+<p>However, this only applies if the posterior distribution is symmetric or unimodal.</p>
+<p>The posterior mean of the intercept, <span class="math inline">\(\hat{\beta}_0\)</span>, is obtained after we have centered the variables. We have discussed the effect of centering the model. One of the advantage of doing so is that the intercept <span class="math inline">\(\beta_0\)</span> represents the sample mean of the observed response <span class="math inline">\(Y\)</span>. Under the reference prior, the point estimate of the intercept <span class="math inline">\(\hat{\beta}_0\)</span> is exactly the mean <span class="math inline">\(\bar{Y}\)</span>.</p>
+<p>We see that the posterior mean, standard deviation and inclusion probability are slightly different than the ones we obtained in Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.3</a> when we forced the model to include all variables. Under BMA, <code>IQ</code> has posterior inclusion probability 1, suggesting that it is very likely that <code>IQ</code> should be included in the model. <code>hs</code> also has a high posterior inclusion probability of about 0.61. However, the posterior inclusion probability of mother’s work status <code>work</code> and mother’s age <code>age</code> are relatively small compared to <code>IQ</code> and <code>hs</code>.</p>
+<p>We can also <code>plot</code> the posterior distributions of these coefficients to take a closer look at the distributions</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))
+<span class="kw">plot</span>(cog_coef, <span class="dt">subset =</span> <span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>))</code></pre></div>
+<p><img src="07-modelSelection-03-model-averaging_files/figure-html/plot-dis-1.png" width="672" /></p>
+<p>This plot agrees with the summary table we obtained above, which shows that the posterior probability distributions of <code>work</code> and <code>age</code> have a very large point mass at 0, while the distribution of <code>hs</code> has a relatively small mass at 0. There is a slighly little tip at 0 for the variable <code>IQ</code>, indicating that the posterior inclusion probability of <code>IQ</code> is not exactly 1. However, since the probability mass for <code>IQ</code> to be 0 is so small, that we are almost certain that <code>IQ</code> should be included under Bayesian model averaging.</p>
+</div>
+</div>
+<div id="summary-4" class="section level2">
+<h2><span class="header-section-number">7.4</span> Summary</h2>
+<p>In this chapter, we have discussed Bayesian model uncertainty and Bayesian model averaging. We have shown how Bayesian model averaging can be used to address model uncertainty using the ensemble of models for inference, rather than selecting a single model. We applied this to the kid’s cognitive score data set using <code>BAS</code> package in R. Here we illustrated the concepts using BIC and reference prior on the coefficients. In the next chapter, we will explore alternative priors for coefficients, taking into account the sensitivity of model selection to prior choices. We will also explore Markov Chain Monte Carlo algorithm for model sampling when the model space is too large for theoretical calculations.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>Recall that the reference prior is the limiting case of the multivariate Normal-Gamma distribution.<a href="bayesian-model-choice.html#fnref5">↩</a></p></li>
+<li id="fn6"><p>A parsimonious model is a model that accomplishes a desired level of explanation or prediction with as few predictor variables as possible. More discussion of parsimonious models can be found in Course 3 Linear Regression and Modeling.<a href="bayesian-model-choice.html#fnref6">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-bayesian-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="stochastic-explorations-using-mcmc.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/statswithr/book/edit/master/07-modelSelection-00-intro.Rmd",
+"text": "Edit"
+},
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
