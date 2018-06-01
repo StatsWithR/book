@@ -155,8 +155,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#conjugate-posterior-distribution"><i class="fa fa-check"></i><b>4.1.2</b> Conjugate Posterior Distribution</a></li>
 <li class="chapter" data-level="4.1.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#marginal-distribution-for-mu-student-t"><i class="fa fa-check"></i><b>4.1.3</b> Marginal Distribution for <span class="math inline">\(\mu\)</span>: Student <span class="math inline">\(t\)</span></a></li>
 <li class="chapter" data-level="4.1.4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#credible-intervals-for-mu"><i class="fa fa-check"></i><b>4.1.4</b> Credible Intervals for <span class="math inline">\(\mu\)</span></a></li>
-<li class="chapter" data-level="4.1.5" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#summary"><i class="fa fa-check"></i><b>4.1.5</b> Summary</a></li>
-<li class="chapter" data-level="4.1.6" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#optional-derivations"><i class="fa fa-check"></i><b>4.1.6</b> (Optional) Derivations</a></li>
+<li class="chapter" data-level="4.1.5" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:tapwater"><i class="fa fa-check"></i><b>4.1.5</b> Example: TTHM in Tapwater</a></li>
+<li class="chapter" data-level="4.1.6" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#summary"><i class="fa fa-check"></i><b>4.1.6</b> Summary</a></li>
+<li class="chapter" data-level="4.1.7" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#optional-derivations"><i class="fa fa-check"></i><b>4.1.7</b> (Optional) Derivations</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MC"><i class="fa fa-check"></i><b>4.2</b> Monte Carlo Inference</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-sampling"><i class="fa fa-check"></i><b>4.2.1</b> Monte Carlo Sampling</a></li>
@@ -274,7 +275,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <div id="sec:normal-gamma" class="section level2">
 <h2><span class="header-section-number">4.1</span> The Normal-Gamma Conjugate Family</h2>
-<p>You may take the safety of your drinking water for granted, however, residents of Flint, Michigan were outraged over reports that the levels of a contaminant known as <strong>TTHM</strong> exceeded federal allowance levels in 2014. TTHM stands for total trihalomethanes, a group of chemical compounds first identified in drinking water in the 1970’s that form during drinking water treatment when organic matter in natural water reacts chemically with chlorine disinfectants. Since violations are based on annual running averages, we are interested in inference about the mean TTHM level based on measurements taken from samples.</p>
+<p>You may take the safety of your drinking water for granted, however, residents of Flint, Michigan were outraged over reports that the levels of a contaminant known as <strong>TTHM</strong> exceeded federal allowance levels in 2014. TTHM stands for total trihalomethanes, a group of chemical compounds first identified in drinking water in the 1970’s. Trihalomethanes are formed as a by-product from the reaction of chlorine or bromine with organic matter present in the water being disinfected for drinking. THMs have been associated through epidemiological studies with some adverse health effects and many are considered carcinogenic. In the United States, the EPA limits the total concentration of the four chief constituents (chloroform, bromoform, bromodichloromethane, and dibromochloromethane), referred to as total trihalomethanes (TTHM), to 80 parts per billion in treated water.</p>
+<p>Since violations are based on annual running averages, we are interested in inference about the mean TTHM level based on measurements taken from samples.</p>
 <p>In Section <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a> we described the normal-normal conjugate family for inference about an unknown mean <span class="math inline">\(\mu\)</span> when the data <span class="math inline">\(Y_1, Y_2, \ldots, Y_n\)</span> were assumed to be a random sample of size <span class="math inline">\(n\)</span> from a normal population with a known standard deviation <span class="math inline">\(\sigma\)</span>, however, it is more common in practice to have data where the variability of obaservations is unknown, as in the example with TTHM. Conceptually, Bayesian inference for two (or more) parameters is not any different from the case with one parameter. As both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> unknown, we will need to specify a <strong>joint</strong> prior distribution, <span class="math inline">\(p(\mu, \sigma^2)\)</span> to describe our prior uncertainty about them. As before, Bayes Theorem leads the posterior distribution for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> given the observed data</p>
 <span class="math display">\[\begin{equation}
 p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  = 
@@ -309,7 +311,7 @@ e^{\left\{- \frac{1}{2} \left(\frac{y_i - \mu}{\sigma}\right)^2\right\}}
 \]</span> which depends on the data only through the sum of squares <span class="math inline">\(\sum_{i = 1}^n(y_i - \bar{y})^2\)</span> (or equivalently the sample variance <span class="math inline">\(s^2 = \sum_{i = 1}^n(y_i - \bar{y})^2/(n-1)\)</span>) and the sample mean <span class="math inline">\(\bar{y}\)</span>. From the expression for the likelihood, we can see that the likelihood factors into two pieces: a term that is a function of <span class="math inline">\(\sigma^2\)</span> and the data; and a term that involves <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma^2\)</span> and the data.</p>
 <p>Based on the factorization in the likelihood and the fact that any joint distribution for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> can be expressed as <span class="math display">\[
 p(\mu, \sigma^2) = p(\mu \mid \sigma^2) \times p(\sigma^2)
-\]</span> as the product of a <strong>conditional distribution</strong> for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> and a <strong>marginal distribution</strong> for <span class="math inline">\(\sigma^2\)</span>, suggests that the posterior distribution should factor as the product of two conjugate distributions. Perhaps not surprisingly, this is indeed the case.</p>
+\]</span> as the product of a <strong>conditional distribution</strong> for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> and a <strong>marginal distribution</strong> for <span class="math inline">\(\sigma^2\)</span>, this suggests that the posterior distribution should factor as the product of two conjugate distributions. Perhaps not surprisingly, this is indeed the case.</p>
 <div id="conjugate-prior-for-mu-and-sigma2" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Conjugate Prior for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span></h3>
 In Section <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a>, we found that for normal data, the conjugate prior distribution for <span class="math inline">\(\mu\)</span> when the standard deviation <span class="math inline">\(\sigma\)</span> was known was a normal distribution. We will build on this to specify a conditional prior distribution for <span class="math inline">\(\mu\)</span> as a normal distribution
@@ -330,7 +332,12 @@ gamma distribution to avoid using a new symbol . Together the conditional normal
 \tag{4.3}
 \end{equation}\]</span>
 <p>with the four hyper-parameters <span class="math inline">\(m_0\)</span>, <span class="math inline">\(n_0\)</span>, <span class="math inline">\(s^2_0\)</span>, and <span class="math inline">\(v_0\)</span>.</p>
-<p>These have simple rules for updating given new data to obtain the posterior hyperparmeters due to conjugacy.</p>
+We can obtain the density for the {(<span class="math inline">\(m_0, n_0, \nu_0, s^2_0\)</span>) family of distributions for <span class="math inline">\(\mu, \phi\)</span> by multiplying the conditional normal distribution for <span class="math inline">\(\mu\)</span> times the marginal gamma distribution for <span class="math inline">\(\phi\)</span>:
+<span class="math display">\[\begin{equation}
+p(\mu, \phi) = \frac{(n_0 \phi)^{1/2}} {\sqrt{2\pi}} e^{- \frac{\phi n_0}{2} (\mu -m_0)^2} \frac{1}{\Gamma{\nu_0/2}} (\nu_0 s^2_0 )^{\nu_0/2 -1} e^{- \phi \frac{\nu_0 s^2_0} {2}}
+\label{eq:NG}
+\end{equation}\]</span>
+<p>The joint conjugate prior has simple rules for updating the prior hyperparameters given new data to obtain the posterior hyperparmeters due to conjugacy.</p>
 </div>
 <div id="conjugate-posterior-distribution" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Conjugate Posterior Distribution</h3>
@@ -382,14 +389,29 @@ p(\mu) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
 \tag{4.4}
 \end{equation}\]</span>
 <p>and by subtracting the location <span class="math inline">\(m_n\)</span> and dividing by the scale <span class="math inline">\(s_n/\sqrt{n}\)</span>: <span class="math display">\[ \frac{\mu - m_n}{s_n/\sqrt{n_n}} \equiv t \sim {\textsf{t}}(v_n, 0 , 1)  \]</span> we can obtain the distribution of the standardized Student <span class="math inline">\(t\)</span> distribution with degrees of freedom <span class="math inline">\(v_n\)</span>, location <span class="math inline">\(0\)</span> and scale <span class="math inline">\(1\)</span>. This latter representation allows us to use standard statistical functions for posterior inference such as finding credible intervals.</p>
-
-<div class="example">
-<span id="exm:example-tapwater" class="example"><strong>Example 4.1  </strong></span><strong>TTHM in Tapwater</strong> A municipality in North Carolina is interested the levels of TTHM in their drinking water. The data can be loaded from the <code>statsr</code> package in <code>R</code>.
 </div>
-
+<div id="credible-intervals-for-mu" class="section level3">
+<h3><span class="header-section-number">4.1.4</span> Credible Intervals for <span class="math inline">\(\mu\)</span></h3>
+To find a credible interval for the mean <span class="math inline">\(\mu\)</span>, we will use the marginal posterior distribution for <span class="math inline">\(\mu\)</span> as illustrated in Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:tapwater-post-mu">4.2</a>. Since the Student <span class="math inline">\(t\)</span> distribution of <span class="math inline">\(\mu\)</span> is unimodal and symmetric, the shortest 95 percent credible interval or the <strong>Highest Posterior Density</strong> interval, HPD for short, is the interval given by the dots at the lower endpoint L and upper endpoint U where the heights of the density at L and U are equal and all other values for <span class="math inline">\(\mu\)</span> have higher posterior density. The probability that <span class="math inline">\(\mu\)</span> is in the interval (L, U) (the shaded area) equals the desired probability, e.g. 0.95 for a 95% credible interval.
+<div class="figure" style="text-align: center"><span id="fig:tapwater-post-mu"></span>
+<img src="04-normalgamma-01-inference_files/figure-html/tapwater-post-mu-1.png" alt="Highest Posterior Density region." width="384" />
+<p class="caption">
+Figure 4.2: Highest Posterior Density region.
+</p>
+</div>
+<p>Using the standardized Student <span class="math inline">\(t\)</span> distribution and some algebra, these values are <span class="math display">\[
+\begin{aligned}
+  L &amp; =  m_n + t_{0.025}\sqrt{s^2_n/n_n}    \\
+  U &amp; =  m_n + t_{0.975}\sqrt{s^2_n/n_n}
+\end{aligned}
+\]</span> or the posterior mean (our point estimate) plus quantiles of the standard <span class="math inline">\(t\)</span> distribution times the scale. Because of the symmetry in the Student <span class="math inline">\(t\)</span> distribution, the credible interval for <span class="math inline">\(\mu\)</span> is <span class="math inline">\(m_n \pm t_{0.975}\sqrt{s^2_n/n_n}\)</span>, which is similar to the expressions for confidence intervals for the mean.</p>
+</div>
+<div id="sec:tapwater" class="section level3">
+<h3><span class="header-section-number">4.1.5</span> Example: TTHM in Tapwater</h3>
+<p>A municipality in North Carolina is interested in estimating the levels of TTHM in their drinking water. The data can be loaded from the <code>statsr</code> package in <code>R</code>, where the variable of interest, <code>tthm</code> is measured in parts per billion.</p>
 <p><code>r   library(statsr)   data(tapwater)   str(tapwater)</code></p>
 <p><code>## 'data.frame':  28 obs. of  6 variables:   ##  $ date      : Factor w/ 28 levels &quot;2004-02-19&quot;,&quot;2004-03-22&quot;,..: 28 27 26 25 24 23 22 21 20 19 ...   ##  $ tthm      : num  34.4 39.3 108.6 88 81 ...   ##  $ samples   : int  8 9 8 8 2 8 6 7 8 4 ...   ##  $ nondetects: int  0 0 0 0 0 0 0 0 0 0 ...   ##  $ min       : num  32 31 85 75 81 26 70 70 80 82 ...   ##  $ max       : num  39 46 120 94 81 68 80 90 90 92 ...</code></p>
-<p>Using prior information about TTHM from the city, we will use a normal-gamma prior distribution, <span class="math inline">\(\textsf{NormalGamma}(35, 25, 156.25, 24)\)</span> with a prior mean of 35 parts per billion, a prior sample size of 25, an estimate of the variance of 156.25 with degrees of freedom 24. In Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive">4.3</a>, we will describe how we arrived at these values.</p>
+<p>Using historical prior information about TTHM from the municipality, we will adopt a normal-gamma prior distribution, <span class="math inline">\(\textsf{NormalGamma}(35, 25, 156.25, 24)\)</span> with a prior mean of 35 parts per billion, a prior sample size of 25, an estimate of the variance of 156.25 with degrees of freedom 24. In Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive">4.3</a>, we will describe how we arrived at these values.</p>
 Using the summaries of the data, <span class="math inline">\(\bar{Y} = 55.5\)</span>, variance <span class="math inline">\(s^2 = 540.7\)</span> and sample size of <span class="math inline">\(n = 28\)</span> with the prior hyper-parameters from above, the posterior hyper-parameters are updated as follows:
 <span class="math display">\[\begin{eqnarray*}
 n_n &amp; = &amp;  25 +  28 = 53\\
@@ -405,45 +427,48 @@ s^2_n &amp; = &amp; \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }
 <p>in the conjugate <span class="math inline">\(\textsf{NormalGamma}(45.8, 53, 459.9, 52)\)</span> posterior distribution that now summarizes our uncertainty about <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(\sigma^2\)</span>) after seeing the data.</p>
 <p>We can obtain the updated hyper-parameters in <code>R</code> using the following code in <code>R</code></p>
 <p><code>r   # prior hyperparameters   m_0 = 35; n_0 = 25;  s2_0 = 156.25; v_0 = n_0 - 1   # sample summaries   Y = tapwater$tthm   ybar = mean(Y)   s2 = var(Y)   n = length(Y)   # posterior hyperparamters   n_n = n_0 + n   m_n = (n*ybar + n_0*m_0)/n_n   v_n = v_0 + n   s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n</code></p>
-</div>
-<div id="credible-intervals-for-mu" class="section level3">
-<h3><span class="header-section-number">4.1.4</span> Credible Intervals for <span class="math inline">\(\mu\)</span></h3>
-<p>To find a credible interval for the mean <span class="math inline">\(\mu\)</span>, we use the Student <span class="math inline">\(t\)</span> distribution.</p>
-<div class="figure" style="text-align: center"><span id="fig:tapwater-post-mu"></span>
-<img src="04-normalgamma-01-inference_files/figure-html/tapwater-post-mu-1.png" alt="Highest Posterior Density region for the mean in the total trihalomethanes tapwater example." width="384" />
-<p class="caption">
-Figure 4.2: Highest Posterior Density region for the mean in the total trihalomethanes tapwater example.
-</p>
-</div>
-<p>Since the distribution of <span class="math inline">\(\mu\)</span> is unimodal and symmetric, the shortest 95 percent credible interval or the <strong>Highest Posterior Density</strong> interval, HPD for short, is the orange interval given by the Lower endpoint L and upper endpoint U where the probability that <span class="math inline">\(\mu\)</span> is in the interval (L, U) is the shaded area which is equal to zero point nine five.</p>
-<p>Using the standardized Student <span class="math inline">\(t\)</span> distribution and some algebra, these values are <span class="math display">\[
-\begin{aligned}
-  L &amp; =  m_n + t_{0.025}\sqrt{s^2_n/n_n}    \\
-  U &amp; =  m_n + t_{0.975}\sqrt{s^2_n/n_n}
-\end{aligned}
-\]</span> or the posterior mean (our point estimate) plus quantiles of the standard <span class="math inline">\(t\)</span> distribution times the scale. Because of the symmetry in the Student <span class="math inline">\(t\)</span> distribution, the credible interval is <span class="math inline">\(m_n \pm t_{0.975}\sqrt{s^2_n/n_n}\)</span>, which should look familiar to expressions for confidence intervals.</p>
-
-<div class="example">
-<p><span id="exm:tapwater-CI" class="example"><strong>Example 4.2  </strong></span><strong>TTHM in Tapwater (continued)</strong> Using the following code in <code>R</code> the 95% credible interval for the tap water data is</p>
-</div>
-
-<p><code>r   m_n + qt(c(0.025, 0.975), v_n)*sqrt(s2_n/n_n)</code></p>
-<p><code>## [1] 39.93192 51.75374</code></p>
-<p>Based on the updated posterior, we find that there is a 95% chance that the mean TTHM concentration is between 39.9 parts per billion and 51.7 parts per billion.</p>
+<p>Using the following code in <code>R</code> the 95% credible interval for the tap water data may be obtained using the Student <span class="math inline">\(t\)</span> quantile function <code>qt</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  m_n <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), v_n)<span class="op">*</span><span class="kw">sqrt</span>(s2_n<span class="op">/</span>n_n)</code></pre></div>
+<pre><code>## [1] 39.93192 51.75374</code></pre>
+<p>The <code>qt</code> function takes two arguments: the first is the desired quantiles, while the second is the degrees of freedom. Both arguments may be vectors, in which case, the result will be a vector.</p>
+<p>While we can calculate the interval directly as above, we have provided the <code>bayes_inference</code> function in the <code>statsr</code> package to calculate the posterior hyperparameters, credible intervals and plot the posterior density and the HPD interval given the raw data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bayes_inference</span>(tthm, <span class="dt">data=</span>tapwater,
+                <span class="dt">prior=</span><span class="st">&quot;NG&quot;</span>,
+                <span class="dt">mu_0 =</span> m_<span class="dv">0</span>, <span class="dt">n_0=</span>n_<span class="dv">0</span>, 
+                <span class="dt">s_0 =</span> <span class="kw">sqrt</span>(s2_<span class="dv">0</span>), <span class="dt">v_0 =</span> v_<span class="dv">0</span>,
+                <span class="dt">stat=</span><span class="st">&quot;mean&quot;</span>, <span class="dt">type=</span><span class="st">&quot;ci&quot;</span>,
+                <span class="dt">method=</span><span class="st">&quot;theoretical&quot;</span>, 
+                <span class="dt">show_res=</span>T, 
+                <span class="dt">show_summ=</span>T,
+                <span class="dt">show_plot=</span>F)</code></pre></div>
+<pre><code>## Single numerical variable
+## n = 28, y-bar = 55.5239, s = 23.254
+## (Assuming proper prior:  mu | sigma^2 ~ N(35, *sigma^2/25)
+## (Assuming proper prior: 1/sigma^2 ~ G(24/2,156.25*24/2)
+## 
+## Joint Posterior Distribution for mu and 1/sigma^2:
+##  N(45.8428, sigma^2/53) G(52/2, 8.6769*52/2)
+## 
+## Marginal Posterior for mu:
+## Student t with posterior mean = 45.8428, posterior scale = 2.9457 on 52 df
+## 
+## 95% CI: (39.9319 , 51.7537)</code></pre>
+<p>Let’s try to understand the arguments to the function. The first argument of the function is the variable of interest, <code>tthm</code>, while the second argument is a dataframe with the variable. The argument <code>prior=&quot;NG&quot;</code> indicates that we are using a normal-gamma prior; later we will present alternative priors. The next two lines provide our prior hyperparameters. The line with <code>stat=&quot;mean&quot;, type=&quot;ci&quot;</code> indicate that we are interested in inference about the population mean <span class="math inline">\(\mu\)</span> and to calculate a credible interval for <span class="math inline">\(\mu\)</span>. The argument <code>method = theoretical</code> indicates that we will use the exact quantiles of the Student <span class="math inline">\(t\)</span> distribution to obtain our posterior credible intervals. Looking at the output the credible interval agrees with the interval we calculated from the summaries using the t quantiles. The other arguments are logical variables to toggle on/off the various output. In this case we have supressed producing the plot of the posterior distribution using the option <code>show_plot=FALSE</code>, however, setting this to <code>TRUE</code> produces the density and credible interval shown in Figure @ref{fig:tapwater-post-mu}.</p>
+<p>How do we interprte these results? Based on the updated posterior, we find that there is a 95% chance that the mean TTHM concentration is between 39.9 parts per billion and 51.8 parts per billion, suggesting that for this period that the municipality is in compliance with the limits.</p>
 </div>
 <div id="summary" class="section level3">
-<h3><span class="header-section-number">4.1.5</span> Summary</h3>
+<h3><span class="header-section-number">4.1.6</span> Summary</h3>
 <p>The normal-gamma conjugate prior for inference about an unknown mean and variance for samples from a normal distribution allows simple expressions for updating prior beliefs given the data. The joint normal-gamma distribution leads to the Student <span class="math inline">\(t\)</span> distribution for inference about <span class="math inline">\(\mu\)</span> when <span class="math inline">\(\sigma^2\)</span> is unknown. The Student <span class="math inline">\(t\)</span> distribution can be used to provide credible intervals for <span class="math inline">\(\mu\)</span> using <code>R</code> or other software that provides quantiles of a standard <span class="math inline">\(t\)</span> distribution.</p>
 <p>For the energetic learner who is comfortable with calculus, the optional material at the end of this section provides more details on how the posterior distributions were obtained and other results in this section.</p>
-<p>For those that are ready to move on, we will introduce Monte Carlo sampling in the next section; Monte Carlo Sampling is a simulation method that will allow us to approximate distributions of transformations of the parameters without using calculus or change of variables, as well as aid exploratory data analysis of the prior or posterior distribution.</p>
+<p>For those that are ready to move on, we will introduce Monte Carlo sampling in the next section; Monte Carlo sampling is a simulation method that will allow us to approximate distributions of transformations of the parameters without using calculus or change of variables, as well as assist exploratory data analysis of the prior or posterior distributions.</p>
 </div>
 <div id="optional-derivations" class="section level3">
-<h3><span class="header-section-number">4.1.6</span> (Optional) Derivations</h3>
+<h3><span class="header-section-number">4.1.7</span> (Optional) Derivations</h3>
 From Bayes Theorem we have that
 <span class="math display">\[\begin{equation}
 p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  \propto {\cal L}(\mu, \sigma^2) p(\mu, \sigma^2).
 \end{equation}\]</span>
-<p>the posterior distribution is proportional to the likelihood of the parameters times the prior distriubtion where the likelihood function for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> is proportional to <span class="math display">\[
+<p>the posterior distribution is proportional to the likelihood of the parameters times the prior distribution where the likelihood function for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> is proportional to <span class="math display">\[
 \begin{aligned}
 {\cal L}(\mu, \sigma^2) \propto 
 (\sigma^2)^{-n/2}  \times \exp{ \left\{   
@@ -454,12 +479,75 @@ p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  \propto {\cal L}(\mu, \sigma^2) p(\mu, \
   \text{function of $\sigma^2$ and data} &amp; \times
   \text{function of $\mu$, $\sigma^2$ and data}
 \end{aligned}
-\]</span> which depends on the data only through the sum of squares <span class="math inline">\(\sum_{i = 1}^n(y_i - \bar{y})^2\)</span> (or equivalently the sample variance <span class="math inline">\(s^2 = \sum_{i = 1}^n(y_i - \bar{y})^2/(n-1)\)</span>) and the sample mean <span class="math inline">\(\bar{y}\)</span>.</p>
-<p>We could have started with the sampling distribution for these statistics, where</p>
+\]</span> which depends on the data only through the sum of squares <span class="math inline">\(\sum_{i = 1}^n(y_i - \bar{y})^2\)</span> (or equivalently the sample variance <span class="math inline">\(s^2 = \sum_{i = 1}^n(y_i - \bar{y})^2/(n-1)\)</span>) and the sample mean <span class="math inline">\(\bar{y}\)</span>. This likelihood is equivalent to using sampling distribution for these statistics, where</p>
 <p><span class="math display">\[\bar{Y}  \mid \mu, \sigma^2 \sim \textsf{Normal}(\mu, \sigma^2/n)\]</span> and is independent of the sample variance, <span class="math display">\[ 
 s^2 \mid \sigma^2 \sim  \textsf{Gamma}\left(\frac{n - 1}{2},  \frac{n-1}{2 \sigma^2}\right)
 \]</span> with degrees of freedom <span class="math inline">\(\nu = n-1\)</span> and rate <span class="math inline">\((n-1)/(2 \sigma^2)\)</span>.</p>
+Bayes theorem in proportional form leads to
+<span class="math display">\[\begin{align}
+p(\mu \mid \phi, \data)  \propto &amp; {\cal{L}}(\mu, \phi) p(\mu \mid \phi) \\
+&amp; =  (n\phi)^{1/2} \frac{1}{\sqrt{(2 \pi)}} 
+\exp\left\{- \frac 1 2  n \phi (\bar{y} - \mu)^2 \right\}
+p(s^2 \mid \phi) \\
+&amp; \cdot
+(n_0\phi)^{1/2} \frac{1}{\sqrt{(2 \pi)}} \exp\left\{- \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\}
+\intertext{where we have left the sampling distribution for $s^2$ as a density as it does not involve $\mu$. Ignoring constants that do not involve $\phi$ or $\mu$ we may simplify further} \\
+p(\mu \mid \phi, \data) &amp; \propto  \phi^{1/2}  \exp\left\{- \frac 1 2  n \phi (\bar{y} - \mu)^2  - \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\}  \left(\phi^{1/2} p(s^2 \mid \phi) \right)
+\end{align}\]</span>
+<p>where the above expression includes the sum of two quadratic expressions in the exponential. This almost looks like a normal. Can these be combined to form one quadratic expression that looks like a normal density? Yes! This is known as “completing the square”. Taking a normal distribution for a parameter <span class="math inline">\(\mu\)</span> with mean <span class="math inline">\(m\)</span> and precision <span class="math inline">\(\rho\)</span>, the quadratic term in the exponential may be expanded as <span class="math display">\[\rho \times (\mu - m)^2 = \rho  \mu^2 - 2 \rho  \mu m + \rho  m^2.\]</span> From this we can read off that the precision is the term that multiplies the quadratic in <span class="math inline">\(\mu\)</span> and the term that multiplies the linear term in <span class="math inline">\(\mu\)</span> is the product of two times the mean and precision; this means that if we know the precision, we can identify the mean. The last term is the precision times the mean squared, which we will need to fill in once we identify the precision and mean.</p>
+For our posterior, we need to expand the quadratics and recombine terms to identify the new precision (the coefficient multiplying the quadratic in <span class="math inline">\(\mu\)</span>) and the new mean (the linear term) and complete the square so that it may be factored. Any left over terms will be independent of <span class="math inline">\(\mu\)</span> but may depend on <span class="math inline">\(\phi\)</span>. For our case we have
+<span class="math display">\[\begin{align*}
+- \frac 1 2  n \phi (\bar{y} - \mu)^2  - \frac 1 2  n_0 \phi (\mu - m_0)^2  &amp; = 
+-\frac 1 2 \left(\phi( n + n_0) \mu^2 - 2 \phi \mu (n \bar{y} + n_0 m_0) + \phi (n \bar{y}^2 + n_0 m_0^2) \right)  
+\end{align*}\]</span>
+where we can read off that the posterior precision is <span class="math inline">\(\phi(n + n_0)\)</span>. The linear term is not yet of the form of the posterior precision times the posterior mean (times 2), but if we multiply and divide by <span class="math inline">\(n + n_0\)</span> it does satisfy that
+<span class="math display">\[\begin{equation}-\frac 1 2 \left(\phi( n + n_0) \mu^2 - 2 \phi ( n + n_0) \mu \frac{(n \bar{y} + n_0 m_0) } {n + n_0} + \phi (n \bar{y}^2 + n_0 m_0^2) \right)  \label{eq:quad}
+ \end{equation}\]</span>
+<p>so that we may identify that the posterior mean is <span class="math inline">\((n \bar{y} + n_0 m_0) /(n + n_0)\)</span> which combined with the precision (or inverse variance) is enough to identity the conditional posterior distribution for <span class="math inline">\(\mu\)</span>. This leads to the result <span class="math display">\[ \mu \mid \phi, {\text{data}}\sim {\textsf{N}}(m_n, (\phi n_n)^{-1})
+\]</span> where <span class="math inline">\(m_m = (n \bar{y} + n_0 m_0) /(n + n_0)\)</span> a weighted average of the sample mean and the prior mean, and <span class="math inline">\(n_n = n + n_0\)</span> the sample and prior combined sample size. This is exactly the result from earlier, but written in terms of relative prior precision and sampling precision <span class="math inline">\(n_0\)</span> and <span class="math inline">\(n\)</span> respectively to obtain the relative (to <span class="math inline">\(\phi\)</span>) posterior precision <span class="math inline">\(n_n = n + n_0\)</span>.</p>
+<div id="derivation-of-marginal-distribution-for-mu" class="section level4">
+<h4><span class="header-section-number">4.1.7.1</span> Derivation of Marginal Distribution for <span class="math inline">\(\mu\)</span></h4>
+<p>If <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> (and the data) has a normal distribution with mean <span class="math inline">\(m_m\)</span> and variance <span class="math inline">\(\sigma^2/n_n\)</span> and <span class="math inline">\(1/\sigma^2 \equiv \phi\)</span> (given the data) has a gamma distribution with shape parameter <span class="math inline">\(\nu_n/2\)</span> and rate parameter <span class="math inline">\(\nu_n s^2_n/2\)</span></p>
+<p><span class="math display">\[\begin{aligned}
+\mu \mid \sigma^2, {\text{data}}&amp; \sim N(m_m, \sigma^2/n_n) \\ 
+1/\sigma^2 \mid {\text{data}}&amp; \sim {\textsf{Gamma}}(\nu_n/2, \nu_n s^2_n/2) 
+\end{aligned}\]</span> then <span class="math display">\[\mu \mid  {\text{data}}\sim t_{\nu_n}(m_m, s^2_n/n_n)\]</span> a Student <span class="math inline">\(t\)</span> distribution with mean <span class="math inline">\(m_m\)</span> and scale <span class="math inline">\(s^2_n/n_n\)</span> with degrees of freedom <span class="math inline">\(\nu_n\)</span>.</p>
+<p>This applies to the prior as well, so that without any data we use the prior hyper-parameters <span class="math inline">\(m_0\)</span>, <span class="math inline">\(n_0\)</span>, <span class="math inline">\(\nu_0\)</span> and <span class="math inline">\(s^2_0\)</span> in place of the updated values with the subscript <span class="math inline">\(n\)</span>.</p>
+To simplify notation, we’ll substitute <span class="math inline">\(\phi = 1/\sigma^2\)</span>. The marginal distribution for <span class="math inline">\(\mu\)</span> is obtained by averaging over the values of <span class="math inline">\(\sigma^2\)</span>. Since <span class="math inline">\(\sigma^2\)</span> takes on continuous values rather than discrete, this averaging is represented as an integral
+<span class="math display">\[\begin{align*}
+p(\mu \mid \data) &amp; = \int_0^\infty p(\mu \mid \phi, \data) p(\phi \mid \data) d\phi \\
+ &amp; = \int_0^\infty 
+\frac{1}{\sqrt{2 \pi}} (n_n \phi)^{1/2} 
+e^{\left\{ - \frac{n_n \phi}{2} (\mu - m_n)^2 \right\}}
+\frac{1}{\Gamma(\nu_n/2)} \left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2}
+\phi^{\nu_n/2 - 1} e^{\left\{- \phi \nu_n s^2_n/2\right\}} \, d\phi \\
+ &amp; =  
+\left(\frac{n_n}{2 \pi}\right)^{1/2}\frac{1}{\Gamma\left(\frac{\nu_n}{2}\right)} \left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2} \int_0^\infty  \phi^{(\nu_n +1)/2 - 1}
+e^{\left\{ - \phi \left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)\right\}} \, d\phi
+\intertext{where the terms inside the integral are the &quot;kernel&quot; of a Gamma density.  We can multiply and divide by the normalizing constant of the Gamma density}
+p(\mu \mid \data) &amp; =  
+\left(\frac{n_n}{2 \pi}\right)^{1/2}\frac{1}{\Gamma\left(\frac{\nu_n}{2}\right)} 
+\left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2} 
+\Gamma\left(\frac{\nu_n + 1}{2}\right) 
+\left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)^{- \frac{\nu_n + 1}{2}}  \times\\
+&amp; \qquad \int_0^\infty  \frac{1}{\Gamma\left(\frac{\nu_n + 1}{2}\right)}
+\left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)^{ \frac{\nu_n + 1}{2}} \phi^{(\nu_n +1)/2 - 1}
+e^{\left\{ - \phi \left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)\right\}} \, d\phi
+\intertext{so that the term in the integral now integrates to one and the resulting distribution is}
+p(\mu \mid \data) &amp; =  
+\left(\frac{n_n}{2 \pi}\right)^{1/2}\frac{\Gamma\left(\frac{\nu_n + 1}{2}\right) }{\Gamma\left(\frac{\nu_n}{2}\right)} 
+\left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2} 
+\left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)^{- \frac{\nu_n + 1}{2}}.
+\intertext{After some algebra this simplifies to}
+p(\mu \mid \data) &amp; =  
+\frac{1}{\sqrt{\pi \nu_n s^2_n/n_n}}
+\frac{\Gamma\left(\frac{\nu_n + 1}{2}\right) }
+     {\Gamma\left(\frac{\nu_n}{2}\right)} 
+\left( 1 +  \frac{1}{\nu_n}\frac{(\mu - m_n)^2}{s^2_n/n_n} \right)^{- \frac{\nu_n + 1}{2}}
+\intertext{and is a more standard representation for a Student $t$ distribution and the  kernel of the density is the right most term.}
+\end{align*}\]</span>
 
+</div>
 </div>
 </div>
 <div id="sec:NG-MC" class="section level2">
