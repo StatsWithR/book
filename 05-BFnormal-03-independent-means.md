@@ -84,7 +84,7 @@ bayes_inference(y=gained, x=mature, data=nc,type='ht',
 ## P(H2|data) = 0.1489 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (-4.3257 , 0.8683)
+## 95% Cred. Int.: (-4.4014 , 0.8612)
 ```
 
 

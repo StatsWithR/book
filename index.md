@@ -2,7 +2,7 @@
 title: "An Introduction to Bayesian Thinking"
 subtitle: "A Companion to the Statistics with R Course"
 author: ["David Banks", "Mine Cetinkaya-Rundel", "Christine Chai","Merlise Clyde","Lizzy Huang","Colin Rundel"]
-date: "Last built on 2018-06-01"
+date: "Last built on 2018-06-08"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib, references.bib]
@@ -12,7 +12,7 @@ github-repo: StatsWithR/book
 ---
 # Preface {-}
 
-\newcommand{\No}{\textsf{N}}
+\newcommand{\No}{\textsf{Normal}}
 \newcommand{\Ga}{\textsf{Gamma}}
 \newcommand{\St}{\textsf{t}}
 \newcommand{\NoGa}{\textsf{NormalGamma}}
