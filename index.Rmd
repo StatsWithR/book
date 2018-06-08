@@ -12,7 +12,7 @@ github-repo: StatsWithR/book
 ---
 # Preface {-}
 
-\newcommand{\No}{\textsf{N}}
+\newcommand{\No}{\textsf{Normal}}
 \newcommand{\Ga}{\textsf{Gamma}}
 \newcommand{\St}{\textsf{t}}
 \newcommand{\NoGa}{\textsf{NormalGamma}}

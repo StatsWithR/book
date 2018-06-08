@@ -1,15 +1,14 @@
 ## The Normal-Gamma Conjugate Family {#sec:normal-gamma}
 
 ```{r setup-normal-gamma, echo=FALSE, warning=FALSE, message=FALSE,  eval=TRUE}
-library(ggplot2)
-library(ggthemes)
+library(tidyverse)
 library(statsr)
 ```
 You may take the safety of your drinking water for granted, however, residents of Flint,  Michigan were outraged over reports that the levels of a contaminant known as __TTHM__ exceeded federal allowance levels in 2014.   TTHM stands for  total trihalomethanes, a group of chemical compounds first identified in drinking water in the 1970’s. Trihalomethanes are formed as a by-product  from the reaction of chlorine or bromine with organic matter present in the water being disinfected for drinking. THMs have been associated through epidemiological studies with some adverse health effects and many are considered carcinogenic. In the United States, the EPA limits the total concentration of the four chief constituents (chloroform, bromoform, bromodichloromethane, and dibromochloromethane), referred to as total trihalomethanes (TTHM), to 80 parts per billion in treated water.
 
 Since violations are based on annual running averages, we are interested in inference about the mean TTHM level based on measurements taken from samples.  
 
-In Section \@ref(sec:normal-normal) we described the normal-normal conjugate  family for inference about an unknown mean $\mu$ when the data $Y_1, Y_2, \ldots, Y_n$ were assumed to be a random sample of size $n$ from a normal population  with a known standard deviation $\sigma$, however, it is more common in practice to have data where the variability of obaservations is unknown, as in the example with TTHM. Conceptually, Bayesian inference for two (or more) parameters is not any different from the case with one parameter.  As both $\mu$ and $\sigma^2$ unknown, we will need to specify a **joint** prior distribution, $p(\mu, \sigma^2)$ to describe our prior uncertainty about them. As before, Bayes Theorem leads the posterior distribution for $\mu$ and $\sigma^2$ given the observed data
+In Section \@ref(sec:normal-normal) we described the normal-normal conjugate  family for inference about an unknown mean $\mu$ when the data $Y_1, Y_2, \ldots, Y_n$ were assumed to be a random sample of size $n$ from a normal population  with a known standard deviation $\sigma$, however, it is more common in practice to have data where the variability of observations is unknown, as in the example with TTHM. Conceptually, Bayesian inference for two (or more) parameters is not any different from the case with one parameter.  As both $\mu$ and $\sigma^2$ unknown, we will need to specify a **joint** prior distribution, $p(\mu, \sigma^2)$ to describe our prior uncertainty about them. As before, Bayes Theorem leads to the posterior distribution for $\mu$ and $\sigma^2$ given the observed data to take the form
 
 \begin{equation}
 p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  = 
@@ -23,7 +22,7 @@ p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  \propto {\cal L}(\mu, \sigma^2) p(\mu, \
 \end{equation}
 
 
-As in the earlier chapters, conjugate priors are appealing as there are nice expressions for updating the prior to obtain the posterior distribution. In the case of two parameters or more parameters a conjugate pair is a sampling model for the data  and a joint prior distribution for the unknown parameters such that the joint posterior distribution is in the same family of distributions as the prior distribution.  In this case our sampling model is built on the assumption that the data are a random sample of size $n$ from a normal population with mean $\mu$ and variance $\sigma^2$, expressed in  shorthand as
+As in the earlier chapters, conjugate priors are appealing as there are nice expressions for updating the prior to obtain the posterior distribution using summaries of the data. In the case of two parameters or more parameters a conjugate pair is a sampling model for the data  and a joint prior distribution for the unknown parameters such that the joint posterior distribution is in the same family of distributions as the prior distribution.  In this case our sampling model is built on the assumption that the data are a random sample of size $n$ from a normal population with mean $\mu$ and variance $\sigma^2$, expressed in  shorthand as
 
 $$\begin{aligned}
 Y_1, \ldots Y_n  \iid
@@ -157,7 +156,7 @@ my_data = data.frame(x = x, y_norm = y_norm, y_t = y_t)
 ggplot(data = my_data) + geom_line(aes(x = x, y = y_norm, lty = "standard normal"), size = 1) + 
   geom_line(aes(x = x, y = y_t, lty = "Student t t(4,0,1)"), size = 1) + 
   xlab("") + ylab("density") +
-  scale_linetype_manual(values = c(2, 1), name = "") + theme_tufte()
+  scale_linetype_manual(values = c(2, 1), name = "")
 ```
 
 Similar to the normal distribution, we can obtain other Student $t$ distributions  by changing the center of the distribution and changing the scale.
@@ -253,10 +252,9 @@ A municipality in North Carolina is interested in estimating the levels of TTHM 
   ```{r load-data,  warning=FALSE, message=FALSE}
   library(statsr)
   data(tapwater)
-  str(tapwater)
+  glimpse(tapwater)
   ```
   
-
 
   ```{r tapwater, warning=FALSE, message=FALSE, echo=FALSE}
 
@@ -346,9 +344,12 @@ How do we interprte these results? Based on the updated posterior, we find that 
 the mean TTHM concentration is between `r round(L, 1)`
 parts per billion and `r round(U, 1)` parts per billion, suggesting that for this period that the municipality is in compliance with the limits.
   
+```{r}
+ggplot(data=tapwater, aes(x=tthm)) + geom_histogram()
+```
 
 
-### Summary
+### Section Summary
 
 The normal-gamma conjugate prior for
 inference about an unknown mean and variance for samples from a normal
@@ -362,11 +363,10 @@ For those that are ready to move on, we will introduce Monte Carlo sampling  in 
 
 ### (Optional) Derivations 
 
-From Bayes Theorem we have that 
+From Bayes Theorem we have that the joint posterior distribution is proportional to the likelihood of the parameters times the joint prior distribution
 \begin{equation}
 p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  \propto {\cal L}(\mu, \sigma^2) p(\mu, \sigma^2).
-\end{equation}
-the posterior distribution is proportional to the likelihood of the parameters times the prior distribution where the
+\end{equation} where the
 likelihood function for $\mu$ and $\sigma^2$  is proportional to
 $$
 \begin{aligned}
@@ -380,46 +380,98 @@ $$
   \text{function of $\mu$, $\sigma^2$ and data}
 \end{aligned}
 $$ 
-which depends on the data only through the sum of squares $\sum_{i = 1}^n(y_i - \bar{y})^2$ (or equivalently the sample variance $s^2 = \sum_{i = 1}^n(y_i - \bar{y})^2/(n-1)$) and the sample mean $\bar{y}$.  This likelihood is equivalent to using sampling distribution for these statistics, where
+which depends on the data only through the sum of squares $\sum_{i = 1}^n(y_i - \bar{y})^2$ (or equivalently the sample variance $s^2 = \sum_{i = 1}^n(y_i - \bar{y})^2/(n-1)$) and the sample mean $\bar{y}$.
+Since the likelihood function for $(\mu, \phi)$ is obtained by just substituting $1/\phi$ for $\sigma^2$, the likelihood may be re-expressed as
+\begin{equation}
+{\cal L}(\mu, \phi) \propto 
+\phi^{n/2}  \times \exp{ \left\{   
+-\frac{1}{2} \phi (n-1) s^2
+\right\}}   \times 
+\exp{ \left\{   
+-\frac{1}{2} \phi n (\bar{y} - \mu)^2  \right\}}.
+\end{equation}
 
-$$\bar{Y}  \mid \mu, \sigma^2 \sim \textsf{Normal}(\mu, \sigma^2/n)$$
-and is independent of the sample variance,
+This likelihood may be obtained also be obtained by using the sampling distribution for the summary statistics, where
+$$\bar{Y}  \mid \mu, \phi \sim \textsf{Normal}(\mu, 1/(\phi n))$$
+and is independent of the sample variance (conditional on $\phi$) and has a gamma distribution
 $$ 
-s^2 \mid \sigma^2 \sim  \textsf{Gamma}\left(\frac{n - 1}{2},  \frac{n-1}{2 \sigma^2}\right)
+s^2 \mid \phi \sim  \textsf{Gamma}\left(\frac{n - 1}{2},  \frac{(n-1) \phi}{2}\right)
 $$
-with degrees of freedom $\nu = n-1$ and rate $(n-1)/(2 \sigma^2)$.
+with degrees of freedom $n-1$ and rate $(n-1) \phi/2$; the likelihood is the product of the two sampling distributions: ${\cal{L}}(\mu, \phi) \propto p(s^2 \mid \phi) p(\bar{Y} \mid \phi)$. 
 
-
-Bayes theorem in proportional form leads to 
-\begin{align}
-p(\mu \mid \phi, \data)  \propto & {\cal{L}}(\mu, \phi) p(\mu \mid \phi) \\
-& =  (n\phi)^{1/2} \frac{1}{\sqrt{(2 \pi)}} 
-\exp\left\{- \frac 1 2  n \phi (\bar{y} - \mu)^2 \right\}
-p(s^2 \mid \phi) \\
-& \cdot
-(n_0\phi)^{1/2} \frac{1}{\sqrt{(2 \pi)}} \exp\left\{- \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\}
-\intertext{where we have left the sampling distribution for $s^2$ as a density as it does not involve $\mu$. Ignoring constants that do not involve $\phi$ or $\mu$ we may simplify further} \\
-p(\mu \mid \phi, \data) & \propto  \phi^{1/2}  \exp\left\{- \frac 1 2  n \phi (\bar{y} - \mu)^2  - \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\}  \left(\phi^{1/2} p(s^2 \mid \phi) \right)
-\end{align}
+Bayes theorem in proportional form leads to the joint posterior distribution
+$$\begin{aligned}
+p(\mu, \phi \mid \data)  \propto & {\cal{L}}(\mu, \phi) p(\phi) p(\mu \mid \phi)  \\
+ =  & \phi^{(n-1)/2)} 
+ \exp\left\{ - \frac{ \phi (n-1) s^2 }{2}\right\} 
+ \text{  (sampling distribution for  $\phi$) }\\
+& \times  (n\phi)^{1/2}   \exp\left\{- \frac 1 2  n \phi (\bar{y} - \mu)^2 \right\} \text{  ( sampling distribution for $\mu$)}
+\\
+& \times \phi^{\nu_0/2 -1} \exp\{- \frac{ \phi \nu_0 s^2_0}{2}\} \text{ (prior for  $\phi$)}
+\\
+& \times 
+(n_0\phi)^{1/2} \frac{1}{\sqrt{(2 \pi)}} \exp\left\{- \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\} \text{ (prior for $\mu$)}
+\end{aligned}
+$$
+where we have ignored constants that do not involve $\phi$ or $\mu$.
+Focusing on all the terms that involve $\mu$, we can group the lines corresponding to the sampling distribution and prior for $\mu$  together and using the factorization of likelihood and prior distributions, we may identify that 
+$$p(\mu \mid \phi, \data)  \propto  \exp\left\{- \frac 1 2  n \phi (\bar{y} - \mu)^2  - \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\} 
+$$
 where the above expression includes the sum of two quadratic expressions in the exponential.   This almost looks like a normal. Can these be combined to form one quadratic expression that looks like a normal density?  Yes!   This is known as "completing the square".
 Taking a normal distribution for a parameter $\mu$ with mean $m$ and precision $\rho$, the quadratic term in the exponential may be expanded as
 $$\rho \times (\mu - m)^2 = \rho  \mu^2 - 2 \rho  \mu m + \rho  m^2.$$
 From this  we can read off that the precision is the term that multiplies the quadratic in $\mu$ and the term that multiplies the linear term in $\mu$ is the product of  two times the mean and precision; this means that if we know the precision, we can identify the mean.  The last term is the precision times the mean squared, which we will need to fill in once we identify the precision and mean.
 
 For our posterior,  we need to expand  the quadratics and recombine
-terms to identify the new precision (the coefficient multiplying the quadratic in $\mu$) and the new mean (the linear term) and complete the square so that it may be factored.  Any left over terms will be independent of $\mu$ but may depend on $\phi$.  For our case we have
+terms to identify the new precision (the coefficient multiplying the quadratic in $\mu$) and the new mean (the linear term) and complete the square so that it may be factored.  Any left over terms will be independent of $\mu$ but may depend on $\phi$.  For our case, after some algebra to group terms we have
 \begin{align*}
-- \frac 1 2  n \phi (\bar{y} - \mu)^2  - \frac 1 2  n_0 \phi (\mu - m_0)^2  & = 
+- \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right) & = 
 -\frac 1 2 \left(\phi( n + n_0) \mu^2 - 2 \phi \mu (n \bar{y} + n_0 m_0) + \phi (n \bar{y}^2 + n_0 m_0^2) \right)  
 \end{align*}
-where we can read off that the posterior precision is $\phi(n + n_0)$.   The linear term is not yet of the form of the posterior precision times the posterior mean (times 2), but if we multiply and divide by $n + n_0$ it does satisfy that
- \begin{equation}-\frac 1 2 \left(\phi( n + n_0) \mu^2 - 2 \phi ( n + n_0) \mu \frac{(n \bar{y} + n_0 m_0) } {n + n_0} + \phi (n \bar{y}^2 + n_0 m_0^2) \right)  \label{eq:quad}
+where we can read off that the posterior precision is $\phi(n + n_0) \equiv \phi n_n$.   The linear term is not yet of the form of the posterior precision times the posterior mean (times 2), but if we multiply and divide by $n_n = n + n_0$ it is in the appropriate form
+ \begin{equation}-\frac 1 2 \left(\phi( n + n_0) \mu^2 - 2 \phi ( n + n_0) \mu \frac{(n \bar{y} + n_0 m_0) } {n + n_0} + \phi (n \bar{y}^2 + n_0 m_0^2) \right) \label{eq:quad}
  \end{equation}
- so that we may identify that the posterior mean is $(n \bar{y} + n_0 m_0) /(n + n_0)$ which combined with the precision (or inverse variance) is enough to identity the conditional posterior distribution for $\mu$.  This leads to the result
+ so that we may identify that the posterior mean is $m_n = (n \bar{y} + n_0 m_0) /(n + n_0)$ which combined with the precision (or inverse variance) is enough to identity the conditional posterior distribution for $\mu$.
+We next add the precision times the square of the posterior mean  (the completing the square part), but to keep equality, we will need to subtract the term as well:
+$$
+- \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right)  = 
+-\frac 1 2 \left(\phi n_n \mu^2 - 2 \phi n_n \mu m_n + \phi n_n m_n^2  - \phi n_n m_n^2  + \phi (n \bar{y}^2 + n_0 m_0^2) \right)  
+$$
+which after factoring the quadratic leads to 
+\begin{align}
+ - \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right) = & -\frac 1 2 \left(\phi n_n (\mu - m_n)^2 \right) \\
+ & -\frac 1 2 \left(\phi (-n_n m_n^2 + n \bar{y}^2 + n_0 m_0^2) \right) 
+\end{align}
+where the  first line is the quadratic for the posterior of $\mu$ given $\phi$ while the second line includes terms that involve $\phi$ but that are independent of $\mu$.
+
+Substituting the expressions, we can continue to simplify the expressions further 
+$$
+\begin{aligned}
+p(\mu, \phi \mid \data)  \propto & {\cal{L}}(\mu, \phi) p(\phi) p(\mu \mid \phi)  \\
+ =  & \phi^{(n + \nu_0 + 1  )/2 - 1} 
+ \exp\left\{ - \frac{ \phi (n-1) s^2 }{2}\right\} 
+\times \exp\left\{- \frac{ \phi \nu_0 s^2_0}{2}\right\} \times
+\exp\left\{  -\frac 1 2 \left(\phi (-n_n m_n^2 + n \bar{y}^2 + n_0 m_0^2) \right)   \right\} 
+\\
+& \times \exp \left\{ -\frac 1 2 \left(\phi n_n (\mu - m_n)^2 \right) \right\} \\
+=   & \phi^{(n + \nu_0)/2 - 1} 
+ \exp\left\{ -  \frac{\phi}{2}  \left( (n-1) s^2  + \nu_0 s^2_0 +
+\frac{ n_0 n }{n_n} ( m_0 - \bar{y})^2 \right)   \right\}   \qquad \qquad
+\text{ (gamma kernel)} \\
+& \times (n_n \phi)^{1/2} \exp \left\{ -\frac 1 2 \left(\phi n_n (\mu - m_n)^2 \right) \right\} \qquad \qquad \text{ (normal kernel})
+\end{aligned}
+$$
+until we can recognize the product of the kernels of  a gamma distribution for $\phi$
+$$
+\phi \mid \data \sim \St(v_n/2, v_n s^2_n/ 2)
+$$
+where $\nu_n = n + \nu_0$ and $s^2_n = \left((n-1) s^2 + n_0 s^2_0 + (m_0 - \bar{y})^2 n n_0/n_n\right)/\nu_n$ times a normal:
+and the kernel of a normal for $\mu$ 
 $$ \mu \mid \phi, \data \sim \No(m_n, (\phi n_n)^{-1})
 $$
 where $m_m = (n \bar{y} + n_0 m_0) /(n + n_0)$ a weighted average of the sample mean and the prior mean, and
-$n_n = n + n_0$ the sample and prior combined sample size.   This is exactly the result from earlier, but written in terms of relative prior precision and sampling precision $n_0$ and $n$ respectively to obtain the relative (to $\phi$) posterior precision $n_n = n + n_0$.
+$n_n = n + n_0$ is the sample and prior combined sample size.
+
 
 
 
@@ -431,11 +483,11 @@ If $\mu$ given $\sigma^2$ (and the data) has a normal distribution with mean $m_
 $\nu_n/2$ and rate parameter $\nu_n s^2_n/2$ 
   
 $$\begin{aligned}
-\mu \mid \sigma^2, \data & \sim N(m_m, \sigma^2/n_n) \\ 
+\mu \mid \sigma^2, \data & \sim \No(m_m, \sigma^2/n_n) \\ 
 1/\sigma^2 \mid \data & \sim \Ga(\nu_n/2, \nu_n s^2_n/2) 
 \end{aligned}$$
 then
-$$\mu \mid  \data  \sim t_{\nu_n}(m_m, s^2_n/n_n)$$
+$$\mu \mid  \data  \sim \St(\nu_n, m_m, s^2_n/n_n)$$
 a Student $t$ distribution with mean $m_m$ and scale $s^2_n/n_n$ with degrees of freedom $\nu_n$. 
 
 This applies to the prior as well, so that without any data we use the prior hyper-parameters $m_0$, $n_0$, $\nu_0$ and $s^2_0$ in place of the updated values with the subscript $n$.  
