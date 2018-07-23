@@ -91,11 +91,11 @@ names(cog_bas)
 ##  [1] "probne0"      "which"        "logmarg"      "postprobs"   
 ##  [5] "priorprobs"   "sampleprobs"  "mse"          "mle"         
 ##  [9] "mle.se"       "shrinkage"    "size"         "R2"          
-## [13] "namesx"       "n"            "prior"        "modelprior"  
-## [17] "alpha"        "probne0.RN"   "postprobs.RN" "n.models"    
-## [21] "df"           "n.vars"       "Y"            "X"           
-## [25] "mean.x"       "call"         "xlevels"      "terms"       
-## [29] "model"
+## [13] "rank"         "n.models"     "namesx"       "n"           
+## [17] "prior"        "modelprior"   "alpha"        "probne0.RN"  
+## [21] "postprobs.RN" "df"           "n.vars"       "Y"           
+## [25] "X"            "mean.x"       "call"         "xlevels"     
+## [29] "terms"        "model"
 ```
 one can see the outputs and analyses that we can extract from a `bas` object.
 
