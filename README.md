@@ -10,6 +10,6 @@ install.packages('statsr', dep=T)
 install.packages('BAS', dep=T)
 ```
 
-
+Other packages that are used are listed in the preface of the book.
 
 Please note that the book and `statsr` package on CRAN are for supporting the next release of the course.  If you are currently enrolled in the Coursera course, please use caution in updating as some functions have been deprecated or modified.
