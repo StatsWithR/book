@@ -1,6 +1,6 @@
 ## Three Conjugate Families
 
-In this section, the three conjugate families are beta-binomial, normal-gamma, and normal-normal pairs. Each of them has its own applications in everyday life.
+In this section, the three conjugate families are beta-binomial, gamma-Poisson, and normal-normal pairs. Each of them has its own applications in everyday life.
 
 ### Inference on a Binomial Proportion
 
@@ -94,13 +94,18 @@ The gamma family is flexible, and Figure \@ref(fig:gamma) illustrates a wide ran
 \end{figure}
 
 
-The probability density function for the gamma is indexed by shape $k$ and scale $\theta$, denoted as $\text{Gamma}(k,\theta)$ with $k,\theta > 0$. The mathematical form of the distribution is 
+The probability density function for the gamma is indexed by shape $k$ and scale $\theta$, denoted as $\text{Gamma}(k,\theta)$ with $k,\theta > 0$. The mathematical form of the density is 
 
-$$f(x) = \dfrac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta},$$
+\begin{equation}
+f(x) = \dfrac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta}
+(\#eq:gamma)
+\end{equation}
 where
 
-$$\Gamma(z) = \int^{\infty}_0 x^{z-1} e^{-x} dx.$$
-
+\begin{equation}
+\Gamma(z) = \int^{\infty}_0 x^{z-1} e^{-x} dx.
+(\#eq:gamma-function)
+\end{equation}
 $\Gamma(z)$, the gamma function, is simply a constant that ensures the area under curve between 0 and 1 sums to 1, just like in the beta probability distribution case of Equation \@ref(eq:beta). A special case is that $\Gamma(n) = (n-1)!$ when $n$ is a positive integer.
 
 However, some books parameterize the gamma distribution in a slightly different way with shape $\alpha = k$ and rate (inverse scale) $\beta=1/\theta$:

@@ -81,9 +81,9 @@ gamma distribution to avoid using a new symbol \footnote{In some other reference
 \end{equation}
 with the four hyper-parameters $m_0$, $n_0$, $s^2_0$, and $v_0$.
 
-We can obtain the density for the {\textsf{Normal-Gamma}($m_0, n_0, \nu_0, s^2_0$) family of distributions for $\mu, \phi$ by multiplying the conditional normal distribution for $\mu$ times the marginal gamma distribution for $\phi$:
+We can obtain the density for the \textsf{Normal-Gamma}($m_0, n_0, \nu_0, s^2_0$) family of distributions for $\mu, \phi$ by multiplying the conditional normal distribution for $\mu$ times the marginal gamma distribution for $\phi$:
 \begin{equation}
-p(\mu, \phi) = \frac{(n_0 \phi)^{1/2}} {\sqrt{2\pi}} e^{- \frac{\phi n_0}{2} (\mu -m_0)^2} \frac{1}{\Gamma{\nu_0/2}} (\nu_0 s^2_0 )^{\nu_0/2 -1} e^{- \phi \frac{\nu_0 s^2_0} {2}}
+p(\mu, \phi) = \frac{(n_0 \phi)^{1/2}} {\sqrt{2\pi}} e^{- \frac{\phi n_0}{2} (\mu -m_0)^2} \frac{1}{\Gamma(\nu_0/2)} (\nu_0 s^2_0 )^{\nu_0/2 -1} e^{- \phi \frac{\nu_0 s^2_0} {2}}
 \label{eq:NG}
 \end{equation}
 
@@ -137,18 +137,30 @@ has a conditional normal distribution.  We will see in the next chapter how this
 The joint normal-gamma posterior summarizes our current knowledge about $\mu$ and $\sigma^2$, however, we are generally interested in inference about $\mu$ unconditionally 
 as $\sigma^2$ is unknown. This marginal inference requires the unconditional or marginal distribution of $\mu$ that `averages' over the uncertainty in $\sigma$. For continuous variables like $\sigma$, this averaging is performed by integration leading to a Student $t$ distribution.  
 
-The *standardized Student $t$-distribution*  with $\nu$ degrees of freedom is defined to be
-$$ p(t) = \frac{1}{\sqrt{\pi\nu}}\frac{\Gamma(\frac{\nu+1}{2})}{\Gamma(\frac{\nu}{2})}\left(1 + \frac{t^2}{\nu}\right)^{-\frac{\nu+1}{2}}. $$ 
-The $\Gamma(\cdot)$ is the Gamma function that we have seen earlier. This Student's $t$-distribution is centered at 0 (the location parameter), with a scale parameter equal to 1, like in a standard normal, however, there is an additional parameter, $\nu$, the degrees of freedom parameter.
+The *standardized Student $t$-distribution*  $\St_\nu$ with $\nu$ degrees of freedom is defined to be
+$$ p(t) = \frac{1}{\sqrt{\pi\nu}}\frac{\Gamma(\frac{\nu+1}{2})}{\Gamma(\frac{\nu}{2})}\left(1 + \frac{t^2}{\nu}\right)^{-\frac{\nu+1}{2}} $$ 
+where the $\Gamma(\cdot)$ is the Gamma function defined earlier in Equation \@ref(eq:gamma-function). The standard Student's $t$-distribution is centered at 0 (the location parameter), with a scale parameter equal to 1, like in a standard normal, however, there is an additional parameter, $\nu$, the degrees of freedom parameter.
 
 The Student $t$ distribution is similar to the normal distribution as it is symmetric about the center and bell shaped, however, the __tails__ of the distribution are fatter or heavier than the normal distribution   and therefore, it is a little "shorter" in the middle as illustrated in Figure \@ref(fig:density)
 
 
 ![(\#fig:t-density)Standard normal and Student t densities.](04-normalgamma-01-inference_files/figure-latex/t-density-1.pdf) 
 
-Similar to the normal distribution, we can obtain other Student $t$ distributions  by changing the center of the distribution and changing the scale.
+Similar to the normal distribution, we can obtain other Student $t$ distributions by changing the center of the distribution and changing the scale.  A Student t distribution with a location $m$ and scale $s$ with $v$ degrees of freedom is denoted as  $\St(v, m, s^2)$, with the standard Student t as a special case, $\St(\nu, 0, 1)$.
 
-We are now ready for our main result.  
+The  density for a $X \sim \St(v, m, s^2)$ random variable is
+\begin{equation}
+p(x) =\frac{\Gamma\left(\frac{v + 1}{2} \right)}
+{\sqrt{\pi v} s \,\Gamma\left(\frac{v}{2} \right)}
+\left(1 + \frac{1}{v}\left(\frac{x - m} {s} \right)^2 \right)^{-\frac{v+1}{2}} 
+(\#eq:Student-t-density)
+\end{equation}
+and by subtracting the location $m$ and dividing by the scale 
+$s$:
+$$ \frac{X - m}{s} \equiv t \sim \St(v, 0 , 1)  $$
+we can obtain the distribution of the standardized Student $t$ distribution with degrees of freedom $v$, location  $0$ and scale $1$. This latter representation allows us to use standard statistical functions for posterior inference such as finding credible intervals.
+
+We are now ready for our main result for the marginal distribution for $\mu$. 
 \BeginKnitrBlock{definition}<div class="definition"><span class="definition" id="def:unnamed-chunk-1"><strong>(\#def:unnamed-chunk-1) </strong></span>If $\mu$ and $1/\sigma^2$ have a $\textsf{NormalGamma}(m_n, n_n, v_n, s^2_n)$ posterior distribution, then 
 $\mu$ given the data has a \index{Student t distribution} distribution, $\St(v_n, m_n, s^2_n/n_n)$, expressed as
 $$ \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n)  $$ 
@@ -159,18 +171,9 @@ posterior variance parameter divided by the posterior sample size.
 
 The parameters $m_n$ and $s^2_n$ play similar roles in determining the center and spread of the distribution, as in the normal distribution, however,  as Student $t$ distributions with degrees of freedom less than 3 do not have a mean or variance, the parameter $m_n$ is called the location or center of the distribution and the $s_n/\sqrt{n}$ is the scale.
 
-The  density for a $\St(v_n, m_m, s^2_n/n_n)$ random variable is
-\begin{equation}
-p(\mu) =\frac{\Gamma\left(\frac{v_n + 1}{2} \right)}
-{\sqrt{\pi v_n} \frac{s_n}{\sqrt{n_n}} \,\Gamma\left(\frac{v_n}{2} \right)}
-\left(1 + \frac{1}{v_n}\frac{(\mu - m_n)^2} {s^2_n/n_n} \right)^{-\frac{v_n+1}{2}} 
-(\#eq:Student-t-density)
-\end{equation}
-and by subtracting the location $m_n$ and dividing by the scale 
-$s_n/\sqrt{n}$:
-$$ \frac{\mu - m_n}{s_n/\sqrt{n_n}} \equiv t \sim \St(v_n, 0 , 1)  $$
-we can obtain the distribution of the standardized Student $t$ distribution with degrees of freedom $v_n$, location  $0$ and scale $1$.
-This latter representation allows us to use standard statistical functions for posterior inference such as finding credible intervals.
+
+Let's use this result to find credible intervals for $\mu$.
+
 
 
 

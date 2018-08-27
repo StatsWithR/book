@@ -22,12 +22,12 @@
   
   
 
-<meta name="author" content="David Banks">
-<meta name="author" content="Mine Cetinkaya-Rundel">
-<meta name="author" content="Christine Chai">
 <meta name="author" content="Merlise Clyde">
-<meta name="author" content="Lizzy Huang">
+<meta name="author" content="Mine Cetinkaya-Rundel">
 <meta name="author" content="Colin Rundel">
+<meta name="author" content="David Banks">
+<meta name="author" content="Christine Chai">
+<meta name="author" content="Lizzy Huang">
 
 
 
@@ -410,7 +410,7 @@ p|x \sim \text{beta}(\alpha+x, \beta+n-x).
 </div>
 <div id="three-conjugate-families" class="section level2">
 <h2><span class="header-section-number">2.2</span> Three Conjugate Families</h2>
-<p>In this section, the three conjugate families are beta-binomial, normal-gamma, and normal-normal pairs. Each of them has its own applications in everyday life.</p>
+<p>In this section, the three conjugate families are beta-binomial, gamma-Poisson, and normal-normal pairs. Each of them has its own applications in everyday life.</p>
 <div id="inference-on-a-binomial-proportion" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Inference on a Binomial Proportion</h3>
 
@@ -471,9 +471,16 @@ One can imagine that a Prussian general might want to estimate <span class="math
 Figure 2.4: Gamma family
 </p>
 </div>
-<p>The probability density function for the gamma is indexed by shape <span class="math inline">\(k\)</span> and scale <span class="math inline">\(\theta\)</span>, denoted as <span class="math inline">\(\text{Gamma}(k,\theta)\)</span> with <span class="math inline">\(k,\theta &gt; 0\)</span>. The mathematical form of the distribution is</p>
-<p><span class="math display">\[f(x) = \dfrac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta},\]</span> where</p>
-<p><span class="math display">\[\Gamma(z) = \int^{\infty}_0 x^{z-1} e^{-x} dx.\]</span></p>
+<p>The probability density function for the gamma is indexed by shape <span class="math inline">\(k\)</span> and scale <span class="math inline">\(\theta\)</span>, denoted as <span class="math inline">\(\text{Gamma}(k,\theta)\)</span> with <span class="math inline">\(k,\theta &gt; 0\)</span>. The mathematical form of the density is</p>
+<span class="math display" id="eq:gamma">\[\begin{equation}
+f(x) = \dfrac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta}
+\tag{2.3}
+\end{equation}\]</span>
+<p>where</p>
+<span class="math display" id="eq:gamma-function">\[\begin{equation}
+\Gamma(z) = \int^{\infty}_0 x^{z-1} e^{-x} dx.
+\tag{2.4}
+\end{equation}\]</span>
 <p><span class="math inline">\(\Gamma(z)\)</span>, the gamma function, is simply a constant that ensures the area under curve between 0 and 1 sums to 1, just like in the beta probability distribution case of Equation <a href="bayesian-inference.html#eq:beta">(2.1)</a>. A special case is that <span class="math inline">\(\Gamma(n) = (n-1)!\)</span> when <span class="math inline">\(n\)</span> is a positive integer.</p>
 <p>However, some books parameterize the gamma distribution in a slightly different way with shape <span class="math inline">\(\alpha = k\)</span> and rate (inverse scale) <span class="math inline">\(\beta=1/\theta\)</span>:</p>
 <p><span class="math display">\[f(x) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}\]</span></p>
