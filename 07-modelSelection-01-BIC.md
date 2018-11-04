@@ -150,14 +150,14 @@ Here we set the `modelprior` argument as `uniform()` to assign equal prior proba
 The `logmarg` information inside the `cog.BIC` summary list records the log of marginal likelihood of each model after seeing the data $\ln(p(\text{data}~|~M))$. Recall that this is approximately proportional to negative BIC when the sample size $n$ is large
 $$ \text{BIC}\approx -2 \ln(p(\text{data}~|~M)).$$
 
-We can use this information to retreat the model with the largest log of marginal likelihood, which corresponds to the model with the smallest BIC. 
+We can use this information to retrieve the model with the largest log of marginal likelihood, which corresponds to the model with the smallest BIC.
 
 
 ```r
 # Find the index of the model with the largest logmarg
 best = which.max(cog.BIC$logmarg)
 
-# Retreat the index of variables in the best model, with 0 as the index of the intercept
+# Retrieve the index of variables in the best model, with 0 as the index of the intercept
 bestmodel = cog.BIC$which[[best]]
 bestmodel
 ```
@@ -168,12 +168,12 @@ bestmodel
 
 ```r
 # Create an indicator vector indicating which variables are used in the best model
+# First, create a 0 vector with the same dimension of the number of variables in the full model
 bestgamma = rep(0, cog.BIC$n.vars) 
 
-# Create a 0 vector with the same dimension of the number of variables in the full model
+# Change the indicator to 1 where variables are used
 bestgamma[bestmodel + 1] = 1  
 
-# Change the indicator to 1 where variables are used
 bestgamma
 ```
 
@@ -199,10 +199,10 @@ cog.bestBIC = bas.lm(kid_score ~ ., data = cognitive,
                      bestmodel = bestgamma,  # We use bestgamma to indicate variables 
                      modelprior = uniform())
 
-# Retreat coefficients information
+# Retrieve coefficients information
 cog.coef = coef(cog.bestBIC)
 
-# Retreat bounds of credible intervals
+# Retrieve bounds of credible intervals
 out = confint(cog.coef)[, 1:2]
 
 # Combine results and construct summary table
@@ -229,4 +229,4 @@ BIC is one of the criteria based on penalized likelihoods. Other examples such a
 $$ -2\ln(\widehat{\text{likelihood}}) + (p+1)\times\text{some constant},$$
 where $p$ is the number of predictor variables and "some constant" is a constant value depending on different criteria. BIC tends to select parsimonious models (with fewer predictor variables) while AIC and adjusted $R^2$ may include variables that are not statistically significant, but may do better for predictions.
 
-Other Bayesian model selection decisions may be based on selecting models with the highest posterior probability. If predictions are important, we can use decision theory to help pick the model with the smallest expected prediction error. In addiciton to goodness of fit and parsimony, loss functions that include costs associated with collecting variables for predictive models may be of important consideration. 
+Other Bayesian model selection decisions may be based on selecting models with the highest posterior probability. If predictions are important, we can use decision theory to help pick the model with the smallest expected prediction error. In addiciton to goodness of fit and parsimony, loss functions that include costs associated with collecting variables for predictive models may be of important consideration.

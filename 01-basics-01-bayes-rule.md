@@ -17,7 +17,7 @@ It shows the results of a poll among 1,738 adult Americans. This table allows us
 \midrule
 Used online dating site & 60 & 86 & 58 & 21 & 225\\
 Did not use online dating site & 255 & 426 & 450 & 382 & 1513\\
-Total & 315 & 512 & 508 & 403 & 1738\\
+Total & 316 & 512 & 508 & 403 & 1738\\
 \bottomrule
 \end{tabular}
 \end{table}

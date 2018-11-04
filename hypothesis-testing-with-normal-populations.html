@@ -500,11 +500,11 @@ Water samples collected at the the same location, on the surface and the bottom,
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03652581 0.06330922 0.07535085  0.08717438  0.11225532
-## sigma 0.03667377 0.04742236 0.05533706  0.06558323  0.09550148
-## n_0   0.16169591 1.88689078 4.73088920 10.10052632 32.46175474
+## mu    0.03658471 0.06333568 0.07542384  0.08720745  0.11232211
+## sigma 0.03666120 0.04739249 0.05530334  0.06556119  0.09540843
+## n_0   0.16298189 1.89018938 4.73779569 10.07664850 32.29499593
 ## 
-## 95% CI for mu: (0.0365, 0.1123)</code></pre>
+## 95% CI for mu: (0.0366, 0.1123)</code></pre>
 <p><img src="05-BFnormal-02-paired-means_files/figure-html/bayes-inference-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis <span class="math inline">\(H_2\)</span>, the mean difference is different from 0, is almost 51 times more likely than the hypothesis <span class="math inline">\(H_1\)</span> that the average concentration is the same at the surface and the bottom.</p>
 <p>To sum up, we have used the <strong>Cauchy prior</strong> as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the  function from the  package. If you expect that the effect sizes will be small, smaller values of <span class="math inline">\(r\)</span> are recommended.</p>
@@ -570,7 +570,7 @@ Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2,
 ## P(H2|data) = 0.1489 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (-4.4317 , 0.8748)</code></pre>
+## 95% Cred. Int.: (-4.3639 , 0.7968)</code></pre>
 <p><img src="05-BFnormal-03-independent-means_files/figure-html/bf-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>We see that the Bayes factor for <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> is about 5.7, with positive support for <span class="math inline">\(H_1\)</span> that there is no difference in average weight gain between younger and older women. Using equal prior probabilities, the probability that there is a difference in average weight gain between the two groups is about 0.15 given the data. Based on the interpretation of Bayes factors from Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “positive” (between 3 and 20).</p>
 <p>To recap, we have illustrated testing hypotheses about population means with two independent samples, using a Cauchy prior on the difference in the means. One assumption that we have made is that <strong>the variances are equal in both groups</strong>. The case where the variances are unequal is referred to as the Behren-Fisher problem, and this is beyond the scope for this course. In the next section, we will look at another example to put everything together with testing and discuss summarizing results.</p>
@@ -623,7 +623,7 @@ out =<span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <
 ## P(H2|data) = 0.5902 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (0.0202 , 0.5703)</code></pre>
+## 95% Cred. Int.: (0.0217 , 0.5742)</code></pre>
 <p><img src="05-BFnormal-04-inference_files/figure-html/BF-NC-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>We see that the Bayes factor is 1.44, which weakly favors there being a difference in average birth weights for babies whose mothers are smokers versus mothers who did not smoke. Converting this to a probability, we find that there is about a 60% chance of the average birth weights are different.</p>
 <p>While looking at evidence of there being a difference is useful, Bayes factors and posterior probabilities do <strong>not</strong> convey any information about the magnitude of the effect. Reporting a credible interval or the complete posterior distribution is more relevant for quantifying the magnitude of the effect.</p>
@@ -633,11 +633,11 @@ out =<span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <
                          <span class="dt">r=</span>.<span class="dv">5</span>, <span class="dt">method=</span><span class="st">&#39;sim&#39;</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)
 <span class="kw">print</span>(out.ci<span class="op">$</span>summary, <span class="dt">digits=</span><span class="dv">2</span>)</code></pre></div>
 <pre><code>##                             2.5%     25%     50%     75%   97.5%
-## overall mean               6.855    6.95    6.99    7.04 7.1e+00
-## mu_nonsmoker - mu_smoker   0.025    0.20    0.29    0.39 5.8e-01
-## sigma^2                    2.078    2.19    2.26    2.33 2.5e+00
-## effect size                0.017    0.13    0.20    0.26 3.8e-01
-## n_0                      173.700 1936.93 4603.82 9297.69 2.5e+04</code></pre>
+## overall mean               6.855    6.95    7.00    7.04 7.1e+00
+## mu_nonsmoker - mu_smoker   0.022    0.20    0.29    0.39 5.7e-01
+## sigma^2                    2.072    2.19    2.26    2.33 2.5e+00
+## effect size                0.015    0.13    0.19    0.26 3.8e-01
+## n_0                      153.912 1949.32 4593.46 9420.95 2.6e+04</code></pre>
 <p>The 2.5 and 97.5 percentiles for the difference in the means provide a 95% credible interval of 0.023 to 0.57 pounds for the difference in average birth weight. The MCMC output shows not only summaries about the difference in the mean <span class="math inline">\(\alpha\)</span>, but the other parameters in the model.</p>
 <p>In particular, the Cauchy prior arises by placing a gamma prior on <span class="math inline">\(n_0\)</span> and the conjugate normal prior. This provides quantiles about <span class="math inline">\(n_0\)</span> after updating with the current data.</p>
 <p>The row labeled effect size is the standardized effect size <span class="math inline">\(\delta\)</span>, indicating that the effects are indeed small relative to the noise in the data.</p>
