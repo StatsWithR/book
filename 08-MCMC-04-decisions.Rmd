@@ -131,7 +131,7 @@ coef(crime.ZS.MPM)
 
 **Best Predictive Model**
 
-If our objective is prediction from a single model, the best choice is to find the model whose predictions are closet to those given by BMA. "Closest" could be based on squared error loss for predictions, or be based on any other loss functions. Unfortunately, there is no nice expression for this model. However, we can still calculate the loss for each of our sampled models to try to identify this best predictive model, or BPM.
+If our objective is prediction from a single model, the best choice is to find the model whose predictions are closest to those given by BMA. "Closest" could be based on squared error loss for predictions, or be based on any other loss functions. Unfortunately, there is no nice expression for this model. However, we can still calculate the loss for each of our sampled models to try to identify this best predictive model, or BPM.
 
 Using the squared error loss, we find that the best predictive model is the one whose predictions are closest to BMA. 
 
