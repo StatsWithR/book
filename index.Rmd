@@ -52,5 +52,5 @@ library(ggthemes)
 ```
 
 
-We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contibutions to lab exercises and quizzes in earlier versions of the course.
+We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contributions to lab exercises and quizzes in earlier versions of the course.
 
