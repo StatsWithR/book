@@ -2,7 +2,7 @@
 title: "An Introduction to Bayesian Thinking"
 subtitle: "A Companion to the Statistics with R Course"
 author: ["Merlise Clyde", "Mine Cetinkaya-Rundel", "Colin Rundel", "David Banks", "Christine Chai","Lizzy Huang"]
-date: "Last built on 2018-11-04"
+date: "Last built on 2019-03-29"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib, references.bib]
@@ -53,5 +53,5 @@ library(ggthemes)
 ```
 
 
-We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contibutions to lab exercises and quizzes in earlier versions of the course.
+We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contributions to lab exercises and quizzes in earlier versions of the course.
 

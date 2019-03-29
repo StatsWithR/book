@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>An Introduction to Bayesian Thinking</title>
-  <meta name="description" content="An Introduction to Bayesian Thinking">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <title>Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking</title>
+  <meta name="description" content="Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="An Introduction to Bayesian Thinking" />
+  <meta property="og:title" content="Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="StatsWithR/book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="An Introduction to Bayesian Thinking" />
+  <meta name="twitter:title" content="Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking" />
   
   
   
@@ -40,6 +40,7 @@
 <link rel="next" href="hypothesis-testing-with-normal-populations.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -409,7 +410,7 @@ Figure 4.2: Highest Posterior Density region.
 <h3><span class="header-section-number">4.1.5</span> Example: TTHM in Tapwater</h3>
 <p>A municipality in North Carolina is interested in estimating the levels of TTHM in their drinking water. The data can be loaded from the <code>statsr</code> package in <code>R</code>, where the variable of interest, <code>tthm</code> is measured in parts per billion.</p>
 <p><code>r   library(statsr)   data(tapwater)   glimpse(tapwater)</code></p>
-<p><code>## Observations: 28   ## Variables: 6   ## $ date       &lt;fct&gt; 2009-02-25, 2008-12-22, 2008-09-25, 2008-05-14, 200...   ## $ tthm       &lt;dbl&gt; 34.38, 39.33, 108.63, 88.00, 81.00, 49.25, 75.00, 8...   ## $ samples    &lt;int&gt; 8, 9, 8, 8, 2, 8, 6, 7, 8, 4, 4, 4, 4, 6, 4, 8, 10,...   ## $ nondetects &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...   ## $ min        &lt;dbl&gt; 32.00, 31.00, 85.00, 75.00, 81.00, 26.00, 70.00, 70...   ## $ max        &lt;dbl&gt; 39.00, 46.00, 120.00, 94.00, 81.00, 68.00, 80.00, 9...</code></p>
+<p><code>## Observations: 28   ## Variables: 6   ## $ date       &lt;fct&gt; 2009-02-25, 2008-12-22, 2008-09-25, 2008-05-14, 2008-…   ## $ tthm       &lt;dbl&gt; 34.38, 39.33, 108.63, 88.00, 81.00, 49.25, 75.00, 82.…   ## $ samples    &lt;int&gt; 8, 9, 8, 8, 2, 8, 6, 7, 8, 4, 4, 4, 4, 6, 4, 8, 10, 1…   ## $ nondetects &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…   ## $ min        &lt;dbl&gt; 32.00, 31.00, 85.00, 75.00, 81.00, 26.00, 70.00, 70.0…   ## $ max        &lt;dbl&gt; 39.00, 46.00, 120.00, 94.00, 81.00, 68.00, 80.00, 90.…</code></p>
 <p>Using historical prior information about TTHM from the municipality, we will adopt a normal-gamma prior distribution, <span class="math inline">\(\textsf{NormalGamma}(35, 25, 156.25, 24)\)</span> with a prior mean of 35 parts per billion, a prior sample size of 25, an estimate of the variance of 156.25 with degrees of freedom 24. In Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive">4.3</a>, we will describe how we arrived at these values.</p>
 Using the summaries of the data, <span class="math inline">\(\bar{Y} = 55.5\)</span>, variance <span class="math inline">\(s^2 = 540.7\)</span> and sample size of <span class="math inline">\(n = 28\)</span> with the prior hyper-parameters from above, the posterior hyper-parameters are updated as follows:
 <span class="math display">\[\begin{eqnarray*}
@@ -971,7 +972,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -983,6 +984,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/statswithr/book/edit/master/04-normalgamma-00-intro.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["_main.pdf"],
 "toc": {
@@ -998,7 +1003,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

@@ -80,11 +80,11 @@ BF[H_1:H_2] &= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \approx
 
 So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by @jeffreys1961theory, as in Table \@ref(tab:jeffreys1961). If the Bayes factor is between 1 and 3, the evidence against $H_2$ is not worth a bare mention. If it is 3 to 20, the evidence is positive. If it is 20 to 150, the evidence is strong. If it is greater than 150, the evidence is very strong.
 
-\begin{table}
+\begin{table}[t]
 
 \caption{(\#tab:jeffreys1961)Interpreting the Bayes factor}
 \centering
-\begin{tabular}[t]{cc}
+\begin{tabular}{cc}
 \toprule
 BF[H\_1:H\_2] & Evidence against H\_2\\
 \midrule
@@ -108,11 +108,11 @@ An intuitive way of thinking about this is to consider not only the posteriors, 
 
 Another commonly used scale for interpreting Bayes factors is proposed by @kass1995bayes, and it deals with the natural logarithm of the calculated Bayes factor. The values can be interpreted in Table \@ref(tab:kass1995).
 
-\begin{table}
+\begin{table}[t]
 
 \caption{(\#tab:kass1995)Interpreting the Bayes factor}
 \centering
-\begin{tabular}[t]{cc}
+\begin{tabular}{cc}
 \toprule
 2*log(BF[H\_2:H\_1]) & Evidence against H\_1\\
 \midrule

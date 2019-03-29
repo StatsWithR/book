@@ -33,11 +33,11 @@ To find the total loss, we simply sum over these individual losses in the poster
 
 Figure \@ref(fig:L0-mode) is a visualization of the posterior distribution, along with the 0-1 loss calculated for a series of possible guesses within the range of the posterior distribution. To create this visualization of the loss function, we went through the process we described earlier for a guess of 30 for all guesses considered, and we recorded the total loss. We can see that the loss function has the lowest value when $g$, our guess, is equal to **the most frequent observation** in the posterior. Hence, $L_0$ is minimized at the **mode** of the posterior, which means that if we use the 0/1 loss, the best point estimate is the mode of the posterior.
 
-\begin{table}
+\begin{table}[t]
 
 \caption{(\#tab:L0-table)L0: 0/1 loss for g = 30}
 \centering
-\begin{tabular}[t]{ccc}
+\begin{tabular}{ccc}
 \toprule
 i & x\_i & L0: 0/1\\
 \midrule
@@ -78,11 +78,11 @@ To find the total loss, we again simply sum over these individual losses, and th
 
 Again, Figure \@ref(fig:L1-median) is a visualization of the posterior distribution, along with a linear loss function calculated for a series of possible guesses within the range of the posterior distribution. To create this visualization of the loss function, we went through the same process we described earlier for all of the guesses considered. This time, the function has the lowest value when $g$ is equal to the **median** of the posterior. Hence, $L_1$ is minimized at the **median** of the posterior one other loss function.
 
-\begin{table}
+\begin{table}[t]
 
 \caption{(\#tab:L1-table)L1: linear loss for g = 30}
 \centering
-\begin{tabular}[t]{ccc}
+\begin{tabular}{ccc}
 \toprule
 i & x\_i & L1: |x\_i-30|\\
 \midrule
@@ -121,11 +121,11 @@ To find the total loss, we simply sum over these individual losses again and the
 
 Creating the visualization in Figure \@ref(fig:L2-mean) had the same steps. Go through the same process described earlier for a guess of 30, for all guesses considered, and record the total loss. This time, the function has the lowest value when $g$ is equal to the **mean** of the posterior. Hence, $L_2$ is minimized at the **mean** of the posterior distribution.
 
-\begin{table}
+\begin{table}[t]
 
 \caption{(\#tab:L2-table)L2: squared loss for g = 30}
 \centering
-\begin{tabular}[t]{ccc}
+\begin{tabular}{ccc}
 \toprule
 i & x\_i & L2: (x\_i-30)\textasciicircum{}2\\
 \midrule

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>An Introduction to Bayesian Thinking</title>
   <meta name="description" content="An Introduction to Bayesian Thinking">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
@@ -40,6 +40,7 @@
 <link rel="next" href="the-basics-of-bayesian-statistics.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -268,14 +269,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">An Introduction to Bayesian Thinking</h1>
-<h3 class="subtitle"><em>A Companion to the Statistics with R Course</em></h3>
-<h4 class="author"><em>Merlise Clyde</em></h4>
-<h4 class="author"><em>Mine Cetinkaya-Rundel</em></h4>
-<h4 class="author"><em>Colin Rundel</em></h4>
-<h4 class="author"><em>David Banks</em></h4>
-<h4 class="author"><em>Christine Chai</em></h4>
-<h4 class="author"><em>Lizzy Huang</em></h4>
-<h4 class="date"><em>Last built on 2018-11-04</em></h4>
+<h2 class="subtitle"><em>A Companion to the Statistics with R Course</em></h2>
+<p class="author"><em>Merlise Clyde</em></p>
+<p class="author"><em>Mine Cetinkaya-Rundel</em></p>
+<p class="author"><em>Colin Rundel</em></p>
+<p class="author"><em>David Banks</em></p>
+<p class="author"><em>Christine Chai</em></p>
+<p class="author"><em>Lizzy Huang</em></p>
+<p class="date"><em>Last built on 2019-03-29</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -299,7 +300,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">library</span>(logspline)
 <span class="kw">library</span>(cowplot)
 <span class="kw">library</span>(ggthemes)</code></pre></div>
-<p>We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contibutions to lab exercises and quizzes in earlier versions of the course.</p>
+<p>We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contributions to lab exercises and quizzes in earlier versions of the course.</p>
 
 </div>
             </section>
@@ -328,7 +329,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -340,6 +341,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/statswithr/book/edit/master/index.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["_main.pdf"],
 "toc": {
@@ -355,7 +360,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

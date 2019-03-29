@@ -10,11 +10,11 @@ Finally, in some cases, the penalty is 0 if you are exactly correct, but constan
 
 There is a large literature on decision theory, and it is directly linked to risk analysis, which arises in many fields. Although it is possible for frequentists to employ a certain kind of decision theory, it is much more natural for Bayesians.
 
-\begin{table}
+\begin{table}[t]
 
 \caption{(\#tab:loss-functions)Loss Functions}
 \centering
-\begin{tabular}[t]{cc}
+\begin{tabular}{cc}
 \toprule
 Loss & Best Estimate\\
 \midrule

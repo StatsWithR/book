@@ -11,11 +11,11 @@ We previously learned that we can use a paired t-test to compare means from two 
 
 Water samples collected at the the same location, on the surface and the bottom, cannot be assumed to be independent of each other. However, it may be reasonable to assume that the differences in the concentration at the bottom and the surface in randomly sampled locations are independent of each other.</div>\EndKnitrBlock{example}
 
-\begin{table}
+\begin{table}[t]
 
 \caption{(\#tab:zinc-table)Zinc in drinking water}
 \centering
-\begin{tabular}[t]{rrrr}
+\begin{tabular}{rrrr}
 \toprule
 location & bottom & surface & difference\\
 \midrule
@@ -130,11 +130,11 @@ bayes_inference(difference, data=zinc, statistic="mean", type="ht",
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03654319 0.06333675 0.07539605  0.08718025  0.11214757
-## sigma 0.03669359 0.04741372 0.05530806  0.06554735  0.09542726
-## n_0   0.16265849 1.89004353 4.73250734 10.10107619 32.36015842
+## mu    0.03655180 0.06330010 0.07537186  0.08719250  0.11227992
+## sigma 0.03664041 0.04738038 0.05530371  0.06555867  0.09551255
+## n_0   0.16281106 1.89098622 4.72874168 10.10058131 32.35477791
 ## 
-## 95% CI for mu: (0.0365, 0.1121)
+## 95% CI for mu: (0.0366, 0.1123)
 ```
 
 
