@@ -8,7 +8,7 @@ Consider Table \@ref(tab:2015gallupDating).
 It shows the results of a poll among 1,738 adult Americans. This table allows us to calculate probabilities.
 
 ```{r 2015gallupDating, echo = FALSE}
-temp <- matrix(c(60, 86, 58, 21, 225, 255, 426, 450, 382, 1513, 316, 512, 508, 403, 1738), nrow = 3, byrow = TRUE)
+temp <- matrix(c(60, 86, 58, 21, 225, 255, 426, 450, 382, 1513, 315, 512, 508, 403, 1738), nrow = 3, byrow = TRUE)
 rownames(temp) <- c('Used online dating site', 'Did not use online dating site', 'Total')
 colnames(temp) <- c('18-29', '30-49', '50-64', '65+', 'Total')
 
