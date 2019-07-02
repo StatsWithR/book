@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Bayesian Inference | An Introduction to Bayesian Thinking</title>
-  <meta name="description" content="Chapter 2 Bayesian Inference | An Introduction to Bayesian Thinking">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 2 Bayesian Inference | An Introduction to Bayesian Thinking" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Bayesian Inference | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   
   
 
-<meta name="author" content="Merlise Clyde">
-<meta name="author" content="Mine Cetinkaya-Rundel">
-<meta name="author" content="Colin Rundel">
-<meta name="author" content="David Banks">
-<meta name="author" content="Christine Chai">
-<meta name="author" content="Lizzy Huang">
+<meta name="author" content="Merlise Clyde" />
+<meta name="author" content="Mine Cetinkaya-Rundel" />
+<meta name="author" content="Colin Rundel" />
+<meta name="author" content="David Banks" />
+<meta name="author" content="Christine Chai" />
+<meta name="author" content="Lizzy Huang" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="the-basics-of-bayesian-statistics.html">
@@ -55,41 +54,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -342,11 +367,11 @@ Figure 2.2: Area under curve for the probability density function
 </div>
 
 <p>So a base angle sits to express their belief about the value of <span class="math inline">\(p\)</span> through a probability distribution, and a very flexible family of distributions for this purpose is the <strong>beta family</strong>. A member of the beta family is specified by two parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>; we denote this as <span class="math inline">\(p \sim \text{beta}(\alpha, \beta)\)</span>. The probability density function is</p>
-<span class="math display" id="eq:beta">\[\begin{equation}
+<p><span class="math display" id="eq:beta">\[\begin{equation}
 f(p) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{\alpha-1} (1-p)^{\beta-1},
 \tag{2.1}
 \end{equation}\]</span>
-<p>where <span class="math inline">\(0 \leq p \leq 1, \alpha&gt;0, \beta&gt;0\)</span>, and <span class="math inline">\(\Gamma\)</span> is a factorial:</p>
+where <span class="math inline">\(0 \leq p \leq 1, \alpha&gt;0, \beta&gt;0\)</span>, and <span class="math inline">\(\Gamma\)</span> is a factorial:</p>
 <p><span class="math display">\[\Gamma(n) = (n-1)! = (n-1) \times (n-2) \times \cdots \times 1\]</span></p>
 <p>When <span class="math inline">\(\alpha=\beta=1\)</span>, the beta distribution becomes a uniform distribution, i.e. the probabilty density function is a flat line. In other words, the uniform distribution is a special case of the beta family.</p>
 <p>The expected value of <span class="math inline">\(p\)</span> is <span class="math inline">\(\frac{\alpha}{\alpha+\beta}\)</span>, so <span class="math inline">\(\alpha\)</span> can be regarded as the prior number of successes, and <span class="math inline">\(\beta\)</span> the prior number of failures. When <span class="math inline">\(\alpha=\beta\)</span>, then one gets a symmetrical pdf around 0.5. For large but equal values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, the area under the beta probability density near 0.5 is very large. Figure <a href="bayesian-inference.html#fig:beta">2.3</a> compares the beta distribution with different parameter values.</p>
@@ -379,10 +404,10 @@ Figure 2.3: Beta family
 <li><p>Prior belief about <span class="math inline">\(p\)</span> is <span class="math inline">\(\text{beta}(\alpha,\beta)\)</span></p></li>
 </ul>
 <p>Then we observe <span class="math inline">\(x\)</span> success in <span class="math inline">\(n\)</span> trials, and it turns out the Bayes’ rule implies that our new belief about the probability density of <span class="math inline">\(p\)</span> is also the beta distribution, but with different parameters. In mathematical terms,</p>
-<span class="math display" id="eq:beta-binomial">\[\begin{equation}
+<p><span class="math display" id="eq:beta-binomial">\[\begin{equation}
 p|x \sim \text{beta}(\alpha+x, \beta+n-x).
 \tag{2.2}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>This is an example of conjugacy. Conjugacy occurs when the <strong>posterior distribution</strong> is in the <strong>same family</strong> of probability density functions as the prior belief, but with <strong>new parameter values</strong>, which have been updated to reflect what we have learned from the data.</p>
 <p>Why are the beta binomial families conjugate? Here is a mathematical explanation.</p>
 <p>Recall the discrete form of the Bayes’ rule:</p>
@@ -428,7 +453,9 @@ Half of these women were randomly assigned to the standard contraceptive, a larg
 <li><p>The p-value is <span class="math inline">\(0.5^4 = 0.0625 &gt; 0.05\)</span></p></li>
 </ul>
 <p>Therefore, the frequentist fails to reject the null hypothesis, and will not conclude that RU-486 is superior to standard therapy.</p>
-<p>Remark: The significance probability, or p-value, is the chance of observing data that are as or more supportive of the alternative hypothesis than the data that were collected, when the null hypothesis is true.</p>
+<p>Remark: The significance probability, or p-value, is the chance of observing
+data that are as or more supportive of the alternative hypothesis than
+the data that were collected, when the null hypothesis is true.</p>
 <p>Now suppose a Bayesian performed the analysis. She may set her beliefs about the drug and decide that she has no prior knowledge about the efficacy of RU-486 at all. This would be reasonable if, for example, it were the first clinical trial of the drug. In that case, she would be using the uniform distribution on the interval from 0 to 1, which corresponds to the <span class="math inline">\(\text{beta}(1,1)\)</span> density. In mathematical terms,</p>
 <p><span class="math display">\[p \sim \text{Unif}(0,1) = \text{beta}(1,1).\]</span></p>
 <p>From conjugacy, we know that since there were four failures for RU-486 and no successes, that her posterior probability of an RU-486 child is</p>
@@ -473,16 +500,16 @@ Figure 2.4: Gamma family
 </p>
 </div>
 <p>The probability density function for the gamma is indexed by shape <span class="math inline">\(k\)</span> and scale <span class="math inline">\(\theta\)</span>, denoted as <span class="math inline">\(\text{Gamma}(k,\theta)\)</span> with <span class="math inline">\(k,\theta &gt; 0\)</span>. The mathematical form of the density is</p>
-<span class="math display" id="eq:gamma">\[\begin{equation}
+<p><span class="math display" id="eq:gamma">\[\begin{equation}
 f(x) = \dfrac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta}
 \tag{2.3}
 \end{equation}\]</span>
-<p>where</p>
-<span class="math display" id="eq:gamma-function">\[\begin{equation}
+where</p>
+<p><span class="math display" id="eq:gamma-function">\[\begin{equation}
 \Gamma(z) = \int^{\infty}_0 x^{z-1} e^{-x} dx.
 \tag{2.4}
 \end{equation}\]</span>
-<p><span class="math inline">\(\Gamma(z)\)</span>, the gamma function, is simply a constant that ensures the area under curve between 0 and 1 sums to 1, just like in the beta probability distribution case of Equation <a href="bayesian-inference.html#eq:beta">(2.1)</a>. A special case is that <span class="math inline">\(\Gamma(n) = (n-1)!\)</span> when <span class="math inline">\(n\)</span> is a positive integer.</p>
+<span class="math inline">\(\Gamma(z)\)</span>, the gamma function, is simply a constant that ensures the area under curve between 0 and 1 sums to 1, just like in the beta probability distribution case of Equation <a href="bayesian-inference.html#eq:beta">(2.1)</a>. A special case is that <span class="math inline">\(\Gamma(n) = (n-1)!\)</span> when <span class="math inline">\(n\)</span> is a positive integer.</p>
 <p>However, some books parameterize the gamma distribution in a slightly different way with shape <span class="math inline">\(\alpha = k\)</span> and rate (inverse scale) <span class="math inline">\(\beta=1/\theta\)</span>:</p>
 <p><span class="math display">\[f(x) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}\]</span></p>
 <p>For this example, we use the <span class="math inline">\(k\)</span>-<span class="math inline">\(\theta\)</span> parameterization, but you should always check which parameterization is being used. For example, <span class="math inline">\(\mathsf{R}\)</span> uses the <span class="math inline">\(\alpha\)</span>-<span class="math inline">\(\beta\)</span> parameterization by default.<br />
@@ -492,7 +519,8 @@ In the the later material we find that using the rate parameterization is more c
 \text{Mean} &amp;= k\theta = 0.75 \\
 \text{Standard deviation} &amp;= \theta\sqrt{k} = 1
 \end{aligned}\]</span></p>
-<p>Hence <span class="math display">\[k = \frac{9}{16} \text{ and } \theta = \frac{4}{3}\]</span></p>
+<p>Hence
+<span class="math display">\[k = \frac{9}{16} \text{ and } \theta = \frac{4}{3}\]</span></p>
 <p>For the gamma Poisson conjugate family, suppose we observed data <span class="math inline">\(x_1, x_2, \cdots, x_n\)</span> that follow a Poisson distribution.Then similar to the previous section, we would recognize the kernel of the gamma when using the gamma-Poisson family. The posterior <span class="math inline">\(\text{Gamma}(k^*, \theta^*)\)</span> has parameters</p>
 <p><span class="math display">\[k^* = k + \sum^n_{i=1} x_i \text{ and } \theta^* = \frac{\theta}{(n\theta+1)}.\]</span></p>
 <p>For this dataset, <span class="math inline">\(N = 15 \times 20 = 300\)</span> observations, and the number of casualities is 200. Therefore, the general now thinks that the average number of Prussian cavalry officers who die at the hoofs of their horses follows a gamma distribution with the parameters below:</p>
@@ -614,8 +642,10 @@ Figure 2.6: RU-486 Posterior
 </div>
 <p>For the Bayesian, her 95% credible interval is just any <span class="math inline">\(L\)</span> and <span class="math inline">\(U\)</span> such that the posterior probability that <span class="math inline">\(L &lt; p &lt; U\)</span> is <span class="math inline">\(0.95\)</span>. The shortest such interval is obviously preferable.</p>
 <p>To find this interval, the Bayesian looks at the area under the <span class="math inline">\(\text{beta}(1,5)\)</span> distribution, that lies to the left of a value x.</p>
-<p>The density function of the <span class="math inline">\(\text{beta}(1,5)\)</span> is <span class="math display">\[f(p) = 5 (1-p)^4 \text{ for } 0 \leq p \leq 1,\]</span></p>
-<p>and the cumulative distribution function, which represents the area under the density function <span class="math inline">\(f(p)\)</span> between <span class="math inline">\(0\)</span> and <span class="math inline">\(x\)</span> is <span class="math display">\[P(p\leq x)= F(x) = \int_0^x f(p)\, dp = 1 - (1-x)^5 ~\text{ for } 0 \leq p \leq 1.\]</span></p>
+<p>The density function of the <span class="math inline">\(\text{beta}(1,5)\)</span> is
+<span class="math display">\[f(p) = 5 (1-p)^4 \text{ for } 0 \leq p \leq 1,\]</span></p>
+<p>and the cumulative distribution function, which represents the area under the density function <span class="math inline">\(f(p)\)</span> between <span class="math inline">\(0\)</span> and <span class="math inline">\(x\)</span> is
+<span class="math display">\[P(p\leq x)= F(x) = \int_0^x f(p)\, dp = 1 - (1-x)^5 ~\text{ for } 0 \leq p \leq 1.\]</span></p>
 <p>The Bayesian can use this to find <span class="math inline">\(L, U\)</span> with area 0.95 under the density curve between them, i.e. <span class="math inline">\(F(U) - F(L) = 0.95\)</span>. Note that the Bayesian credible interval is asymmetric, unlike the symmetric confidence intervals that frequentists often obtain. It turns out that <span class="math inline">\(L = 0\)</span> and <span class="math inline">\(U = 0.45\)</span> is the shortest interval with probability 0.95 of containing <span class="math inline">\(p\)</span>.</p>
 <p>What have we done? We have seen the difference in interpretations between the frequentist confidence interval and the Bayesian credible interval. Also, we have seen the general form of a credible interval. Finally, we have done a practical example constructing a 95% credible interval for the RU-486 data set.</p>
 </div>
@@ -623,7 +653,8 @@ Figure 2.6: RU-486 Posterior
 <h3><span class="header-section-number">2.3.3</span> Predictive Inference</h3>
 <p>Predictive inference arises when the goal is not to find a posterior distribution over some parameter, but rather to find a posterior distribution over some random variable depends on the parameter.</p>
 <p>Specifically, we want to make an inference on a random variable <span class="math inline">\(X\)</span> with probability densifity function <span class="math inline">\(f(x|\theta)\)</span>, where you have some personal or prior probability distribution <span class="math inline">\(p(\theta)\)</span> for the parameter <span class="math inline">\(\theta\)</span>.</p>
-<p>To solve this, one needs to integrate: <span class="math display">\[P(X \leq x) = \int^{\infty}_{-\infty} P(X \leq x | \theta)\, p(\theta)d\theta = \int_{-\infty}^\infty \left(\int_{-\infty}^x f(s|\theta)\, ds\right)p(\theta)\, d\theta\]</span></p>
+<p>To solve this, one needs to integrate:
+<span class="math display">\[P(X \leq x) = \int^{\infty}_{-\infty} P(X \leq x | \theta)\, p(\theta)d\theta = \int_{-\infty}^\infty \left(\int_{-\infty}^x f(s|\theta)\, ds\right)p(\theta)\, d\theta\]</span></p>
 <p>The equation gives us the weighted average of the probabilities for <span class="math inline">\(X\)</span>, where the weights correspond to the personal probability on <span class="math inline">\(\theta\)</span>. Here we will not perform the integral case; instead, we will illustrate the thinking with a discrete example.</p>
 
 <div class="example">
@@ -635,7 +666,8 @@ Suppose the game starts, you have tossed twice, and have obtained two heads. The
 <p>This is just a simple application of the discrete form of Bayes’ rule.</p>
 <ul>
 <li>Prior: <span class="math inline">\(p=0.5\)</span></li>
-<li>Posterior: <span class="math display">\[p^* = \frac{P(\text{2 heads}|0.7) \times 0.5}{P(\text{2 heads}|0.7) \times 0.5 + P(\text{2 heads}|0.4) \times 0.5} = 0.754.\]</span></li>
+<li>Posterior:
+<span class="math display">\[p^* = \frac{P(\text{2 heads}|0.7) \times 0.5}{P(\text{2 heads}|0.7) \times 0.5 + P(\text{2 heads}|0.4) \times 0.5} = 0.754.\]</span></li>
 </ul>
 <p>However, this does not answer the important question – What is the predictive probability that the next toss will come up heads? This is of interest because you are gambling on getting heads.</p>
 <p>Fortunately, the predictive probablity of getting heads is not difficult to calculate:</p>
@@ -707,7 +739,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

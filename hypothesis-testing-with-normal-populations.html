@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Hypothesis Testing with Normal Populations | An Introduction to Bayesian Thinking</title>
-  <meta name="description" content="Chapter 5 Hypothesis Testing with Normal Populations | An Introduction to Bayesian Thinking">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 5 Hypothesis Testing with Normal Populations | An Introduction to Bayesian Thinking" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Hypothesis Testing with Normal Populations | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   
   
 
-<meta name="author" content="Merlise Clyde">
-<meta name="author" content="Mine Cetinkaya-Rundel">
-<meta name="author" content="Colin Rundel">
-<meta name="author" content="David Banks">
-<meta name="author" content="Christine Chai">
-<meta name="author" content="Lizzy Huang">
+<meta name="author" content="Merlise Clyde" />
+<meta name="author" content="Mine Cetinkaya-Rundel" />
+<meta name="author" content="Colin Rundel" />
+<meta name="author" content="David Banks" />
+<meta name="author" content="Christine Chai" />
+<meta name="author" content="Lizzy Huang" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="inference-and-decision-making-with-multiple-parameters.html">
@@ -55,41 +54,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -275,7 +300,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">5.1</span> Bayes Factors for Testing a Normal Mean: variance known</h2>
 <p>Now we show how to obtain Bayes factors for testing hypothesis about a normal mean, where <strong>the variance is known</strong>. To start, let’s consider a random sample of observations from a normal population with mean <span class="math inline">\(\mu\)</span> and pre-specified variance <span class="math inline">\(\sigma^2\)</span>. We consider testing whether the population mean <span class="math inline">\(\mu\)</span> is equal to <span class="math inline">\(m_0\)</span> or not.</p>
 <p>Therefore, we can formulate the data and hypotheses as below:</p>
-<p><strong>Data</strong> <span class="math display">\[Y_1, \cdots, Y_n {\mathrel{\mathop{\sim}\limits^{\rm iid}}}{\textsf{Normal}}(\mu, \sigma^2)\]</span></p>
+<p><strong>Data</strong>
+<span class="math display">\[Y_1, \cdots, Y_n \mathrel{\mathop{\sim}\limits^{\rm iid}}\textsf{Normal}(\mu, \sigma^2)\]</span></p>
 <p><strong>Hypotheses</strong></p>
 <ul>
 <li><span class="math inline">\(H_1: \mu = m_0\)</span></li>
@@ -286,22 +312,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>In mathematical terms, the priors are:</p>
 <ul>
 <li><span class="math inline">\(H_1: \mu = m_0 \text{  with probability 1}\)</span></li>
-<li><span class="math inline">\(H_2: \mu \sim {\textsf{Normal}}(m_0, \sigma^2/\mathbf{n_0})\)</span></li>
+<li><span class="math inline">\(H_2: \mu \sim \textsf{Normal}(m_0, \sigma^2/\mathbf{n_0})\)</span></li>
 </ul>
 <p><strong>Bayes Factor</strong></p>
 <p>Now the Bayes factor for comparing <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> is the ratio of the distribution, the data under the assumption that <span class="math inline">\(\mu = m_0\)</span> to the distribution of the data under <span class="math inline">\(H_2\)</span>.</p>
 <p><span class="math display">\[\begin{aligned}
-{\textit{BF}}[H_1 : H_2] &amp;= \frac{p({\text{data}}\mid \mu = m_0, \sigma^2 )}
- {\int p({\text{data}}\mid \mu, \sigma^2) p(\mu \mid m_0, \mathbf{n_0}, \sigma^2)\, d \mu} \\
-{\textit{BF}}[H_1 : H_2] &amp;=\left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}} \right)^{1/2} \exp\left\{-\frac 1 2 \frac{n }{n + \mathbf{n_0}} Z^2 \right\} \\
+\textit{BF}[H_1 : H_2] &amp;= \frac{p(\text{data}\mid \mu = m_0, \sigma^2 )}
+ {\int p(\text{data}\mid \mu, \sigma^2) p(\mu \mid m_0, \mathbf{n_0}, \sigma^2)\, d \mu} \\
+\textit{BF}[H_1 : H_2] &amp;=\left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}} \right)^{1/2} \exp\left\{-\frac 1 2 \frac{n }{n + \mathbf{n_0}} Z^2 \right\} \\
  Z   &amp;=  \frac{(\bar{Y} - m_0)}{\sigma/\sqrt{n}}
 \end{aligned}\]</span></p>
 <p>The term in the denominator requires integration to account for the uncertainty in <span class="math inline">\(\mu\)</span> under <span class="math inline">\(H_2\)</span>. And it can be shown that the Bayes factor is a function of the observed sampled size, the prior sample size <span class="math inline">\(n_0\)</span> and a <span class="math inline">\(Z\)</span> score.</p>
 <p>Let’s explore how the hyperparameters in <span class="math inline">\(n_0\)</span> influences the Bayes factor in Equation <a href="hypothesis-testing-with-normal-populations.html#eq:BayesFactor">(5.1)</a>. For illustration we will use the sample size of 100. Recall that for estimation, we interpreted <span class="math inline">\(n_0\)</span> as a prior sample size and considered the limiting case where <span class="math inline">\(n_0\)</span> goes to zero as a non-informative or reference prior.</p>
-<span class="math display" id="eq:BayesFactor">\[\begin{equation}
+<p><span class="math display" id="eq:BayesFactor">\[\begin{equation}
 \textsf{BF}[H_1 : H_2] = \left(\frac{n + \mathbf{n_0}}{\mathbf{n_0}}\right)^{1/2} \exp\left\{-\frac{1}{2} \frac{n }{n + \mathbf{n_0}} Z^2 \right\}
 \tag{5.1}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>Figure <a href="hypothesis-testing-with-normal-populations.html#fig:vague-prior">5.1</a> shows the Bayes factor for comparing <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> on the y-axis as <span class="math inline">\(n_0\)</span> changes on the x-axis. The different lines correspond to different values of the <span class="math inline">\(Z\)</span> score or how many standard errors <span class="math inline">\(\bar{y}\)</span> is from the hypothesized mean. As expected, larger values of the <span class="math inline">\(Z\)</span> score favor <span class="math inline">\(H_2\)</span>.</p>
 <div class="figure" style="text-align: center"><span id="fig:vague-prior"></span>
 <img src="05-BFnormal-01-known-variance_files/figure-html/vague-prior-1.png" alt="Vague prior for mu: n=100" width="384" />
@@ -309,12 +335,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 Figure 5.1: Vague prior for mu: n=100
 </p>
 </div>
-<p>But as <span class="math inline">\(n_0\)</span> becomes smaller and approaches 0, the first term in the Bayes factor goes to infinity, while the exponential term involving the data goes to a constant and is ignored. In the limit as <span class="math inline">\(n_0 \rightarrow 0\)</span> under this noninformative prior, the Bayes factor paradoxically ends up favoring <span class="math inline">\(H_1\)</span> regardless of the value of <span class="math inline">\(\bar{y}\)</span>.</p>
+<p>But as <span class="math inline">\(n_0\)</span> becomes smaller and approaches 0, the first term in
+the Bayes factor goes to infinity, while the exponential term involving the
+data goes to a constant and is ignored. In the limit as <span class="math inline">\(n_0 \rightarrow 0\)</span> under this noninformative prior, the Bayes factor paradoxically ends up favoring <span class="math inline">\(H_1\)</span> regardless of the value of <span class="math inline">\(\bar{y}\)</span>.</p>
 <p>The takeaway from this is that we cannot use improper priors with <span class="math inline">\(n_0 = 0\)</span>, if we are going to test our hypothesis that <span class="math inline">\(\mu = n_0\)</span>. Similarly, vague priors that use a small value of <span class="math inline">\(n_0\)</span> are not recommended due to the sensitivity of the results to the choice of an arbitrarily small value of <span class="math inline">\(n_0\)</span>.</p>
 <p>This problem arises with vague priors – the Bayes factor favors the null model <span class="math inline">\(H_1\)</span> even when the data are far away from the value under the null – are known as the Bartlett’s paradox or the Jeffrey’s-Lindleys paradox.</p>
 <p>Now, one way to understand the effect of prior is through the standard effect size</p>
-<p><span class="math display">\[\delta = \frac{\mu - m_0}{\sigma}.\]</span> The prior of the standard effect size is</p>
-<p><span class="math display">\[\delta \mid   H_2  \sim {\textsf{Normal}}(0, \frac{1}{\mathbf{n_0}})\]</span></p>
+<p><span class="math display">\[\delta = \frac{\mu - m_0}{\sigma}.\]</span>
+The prior of the standard effect size is</p>
+<p><span class="math display">\[\delta \mid   H_2  \sim \textsf{Normal}(0, \frac{1}{\mathbf{n_0}})\]</span></p>
 <p>This allows us to think about a standardized effect independent of the units of the problem. One default choice is using the unit information prior, where the prior sample size <span class="math inline">\(n_0\)</span> is 1, leading to a standard normal for the standardized effect size. This is depicted with the blue normal density in Figure <a href="hypothesis-testing-with-normal-populations.html#fig:effect-size">5.2</a>. This suggested that we expect that the mean will be within <span class="math inline">\(\pm 1.96\)</span> standard deviations of the hypothesized mean <strong>with probability 0.95</strong>. (Note that we can say this only under a Bayesian setting.)</p>
 <p>In many fields we expect that the effect will be small relative to <span class="math inline">\(\sigma\)</span>. If we do not expect to see large effects, then we may want to use a more informative prior on the effect size as the density in orange with <span class="math inline">\(n_0 = 4\)</span>. So they expected the mean to be within <span class="math inline">\(\pm 1/\sqrt{n_0}\)</span> or five standard deviations of the prior mean.</p>
 <div class="figure" style="text-align: center"><span id="fig:effect-size"></span>
@@ -325,11 +354,14 @@ Figure 5.2: Prior on standard effect size
 </div>
 
 <div class="example">
-<span id="exm:unnamed-chunk-2" class="example"><strong>Example 1.1  </strong></span>To illustrate, we give an example from parapsychological research. The case involved the test of the subject’s claim to affect a series of randomly generated 0’s and 1’s by means of extra sensory perception (ESP). The random sequence of 0’s and 1’s are generated by a machine with probability of generating 1 being 0.5. The subject claims that his ESP would make the sample mean differ significantly from 0.5.
+<span id="exm:unnamed-chunk-2" class="example"><strong>Example 1.1  </strong></span>To illustrate, we give an example from parapsychological research. The case involved the test of the subject’s claim to affect a series of randomly generated 0’s and 1’s by means of extra sensory perception (ESP). The random sequence of 0’s and 1’s are generated by a machine with
+probability of generating 1 being 0.5. The subject claims that his ESP would make the sample mean differ significantly from 0.5.
 </div>
 
-<p>Therefore, we are testing <span class="math inline">\(H_1: \mu = 0.5\)</span> versus <span class="math inline">\(H_2: \mu \neq 0.5\)</span>. Let’s use a prior that suggests we do not expect a large effect which leads the following solution for <span class="math inline">\(n_0\)</span>. Assume we want a standard effect of 0.03, there is a 95% chance that it is between <span class="math inline">\((-0.03/\sigma, 0.03/\sigma)\)</span>, with <span class="math inline">\(n_0 = (1.96\sigma/0.03)^2 = 32.7^2\)</span>.</p>
-<p>Figure <a href="hypothesis-testing-with-normal-populations.html#fig:prior-effect">5.3</a> shows our informative prior in blue, while the unit information prior is in orange. On this scale, the unit information prior needs to be almost uniform for the range that we are interested.</p>
+<p>Therefore, we are testing <span class="math inline">\(H_1: \mu = 0.5\)</span> versus <span class="math inline">\(H_2: \mu \neq 0.5\)</span>. Let’s use a prior that suggests we do not expect a large effect which leads
+the following solution for <span class="math inline">\(n_0\)</span>. Assume we want a standard effect of 0.03, there is a 95% chance that it is between <span class="math inline">\((-0.03/\sigma, 0.03/\sigma)\)</span>, with <span class="math inline">\(n_0 = (1.96\sigma/0.03)^2 = 32.7^2\)</span>.</p>
+<p>Figure <a href="hypothesis-testing-with-normal-populations.html#fig:prior-effect">5.3</a> shows our informative prior in blue, while the unit information prior is in orange. On this scale, the unit information
+prior needs to be almost uniform for the range that we are interested.</p>
 <div class="figure" style="text-align: center"><span id="fig:prior-effect"></span>
 <img src="05-BFnormal-01-known-variance_files/figure-html/prior-effect-1.png" alt="Prior effect in the extra sensory perception test" width="480" />
 <p class="caption">
@@ -344,11 +376,13 @@ Figure 5.3: Prior effect in the extra sensory perception test
 </ul>
 <p>Now using our prior in the data, the Bayes factor for <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> was 0.46, implying evidence against the hypothesis <span class="math inline">\(H_1\)</span> that <span class="math inline">\(\mu = 0.5\)</span>.</p>
 <ul>
-<li>Informative <span class="math inline">\({\textit{BF}}[H_1:H_2] = 0.46\)</span></li>
-<li><span class="math inline">\({\textit{BF}}[H_2:H_1] = 1/{\textit{BF}}[H_1:H_2] = 2.19\)</span></li>
+<li>Informative <span class="math inline">\(\textit{BF}[H_1:H_2] = 0.46\)</span></li>
+<li><span class="math inline">\(\textit{BF}[H_2:H_1] = 1/\textit{BF}[H_1:H_2] = 2.19\)</span></li>
 </ul>
-<p>Now, this can be inverted to provide the evidence in favor of <span class="math inline">\(H_2\)</span>. The evidence suggests that the hypothesis that the machine operates with a probability that is not 0.5, is 2.19 times more likely than the hypothesis the probability is 0.5. Based on the interpretation of Bayes factors from Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “not worth the bare mention”.</p>
-<p>To recap, we present expressions for calculating Bayes factors for a normal model with a specified variance. We show that the improper reference priors for <span class="math inline">\(\mu\)</span> when <span class="math inline">\(n_0 = 0\)</span>, or vague priors where <span class="math inline">\(n_0\)</span> is arbitrarily small, lead to Bayes factors that favor the null hypothesis regardless of the data, and thus should not be used for hypothesis testing.</p>
+<p>Now, this can be inverted to provide the evidence in favor of <span class="math inline">\(H_2\)</span>. The evidence suggests that the hypothesis that the machine operates with a probability that is not 0.5, is 2.19 times more likely than the hypothesis
+the probability is 0.5. Based on the interpretation of Bayes factors from Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “not worth the bare mention”.</p>
+<p>To recap, we present expressions for calculating Bayes factors for a normal model with a specified variance. We show that the improper reference priors for <span class="math inline">\(\mu\)</span> when <span class="math inline">\(n_0 = 0\)</span>, or vague priors where <span class="math inline">\(n_0\)</span> is arbitrarily small,
+lead to Bayes factors that favor the null hypothesis regardless of the data, and thus should not be used for hypothesis testing.</p>
 <p>Bayes factors with normal priors can be sensitive to the choice of the <span class="math inline">\(n_0\)</span>. While the default value of <span class="math inline">\(n_0 = 1\)</span> is reasonable in many cases, this may be too non-informative if one expects more effects. Wherever possible, think about how large an effect you expect and use that information to help select the <span class="math inline">\(n_0\)</span>.</p>
 <p>All the ESP examples suggest weak evidence and favored the machine generating random 0’s and 1’s with a probability that is different from 0.5. Note that ESP is not the only explanation – a deviation from 0.5 can also occur if the random number generator is biased. Bias in the stream of random numbers in our pseudorandom numbers has huge implications for numerous fields that depend on simulation. If the context had been about detecting a small bias in random numbers what prior would you use and how would it change the outcome? You can experiment it in <code>R</code> or other software packages that generate random Bernoulli trials.</p>
 <p>Next, we will look at Bayes factors in normal models with unknown variances using the Cauchy prior so that results are less sensitive to the choice of <span class="math inline">\(n_0\)</span>.</p>
@@ -449,37 +483,39 @@ Water samples collected at the the same location, on the surface and the bottom,
 <li><span class="math inline">\(H_1: \mu_B = \mu_S \Leftrightarrow \mu = 0\)</span></li>
 <li><span class="math inline">\(H_2: \mu_B \neq \mu_S \Leftrightarrow \mu \neq 0\)</span></li>
 </ul>
-<p>The Bayes factor is the ratio between the distributions of the data under each hypothesis, which does not depend on any unknown parameters.</p>
-<p><span class="math display">\[{\textit{BF}}[H_1 : H_2] = \frac{p({\text{data}}\mid H_1)} {p({\text{data}}\mid H_2)}\]</span></p>
+<p>The Bayes factor is the ratio between the distributions of the data
+under each hypothesis, which does not depend on any unknown parameters.</p>
+<p><span class="math display">\[\textit{BF}[H_1 : H_2] = \frac{p(\text{data}\mid H_1)} {p(\text{data}\mid H_2)}\]</span></p>
 <p>To obtain the Bayes factor, we need to use integration over the prior distributions under each hypothesis to obtain those distributions of the data.</p>
-<p><span class="math display">\[{\textit{BF}}[H_1 : H_2] = \iint p({\text{data}}\mid \mu, \sigma^2) p(\mu \mid \sigma^2) p(\sigma^2 \mid H_2)\, d \mu \, d\sigma^2\]</span></p>
+<p><span class="math display">\[\textit{BF}[H_1 : H_2] = \iint p(\text{data}\mid \mu, \sigma^2) p(\mu \mid \sigma^2) p(\sigma^2 \mid H_2)\, d \mu \, d\sigma^2\]</span></p>
 <p>This requires specifying the following priors:</p>
 <ul>
-<li><span class="math inline">\(\mu \mid \sigma^2, H_2 \sim {\textsf{Normal}}(0, \sigma^2/n_0)\)</span></li>
+<li><span class="math inline">\(\mu \mid \sigma^2, H_2 \sim \textsf{Normal}(0, \sigma^2/n_0)\)</span></li>
 <li><span class="math inline">\(p(\sigma^2) \propto 1/\sigma^2\)</span> for both <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span></li>
 </ul>
 <p><span class="math inline">\(\mu\)</span> is exactly zero under the hypothesis <span class="math inline">\(H_1\)</span>. For <span class="math inline">\(\mu\)</span> in <span class="math inline">\(H_2\)</span>, we start with the same conjugate normal prior as we used in Section <a href="hypothesis-testing-with-normal-populations.html#sec:known-var">5.1</a> – testing the normal mean with known variance. Since we assume that <span class="math inline">\(\sigma^2\)</span> is known, we model <span class="math inline">\(\mu \mid \sigma^2\)</span> instead of <span class="math inline">\(\mu\)</span> itself.</p>
 <p>The <span class="math inline">\(\sigma^2\)</span> appears in both the numerator and denominator of the Bayes factor. For default or reference case, we use the Jeffreys prior (a.k.a. reference prior) on <span class="math inline">\(\sigma^2\)</span>. As long as we have more than two observations, this (improper) prior will lead to a proper posterior.</p>
 <p>After integration and rearranging, one can derive a simple expression for the Bayes factor:</p>
-<p><span class="math display">\[{\textit{BF}}[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
+<p><span class="math display">\[\textit{BF}[H_1 : H_2] = \left(\frac{n + n_0}{n_0} \right)^{1/2} \left(
   \frac{ t^2  \frac{n_0}{n + n_0} + \nu }
   { t^2  + \nu} \right)^{\frac{\nu + 1}{2}}\]</span></p>
 <p>This is a function of the t-statistic</p>
 <p><span class="math display">\[t = \frac{|\bar{Y}|}{s/\sqrt{n}},\]</span></p>
 <p>where <span class="math inline">\(s\)</span> is the sample standard deviation and the degrees of freedom <span class="math inline">\(\nu = n-1\)</span> (sample size minus one).</p>
-<p>As we saw in the case of Bayes factors with known variance, we cannot use the improper prior on <span class="math inline">\(\mu\)</span> because when <span class="math inline">\(n_0 \to 0\)</span>, then <span class="math inline">\({\textit{BF}}[H1:H_2] \to \infty\)</span> favoring <span class="math inline">\(H_1\)</span> regardless of the magnitude of the t-statistic. Arbitrary, vague small choices for <span class="math inline">\(n_0\)</span> also lead to arbitrary large Bayes factors in favor of <span class="math inline">\(H_1\)</span>. Another example of the Barlett’s or Jeffreys-Lindley paradox.</p>
+<p>As we saw in the case of Bayes factors with known variance, we cannot use the improper prior on <span class="math inline">\(\mu\)</span> because when <span class="math inline">\(n_0 \to 0\)</span>, then <span class="math inline">\(\textit{BF}[H1:H_2] \to \infty\)</span> favoring <span class="math inline">\(H_1\)</span> regardless of the magnitude of the t-statistic. Arbitrary, vague small choices for <span class="math inline">\(n_0\)</span> also lead to arbitrary large Bayes factors in favor of <span class="math inline">\(H_1\)</span>. Another example of the Barlett’s or Jeffreys-Lindley paradox.</p>
 <p>Sir Herald Jeffrey discovered another paradox testing using the conjugant normal prior, known as the <strong>information paradox</strong>. His thought experiment assumed that our sample size <span class="math inline">\(n\)</span> and the prior sample size <span class="math inline">\(n_0\)</span>. He then considered what would happen to the Bayes factor as the sample mean moved further and further away from the hypothesized mean, measured in terms standard errors with the t-statistic, i.e., <span class="math inline">\(|t| \to \infty\)</span>. As the t-statistic or information about the mean moved further and further from zero, the Bayes factor goes to a constant depending on <span class="math inline">\(n, n_0\)</span> rather than providing overwhelming support for <span class="math inline">\(H_2\)</span>.</p>
 <p>The bounded Bayes factor is</p>
-<p><span class="math display">\[{\textit{BF}}[H_1 : H_2] \to \left( \frac{n_0}{n_0 + n}  \right)^{\frac{n - 1}{2}}\]</span></p>
-<p>Jeffrey wanted a prior with <span class="math inline">\({\textit{BF}}[H_1 : H_2] \to 0\)</span> (or equivalently, <span class="math inline">\({\textit{BF}}[H_2 : H_1] \to \infty\)</span>), as the information from the t-statistic grows, indicating the sample mean is as far as from the hypothesized mean and should favor <span class="math inline">\(H_2\)</span>.</p>
+<p><span class="math display">\[\textit{BF}[H_1 : H_2] \to \left( \frac{n_0}{n_0 + n}  \right)^{\frac{n - 1}{2}}\]</span></p>
+<p>Jeffrey wanted a prior with <span class="math inline">\(\textit{BF}[H_1 : H_2] \to 0\)</span> (or equivalently, <span class="math inline">\(\textit{BF}[H_2 : H_1] \to \infty\)</span>), as the information from the t-statistic grows, indicating the sample mean is as far as from the hypothesized mean and should favor <span class="math inline">\(H_2\)</span>.</p>
 <p>To resolve the paradox when the information the t-statistic favors <span class="math inline">\(H_2\)</span> but the Bayes factor does not, Jeffreys showed that <strong>no normal prior could resolve the paradox</strong>.</p>
-<p>But a <strong>Cauchy prior</strong> on <span class="math inline">\(\mu\)</span>, would resolve it. In this way, <span class="math inline">\({\textit{BF}}[H_2 : H_1]\)</span> goes to infinity as the sample mean becomes further away from the hypothesized mean. Recall that the Cauchy prior is written as <span class="math inline">\({\textsf{C}}(0, r^2 \sigma^2)\)</span>. While Jeffreys used a default of <span class="math inline">\(r = 1\)</span>, smaller values of <span class="math inline">\(r\)</span> can be used if smaller effects are expected.</p>
+<p>But a <strong>Cauchy prior</strong> on <span class="math inline">\(\mu\)</span>, would resolve it. In this way, <span class="math inline">\(\textit{BF}[H_2 : H_1]\)</span> goes to infinity as the sample mean becomes further away from the hypothesized mean. Recall that the Cauchy prior is written as <span class="math inline">\(\textsf{C}(0, r^2 \sigma^2)\)</span>. While Jeffreys used a default of <span class="math inline">\(r = 1\)</span>, smaller values of <span class="math inline">\(r\)</span> can be used if smaller effects are expected.</p>
 <p>The combination of the Jeffrey’s prior on <span class="math inline">\(\sigma^2\)</span> and this Cauchy prior on <span class="math inline">\(\mu\)</span> under <span class="math inline">\(H_2\)</span> is sometimes referred to as the <strong>Jeffrey-Zellener-Siow prior</strong>.</p>
-<p>However, there is no closed form expressions for the Bayes factor under the Cauchy distribution. To obtain the Bayes factor, we must use the numerical integration or simulation methods.</p>
+<p>However, there is no closed form expressions for the Bayes factor under the Cauchy distribution. To obtain the Bayes factor, we must use the
+numerical integration or simulation methods.</p>
 <p>We will use the  function from the  package to test whether the mean difference is zero in Example <a href="hypothesis-testing-with-normal-populations.html#exm:zinc">5.1</a> (zinc), using the JZS (Jeffreys-Zellener-Siow) prior.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
 <span class="kw">bayes_inference</span>(difference, <span class="dt">data=</span>zinc, <span class="dt">statistic=</span><span class="st">&quot;mean&quot;</span>, <span class="dt">type=</span><span class="st">&quot;ht&quot;</span>,
-                <span class="dt">prior=</span><span class="st">&quot;JZS&quot;</span>, <span class="dt">mu_0=</span><span class="dv">0</span>, <span class="dt">method=</span><span class="st">&quot;theo&quot;</span>, <span class="dt">alt=</span><span class="st">&quot;twosided&quot;</span>)</code></pre></div>
+                <span class="dt">prior=</span><span class="st">&quot;JZS&quot;</span>, <span class="dt">mu_0=</span><span class="dv">0</span>, <span class="dt">method=</span><span class="st">&quot;theo&quot;</span>, <span class="dt">alt=</span><span class="st">&quot;twosided&quot;</span>)</code></pre>
 <pre><code>## Single numerical variable
 ## n = 10, y-bar = 0.0804, s = 0.0523
 ## (Using Zellner-Siow Cauchy prior:  mu ~ C(0, 1*sigma)
@@ -500,12 +536,12 @@ Water samples collected at the the same location, on the surface and the bottom,
 ## (Assuming improper Jeffreys prior: p(sigma^2) = 1/sigma^2
 ## 
 ## Posterior Summaries
-##             2.5%        25%        50%         75%      97.5%
-## mu    0.03643081 0.06327489 0.07535958  0.08714658  0.1123008
-## sigma 0.03667521 0.04741952 0.05529035  0.06557132  0.0956306
-## n_0   0.16269662 1.88713399 4.75010551 10.12255527 32.4072491
+##             2.5%        25%        50%         75%       97.5%
+## mu    0.03648054 0.06329875 0.07540312  0.08718920  0.11223070
+## sigma 0.03669722 0.04742206 0.05531687  0.06554545  0.09542724
+## n_0   0.16293612 1.89332568 4.74172248 10.09314976 32.48243312
 ## 
-## 95% CI for mu: (0.0364, 0.1123)</code></pre>
+## 95% CI for mu: (0.0365, 0.1122)</code></pre>
 <p><img src="05-BFnormal-02-paired-means_files/figure-html/bayes-inference-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis <span class="math inline">\(H_2\)</span>, the mean difference is different from 0, is almost 51 times more likely than the hypothesis <span class="math inline">\(H_1\)</span> that the average concentration is the same at the surface and the bottom.</p>
 <p>To sum up, we have used the <strong>Cauchy prior</strong> as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the  function from the  package. If you expect that the effect sizes will be small, smaller values of <span class="math inline">\(r\)</span> are recommended.</p>
@@ -523,13 +559,13 @@ Water samples collected at the the same location, on the surface and the bottom,
 </div>
 
 <p>We will view the data as a random sample from two populations, older and younger moms. The two groups are modeled as:</p>
-<span class="math display" id="eq:half-alpha">\[\begin{equation}
+<p><span class="math display" id="eq:half-alpha">\[\begin{equation}
 \begin{split}
 Y_{O,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu + \alpha/2, \sigma^2) \\
 Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2, \sigma^2)
 \end{split}
 \tag{5.2}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>The model for weight gain for older moms using the subscript <span class="math inline">\(O\)</span>, and it assumes that the observations are independent and identically distributed, with a mean <span class="math inline">\(\mu+\alpha/2\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p>
 <p>For the younger women, the observations with the subscript <span class="math inline">\(Y\)</span> are independent and identically distributed with a mean <span class="math inline">\(\mu-\alpha/2\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p>
 <p>Using this representation of the means in the two groups, the difference in means simplifies to <span class="math inline">\(\alpha\)</span> – the parameter of interest.</p>
@@ -543,22 +579,22 @@ Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2,
 <p>In this representation, <span class="math inline">\(\mu\)</span> represents the overall weight gain for all women. (Does the model in Equation <a href="hypothesis-testing-with-normal-populations.html#eq:half-alpha">(5.2)</a> make more sense now?) To test the hypothesis, we need to specify prior distributions for <span class="math inline">\(\alpha\)</span> under <span class="math inline">\(H_2\)</span> (c.f. <span class="math inline">\(\alpha = 0\)</span> under <span class="math inline">\(H_1\)</span>) and priors for <span class="math inline">\(\mu,\sigma^2\)</span> under both hypotheses.</p>
 <p>Recall that the Bayes factor is the ratio of the distribution of the data under the two hypotheses.</p>
 <p><span class="math display">\[\begin{aligned}
- {\textit{BF}}[H_1 : H_2] &amp;=  \frac{p({\text{data}}\mid H_1)} {p({\text{data}}\mid H_2)} \\
-  &amp;= \frac{\iint p({\text{data}}\mid \alpha = 0,\mu,  \sigma^2 )p(\mu, \sigma^2 \mid H_1) \, d\mu \,d\sigma^2}
- {\int \iint p({\text{data}}\mid \alpha, \mu, \sigma^2) p(\alpha \mid \sigma^2) p(\mu, \sigma^2 \mid H_2) \, d \mu \, d\sigma^2 \, d \alpha}
+ \textit{BF}[H_1 : H_2] &amp;=  \frac{p(\text{data}\mid H_1)} {p(\text{data}\mid H_2)} \\
+  &amp;= \frac{\iint p(\text{data}\mid \alpha = 0,\mu,  \sigma^2 )p(\mu, \sigma^2 \mid H_1) \, d\mu \,d\sigma^2}
+ {\int \iint p(\text{data}\mid \alpha, \mu, \sigma^2) p(\alpha \mid \sigma^2) p(\mu, \sigma^2 \mid H_2) \, d \mu \, d\sigma^2 \, d \alpha}
 \end{aligned}\]</span></p>
 <p>As before, we need to average over uncertainty and the parameters to obtain the unconditional distribution of the data. Now, as in the test about a single mean, we cannot use improper or non-informative priors for <span class="math inline">\(\alpha\)</span> for testing.</p>
 <p>Under <span class="math inline">\(H_2\)</span>, we use the Cauchy prior for <span class="math inline">\(\alpha\)</span>, or equivalently, the Cauchy prior on the standardized effect <span class="math inline">\(\delta\)</span> with the scale of <span class="math inline">\(r\)</span>:</p>
-<p><span class="math display">\[\delta = \alpha/\sigma^2 \sim {\textsf{C}}(0, r^2)\]</span></p>
+<p><span class="math display">\[\delta = \alpha/\sigma^2 \sim \textsf{C}(0, r^2)\]</span></p>
 <p>Now, under both <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>, we use the Jeffrey’s reference prior on <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>:</p>
 <p><span class="math display">\[p(\mu, \sigma^2) \propto 1/\sigma^2\]</span></p>
 <p>While this is an improper prior on <span class="math inline">\(\mu\)</span>, this does not suffer from the Bartlett’s-Lindley’s-Jeffreys’ paradox as <span class="math inline">\(\mu\)</span> is a common parameter in the model in <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>. This is another example of the Jeffreys-Zellner-Siow prior.</p>
 <p>As in the single mean case, we will need numerical algorithms to obtain the Bayes factor. Now the following output illustrates testing of Bayes factors, using the Bayes inference function from the  package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
 <span class="kw">data</span>(nc)
 <span class="kw">bayes_inference</span>(<span class="dt">y=</span>gained, <span class="dt">x=</span>mature, <span class="dt">data=</span>nc,<span class="dt">type=</span><span class="st">&#39;ht&#39;</span>, 
                 <span class="dt">statistic=</span><span class="st">&#39;mean&#39;</span>,  <span class="dt">alternative=</span><span class="st">&#39;twosided&#39;</span>, <span class="dt">null=</span><span class="dv">0</span>,
-                <span class="dt">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="dt">r=</span><span class="dv">1</span>, <span class="dt">method=</span><span class="st">&#39;theo&#39;</span>, <span class="dt">show_summ=</span><span class="ot">FALSE</span>)</code></pre></div>
+                <span class="dt">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="dt">r=</span><span class="dv">1</span>, <span class="dt">method=</span><span class="st">&#39;theo&#39;</span>, <span class="dt">show_summ=</span><span class="ot">FALSE</span>)</code></pre>
 <pre><code>## Hypotheses:
 ## H1: mu_mature mom  = mu_younger mom
 ## H2: mu_mature mom != mu_younger mom
@@ -571,7 +607,7 @@ Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2,
 ## P(H2|data) = 0.1489 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (-4.3631 , 0.8408)</code></pre>
+## 95% Cred. Int.: (-4.3689 , 0.8662)</code></pre>
 <p><img src="05-BFnormal-03-independent-means_files/figure-html/bf-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>We see that the Bayes factor for <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> is about 5.7, with positive support for <span class="math inline">\(H_1\)</span> that there is no difference in average weight gain between younger and older women. Using equal prior probabilities, the probability that there is a difference in average weight gain between the two groups is about 0.15 given the data. Based on the interpretation of Bayes factors from Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “positive” (between 3 and 20).</p>
 <p>To recap, we have illustrated testing hypotheses about population means with two independent samples, using a Cauchy prior on the difference in the means. One assumption that we have made is that <strong>the variances are equal in both groups</strong>. The case where the variances are unequal is referred to as the Behren-Fisher problem, and this is beyond the scope for this course. In the next section, we will look at another example to put everything together with testing and discuss summarizing results.</p>
@@ -579,10 +615,12 @@ Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2,
 </div>
 <div id="inference-after-testing" class="section level2">
 <h2><span class="header-section-number">5.4</span> Inference after Testing</h2>
-<p>In this section, we will work through another example for comparing two means using both hypothesis tests and interval estimates, with an informative prior. We will also illustrate how to adjust the credible interval after testing.</p>
+<p>In this section, we will work through another example for comparing two means using both hypothesis tests and interval estimates, with an informative prior.
+We will also illustrate how to adjust the credible interval after testing.</p>
 
 <div class="example">
-<span id="exm:smoking" class="example"><strong>Example 5.3  </strong></span>We will use the North Carolina survey data to examine the relationship between infant birth weight and whether the mother smoked during pregnancy. The response variable, , is the birth weight of the baby in pounds. The categorical variable  provides the status of the mother as a smoker or non-smoker.
+<span id="exm:smoking" class="example"><strong>Example 5.3  </strong></span>We will use the North Carolina survey data to examine the relationship
+between infant birth weight and whether the mother smoked during pregnancy. The response variable, , is the birth weight of the baby in pounds. The categorical variable  provides the status of the mother as a smoker or non-smoker.
 </div>
 
 <p>We would like to answer two questions:</p>
@@ -592,26 +630,26 @@ Y_{Y,i} &amp;\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2,
 </ol>
 <p>As before, we need to specify models for the data and priors. We treat the data as a random sample for the two populations, smokers and non-smokers.</p>
 <p>The birth weights of babies born to non-smokers, designated by a subgroup <span class="math inline">\(N\)</span>, are assumed to be independent and identically distributed from a normal distribution with mean <span class="math inline">\(\mu + \alpha/2\)</span>, as in Section <a href="hypothesis-testing-with-normal-populations.html#sec:indep-means">5.3</a>.</p>
-<p><span class="math display">\[Y_{N,i} {\mathrel{\mathop{\sim}\limits^{\rm iid}}}{\textsf{Normal}}(\mu + \alpha/2, \sigma^2)\]</span></p>
+<p><span class="math display">\[Y_{N,i} \mathrel{\mathop{\sim}\limits^{\rm iid}}\textsf{Normal}(\mu + \alpha/2, \sigma^2)\]</span></p>
 <p>While the birth weights of the babies born to smokers, designated by the subgroup <span class="math inline">\(S\)</span>, are also assumed to have a normal distribution, but with mean <span class="math inline">\(\mu - \alpha/2\)</span>.</p>
-<p><span class="math display">\[Y_{S,i} {\mathrel{\mathop{\sim}\limits^{\rm iid}}}{\textsf{Normal}}(\mu - \alpha/2, \sigma^2)\]</span></p>
+<p><span class="math display">\[Y_{S,i} \mathrel{\mathop{\sim}\limits^{\rm iid}}\textsf{Normal}(\mu - \alpha/2, \sigma^2)\]</span></p>
 <p>The difference in the average birth weights is the parameter <span class="math inline">\(\alpha\)</span>, because</p>
 <p><span class="math display">\[(\mu + \alpha/2) - (\mu - \alpha/2) =  \alpha\]</span>.</p>
 <p>The hypotheses that we will test are <span class="math inline">\(H_1: \alpha = 0\)</span> versus <span class="math inline">\(H_2: \alpha \ne 0\)</span>.</p>
 <p>We will still use the Jeffreys-Zellner-Siow Cauchy prior. However, since we may expect the standardized effect size to not be as strong, we will use a scale of <span class="math inline">\(r = 0.5\)</span> rather than 1.</p>
 <p>Therefore, under <span class="math inline">\(H_2\)</span>, we have<br />
-<span class="math display">\[\delta = \alpha/\sigma \sim {\textsf{C}}(0, r^2), \text{ with } r = 0.5.\]</span></p>
+<span class="math display">\[\delta = \alpha/\sigma \sim \textsf{C}(0, r^2), \text{ with } r = 0.5.\]</span></p>
 <p>Under both <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>, we will use the reference priors on <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>:</p>
 <p><span class="math display">\[\begin{aligned}
 p(\mu) &amp;\propto 1 \\
 p(\sigma^2) &amp;\propto 1/\sigma^2
 \end{aligned}\]</span></p>
 <p>The input to the base inference function is similar, but now we will specify that <span class="math inline">\(r = 0.5\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
 <span class="kw">data</span>(nc)
 out =<span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <span class="dt">x=</span>habit, <span class="dt">data=</span>nc,<span class="dt">type=</span><span class="st">&#39;ht&#39;</span>, <span class="dt">null=</span><span class="dv">0</span>,
                      <span class="dt">statistic=</span><span class="st">&#39;mean&#39;</span>,  <span class="dt">alternative=</span><span class="st">&#39;twosided&#39;</span>,
-                     <span class="dt">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="dt">r=</span>.<span class="dv">5</span>, <span class="dt">method=</span><span class="st">&#39;sim&#39;</span>, <span class="dt">show_summ=</span><span class="ot">FALSE</span>)</code></pre></div>
+                     <span class="dt">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="dt">r=</span>.<span class="dv">5</span>, <span class="dt">method=</span><span class="st">&#39;sim&#39;</span>, <span class="dt">show_summ=</span><span class="ot">FALSE</span>)</code></pre>
 <pre><code>## Hypotheses:
 ## H1: mu_nonsmoker  = mu_smoker
 ## H2: mu_nonsmoker != mu_smoker
@@ -624,45 +662,46 @@ out =<span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <
 ## P(H2|data) = 0.5902 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (0.028 , 0.5637)</code></pre>
+## 95% Cred. Int.: (0.0259 , 0.5741)</code></pre>
 <p><img src="05-BFnormal-04-inference_files/figure-html/BF-NC-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>We see that the Bayes factor is 1.44, which weakly favors there being a difference in average birth weights for babies whose mothers are smokers versus mothers who did not smoke. Converting this to a probability, we find that there is about a 60% chance of the average birth weights are different.</p>
 <p>While looking at evidence of there being a difference is useful, Bayes factors and posterior probabilities do <strong>not</strong> convey any information about the magnitude of the effect. Reporting a credible interval or the complete posterior distribution is more relevant for quantifying the magnitude of the effect.</p>
 <p>Using the  function, we can generate samples from the posterior distribution under <span class="math inline">\(H_2\)</span> using the  option.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out.ci =<span class="st"> </span><span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <span class="dt">x=</span>habit, <span class="dt">data=</span>nc, <span class="dt">type=</span><span class="st">&#39;ci&#39;</span>,
+<pre class="sourceCode r"><code class="sourceCode r">out.ci =<span class="st"> </span><span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <span class="dt">x=</span>habit, <span class="dt">data=</span>nc, <span class="dt">type=</span><span class="st">&#39;ci&#39;</span>,
                          <span class="dt">statistic=</span><span class="st">&#39;mean&#39;</span>, <span class="dt">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="dt">mu_0=</span><span class="dv">0</span>,
                          <span class="dt">r=</span>.<span class="dv">5</span>, <span class="dt">method=</span><span class="st">&#39;sim&#39;</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)
-<span class="kw">print</span>(out.ci<span class="op">$</span>summary, <span class="dt">digits=</span><span class="dv">2</span>)</code></pre></div>
+<span class="kw">print</span>(out.ci<span class="op">$</span>summary, <span class="dt">digits=</span><span class="dv">2</span>)</code></pre>
 <pre><code>##                             2.5%     25%    50%     75%   97.5%
-## overall mean               6.854    6.95    7.0    7.04 7.1e+00
-## mu_nonsmoker - mu_smoker   0.018    0.20    0.3    0.39 5.7e-01
-## sigma^2                    2.069    2.19    2.3    2.33 2.5e+00
-## effect size                0.012    0.13    0.2    0.26 3.8e-01
-## n_0                      188.842 1971.21 4679.6 9537.07 2.5e+04</code></pre>
+## overall mean               6.856    6.95    7.0    7.04 7.1e+00
+## mu_nonsmoker - mu_smoker   0.020    0.20    0.3    0.39 5.7e-01
+## sigma^2                    2.070    2.19    2.3    2.33 2.5e+00
+## effect size                0.013    0.13    0.2    0.26 3.8e-01
+## n_0                      179.584 1925.78 4704.3 9413.62 2.5e+04</code></pre>
 <p>The 2.5 and 97.5 percentiles for the difference in the means provide a 95% credible interval of 0.023 to 0.57 pounds for the difference in average birth weight. The MCMC output shows not only summaries about the difference in the mean <span class="math inline">\(\alpha\)</span>, but the other parameters in the model.</p>
 <p>In particular, the Cauchy prior arises by placing a gamma prior on <span class="math inline">\(n_0\)</span> and the conjugate normal prior. This provides quantiles about <span class="math inline">\(n_0\)</span> after updating with the current data.</p>
 <p>The row labeled effect size is the standardized effect size <span class="math inline">\(\delta\)</span>, indicating that the effects are indeed small relative to the noise in the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 out =<span class="st"> </span><span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <span class="dt">x=</span>habit, <span class="dt">data=</span>nc,<span class="dt">type=</span><span class="st">&#39;ht&#39;</span>,
                 <span class="dt">statistic=</span><span class="st">&#39;mean&#39;</span>,  <span class="dt">alternative=</span><span class="st">&#39;twosided&#39;</span>,
                 <span class="dt">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="dt">null=</span><span class="dv">0</span>, <span class="dt">r=</span>.<span class="dv">5</span>, <span class="dt">method=</span><span class="st">&#39;theo&#39;</span>,
-                <span class="dt">show_summ=</span><span class="ot">FALSE</span>, <span class="dt">show_res=</span><span class="ot">FALSE</span>, <span class="dt">show_plot=</span><span class="ot">TRUE</span>)</code></pre></div>
+                <span class="dt">show_summ=</span><span class="ot">FALSE</span>, <span class="dt">show_res=</span><span class="ot">FALSE</span>, <span class="dt">show_plot=</span><span class="ot">TRUE</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:BF-NC-plot"></span>
 <img src="05-BFnormal-04-inference_files/figure-html/BF-NC-plot-1.png" alt="Estimates of effect under H2" width="384" />
 <p class="caption">
 Figure 5.4: Estimates of effect under H2
 </p>
 </div>
-<p>Figure <a href="hypothesis-testing-with-normal-populations.html#fig:BF-NC-plot">5.4</a> shows the posterior density for the difference in means, with the 95% credible interval indicated by the shaded area. Under <span class="math inline">\(H_2\)</span>, there is a 95% chance that the average birth weight of babies born to non-smokers is 0.023 to 0.57 pounds higher than that of babies born to smokers.</p>
+<p>Figure <a href="hypothesis-testing-with-normal-populations.html#fig:BF-NC-plot">5.4</a> shows the posterior density for
+the difference in means, with the 95% credible interval indicated by the shaded area. Under <span class="math inline">\(H_2\)</span>, there is a 95% chance that the average birth weight of babies born to non-smokers is 0.023 to 0.57 pounds higher than that of babies born to smokers.</p>
 <p>The previous statement assumes that <span class="math inline">\(H_2\)</span> is true and is a conditional probability statement. In mathematical terms, the statement is equivalent to</p>
-<p><span class="math display">\[P(0.023 &lt; \alpha &lt; 0.57 \mid {\text{data}}, H_2) =  0.95\]</span></p>
+<p><span class="math display">\[P(0.023 &lt; \alpha &lt; 0.57 \mid \text{data}, H_2) =  0.95\]</span></p>
 <p>However, we still have quite a bit of uncertainty based on the current data, because given the data, the probability of <span class="math inline">\(H_2\)</span> being true is 0.59.</p>
-<p><span class="math display">\[P(H_2 \mid {\text{data}}) = 0.59\]</span></p>
+<p><span class="math display">\[P(H_2 \mid \text{data}) = 0.59\]</span></p>
 <p>Using the law of total probability, we can compute the probability that <span class="math inline">\(\mu\)</span> is between 0.023 and 0.57 as below:</p>
 <p><span class="math display">\[\begin{aligned}
-&amp; P(0.023 &lt; \alpha &lt; 0.57 \mid {\text{data}}) \\
-= &amp; P(0.023 &lt; \alpha &lt; 0.57 \mid {\text{data}}, H_1)P(H_1 \mid {\text{data}})  + P(0.023 &lt; \alpha &lt; 0.57 \mid {\text{data}}, H_2)P(H_2 \mid {\text{data}}) \\
-= &amp; I( 0 \text{ in CI }) P(H_1 \mid {\text{data}})  + 0.95 \times P(H_2 \mid {\text{data}}) \\
+&amp; P(0.023 &lt; \alpha &lt; 0.57 \mid \text{data}) \\
+= &amp; P(0.023 &lt; \alpha &lt; 0.57 \mid \text{data}, H_1)P(H_1 \mid \text{data})  + P(0.023 &lt; \alpha &lt; 0.57 \mid \text{data}, H_2)P(H_2 \mid \text{data}) \\
+= &amp; I( 0 \text{ in CI }) P(H_1 \mid \text{data})  + 0.95 \times P(H_2 \mid \text{data}) \\
 = &amp; 0 \times 0.41 + 0.95 \times 0.59 = 0.5605
 \end{aligned}\]</span></p>
 <p>Finally, we get that the probability that <span class="math inline">\(\alpha\)</span> is in the interval, given the data, averaging over both hypotheses, is roughly 0.56. The unconditional statement is the average birth weight of babies born to nonsmokers is 0.023 to 0.57 pounds higher than that of babies born to smokers with probability 0.56. This adjustment addresses the posterior uncertainty and how likely <span class="math inline">\(H_2\)</span> is.</p>
@@ -726,7 +765,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

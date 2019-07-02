@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking</title>
-  <meta name="description" content="Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   
   
 
-<meta name="author" content="Merlise Clyde">
-<meta name="author" content="Mine Cetinkaya-Rundel">
-<meta name="author" content="Colin Rundel">
-<meta name="author" content="David Banks">
-<meta name="author" content="Christine Chai">
-<meta name="author" content="Lizzy Huang">
+<meta name="author" content="Merlise Clyde" />
+<meta name="author" content="Mine Cetinkaya-Rundel" />
+<meta name="author" content="Colin Rundel" />
+<meta name="author" content="David Banks" />
+<meta name="author" content="Christine Chai" />
+<meta name="author" content="Lizzy Huang" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="losses-and-decision-making.html">
@@ -55,41 +54,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -278,7 +303,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>You may take the safety of your drinking water for granted, however, residents of Flint, Michigan were outraged over reports that the levels of a contaminant known as <strong>TTHM</strong> exceeded federal allowance levels in 2014. TTHM stands for total trihalomethanes, a group of chemical compounds first identified in drinking water in the 1970’s. Trihalomethanes are formed as a by-product from the reaction of chlorine or bromine with organic matter present in the water being disinfected for drinking. THMs have been associated through epidemiological studies with some adverse health effects and many are considered carcinogenic. In the United States, the EPA limits the total concentration of the four chief constituents (chloroform, bromoform, bromodichloromethane, and dibromochloromethane), referred to as total trihalomethanes (TTHM), to 80 parts per billion in treated water.</p>
 <p>Since violations are based on annual running averages, we are interested in inference about the mean TTHM level based on measurements taken from samples.</p>
 <p>In Section <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a> we described the normal-normal conjugate family for inference about an unknown mean <span class="math inline">\(\mu\)</span> when the data <span class="math inline">\(Y_1, Y_2, \ldots, Y_n\)</span> were assumed to be a random sample of size <span class="math inline">\(n\)</span> from a normal population with a known standard deviation <span class="math inline">\(\sigma\)</span>, however, it is more common in practice to have data where the variability of observations is unknown, as in the example with TTHM. Conceptually, Bayesian inference for two (or more) parameters is not any different from the case with one parameter. As both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> unknown, we will need to specify a <strong>joint</strong> prior distribution, <span class="math inline">\(p(\mu, \sigma^2)\)</span> to describe our prior uncertainty about them. As before, Bayes Theorem leads to the posterior distribution for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> given the observed data to take the form</p>
-<span class="math display">\[\begin{equation}
+<p><span class="math display">\[\begin{equation}
 p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  = 
 \frac{p(y_1, \ldots, y_n \mid \mu, \sigma^2) \times
 p(\mu, \sigma^2)}
@@ -287,17 +312,21 @@ p(\mu, \sigma^2)}
 The <strong>likelihood function</strong> for <span class="math inline">\(\mu, \sigma^2\)</span> is proportional to the sampling distribution of the data, <span class="math inline">\({\cal L}(\mu, \sigma^2) \propto p(y_1, \ldots, y_n \mid \mu, \sigma^2)\)</span> so that the posterior distribution can be re-expressed in proportional form
 <span class="math display">\[\begin{equation}
 p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  \propto {\cal L}(\mu, \sigma^2) p(\mu, \sigma^2).
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>As in the earlier chapters, conjugate priors are appealing as there are nice expressions for updating the prior to obtain the posterior distribution using summaries of the data. In the case of two parameters or more parameters a conjugate pair is a sampling model for the data and a joint prior distribution for the unknown parameters such that the joint posterior distribution is in the same family of distributions as the prior distribution. In this case our sampling model is built on the assumption that the data are a random sample of size <span class="math inline">\(n\)</span> from a normal population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, expressed in shorthand as</p>
-<span class="math display">\[\begin{aligned}
-Y_1, \ldots Y_n  {\mathrel{\mathop{\sim}\limits^{\rm iid}}}\textsf{Normal}(\mu, \sigma^2) 
-\end{aligned}\]</span> where the ‘iid’ above the distribution symbol ‘<span class="math inline">\(\sim\)</span>’ indicates that each of the observations are <strong>i</strong>ndependent of the others (given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>) and are <strong>i</strong>dentically <strong>d</strong>istributed. Under this assumption, the sampling distribution of the data is the product of independent normal distributions with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>,
+<p><span class="math display">\[\begin{aligned}
+Y_1, \ldots Y_n  \mathrel{\mathop{\sim}\limits^{\rm iid}}
+\textsf{Normal}(\mu, \sigma^2) 
+\end{aligned}\]</span>
+where the ‘iid’ above the distribution symbol ‘<span class="math inline">\(\sim\)</span>’ indicates that each of the observations are <strong>i</strong>ndependent of the others (given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>) and are <strong>i</strong>dentically <strong>d</strong>istributed. Under this assumption, the sampling distribution of the data is the product of independent normal distributions with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>,
 <span class="math display">\[\begin{equation}
 p(y_1, \ldots, y_n \mid \mu, \sigma^2) = \prod_{i = 1}^n
 \frac{1}{\sqrt{2 \pi \sigma^2}}
 e^{\left\{- \frac{1}{2} \left(\frac{y_i - \mu}{\sigma}\right)^2\right\}}
 \end{equation}\]</span>
-<p>which, after some algebraic manipulation and simplification, leads to a likelihood function for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> that is proportional to <span class="math display">\[
+which, after some algebraic manipulation and simplification, leads to a
+likelihood function for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> that is proportional to
+<span class="math display">\[
 \begin{aligned}
 {\cal L}(\mu, \sigma^2) \propto 
 (\sigma^2)^{-n/2}  \times \exp{ \left\{   
@@ -308,44 +337,52 @@ e^{\left\{- \frac{1}{2} \left(\frac{y_i - \mu}{\sigma}\right)^2\right\}}
   \text{function of $\sigma^2$ and data} &amp; \times
   \text{function of $\mu$, $\sigma^2$ and data}
 \end{aligned}
-\]</span> which depends on the data only through the sum of squares <span class="math inline">\(\sum_{i = 1}^n(y_i - \bar{y})^2\)</span> (or equivalently the sample variance <span class="math inline">\(s^2 = \sum_{i = 1}^n(y_i - \bar{y})^2/(n-1)\)</span>) and the sample mean <span class="math inline">\(\bar{y}\)</span>. From the expression for the likelihood, we can see that the likelihood factors into two pieces: a term that is a function of <span class="math inline">\(\sigma^2\)</span> and the data; and a term that involves <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma^2\)</span> and the data.</p>
-<p>Based on the factorization in the likelihood and the fact that any joint distribution for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> can be expressed as <span class="math display">\[
+\]</span>
+which depends on the data only through the sum of squares <span class="math inline">\(\sum_{i = 1}^n(y_i - \bar{y})^2\)</span> (or equivalently the sample variance <span class="math inline">\(s^2 = \sum_{i = 1}^n(y_i - \bar{y})^2/(n-1)\)</span>) and the sample mean <span class="math inline">\(\bar{y}\)</span>.
+From the expression for the likelihood, we can see that the likelihood factors into two pieces: a term that is a function of <span class="math inline">\(\sigma^2\)</span> and the data; and a term that involves <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma^2\)</span> and the data.</p>
+<p>Based on the factorization in the likelihood and the fact that any joint distribution for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> can be expressed as
+<span class="math display">\[
 p(\mu, \sigma^2) = p(\mu \mid \sigma^2) \times p(\sigma^2)
-\]</span> as the product of a <strong>conditional distribution</strong> for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> and a <strong>marginal distribution</strong> for <span class="math inline">\(\sigma^2\)</span>, this suggests that the posterior distribution should factor as the product of two conjugate distributions. Perhaps not surprisingly, this is indeed the case.</p>
+\]</span>
+as the product of a <strong>conditional distribution</strong> for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> and a <strong>marginal distribution</strong> for <span class="math inline">\(\sigma^2\)</span>, this suggests that the posterior distribution should factor as the product of two conjugate distributions. Perhaps not surprisingly, this is indeed the case.</p>
 <div id="conjugate-prior-for-mu-and-sigma2" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Conjugate Prior for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span></h3>
-In Section <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a>, we found that for normal data, the conjugate prior distribution for <span class="math inline">\(\mu\)</span> when the standard deviation <span class="math inline">\(\sigma\)</span> was known was a normal distribution. We will build on this to specify a conditional prior distribution for <span class="math inline">\(\mu\)</span> as a normal distribution
+<p>In Section <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a>, we found that for normal data, the conjugate prior distribution for <span class="math inline">\(\mu\)</span> when the standard deviation <span class="math inline">\(\sigma\)</span> was known was a normal distribution. We will build on this to specify a conditional prior distribution for <span class="math inline">\(\mu\)</span> as a normal distribution
 <span class="math display" id="eq:04-conjugate-normal">\[\begin{equation}
 \mu \mid \sigma^2   \sim  \textsf{N}(m_0, \sigma^2/n_0)
 \tag{4.1}
 \end{equation}\]</span>
-<p>with hyper-parameters <span class="math inline">\(m_0\)</span>, the prior mean for <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(\sigma^2/n_0\)</span> the prior variance. While previously we represented the prior variance as a fixed constant, <span class="math inline">\(\tau^2\)</span>, in this case we will replace <span class="math inline">\(\tau^2\)</span> with a multiple of <span class="math inline">\(\sigma^2\)</span>. Because <span class="math inline">\(\sigma\)</span> has the same units as the data, the presence of <span class="math inline">\(\sigma\)</span> in the prior variance automatically scales the prior for <span class="math inline">\(\mu\)</span> based on the same units. This is important, for example, if we were to change the measurement units from inches to centimeters or seconds to hours, as the prior will be re-scaled automatically. The hyper-parameter <span class="math inline">\(n_0\)</span> is unitless, but is used to express our prior precision about <span class="math inline">\(\mu\)</span> relative to the level of “noise”, captured by <span class="math inline">\(\sigma^2\)</span>, in the data. Larger values of <span class="math inline">\(n_0\)</span> indicate that we know the mean with more precision (relative to the variabiltiy in observations) with smaller values indicating less precision or more uncertainty. We will see later how the hyper-parameter <span class="math inline">\(n_0\)</span> may be interpreted as a prior sample size. Finally, while we could use a fixed value <span class="math inline">\(\tau^2\)</span> as the prior variance in a conditional conjugate prior for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span>, that does not lead to a joint conjugate prior for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>.</p>
-<p>As <span class="math inline">\(\sigma^2\)</span> is unknown, a Bayesian would use a prior distribution to describe the uncertainty about the variance before seeing data. Since the variance is non-negative, continuous, and with no upper limit, based on the distributions that we have seen so far a gamma distribution might appear to be a candidate prior for the variance,. However, that choice does not lead to a posterior distribution in the same family or that is recognizable as any common distribution. It turns out that the the inverse of the variance, which is known as the precision, has a conjugate gamma prior distribution.</p>
-For simplification let’s express the precision (inverse variance) as a new parameter, <span class="math inline">\(\phi = 1/\sigma^2\)</span>. Then the conjugate prior for <span class="math inline">\(\phi\)</span>,
+with hyper-parameters <span class="math inline">\(m_0\)</span>, the prior mean for <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(\sigma^2/n_0\)</span> the prior variance. While previously we represented the prior variance as a fixed constant, <span class="math inline">\(\tau^2\)</span>, in this case we will replace <span class="math inline">\(\tau^2\)</span> with a multiple of <span class="math inline">\(\sigma^2\)</span>. Because <span class="math inline">\(\sigma\)</span> has the same units as the data, the presence of <span class="math inline">\(\sigma\)</span> in the prior variance automatically scales the prior for <span class="math inline">\(\mu\)</span> based on the same units. This is important, for example, if we were to change the measurement units from inches to centimeters or seconds to hours, as the prior will be re-scaled automatically. The hyper-parameter <span class="math inline">\(n_0\)</span> is unitless, but is used to express our prior precision about <span class="math inline">\(\mu\)</span> relative to the level of “noise”, captured by <span class="math inline">\(\sigma^2\)</span>, in the data. Larger values of <span class="math inline">\(n_0\)</span> indicate that we know the mean with more precision (relative to the variabiltiy in observations) with smaller values indicating less precision or more uncertainty. We will see later how the hyper-parameter <span class="math inline">\(n_0\)</span> may be interpreted as a prior sample size. Finally, while we could use a fixed value <span class="math inline">\(\tau^2\)</span> as the prior variance in a conditional conjugate prior for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span>, that does not lead to a joint conjugate prior for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>As <span class="math inline">\(\sigma^2\)</span> is unknown, a Bayesian would use a
+prior distribution to describe the uncertainty about the variance before seeing data. Since the variance is non-negative, continuous, and with no upper limit, based on the distributions that we have seen so far a gamma distribution might appear to be a candidate prior for the variance,. However, that choice does not lead to a posterior distribution in the same family or that is recognizable as any common distribution. It turns out that the the inverse of the variance, which is known as the precision, has a conjugate gamma prior distribution.</p>
+<p>For simplification let’s express the precision (inverse variance) as a new parameter, <span class="math inline">\(\phi = 1/\sigma^2\)</span>. Then the conjugate prior for <span class="math inline">\(\phi\)</span>,
 <span class="math display" id="eq:04-conjugate-gamma">\[\begin{equation}
 \phi \sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right)
 \tag{4.2}
 \end{equation}\]</span>
-<p>is a gamma distribution with shape parameter <span class="math inline">\(v_0/2\)</span> and <strong>rate</strong> parameter of <span class="math inline">\({v_0 s^2_0}/{2}\)</span>. Given the connections between the gamma distribution and the Chi-Squared distribution, the hyper-parameter <span class="math inline">\(v_0\)</span> may be interpreted as the prior degrees of freedom. The hyperparameter <span class="math inline">\(s^2_0\)</span> may be interpreted as a prior variance or initial prior estimate for <span class="math inline">\(\sigma^2\)</span>. Equivalently, we may say that the inverse of the variance has a <span class="math display">\[1/\sigma^2 \sim \textsf{Gamma}(v_0/2, s^2_0 v_0/2)\]</span></p>
-gamma distribution to avoid using a new symbol . Together the conditional normal distribution for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> in <a href="inference-and-decision-making-with-multiple-parameters.html#eq:04-conjugate-normal">(4.1)</a> and the marginal gamma distribution for <span class="math inline">\(\phi\)</span> in <a href="inference-and-decision-making-with-multiple-parameters.html#eq:04-conjugate-gamma">(4.2)</a> lead to a joint distribution for the pair <span class="math inline">\((\mu, \phi)\)</span> that we will call the normal-gamma family of distributions:
+is a gamma distribution with shape parameter <span class="math inline">\(v_0/2\)</span> and <strong>rate</strong> parameter of <span class="math inline">\({v_0 s^2_0}/{2}\)</span>. Given the connections between the gamma distribution and the Chi-Squared distribution, the hyper-parameter <span class="math inline">\(v_0\)</span> may be interpreted as the prior degrees of freedom. The hyperparameter <span class="math inline">\(s^2_0\)</span> may be interpreted as a prior variance or initial prior estimate for <span class="math inline">\(\sigma^2\)</span>. Equivalently, we may say that the inverse of the variance has a
+<span class="math display">\[1/\sigma^2 \sim \textsf{Gamma}(v_0/2, s^2_0 v_0/2)\]</span></p>
+<p>gamma distribution to avoid using a new symbol . Together the conditional normal distribution for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> in <a href="inference-and-decision-making-with-multiple-parameters.html#eq:04-conjugate-normal">(4.1)</a> and the marginal gamma distribution for <span class="math inline">\(\phi\)</span> in <a href="inference-and-decision-making-with-multiple-parameters.html#eq:04-conjugate-gamma">(4.2)</a> lead to a joint distribution for the pair <span class="math inline">\((\mu, \phi)\)</span> that we will call the normal-gamma family of distributions:
 <span class="math display" id="eq:04-conjugate-normal-gamma">\[\begin{equation}(\mu, \phi) \sim \textsf{NormalGamma}(m_0, n_0, s^2_0, v_0)
 \tag{4.3}
 \end{equation}\]</span>
-<p>with the four hyper-parameters <span class="math inline">\(m_0\)</span>, <span class="math inline">\(n_0\)</span>, <span class="math inline">\(s^2_0\)</span>, and <span class="math inline">\(v_0\)</span>.</p>
-We can obtain the density for the (<span class="math inline">\(m_0, n_0, \nu_0, s^2_0\)</span>) family of distributions for <span class="math inline">\(\mu, \phi\)</span> by multiplying the conditional normal distribution for <span class="math inline">\(\mu\)</span> times the marginal gamma distribution for <span class="math inline">\(\phi\)</span>:
+with the four hyper-parameters <span class="math inline">\(m_0\)</span>, <span class="math inline">\(n_0\)</span>, <span class="math inline">\(s^2_0\)</span>, and <span class="math inline">\(v_0\)</span>.</p>
+<p>We can obtain the density for the (<span class="math inline">\(m_0, n_0, \nu_0, s^2_0\)</span>) family of distributions for <span class="math inline">\(\mu, \phi\)</span> by multiplying the conditional normal distribution for <span class="math inline">\(\mu\)</span> times the marginal gamma distribution for <span class="math inline">\(\phi\)</span>:
 <span class="math display">\[\begin{equation}
 p(\mu, \phi) = \frac{(n_0 \phi)^{1/2}} {\sqrt{2\pi}} e^{- \frac{\phi n_0}{2} (\mu -m_0)^2} \frac{1}{\Gamma(\nu_0/2)} (\nu_0 s^2_0 )^{\nu_0/2 -1} e^{- \phi \frac{\nu_0 s^2_0} {2}}
 \label{eq:NG}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>The joint conjugate prior has simple rules for updating the prior hyperparameters given new data to obtain the posterior hyperparmeters due to conjugacy.</p>
 </div>
 <div id="conjugate-posterior-distribution" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Conjugate Posterior Distribution</h3>
-As a conjugate family, the posterior distribution of the pair of parameters (<span class="math inline">\(\mu, \phi\)</span>) is in the same family as the prior distribution when the sample data arise from a normal distribution, that is the posterior is also normal-gamma
+<p>As a conjugate family, the posterior
+distribution of the pair of parameters (<span class="math inline">\(\mu, \phi\)</span>) is in the same family as the prior distribution when the sample data arise from a normal distribution, that is the posterior is also normal-gamma
 <span class="math display">\[\begin{equation}
 (\mu, \phi) \mid \text{data} \sim \textsf{NormalGamma}(m_n, n_n, s^2_n, v_n)
 \end{equation}\]</span>
-where the subscript <span class="math inline">\(n\)</span> on the hyper-parameters indicates the updated values after seeing the <span class="math inline">\(n\)</span> observations from the sample data. One attraction of conjugate families is there are relatively simple updating rules for obtaining the new hyper-parameters:
+where the subscript <span class="math inline">\(n\)</span> on the
+hyper-parameters indicates the updated values after seeing the <span class="math inline">\(n\)</span> observations from the sample data. One attraction of conjugate families is there are relatively simple updating rules for obtaining the new hyper-parameters:
 <span class="math display">\[\begin{eqnarray*}
 m_n &amp; = &amp; \frac{n \bar{Y} + n_0 m_0} {n + n_0}  \\
 &amp; \\
@@ -353,19 +390,34 @@ n_n &amp; = &amp; n_0 + n  \\
 v_n &amp; = &amp; v_0 + n  \\
 s^2_n &amp; =  &amp; \frac{1}{v_n}\left[ s^2 (n-1) + s^2_0 v_0 + \frac{n_0 n}{n_n} (\bar{y} - m_0)^2 \right]. 
 \end{eqnarray*}\]</span>
-<p>Let’s look more closely to try to understand the updating rules. The updated hyper-parameter <span class="math inline">\(m_n\)</span> is the posterior mean for <span class="math inline">\(\mu\)</span>; it is also the mode and median. The posterior mean <span class="math inline">\(m_n\)</span> is a weighted average of the sample mean <span class="math inline">\(\bar{y}\)</span> and prior mean <span class="math inline">\(m_0\)</span> with weights <span class="math inline">\(n/(n + n_0\)</span> and <span class="math inline">\(n_0/(n + n_0)\)</span> that are proportional to the precision in the data, <span class="math inline">\(n\)</span>, and the prior precision, <span class="math inline">\(n_0\)</span>, respectively.</p>
-<p>The posterior sample size <span class="math inline">\(n_n\)</span> is the sum of the prior sample size <span class="math inline">\(n_0\)</span> and the sample size <span class="math inline">\(n\)</span>, representing the combined precision after seeing the data for the posterior distribution for <span class="math inline">\(\mu\)</span>. The posterior degrees of freedom <span class="math inline">\(v_n\)</span> are also increased by adding the sample size <span class="math inline">\(n\)</span> to the prior degrees of freedom <span class="math inline">\(v_0\)</span>.</p>
-<p>Finally, the posterior variance hyper-parameter <span class="math inline">\(s^2_n\)</span> combines three sources of information about <span class="math inline">\(\sigma^2\)</span> in terms of sums of squared deviations. The first term in the square brackets is the sample variance times the sample degrees of freedom, <span class="math inline">\(s^2 (n-1) = \sum_{i=1}^n (y_i - \bar{y})^2\)</span>, which is the sample sum of squares. Similarly, we may view the second term as a sum of squares based on prior data, where <span class="math inline">\(s^2_0\)</span> was an estimate of <span class="math inline">\(\sigma^2\)</span>. The squared difference of the sample mean and prior mean in the last term also provides an estimate of <span class="math inline">\(\sigma^2\)</span>, where a large value of <span class="math inline">\((\bar{y} - \mu_0)^2\)</span> increases the posterior sum of squares <span class="math inline">\(v_n s^2_n\)</span>.<br />
-If the sample mean is far from our prior mean, this increases the probability that <span class="math inline">\(\sigma^2\)</span> is large. Adding these three sum of squares provides the posterior sum of square, and dividing by the posterior posterior degrees of freedom we obtain the new hyper-parameter <span class="math inline">\(s^2_n\)</span>, which is an estimate of <span class="math inline">\(\sigma^2\)</span> combining the sources of variation from the prior and the data.</p>
-<p>The joint posterior distribution for the pair <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span> <span class="math display">\[(\mu, \phi) \mid {\text{data}}\sim {\textsf{NormalGamma}}(m_n, n_n, s^2_n, v_n)\]</span> is in the normal-gamma family, and is equivalent to a <strong>hierarchical model</strong> specified in two stages: in the first stage of the hierarchy the inverse variance or precision marginally has a gamma distribution, <span class="math display">\[
-1/\sigma^2 \mid {\text{data}}\sim   {\textsf{Gamma}}(v_n/2, s^2_n v_n/2) 
-\]</span> and in the second stage, <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma\)</span></p>
-<p><span class="math display">\[\mu \mid {\text{data}}, \sigma^2  \sim  {\textsf{Normal}}(m_n, \sigma^2/n_n)\]</span> has a conditional normal distribution. We will see in the next chapter how this representation is convenient for generating samples from the posterior distribution.</p>
+Let’s look more closely to try to understand the updating rules.
+The updated hyper-parameter <span class="math inline">\(m_n\)</span> is the posterior mean for <span class="math inline">\(\mu\)</span>; it is also the mode and median. The posterior mean <span class="math inline">\(m_n\)</span> is a weighted average of the sample mean <span class="math inline">\(\bar{y}\)</span> and prior mean <span class="math inline">\(m_0\)</span> with weights <span class="math inline">\(n/(n + n_0\)</span> and <span class="math inline">\(n_0/(n + n_0)\)</span> that are proportional to the precision in the data, <span class="math inline">\(n\)</span>, and the prior precision, <span class="math inline">\(n_0\)</span>, respectively.</p>
+<p>The posterior sample size <span class="math inline">\(n_n\)</span> is the sum of the prior sample
+size <span class="math inline">\(n_0\)</span> and the sample size <span class="math inline">\(n\)</span>, representing the combined precision after seeing the data for the posterior distribution for <span class="math inline">\(\mu\)</span>. The posterior degrees of freedom <span class="math inline">\(v_n\)</span> are also increased by adding the sample size <span class="math inline">\(n\)</span> to the prior degrees of freedom <span class="math inline">\(v_0\)</span>.</p>
+<p>Finally, the posterior variance hyper-parameter <span class="math inline">\(s^2_n\)</span> combines three sources of information about <span class="math inline">\(\sigma^2\)</span> in terms of sums of squared deviations. The first term in
+the square brackets is the sample variance times the sample degrees of
+freedom, <span class="math inline">\(s^2 (n-1) = \sum_{i=1}^n (y_i - \bar{y})^2\)</span>, which is the sample sum of squares. Similarly, we may view the second term as a sum of squares based on prior data, where <span class="math inline">\(s^2_0\)</span> was an estimate of <span class="math inline">\(\sigma^2\)</span>. The squared difference of the sample mean and prior mean in the last term also provides an estimate of <span class="math inline">\(\sigma^2\)</span>, where a large value of <span class="math inline">\((\bar{y} - \mu_0)^2\)</span> increases the posterior sum of squares <span class="math inline">\(v_n s^2_n\)</span>.<br />
+If the sample mean is far from our prior mean, this increases the probability that <span class="math inline">\(\sigma^2\)</span> is large. Adding these three sum of squares provides the posterior sum of square, and dividing by the posterior
+posterior degrees of freedom we obtain the new hyper-parameter <span class="math inline">\(s^2_n\)</span>, which is an estimate of <span class="math inline">\(\sigma^2\)</span> combining the sources of variation from the prior and the data.</p>
+<p>The joint posterior distribution for the pair <span class="math inline">\(\mu\)</span> and
+<span class="math inline">\(\phi\)</span>
+<span class="math display">\[(\mu, \phi) \mid \text{data}\sim \textsf{NormalGamma}(m_n, n_n, s^2_n, v_n)\]</span>
+is in the normal-gamma family, and is equivalent to a <strong>hierarchical model</strong> specified in two stages: in the
+first stage of the hierarchy the inverse variance or precision marginally has a gamma distribution,
+<span class="math display">\[
+1/\sigma^2 \mid \text{data}\sim   \textsf{Gamma}(v_n/2, s^2_n v_n/2) 
+\]</span>
+and in the second stage, <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma\)</span></p>
+<p><span class="math display">\[\mu \mid \text{data}, \sigma^2  \sim  \textsf{Normal}(m_n, \sigma^2/n_n)\]</span>
+has a conditional normal distribution. We will see in the next chapter how this representation is convenient for generating samples from the posterior distribution.</p>
 </div>
 <div id="marginal-distribution-for-mu-student-t" class="section level3">
 <h3><span class="header-section-number">4.1.3</span> Marginal Distribution for <span class="math inline">\(\mu\)</span>: Student <span class="math inline">\(t\)</span></h3>
-<p>The joint normal-gamma posterior summarizes our current knowledge about <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>, however, we are generally interested in inference about <span class="math inline">\(\mu\)</span> unconditionally as <span class="math inline">\(\sigma^2\)</span> is unknown. This marginal inference requires the unconditional or marginal distribution of <span class="math inline">\(\mu\)</span> that `averages’ over the uncertainty in <span class="math inline">\(\sigma\)</span>. For continuous variables like <span class="math inline">\(\sigma\)</span>, this averaging is performed by integration leading to a Student <span class="math inline">\(t\)</span> distribution.</p>
-<p>The <em>standardized Student <span class="math inline">\(t\)</span>-distribution</em> <span class="math inline">\({\textsf{t}}_\nu\)</span> with <span class="math inline">\(\nu\)</span> degrees of freedom is defined to be <span class="math display">\[ p(t) = \frac{1}{\sqrt{\pi\nu}}\frac{\Gamma(\frac{\nu+1}{2})}{\Gamma(\frac{\nu}{2})}\left(1 + \frac{t^2}{\nu}\right)^{-\frac{\nu+1}{2}} \]</span> where the <span class="math inline">\(\Gamma(\cdot)\)</span> is the Gamma function defined earlier in Equation <a href="bayesian-inference.html#eq:gamma-function">(2.4)</a>. The standard Student’s <span class="math inline">\(t\)</span>-distribution is centered at 0 (the location parameter), with a scale parameter equal to 1, like in a standard normal, however, there is an additional parameter, <span class="math inline">\(\nu\)</span>, the degrees of freedom parameter.</p>
+<p>The joint normal-gamma posterior summarizes our current knowledge about <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>, however, we are generally interested in inference about <span class="math inline">\(\mu\)</span> unconditionally
+as <span class="math inline">\(\sigma^2\)</span> is unknown. This marginal inference requires the unconditional or marginal distribution of <span class="math inline">\(\mu\)</span> that `averages’ over the uncertainty in <span class="math inline">\(\sigma\)</span>. For continuous variables like <span class="math inline">\(\sigma\)</span>, this averaging is performed by integration leading to a Student <span class="math inline">\(t\)</span> distribution.</p>
+<p>The <em>standardized Student <span class="math inline">\(t\)</span>-distribution</em> <span class="math inline">\(\textsf{t}_\nu\)</span> with <span class="math inline">\(\nu\)</span> degrees of freedom is defined to be
+<span class="math display">\[ p(t) = \frac{1}{\sqrt{\pi\nu}}\frac{\Gamma(\frac{\nu+1}{2})}{\Gamma(\frac{\nu}{2})}\left(1 + \frac{t^2}{\nu}\right)^{-\frac{\nu+1}{2}} \]</span>
+where the <span class="math inline">\(\Gamma(\cdot)\)</span> is the Gamma function defined earlier in Equation <a href="bayesian-inference.html#eq:gamma-function">(2.4)</a>. The standard Student’s <span class="math inline">\(t\)</span>-distribution is centered at 0 (the location parameter), with a scale parameter equal to 1, like in a standard normal, however, there is an additional parameter, <span class="math inline">\(\nu\)</span>, the degrees of freedom parameter.</p>
 <p>The Student <span class="math inline">\(t\)</span> distribution is similar to the normal distribution as it is symmetric about the center and bell shaped, however, the <strong>tails</strong> of the distribution are fatter or heavier than the normal distribution and therefore, it is a little “shorter” in the middle as illustrated in Figure <a href="#fig:density"><strong>??</strong></a></p>
 <div class="figure"><span id="fig:t-density"></span>
 <img src="04-normalgamma-01-inference_files/figure-html/t-density-1.png" alt="Standard normal and Student t densities." width="672" />
@@ -373,18 +425,27 @@ If the sample mean is far from our prior mean, this increases the probability th
 Figure 4.1: Standard normal and Student t densities.
 </p>
 </div>
-<p>Similar to the normal distribution, we can obtain other Student <span class="math inline">\(t\)</span> distributions by changing the center of the distribution and changing the scale. A Student t distribution with a location <span class="math inline">\(m\)</span> and scale <span class="math inline">\(s\)</span> with <span class="math inline">\(v\)</span> degrees of freedom is denoted as <span class="math inline">\({\textsf{t}}(v, m, s^2)\)</span>, with the standard Student t as a special case, <span class="math inline">\({\textsf{t}}(\nu, 0, 1)\)</span>.</p>
-The density for a <span class="math inline">\(X \sim {\textsf{t}}(v, m, s^2)\)</span> random variable is
+<p>Similar to the normal distribution, we can obtain other Student <span class="math inline">\(t\)</span> distributions by changing the center of the distribution and changing the scale. A Student t distribution with a location <span class="math inline">\(m\)</span> and scale <span class="math inline">\(s\)</span> with <span class="math inline">\(v\)</span> degrees of freedom is denoted as <span class="math inline">\(\textsf{t}(v, m, s^2)\)</span>, with the standard Student t as a special case, <span class="math inline">\(\textsf{t}(\nu, 0, 1)\)</span>.</p>
+<p>The density for a <span class="math inline">\(X \sim \textsf{t}(v, m, s^2)\)</span> random variable is
 <span class="math display" id="eq:Student-t-density">\[\begin{equation}
 p(x) =\frac{\Gamma\left(\frac{v + 1}{2} \right)}
 {\sqrt{\pi v} s \,\Gamma\left(\frac{v}{2} \right)}
 \left(1 + \frac{1}{v}\left(\frac{x - m} {s} \right)^2 \right)^{-\frac{v+1}{2}} 
 \tag{4.4}
 \end{equation}\]</span>
-<p>and by subtracting the location <span class="math inline">\(m\)</span> and dividing by the scale <span class="math inline">\(s\)</span>: <span class="math display">\[ \frac{X - m}{s} \equiv t \sim {\textsf{t}}(v, 0 , 1)  \]</span> we can obtain the distribution of the standardized Student <span class="math inline">\(t\)</span> distribution with degrees of freedom <span class="math inline">\(v\)</span>, location <span class="math inline">\(0\)</span> and scale <span class="math inline">\(1\)</span>. This latter representation allows us to use standard statistical functions for posterior inference such as finding credible intervals.</p>
-We are now ready for our main result for the marginal distribution for <span class="math inline">\(\mu\)</span>. 
+and by subtracting the location <span class="math inline">\(m\)</span> and dividing by the scale
+<span class="math inline">\(s\)</span>:
+<span class="math display">\[ \frac{X - m}{s} \equiv t \sim \textsf{t}(v, 0 , 1)  \]</span>
+we can obtain the distribution of the standardized Student <span class="math inline">\(t\)</span> distribution with degrees of freedom <span class="math inline">\(v\)</span>, location <span class="math inline">\(0\)</span> and scale <span class="math inline">\(1\)</span>. This latter representation allows us to use standard statistical functions for posterior inference such as finding credible intervals.</p>
+We are now ready for our main result for the marginal distribution for <span class="math inline">\(\mu\)</span>.
+
 <div class="definition">
-<p><span id="def:unnamed-chunk-1" class="definition"><strong>Definition 1.1  </strong></span>If <span class="math inline">\(\mu\)</span> and <span class="math inline">\(1/\sigma^2\)</span> have a <span class="math inline">\(\textsf{NormalGamma}(m_n, n_n, v_n, s^2_n)\)</span> posterior distribution, then <span class="math inline">\(\mu\)</span> given the data has a  distribution, <span class="math inline">\({\textsf{t}}(v_n, m_n, s^2_n/n_n)\)</span>, expressed as <span class="math display">\[ \mu \mid {\text{data}}\sim {\textsf{t}}(v_n, m_n, s^2_n/n_n)  \]</span> with degrees of freedom <span class="math inline">\(v_n\)</span>, location parameter, <span class="math inline">\(m_n\)</span>, and squared scale parameter, <span class="math inline">\(s^2_n/n_n\)</span>, that is the posterior variance parameter divided by the posterior sample size.</p>
+<p><span id="def:unnamed-chunk-1" class="definition"><strong>Definition 1.1  </strong></span>If <span class="math inline">\(\mu\)</span> and <span class="math inline">\(1/\sigma^2\)</span> have a <span class="math inline">\(\textsf{NormalGamma}(m_n, n_n, v_n, s^2_n)\)</span> posterior distribution, then
+<span class="math inline">\(\mu\)</span> given the data has a  distribution, <span class="math inline">\(\textsf{t}(v_n, m_n, s^2_n/n_n)\)</span>, expressed as
+<span class="math display">\[ \mu \mid \text{data}\sim \textsf{t}(v_n, m_n, s^2_n/n_n)  \]</span>
+with degrees of freedom <span class="math inline">\(v_n\)</span>,
+location parameter, <span class="math inline">\(m_n\)</span>, and squared scale parameter, <span class="math inline">\(s^2_n/n_n\)</span>, that is the
+posterior variance parameter divided by the posterior sample size.</p>
 </div>
 
 <p>The parameters <span class="math inline">\(m_n\)</span> and <span class="math inline">\(s^2_n\)</span> play similar roles in determining the center and spread of the distribution, as in the normal distribution, however, as Student <span class="math inline">\(t\)</span> distributions with degrees of freedom less than 3 do not have a mean or variance, the parameter <span class="math inline">\(m_n\)</span> is called the location or center of the distribution and the <span class="math inline">\(s_n/\sqrt{n}\)</span> is the scale.</p>
@@ -392,27 +453,46 @@ We are now ready for our main result for the marginal distribution for <span cla
 </div>
 <div id="credible-intervals-for-mu" class="section level3">
 <h3><span class="header-section-number">4.1.4</span> Credible Intervals for <span class="math inline">\(\mu\)</span></h3>
-To find a credible interval for the mean <span class="math inline">\(\mu\)</span>, we will use the marginal posterior distribution for <span class="math inline">\(\mu\)</span> as illustrated in Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:tapwater-post-mu">4.2</a>. Since the Student <span class="math inline">\(t\)</span> distribution of <span class="math inline">\(\mu\)</span> is unimodal and symmetric, the shortest 95 percent credible interval or the <strong>Highest Posterior Density</strong> interval, HPD for short, is the interval given by the dots at the lower endpoint L and upper endpoint U where the heights of the density at L and U are equal and all other values for <span class="math inline">\(\mu\)</span> have higher posterior density. The probability that <span class="math inline">\(\mu\)</span> is in the interval (L, U) (the shaded area) equals the desired probability, e.g. 0.95 for a 95% credible interval.
+To find a credible interval for the mean <span class="math inline">\(\mu\)</span>, we will use the marginal posterior distribution for <span class="math inline">\(\mu\)</span> as illustrated in Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:tapwater-post-mu">4.2</a>.
+Since the Student <span class="math inline">\(t\)</span> distribution of <span class="math inline">\(\mu\)</span> is unimodal and symmetric, the shortest 95 percent credible interval or the <strong>Highest Posterior Density</strong> interval, HPD for short,
+is the interval given by the dots at the
+lower endpoint L and upper endpoint U where the heights of the density at L and U are equal and all other values for <span class="math inline">\(\mu\)</span> have higher posterior density. The probability that <span class="math inline">\(\mu\)</span> is in the interval (L, U) (the shaded area) equals the desired probability, e.g. 0.95 for a 95% credible interval.
 <div class="figure" style="text-align: center"><span id="fig:tapwater-post-mu"></span>
 <img src="04-normalgamma-01-inference_files/figure-html/tapwater-post-mu-1.png" alt="Highest Posterior Density region." width="384" />
 <p class="caption">
 Figure 4.2: Highest Posterior Density region.
 </p>
 </div>
-<p>Using the standardized Student <span class="math inline">\(t\)</span> distribution and some algebra, these values are <span class="math display">\[
+<p>Using the standardized Student <span class="math inline">\(t\)</span> distribution and some algebra, these values are
+<span class="math display">\[
 \begin{aligned}
   L &amp; =  m_n + t_{0.025}\sqrt{s^2_n/n_n}    \\
   U &amp; =  m_n + t_{0.975}\sqrt{s^2_n/n_n}
 \end{aligned}
-\]</span> or the posterior mean (our point estimate) plus quantiles of the standard <span class="math inline">\(t\)</span> distribution times the scale. Because of the symmetry in the Student <span class="math inline">\(t\)</span> distribution, the credible interval for <span class="math inline">\(\mu\)</span> is <span class="math inline">\(m_n \pm t_{0.975}\sqrt{s^2_n/n_n}\)</span>, which is similar to the expressions for confidence intervals for the mean.</p>
+\]</span>
+or the posterior mean (our point estimate) plus quantiles of the standard <span class="math inline">\(t\)</span> distribution times the scale. Because of the symmetry in the Student <span class="math inline">\(t\)</span> distribution, the credible interval for <span class="math inline">\(\mu\)</span> is <span class="math inline">\(m_n \pm t_{0.975}\sqrt{s^2_n/n_n}\)</span>, which is similar to the expressions for confidence intervals for the mean.</p>
 </div>
 <div id="sec:tapwater" class="section level3">
 <h3><span class="header-section-number">4.1.5</span> Example: TTHM in Tapwater</h3>
 <p>A municipality in North Carolina is interested in estimating the levels of TTHM in their drinking water. The data can be loaded from the <code>statsr</code> package in <code>R</code>, where the variable of interest, <code>tthm</code> is measured in parts per billion.</p>
-<p><code>r   library(statsr)   data(tapwater)   glimpse(tapwater)</code></p>
-<p><code>## Observations: 28   ## Variables: 6   ## $ date       &lt;fct&gt; 2009-02-25, 2008-12-22, 2008-09-25, 2008-05-14, 2008-…   ## $ tthm       &lt;dbl&gt; 34.38, 39.33, 108.63, 88.00, 81.00, 49.25, 75.00, 82.…   ## $ samples    &lt;int&gt; 8, 9, 8, 8, 2, 8, 6, 7, 8, 4, 4, 4, 4, 6, 4, 8, 10, 1…   ## $ nondetects &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…   ## $ min        &lt;dbl&gt; 32.00, 31.00, 85.00, 75.00, 81.00, 26.00, 70.00, 70.0…   ## $ max        &lt;dbl&gt; 39.00, 46.00, 120.00, 94.00, 81.00, 68.00, 80.00, 90.…</code></p>
-<p>Using historical prior information about TTHM from the municipality, we will adopt a normal-gamma prior distribution, <span class="math inline">\(\textsf{NormalGamma}(35, 25, 156.25, 24)\)</span> with a prior mean of 35 parts per billion, a prior sample size of 25, an estimate of the variance of 156.25 with degrees of freedom 24. In Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive">4.3</a>, we will describe how we arrived at these values.</p>
-Using the summaries of the data, <span class="math inline">\(\bar{Y} = 55.5\)</span>, variance <span class="math inline">\(s^2 = 540.7\)</span> and sample size of <span class="math inline">\(n = 28\)</span> with the prior hyper-parameters from above, the posterior hyper-parameters are updated as follows:
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
+<span class="kw">data</span>(tapwater)
+<span class="kw">glimpse</span>(tapwater)</code></pre>
+<pre><code>## Observations: 28
+## Variables: 6
+## $ date       &lt;fct&gt; 2009-02-25, 2008-12-22, 2008-09-25, 2008-05-14, 2008-…
+## $ tthm       &lt;dbl&gt; 34.38, 39.33, 108.63, 88.00, 81.00, 49.25, 75.00, 82.…
+## $ samples    &lt;int&gt; 8, 9, 8, 8, 2, 8, 6, 7, 8, 4, 4, 4, 4, 6, 4, 8, 10, 1…
+## $ nondetects &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ min        &lt;dbl&gt; 32.00, 31.00, 85.00, 75.00, 81.00, 26.00, 70.00, 70.0…
+## $ max        &lt;dbl&gt; 39.00, 46.00, 120.00, 94.00, 81.00, 68.00, 80.00, 90.…</code></pre>
+<p>Using historical prior information about TTHM from the municipality, we will adopt a normal-gamma prior distribution,
+<span class="math inline">\(\textsf{NormalGamma}(35, 25, 156.25, 24)\)</span> with
+a prior mean of 35 parts per billion, a prior sample
+size of 25, an estimate of the variance of 156.25 with degrees of freedom 24. In Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive">4.3</a>, we will describe how we arrived at these values.</p>
+<p>Using the summaries of the data, <span class="math inline">\(\bar{Y} = 55.5\)</span>,
+variance <span class="math inline">\(s^2 = 540.7\)</span> and sample size of <span class="math inline">\(n = 28\)</span> with the
+prior hyper-parameters from above, the posterior hyper-parameters are updated as follows:
 <span class="math display">\[\begin{eqnarray*}
 n_n &amp; = &amp;  25 +  28 = 53\\
 m_n  &amp; = &amp; \frac{28 \times55.5 + 25 \times35}{53} = 45.8  \\
@@ -424,15 +504,29 @@ s^2_n &amp; = &amp; \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }
           \frac{25 \times 28}{53} \times (35 - 55.5)^2
 \right] = 459.9  \\
 \end{eqnarray*}\]</span>
-<p>in the conjugate <span class="math inline">\(\textsf{NormalGamma}(45.8, 53, 459.9, 52)\)</span> posterior distribution that now summarizes our uncertainty about <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(\sigma^2\)</span>) after seeing the data.</p>
+in the conjugate <span class="math inline">\(\textsf{NormalGamma}(45.8, 53, 459.9, 52)\)</span>
+posterior distribution that now summarizes our
+uncertainty about <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(\sigma^2\)</span>) after seeing the data.</p>
 <p>We can obtain the updated hyper-parameters in <code>R</code> using the following code in <code>R</code></p>
-<p><code>r   # prior hyperparameters   m_0 = 35; n_0 = 25;  s2_0 = 156.25; v_0 = n_0 - 1   # sample summaries   Y = tapwater$tthm   ybar = mean(Y)   s2 = var(Y)   n = length(Y)   # posterior hyperparamters   n_n = n_0 + n   m_n = (n*ybar + n_0*m_0)/n_n   v_n = v_0 + n   s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n</code></p>
-<p>Using the following code in <code>R</code> the 95% credible interval for the tap water data may be obtained using the Student <span class="math inline">\(t\)</span> quantile function <code>qt</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  m_n <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), v_n)<span class="op">*</span><span class="kw">sqrt</span>(s2_n<span class="op">/</span>n_n)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># prior hyperparameters</span>
+m_<span class="dv">0</span> =<span class="st"> </span><span class="dv">35</span>; n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>;  s2_<span class="dv">0</span> =<span class="st"> </span><span class="fl">156.25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+<span class="co"># sample summaries</span>
+Y =<span class="st"> </span>tapwater<span class="op">$</span>tthm
+ybar =<span class="st"> </span><span class="kw">mean</span>(Y)
+s2 =<span class="st"> </span><span class="kw">var</span>(Y)
+n =<span class="st"> </span><span class="kw">length</span>(Y)
+<span class="co"># posterior hyperparamters</span>
+n_n =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
+m_n =<span class="st"> </span>(n<span class="op">*</span>ybar <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>m_<span class="dv">0</span>)<span class="op">/</span>n_n
+v_n =<span class="st"> </span>v_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
+s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)<span class="op">*</span>s2 <span class="op">+</span><span class="st"> </span>v_<span class="dv">0</span><span class="op">*</span>s2_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>n<span class="op">*</span>(m_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span>ybar)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>n_n)<span class="op">/</span>v_n</code></pre>
+<p>Using the following code in <code>R</code> the 95%
+credible interval for the tap water data may be obtained using the Student <span class="math inline">\(t\)</span> quantile function <code>qt</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">  m_n <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), v_n)<span class="op">*</span><span class="kw">sqrt</span>(s2_n<span class="op">/</span>n_n)</code></pre>
 <pre><code>## [1] 39.93192 51.75374</code></pre>
 <p>The <code>qt</code> function takes two arguments: the first is the desired quantiles, while the second is the degrees of freedom. Both arguments may be vectors, in which case, the result will be a vector.</p>
 <p>While we can calculate the interval directly as above, we have provided the <code>bayes_inference</code> function in the <code>statsr</code> package to calculate the posterior hyperparameters, credible intervals and plot the posterior density and the HPD interval given the raw data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bayes_inference</span>(tthm, <span class="dt">data=</span>tapwater,
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bayes_inference</span>(tthm, <span class="dt">data=</span>tapwater,
                 <span class="dt">prior=</span><span class="st">&quot;NG&quot;</span>,
                 <span class="dt">mu_0 =</span> m_<span class="dv">0</span>, <span class="dt">n_0=</span>n_<span class="dv">0</span>, 
                 <span class="dt">s_0 =</span> <span class="kw">sqrt</span>(s2_<span class="dv">0</span>), <span class="dt">v_0 =</span> v_<span class="dv">0</span>,
@@ -440,7 +534,7 @@ s^2_n &amp; = &amp; \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }
                 <span class="dt">method=</span><span class="st">&quot;theoretical&quot;</span>, 
                 <span class="dt">show_res=</span>T, 
                 <span class="dt">show_summ=</span>T,
-                <span class="dt">show_plot=</span>F)</code></pre></div>
+                <span class="dt">show_plot=</span>F)</code></pre>
 <pre><code>## Single numerical variable
 ## n = 28, y-bar = 55.5239, s = 23.254
 ## (Assuming proper prior:  mu | sigma^2 ~ N(35, *sigma^2/25)
@@ -454,24 +548,31 @@ s^2_n &amp; = &amp; \frac{(n-1) s^2 + v_0 s^2_0 + n_0 n (m_0 - \bar{Y})^2 /n_n }
 ## 
 ## 95% CI: (39.9319 , 51.7537)</code></pre>
 <p>Let’s try to understand the arguments to the function. The first argument of the function is the variable of interest, <code>tthm</code>, while the second argument is a dataframe with the variable. The argument <code>prior=&quot;NG&quot;</code> indicates that we are using a normal-gamma prior; later we will present alternative priors. The next two lines provide our prior hyperparameters. The line with <code>stat=&quot;mean&quot;, type=&quot;ci&quot;</code> indicate that we are interested in inference about the population mean <span class="math inline">\(\mu\)</span> and to calculate a credible interval for <span class="math inline">\(\mu\)</span>. The argument <code>method = theoretical</code> indicates that we will use the exact quantiles of the Student <span class="math inline">\(t\)</span> distribution to obtain our posterior credible intervals. Looking at the output the credible interval agrees with the interval we calculated from the summaries using the t quantiles. The other arguments are logical variables to toggle on/off the various output. In this case we have supressed producing the plot of the posterior distribution using the option <code>show_plot=FALSE</code>, however, setting this to <code>TRUE</code> produces the density and credible interval shown in Figure @ref{fig:tapwater-post-mu}.</p>
-<p>How do we interprte these results? Based on the updated posterior, we find that there is a 95% chance that the mean TTHM concentration is between 39.9 parts per billion and 51.8 parts per billion, suggesting that for this period that the municipality is in compliance with the limits.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data=</span>tapwater, <span class="kw">aes</span>(<span class="dt">x=</span>tthm)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</code></pre></div>
+<p>How do we interprte these results? Based on the updated posterior, we find that there is a 95% chance that
+the mean TTHM concentration is between 39.9
+parts per billion and 51.8 parts per billion, suggesting that for this period that the municipality is in compliance with the limits.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data=</span>tapwater, <span class="kw">aes</span>(<span class="dt">x=</span>tthm)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</code></pre>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="04-normalgamma-01-inference_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 <div id="section-summary" class="section level3">
 <h3><span class="header-section-number">4.1.6</span> Section Summary</h3>
-<p>The normal-gamma conjugate prior for inference about an unknown mean and variance for samples from a normal distribution allows simple expressions for updating prior beliefs given the data. The joint normal-gamma distribution leads to the Student <span class="math inline">\(t\)</span> distribution for inference about <span class="math inline">\(\mu\)</span> when <span class="math inline">\(\sigma^2\)</span> is unknown. The Student <span class="math inline">\(t\)</span> distribution can be used to provide credible intervals for <span class="math inline">\(\mu\)</span> using <code>R</code> or other software that provides quantiles of a standard <span class="math inline">\(t\)</span> distribution.</p>
+<p>The normal-gamma conjugate prior for
+inference about an unknown mean and variance for samples from a normal
+distribution allows simple expressions for updating prior beliefs given the data. The joint normal-gamma distribution leads to the
+Student <span class="math inline">\(t\)</span> distribution for inference about <span class="math inline">\(\mu\)</span> when <span class="math inline">\(\sigma^2\)</span> is unknown. The Student <span class="math inline">\(t\)</span> distribution can be used to provide
+credible intervals for <span class="math inline">\(\mu\)</span> using <code>R</code> or other software that provides quantiles of a standard <span class="math inline">\(t\)</span> distribution.</p>
 <p>For the energetic learner who is comfortable with calculus, the optional material at the end of this section provides more details on how the posterior distributions were obtained and other results in this section.</p>
 <p>For those that are ready to move on, we will introduce Monte Carlo sampling in the next section; Monte Carlo sampling is a simulation method that will allow us to approximate distributions of transformations of the parameters without using calculus or change of variables, as well as assist exploratory data analysis of the prior or posterior distributions.</p>
 </div>
 <div id="optional-derivations" class="section level3">
 <h3><span class="header-section-number">4.1.7</span> (Optional) Derivations</h3>
-From Bayes Theorem we have that the joint posterior distribution is proportional to the likelihood of the parameters times the joint prior distribution
+<p>From Bayes Theorem we have that the joint posterior distribution is proportional to the likelihood of the parameters times the joint prior distribution
 <span class="math display">\[\begin{equation}
 p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  \propto {\cal L}(\mu, \sigma^2) p(\mu, \sigma^2).
-\end{equation}\]</span>
-where the likelihood function for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> is proportional to <span class="math display">\[
+\end{equation}\]</span> where the
+likelihood function for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> is proportional to
+<span class="math display">\[
 \begin{aligned}
 {\cal L}(\mu, \sigma^2) \propto 
 (\sigma^2)^{-n/2}  \times \exp{ \left\{   
@@ -482,7 +583,9 @@ where the likelihood function for <span class="math inline">\(\mu\)</span> and <
   \text{function of $\sigma^2$ and data} &amp; \times
   \text{function of $\mu$, $\sigma^2$ and data}
 \end{aligned}
-\]</span> which depends on the data only through the sum of squares <span class="math inline">\(\sum_{i = 1}^n(y_i - \bar{y})^2\)</span> (or equivalently the sample variance <span class="math inline">\(s^2 = \sum_{i = 1}^n(y_i - \bar{y})^2/(n-1)\)</span>) and the sample mean <span class="math inline">\(\bar{y}\)</span>. Since the likelihood function for <span class="math inline">\((\mu, \phi)\)</span> is obtained by just substituting <span class="math inline">\(1/\phi\)</span> for <span class="math inline">\(\sigma^2\)</span>, the likelihood may be re-expressed as
+\]</span>
+which depends on the data only through the sum of squares <span class="math inline">\(\sum_{i = 1}^n(y_i - \bar{y})^2\)</span> (or equivalently the sample variance <span class="math inline">\(s^2 = \sum_{i = 1}^n(y_i - \bar{y})^2/(n-1)\)</span>) and the sample mean <span class="math inline">\(\bar{y}\)</span>.
+Since the likelihood function for <span class="math inline">\((\mu, \phi)\)</span> is obtained by just substituting <span class="math inline">\(1/\phi\)</span> for <span class="math inline">\(\sigma^2\)</span>, the likelihood may be re-expressed as
 <span class="math display">\[\begin{equation}
 {\cal L}(\mu, \phi) \propto 
 \phi^{n/2}  \times \exp{ \left\{   
@@ -490,12 +593,17 @@ where the likelihood function for <span class="math inline">\(\mu\)</span> and <
 \right\}}   \times 
 \exp{ \left\{   
 -\frac{1}{2} \phi n (\bar{y} - \mu)^2  \right\}}.
-\end{equation}\]</span>
-<p>This likelihood may be obtained also be obtained by using the sampling distribution for the summary statistics, where <span class="math display">\[\bar{Y}  \mid \mu, \phi \sim \textsf{Normal}(\mu, 1/(\phi n))\]</span> and is independent of the sample variance (conditional on <span class="math inline">\(\phi\)</span>) and has a gamma distribution <span class="math display">\[ 
+\end{equation}\]</span></p>
+<p>This likelihood may be obtained also be obtained by using the sampling distribution for the summary statistics, where
+<span class="math display">\[\bar{Y}  \mid \mu, \phi \sim \textsf{Normal}(\mu, 1/(\phi n))\]</span>
+and is independent of the sample variance (conditional on <span class="math inline">\(\phi\)</span>) and has a gamma distribution
+<span class="math display">\[ 
 s^2 \mid \phi \sim  \textsf{Gamma}\left(\frac{n - 1}{2},  \frac{(n-1) \phi}{2}\right)
-\]</span> with degrees of freedom <span class="math inline">\(n-1\)</span> and rate <span class="math inline">\((n-1) \phi/2\)</span>; the likelihood is the product of the two sampling distributions: <span class="math inline">\({\cal{L}}(\mu, \phi) \propto p(s^2 \mid \phi) p(\bar{Y} \mid \phi)\)</span>.</p>
-<p>Bayes theorem in proportional form leads to the joint posterior distribution <span class="math display">\[\begin{aligned}
-p(\mu, \phi \mid {\text{data}})  \propto &amp; {\cal{L}}(\mu, \phi) p(\phi) p(\mu \mid \phi)  \\
+\]</span>
+with degrees of freedom <span class="math inline">\(n-1\)</span> and rate <span class="math inline">\((n-1) \phi/2\)</span>; the likelihood is the product of the two sampling distributions: <span class="math inline">\({\cal{L}}(\mu, \phi) \propto p(s^2 \mid \phi) p(\bar{Y} \mid \phi)\)</span>.</p>
+<p>Bayes theorem in proportional form leads to the joint posterior distribution
+<span class="math display">\[\begin{aligned}
+p(\mu, \phi \mid \text{data})  \propto &amp; {\cal{L}}(\mu, \phi) p(\phi) p(\mu \mid \phi)  \\
  =  &amp; \phi^{(n-1)/2)} 
  \exp\left\{ - \frac{ \phi (n-1) s^2 }{2}\right\} 
  \text{  (sampling distribution for  $\phi$) }\\
@@ -506,9 +614,17 @@ p(\mu, \phi \mid {\text{data}})  \propto &amp; {\cal{L}}(\mu, \phi) p(\phi) p(\m
 &amp; \times 
 (n_0\phi)^{1/2} \frac{1}{\sqrt{(2 \pi)}} \exp\left\{- \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\} \text{ (prior for $\mu$)}
 \end{aligned}
-\]</span> where we have ignored constants that do not involve <span class="math inline">\(\phi\)</span> or <span class="math inline">\(\mu\)</span>. Focusing on all the terms that involve <span class="math inline">\(\mu\)</span>, we can group the lines corresponding to the sampling distribution and prior for <span class="math inline">\(\mu\)</span> together and using the factorization of likelihood and prior distributions, we may identify that <span class="math display">\[p(\mu \mid \phi, {\text{data}})  \propto  \exp\left\{- \frac 1 2  n \phi (\bar{y} - \mu)^2  - \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\} 
-\]</span> where the above expression includes the sum of two quadratic expressions in the exponential. This almost looks like a normal. Can these be combined to form one quadratic expression that looks like a normal density? Yes! This is known as “completing the square”. Taking a normal distribution for a parameter <span class="math inline">\(\mu\)</span> with mean <span class="math inline">\(m\)</span> and precision <span class="math inline">\(\rho\)</span>, the quadratic term in the exponential may be expanded as <span class="math display">\[\rho \times (\mu - m)^2 = \rho  \mu^2 - 2 \rho  \mu m + \rho  m^2.\]</span> From this we can read off that the precision is the term that multiplies the quadratic in <span class="math inline">\(\mu\)</span> and the term that multiplies the linear term in <span class="math inline">\(\mu\)</span> is the product of two times the mean and precision; this means that if we know the precision, we can identify the mean. The last term is the precision times the mean squared, which we will need to fill in once we identify the precision and mean.</p>
-For our posterior, we need to expand the quadratics and recombine terms to identify the new precision (the coefficient multiplying the quadratic in <span class="math inline">\(\mu\)</span>) and the new mean (the linear term) and complete the square so that it may be factored. Any left over terms will be independent of <span class="math inline">\(\mu\)</span> but may depend on <span class="math inline">\(\phi\)</span>. For our case, after some algebra to group terms we have
+\]</span>
+where we have ignored constants that do not involve <span class="math inline">\(\phi\)</span> or <span class="math inline">\(\mu\)</span>.
+Focusing on all the terms that involve <span class="math inline">\(\mu\)</span>, we can group the lines corresponding to the sampling distribution and prior for <span class="math inline">\(\mu\)</span> together and using the factorization of likelihood and prior distributions, we may identify that
+<span class="math display">\[p(\mu \mid \phi, \text{data})  \propto  \exp\left\{- \frac 1 2  n \phi (\bar{y} - \mu)^2  - \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\} 
+\]</span>
+where the above expression includes the sum of two quadratic expressions in the exponential. This almost looks like a normal. Can these be combined to form one quadratic expression that looks like a normal density? Yes! This is known as “completing the square”.
+Taking a normal distribution for a parameter <span class="math inline">\(\mu\)</span> with mean <span class="math inline">\(m\)</span> and precision <span class="math inline">\(\rho\)</span>, the quadratic term in the exponential may be expanded as
+<span class="math display">\[\rho \times (\mu - m)^2 = \rho  \mu^2 - 2 \rho  \mu m + \rho  m^2.\]</span>
+From this we can read off that the precision is the term that multiplies the quadratic in <span class="math inline">\(\mu\)</span> and the term that multiplies the linear term in <span class="math inline">\(\mu\)</span> is the product of two times the mean and precision; this means that if we know the precision, we can identify the mean. The last term is the precision times the mean squared, which we will need to fill in once we identify the precision and mean.</p>
+<p>For our posterior, we need to expand the quadratics and recombine
+terms to identify the new precision (the coefficient multiplying the quadratic in <span class="math inline">\(\mu\)</span>) and the new mean (the linear term) and complete the square so that it may be factored. Any left over terms will be independent of <span class="math inline">\(\mu\)</span> but may depend on <span class="math inline">\(\phi\)</span>. For our case, after some algebra to group terms we have
 <span class="math display">\[\begin{align*}
 - \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right) &amp; = 
 -\frac 1 2 \left(\phi( n + n_0) \mu^2 - 2 \phi \mu (n \bar{y} + n_0 m_0) + \phi (n \bar{y}^2 + n_0 m_0^2) \right)  
@@ -516,18 +632,22 @@ For our posterior, we need to expand the quadratics and recombine terms to ident
 where we can read off that the posterior precision is <span class="math inline">\(\phi(n + n_0) \equiv \phi n_n\)</span>. The linear term is not yet of the form of the posterior precision times the posterior mean (times 2), but if we multiply and divide by <span class="math inline">\(n_n = n + n_0\)</span> it is in the appropriate form
 <span class="math display">\[\begin{equation}-\frac 1 2 \left(\phi( n + n_0) \mu^2 - 2 \phi ( n + n_0) \mu \frac{(n \bar{y} + n_0 m_0) } {n + n_0} + \phi (n \bar{y}^2 + n_0 m_0^2) \right) \label{eq:quad}
  \end{equation}\]</span>
-so that we may identify that the posterior mean is <span class="math inline">\(m_n = (n \bar{y} + n_0 m_0) /(n + n_0)\)</span> which combined with the precision (or inverse variance) is enough to identity the conditional posterior distribution for <span class="math inline">\(\mu\)</span>. We next add the precision times the square of the posterior mean (the completing the square part), but to keep equality, we will need to subtract the term as well: <span class="math display">\[
+so that we may identify that the posterior mean is <span class="math inline">\(m_n = (n \bar{y} + n_0 m_0) /(n + n_0)\)</span> which combined with the precision (or inverse variance) is enough to identity the conditional posterior distribution for <span class="math inline">\(\mu\)</span>.
+We next add the precision times the square of the posterior mean (the completing the square part), but to keep equality, we will need to subtract the term as well:
+<span class="math display">\[
 - \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right)  = 
 -\frac 1 2 \left(\phi n_n \mu^2 - 2 \phi n_n \mu m_n + \phi n_n m_n^2  - \phi n_n m_n^2  + \phi (n \bar{y}^2 + n_0 m_0^2) \right)  
-\]</span> which after factoring the quadratic leads to
+\]</span>
+which after factoring the quadratic leads to
 <span class="math display">\[\begin{align}
  - \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right) = &amp; -\frac 1 2 \left(\phi n_n (\mu - m_n)^2 \right) \\
  &amp; -\frac 1 2 \left(\phi (-n_n m_n^2 + n \bar{y}^2 + n_0 m_0^2) \right) 
 \end{align}\]</span>
-<p>where the first line is the quadratic for the posterior of <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\phi\)</span> while the second line includes terms that involve <span class="math inline">\(\phi\)</span> but that are independent of <span class="math inline">\(\mu\)</span>.</p>
-<p>Substituting the expressions, we can continue to simplify the expressions further <span class="math display">\[
+where the first line is the quadratic for the posterior of <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\phi\)</span> while the second line includes terms that involve <span class="math inline">\(\phi\)</span> but that are independent of <span class="math inline">\(\mu\)</span>.</p>
+<p>Substituting the expressions, we can continue to simplify the expressions further
+<span class="math display">\[
 \begin{aligned}
-p(\mu, \phi \mid {\text{data}})  \propto &amp; {\cal{L}}(\mu, \phi) p(\phi) p(\mu \mid \phi)  \\
+p(\mu, \phi \mid \text{data})  \propto &amp; {\cal{L}}(\mu, \phi) p(\phi) p(\mu \mid \phi)  \\
  =  &amp; \phi^{(n + \nu_0 + 1  )/2 - 1} 
  \exp\left\{ - \frac{ \phi (n-1) s^2 }{2}\right\} 
 \times \exp\left\{- \frac{ \phi \nu_0 s^2_0}{2}\right\} \times
@@ -540,21 +660,32 @@ p(\mu, \phi \mid {\text{data}})  \propto &amp; {\cal{L}}(\mu, \phi) p(\phi) p(\m
 \text{ (gamma kernel)} \\
 &amp; \times (n_n \phi)^{1/2} \exp \left\{ -\frac 1 2 \left(\phi n_n (\mu - m_n)^2 \right) \right\} \qquad \qquad \text{ (normal kernel})
 \end{aligned}
-\]</span> until we can recognize the product of the kernels of a gamma distribution for <span class="math inline">\(\phi\)</span> <span class="math display">\[
-\phi \mid {\text{data}}\sim {\textsf{t}}(v_n/2, v_n s^2_n/ 2)
-\]</span> where <span class="math inline">\(\nu_n = n + \nu_0\)</span> and <span class="math inline">\(s^2_n = \left((n-1) s^2 + n_0 s^2_0 + (m_0 - \bar{y})^2 n n_0/n_n\right)/\nu_n\)</span> times a normal: and the kernel of a normal for <span class="math inline">\(\mu\)</span> <span class="math display">\[ \mu \mid \phi, {\text{data}}\sim {\textsf{Normal}}(m_n, (\phi n_n)^{-1})
-\]</span> where <span class="math inline">\(m_m = (n \bar{y} + n_0 m_0) /(n + n_0)\)</span> a weighted average of the sample mean and the prior mean, and <span class="math inline">\(n_n = n + n_0\)</span> is the sample and prior combined sample size.</p>
+\]</span>
+until we can recognize the product of the kernels of a gamma distribution for <span class="math inline">\(\phi\)</span>
+<span class="math display">\[
+\phi \mid \text{data}\sim \textsf{t}(v_n/2, v_n s^2_n/ 2)
+\]</span>
+where <span class="math inline">\(\nu_n = n + \nu_0\)</span> and <span class="math inline">\(s^2_n = \left((n-1) s^2 + n_0 s^2_0 + (m_0 - \bar{y})^2 n n_0/n_n\right)/\nu_n\)</span> times a normal:
+and the kernel of a normal for <span class="math inline">\(\mu\)</span>
+<span class="math display">\[ \mu \mid \phi, \text{data}\sim \textsf{Normal}(m_n, (\phi n_n)^{-1})
+\]</span>
+where <span class="math inline">\(m_m = (n \bar{y} + n_0 m_0) /(n + n_0)\)</span> a weighted average of the sample mean and the prior mean, and
+<span class="math inline">\(n_n = n + n_0\)</span> is the sample and prior combined sample size.</p>
 <div id="derivation-of-marginal-distribution-for-mu" class="section level4">
 <h4><span class="header-section-number">4.1.7.1</span> Derivation of Marginal Distribution for <span class="math inline">\(\mu\)</span></h4>
-<p>If <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> (and the data) has a normal distribution with mean <span class="math inline">\(m_m\)</span> and variance <span class="math inline">\(\sigma^2/n_n\)</span> and <span class="math inline">\(1/\sigma^2 \equiv \phi\)</span> (given the data) has a gamma distribution with shape parameter <span class="math inline">\(\nu_n/2\)</span> and rate parameter <span class="math inline">\(\nu_n s^2_n/2\)</span></p>
+<p>If <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> (and the data) has a normal distribution with mean <span class="math inline">\(m_m\)</span> and variance <span class="math inline">\(\sigma^2/n_n\)</span> and <span class="math inline">\(1/\sigma^2 \equiv \phi\)</span> (given the data) has a gamma distribution with shape parameter
+<span class="math inline">\(\nu_n/2\)</span> and rate parameter <span class="math inline">\(\nu_n s^2_n/2\)</span></p>
 <p><span class="math display">\[\begin{aligned}
-\mu \mid \sigma^2, {\text{data}}&amp; \sim {\textsf{Normal}}(m_m, \sigma^2/n_n) \\ 
-1/\sigma^2 \mid {\text{data}}&amp; \sim {\textsf{Gamma}}(\nu_n/2, \nu_n s^2_n/2) 
-\end{aligned}\]</span> then <span class="math display">\[\mu \mid  {\text{data}}\sim {\textsf{t}}(\nu_n, m_m, s^2_n/n_n)\]</span> a Student <span class="math inline">\(t\)</span> distribution with mean <span class="math inline">\(m_m\)</span> and scale <span class="math inline">\(s^2_n/n_n\)</span> with degrees of freedom <span class="math inline">\(\nu_n\)</span>.</p>
+\mu \mid \sigma^2, \text{data}&amp; \sim \textsf{Normal}(m_m, \sigma^2/n_n) \\ 
+1/\sigma^2 \mid \text{data}&amp; \sim \textsf{Gamma}(\nu_n/2, \nu_n s^2_n/2) 
+\end{aligned}\]</span>
+then
+<span class="math display">\[\mu \mid  \text{data}\sim \textsf{t}(\nu_n, m_m, s^2_n/n_n)\]</span>
+a Student <span class="math inline">\(t\)</span> distribution with mean <span class="math inline">\(m_m\)</span> and scale <span class="math inline">\(s^2_n/n_n\)</span> with degrees of freedom <span class="math inline">\(\nu_n\)</span>.</p>
 <p>This applies to the prior as well, so that without any data we use the prior hyper-parameters <span class="math inline">\(m_0\)</span>, <span class="math inline">\(n_0\)</span>, <span class="math inline">\(\nu_0\)</span> and <span class="math inline">\(s^2_0\)</span> in place of the updated values with the subscript <span class="math inline">\(n\)</span>.</p>
-To simplify notation, we’ll substitute <span class="math inline">\(\phi = 1/\sigma^2\)</span>. The marginal distribution for <span class="math inline">\(\mu\)</span> is obtained by averaging over the values of <span class="math inline">\(\sigma^2\)</span>. Since <span class="math inline">\(\sigma^2\)</span> takes on continuous values rather than discrete, this averaging is represented as an integral
+<p>To simplify notation, we’ll substitute <span class="math inline">\(\phi = 1/\sigma^2\)</span>. The marginal distribution for <span class="math inline">\(\mu\)</span> is obtained by averaging over the values of <span class="math inline">\(\sigma^2\)</span>. Since <span class="math inline">\(\sigma^2\)</span> takes on continuous values rather than discrete, this averaging is represented as an integral
 <span class="math display">\[\begin{align*}
-p(\mu \mid \data) &amp; = \int_0^\infty p(\mu \mid \phi, \data) p(\phi \mid \data) d\phi \\
+p(\mu \mid \text{data}) &amp; = \int_0^\infty p(\mu \mid \phi, \text{data}) p(\phi \mid \text{data}) d\phi \\
  &amp; = \int_0^\infty 
 \frac{1}{\sqrt{2 \pi}} (n_n \phi)^{1/2} 
 e^{\left\{ - \frac{n_n \phi}{2} (\mu - m_n)^2 \right\}}
@@ -564,7 +695,7 @@ e^{\left\{ - \frac{n_n \phi}{2} (\mu - m_n)^2 \right\}}
 \left(\frac{n_n}{2 \pi}\right)^{1/2}\frac{1}{\Gamma\left(\frac{\nu_n}{2}\right)} \left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2} \int_0^\infty  \phi^{(\nu_n +1)/2 - 1}
 e^{\left\{ - \phi \left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)\right\}} \, d\phi
 \intertext{where the terms inside the integral are the &quot;kernel&quot; of a Gamma density.  We can multiply and divide by the normalizing constant of the Gamma density}
-p(\mu \mid \data) &amp; =  
+p(\mu \mid \text{data}) &amp; =  
 \left(\frac{n_n}{2 \pi}\right)^{1/2}\frac{1}{\Gamma\left(\frac{\nu_n}{2}\right)} 
 \left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2} 
 \Gamma\left(\frac{\nu_n + 1}{2}\right) 
@@ -573,18 +704,18 @@ p(\mu \mid \data) &amp; =
 \left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)^{ \frac{\nu_n + 1}{2}} \phi^{(\nu_n +1)/2 - 1}
 e^{\left\{ - \phi \left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)\right\}} \, d\phi
 \intertext{so that the term in the integral now integrates to one and the resulting distribution is}
-p(\mu \mid \data) &amp; =  
+p(\mu \mid \text{data}) &amp; =  
 \left(\frac{n_n}{2 \pi}\right)^{1/2}\frac{\Gamma\left(\frac{\nu_n + 1}{2}\right) }{\Gamma\left(\frac{\nu_n}{2}\right)} 
 \left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2} 
 \left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)^{- \frac{\nu_n + 1}{2}}.
 \intertext{After some algebra this simplifies to}
-p(\mu \mid \data) &amp; =  
+p(\mu \mid \text{data}) &amp; =  
 \frac{1}{\sqrt{\pi \nu_n s^2_n/n_n}}
 \frac{\Gamma\left(\frac{\nu_n + 1}{2}\right) }
      {\Gamma\left(\frac{\nu_n}{2}\right)} 
 \left( 1 +  \frac{1}{\nu_n}\frac{(\mu - m_n)^2}{s^2_n/n_n} \right)^{- \frac{\nu_n + 1}{2}}
 \intertext{and is a more standard representation for a Student $t$ distribution and the  kernel of the density is the right most term.}
-\end{align*}\]</span>
+\end{align*}\]</span></p>
 
 </div>
 </div>
@@ -597,21 +728,25 @@ p(\mu \mid \data) &amp; =
 <h3><span class="header-section-number">4.2.1</span> Monte Carlo Sampling</h3>
 <p>Let’s start with a case where we know the posterior distribution. As a quick recap, recall that the joint posterior distribution for the mean <span class="math inline">\(\mu\)</span> and the precision <span class="math inline">\(\phi = 1/\sigma^2\)</span> under the conjugate prior for the Gaussian distribution is:</p>
 <ul>
-<li>Conditional posterior distribution for the mean <span class="math display">\[\mu \mid {\text{data}}, \sigma^2  \sim  {\textsf{Normal}}(m_n, \sigma^2/n_n)\]</span></li>
-<li>Marginal posterior distribution for the precision <span class="math inline">\(\phi\)</span> or inverse variance: <span class="math display">\[1/\sigma^2 = \phi \mid {\text{data}}\sim   {\textsf{Gamma}}(v_n/2,s^2_n v_n/2)\]</span></li>
-<li>Marginal posterior distribution for the mean <span class="math display">\[\mu \mid {\text{data}}\sim {\textsf{t}}(v_n, m_n, s^2_n/n_n)\]</span></li>
+<li>Conditional posterior distribution for the mean
+<span class="math display">\[\mu \mid \text{data}, \sigma^2  \sim  \textsf{Normal}(m_n, \sigma^2/n_n)\]</span></li>
+<li>Marginal posterior distribution for the precision <span class="math inline">\(\phi\)</span> or inverse variance:
+<span class="math display">\[1/\sigma^2 = \phi \mid \text{data}\sim   \textsf{Gamma}(v_n/2,s^2_n v_n/2)\]</span></li>
+<li>Marginal posterior distribution for the mean <span class="math display">\[\mu \mid \text{data}\sim \textsf{t}(v_n, m_n, s^2_n/n_n)\]</span></li>
 </ul>
 <p>For posterior inference about <span class="math inline">\(\phi\)</span>, we can generate <span class="math inline">\(S\)</span> random samples from the Gamma posterior distribution:</p>
-<p><span class="math display">\[\phi^{(1)},\phi^{(2)},\cdots,\phi^{(S)} {\mathrel{\mathop{\sim}\limits^{\rm iid}}}{\textsf{Gamma}}(v_n/2,s^2_n v_n/2)\]</span></p>
+<p><span class="math display">\[\phi^{(1)},\phi^{(2)},\cdots,\phi^{(S)} \mathrel{\mathop{\sim}\limits^{\rm iid}}\textsf{Gamma}(v_n/2,s^2_n v_n/2)\]</span></p>
 <p>Recall that the term <strong>iid</strong> stands for <strong>i</strong>ndependent and <strong>i</strong>dentically <strong>d</strong>istributed. In other words, the <span class="math inline">\(S\)</span> draws of <span class="math inline">\(\phi\)</span> are independent and identically distributed from the gamma distribution.</p>
-<p>We can use the empirical distribution (histogram) from the <span class="math inline">\(S\)</span> samples to approximate the actual posterior distribution and the sample mean of the <span class="math inline">\(S\)</span> random draws of <span class="math inline">\(\phi\)</span> can be used to approximate the posterior mean of <span class="math inline">\(\phi\)</span>. Likewise, we can calculate probabilities, quantiles and other functions using the <span class="math inline">\(S\)</span> samples from the posterior distribution. For example, if we want to calculate the posterior expectation of some function of <span class="math inline">\(\phi\)</span>, written as <span class="math inline">\(g(\phi)\)</span>, we can approximate that by taking the average of the function, and evaluate it at the <span class="math inline">\(S\)</span> draws of <span class="math inline">\(\phi\)</span>, written as <span class="math inline">\(\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)})\)</span>.</p>
-<p>The approximation to the expectation of the function, <span class="math inline">\(E[g(\phi \mid {\text{data}})]\)</span> improves</p>
-<p><span class="math display">\[\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)}) \rightarrow E[g(\phi \mid {\text{data}})]\]</span> as the number of draws <span class="math inline">\(S\)</span> in the Monte Carlo simulation increases.</p>
+<p>We can use the empirical distribution (histogram) from the <span class="math inline">\(S\)</span> samples to approximate the actual posterior distribution and the sample mean of the <span class="math inline">\(S\)</span> random draws of <span class="math inline">\(\phi\)</span> can be used to approximate the posterior mean of <span class="math inline">\(\phi\)</span>.
+Likewise, we can calculate probabilities, quantiles and other functions using the <span class="math inline">\(S\)</span> samples from the posterior distribution. For example, if we want to calculate the posterior expectation of some function of <span class="math inline">\(\phi\)</span>, written as <span class="math inline">\(g(\phi)\)</span>, we can approximate that by taking the average of the function, and evaluate it at the <span class="math inline">\(S\)</span> draws of <span class="math inline">\(\phi\)</span>, written as <span class="math inline">\(\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)})\)</span>.</p>
+<p>The approximation to the expectation of the function, <span class="math inline">\(E[g(\phi \mid \text{data})]\)</span> improves</p>
+<p><span class="math display">\[\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)}) \rightarrow E[g(\phi \mid \text{data})]\]</span>
+as the number of draws <span class="math inline">\(S\)</span> in the Monte Carlo simulation increases.</p>
 </div>
 <div id="tap-water-example-continued" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Tap Water Example (continued)</h3>
 <p>We will apply this to the tap water example from <a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma">4.1</a>. First, reload the data and calculate the posterior hyper-parameters if needed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Prior</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Prior</span>
 m_<span class="dv">0</span> =<span class="st"> </span><span class="dv">35</span>;  n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>;  s2_<span class="dv">0</span> =<span class="st"> </span><span class="fl">156.25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
 <span class="co"># Data</span>
 <span class="kw">data</span>(tapwater); Y =<span class="st"> </span>tapwater<span class="op">$</span>tthm
@@ -620,15 +755,15 @@ ybar =<span class="st"> </span><span class="kw">mean</span>(Y); s2 =<span class=
 n_n =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
 m_n =<span class="st"> </span>(n<span class="op">*</span>ybar <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>m_<span class="dv">0</span>)<span class="op">/</span>n_n
 v_n =<span class="st"> </span>v_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
-s2_n =<span class="st"> </span>((n<span class="op">-</span><span class="dv">1</span>)<span class="op">*</span>s2 <span class="op">+</span><span class="st"> </span>v_<span class="dv">0</span><span class="op">*</span>s2_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>n<span class="op">*</span>(m_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span>ybar)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>n_n)<span class="op">/</span>v_n</code></pre></div>
+s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)<span class="op">*</span>s2 <span class="op">+</span><span class="st"> </span>v_<span class="dv">0</span><span class="op">*</span>s2_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>n<span class="op">*</span>(m_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span>ybar)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>n_n)<span class="op">/</span>v_n</code></pre>
 <p>Before generating our Monte Carlo samples, we will set a random seed using the <code>set.seed</code> function in <code>R</code>, which takes a small integer argument.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">42</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">42</span>)</code></pre>
 <p>This allows the results to be replicated if you re-run the simulation at a later time.</p>
 <p>To generate <span class="math inline">\(1,000\)</span> draws from the gamma posterior distribution using the hyper-parameters above, we use the <code>rgamma</code> function <code>R</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>, <span class="dt">shape =</span> v_n<span class="op">/</span><span class="dv">2</span>, <span class="dt">rate=</span>s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>, <span class="dt">shape =</span> v_n<span class="op">/</span><span class="dv">2</span>, <span class="dt">rate=</span>s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)</code></pre>
 <p>The first argument to the <code>rgamma</code> function is the number of samples, the second is the shape parameter and, by default, the third argument is the rate parameter.</p>
 <p>The following code will produce a histogram of the Monte Carlo samples of <span class="math inline">\(\phi\)</span> and overlay the actual Gamma posterior density evaluated at the draws using the <code>dgamma</code> function in <code>R</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">phi =</span> <span class="kw">sort</span>(phi))
+<pre class="sourceCode r"><code class="sourceCode r">df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">phi =</span> <span class="kw">sort</span>(phi))
 df =<span class="st"> </span><span class="kw">mutate</span>(df, 
             <span class="dt">density =</span> <span class="kw">dgamma</span>(phi, 
                              <span class="dt">shape =</span> v_n<span class="op">/</span><span class="dv">2</span>,
@@ -638,7 +773,7 @@ df =<span class="st"> </span><span class="kw">mutate</span>(df,
 <span class="st">        </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x=</span>phi, <span class="dt">y=</span>..density..), <span class="dt">bins =</span> <span class="dv">50</span>) <span class="op">+</span>
 <span class="st">        </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(phi, ..density..), <span class="dt">color=</span><span class="st">&quot;black&quot;</span>) <span class="op">+</span>
 <span class="st">        </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x=</span>phi, <span class="dt">y=</span>density), <span class="dt">color=</span><span class="st">&quot;orange&quot;</span>) <span class="op">+</span>
-<span class="st">        </span><span class="kw">xlab</span>(<span class="kw">expression</span>(phi)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_tufte</span>()</code></pre></div>
+<span class="st">        </span><span class="kw">xlab</span>(<span class="kw">expression</span>(phi)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_tufte</span>()</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:phi-plot"></span>
 <img src="04-normalgamma-02-monte-carlo_files/figure-html/phi-plot-1.png" alt="Monte Carlo approximation of the posterior distribution of the precision from the tap water example" width="384" />
 <p class="caption">
@@ -647,28 +782,30 @@ Figure 4.3: Monte Carlo approximation of the posterior distribution of the preci
 </div>
 <p>Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:phi-plot">4.3</a> shows the histogram of the <span class="math inline">\(1,000\)</span> draws of <span class="math inline">\(\phi\)</span> generated from the Monte Carlo simulation, representing the empirical distribution approximation to the gamma posterior distribution. The orange line represents the actual gamma posterior density, while the black line represents a <em>smoothed</em> version of the histogram.</p>
 <p>We can estimate the posterior mean or a 95% equal tail area credible region using the Monte Carlo samples using <code>R</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(phi)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(phi)</code></pre>
 <pre><code>## [1] 0.002165663</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(phi, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(phi, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</code></pre>
 <pre><code>##        2.5%       97.5% 
 ## 0.001394921 0.003056304</code></pre>
 <p>The mean of a gamma random variable is the shape/rate, so we can compare the Monte Carlo estimates to the theoretical values</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># mean  (v_n/2)/(v_n*s2_n/2)</span>
-<span class="dv">1</span><span class="op">/</span>s2_n</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># mean  (v_n/2)/(v_n*s2_n/2)</span>
+<span class="dv">1</span><span class="op">/</span>s2_n</code></pre>
 <pre><code>## [1] 0.002174492</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qgamma</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="dt">shape=</span>v_n<span class="op">/</span><span class="dv">2</span>, <span class="dt">rate=</span>s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qgamma</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="dt">shape=</span>v_n<span class="op">/</span><span class="dv">2</span>, <span class="dt">rate=</span>s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)</code></pre>
 <pre><code>## [1] 0.001420450 0.003086519</code></pre>
-<p>where the <code>qgamma</code> function in <code>R</code> returns the desired quantiles provided as the first argument. We can see that we can estimate the mean accurately to three significant digits, while the quantiles are accurate to two. It increase our accuracy, we would need to increase <span class="math inline">\(S\)</span>.</p>
-<p><strong>Exercise</strong> Try increasing the number of simulations <span class="math inline">\(S\)</span> in the Monte Carlo simulation to <span class="math inline">\(10,000\)</span>, and see how the approximation changes.</p>
+<p>where the <code>qgamma</code> function in <code>R</code> returns the desired quantiles provided as the first argument.
+We can see that we can estimate the mean accurately to three significant digits, while the quantiles are accurate to two. It increase our accuracy, we would need to increase <span class="math inline">\(S\)</span>.</p>
+<p><strong>Exercise</strong>
+Try increasing the number of simulations <span class="math inline">\(S\)</span> in the Monte Carlo simulation to <span class="math inline">\(10,000\)</span>, and see how the approximation changes.</p>
 </div>
 <div id="monte-carlo-inference-for-functions-of-parameters" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> Monte Carlo Inference for Functions of Parameters</h3>
 <p>Let’s see how to use Monte Carlo simulations to approximate the distribution of <span class="math inline">\(\sigma\)</span>. Since <span class="math inline">\(\sigma = 1/\sqrt{\phi}\)</span>, we simply apply the transformation to the <span class="math inline">\(1,000\)</span> draws of <span class="math inline">\(\phi\)</span> to obtain a random sample of <span class="math inline">\(\sigma\)</span> from its posterior distribution. We can then estimate the posterior mean of <span class="math inline">\(\sigma\)</span> by calculating the sample mean of the 1,000 draws.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
-<span class="kw">mean</span>(sigma) <span class="co"># posterior mean of sigma</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
+<span class="kw">mean</span>(sigma) <span class="co"># posterior mean of sigma</span></code></pre>
 <pre><code>## [1] 21.80516</code></pre>
 <p>Similarly, we can obtain a 95% credible interval for <span class="math inline">\(\sigma\)</span> by finding the sample quantiles of the distribution.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(sigma, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(sigma, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</code></pre>
 <pre><code>##     2.5%    97.5% 
 ## 18.08847 26.77474</code></pre>
 <p>and finally approximate the posterior distribution using a smoothed density estimate</p>
@@ -701,25 +838,31 @@ Figure 4.4: Monte Carlo approximation of the posterior distribution of the stand
 \mu \mid \sigma^2  &amp;\sim  \textsf{N}(m_0, \sigma^2/n_0)
 \end{aligned} \]</span></p>
 <p><strong>Sampling model:</strong></p>
-<p><span class="math display">\[Y_i \mid \mu,\sigma^2 {\mathrel{\mathop{\sim}\limits^{\rm iid}}}{\textsf{Normal}}(\mu, \sigma^2) \]</span></p>
+<p><span class="math display">\[Y_i \mid \mu,\sigma^2 \mathrel{\mathop{\sim}\limits^{\rm iid}}\textsf{Normal}(\mu, \sigma^2) \]</span></p>
 <p><strong>Prior predictive distribution for <span class="math inline">\(Y\)</span>:</strong></p>
 <p><span class="math display">\[\begin{aligned}
 p(Y) &amp;= \iint p(Y \mid \mu,\sigma^2) p(\mu \mid \sigma^2) p(\sigma^2) d\mu \, d\sigma^2 \\
 Y &amp;\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
 \end{aligned}\]</span></p>
-<p>By <em>averaging</em> over the possible values of the parameters from the prior distribution in the joint distribution, technically done by a double integral, we obtain the Student t as our prior predictive distribution. For those interested, details of this derivation are provided later in an optional section. This distribution of the observables depends only on our four hyper-parameters from the normal-gamma family. We can use Monte Carlo simulation to sample from the prior predictive distribution to help elicit prior hyper-parameters as we now illustrate with the tap water example from earlier.</p>
+<p>By <em>averaging</em> over the possible values of the parameters from the prior distribution in the joint distribution, technically done by a double integral, we obtain the Student t as our prior predictive distribution. For those interested, details of this derivation are provided later in an optional section.
+This distribution of the observables depends only on our four hyper-parameters from the normal-gamma family. We can use Monte Carlo simulation to sample from the prior predictive distribution to help elicit prior hyper-parameters as we now illustrate with the tap water example from earlier.</p>
 </div>
 <div id="tap-water-example-continued-1" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Tap Water Example (continued)</h3>
 <p>A report from the city water department suggests that levels of TTHM are expected to be between 10-60 parts per billion (ppb). Let’s see how we can use this information to create an informative conjugate prior.</p>
-<p><strong>Prior Mean</strong> First, the normal distribution and Student t distributions are symmetric around the mean or center parameter, so we will set the prior mean <span class="math inline">\(\mu\)</span> to be at the midpoint of the interval 10-60, which would lead to <span class="math display">\[m_0 = (60+10)/2 = 35\]</span> as our prior hyper-parameter <span class="math inline">\(m_0\)</span>.</p>
-<p><strong>Prior Variance</strong> Based on the empirical rule for bell-shaped distributions, we would expect that 95% of observations are within plus or minus two standard deviations from the mean, <span class="math inline">\(\pm 2\sigma\)</span> of <span class="math inline">\(\mu\)</span>. Using this we expect that the range of the data should be approximately <span class="math inline">\(4\sigma\)</span>. Using the values from the report, we can use this to find our prior estimate of <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(s_0 = (60-10)/4 = 12.5\)</span> or <span class="math display">\[s_0^2 = [(60-10)/4]^2 = 156.25\]</span></p>
-<p><strong>Prior Sample Size and Degrees of Freedom</strong> To complete the specification, we also need to choose the prior sample size <span class="math inline">\(n_0\)</span> and degrees of freedom <span class="math inline">\(v_0\)</span>. For a sample of size <span class="math inline">\(n\)</span>, the sample variance has <span class="math inline">\(n-1\)</span> degrees of freedom. Thinking about a possible historic set of data of size <span class="math inline">\(n_0\)</span> that led to the reported interval, we will adopt that rule to obtain the prior degrees of freedom <span class="math inline">\(v_0 = n_0 - 1\)</span>, leaving only the prior sample size to be determined. We will draw samples from the prior predictive distribution and modify <span class="math inline">\(n_0\)</span> so that the simulated data agree with our prior assumptions.</p>
+<p><strong>Prior Mean</strong>
+First, the normal distribution and Student t distributions are symmetric around the mean or center parameter, so we will set the prior mean <span class="math inline">\(\mu\)</span> to be at the midpoint of the interval 10-60, which would lead to <span class="math display">\[m_0 = (60+10)/2 = 35\]</span>
+as our prior hyper-parameter <span class="math inline">\(m_0\)</span>.</p>
+<p><strong>Prior Variance</strong>
+Based on the empirical rule for bell-shaped distributions, we would expect that 95% of observations are within plus or minus two standard deviations from the mean, <span class="math inline">\(\pm 2\sigma\)</span> of <span class="math inline">\(\mu\)</span>. Using this we expect that the range of the data should be approximately <span class="math inline">\(4\sigma\)</span>. Using the values from the report, we can use this to find our prior estimate of <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(s_0 = (60-10)/4 = 12.5\)</span> or
+<span class="math display">\[s_0^2 = [(60-10)/4]^2 = 156.25\]</span></p>
+<p><strong>Prior Sample Size and Degrees of Freedom</strong>
+To complete the specification, we also need to choose the prior sample size <span class="math inline">\(n_0\)</span> and degrees of freedom <span class="math inline">\(v_0\)</span>. For a sample of size <span class="math inline">\(n\)</span>, the sample variance has <span class="math inline">\(n-1\)</span> degrees of freedom. Thinking about a possible historic set of data of size <span class="math inline">\(n_0\)</span> that led to the reported interval, we will adopt that rule to obtain the prior degrees of freedom <span class="math inline">\(v_0 = n_0 - 1\)</span>, leaving only the prior sample size to be determined. We will draw samples from the prior predictive distribution and modify <span class="math inline">\(n_0\)</span> so that the simulated data agree with our prior assumptions.</p>
 </div>
 <div id="sampling-from-the-prior-predictive-in-r" class="section level3">
 <h3><span class="header-section-number">4.3.3</span> Sampling from the Prior Predictive in <code>R</code></h3>
 <p>The following <code>R</code> code shows a simulation from the predictive distribution with the prior sample size <span class="math inline">\(n_0 = 2\)</span>. Please be careful to not confuse the prior sample size, <span class="math inline">\(n_0\)</span>, that represents the precision of our prior information with the number of Monte Carlo simulations, <span class="math inline">\(S = 10000\)</span>, that are drawn from the distributions. These Monte Carlo samples are used to estimate quantiles of the prior predictive distribution and a large value of <span class="math inline">\(S\)</span> reduces error in the Monte Carlo approximation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_<span class="dv">0</span> =<span class="st"> </span>(<span class="dv">60</span><span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span>; s2_<span class="dv">0</span> =<span class="st"> </span>((<span class="dv">60</span><span class="op">-</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>;
+<pre class="sourceCode r"><code class="sourceCode r">m_<span class="dv">0</span> =<span class="st"> </span>(<span class="dv">60</span><span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span>; s2_<span class="dv">0</span> =<span class="st"> </span>((<span class="dv">60-10</span>)<span class="op">/</span><span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>;
 n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">2</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
 <span class="kw">set.seed</span>(<span class="dv">1234</span>)
 S =<span class="st"> </span><span class="dv">10000</span>
@@ -727,20 +870,20 @@ phi =<span class="st"> </span><span class="kw">rgamma</span>(S, v_<span class="d
 sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
 mu =<span class="st"> </span><span class="kw">rnorm</span>(S, <span class="dt">mean=</span>m_<span class="dv">0</span>, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_<span class="dv">0</span>)))
 Y =<span class="st"> </span><span class="kw">rnorm</span>(S, mu, sigma)
-<span class="kw">quantile</span>(Y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre></div>
+<span class="kw">quantile</span>(Y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre>
 <pre><code>##      2.5%     97.5% 
 ## -140.1391  217.7050</code></pre>
-<p>Let’s try to understand the code. After setting the prior hyper-parameters and random seed, we begin by simulating <span class="math inline">\(\phi\)</span> from its gamma prior distribution. We then transform <span class="math inline">\(\phi\)</span> to calculate <span class="math inline">\(\sigma\)</span>. Using the draws of <span class="math inline">\(\sigma\)</span>, we feed that into the <code>rnorm</code> function to simulate <span class="math inline">\(S\)</span> values of <span class="math inline">\(\mu\)</span> for each value of <span class="math inline">\(\sigma\)</span>. The Monte Carlo draws of <span class="math inline">\(\mu,\sigma\)</span> are used to generate <span class="math inline">\(S\)</span> possible values of TTHM denoted by <span class="math inline">\(Y\)</span>. In the above code we are exploiting that all of the functions for simulating from distributions can be vectorized, i.e. we can provide all <span class="math inline">\(S\)</span> draws of <span class="math inline">\(\phi\)</span> to the functions and get a vector result back without having to write a loop. Finally, we obtain the empirical quantiles from our Monte Carlo sample using the <code>quantile</code> function to approximate the actual quantiles from the prior predictive distriubtion.</p>
+<p>Let’s try to understand the code. After setting the prior hyper-parameters and random seed, we begin by simulating <span class="math inline">\(\phi\)</span> from its gamma prior distribution. We then transform <span class="math inline">\(\phi\)</span> to calculate <span class="math inline">\(\sigma\)</span>. Using the draws of <span class="math inline">\(\sigma\)</span>, we feed that into the <code>rnorm</code> function to simulate <span class="math inline">\(S\)</span> values of <span class="math inline">\(\mu\)</span> for each value of <span class="math inline">\(\sigma\)</span>. The Monte Carlo draws of <span class="math inline">\(\mu,\sigma\)</span> are used to generate <span class="math inline">\(S\)</span> possible values of TTHM denoted by <span class="math inline">\(Y\)</span>. In the above code we are exploiting that all of the functions for simulating from distributions can be vectorized, i.e. we can provide all <span class="math inline">\(S\)</span> draws of <span class="math inline">\(\phi\)</span> to the functions and get a vector result back without having to write a loop. Finally, we obtain the empirical quantiles from our Monte Carlo sample using the <code>quantile</code> function to approximate the actual quantiles from the prior predictive distriubtion.</p>
 <p>This forward simulation propagates uncertainty in <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> to the prior predictive distribution of the data. Calculating the sample quantiles from the samples of the prior predictive for <span class="math inline">\(Y\)</span>, we see that the 95% predictive interval for TTHM includes negative values. Since TTHM cannot be negative, we can adjust <span class="math inline">\(n_0\)</span> and repeat. Since we need a narrower interval in order to exclude zero, we can increase <span class="math inline">\(n_0\)</span> until we achieve the desired quantiles.</p>
 <p>After some trial and error, we find that the prior sample size of 25, the empirical quantiles from the prior predictive distribution are close to the range of 10 to 60 that we were given as prior information.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m_<span class="dv">0</span> =<span class="st"> </span>(<span class="dv">60</span><span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span>; s2_<span class="dv">0</span> =<span class="st"> </span>((<span class="dv">60</span><span class="op">-</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>;
+<pre class="sourceCode r"><code class="sourceCode r">m_<span class="dv">0</span> =<span class="st"> </span>(<span class="dv">60</span><span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span>; s2_<span class="dv">0</span> =<span class="st"> </span>((<span class="dv">60-10</span>)<span class="op">/</span><span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>;
 n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
 <span class="kw">set.seed</span>(<span class="dv">1234</span>)
 phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>, s2_<span class="dv">0</span><span class="op">*</span>v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>)
 sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
 mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_<span class="dv">0</span>, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_<span class="dv">0</span>)))
 y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, mu, sigma)
-<span class="kw">quantile</span>(y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre></div>
+<span class="kw">quantile</span>(y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre>
 <pre><code>##      2.5%     97.5% 
 ##  8.802515 61.857350</code></pre>
 <p>Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:hist-prior">4.5</a> shows an estimate of the prior distribution of <span class="math inline">\(\mu\)</span> in gray and the more dispersed prior predictive distribution in TTHM in orange, obtained from the Monte Carlo samples.</p>
@@ -751,21 +894,21 @@ Figure 4.5: Prior density
 </p>
 </div>
 <p>Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(y)  <span class="co"># P(Y &lt; 0) a priori</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(y)  <span class="co"># P(Y &lt; 0) a priori</span></code></pre>
 <pre><code>## [1] 0.0049</code></pre>
 <p>With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we may use the conjugate normal-gamma model for analysis.</p>
 </div>
 <div id="posterior-predictive" class="section level3">
 <h3><span class="header-section-number">4.3.4</span> Posterior Predictive</h3>
 <p>We can use the same strategy to generate samples from the predictive distribution of a new measurement <span class="math inline">\(Y_{n+1}\)</span> given the observed data. In mathematical terms, the posterior predictive distribution is written as</p>
-<p><span class="math display">\[Y_{n+1} \mid Y_1, \ldots, Y_n \sim {\textsf{t}}(v_n, m_n, s^2_n (1 + 1/n_n))\]</span></p>
+<p><span class="math display">\[Y_{n+1} \mid Y_1, \ldots, Y_n \sim \textsf{t}(v_n, m_n, s^2_n (1 + 1/n_n))\]</span></p>
 <p>In the code, we replace the prior hyper parameters with the posterior hyper parameters from last time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1234</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1234</span>)
 phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_n<span class="op">/</span><span class="dv">2</span>, s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)
 sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
 post_mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_n, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_n)))
 pred_y =<span class="st">  </span><span class="kw">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)
-<span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</code></pre></div>
+<span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, <span class="fl">.975</span>))</code></pre>
 <pre><code>##      2.5%     97.5% 
 ##  3.280216 89.830212</code></pre>
 <p>Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:hist-pred">4.6</a> shows the Monte Carlo approximation to the prior distribution of <span class="math inline">\(\mu\)</span>, and the posterior distribution of <span class="math inline">\(\mu\)</span> which is shifted to the right. The prior and posterior predictive distributions are also depicted, showing how the data have updated the prior information.</p>
@@ -776,7 +919,7 @@ Figure 4.6: Posterior densities
 </p>
 </div>
 <p>Using the Monte Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(pred_y <span class="op">&gt;</span><span class="st"> </span><span class="dv">80</span>)<span class="op">/</span><span class="kw">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(pred_y <span class="op">&gt;</span><span class="st"> </span><span class="dv">80</span>)<span class="op">/</span><span class="kw">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></code></pre>
 <pre><code>## [1] 0.0619</code></pre>
 </div>
 <div id="summary-1" class="section level3">
@@ -793,7 +936,8 @@ Figure 4.6: Posterior densities
 <div id="sec:NG-reference" class="section level2">
 <h2><span class="header-section-number">4.4</span> Reference Priors</h2>
 <p>In Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive">4.3</a>, we demonstrated how to specify an informative prior distribution for inference about TTHM in tapwater using additional prior information. The resulting informative Normal-Gamma prior distribution had an effective prior sample size that was comparable to the observed sample size to be compatible with the reported prior interval.</p>
-<p>There are, however, situations where you may wish to provide an analysis that does not depend on prior information. There may be cases where prior information is simply not available. Or, you may wish to present an <strong>objective</strong> analysis where minimal prior information is used to provide a baseline or reference analysis to contrast with other analyses based on informative prior distributions. Or perhaps, you want to use the Bayesian paradigm to make probability statements about parameters, but not use any prior information. In this section, we will examine the qustion of <strong>Can you actually perform a Bayesian analysis without using prior information?</strong> We will present reference priors for normal data, which can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution.</p>
+<p>There are, however, situations where you may wish to provide an analysis that does not depend on prior information. There may be cases where prior information is simply not available. Or, you may wish to present an <strong>objective</strong> analysis where minimal prior information is used to provide a baseline or reference analysis to contrast with other analyses based on informative prior distributions. Or perhaps, you want to use the Bayesian paradigm to make probability statements about parameters, but not use any prior information. In this section, we will examine the qustion of <strong>Can you actually perform a Bayesian analysis without using prior information?</strong>
+We will present reference priors for normal data, which can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution.</p>
 <p>Conjugate priors can be interpreted to be based on a historical or imaginary prior sample. What happens in the conjugate Normal-Gamma prior if we take our prior sample size <span class="math inline">\(n_0\)</span> to go to zero? If we have no data, then we will define the prior sample variance <span class="math inline">\(s_0^2\)</span> to go to 0, and based on the relationship between prior sample sized and prior degrees of freedom, we will let the prior degrees of freedom go to the prior sample size minus one, or negative one, i.e. <span class="math inline">\(v_0 = n_0 - 1 \rightarrow -1\)</span>.</p>
 <p>With this limit, we have the following properties:</p>
 <ul>
@@ -823,17 +967,17 @@ p(\mu, \sigma^2) &amp; \propto  1/\sigma^2
 <p>While the reference prior is not a proper prior distribution, and cannot reflect anyone’s actual prior beliefs, the formal application phase rule can still be used to show that <strong>the posterior distribution is a valid normal gamma distribution</strong>, leading to a formal phase posterior distribution. That depends only on summary statistics of the data.</p>
 <p>The posterior distribution <span class="math inline">\(\textsf{NormalGamma}(\bar{Y}, n, s^2, n-1)\)</span> breaks down to</p>
 <p><span class="math display">\[\begin{aligned}
-\mu \mid \sigma^2, {\text{data}}&amp; \sim {\textsf{Normal}}(\bar{Y}, \sigma^2/n) \\
-1/\sigma^2  \mid {\text{data}}&amp; \sim {\textsf{Gamma}}((n-1)/2, s^2(n - 1)/2).
+\mu \mid \sigma^2, \text{data}&amp; \sim \textsf{Normal}(\bar{Y}, \sigma^2/n) \\
+1/\sigma^2  \mid \text{data}&amp; \sim \textsf{Gamma}((n-1)/2, s^2(n - 1)/2).
 \end{aligned}\]</span></p>
 <ul>
 <li>Under the reference prior <span class="math inline">\(p(\mu, \sigma^2) \propto 1/\sigma^2\)</span>, the posterior distribution after standardizing <span class="math inline">\(\mu\)</span> has a Student <span class="math inline">\(t\)</span> distribution with <span class="math inline">\(n-1\)</span> degrees of freedom.</li>
 </ul>
-<p><span class="math display">\[\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid {\text{data}}\sim  {\textsf{t}}(n-1, 0, 1)\]</span></p>
+<p><span class="math display">\[\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid \text{data}\sim  \textsf{t}(n-1, 0, 1)\]</span></p>
 <ul>
 <li>Prior to seeing the data, the distribution of the standardized sample mean given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> also has a Student t distribution.</li>
 </ul>
-<p><span class="math display">\[\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid \mu, \sigma^2 \sim  {\textsf{t}}(n-1, 0, 1) \]</span></p>
+<p><span class="math display">\[\frac{\mu - \bar{Y}}{\sqrt{s^2/n}} \mid \mu, \sigma^2 \sim  \textsf{t}(n-1, 0, 1) \]</span></p>
 <ul>
 <li>Both frequentist sampling distributions and Bayesian reference posterior distributions lead to intervals of this form:</li>
 </ul>
@@ -844,11 +988,11 @@ p(\mu, \sigma^2) &amp; \propto  1/\sigma^2
 <p><span class="math display">\[P(\bar{Y} - t_{1 - \alpha/2}\times s/\sqrt{n} &lt; \mu &lt;  \bar{Y} + t_{1 - \alpha/2}\times s/\sqrt{n}) = 1 - \alpha\]</span></p>
 <p>We can use either analytic expressions based on the t-distribution, or Monte Carlo samples from the posterior predictive distribution, to make predictions about a new sample.</p>
 <p>Here is some code to generate the Monte Carlo samples from the tap water example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, (n<span class="op">-</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span>, s2<span class="op">*</span>(n<span class="op">-</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span>)
+<pre class="sourceCode r"><code class="sourceCode r">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, (n<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span>, s2<span class="op">*</span>(n<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span>)
 sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
 post_mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>ybar, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n)))
 pred_y =<span class="st">  </span><span class="kw">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)
-<span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</code></pre></div>
+<span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, <span class="fl">.975</span>))</code></pre>
 <pre><code>##       2.5%      97.5% 
 ##   6.692877 104.225954</code></pre>
 <p>Using the Monte Carlo samples, Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:plot-post-pred">4.7</a> shows the posterior distribution based on the informative Normal-Gamma prior and the reference prior. Both the posterior distribution for <span class="math inline">\(\mu\)</span> and the posterior predictive distribution for a new sample are shifted to the right, and are centered at the sample mean. The posterior for <span class="math inline">\(\mu\)</span> under the reference prior is less concentrated around its mean than the posterior under the informative prior, which leads to an increased posterior sample size and hence increased precision.</p>
@@ -859,36 +1003,40 @@ Figure 4.7: Comparison of posterior densities
 </p>
 </div>
 <p>The posterior probability that a new sample will exceed the legal limit of 80 ppb under the reference prior is roughly 0.15, which is more than double the probability of 0.06 from the posterior under the informative prior.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(pred_y <span class="op">&gt;</span><span class="st"> </span><span class="dv">80</span>)<span class="op">/</span><span class="kw">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(pred_y <span class="op">&gt;</span><span class="st"> </span><span class="dv">80</span>)<span class="op">/</span><span class="kw">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></code></pre>
 <pre><code>## [1] 0.1534</code></pre>
 <p>In constructing the informative prior from the reported interval, there are two critical assumptions. First, the prior data are exchangeable with the observed data. Second, the conjugate normal gamma distribution is suitable for representing the prior information. These assumptions may or may not be verifiable, but they should be considered carefully when using informative conjugate priors.</p>
 <p>In the case of the tap water example, there are several concerns: One, it is unclear that the prior data are exchangeable with the observed data. For example, water treatment conditions may have changed. Two, the prior sample size was not based on a real prior sample, but instead selected so that the prior predictive intervals under the normal gamma model agreed with the prior data. As we do not have access to the prior data, we cannot check assumptions about normality that would help justify the prior. Other skewed distributions may be consistent with the prior interval, but lead to different conclusions.</p>
-<p>To recap, we have introduced a reference prior for inference for normal data with an unknown mean and variance. Reference priors are often part of a prior sensitivity study and are used when objectivity is of utmost importance.</p>
+<p>To recap, we have introduced a reference prior for inference for
+normal data with an unknown mean and variance. Reference priors are often part of a prior sensitivity study and are used when objectivity is of utmost importance.</p>
 <p>If conclusions are fundamentally different with an informative prior and a reference prior, one may wish to carefully examine assumputions that led to the informative prior.</p>
 <ul>
 <li><p>Is the prior information based on a prior sample that is exchangable with the observed data?</p></li>
 <li><p>Is the normal-gamma assumption appropriate?</p></li>
 </ul>
 <p>Informative priors can provide more accurate inference when data are limited, and the transparency of explicitly laying out prior assumptions is an important aspect of reproducible research. However, one needs to be careful that certain prior assumptions may lead to un-intended consequences.</p>
-<p>Next, we will investigate a prior distribution that is a mixture of conjugate priors, so the new prior distribution provides robustness to prior mis-specification in the prior sample size.</p>
-<p>While we will no longer have nice analytical expressions for the posterior, we can simulate from the posterior distribution using a Monte Carlo algorithm called Markov chain Monte Carlo (MCMC).</p>
+<p>Next, we will investigate a prior distribution that is a mixture of
+conjugate priors, so the new prior distribution provides robustness to prior mis-specification in the prior sample size.</p>
+<p>While we will no longer have nice analytical expressions for the posterior, we can simulate from the posterior distribution using a Monte Carlo algorithm
+called Markov chain Monte Carlo (MCMC).</p>
 
 </div>
 <div id="sec:NG-Cauchy" class="section level2">
 <h2><span class="header-section-number">4.5</span> Mixtures of Conjugate Priors</h2>
 <p>In this section, we will describe priors that are constructed as a mixture of conjugate priors – in particular, the Cauchy distribution. As these are no longer conjugate priors, nice analytic expressions for the posterior distribution are not available. However, we can use a Monte Carlo algorithm called Markov chain Monte Carlo (MCMC) for posterior inference.</p>
 <p>In many situations, we may have reasonable prior information about the mean <span class="math inline">\(\mu\)</span>, but we are less confident in how many observations our prior beliefs are equivalent to. We can address this uncertainty in the prior sample size, through an additional prior distribution on a <span class="math inline">\(n_0\)</span> via a hierarchical prior.</p>
-<p>The hierarchical prior for the normal gamma distribution is written as <span class="math display">\[\begin{aligned}
-\mu \mid \sigma^2, n_0 &amp; \sim {\textsf{Normal}}(m_0, \sigma^2/n_0) \\
-n_0 \mid \sigma^2 &amp;  \sim {\textsf{Gamma}}(1/2, r^2/2)
+<p>The hierarchical prior for the normal gamma distribution is written as
+<span class="math display">\[\begin{aligned}
+\mu \mid \sigma^2, n_0 &amp; \sim \textsf{Normal}(m_0, \sigma^2/n_0) \\
+n_0 \mid \sigma^2 &amp;  \sim \textsf{Gamma}(1/2, r^2/2)
 \end{aligned}\]</span></p>
-<p>If <span class="math inline">\(r=1\)</span>, then this corresponds to a prior expected sample size of one because the expectation of <span class="math inline">\({\textsf{Gamma}}(1/2,1/2)\)</span> is one.</p>
+<p>If <span class="math inline">\(r=1\)</span>, then this corresponds to a prior expected sample size of one because the expectation of <span class="math inline">\(\textsf{Gamma}(1/2,1/2)\)</span> is one.</p>
 <p>The marginal prior distribution from <span class="math inline">\(\mu\)</span> can be attained via integration, and we get</p>
-<p><span class="math display">\[\mu \mid \sigma^2  \sim  {\textsf{C}}(m_0, \sigma^2 r^2)\]</span></p>
+<p><span class="math display">\[\mu \mid \sigma^2  \sim  \textsf{C}(m_0, \sigma^2 r^2)\]</span></p>
 <p>This is a <strong>Cauchy distribution</strong> centered at the prior mean <span class="math inline">\(m_0\)</span>, with the scale parameter <span class="math inline">\(\sigma^2 r^2\)</span>. The probability density function (pdf) is:</p>
 <p><span class="math display">\[p(\mu \mid \sigma) = \frac{1}{\pi \sigma r} \left( 1 +  \frac{(\mu - m_0)^2} {\sigma^2 r^2}  \right)^{-1}\]</span></p>
 <p>The Cauchy distribution does not have a mean or standard deviation, but the center (location) and the scale play a similar role to the mean and standard deviation of the normal distribution. The Cauchy distribution is a special case of a student <span class="math inline">\(t\)</span> distribution with one degree of freedom.</p>
-<p>As Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:cauchy-plot">4.8</a> shows, the standard Cauchy distribution with <span class="math inline">\(r=1\)</span> and the standard normal distribution <span class="math inline">\({\textsf{Normal}}(0,1)\)</span> are centered at the same location. But the Cauchy distribution has heavier tails – more probability on extreme values than the normal distribution with the same scale parameter <span class="math inline">\(\sigma\)</span>. Cauchy priors were recommended by Sir Harold Jeffreys as a default objective prior for both estimation and testing.</p>
+<p>As Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:cauchy-plot">4.8</a> shows, the standard Cauchy distribution with <span class="math inline">\(r=1\)</span> and the standard normal distribution <span class="math inline">\(\textsf{Normal}(0,1)\)</span> are centered at the same location. But the Cauchy distribution has heavier tails – more probability on extreme values than the normal distribution with the same scale parameter <span class="math inline">\(\sigma\)</span>. Cauchy priors were recommended by Sir Harold Jeffreys as a default objective prior for both estimation and testing.</p>
 <div class="figure" style="text-align: center"><span id="fig:cauchy-plot"></span>
 <img src="04-normalgamma-05-mixtures_files/figure-html/cauchy-plot-1.png" alt="Cauchy distribution" width="480" />
 <p class="caption">
@@ -899,25 +1047,25 @@ Figure 4.8: Cauchy distribution
 </div>
 <div id="sec:NG-MCMC" class="section level2">
 <h2><span class="header-section-number">4.6</span> Markov Chain Monte Carlo (MCMC)</h2>
-<p>The Cauchy prior described in Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-Cauchy">4.5</a> is not a conjugate prior, and therefore, the posterior distribution from <span class="math inline">\((\mu \mid \sigma^2)\)</span>, is not a Cauchy or any well-known distribution. Fortunately, the conditional distribution of <span class="math inline">\((\mu, \sigma^2 \mid n_0, {\text{data}})\)</span>, is normal-gamma and easy to simulate from, as we learned in the previous sections. The conditional distribution of <span class="math inline">\((n_0 \mid \mu, \sigma^2, {\text{data}}\)</span>) is a gamma distribution, also easy to simulate from the given <span class="math inline">\(\mu, \sigma^2\)</span>.</p>
+<p>The Cauchy prior described in Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-Cauchy">4.5</a> is not a conjugate prior, and therefore, the posterior distribution from <span class="math inline">\((\mu \mid \sigma^2)\)</span>, is not a Cauchy or any well-known distribution. Fortunately, the conditional distribution of <span class="math inline">\((\mu, \sigma^2 \mid n_0, \text{data})\)</span>, is normal-gamma and easy to simulate from, as we learned in the previous sections. The conditional distribution of <span class="math inline">\((n_0 \mid \mu, \sigma^2, \text{data}\)</span>) is a gamma distribution, also easy to simulate from the given <span class="math inline">\(\mu, \sigma^2\)</span>.</p>
 <p>It turns out that if we alternate generating Monte Carlo samples from these conditional distributions, the sequence of samples converges to samples from the joint distribution of <span class="math inline">\((\mu, \sigma^2, n_0)\)</span>, as the number of simulated values increases. The Monte Carlo algorithm we have just described is a special case of Markov chain Monte Carlo (MCMC), known as the Gibbs sampler.</p>
 <p>Let’s look at the pseudo code for the algorithm.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initialize MCMC</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initialize MCMC</span>
 sigma2[<span class="dv">1</span>] =<span class="st"> </span><span class="dv">1</span>; n_<span class="dv">0</span>[<span class="dv">1</span>]=<span class="dv">1</span>; mu[<span class="dv">1</span>]=m_<span class="dv">0</span>
 
 <span class="co">#draw from full conditional distributions</span>
 <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>S) {
-  mu[i]     =<span class="st"> </span><span class="kw">p_mu</span>(sigma2[i<span class="op">-</span><span class="dv">1</span>], n_<span class="dv">0</span>[i<span class="op">-</span><span class="dv">1</span>],  m_<span class="dv">0</span>, r, data)
-  sigma2[i] =<span class="st"> </span><span class="kw">p_sigma2</span>(mu[i], n_<span class="dv">0</span>[i<span class="op">-</span><span class="dv">1</span>],    m_<span class="dv">0</span>, r, data)
+  mu[i]     =<span class="st"> </span><span class="kw">p_mu</span>(sigma2[i<span class="dv">-1</span>], n_<span class="dv">0</span>[i<span class="dv">-1</span>],  m_<span class="dv">0</span>, r, data)
+  sigma2[i] =<span class="st"> </span><span class="kw">p_sigma2</span>(mu[i], n_<span class="dv">0</span>[i<span class="dv">-1</span>],    m_<span class="dv">0</span>, r, data)
   n_<span class="dv">0</span>[i]    =<span class="st"> </span><span class="kw">p_n_0</span>(mu[i], sigma2[i],      m_<span class="dv">0</span>, r, data)
-}</code></pre></div>
+}</code></pre>
 <p>We start with the initial values of each of the parameters for <span class="math inline">\(i=1\)</span>. In theory, these can be completely arbitrary, as long as they are allowed values for the parameters.</p>
 <p>For each iteration <span class="math inline">\(i\)</span>, the algorithm will cycle through generating each parameter, given the <strong>current</strong> value of the other parameters. The functions , , and  return a simulated value from the respective distribution conditional on the inputs.</p>
 <p>Whenever we update a parameter, we use the <strong>new value</strong> in the subsequent steps as the <span class="math inline">\(n\)</span> draws for <span class="math inline">\(\sigma, n_0\)</span>. We will repeat this until we reach iteration <span class="math inline">\(S\)</span>, leading to a dependent sequence of s draws from the joint posterior distribution.</p>
 <p>Incorporating the tap water example in Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma">4.1</a>, we will use MCMC to generate samples under the Cauchy prior. We set 35 as the location parameter and <span class="math inline">\(r=1\)</span>. To complete our prior specification, we use the Jeffrey’s reference prior on <span class="math inline">\(\sigma^2\)</span>. This combination is referred to as the Jeffrey’s Zellner-Siow Cauchy prior or “JZS” in the R  package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bayes_inference</span>(<span class="dt">y=</span>tthm, <span class="dt">data=</span>tapwater, <span class="dt">statistic=</span><span class="st">&quot;mean&quot;</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bayes_inference</span>(<span class="dt">y=</span>tthm, <span class="dt">data=</span>tapwater, <span class="dt">statistic=</span><span class="st">&quot;mean&quot;</span>,
                 <span class="dt">mu_0 =</span> <span class="dv">35</span>, <span class="dt">rscale=</span><span class="dv">1</span>, <span class="dt">prior=</span><span class="st">&quot;JZS&quot;</span>,
-                <span class="dt">type=</span><span class="st">&quot;ci&quot;</span>, <span class="dt">method=</span><span class="st">&quot;sim&quot;</span>)</code></pre></div>
+                <span class="dt">type=</span><span class="st">&quot;ci&quot;</span>, <span class="dt">method=</span><span class="st">&quot;sim&quot;</span>)</code></pre>
 <pre><code>## Single numerical variable
 ## n = 28, y-bar = 55.5239, s = 23.254
 ## (Assuming Zellner-Siow Cauchy prior:  mu | sigma^2 ~ C(35, 1*sigma)
@@ -1002,7 +1150,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

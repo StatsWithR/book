@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Stochastic Explorations Using MCMC | An Introduction to Bayesian Thinking</title>
-  <meta name="description" content="Chapter 8 Stochastic Explorations Using MCMC | An Introduction to Bayesian Thinking">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 8 Stochastic Explorations Using MCMC | An Introduction to Bayesian Thinking" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Stochastic Explorations Using MCMC | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   
   
 
-<meta name="author" content="Merlise Clyde">
-<meta name="author" content="Mine Cetinkaya-Rundel">
-<meta name="author" content="Colin Rundel">
-<meta name="author" content="David Banks">
-<meta name="author" content="Christine Chai">
-<meta name="author" content="Lizzy Huang">
+<meta name="author" content="Merlise Clyde" />
+<meta name="author" content="Mine Cetinkaya-Rundel" />
+<meta name="author" content="Colin Rundel" />
+<meta name="author" content="David Banks" />
+<meta name="author" content="Christine Chai" />
+<meta name="author" content="Lizzy Huang" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="bayesian-model-choice.html">
@@ -55,41 +54,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -277,7 +302,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="markov-chain-monte-carlo-exploration" class="section level3">
 <h3><span class="header-section-number">8.1.1</span> Markov Chain Monte Carlo Exploration</h3>
 <p>Let us assume that we have a pseudo population of possible models that we obtained from all the possible combinations of regression models from the kid’s cognitive score example. We prepare the data set as in Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.3</a> and run <code>bas.lm</code> to obtain posterior probability of each model as we did in Section <a href="bayesian-model-choice.html#sec:BMU">7.2</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Data processing</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Data processing</span>
 <span class="kw">library</span>(foreign)
 cognitive =<span class="st"> </span><span class="kw">read.dta</span>(<span class="st">&quot;http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta&quot;</span>)
 cognitive<span class="op">$</span>mom_work =<span class="st"> </span><span class="kw">as.numeric</span>(cognitive<span class="op">$</span>mom_work <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)
@@ -289,9 +314,9 @@ cognitive<span class="op">$</span>mom_hs =<span class="st">  </span><span class=
 cog_bas =<span class="st"> </span><span class="kw">bas.lm</span>(kid_score <span class="op">~</span><span class="st"> </span>hs <span class="op">+</span><span class="st"> </span>IQ <span class="op">+</span><span class="st"> </span>work <span class="op">+</span><span class="st"> </span>age,
                 <span class="dt">prior =</span> <span class="st">&quot;BIC&quot;</span>,
                 <span class="dt">modelprior =</span> <span class="kw">uniform</span>(),
-                <span class="dt">data =</span> cognitive)</code></pre></div>
+                <span class="dt">data =</span> cognitive)</code></pre>
 <p>We will use this example to explore the idea of MCMC and generalize it to regression models with much larger model spaces. To explore the models, we may arrange them by their model sizes, the number of predictors plus the intercept, on the <span class="math inline">\(x\)</span>-axis, and their posterior probabilities on the <span class="math inline">\(y\)</span>-axis.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 
 <span class="co"># Construct data frame for plotting</span>
 output =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">model.size =</span> cog_bas<span class="op">$</span>size, <span class="dt">model.prob =</span> cog_bas<span class="op">$</span>postprobs)
@@ -299,21 +324,26 @@ output =<span class="st"> </span><span class="kw">data.frame</span>(<span class=
 <span class="co"># Plot model size vs mode posterior probability</span>
 <span class="kw">ggplot</span>(<span class="dt">data =</span> output, <span class="kw">aes</span>(<span class="dt">x =</span> model.size, <span class="dt">y =</span> model.prob)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">17</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;model size&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;model posterior probability&quot;</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;model size&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;model posterior probability&quot;</span>)</code></pre>
 <p><img src="08-MCMC-01-stochastic_files/figure-html/model-space-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>We could then take a sample from this population of models with replacement (therefore, some models may be selected more than once in this sample). This process could be done using the <code>sample</code> function in R. We hope that the frequency of appearance of a model would be a good approximation of the posterior probability of this model. We use <span class="math inline">\(I(M_j = M_m)\)</span> as the indicator function to indicate that the current model <span class="math inline">\(M_j\)</span> we sample is the model of interest <span class="math inline">\(M_m\)</span>, that is <span class="math display">\[ I(M_j=M_m) = \left\{\begin{array}{ll} 1, &amp; \text{if $M_j = M_m$} \\ 0, &amp; \text{if $M_j\neq M_m$}\end{array}\right. \]</span></p>
-Suppose we are going to sample <span class="math inline">\(J\)</span> models in total, we hope that
+<p>We could then take a sample from this population of models with replacement (therefore, some models may be selected more than once in this sample). This process could be done using the <code>sample</code> function in R. We hope that the frequency of appearance of a model would be a good approximation of the posterior probability of this model. We use <span class="math inline">\(I(M_j = M_m)\)</span> as the indicator function to indicate that the current model <span class="math inline">\(M_j\)</span> we sample is the model of interest <span class="math inline">\(M_m\)</span>, that is
+<span class="math display">\[ I(M_j=M_m) = \left\{\begin{array}{ll} 1, &amp; \text{if $M_j = M_m$} \\ 0, &amp; \text{if $M_j\neq M_m$}\end{array}\right. \]</span></p>
+<p>Suppose we are going to sample <span class="math inline">\(J\)</span> models in total, we hope that
 <span class="math display" id="eq:MCMC-formula">\[\begin{equation} 
 p(M_m~|~\text{data}) \approx \frac{\sum_{j=1}^J I(M_j=M_m)}{J} = \sum_{j=1}^J \frac{I(M_j=M_m)}{J}.
 \tag{8.1}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>After all, we would not need to calculate the model posterior probability <span class="math inline">\(P(M_m~|~\text{data})\)</span>. The quantity from the sampling <span class="math inline">\(\displaystyle \sum_{j=1}^J\frac{I(M_j=M_m)}{J}\)</span> would provide a good approximation, which only requires simple counting.</p>
 <p>In order to ensure that we would sample models with a probability that is equal to their posterior probability, or in a simpler way, proportional to the marginal likelihood times the prior probability <span class="math inline">\(p(\text{data}~|~M_m)\times p(M_m)\)</span>, we need to design a sampling method that replaces old models with new models when the posterior probability goes up, and keeps the old models when the posterior probability is not improved.</p>
-<p>Here, we propose the Metropolis-Hastings algorithm. We start with an initial model <span class="math inline">\(M^{(0)}\)</span>. This could be any model we like in the model space. We start iterating over the entire model space, randomly pick the next model <span class="math inline">\(M^{*(1)}\)</span> and see whether this model improves the posterior probability. We use the notation <span class="math inline">\(M^{*(1)}\)</span> instead of <span class="math inline">\(M^{(1)}\)</span> because we are not sure whether we should include this model in our final sample, or we should consider other models. Therefore, we calculate the ratio between the posterior probability of the two models, the original model <span class="math inline">\(M^{(0)}\)</span>, and the proposed model <span class="math inline">\(M^{*(1)}\)</span>, which turns out to be the posterior odd between the two models <span class="math display">\[ R=\frac{p(M^{*(1)}~|~\text{data})}{p(M^{(0)}~|~\text{data})}=\text{PO}[M^{*(1)}:M^{(0)}]. \]</span></p>
-<p>Our goal is to avoid actually calculating the posterior probability of each model, so we instead would compute <span class="math inline">\(R\)</span> using the Bayes factor and the prior odd of the two models. <span class="math display">\[ R=\frac{p(M^{*(1)}~|~\text{data})}{p(M^{(0)}~|~\text{data})}={\textit{PO}}[M^{*(1)}:M^{(0)}]={\textit{BF}}[M^{*(1)}:M^{(0)}]\times {\textit{O}}[M^{*(1)}:M^{(0)}]. \]</span></p>
+<p>Here, we propose the Metropolis-Hastings algorithm. We start with an initial model <span class="math inline">\(M^{(0)}\)</span>. This could be any model we like in the model space. We start iterating over the entire model space, randomly pick the next model <span class="math inline">\(M^{*(1)}\)</span> and see whether this model improves the posterior probability. We use the notation <span class="math inline">\(M^{*(1)}\)</span> instead of <span class="math inline">\(M^{(1)}\)</span> because we are not sure whether we should include this model in our final sample, or we should consider other models. Therefore, we calculate the ratio between the posterior probability of the two models, the original model <span class="math inline">\(M^{(0)}\)</span>, and the proposed model <span class="math inline">\(M^{*(1)}\)</span>, which turns out to be the posterior odd between the two models
+<span class="math display">\[ R=\frac{p(M^{*(1)}~|~\text{data})}{p(M^{(0)}~|~\text{data})}=\text{PO}[M^{*(1)}:M^{(0)}]. \]</span></p>
+<p>Our goal is to avoid actually calculating the posterior probability of each model, so we instead would compute <span class="math inline">\(R\)</span> using the Bayes factor and the prior odd of the two models.
+<span class="math display">\[ R=\frac{p(M^{*(1)}~|~\text{data})}{p(M^{(0)}~|~\text{data})}=\textit{PO}[M^{*(1)}:M^{(0)}]=\textit{BF}[M^{*(1)}:M^{(0)}]\times \textit{O}[M^{*(1)}:M^{(0)}]. \]</span></p>
 <p>If <span class="math inline">\(R\geq 1\)</span>, that means <span class="math inline">\(M^{*(1)}\)</span> will surely improve the posterior probability after seeing the data compared to <span class="math inline">\(M^{(0)}\)</span>. So we would like to include <span class="math inline">\(M^{*(1)}\)</span> into our sample, because <span class="math inline">\(M^{*(1)}\)</span> deserves more occurrence. In this case, we set <span class="math inline">\(M^{*(1)}\)</span> to be <span class="math inline">\(M^{(1)}\)</span>, indicating that it is part of our final sample. However, if <span class="math inline">\(R&lt;1\)</span>, we are not that sure whether <span class="math inline">\(M^{*(1)}\)</span> should be in the sample. But we also do not want to only include models with higher posterior probabilities. Remember that the purpose of this algorithm is to reproduce the frequency of model occurance in the final sample so that the relative frequency of occurrence of each model could be a good proxy of its posterior probability. Even though the proposed model <span class="math inline">\(M^{*(1)}\)</span> has lower posterior probability, we should still have some representatives of this model in our final sample. Hence we set <span class="math inline">\(M^{*(1)}\)</span> to be <span class="math inline">\(M^{(1)}\)</span> with probability <span class="math inline">\(R\)</span>, reflecting the chance that this model would be in our sample is <span class="math inline">\(R\)</span>.</p>
 <p>To include <span class="math inline">\(M^{*(1)}\)</span> in the final sample with probability <span class="math inline">\(R\)</span>, we may use a random number generator to generate number between 0 and 1 and see whether this number is larger than <span class="math inline">\(R\)</span>. Or we may set a coin flip with heads showing up with probability <span class="math inline">\(R\)</span>. If the random number is larger than <span class="math inline">\(R\)</span>, or the head shows up using the biased coin, we include this model. Otherwise, we neglect this proposed model and keep on selecting the next model.</p>
-<p>Once the first model <span class="math inline">\(M^*{(1))}\)</span> is sampled, we move onto the second model <span class="math inline">\(M^{(2)}\)</span> with the same process. In general, after we have obtained model <span class="math inline">\(M^{(i)}\)</span>, we propose a model <span class="math inline">\(M^{*(i+1)}\)</span> and calculate the ratio of the posterior probabilities of the two models <span class="math display">\[ R = \frac{p(M^{*(i+1)}~|~\text{data})}{p(M^{(i)}~|~\text{data})}={\textit{BF}}[M^{*(i+1)}:M^{(i)}]\times {\textit{O}}[M^{*(i+1)}:M^{(i)}].\]</span> If <span class="math inline">\(R\geq 1\)</span>, we unconditionally accept <span class="math inline">\(M^{*(i+1)}\)</span> to be our next model <span class="math inline">\(M^{(i)}\)</span>. If <span class="math inline">\(R&lt;1\)</span>, we accept <span class="math inline">\(M^{*(i+1)}\)</span> to be <span class="math inline">\(M^{(i)}\)</span> with probability <span class="math inline">\(R\)</span>.</p>
+<p>Once the first model <span class="math inline">\(M^*{(1))}\)</span> is sampled, we move onto the second model <span class="math inline">\(M^{(2)}\)</span> with the same process. In general, after we have obtained model <span class="math inline">\(M^{(i)}\)</span>, we propose a model <span class="math inline">\(M^{*(i+1)}\)</span> and calculate the ratio of the posterior probabilities of the two models
+<span class="math display">\[ R = \frac{p(M^{*(i+1)}~|~\text{data})}{p(M^{(i)}~|~\text{data})}=\textit{BF}[M^{*(i+1)}:M^{(i)}]\times \textit{O}[M^{*(i+1)}:M^{(i)}].\]</span>
+If <span class="math inline">\(R\geq 1\)</span>, we unconditionally accept <span class="math inline">\(M^{*(i+1)}\)</span> to be our next model <span class="math inline">\(M^{(i)}\)</span>. If <span class="math inline">\(R&lt;1\)</span>, we accept <span class="math inline">\(M^{*(i+1)}\)</span> to be <span class="math inline">\(M^{(i)}\)</span> with probability <span class="math inline">\(R\)</span>.</p>
 <p>After obtaining <span class="math inline">\(J\)</span> models, <span class="math inline">\(M^{(1)}, M^{(2)}, \cdots, M^{(J)}\)</span>, we can count how many models inside this sample is <span class="math inline">\(M_m\)</span>, the model we are interested. Then we use the formula <a href="stochastic-explorations-using-mcmc.html#eq:MCMC-formula">(8.1)</a> to approximate the posterior probability of <span class="math inline">\(M_m\)</span>. These estimated probabilities can be used in model selection or BMA instead of the exact expressions.</p>
 <p>We propose model randomly in the above algorithm, i.e., all models are equally likely to be proposed. This can be pretty inefficient if there are lots of models with low probabilities. We may come up with other ways to propose models. For example, we may look at neighboring models of our current model by either adding one predictor that is currently not in the model, or randomly dropping one of the current predictors from the model. We may flip a fair coin to decide whether to add or to drop. This forms a random walk across neighboring models. We may also propose to swap out a current predictor with one that is currently not in the model, which maintains the size of the model. This has the potential to take bigger jumps in the model space. There are other possible moves that can be designed to help move around over the model space. However, we have to be careful to adjust for any potential bias, due to how we propose new models, to ensure that the relative frequency eventually would converge to the posterior probability. In the lecture video, we have demonstrated the Markov Chain Monte Carlo method on the kid’s cognitive score using animation to show how each model was proposed and finally selected.</p>
 
@@ -321,18 +351,22 @@ p(M_m~|~\text{data}) \approx \frac{\sum_{j=1}^J I(M_j=M_m)}{J} = \sum_{j=1}^J \f
 </div>
 <div id="other-priors-for-bayesian-model-uncertainty" class="section level2">
 <h2><span class="header-section-number">8.2</span> Other Priors for Bayesian Model Uncertainty</h2>
-<p>So far, we have discussed Bayesian model selection and Bayesian model averaging using BIC. BIC is an asymptotic approximation of the log of marginal likelihood of models when the number of data points is large. Under BIC, prior distribution of <span class="math inline">\({\boldsymbol{\beta}}= (\beta_0, \beta_1,\cdots, \beta_p)^T\)</span> is uniformaly flat, which is the same as applying the reference prior on <span class="math inline">\({\boldsymbol{\beta}}\)</span> conditioning on <span class="math inline">\(\sigma^2\)</span>. In this section, we will introduce a new conjugate prior distribution, called the Zellner’s <span class="math inline">\(g\)</span>-prior. We will see that this prior leads to simple expressions for the Bayes factor, in terms of summary statistics from ordinary least square (OLS). We will talk about choosing the parameter <span class="math inline">\(g\)</span> in the prior and conduct a sensitivity analysis, using the kid’s cognitive score data that we used in earlier sections.</p>
+<p>So far, we have discussed Bayesian model selection and Bayesian model averaging using BIC. BIC is an asymptotic approximation of the log of marginal likelihood of models when the number of data points is large. Under BIC, prior distribution of <span class="math inline">\(\boldsymbol{\beta}= (\beta_0, \beta_1,\cdots, \beta_p)^T\)</span> is uniformaly flat, which is the same as applying the reference prior on <span class="math inline">\(\boldsymbol{\beta}\)</span> conditioning on <span class="math inline">\(\sigma^2\)</span>. In this section, we will introduce a new conjugate prior distribution, called the Zellner’s <span class="math inline">\(g\)</span>-prior. We will see that this prior leads to simple expressions for the Bayes factor, in terms of summary statistics from ordinary least square (OLS). We will talk about choosing the parameter <span class="math inline">\(g\)</span> in the prior and conduct a sensitivity analysis, using the kid’s cognitive score data that we used in earlier sections.</p>
 <div id="zellners-g-prior" class="section level3">
 <h3><span class="header-section-number">8.2.1</span> Zellner’s <span class="math inline">\(g\)</span>-Prior</h3>
 <p>To analyze the model more conveniently, we still stick with the “centered” regression model. Let <span class="math inline">\(y_1,\cdots,y_n\)</span> to be the observations of the response variable <span class="math inline">\(Y\)</span>. The multiple regression model is</p>
 <p><span class="math display">\[ y_i = \beta_0 + \beta_1(x_{1,i}-\bar{x}_1) + \beta_2(x_{2, i}-\bar{x}_2)+\cdots +\beta_p(x_{p, i}-\bar{x}_p)+\epsilon_i, \quad 1\leq i\leq n.\]</span></p>
-<p>As before, <span class="math inline">\(\bar{x}_1, \cdots,\bar{x}_p\)</span>, are the sample means of the variables <span class="math inline">\(X_1,\cdots,X_p\)</span>. Since we have centered all the variables, <span class="math inline">\(\beta_0\)</span> is no longer the <span class="math inline">\(y\)</span>-intercept. Instead, it is the sample mean of <span class="math inline">\(Y\)</span> when taking <span class="math inline">\(X_1=\bar{x}_1,\cdots, X_p=\bar{x}_p\)</span>. <span class="math inline">\(\beta_1,\cdots,\beta_p\)</span> are the coefficients for the <span class="math inline">\(p\)</span> variables. <span class="math inline">\({\boldsymbol{\beta}}=(\beta_0,\beta_1,\cdots,\beta_p)^T\)</span> is the vector notation representing all coefficients, including <span class="math inline">\(\beta_0\)</span>.</p>
+<p>As before, <span class="math inline">\(\bar{x}_1, \cdots,\bar{x}_p\)</span>, are the sample means of the variables <span class="math inline">\(X_1,\cdots,X_p\)</span>. Since we have centered all the variables, <span class="math inline">\(\beta_0\)</span> is no longer the <span class="math inline">\(y\)</span>-intercept. Instead, it is the sample mean of <span class="math inline">\(Y\)</span> when taking <span class="math inline">\(X_1=\bar{x}_1,\cdots, X_p=\bar{x}_p\)</span>. <span class="math inline">\(\beta_1,\cdots,\beta_p\)</span> are the coefficients for the <span class="math inline">\(p\)</span> variables. <span class="math inline">\(\boldsymbol{\beta}=(\beta_0,\beta_1,\cdots,\beta_p)^T\)</span> is the vector notation representing all coefficients, including <span class="math inline">\(\beta_0\)</span>.</p>
 <p>Under this model, we assume</p>
-<p><span class="math display">\[ y_i~|~ {\boldsymbol{\beta}}, \sigma^2~{\mathrel{\mathop{\sim}\limits^{\rm iid}}}~{\textsf{Normal}}(\beta_0+\beta_1(x_{1,i}-\bar{x}_1)+\cdots+\beta_p(x_{p,i}-\bar{x}_p), \sigma^2), \]</span> which is equivalent to <span class="math display">\[ \epsilon_i~|~ {\boldsymbol{\beta}}, \sigma^2 ~{\mathrel{\mathop{\sim}\limits^{\rm iid}}}~{\textsf{Normal}}(0, \sigma^2). \]</span></p>
-<p>We then specify the prior distributions for <span class="math inline">\(\beta_j,\ 0\leq j\leq p\)</span>. Zellner proposed a simple informative conjugate multivariate normal prior for <span class="math inline">\({\boldsymbol{\beta}}\)</span> conditioning on <span class="math inline">\(\sigma^2\)</span> as</p>
-<p><span class="math display">\[ {\boldsymbol{\beta}}~|~\sigma^2 ~\sim ~{\textsf{Normal}}(\boldsymbol{b}_0, \Sigma = g\sigma^2\text{S}_{\bf{xx}}^{-1}). \]</span></p>
-<p>Here <span class="math display">\[ \text{S}_{\bf{xx}} = (\mathbf{X}-\bar{\mathbf X})^T(\mathbf X - \bar{\mathbf X}), \]</span></p>
-<p>where the matrix <span class="math inline">\(\mathbf{X}-\bar{\mathbf X}\)</span> is <span class="math display">\[ \mathbf{X}-\bar{\mathbf X} = \left(\begin{array}{cccc}
+<p><span class="math display">\[ y_i~|~ \boldsymbol{\beta}, \sigma^2~\mathrel{\mathop{\sim}\limits^{\rm iid}}~\textsf{Normal}(\beta_0+\beta_1(x_{1,i}-\bar{x}_1)+\cdots+\beta_p(x_{p,i}-\bar{x}_p), \sigma^2), \]</span>
+which is equivalent to
+<span class="math display">\[ \epsilon_i~|~ \boldsymbol{\beta}, \sigma^2 ~\mathrel{\mathop{\sim}\limits^{\rm iid}}~\textsf{Normal}(0, \sigma^2). \]</span></p>
+<p>We then specify the prior distributions for <span class="math inline">\(\beta_j,\ 0\leq j\leq p\)</span>. Zellner proposed a simple informative conjugate multivariate normal prior for <span class="math inline">\(\boldsymbol{\beta}\)</span> conditioning on <span class="math inline">\(\sigma^2\)</span> as</p>
+<p><span class="math display">\[ \boldsymbol{\beta}~|~\sigma^2 ~\sim ~\textsf{Normal}(\boldsymbol{b}_0, \Sigma = g\sigma^2\text{S}_{\bf{xx}}^{-1}). \]</span></p>
+<p>Here
+<span class="math display">\[ \text{S}_{\bf{xx}} = (\mathbf{X}-\bar{\mathbf X})^T(\mathbf X - \bar{\mathbf X}), \]</span></p>
+<p>where the matrix <span class="math inline">\(\mathbf{X}-\bar{\mathbf X}\)</span> is
+<span class="math display">\[ \mathbf{X}-\bar{\mathbf X} = \left(\begin{array}{cccc}
 |  &amp; |  &amp; \cdots &amp; | \\
 X_1-\bar{X}_1 &amp; X_2 - \bar{X}_2 &amp; \cdots &amp; X_p-\bar{X}_p \\
 |  &amp; |  &amp; \cdots &amp; | 
@@ -344,40 +378,51 @@ x_{1, n} - \bar{x}_1 &amp; x_{2, n} - \bar{x}_2 &amp; \cdots &amp; x_{p, n} - \b
 \right).
 \]</span></p>
 <p>When <span class="math inline">\(p=1\)</span>, this <span class="math inline">\(\text{S}_{\bf{xx}}\)</span> simplifies to <span class="math inline">\(\displaystyle \text{S}_{\text{xx}} = \sum_{i=1}^n(x_{i}-bar{x})^2\)</span>, the sum of squares of a single variable <span class="math inline">\(X\)</span> that we used in Section <a href="introduction-to-bayesian-regression.html#sec:simple-linear">6.1</a>. In multiple regression, <span class="math inline">\(\text{S}_{\bf{xx}}\)</span> provides the variance and covariance for OLS.</p>
-<p>The parameter <span class="math inline">\(g\)</span> scales the prior variance of <span class="math inline">\({\boldsymbol{\beta}}\)</span>, over the OLS variances <span class="math inline">\(\sigma^2\text{S}_{\bf{xx}}^{-1}\)</span>. One of the advantages of using this prior is ,that it reduces prior elicitation down to two components; the prior mean <span class="math inline">\(\boldsymbol{b}_0\)</span> and the scalar <span class="math inline">\(g\)</span>. We use <span class="math inline">\(g\)</span> to control the size of the variance of the prior, rather than set separate priors for all the variances and covariances (there would be <span class="math inline">\(p(p+1)/2\)</span> such priors for a <span class="math inline">\(p+1\)</span> dimensional multivariate normal distribution).</p>
-<p>Another advantage of using Zellner’s <span class="math inline">\(g\)</span>-prior is that it leads to simple updating rules, like all conjugate priors. Moreover, the posterior mean and posterior variance have simple forms. The posterior mean is <span class="math display">\[ \frac{g}{1+g}\hat{{\boldsymbol{\beta}}} + \frac{1}{1+g}\boldsymbol{b}_0, \]</span> where <span class="math inline">\(\hat{{\boldsymbol{\beta}}}\)</span> is the frequentist OLS estimates of coefficients <span class="math inline">\({\boldsymbol{\beta}}\)</span>. The posterior variance is <span class="math display">\[  \frac{g}{1+g}\sigma^2\text{S}_{\bf{xx}}^{-1}. \]</span></p>
-<p>From the posterior mean formula, we can see that the posterior mean is a weighted average of the prior mean <span class="math inline">\(\boldsymbol{b}_0\)</span> and the OLS estimate <span class="math inline">\(\hat{{\boldsymbol{\beta}}}\)</span>. Since <span class="math inline">\(\displaystyle \frac{g}{1+g}\)</span> is strictly less than 1, Zellner’s <span class="math inline">\(g\)</span>-prior shrinks the OLS estimates <span class="math inline">\(\hat{{\boldsymbol{\beta}}}\)</span> towards the prior mean <span class="math inline">\(\boldsymbol{b}_0\)</span>. As <span class="math inline">\(g\rightarrow \infty\)</span>, <span class="math inline">\(\displaystyle \frac{g}{1+g}\rightarrow 1\)</span> and <span class="math inline">\(\displaystyle \frac{1}{1+g}\rightarrow 0\)</span>, and we recover the OLS estimate as in the reference prior.</p>
-<p>Similarly, the posterior variancc is a shrunken version of the OLS variance, by a factor of <span class="math inline">\(\displaystyle \frac{g}{1+g}\)</span>. The posterior distribution of <span class="math inline">\({\boldsymbol{\beta}}\)</span> conditioning on <span class="math inline">\(\sigma^2\)</span> is a normal distribution <span class="math display">\[ {\boldsymbol{\beta}}~|~\sigma^2, \text{data}~\sim~ {\textsf{Normal}}(\frac{g}{1+g}\hat{{\boldsymbol{\beta}}} + \frac{1}{1+g}\boldsymbol{b}_0,\ \frac{g}{1+g}\sigma^2\text{S}_{\bf{xx}}^{-1}). \]</span></p>
+<p>The parameter <span class="math inline">\(g\)</span> scales the prior variance of <span class="math inline">\(\boldsymbol{\beta}\)</span>, over the OLS variances <span class="math inline">\(\sigma^2\text{S}_{\bf{xx}}^{-1}\)</span>. One of the advantages of using this prior is ,that it reduces prior elicitation down to two components; the prior mean <span class="math inline">\(\boldsymbol{b}_0\)</span> and the scalar <span class="math inline">\(g\)</span>. We use <span class="math inline">\(g\)</span> to control the size of the variance of the prior, rather than set separate priors for all the variances and covariances (there would be <span class="math inline">\(p(p+1)/2\)</span> such priors for a <span class="math inline">\(p+1\)</span> dimensional multivariate normal distribution).</p>
+<p>Another advantage of using Zellner’s <span class="math inline">\(g\)</span>-prior is that it leads to simple updating rules, like all conjugate priors. Moreover, the posterior mean and posterior variance have simple forms. The posterior mean is
+<span class="math display">\[ \frac{g}{1+g}\hat{\boldsymbol{\beta}} + \frac{1}{1+g}\boldsymbol{b}_0, \]</span>
+where <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> is the frequentist OLS estimates of coefficients <span class="math inline">\(\boldsymbol{\beta}\)</span>. The posterior variance is
+<span class="math display">\[  \frac{g}{1+g}\sigma^2\text{S}_{\bf{xx}}^{-1}. \]</span></p>
+<p>From the posterior mean formula, we can see that the posterior mean is a weighted average of the prior mean <span class="math inline">\(\boldsymbol{b}_0\)</span> and the OLS estimate <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span>. Since <span class="math inline">\(\displaystyle \frac{g}{1+g}\)</span> is strictly less than 1, Zellner’s <span class="math inline">\(g\)</span>-prior shrinks the OLS estimates <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> towards the prior mean <span class="math inline">\(\boldsymbol{b}_0\)</span>. As <span class="math inline">\(g\rightarrow \infty\)</span>, <span class="math inline">\(\displaystyle \frac{g}{1+g}\rightarrow 1\)</span> and <span class="math inline">\(\displaystyle \frac{1}{1+g}\rightarrow 0\)</span>, and we recover the OLS estimate as in the reference prior.</p>
+<p>Similarly, the posterior variancc is a shrunken version of the OLS variance, by a factor of <span class="math inline">\(\displaystyle \frac{g}{1+g}\)</span>. The posterior distribution of <span class="math inline">\(\boldsymbol{\beta}\)</span> conditioning on <span class="math inline">\(\sigma^2\)</span> is a normal distribution
+<span class="math display">\[ \boldsymbol{\beta}~|~\sigma^2, \text{data}~\sim~ \textsf{Normal}(\frac{g}{1+g}\hat{\boldsymbol{\beta}} + \frac{1}{1+g}\boldsymbol{b}_0,\ \frac{g}{1+g}\sigma^2\text{S}_{\bf{xx}}^{-1}). \]</span></p>
 </div>
 <div id="bayes-factor-of-zellners-g-prior" class="section level3">
 <h3><span class="header-section-number">8.2.2</span> Bayes Factor of Zellner’s <span class="math inline">\(g\)</span>-Prior</h3>
-<p>Because of this simplicity, Zellner’s <span class="math inline">\(g\)</span>-prior has been widely used in Bayesian model selection and Bayesian model averaging. One of the most popular versions uses the <span class="math inline">\(g\)</span>-prior for all coefficients except the intercept, and takes the prior mean to be the zero vector <span class="math inline">\(\boldsymbol{b}_0 = \bf{0}\)</span>. If we are not testing any hypotheses about the intercept <span class="math inline">\(\beta_0\)</span>, we may combine this <span class="math inline">\(g\)</span>-prior with the reference prior for the intercept <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\sigma^2\)</span>, that is, we set <span class="math display">\[ p(\beta_0, \sigma^2) \propto \frac{1}{\sigma^2}, \]</span> and use the <span class="math inline">\(g\)</span>-prior for the rest of the coefficients <span class="math inline">\((\beta_1, \cdots, \beta_p)^T\)</span>.</p>
-<p>Under this prior, the Bayes factor for comparing model <span class="math inline">\(M_m\)</span> to the null model <span class="math inline">\(M_0\)</span>, which only has the intercept, is simply <span class="math display">\[ {\textit{BF}}[M_m:M_0] = (1+g)^{(n-p_m-1)/2}(1+g(1-R_m^2))^{-(n-1)/2}. \]</span></p>
+<p>Because of this simplicity, Zellner’s <span class="math inline">\(g\)</span>-prior has been widely used in Bayesian model selection and Bayesian model averaging. One of the most popular versions uses the <span class="math inline">\(g\)</span>-prior for all coefficients except the intercept, and takes the prior mean to be the zero vector <span class="math inline">\(\boldsymbol{b}_0 = \bf{0}\)</span>. If we are not testing any hypotheses about the intercept <span class="math inline">\(\beta_0\)</span>, we may combine this <span class="math inline">\(g\)</span>-prior with the reference prior for the intercept <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\sigma^2\)</span>, that is, we set
+<span class="math display">\[ p(\beta_0, \sigma^2) \propto \frac{1}{\sigma^2}, \]</span>
+and use the <span class="math inline">\(g\)</span>-prior for the rest of the coefficients <span class="math inline">\((\beta_1, \cdots, \beta_p)^T\)</span>.</p>
+<p>Under this prior, the Bayes factor for comparing model <span class="math inline">\(M_m\)</span> to the null model <span class="math inline">\(M_0\)</span>, which only has the intercept, is simply
+<span class="math display">\[ \textit{BF}[M_m:M_0] = (1+g)^{(n-p_m-1)/2}(1+g(1-R_m^2))^{-(n-1)/2}. \]</span></p>
 <p>Here <span class="math inline">\(p_m\)</span> is the number of predictors in <span class="math inline">\(M_m\)</span>, <span class="math inline">\(R_m^2\)</span> is the <span class="math inline">\(R\)</span>-squared of model <span class="math inline">\(M_m\)</span>.</p>
-<p>With the Bayes factor, we can compare any two models using posterior odds. For example, we can compare model <span class="math inline">\(M_m\)</span> with the null model <span class="math inline">\(M_0\)</span> by <span class="math display">\[ \frac{p(M_m~|~\text{data}, g)}{p(M_0~|~\text{data}, g)} = {\textit{PO}}[M_m:M_0] =  {\textit{BF}}[M_m:M_0]\frac{p(M_m)}{p(M_0)}. \]</span></p>
-<p>Now the question is, how do we pick <span class="math inline">\(g\)</span>? As we see that, the Bayes factor depends on <span class="math inline">\(g\)</span>. If <span class="math inline">\(g\rightarrow \infty\)</span>, <span class="math inline">\({\textit{BF}}[M_m:M_0]\rightarrow 0\)</span>. This provides overwhelming evidence against model <span class="math inline">\(M_m\)</span>, no matter how many predictors we pick for <span class="math inline">\(M_m\)</span> and the data. This is the Bartlett’s/Jeffrey-Lindley’s paradox.</p>
+<p>With the Bayes factor, we can compare any two models using posterior odds. For example, we can compare model <span class="math inline">\(M_m\)</span> with the null model <span class="math inline">\(M_0\)</span> by
+<span class="math display">\[ \frac{p(M_m~|~\text{data}, g)}{p(M_0~|~\text{data}, g)} = \textit{PO}[M_m:M_0] =  \textit{BF}[M_m:M_0]\frac{p(M_m)}{p(M_0)}. \]</span></p>
+<p>Now the question is, how do we pick <span class="math inline">\(g\)</span>? As we see that, the Bayes factor depends on <span class="math inline">\(g\)</span>. If <span class="math inline">\(g\rightarrow \infty\)</span>, <span class="math inline">\(\textit{BF}[M_m:M_0]\rightarrow 0\)</span>. This provides overwhelming evidence against model <span class="math inline">\(M_m\)</span>, no matter how many predictors we pick for <span class="math inline">\(M_m\)</span> and the data. This is the Bartlett’s/Jeffrey-Lindley’s paradox.</p>
 <p>On the other hand, if we use any arbitrary fixed value of <span class="math inline">\(g\)</span>, and include more and more predictors, the <span class="math inline">\(R\)</span>-squared <span class="math inline">\(R_m^2\)</span> will get closer and closer to 1, but the Bayes factor will remain bounded. With <span class="math inline">\(R_m^2\)</span> getting larger and larger, we would expect the alternative model <span class="math inline">\(M_m\)</span> would be supported. However, a bounded Bayes factor would not provide overwhelming support for <span class="math inline">\(M_m\)</span>, even in the frequentist approach we are getting better and better fit for the data. This is the information paradox, when the Bayes factor comes to a different conclusion from the frequentist approach due to the boundedness of Bayes factor in the limiting case.</p>
 <p>There are some solutions which appear to lead to reasonable results in small and large samples based on empirical results with real data to theory, and provide resolution to these two paradoxes. In the following examples, we let the prior distribution of <span class="math inline">\(g\)</span> depend on <span class="math inline">\(n\)</span>, the size of the data. Since <span class="math inline">\(\text{S}_{\bf{xx}}\)</span> is getting larger with larger <span class="math inline">\(n\)</span>, <span class="math inline">\(g\sigma^2\text{S}_{\bf{xx}}^{-1}\)</span> may get balanced if <span class="math inline">\(g\)</span> also grows relatively to the size of <span class="math inline">\(n\)</span>.</p>
 <p><strong>Unit Information Prior</strong></p>
 <p>In the case of the unit information prior, we let <span class="math inline">\(g=n\)</span>. This is the same as saying <span class="math inline">\(\displaystyle \frac{n}{g}=1\)</span>. In this prior, we will only need to specify the prior mean <span class="math inline">\(\boldsymbol{b}_0\)</span> for the coefficients of the predicor variables <span class="math inline">\((\beta_1,\cdots,\beta_p)^T\)</span>.</p>
 <p><strong>Zellner-Siow Cauchly Prior</strong></p>
-<p>However, taking <span class="math inline">\(g=n\)</span> ignores the uncertainty of the choice of <span class="math inline">\(g\)</span>. Since we do not know <span class="math inline">\(g\)</span> a priori, we may pick a prior so that the expected value of <span class="math inline">\(\displaystyle \frac{n}{g}=1\)</span>. One exmaple is the Zellner-Siow cauchy prior. In this prior, we let <span class="math display">\[ \frac{n}{g}~\sim~ {\textsf{Gamma}}(\frac{1}{2}, \frac{1}{2}). \]</span></p>
+<p>However, taking <span class="math inline">\(g=n\)</span> ignores the uncertainty of the choice of <span class="math inline">\(g\)</span>. Since we do not know <span class="math inline">\(g\)</span> a priori, we may pick a prior so that the expected value of <span class="math inline">\(\displaystyle \frac{n}{g}=1\)</span>. One exmaple is the Zellner-Siow cauchy prior. In this prior, we let
+<span class="math display">\[ \frac{n}{g}~\sim~ \textsf{Gamma}(\frac{1}{2}, \frac{1}{2}). \]</span></p>
 <p><strong>Hyper-<span class="math inline">\(g/n\)</span> Prior</strong></p>
-<p>Another example is to set <span class="math display">\[ \frac{1}{1+n/g}~\sim~ {\textsf{Beta}}(\frac{a}{2}, \frac{b}{2}), \]</span> with hyperparameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. Since the Bayes factor under this prior distribution can be expressed in terms of hypergeometric functions, this is called the hyper-<span class="math inline">\(g/n\)</span> prior.</p>
+<p>Another example is to set
+<span class="math display">\[ \frac{1}{1+n/g}~\sim~ \textsf{Beta}(\frac{a}{2}, \frac{b}{2}), \]</span>
+with hyperparameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. Since the Bayes factor under this prior distribution can be expressed in terms of hypergeometric functions, this is called the hyper-<span class="math inline">\(g/n\)</span> prior.</p>
 </div>
 <div id="kids-cognitive-score-example" class="section level3">
 <h3><span class="header-section-number">8.2.3</span> Kid’s Cognitive Score Example</h3>
 <p>We apply these priors on the kid’s cognitive score example and compare the posterior probability that each coefficient <span class="math inline">\(\beta_i,\ i = 1,2,3,4\)</span> to be non-zero. We first read in data and store the size of the data into <span class="math inline">\(n\)</span>. We will use this <span class="math inline">\(n\)</span> later, when setting priors for <span class="math inline">\(n/g\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
 cognitive =<span class="st"> </span><span class="kw">read.dta</span>(<span class="st">&quot;http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta&quot;</span>)
 cognitive<span class="op">$</span>mom_work =<span class="st"> </span><span class="kw">as.numeric</span>(cognitive<span class="op">$</span>mom_work <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)
 cognitive<span class="op">$</span>mom_hs =<span class="st">  </span><span class="kw">as.numeric</span>(cognitive<span class="op">$</span>mom_hs <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
 <span class="kw">colnames</span>(cognitive) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;kid_score&quot;</span>, <span class="st">&quot;hs&quot;</span>,<span class="st">&quot;IQ&quot;</span>, <span class="st">&quot;work&quot;</span>, <span class="st">&quot;age&quot;</span>) 
 
 <span class="co"># Extract size of data set</span>
-n =<span class="st"> </span><span class="kw">nrow</span>(cognitive)</code></pre></div>
+n =<span class="st"> </span><span class="kw">nrow</span>(cognitive)</code></pre>
 <p>We then fit the full model using different priors. Here we set model prior to be <code>uniform()</code>, meaning each model has equal prior probability.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(BAS)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(BAS)
 <span class="co"># Unit information prior</span>
 cog.g =<span class="st"> </span><span class="kw">bas.lm</span>(kid_score <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>cognitive, <span class="dt">prior=</span><span class="st">&quot;g-prior&quot;</span>, 
                <span class="dt">a=</span>n, <span class="dt">modelprior=</span><span class="kw">uniform</span>())
@@ -402,16 +447,16 @@ cog.BIC =<span class="st"> </span><span class="kw">bas.lm</span>(kid_score <span
 
 <span class="co"># AIC</span>
 cog.AIC =<span class="st"> </span><span class="kw">bas.lm</span>(kid_score <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>cognitive, <span class="dt">prior=</span><span class="st">&quot;AIC&quot;</span>, 
-                 <span class="dt">modelprior=</span><span class="kw">uniform</span>())</code></pre></div>
+                 <span class="dt">modelprior=</span><span class="kw">uniform</span>())</code></pre>
 <p>Here <code>cog.g</code> is the model corresponding to the unit information prior <span class="math inline">\(g=n\)</span>. <code>cog.ZS</code> is the model under the Zellner-Siow cauchy prior with Jeffrey’s reference prior on <span class="math inline">\(\sigma^2\)</span>. <code>cog.HG</code> gives the model under the hyper-<span class="math inline">\(g/n\)</span> prior. <code>cog.EB</code> is the empirical Bayesian estimates which maximizes the marginal likelihood. <code>cog.BIC</code> and <code>cog.AIC</code> are the ones corresponding to using <code>BIC</code> and <code>AIC</code> for marginal likelihood approximation.</p>
 <p>In order to compare the posterior inclusion probability (pip) of each coefficient, we group the results <span class="math inline">\(p(\beta_i\neq 0)\)</span> obtained from the <code>probne0</code> attribute of each model for later comparison</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">probne0 =<span class="st"> </span><span class="kw">cbind</span>(cog.BIC<span class="op">$</span>probne0, cog.g<span class="op">$</span>probne0, cog.ZS<span class="op">$</span>probne0, cog.HG<span class="op">$</span>probne0,
+<pre class="sourceCode r"><code class="sourceCode r">probne0 =<span class="st"> </span><span class="kw">cbind</span>(cog.BIC<span class="op">$</span>probne0, cog.g<span class="op">$</span>probne0, cog.ZS<span class="op">$</span>probne0, cog.HG<span class="op">$</span>probne0,
                 cog.EB<span class="op">$</span>probne0, cog.AIC<span class="op">$</span>probne0)
 
 <span class="kw">colnames</span>(probne0) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;BIC&quot;</span>, <span class="st">&quot;g&quot;</span>, <span class="st">&quot;ZS&quot;</span>, <span class="st">&quot;HG&quot;</span>, <span class="st">&quot;EB&quot;</span>, <span class="st">&quot;AIC&quot;</span>)
-<span class="kw">rownames</span>(probne0) =<span class="st"> </span><span class="kw">c</span>(cog.BIC<span class="op">$</span>namesx)</code></pre></div>
+<span class="kw">rownames</span>(probne0) =<span class="st"> </span><span class="kw">c</span>(cog.BIC<span class="op">$</span>namesx)</code></pre>
 <p>We can compare the results by printing the matrix <code>probne0</code> that we just generated. If we want to visualize them to get a clearer idea, we may plot them using bar plots.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 
 <span class="co"># Generate plot for each variable and save in a list</span>
 P =<span class="st"> </span><span class="kw">list</span>()
@@ -426,8 +471,9 @@ P =<span class="st"> </span><span class="kw">list</span>()
 }
 
 <span class="kw">library</span>(cowplot)
-<span class="kw">do.call</span>(plot_grid, <span class="kw">c</span>(P))</code></pre></div>
-<p><img src="08-MCMC-02-prior_files/figure-html/plots-1.png" width="672" /> In the plots above, the <span class="math inline">\(x\)</span>-axis lists all the prior distributions we consider, and the bar heights represent the posterior inclusion probability of each coefficient, i.e., <span class="math inline">\(p(\beta_i\neq 0)\)</span>.</p>
+<span class="kw">do.call</span>(plot_grid, <span class="kw">c</span>(P))</code></pre>
+<p><img src="08-MCMC-02-prior_files/figure-html/plots-1.png" width="672" />
+In the plots above, the <span class="math inline">\(x\)</span>-axis lists all the prior distributions we consider, and the bar heights represent the posterior inclusion probability of each coefficient, i.e., <span class="math inline">\(p(\beta_i\neq 0)\)</span>.</p>
 <p>We can see that mother’s IQ score is included almost as probability 1 in all priors. So all methods agree that we should include variable <code>IQ</code>. Mother’s high school status also has probability of more than 0.5 in each prior, suggesting that we may also consider including the variable <code>hs</code>. However, mother’s work status and mother’s age have much lower posterior inclusion probability in all priors. From left to right in each bar plot, we see that method <code>BIC</code> is the most conservative method (meaning it will exclude the most variables), while <code>AIC</code> is being the less conservative method.</p>
 
 </div>
@@ -438,9 +484,9 @@ P =<span class="st"> </span><span class="kw">list</span>()
 <div id="the-uscrime-data-set-and-data-processing" class="section level3">
 <h3><span class="header-section-number">8.3.1</span> The <code>UScrime</code> Data Set and Data Processing</h3>
 <p>We will demo the <code>BAS</code> commands using the US crime data set in the R libarry <code>MASS</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load library and data set</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load library and data set</span>
 <span class="kw">library</span>(MASS)
-<span class="kw">data</span>(UScrime)</code></pre></div>
+<span class="kw">data</span>(UScrime)</code></pre>
 <p>This data set contains data on 47 states of the US for the year of 1960. The response variable <span class="math inline">\(Y\)</span> is the rate of crimes in a particular category per head of population of each state. There are 15 potential explanatory variables with values for each of the 47 states related to crime and other demographics. Here is the table of all the potential explanatory variables and their descriptions.</p>
 <table>
 <thead>
@@ -514,7 +560,7 @@ P =<span class="st"> </span><span class="kw">list</span>()
 </table>
 <p><br/></p>
 <p>We may use the <code>summary</code> function to describe each variable in the data set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(UScrime)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(UScrime)</code></pre>
 <pre><code>##        M               So               Ed             Po1       
 ##  Min.   :119.0   Min.   :0.0000   Min.   : 87.0   Min.   : 45.0  
 ##  1st Qu.:130.0   1st Qu.:0.0000   1st Qu.: 97.5   1st Qu.: 62.5  
@@ -544,111 +590,115 @@ P =<span class="st"> </span><span class="kw">list</span>()
 ##  3rd Qu.:227.5   3rd Qu.:0.05445   3rd Qu.:30.45   3rd Qu.:1057.5  
 ##  Max.   :276.0   Max.   :0.11980   Max.   :44.00   Max.   :1993.0</code></pre>
 <p>However, these variables have been pre-processed for modeling purpose, so the summary statistics may not be so meaningful. The values of all these variables have been aggregated over each state, so this is a case of ecological regression. We will not model directly the rate for a person to commit a crime. Instead, we will use the total number of crimes and average values of predictors at the state level to predict the total crime rate of each state.</p>
-<p>We transform the variables using the natural log function, except the indicator variable <code>So</code> (2nd column of the data set). We perform this transformation based on the analysis of this data set.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> Notice that <code>So</code> is already a numeric variable (<code>1</code> indicating Southern state and <code>0</code> otherwise), not as a categorical variable. Hence we do not need any data processing of this variable, unlike mother’s high school status <code>hs</code> and mother’s work status <code>work</code> in the kid’s cognitive score data set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">UScrime[,<span class="op">-</span><span class="dv">2</span>] =<span class="st"> </span><span class="kw">log</span>(UScrime[,<span class="op">-</span><span class="dv">2</span>])</code></pre></div>
+<p>We transform the variables using the natural log function, except the indicator variable <code>So</code> (2nd column of the data set). We perform this transformation based on the analysis of this data set.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> Notice that <code>So</code> is already a numeric variable (<code>1</code> indicating Southern state and <code>0</code> otherwise), not as a categorical variable. Hence we do not need any data processing of this variable, unlike mother’s high school status <code>hs</code> and mother’s work status <code>work</code> in the kid’s cognitive score data set.</p>
+<pre class="sourceCode r"><code class="sourceCode r">UScrime[,<span class="op">-</span><span class="dv">2</span>] =<span class="st"> </span><span class="kw">log</span>(UScrime[,<span class="op">-</span><span class="dv">2</span>])</code></pre>
 </div>
 <div id="bayesian-models-and-diagnostics" class="section level3">
 <h3><span class="header-section-number">8.3.2</span> Bayesian Models and Diagnostics</h3>
 <p>We run <code>bas.lm</code> function from the <code>BAS</code> package. We first run the full model and use this information for later decision on what variables to include. Here we have 15 potential predictors. The total number of models is<span class="math inline">\(\ 2^{15} = 32768\)</span>. This is not a very large number and <code>BAS</code> can enumerate all the models pretty quickly. However, we want to illustrate how to explore models using stochastic methods. Hence we set argument <code>method = MCMC</code> inside the <code>bas.lm</code> function. We also use the Zellner-Siow cauchy prior for the prior distributions of the coefficients in this regression.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(BAS)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(BAS)
 crime.ZS =<span class="st">  </span><span class="kw">bas.lm</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>UScrime,
-                   <span class="dt">prior=</span><span class="st">&quot;ZS-null&quot;</span>, <span class="dt">modelprior=</span><span class="kw">uniform</span>(), <span class="dt">method =</span> <span class="st">&quot;MCMC&quot;</span>) </code></pre></div>
+                   <span class="dt">prior=</span><span class="st">&quot;ZS-null&quot;</span>, <span class="dt">modelprior=</span><span class="kw">uniform</span>(), <span class="dt">method =</span> <span class="st">&quot;MCMC&quot;</span>) </code></pre>
 <p><code>BAS</code> will run the MCMC sampler until the number of unique models in the sample exceeds <span class="math inline">\(\text{number of models} = 2^{p}\)</span> (when <span class="math inline">\(p &lt; 19\)</span>) or until the number of MCMC iterations exceeds <span class="math inline">\(2\times\text{number of models}\)</span> by default, whichever is smaller. Here <span class="math inline">\(p\)</span> is the number of predictors.</p>
 <p><strong>Diagnostic Plots</strong></p>
 <p>To analyze the result, we first look at the diagnostic plot using <code>diagnostics</code> function and see whether we have run the MCMC exploration long enough so that the posterior inclusion probability (pip) has converged.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">diagnostics</span>(crime.ZS, <span class="dt">type=</span><span class="st">&quot;pip&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">diagnostics</span>(crime.ZS, <span class="dt">type=</span><span class="st">&quot;pip&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</code></pre>
 <p><img src="08-MCMC-03-demo_files/figure-html/diagnostics-1.png" width="80%" style="display: block; margin: auto;" /></p>
-In this plot, the <span class="math inline">\(x\)</span>-axis is the renormalized posterior inclusion probability (pip) of each coefficient <span class="math inline">\(\beta_i,\ i=1,\cdots, 15\)</span> in this model. This can be calculated as
+<p>In this plot, the <span class="math inline">\(x\)</span>-axis is the renormalized posterior inclusion probability (pip) of each coefficient <span class="math inline">\(\beta_i,\ i=1,\cdots, 15\)</span> in this model. This can be calculated as
 <span class="math display" id="eq:pip">\[\begin{equation} 
-p(\beta_i\neq 0~|~\text{data}) = \sum_{M_m\in\text{ model space}}I(X_i\in M_m)\left(\frac{\BF[M_m:M_0]\Odd[M_m:M_0]}{\displaystyle \sum_{M_j}\BF[M_j:M_0]\Odd[M_j:M_0]}\right).
+p(\beta_i\neq 0~|~\text{data}) = \sum_{M_m\in\text{ model space}}I(X_i\in M_m)\left(\frac{\textit{BF}[M_m:M_0]\textit{O}[M_m:M_0]}{\displaystyle \sum_{M_j}\textit{BF}[M_j:M_0]\textit{O}[M_j:M_0]}\right).
 \tag{8.2}
-\end{equation}\]</span>
-Here, <span class="math inline">\(X_i\)</span> is the <span class="math inline">\(i\)</span>th predictor variable, and <span class="math inline">\(I(X_i\in M_m)\)</span> is the indicator function which is 1 if <span class="math inline">\(X_i\)</span> is included in model <span class="math inline">\(M_m\)</span> and 0 if <span class="math inline">\(X_i\)</span> is not included. The first <span class="math inline">\(\Sigma\)</span> notation indicates that we sum over all models <span class="math inline">\(M_m\)</span> in the model space. And we use
+\end{equation}\]</span></p>
+<p>Here, <span class="math inline">\(X_i\)</span> is the <span class="math inline">\(i\)</span>th predictor variable, and <span class="math inline">\(I(X_i\in M_m)\)</span> is the indicator function which is 1 if <span class="math inline">\(X_i\)</span> is included in model <span class="math inline">\(M_m\)</span> and 0 if <span class="math inline">\(X_i\)</span> is not included. The first <span class="math inline">\(\Sigma\)</span> notation indicates that we sum over all models <span class="math inline">\(M_m\)</span> in the model space. And we use
 <span class="math display" id="eq:weights">\[\begin{equation} 
-\frac{\BF[M_m:M_0]\Odd[M_m:M_0]}{\displaystyle \sum_{M_j}\BF[M_j:M_0]\Odd[M_j:M_0]} 
+\frac{\textit{BF}[M_m:M_0]\textit{O}[M_m:M_0]}{\displaystyle \sum_{M_j}\textit{BF}[M_j:M_0]\textit{O}[M_j:M_0]} 
 \tag{8.3}
 \end{equation}\]</span>
-<p>as the weights. You may recognize that the numerator of <a href="stochastic-explorations-using-mcmc.html#eq:weights">(8.3)</a> is exactly the ratio of the posterior probability of model <span class="math inline">\(M_m\)</span> over the posterior probability of the null model <span class="math inline">\(M_0\)</span>, i.e., the posterier odd <span class="math inline">\({\textit{PO}}[M_m:M_0]\)</span>. We devide the posterior odd by the total sum of posterior odds of all models in the model space, to make sure these weights are between 0 and 1. The weight in Equation <a href="stochastic-explorations-using-mcmc.html#eq:weights">(8.3)</a> represents the posterior probability of the model <span class="math inline">\(M_m\)</span> after seeing the data <span class="math inline">\(p(M_m~|~\text{data})\)</span>, the one we used in Section <a href="bayesian-model-choice.html#sec:BMU">7.2</a>. So Equation <a href="stochastic-explorations-using-mcmc.html#eq:pip">(8.2)</a> is the theoretical calculation of pip, which can be rewrited as <span class="math display">\[ p(\beta_i\neq 0~|~\text{data}) = \sum_{M_m\in \text{ model space}}I(X_i\in M_m)p(M_m~|~\text{data}). \]</span> The null model <span class="math inline">\(M_0\)</span>, as we recall, is the model that only includes the intercept.</p>
-<p>On the <span class="math inline">\(y\)</span>-axis of the plot, we lay out the posterior inclusion probability of coefficient <span class="math inline">\(\beta_i\)</span>, which is calculated using <span class="math display">\[ p(\beta_i\neq 0~|~\text{data}) = \frac{1}{J}\sum_{j=1}^J I(X_i\in M^{(j)}).\]</span> Here <span class="math inline">\(J\)</span> is the total number of models that we sample using MCMC; each model is denoted as <span class="math inline">\(M^{(j)}\)</span> (some models may repeat themselves in the sample). We count the frequency of variable <span class="math inline">\(X_i\)</span> occuring in model <span class="math inline">\(M^{(j)}\)</span>, and divide this number by the total number of models <span class="math inline">\(J\)</span>. This is a frequentist approach to approximate the posterior probability of including <span class="math inline">\(X_i\)</span> after seeing the data.</p>
+as the weights. You may recognize that the numerator of <a href="stochastic-explorations-using-mcmc.html#eq:weights">(8.3)</a> is exactly the ratio of the posterior probability of model <span class="math inline">\(M_m\)</span> over the posterior probability of the null model <span class="math inline">\(M_0\)</span>, i.e., the posterier odd <span class="math inline">\(\textit{PO}[M_m:M_0]\)</span>. We devide the posterior odd by the total sum of posterior odds of all models in the model space, to make sure these weights are between 0 and 1. The weight in Equation <a href="stochastic-explorations-using-mcmc.html#eq:weights">(8.3)</a> represents the posterior probability of the model <span class="math inline">\(M_m\)</span> after seeing the data <span class="math inline">\(p(M_m~|~\text{data})\)</span>, the one we used in Section <a href="bayesian-model-choice.html#sec:BMU">7.2</a>. So Equation <a href="stochastic-explorations-using-mcmc.html#eq:pip">(8.2)</a> is the theoretical calculation of pip, which can be rewrited as
+<span class="math display">\[ p(\beta_i\neq 0~|~\text{data}) = \sum_{M_m\in \text{ model space}}I(X_i\in M_m)p(M_m~|~\text{data}). \]</span>
+The null model <span class="math inline">\(M_0\)</span>, as we recall, is the model that only includes the intercept.</p>
+<p>On the <span class="math inline">\(y\)</span>-axis of the plot, we lay out the posterior inclusion probability of coefficient <span class="math inline">\(\beta_i\)</span>, which is calculated using
+<span class="math display">\[ p(\beta_i\neq 0~|~\text{data}) = \frac{1}{J}\sum_{j=1}^J I(X_i\in M^{(j)}).\]</span>
+Here <span class="math inline">\(J\)</span> is the total number of models that we sample using MCMC; each model is denoted as <span class="math inline">\(M^{(j)}\)</span> (some models may repeat themselves in the sample). We count the frequency of variable <span class="math inline">\(X_i\)</span> occuring in model <span class="math inline">\(M^{(j)}\)</span>, and divide this number by the total number of models <span class="math inline">\(J\)</span>. This is a frequentist approach to approximate the posterior probability of including <span class="math inline">\(X_i\)</span> after seeing the data.</p>
 <p>When all points are on the 45 degree diagonal, we say that the posterior inclusion probability of each variable from MCMC have converged well enough to the theoretical posterior inclusion probability.</p>
 <p>We can also use <code>diagnostics</code> function to see whether the model posterior probability has converged:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">diagnostics</span>(crime.ZS, <span class="dt">type =</span> <span class="st">&quot;model&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">diagnostics</span>(crime.ZS, <span class="dt">type =</span> <span class="st">&quot;model&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</code></pre>
 <p><img src="08-MCMC-03-demo_files/figure-html/model-prob-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We can see that some of the points still fall slightly away from the 45 degree diagonal line. This may suggest we should increase the number of MCMC iterations. We may do that by imposing the argument on <code>MCMC.iterations</code> inside the <code>bas.lm</code> function</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Re-run regression using larger number of MCMC iterations</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Re-run regression using larger number of MCMC iterations</span>
 crime.ZS =<span class="st"> </span><span class="kw">bas.lm</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> UScrime,
                   <span class="dt">prior =</span> <span class="st">&quot;ZS-null&quot;</span>, <span class="dt">modelprior =</span> <span class="kw">uniform</span>(),
                   <span class="dt">method =</span> <span class="st">&quot;MCMC&quot;</span>, <span class="dt">MCMC.iterations =</span> <span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">6</span>)
 
 <span class="co"># Plot diagnostics again</span>
-<span class="kw">diagnostics</span>(crime.ZS, <span class="dt">type =</span> <span class="st">&quot;model&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</code></pre></div>
+<span class="kw">diagnostics</span>(crime.ZS, <span class="dt">type =</span> <span class="st">&quot;model&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</code></pre>
 <p><img src="08-MCMC-03-demo_files/figure-html/more-MCMC-1.png" width="80%" style="display: block; margin: auto;" /></p>
 <p>With more number of iterations, we see that most points stay in the 45 degree diagonal line, meaing the posterior inclusion probability from the MCMC method has mostly converged to the theoretical posterior inclusion probability.</p>
 <p>We will next look at four other plots of the <code>BAS</code> object, <code>crime.ZS</code>.</p>
 <p><strong>Residuals Versus Fitted Values Using BMA</strong></p>
 <p>The first plot is the residuals over the fitted value under Bayesian model averaging results.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(crime.ZS, <span class="dt">which =</span> <span class="dv">1</span>, <span class="dt">add.smooth =</span> F, 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(crime.ZS, <span class="dt">which =</span> <span class="dv">1</span>, <span class="dt">add.smooth =</span> F, 
      <span class="dt">ask =</span> F, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">sub.caption=</span><span class="st">&quot;&quot;</span>, <span class="dt">caption=</span><span class="st">&quot;&quot;</span>)
-<span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">0</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</code></pre></div>
+<span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">0</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</code></pre>
 <p><img src="08-MCMC-03-demo_files/figure-html/plot1-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We can see that the residuals lie around the dash line <span class="math inline">\(y=0\)</span>, and has a constant variance. Observations 11, 22, and 46 may be the potential outliers, which are indicated in the plot.</p>
 <p><strong>Cumulative Sampled Probability</strong></p>
 <p>The second plot shows the cumulative sampled model probability.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(crime.ZS, <span class="dt">which=</span><span class="dv">2</span>, <span class="dt">add.smooth =</span> F, <span class="dt">sub.caption=</span><span class="st">&quot;&quot;</span>, <span class="dt">caption=</span><span class="st">&quot;&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(crime.ZS, <span class="dt">which=</span><span class="dv">2</span>, <span class="dt">add.smooth =</span> F, <span class="dt">sub.caption=</span><span class="st">&quot;&quot;</span>, <span class="dt">caption=</span><span class="st">&quot;&quot;</span>)</code></pre>
 <p><img src="08-MCMC-03-demo_files/figure-html/CMP-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We can see that after we have discovered about 5,000 unique models with MCMC sampling, the probability is starting to level off, indicating that these additional models have very small probability and do not contribute substantially to the posterior distribution. These probabilities are proportional to the product of marginal likelihoods of models and priors, <span class="math inline">\(p(\text{data}~|~M_m)p(M_m)\)</span>, rather than Monte Carlo frequencies.</p>
 <p><strong>Model Complexity</strong></p>
 <p>The third plot is the model size versus the natural log of the marginal likelihood, or the Bayes factor, to compare each model to the null model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(crime.ZS, <span class="dt">which=</span><span class="dv">3</span>, <span class="dt">ask=</span>F, <span class="dt">caption=</span><span class="st">&quot;&quot;</span>, <span class="dt">sub.caption=</span><span class="st">&quot;&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(crime.ZS, <span class="dt">which=</span><span class="dv">3</span>, <span class="dt">ask=</span>F, <span class="dt">caption=</span><span class="st">&quot;&quot;</span>, <span class="dt">sub.caption=</span><span class="st">&quot;&quot;</span>)</code></pre>
 <p><img src="08-MCMC-03-demo_files/figure-html/model-comp-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We see that the models with the highest Bayes factors or logs of marginal likelihoods have around 8 or 9 predictors. The null model has a log of marginal likelihood of 0, or a Bayes factor of 1.</p>
 <p><strong>Marginal Inclusion Probability</strong></p>
 <p>Finally, we have a plot showing the importance of different predictors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(crime.ZS, <span class="dt">which =</span> <span class="dv">4</span>, <span class="dt">ask =</span> F, <span class="dt">caption =</span> <span class="st">&quot;&quot;</span>, <span class="dt">sub.caption =</span> <span class="st">&quot;&quot;</span>, 
-     <span class="dt">col.in =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">col.ex =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(crime.ZS, <span class="dt">which =</span> <span class="dv">4</span>, <span class="dt">ask =</span> F, <span class="dt">caption =</span> <span class="st">&quot;&quot;</span>, <span class="dt">sub.caption =</span> <span class="st">&quot;&quot;</span>, 
+     <span class="dt">col.in =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">col.ex =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>)</code></pre>
 <p><img src="08-MCMC-03-demo_files/figure-html/MIP-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The lines in blue correspond to the variables where the marginal posterior inclusion probability (pip), is greater than 0.5, suggesting that these variables are important for prediction. The variables represented in grey lines have posterior inclusion probability less than 0.5. Small posterior inclusion probability may arise when two or more variables are highly correlated, similar to large <span class="math inline">\(p\)</span>-values with multicollinearity. So we should be cautious to use these posterior inclusion probabilities to eliminate variables.</p>
 <p><strong>Model Space Visualization</strong></p>
 <p>To focus on the high posterior probability models, we can look at the image of the model space.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(crime.ZS, <span class="dt">rotate =</span> F)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(crime.ZS, <span class="dt">rotate =</span> F)</code></pre>
 <p><img src="08-MCMC-03-demo_files/figure-html/model-space-1.png" width="672" /></p>
 <p>By default, we only include the top 20 models. An interesting feature of this plot is, that whenever <code>Po1</code>, the police expenditures in 1960, is included, <code>Po2</code>, the police expenditures in 1959, will be excluded from the model, and vice versa.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out =<span class="st"> </span><span class="kw">cor</span>(UScrime<span class="op">$</span>Po1, UScrime<span class="op">$</span>Po2)
-out </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">out =<span class="st"> </span><span class="kw">cor</span>(UScrime<span class="op">$</span>Po1, UScrime<span class="op">$</span>Po2)
+out </code></pre>
 <pre><code>## [1] 0.9933688</code></pre>
 <p>Calculating the correlation between the two variables, we see that that <code>Po1</code> and <code>Po2</code> are highly correlated with positive correlation 0.993.</p>
 </div>
 <div id="posterior-uncertainty-in-coefficients" class="section level3">
 <h3><span class="header-section-number">8.3.3</span> Posterior Uncertainty in Coefficients</h3>
 <p>Due to the interesting inclusion relationship between <code>Po1</code> and <code>Po2</code> in the top 20 models, we extract the two coefficients under Bayesian model averaging and take a look at the plots for the coefficients for <code>Po1</code> and <code>Po2</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Extract coefficients</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Extract coefficients</span>
 coef.ZS=<span class="kw">coef</span>(crime.ZS)
 
 <span class="co"># Po1 and Po2 are in the 5th and 6th columns in UScrime</span>
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
 <span class="kw">plot</span>(coef.ZS, <span class="dt">subset =</span> <span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">6</span>), 
-     <span class="dt">col.lab =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">col.axis =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">ask =</span> F)</code></pre></div>
+     <span class="dt">col.lab =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">col.axis =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">ask =</span> F)</code></pre>
 <p><img src="08-MCMC-03-demo_files/figure-html/Po1-Po2-plots-1.png" width="672" /></p>
 <p>Under Bayesian model averaging, there is more mass at 0 for <code>Po2</code> than <code>Po1</code>, giving more posterior inclusion probability for <code>Po1</code>. This is also the reason why in the marginal posterior plot of variable importance, <code>Po1</code> has a blue line while <code>Po2</code> has a grey line. When <code>Po1</code> is excluded, the distributions of other coefficients in the model, except the one for <code>Po2</code>, will have similar distributions as when both <code>Po1</code> and <code>Po2</code> are in the model. However, when both predictors are included, the adjusted coefficient for <code>Po2</code> has more support on negative values, since we are over compensating for having both variables included in the model. In extreme cases of correlations, one may find that the coefficient plot is multimodal. If this is the case, the posterior mean may not be in the highest probability density credible interval, and this mean is not necessarily an informative summary. We will discuss more in the next section about making decisions on highly correlated variables.</p>
 <p>We can read the credible intervals of each variable using the <code>confint</code> function on the coefficient object <code>coef.ZS</code> of the model. Here we round the results in 4 decimal places.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">confint</span>(coef.ZS), <span class="dv">4</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">confint</span>(coef.ZS), <span class="dv">4</span>)</code></pre>
 <pre><code>##              2.5%  97.5%    beta
-## Intercept  6.6671 6.7806  6.7249
-## M          0.0000 2.1878  1.1491
-## So        -0.0731 0.3107  0.0354
-## Ed         0.6147 3.1772  1.8618
-## Po1        0.0000 1.4201  0.6007
-## Po2       -0.1527 1.4100  0.3192
-## LF        -0.5605 1.0012  0.0599
-## M.F       -1.9726 2.1223 -0.0278
-## Pop       -0.1265 0.0062 -0.0223
-## NW         0.0000 0.1668  0.0663
-## U1        -0.5707 0.3589 -0.0246
-## U2        -0.0009 0.6477  0.2087
-## GDP       -0.0732 1.1670  0.2052
-## Ineq       0.6418 2.1040  1.3901
-## Prob      -0.4088 0.0000 -0.2146
-## Time      -0.4953 0.0874 -0.0836
+## Intercept  6.6671 6.7819  6.7249
+## M          0.0000 2.1771  1.1426
+## So        -0.0496 0.3131  0.0353
+## Ed         0.6493 3.1840  1.8569
+## Po1        0.0000 1.4177  0.6014
+## Po2       -0.1409 1.4576  0.3178
+## LF        -0.4574 1.0786  0.0590
+## M.F       -2.3338 1.7604 -0.0273
+## Pop       -0.1272 0.0034 -0.0227
+## NW        -0.0001 0.1649  0.0667
+## U1        -0.5309 0.3414 -0.0245
+## U2        -0.0007 0.6662  0.2064
+## GDP       -0.0397 1.1738  0.2078
+## Ineq       0.6791 2.1468  1.3910
+## Prob      -0.4075 0.0002 -0.2151
+## Time      -0.5261 0.0404 -0.0839
 ## attr(,&quot;Probability&quot;)
 ## [1] 0.95
 ## attr(,&quot;class&quot;)
@@ -657,17 +707,17 @@ coef.ZS=<span class="kw">coef</span>(crime.ZS)
 <div id="prediction" class="section level3">
 <h3><span class="header-section-number">8.3.4</span> Prediction</h3>
 <p>We can use the usual <code>predict</code> function that we used for <code>lm</code> objects to obtain prediction from the <code>BAS</code> object <code>crime.ZS</code>. However, since we have different models to choose from under the Bayesian framework, we need to first specify which particular model we use to obtain the prediction. For example, if we would like to use the Bayesian model averaging results for coefficients to obtain predictions, we would specify the <code>estimator</code> argument in the <code>predict</code> function like the following</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime.BMA =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;BMA&quot;</span>, <span class="dt">se.fit =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">crime.BMA =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;BMA&quot;</span>, <span class="dt">se.fit =</span> <span class="ot">TRUE</span>)</code></pre>
 <p>The fitted values can be obtained using the <code>fit</code> attribute of <code>crime.BMA</code>. We have transposed the fitted values into a vector to better present all the values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fitted =<span class="st"> </span>crime.BMA<span class="op">$</span>fit
-<span class="kw">as.vector</span>(fitted)</code></pre></div>
-<pre><code>##  [1] 6.662133 7.298961 6.178876 7.611164 7.054186 6.513180 6.783787
-##  [8] 7.266338 6.629431 6.601202 7.054401 6.570460 6.472554 6.582244
-## [15] 6.557374 6.904945 6.230273 6.809754 6.943496 6.962499 6.608856
-## [22] 6.429494 6.898091 6.777130 6.405349 7.401287 6.019490 7.156624
-## [29] 7.089557 6.500354 6.208745 6.606185 6.797818 6.820261 6.625406
-## [36] 7.028927 6.794172 6.362728 6.602840 7.044914 6.547939 6.047180
-## [43] 6.930000 7.006624 6.236141 6.607904 6.830728</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">fitted =<span class="st"> </span>crime.BMA<span class="op">$</span>fit
+<span class="kw">as.vector</span>(fitted)</code></pre>
+<pre><code>##  [1] 6.661681 7.298853 6.179076 7.610162 7.054419 6.514220 6.785094
+##  [8] 7.266012 6.629543 6.601270 7.055121 6.570684 6.472607 6.582357
+## [15] 6.556755 6.904961 6.228915 6.809831 6.942899 6.961743 6.609083
+## [22] 6.428879 6.899042 6.776989 6.405980 7.401399 6.019914 7.156803
+## [29] 7.089707 6.500214 6.209031 6.605890 6.798158 6.820011 6.625214
+## [36] 7.028939 6.793867 6.363797 6.603033 7.044527 6.548236 6.045982
+## [43] 6.929868 7.005830 6.236189 6.608792 6.830421</code></pre>
 <p>We may use these fitted values for further error calculations. We will talk about decision making on models and how to obtain predictions under different models in the next section.</p>
 
 </div>
@@ -677,16 +727,16 @@ coef.ZS=<span class="kw">coef</span>(crime.ZS)
 <p>We are closing this chapter by presenting the last topic, decision making under model uncertainty. We have seen that under the Bayesian framework, we can use different prior distributions for coefficients, different model priors for models, and we can even use stochastic exploration methods for complex model selections. After selecting these coefficient priors and model priors, we can obtain the marginal posterior inclusion probability for each variable in the full model, which may provide some information about whether or not to include a particular variable in the model for further model analysis and predictions. With all the information presented in the results, which model would be the most appropriate model?</p>
 <p>In this section, we will talk about different methods for selecting models and decision making for posterior distributions and predictions. We will illustrate this process using the US crime data <code>UScrime</code> as an example and process it using the <code>BAS</code> package.</p>
 <p>We first prepare the data as in the last section and run <code>bas.lm</code> on the full model</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
 <span class="kw">data</span>(UScrime)
 
 <span class="co"># take the natural log transform on the variables except the 2nd column `So`</span>
-UScrime[, <span class="op">-</span><span class="dv">2</span>] =<span class="st"> </span><span class="kw">log</span>(UScrime[, <span class="op">-</span><span class="dv">2</span>])
+UScrime[, <span class="dv">-2</span>] =<span class="st"> </span><span class="kw">log</span>(UScrime[, <span class="dv">-2</span>])
 
 <span class="co"># run Bayesian linear regression</span>
 <span class="kw">library</span>(BAS)
 crime.ZS =<span class="st">  </span><span class="kw">bas.lm</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> UScrime,
-                   <span class="dt">prior =</span> <span class="st">&quot;ZS-null&quot;</span>, <span class="dt">modelprior =</span> <span class="kw">uniform</span>()) </code></pre></div>
+                   <span class="dt">prior =</span> <span class="st">&quot;ZS-null&quot;</span>, <span class="dt">modelprior =</span> <span class="kw">uniform</span>()) </code></pre>
 <div id="model-choice" class="section level3">
 <h3><span class="header-section-number">8.4.1</span> Model Choice</h3>
 <p>For Bayesian model choice, we start with the full model, which includes all the predictors. The uncertainty of selecting variables, or model uncertainty that we have been discussing, arises when we believe that some of the explanatory variables may be unrelated to the response variable. This corresponds to setting a regression coefficient <span class="math inline">\(\beta_j\)</span> to be exactly zero. We specify prior distributions that reflect our uncertainty about the importance of variables. We then update the model based on the data we obtained, resulting in posterior distributions over all models and the coefficients and variances within each model.</p>
@@ -694,16 +744,17 @@ crime.ZS =<span class="st">  </span><span class="kw">bas.lm</span>(y <span class
 <p><strong>BMA Model</strong></p>
 <p>We do have a single model, the one that is obtained by averaging all models using their posterior probabilities, the Bayesian model averaging model, or BMA. This is referred to as a hierarchical model and it is composed of many simpler models as building blocks. This represents the full posterior uncertainty after seeing the data.</p>
 <p>We can obtain the posterior predictive mean by using the weighted average of all of the predictions from each sub model</p>
-<p><span class="math display">\[\hat{\mu} = E[\hat{Y}~|~\text{data}] = \sum_{M_m \in \text{ model space}}\hat{Y}\times p(M_m~|~\text{data}).\]</span> This prediction is the best under the squared error loss <span class="math inline">\(L_2\)</span>. From <code>BAS</code>, we can obtain predictions and fitted values using the usual <code>predict</code> and <code>fitted</code> functions. To specify which model we use for these results, we need to include argument <code>estimator</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime.BMA =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;BMA&quot;</span>)
-mu_hat =<span class="st"> </span><span class="kw">fitted</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;BMA&quot;</span>)</code></pre></div>
+<p><span class="math display">\[\hat{\mu} = E[\hat{Y}~|~\text{data}] = \sum_{M_m \in \text{ model space}}\hat{Y}\times p(M_m~|~\text{data}).\]</span>
+This prediction is the best under the squared error loss <span class="math inline">\(L_2\)</span>. From <code>BAS</code>, we can obtain predictions and fitted values using the usual <code>predict</code> and <code>fitted</code> functions. To specify which model we use for these results, we need to include argument <code>estimator</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">crime.BMA =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;BMA&quot;</span>)
+mu_hat =<span class="st"> </span><span class="kw">fitted</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;BMA&quot;</span>)</code></pre>
 <p><code>crime.BMA</code>, the object obtained by the <code>predict</code> function, has additional slots storing results from the BMA model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(crime.BMA)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(crime.BMA)</code></pre>
 <pre><code>##  [1] &quot;fit&quot;         &quot;Ybma&quot;        &quot;Ypred&quot;       &quot;postprobs&quot;   &quot;se.fit&quot;     
 ##  [6] &quot;se.pred&quot;     &quot;se.bma.fit&quot;  &quot;se.bma.pred&quot; &quot;df&quot;          &quot;best&quot;       
 ## [11] &quot;bestmodel&quot;   &quot;best.vars&quot;   &quot;estimator&quot;</code></pre>
 <p>Plotting the two sets of fitted values, one obtained from the <code>fitted</code> function, another obtained from the <code>fit</code> attribute of the <code>predict</code> object <code>crime.BMA</code>, we see that they are in perfect agreement.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load library and prepare data frame</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load library and prepare data frame</span>
 <span class="kw">library</span>(ggplot2)
 output =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">mu_hat =</span> mu_hat, <span class="dt">fitted =</span> crime.BMA<span class="op">$</span>fit)
 
@@ -711,60 +762,60 @@ output =<span class="st"> </span><span class="kw">data.frame</span>(<span class=
 <span class="kw">ggplot</span>(<span class="dt">data =</span> output, <span class="kw">aes</span>(<span class="dt">x =</span> mu_hat, <span class="dt">y =</span> fitted)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="dv">0</span>, <span class="dt">slope =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="kw">expression</span>(<span class="kw">hat</span>(mu[i]))) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="kw">expression</span>(<span class="kw">hat</span>(Y[i])))</code></pre></div>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="kw">expression</span>(<span class="kw">hat</span>(mu[i]))) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="kw">expression</span>(<span class="kw">hat</span>(Y[i])))</code></pre>
 <p><img src="08-MCMC-04-decisions_files/figure-html/BMA-fit-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Highest Probability Model</strong></p>
 <p>If our objective is to learn what is the most likely model to have generated the data using a 0-1 loss <span class="math inline">\(L_0\)</span>, then the highest probability model (HPM) is optimal.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime.HPM =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;HPM&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">crime.HPM =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;HPM&quot;</span>)</code></pre>
 <p>The variables selected from this model can be obtained using the <code>bestmodel</code> attribute from the <code>crime.HPM</code> object. We can print out their names combining <code>bestmodel</code> in <code>crime.HPM</code> and <code>namesx</code> in <code>crime.ZS</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime.ZS<span class="op">$</span>namesx[crime.HPM<span class="op">$</span>bestmodel <span class="op">+</span><span class="dv">1</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">crime.ZS<span class="op">$</span>namesx[crime.HPM<span class="op">$</span>bestmodel <span class="op">+</span><span class="dv">1</span>]</code></pre>
 <pre><code>## [1] &quot;Intercept&quot; &quot;M&quot;         &quot;Ed&quot;        &quot;Po1&quot;       &quot;NW&quot;        &quot;U2&quot;       
 ## [7] &quot;Ineq&quot;      &quot;Prob&quot;      &quot;Time&quot;</code></pre>
 <p>We see that, except the intercept, which is always in any models, the highest probability model also includes <code>M</code>, percentage of males aged 14-24; <code>Ed</code>, mean years of schooling; <code>Po1</code>, police expenditures in 1960; <code>NW</code>, number of non-whites per 1000 people; <code>U2</code>, unemployment rate of urban males aged 35-39; <code>Ineq</code>, income inequlity; <code>Prob</code>, probability of imprisonment, and <code>Time</code>, average time in state prison.</p>
 <p>To obtain the coefficients and their posterior means and posterior standard deviations, we can extract the model by using the <code>best</code> attribute of <code>crime.HPM</code> object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain coefficients of all models</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain coefficients of all models</span>
 coef.crime.ZS =<span class="st"> </span><span class="kw">coef</span>(crime.ZS)
 
 <span class="co"># Select coefficients of HPM</span>
 
 <span class="co"># Posterior means of coefficients</span>
-coef.crime.ZS<span class="op">$</span>conditionalmeans[crime.HPM<span class="op">$</span>best, ]</code></pre></div>
+coef.crime.ZS<span class="op">$</span>conditionalmeans[crime.HPM<span class="op">$</span>best, ]</code></pre>
 <pre><code>##   Intercept           M          So          Ed         Po1         Po2 
-##  6.72493620  0.00000000  0.10181969  1.25604616  0.00000000  0.69401892 
+##  6.72493620  0.00000000  0.00000000  0.00000000  0.65368870  0.45334844 
 ##          LF         M.F         Pop          NW          U1          U2 
-##  0.00000000  2.25342762 -0.01632328  0.13172242  0.00000000  0.13130174 
+##  0.00000000  3.51730678  0.00000000  0.03567521 -0.18552074  0.09423445 
 ##         GDP        Ineq        Prob        Time 
-## -0.25653075  0.00000000  0.00000000  0.21788313</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Posterior standard deviation of coefficients</span>
-coef.crime.ZS<span class="op">$</span>conditionalsd[crime.HPM<span class="op">$</span>best, ]</code></pre></div>
+##  0.00000000  0.88565238  0.00000000  0.12432753</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Posterior standard deviation of coefficients</span>
+coef.crime.ZS<span class="op">$</span>conditionalsd[crime.HPM<span class="op">$</span>best, ]</code></pre>
 <pre><code>##  Intercept          M         So         Ed        Po1        Po2 
-## 0.03889093 0.00000000 0.14927810 0.73734714 0.00000000 0.24339767 
+## 0.03671579 0.00000000 0.00000000 0.00000000 1.00031979 1.02385392 
 ##         LF        M.F        Pop         NW         U1         U2 
-## 0.00000000 1.96205858 0.06082986 0.06154526 0.00000000 0.17389429 
+## 0.00000000 1.54656690 0.00000000 0.04876891 0.38697792 0.27327078 
 ##        GDP       Ineq       Prob       Time 
-## 0.47098972 0.00000000 0.00000000 0.17513934</code></pre>
+## 0.00000000 0.37992314 0.00000000 0.15834891</code></pre>
 <p>We can also obtain the posterior probability of this model using</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">postprob.HPM =<span class="st"> </span>crime.ZS<span class="op">$</span>postprobs[crime.HPM<span class="op">$</span>best]
-postprob.HPM</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">postprob.HPM =<span class="st"> </span>crime.ZS<span class="op">$</span>postprobs[crime.HPM<span class="op">$</span>best]
+postprob.HPM</code></pre>
 <pre><code>## [1] 0.01824728</code></pre>
 <p>we see that this highest probability model has posterior probability of only 0.018. There are many models that have comparable posterior probabilities. So even this model has the highest posterior probability, we are still pretty unsure about whether it is the best model.</p>
 <p><strong>Median Probability Model</strong></p>
 <p>Another model that is frequently reported, is the median probability model (MPM). This model includes all predictors whose marginal posterior inclusion probabilities are greater than 0.5. If the variables are all uncorrelated, this will be the same as the highest posterior probability model. For a sequence of nested models such as polynomial regression with increasing powers, the median probability model is the best single model for prediction.</p>
 <p>However, since in the US crime example, <code>Po1</code> and <code>Po2</code> are highly correlated, we see that the variables included in MPM are slightly different than the variables included in HPM.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime.MPM =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;MPM&quot;</span>)
-crime.ZS<span class="op">$</span>namesx[crime.MPM<span class="op">$</span>bestmodel <span class="op">+</span><span class="dv">1</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">crime.MPM =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;MPM&quot;</span>)
+crime.ZS<span class="op">$</span>namesx[crime.MPM<span class="op">$</span>bestmodel <span class="op">+</span><span class="dv">1</span>]</code></pre>
 <pre><code>## [1] &quot;Intercept&quot; &quot;M&quot;         &quot;Ed&quot;        &quot;Po1&quot;       &quot;NW&quot;        &quot;U2&quot;       
 ## [7] &quot;Ineq&quot;      &quot;Prob&quot;</code></pre>
 <p>As we see, this model only includes 7 variables, <code>M</code>, <code>Ed</code>, <code>Po1</code>, <code>NW</code>, <code>U2</code>, <code>Ineq</code>, and <code>Prob</code>. It does not include <code>Time</code> variable as in HPM.</p>
 <p>When there are correlated predictors in non-nexted models, MPM in general does well. However, if the correlations among variables increase, MPM may miss important variables as the correlations tend to dilute the posterior inclusing probabilities of related variables.</p>
 <p>To obtain the coefficients in the median probability model, we need to redo <code>bas.lm</code> to specify in <code>bestmodel</code> argument that we would like to keep only the variables with posterior inclusion probabilities greater than 0.5, and we would only want to have 1 model by setting <code>n.models = 1</code>. In this way, we will force other low probability variables not to show up in the model, and we will re-calculate the posterior means and standard deviations for the variables that are included in MPM.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Re-run regression and specify `bestmodel` and `n.models`</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Re-run regression and specify `bestmodel` and `n.models`</span>
 crime.ZS.MPM =<span class="st"> </span><span class="kw">bas.lm</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> UScrime,
                       <span class="dt">prior =</span> <span class="st">&quot;ZS-null&quot;</span>, <span class="dt">modelprior =</span> <span class="kw">uniform</span>(),
                       <span class="dt">bestmodel =</span> crime.ZS<span class="op">$</span>probne0 <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="dt">n.models =</span> <span class="dv">1</span>)
 
 <span class="co"># Obtain coefficients of MPM</span>
-<span class="kw">coef</span>(crime.ZS.MPM)</code></pre></div>
+<span class="kw">coef</span>(crime.ZS.MPM)</code></pre>
 <pre><code>## 
 ##  Marginal Posterior Summaries of Coefficients: 
 ## 
@@ -791,58 +842,58 @@ crime.ZS.MPM =<span class="st"> </span><span class="kw">bas.lm</span>(y <span cl
 <p><strong>Best Predictive Model</strong></p>
 <p>If our objective is prediction from a single model, the best choice is to find the model whose predictions are closet to those given by BMA. “Closest” could be based on squared error loss for predictions, or be based on any other loss functions. Unfortunately, there is no nice expression for this model. However, we can still calculate the loss for each of our sampled models to try to identify this best predictive model, or BPM.</p>
 <p>Using the squared error loss, we find that the best predictive model is the one whose predictions are closest to BMA.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime.BPM =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;BPM&quot;</span>)
-crime.ZS<span class="op">$</span>namesx[crime.BPM<span class="op">$</span>bestmodel <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">crime.BPM =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;BPM&quot;</span>)
+crime.ZS<span class="op">$</span>namesx[crime.BPM<span class="op">$</span>bestmodel <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]</code></pre>
 <pre><code>##  [1] &quot;Intercept&quot; &quot;M&quot;         &quot;So&quot;        &quot;Ed&quot;        &quot;Po1&quot;      
 ##  [6] &quot;Po2&quot;       &quot;M.F&quot;       &quot;NW&quot;        &quot;U2&quot;        &quot;Ineq&quot;     
 ## [11] &quot;Prob&quot;</code></pre>
 <p>The best predictive model includes not only the 7 variables that MPM includes, but also <code>M.F</code>, number of males per 1000 females, and <code>Po2</code>, the police expenditures in 1959.</p>
 <p>Using the <code>se.fit = TRUE</code> option with <code>predict</code> we can calculate standard deviations for the predictions or for the mean. Then we can use this as input for the <code>confint</code> function for the prediction object. Here we only show the results of the first 20 data points.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crime.BPM =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;BPM&quot;</span>, <span class="dt">se.fit =</span> <span class="ot">TRUE</span>)
+<pre class="sourceCode r"><code class="sourceCode r">crime.BPM =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">estimator =</span> <span class="st">&quot;BPM&quot;</span>, <span class="dt">se.fit =</span> <span class="ot">TRUE</span>)
 crime.BPM.conf.fit =<span class="st"> </span><span class="kw">confint</span>(crime.BPM, <span class="dt">parm =</span> <span class="st">&quot;mean&quot;</span>)
 crime.BPM.conf.pred =<span class="st"> </span><span class="kw">confint</span>(crime.BPM, <span class="dt">parm =</span> <span class="st">&quot;pred&quot;</span>)
 <span class="kw">cbind</span>(crime.BPM<span class="op">$</span>fit, crime.BPM.conf.fit, crime.BPM.conf.pred)
-##                    2.5%    97.5%     mean     2.5%    97.5%     pred
-##  [1,] 6.668988 6.513238 6.824738 6.668988 6.258715 7.079261 6.668988
-##  [2,] 7.290854 7.151787 7.429921 7.290854 6.886619 7.695089 7.290854
-##  [3,] 6.202166 6.039978 6.364354 6.202166 5.789406 6.614926 6.202166
-##  [4,] 7.661307 7.490608 7.832006 7.661307 7.245129 8.077484 7.661307
-##  [5,] 7.015570 6.847647 7.183493 7.015570 6.600523 7.430617 7.015570
-##  [6,] 6.469547 6.279276 6.659818 6.469547 6.044966 6.894128 6.469547
-##  [7,] 6.776133 6.555130 6.997135 6.776133 6.336920 7.215346 6.776133
-##  [8,] 7.299560 7.117166 7.481955 7.299560 6.878450 7.720670 7.299560
-##  [9,] 6.614927 6.482384 6.747470 6.614927 6.212890 7.016964 6.614927
-## [10,] 6.596912 6.468988 6.724836 6.596912 6.196374 6.997449 6.596912
-## [11,] 7.032834 6.877582 7.188087 7.032834 6.622750 7.442918 7.032834
-## [12,] 6.581822 6.462326 6.701317 6.581822 6.183896 6.979748 6.581822
-## [13,] 6.467921 6.281998 6.653843 6.467921 6.045271 6.890571 6.467921
-## [14,] 6.566239 6.403813 6.728664 6.566239 6.153385 6.979092 6.566239
-## [15,] 6.550129 6.388987 6.711270 6.550129 6.137779 6.962479 6.550129
-## [16,] 6.888592 6.746097 7.031087 6.888592 6.483166 7.294019 6.888592
-## [17,] 6.252735 6.063944 6.441526 6.252735 5.828815 6.676654 6.252735
-## [18,] 6.795764 6.564634 7.026895 6.795764 6.351369 7.240160 6.795764
-## [19,] 6.945687 6.766289 7.125086 6.945687 6.525866 7.365508 6.945687
-## [20,] 7.000331 6.840374 7.160289 7.000331 6.588442 7.412220 7.000331
-## [...]</code></pre></div>
+<span class="co">##                    2.5%    97.5%     mean     2.5%    97.5%     pred</span>
+<span class="co">##  [1,] 6.668988 6.513238 6.824738 6.668988 6.258715 7.079261 6.668988</span>
+<span class="co">##  [2,] 7.290854 7.151787 7.429921 7.290854 6.886619 7.695089 7.290854</span>
+<span class="co">##  [3,] 6.202166 6.039978 6.364354 6.202166 5.789406 6.614926 6.202166</span>
+<span class="co">##  [4,] 7.661307 7.490608 7.832006 7.661307 7.245129 8.077484 7.661307</span>
+<span class="co">##  [5,] 7.015570 6.847647 7.183493 7.015570 6.600523 7.430617 7.015570</span>
+<span class="co">##  [6,] 6.469547 6.279276 6.659818 6.469547 6.044966 6.894128 6.469547</span>
+<span class="co">##  [7,] 6.776133 6.555130 6.997135 6.776133 6.336920 7.215346 6.776133</span>
+<span class="co">##  [8,] 7.299560 7.117166 7.481955 7.299560 6.878450 7.720670 7.299560</span>
+<span class="co">##  [9,] 6.614927 6.482384 6.747470 6.614927 6.212890 7.016964 6.614927</span>
+<span class="co">## [10,] 6.596912 6.468988 6.724836 6.596912 6.196374 6.997449 6.596912</span>
+<span class="co">## [11,] 7.032834 6.877582 7.188087 7.032834 6.622750 7.442918 7.032834</span>
+<span class="co">## [12,] 6.581822 6.462326 6.701317 6.581822 6.183896 6.979748 6.581822</span>
+<span class="co">## [13,] 6.467921 6.281998 6.653843 6.467921 6.045271 6.890571 6.467921</span>
+<span class="co">## [14,] 6.566239 6.403813 6.728664 6.566239 6.153385 6.979092 6.566239</span>
+<span class="co">## [15,] 6.550129 6.388987 6.711270 6.550129 6.137779 6.962479 6.550129</span>
+<span class="co">## [16,] 6.888592 6.746097 7.031087 6.888592 6.483166 7.294019 6.888592</span>
+<span class="co">## [17,] 6.252735 6.063944 6.441526 6.252735 5.828815 6.676654 6.252735</span>
+<span class="co">## [18,] 6.795764 6.564634 7.026895 6.795764 6.351369 7.240160 6.795764</span>
+<span class="co">## [19,] 6.945687 6.766289 7.125086 6.945687 6.525866 7.365508 6.945687</span>
+<span class="co">## [20,] 7.000331 6.840374 7.160289 7.000331 6.588442 7.412220 7.000331</span>
+<span class="co">## [...]</span></code></pre>
 <p>We can use similar method as in HPM to find the coefficients of BPM</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Posterior mean</span>
-coef.crime.ZS<span class="op">$</span>conditionalmeans[crime.BPM<span class="op">$</span>best,]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Posterior mean</span>
+coef.crime.ZS<span class="op">$</span>conditionalmeans[crime.BPM<span class="op">$</span>best,]</code></pre>
+<pre><code>##   Intercept           M          So          Ed         Po1         Po2 
+##  6.72493620  1.50575744  0.00000000  0.97209771  0.00000000  0.00000000 
+##          LF         M.F         Pop          NW          U1          U2 
+##  0.00000000  0.44560937  0.07953742  0.00000000  0.00000000  0.00000000 
+##         GDP        Ineq        Prob        Time 
+##  1.71735568  1.63225164 -0.33368544 -0.32142266</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Posterior standard deviation</span>
+coef.crime.ZS<span class="op">$</span>conditionalsd[crime.BPM<span class="op">$</span>best,]</code></pre>
 <pre><code>##  Intercept          M         So         Ed        Po1        Po2 
-##  6.7249362  0.0000000  0.2631077  1.1985472  1.3492051 -0.4219669 
+## 0.04399811 0.68862422 0.00000000 0.72434574 0.00000000 0.00000000 
 ##         LF        M.F        Pop         NW         U1         U2 
-##  0.0000000  3.8425226  0.0000000  0.0000000 -0.4375858  0.3961574 
+## 0.00000000 2.23053509 0.06791332 0.00000000 0.00000000 0.00000000 
 ##        GDP       Ineq       Prob       Time 
-## -0.6440736  0.0000000  0.0000000  0.2567263</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Posterior standard deviation</span>
-coef.crime.ZS<span class="op">$</span>conditionalsd[crime.BPM<span class="op">$</span>best,]</code></pre></div>
-<pre><code>##  Intercept          M         So         Ed        Po1        Po2 
-## 0.04006063 0.00000000 0.12755085 0.76034136 1.08444864 1.07845444 
-##         LF        M.F        Pop         NW         U1         U2 
-## 0.00000000 1.73144988 0.00000000 0.00000000 0.42827327 0.31825628 
-##        GDP       Ineq       Prob       Time 
-## 0.46640483 0.00000000 0.00000000 0.16981510</code></pre>
+## 0.56626596 0.51915395 0.13426115 0.25567409</code></pre>
 <p>After discussing all 4 different models, let us compare their prediction results.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set plot settings</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set plot settings</span>
 <span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">cex.axis =</span> <span class="fl">1.8</span>, <span class="dt">cex.lab =</span> <span class="dv">2</span>, <span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">3</span>),
     <span class="dt">col.lab =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">col.axis =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>)
 
@@ -851,48 +902,49 @@ coef.crime.ZS<span class="op">$</span>conditionalsd[crime.BPM<span class="op">$<
 <span class="kw">ggpairs</span>(<span class="kw">data.frame</span>(<span class="dt">HPM =</span> <span class="kw">as.vector</span>(crime.HPM<span class="op">$</span>fit),  
                    <span class="dt">MPM =</span> <span class="kw">as.vector</span>(crime.MPM<span class="op">$</span>fit),  
                    <span class="dt">BPM =</span> <span class="kw">as.vector</span>(crime.BPM<span class="op">$</span>fit),  
-                   <span class="dt">BMA =</span> <span class="kw">as.vector</span>(crime.BMA<span class="op">$</span>fit))) </code></pre></div>
+                   <span class="dt">BMA =</span> <span class="kw">as.vector</span>(crime.BMA<span class="op">$</span>fit))) </code></pre>
 <p><img src="08-MCMC-04-decisions_files/figure-html/paired-cor-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>From the above paired correlation plots, we see that the correlations among them are extremely high. As expected, the single best predictive model (BPM) has the highest correlation with MPM, with a correlation of 0.998. However, the highest posterior model (HPM) and the Bayesian model averaging model (BMA) are nearly equally as good.</p>
 </div>
 <div id="prediction-with-new-data" class="section level3">
 <h3><span class="header-section-number">8.4.2</span> Prediction with New Data</h3>
 <p>Using the <code>newdata</code> option in the <code>predict</code> function, we can obtain prediction from a new data set. Here we pretend that <code>UScrime</code> is an another new data set, and we use BMA to obtain the prediction of new observations. Here we only show the results of the first 20 data points.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">BMA.new =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">newdata =</span> UScrime, <span class="dt">estimator =</span> <span class="st">&quot;BMA&quot;</span>,
+<pre class="sourceCode r"><code class="sourceCode r">BMA.new =<span class="st"> </span><span class="kw">predict</span>(crime.ZS, <span class="dt">newdata =</span> UScrime, <span class="dt">estimator =</span> <span class="st">&quot;BMA&quot;</span>,
                   <span class="dt">se.fit =</span> <span class="ot">TRUE</span>, <span class="dt">nsim =</span> <span class="dv">10000</span>)
 crime.conf.fit.new =<span class="st"> </span><span class="kw">confint</span>(BMA.new, <span class="dt">parm =</span> <span class="st">&quot;mean&quot;</span>)
 crime.conf.pred.new =<span class="st"> </span><span class="kw">confint</span>(BMA.new, <span class="dt">parm =</span> <span class="st">&quot;pred&quot;</span>)
 
 <span class="co"># Show the combined results compared to the fitted values in BPM</span>
 <span class="kw">cbind</span>(crime.BPM<span class="op">$</span>fit, crime.conf.fit.new, crime.conf.pred.new)
-##                    2.5%    97.5%     mean     2.5%    97.5%     pred
-##  [1,] 6.668988 6.508011 6.812011 6.661770 6.254795 7.078794 6.661770
-##  [2,] 7.290854 7.130383 7.456345 7.298827 6.871898 7.699380 7.298827
-##  [3,] 6.202166 5.972453 6.416980 6.179308 5.722201 6.627538 6.179308
-##  [4,] 7.661307 7.388310 7.838765 7.610585 7.153980 8.041374 7.610585
-##  [5,] 7.015570 6.858240 7.270616 7.054238 6.613146 7.497913 7.054238
-##  [6,] 6.469547 6.292844 6.750025 6.514064 6.058745 6.962796 6.514064
-##  [7,] 6.776133 6.507808 7.072664 6.784846 6.310568 7.258898 6.784846
-##  [8,] 7.299560 7.031118 7.481985 7.266344 6.818854 7.708621 7.266344
-##  [9,] 6.614927 6.490967 6.789084 6.629448 6.217710 7.030287 6.629448
-## [10,] 6.596912 6.460188 6.733937 6.601246 6.191066 7.004978 6.601246
-## [11,] 7.032834 6.873459 7.243577 7.055003 6.633514 7.491895 7.055003
-## [12,] 6.581822 6.426130 6.725433 6.570625 6.163127 6.994489 6.570625
-## [13,] 6.467921 6.214538 6.715950 6.472327 6.024460 6.950346 6.472327
-## [14,] 6.566239 6.403930 6.777633 6.582374 6.145711 7.019492 6.582374
-## [15,] 6.550129 6.365735 6.756256 6.556880 6.109866 6.987499 6.556880
-## [16,] 6.888592 6.746677 7.069095 6.905017 6.475723 7.307808 6.905017
-## [17,] 6.252735 5.983505 6.461142 6.229073 5.791866 6.695465 6.229073
-## [18,] 6.795764 6.541693 7.092899 6.809572 6.320062 7.272266 6.809572
-## [19,] 6.945687 6.746449 7.130383 6.943294 6.518038 7.369252 6.943294
-## [20,] 7.000331 6.784606 7.146742 6.961980 6.524996 7.378939 6.961980
-## [...]</code></pre></div>
+<span class="co">##                    2.5%    97.5%     mean     2.5%    97.5%     pred</span>
+<span class="co">##  [1,] 6.668988 6.513185 6.814492 6.661770 6.245102 7.077038 6.661770</span>
+<span class="co">##  [2,] 7.290854 7.139056 7.461921 7.298827 6.883880 7.730358 7.298827</span>
+<span class="co">##  [3,] 6.202166 5.965223 6.410202 6.179308 5.737143 6.634313 6.179308</span>
+<span class="co">##  [4,] 7.661307 7.378533 7.828859 7.610585 7.135242 8.039434 7.610585</span>
+<span class="co">##  [5,] 7.015570 6.857837 7.260244 7.054238 6.625746 7.501752 7.054238</span>
+<span class="co">##  [6,] 6.469547 6.293762 6.745073 6.514064 6.050640 6.954577 6.514064</span>
+<span class="co">##  [7,] 6.776133 6.511977 7.076990 6.784846 6.322005 7.284999 6.784846</span>
+<span class="co">##  [8,] 7.299560 7.050176 7.484142 7.266344 6.832874 7.720973 7.266344</span>
+<span class="co">##  [9,] 6.614927 6.487423 6.786218 6.629448 6.212665 7.043787 6.629448</span>
+<span class="co">## [10,] 6.596912 6.460946 6.736867 6.601246 6.161895 6.992750 6.601246</span>
+<span class="co">## [11,] 7.032834 6.872440 7.237188 7.055003 6.619253 7.483793 7.055003</span>
+<span class="co">## [12,] 6.581822 6.418596 6.714214 6.570625 6.153502 6.973153 6.570625</span>
+<span class="co">## [13,] 6.467921 6.210727 6.716664 6.472327 5.991763 6.901922 6.472327</span>
+<span class="co">## [14,] 6.566239 6.393868 6.762682 6.582374 6.132227 6.990637 6.582374</span>
+<span class="co">## [15,] 6.550129 6.358472 6.752551 6.556880 6.113937 6.987565 6.556880</span>
+<span class="co">## [16,] 6.888592 6.750041 7.065493 6.905017 6.469242 7.306031 6.905017</span>
+<span class="co">## [17,] 6.252735 5.992364 6.477569 6.229073 5.761648 6.663252 6.229073</span>
+<span class="co">## [18,] 6.795764 6.552975 7.107934 6.809572 6.344050 7.294099 6.809572</span>
+<span class="co">## [19,] 6.945687 6.747321 7.128460 6.943294 6.509571 7.377564 6.943294</span>
+<span class="co">## [20,] 7.000331 6.776893 7.146720 6.961980 6.539373 7.398268 6.961980</span>
+<span class="co">## [...]</span></code></pre>
 </div>
 </div>
 <div id="summary-4" class="section level2">
 <h2><span class="header-section-number">8.5</span> Summary</h2>
 <p>In this chapter, we have introduced one of the common stochastic exploration methods, Markov Chain Monte Carlo, to explore the model space to obtain approximation of posterior probability of each model when the model space is too large for theoretical enumeration. We see that model selection is very sensitive to the prior distributions of coefficients. Therefore, besides the reference prior, we have also introduced the Zellner’s <span class="math inline">\(g\)</span>-prior. To solve the paradoc problems, we have improved this Zellner’s <span class="math inline">\(g\)</span>-prior by imposing relationship between the scalar <span class="math inline">\(g\)</span> and the sample size <span class="math inline">\(n\)</span>, which leads to other priors, such as the unit information <span class="math inline">\(g\)</span>-prior, the Zellner-Siow cauchy prior, and the hyper-<span class="math inline">\(g/n\)</span> prior.</p>
-<p>We later have demonstrated a multiple linear regression process using <code>BAS</code> package and the US crime data <code>UScrime</code>. We have diagnosed the results using the Zellner-Siow cauchy prior, and have tried to understand the importance of variables. Finally, we have compared the prediction results from different models, such as the ones from Bayesian model average (BMA), the highest probability model (HPM), the median probability model (MPM), and the best predictive model (BPM). For the comparison, we have used the Zellner-Siow cauchy prior. But of course there is not one single best prior that is the best overall. If you do have prior information about a variable, you should include it. If you expect that there should be many predictors related to the response variable <span class="math inline">\(Y\)</span>, but that each has a small effect, an alternate prior may be better. Also, think critically about whether model selection is important. If you believe that all the variables should be relevant but are worried about over fitting, there are alternative priors that will avoid putting probabilities on coefficients that are exactly zero and will still prevent over fitting by shrinkage of coefficients to prior means. Examples include the Bayesian lasso or Bayesian horseshoe.</p>
+<p>We later have demonstrated a multiple linear regression process using <code>BAS</code> package and the US crime data <code>UScrime</code>. We have diagnosed the results using the Zellner-Siow cauchy prior, and have tried to understand the importance of variables.
+Finally, we have compared the prediction results from different models, such as the ones from Bayesian model average (BMA), the highest probability model (HPM), the median probability model (MPM), and the best predictive model (BPM). For the comparison, we have used the Zellner-Siow cauchy prior. But of course there is not one single best prior that is the best overall. If you do have prior information about a variable, you should include it. If you expect that there should be many predictors related to the response variable <span class="math inline">\(Y\)</span>, but that each has a small effect, an alternate prior may be better. Also, think critically about whether model selection is important. If you believe that all the variables should be relevant but are worried about over fitting, there are alternative priors that will avoid putting probabilities on coefficients that are exactly zero and will still prevent over fitting by shrinkage of coefficients to prior means. Examples include the Bayesian lasso or Bayesian horseshoe.</p>
 <p>There are other forms of model uncertainty that you may want to consider, such as linearity in the relationship between the predictors and the response, uncertainty about the presence of outliers, and uncertainty about the distribution of the response. These forms of uncertainty can be incorporated by expanding the models and priors similar to what we have covered here.</p>
 <p>Multiple linear regression is one of the most widely used statistical methods, however, this is just the tip of the iceberg of what you can do with Bayesian methods.</p>
 
@@ -930,7 +982,7 @@ crime.conf.pred.new =<span class="st"> </span><span class="kw">confint</span>(BM
 <div class="footnotes">
 <hr />
 <ol start="7">
-<li id="fn7"><p>More details can be found in <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>.<a href="stochastic-explorations-using-mcmc.html#fnref7">↩</a></p></li>
+<li id="fn7"><p>More details can be found in <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>.<a href="stochastic-explorations-using-mcmc.html#fnref7" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -989,7 +1041,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
