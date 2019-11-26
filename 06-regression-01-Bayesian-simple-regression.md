@@ -32,20 +32,20 @@ summary(bodyfat)
 ##  Mean   :70.15   Mean   :37.99   Mean   :100.82   Mean   : 92.56  
 ##  3rd Qu.:72.25   3rd Qu.:39.42   3rd Qu.:105.38   3rd Qu.: 99.33  
 ##  Max.   :77.75   Max.   :51.20   Max.   :136.20   Max.   :148.10  
-##       Hip            Thigh            Knee           Ankle     
-##  Min.   : 85.0   Min.   :47.20   Min.   :33.00   Min.   :19.1  
-##  1st Qu.: 95.5   1st Qu.:56.00   1st Qu.:36.98   1st Qu.:22.0  
-##  Median : 99.3   Median :59.00   Median :38.50   Median :22.8  
-##  Mean   : 99.9   Mean   :59.41   Mean   :38.59   Mean   :23.1  
-##  3rd Qu.:103.5   3rd Qu.:62.35   3rd Qu.:39.92   3rd Qu.:24.0  
-##  Max.   :147.7   Max.   :87.30   Max.   :49.10   Max.   :33.9  
-##      Biceps         Forearm          Wrist      
-##  Min.   :24.80   Min.   :21.00   Min.   :15.80  
-##  1st Qu.:30.20   1st Qu.:27.30   1st Qu.:17.60  
-##  Median :32.05   Median :28.70   Median :18.30  
-##  Mean   :32.27   Mean   :28.66   Mean   :18.23  
-##  3rd Qu.:34.33   3rd Qu.:30.00   3rd Qu.:18.80  
-##  Max.   :45.00   Max.   :34.90   Max.   :21.40
+##       Hip            Thigh            Knee           Ankle          Biceps     
+##  Min.   : 85.0   Min.   :47.20   Min.   :33.00   Min.   :19.1   Min.   :24.80  
+##  1st Qu.: 95.5   1st Qu.:56.00   1st Qu.:36.98   1st Qu.:22.0   1st Qu.:30.20  
+##  Median : 99.3   Median :59.00   Median :38.50   Median :22.8   Median :32.05  
+##  Mean   : 99.9   Mean   :59.41   Mean   :38.59   Mean   :23.1   Mean   :32.27  
+##  3rd Qu.:103.5   3rd Qu.:62.35   3rd Qu.:39.92   3rd Qu.:24.0   3rd Qu.:34.33  
+##  Max.   :147.7   Max.   :87.30   Max.   :49.10   Max.   :33.9   Max.   :45.00  
+##     Forearm          Wrist      
+##  Min.   :21.00   Min.   :15.80  
+##  1st Qu.:27.30   1st Qu.:17.60  
+##  Median :28.70   Median :18.30  
+##  Mean   :28.66   Mean   :18.23  
+##  3rd Qu.:30.00   3rd Qu.:18.80  
+##  Max.   :34.90   Max.   :21.40
 ```
 
 </br>

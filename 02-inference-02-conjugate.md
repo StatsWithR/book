@@ -138,11 +138,11 @@ k^* &= k + \sum^n_{i=1} x_i = \frac{9}{16} + 200 = 200.5625 \\
 
 How the general has changed his mind is described in Table \@ref(tab:before-after). After seeing the data, his uncertainty about lambda, expressed as a standard deviation, shrunk from 1 to 0.047.
 
-\begin{table}[t]
+\begin{table}
 
 \caption{(\#tab:before-after)Before and after seeing the data}
 \centering
-\begin{tabular}{lrr}
+\begin{tabular}[t]{lrr}
 \toprule
   & lambda & Standard Deviation\\
 \midrule

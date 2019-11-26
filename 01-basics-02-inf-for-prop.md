@@ -45,11 +45,11 @@ Within the Bayesian framework, we need to make some assumptions on the models wh
 
 Table \@ref(tab:RU-486prior) specifies the prior probabilities that we want to assign to our assumption. There is no unique correct prior, but any prior probability should reflect our beliefs prior to the experiement. The prior probabilities should incorporate the information from all relevant research before we perform the current experiement.
 
-\begin{table}[t]
+\begin{table}
 
 \caption{(\#tab:RU-486prior)Prior, likelihood, and posterior probabilities for each of the 9 models}
 \centering
-\begin{tabular}{lrrrrrrrrr}
+\begin{tabular}[t]{lrrrrrrrrr}
 \toprule
 Model (p) & 0.1000 & 0.2000 & 0.3000 & 0.4000 & 0.5000 & 6e-01 & 0.70 & 0.80 & 0.90\\
 Prior P(model) & 0.0600 & 0.0600 & 0.0600 & 0.0600 & 0.5200 & 6e-02 & 0.06 & 0.06 & 0.06\\

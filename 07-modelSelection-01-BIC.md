@@ -201,8 +201,8 @@ cog.bestBIC = bas.lm(kid_score ~ ., data = cognitive,
 ```
 
 ```
-## Warning in model.matrix.default(mt, mf, contrasts): non-list contrasts
-## argument ignored
+## Warning in model.matrix.default(mt, mf, contrasts): non-list contrasts argument
+## ignored
 ```
 
 ```r

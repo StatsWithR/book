@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking</title>
   <meta name="description" content="Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
@@ -35,8 +35,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="losses-and-decision-making.html">
-<link rel="next" href="hypothesis-testing-with-normal-populations.html">
+<link rel="prev" href="losses-and-decision-making.html"/>
+<link rel="next" href="hypothesis-testing-with-normal-populations.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -44,6 +44,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -59,7 +62,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -475,17 +477,17 @@ or the posterior mean (our point estimate) plus quantiles of the standard <span 
 <div id="sec:tapwater" class="section level3">
 <h3><span class="header-section-number">4.1.5</span> Example: TTHM in Tapwater</h3>
 <p>A municipality in North Carolina is interested in estimating the levels of TTHM in their drinking water. The data can be loaded from the <code>statsr</code> package in <code>R</code>, where the variable of interest, <code>tthm</code> is measured in parts per billion.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statsr)
-<span class="kw">data</span>(tapwater)
-<span class="kw">glimpse</span>(tapwater)</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(statsr)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">data</span>(tapwater)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">glimpse</span>(tapwater)</a></code></pre></div>
 <pre><code>## Observations: 28
 ## Variables: 6
-## $ date       &lt;fct&gt; 2009-02-25, 2008-12-22, 2008-09-25, 2008-05-14, 2008-…
-## $ tthm       &lt;dbl&gt; 34.38, 39.33, 108.63, 88.00, 81.00, 49.25, 75.00, 82.…
-## $ samples    &lt;int&gt; 8, 9, 8, 8, 2, 8, 6, 7, 8, 4, 4, 4, 4, 6, 4, 8, 10, 1…
-## $ nondetects &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
-## $ min        &lt;dbl&gt; 32.00, 31.00, 85.00, 75.00, 81.00, 26.00, 70.00, 70.0…
-## $ max        &lt;dbl&gt; 39.00, 46.00, 120.00, 94.00, 81.00, 68.00, 80.00, 90.…</code></pre>
+## $ date       &lt;fct&gt; 2009-02-25, 2008-12-22, 2008-09-25, 2008-05-14, 2008-04-14…
+## $ tthm       &lt;dbl&gt; 34.38, 39.33, 108.63, 88.00, 81.00, 49.25, 75.00, 82.86, 8…
+## $ samples    &lt;int&gt; 8, 9, 8, 8, 2, 8, 6, 7, 8, 4, 4, 4, 4, 6, 4, 8, 10, 10, 10…
+## $ nondetects &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ min        &lt;dbl&gt; 32.00, 31.00, 85.00, 75.00, 81.00, 26.00, 70.00, 70.00, 80…
+## $ max        &lt;dbl&gt; 39.00, 46.00, 120.00, 94.00, 81.00, 68.00, 80.00, 90.00, 9…</code></pre>
 <p>Using historical prior information about TTHM from the municipality, we will adopt a normal-gamma prior distribution,
 <span class="math inline">\(\textsf{NormalGamma}(35, 25, 156.25, 24)\)</span> with
 a prior mean of 35 parts per billion, a prior sample
@@ -508,33 +510,33 @@ in the conjugate <span class="math inline">\(\textsf{NormalGamma}(45.8, 53, 459.
 posterior distribution that now summarizes our
 uncertainty about <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(\sigma^2\)</span>) after seeing the data.</p>
 <p>We can obtain the updated hyper-parameters in <code>R</code> using the following code in <code>R</code></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># prior hyperparameters</span>
-m_<span class="dv">0</span> =<span class="st"> </span><span class="dv">35</span>; n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>;  s2_<span class="dv">0</span> =<span class="st"> </span><span class="fl">156.25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
-<span class="co"># sample summaries</span>
-Y =<span class="st"> </span>tapwater<span class="op">$</span>tthm
-ybar =<span class="st"> </span><span class="kw">mean</span>(Y)
-s2 =<span class="st"> </span><span class="kw">var</span>(Y)
-n =<span class="st"> </span><span class="kw">length</span>(Y)
-<span class="co"># posterior hyperparamters</span>
-n_n =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
-m_n =<span class="st"> </span>(n<span class="op">*</span>ybar <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>m_<span class="dv">0</span>)<span class="op">/</span>n_n
-v_n =<span class="st"> </span>v_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
-s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)<span class="op">*</span>s2 <span class="op">+</span><span class="st"> </span>v_<span class="dv">0</span><span class="op">*</span>s2_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>n<span class="op">*</span>(m_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span>ybar)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>n_n)<span class="op">/</span>v_n</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># prior hyperparameters</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">m_<span class="dv">0</span> =<span class="st"> </span><span class="dv">35</span>; n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>;  s2_<span class="dv">0</span> =<span class="st"> </span><span class="fl">156.25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># sample summaries</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">Y =<span class="st"> </span>tapwater<span class="op">$</span>tthm</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">ybar =<span class="st"> </span><span class="kw">mean</span>(Y)</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">s2 =<span class="st"> </span><span class="kw">var</span>(Y)</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">n =<span class="st"> </span><span class="kw">length</span>(Y)</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co"># posterior hyperparamters</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">n_n =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">m_n =<span class="st"> </span>(n<span class="op">*</span>ybar <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>m_<span class="dv">0</span>)<span class="op">/</span>n_n</a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">v_n =<span class="st"> </span>v_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n</a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)<span class="op">*</span>s2 <span class="op">+</span><span class="st"> </span>v_<span class="dv">0</span><span class="op">*</span>s2_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>n<span class="op">*</span>(m_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span>ybar)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>n_n)<span class="op">/</span>v_n</a></code></pre></div>
 <p>Using the following code in <code>R</code> the 95%
 credible interval for the tap water data may be obtained using the Student <span class="math inline">\(t\)</span> quantile function <code>qt</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">  m_n <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), v_n)<span class="op">*</span><span class="kw">sqrt</span>(s2_n<span class="op">/</span>n_n)</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">  m_n <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), v_n)<span class="op">*</span><span class="kw">sqrt</span>(s2_n<span class="op">/</span>n_n)</a></code></pre></div>
 <pre><code>## [1] 39.93192 51.75374</code></pre>
 <p>The <code>qt</code> function takes two arguments: the first is the desired quantiles, while the second is the degrees of freedom. Both arguments may be vectors, in which case, the result will be a vector.</p>
 <p>While we can calculate the interval directly as above, we have provided the <code>bayes_inference</code> function in the <code>statsr</code> package to calculate the posterior hyperparameters, credible intervals and plot the posterior density and the HPD interval given the raw data:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bayes_inference</span>(tthm, <span class="dt">data=</span>tapwater,
-                <span class="dt">prior=</span><span class="st">&quot;NG&quot;</span>,
-                <span class="dt">mu_0 =</span> m_<span class="dv">0</span>, <span class="dt">n_0=</span>n_<span class="dv">0</span>, 
-                <span class="dt">s_0 =</span> <span class="kw">sqrt</span>(s2_<span class="dv">0</span>), <span class="dt">v_0 =</span> v_<span class="dv">0</span>,
-                <span class="dt">stat=</span><span class="st">&quot;mean&quot;</span>, <span class="dt">type=</span><span class="st">&quot;ci&quot;</span>,
-                <span class="dt">method=</span><span class="st">&quot;theoretical&quot;</span>, 
-                <span class="dt">show_res=</span>T, 
-                <span class="dt">show_summ=</span>T,
-                <span class="dt">show_plot=</span>F)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">bayes_inference</span>(tthm, <span class="dt">data=</span>tapwater,</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">                <span class="dt">prior=</span><span class="st">&quot;NG&quot;</span>,</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">                <span class="dt">mu_0 =</span> m_<span class="dv">0</span>, <span class="dt">n_0=</span>n_<span class="dv">0</span>, </a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">                <span class="dt">s_0 =</span> <span class="kw">sqrt</span>(s2_<span class="dv">0</span>), <span class="dt">v_0 =</span> v_<span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">                <span class="dt">stat=</span><span class="st">&quot;mean&quot;</span>, <span class="dt">type=</span><span class="st">&quot;ci&quot;</span>,</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">                <span class="dt">method=</span><span class="st">&quot;theoretical&quot;</span>, </a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">                <span class="dt">show_res=</span>T, </a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">                <span class="dt">show_summ=</span>T,</a>
+<a class="sourceLine" id="cb9-9" data-line-number="9">                <span class="dt">show_plot=</span>F)</a></code></pre></div>
 <pre><code>## Single numerical variable
 ## n = 28, y-bar = 55.5239, s = 23.254
 ## (Assuming proper prior:  mu | sigma^2 ~ N(35, *sigma^2/25)
@@ -551,7 +553,7 @@ credible interval for the tap water data may be obtained using the Student <span
 <p>How do we interprte these results? Based on the updated posterior, we find that there is a 95% chance that
 the mean TTHM concentration is between 39.9
 parts per billion and 51.8 parts per billion, suggesting that for this period that the municipality is in compliance with the limits.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data=</span>tapwater, <span class="kw">aes</span>(<span class="dt">x=</span>tthm)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data=</span>tapwater, <span class="kw">aes</span>(<span class="dt">x=</span>tthm)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</a></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="04-normalgamma-01-inference_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
@@ -746,34 +748,34 @@ as the number of draws <span class="math inline">\(S\)</span> in the Monte Carlo
 <div id="tap-water-example-continued" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Tap Water Example (continued)</h3>
 <p>We will apply this to the tap water example from <a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma">4.1</a>. First, reload the data and calculate the posterior hyper-parameters if needed.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Prior</span>
-m_<span class="dv">0</span> =<span class="st"> </span><span class="dv">35</span>;  n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>;  s2_<span class="dv">0</span> =<span class="st"> </span><span class="fl">156.25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
-<span class="co"># Data</span>
-<span class="kw">data</span>(tapwater); Y =<span class="st"> </span>tapwater<span class="op">$</span>tthm
-ybar =<span class="st"> </span><span class="kw">mean</span>(Y); s2 =<span class="st"> </span><span class="kw">var</span>(Y); n =<span class="st"> </span><span class="kw">length</span>(Y)
-<span class="co"># Posterior Hyper-paramters</span>
-n_n =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
-m_n =<span class="st"> </span>(n<span class="op">*</span>ybar <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>m_<span class="dv">0</span>)<span class="op">/</span>n_n
-v_n =<span class="st"> </span>v_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n
-s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)<span class="op">*</span>s2 <span class="op">+</span><span class="st"> </span>v_<span class="dv">0</span><span class="op">*</span>s2_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>n<span class="op">*</span>(m_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span>ybar)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>n_n)<span class="op">/</span>v_n</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># Prior</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">m_<span class="dv">0</span> =<span class="st"> </span><span class="dv">35</span>;  n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>;  s2_<span class="dv">0</span> =<span class="st"> </span><span class="fl">156.25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co"># Data</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="kw">data</span>(tapwater); Y =<span class="st"> </span>tapwater<span class="op">$</span>tthm</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">ybar =<span class="st"> </span><span class="kw">mean</span>(Y); s2 =<span class="st"> </span><span class="kw">var</span>(Y); n =<span class="st"> </span><span class="kw">length</span>(Y)</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co"># Posterior Hyper-paramters</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">n_n =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n</a>
+<a class="sourceLine" id="cb13-8" data-line-number="8">m_n =<span class="st"> </span>(n<span class="op">*</span>ybar <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>m_<span class="dv">0</span>)<span class="op">/</span>n_n</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9">v_n =<span class="st"> </span>v_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n</a>
+<a class="sourceLine" id="cb13-10" data-line-number="10">s2_n =<span class="st"> </span>((n<span class="dv">-1</span>)<span class="op">*</span>s2 <span class="op">+</span><span class="st"> </span>v_<span class="dv">0</span><span class="op">*</span>s2_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>n_<span class="dv">0</span><span class="op">*</span>n<span class="op">*</span>(m_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span>ybar)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>n_n)<span class="op">/</span>v_n</a></code></pre></div>
 <p>Before generating our Monte Carlo samples, we will set a random seed using the <code>set.seed</code> function in <code>R</code>, which takes a small integer argument.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">42</span>)</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">42</span>)</a></code></pre></div>
 <p>This allows the results to be replicated if you re-run the simulation at a later time.</p>
 <p>To generate <span class="math inline">\(1,000\)</span> draws from the gamma posterior distribution using the hyper-parameters above, we use the <code>rgamma</code> function <code>R</code></p>
-<pre class="sourceCode r"><code class="sourceCode r">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>, <span class="dt">shape =</span> v_n<span class="op">/</span><span class="dv">2</span>, <span class="dt">rate=</span>s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1000</span>, <span class="dt">shape =</span> v_n<span class="op">/</span><span class="dv">2</span>, <span class="dt">rate=</span>s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)</a></code></pre></div>
 <p>The first argument to the <code>rgamma</code> function is the number of samples, the second is the shape parameter and, by default, the third argument is the rate parameter.</p>
 <p>The following code will produce a histogram of the Monte Carlo samples of <span class="math inline">\(\phi\)</span> and overlay the actual Gamma posterior density evaluated at the draws using the <code>dgamma</code> function in <code>R</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">phi =</span> <span class="kw">sort</span>(phi))
-df =<span class="st"> </span><span class="kw">mutate</span>(df, 
-            <span class="dt">density =</span> <span class="kw">dgamma</span>(phi, 
-                             <span class="dt">shape =</span> v_n<span class="op">/</span><span class="dv">2</span>,
-                             <span class="dt">rate=</span>s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>))
-
-<span class="kw">ggplot</span>(<span class="dt">data=</span>df, <span class="kw">aes</span>(<span class="dt">x=</span>phi)) <span class="op">+</span><span class="st"> </span>
-<span class="st">        </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x=</span>phi, <span class="dt">y=</span>..density..), <span class="dt">bins =</span> <span class="dv">50</span>) <span class="op">+</span>
-<span class="st">        </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(phi, ..density..), <span class="dt">color=</span><span class="st">&quot;black&quot;</span>) <span class="op">+</span>
-<span class="st">        </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x=</span>phi, <span class="dt">y=</span>density), <span class="dt">color=</span><span class="st">&quot;orange&quot;</span>) <span class="op">+</span>
-<span class="st">        </span><span class="kw">xlab</span>(<span class="kw">expression</span>(phi)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_tufte</span>()</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">phi =</span> <span class="kw">sort</span>(phi))</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">df =<span class="st"> </span><span class="kw">mutate</span>(df, </a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">            <span class="dt">density =</span> <span class="kw">dgamma</span>(phi, </a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">                             <span class="dt">shape =</span> v_n<span class="op">/</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">                             <span class="dt">rate=</span>s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="kw">ggplot</span>(<span class="dt">data=</span>df, <span class="kw">aes</span>(<span class="dt">x=</span>phi)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="st">        </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x=</span>phi, <span class="dt">y=</span>..density..), <span class="dt">bins =</span> <span class="dv">50</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="st">        </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(phi, ..density..), <span class="dt">color=</span><span class="st">&quot;black&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="st">        </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x=</span>phi, <span class="dt">y=</span>density), <span class="dt">color=</span><span class="st">&quot;orange&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="st">        </span><span class="kw">xlab</span>(<span class="kw">expression</span>(phi)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_tufte</span>()</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:phi-plot"></span>
 <img src="04-normalgamma-02-monte-carlo_files/figure-html/phi-plot-1.png" alt="Monte Carlo approximation of the posterior distribution of the precision from the tap water example" width="384" />
 <p class="caption">
@@ -782,16 +784,16 @@ Figure 4.3: Monte Carlo approximation of the posterior distribution of the preci
 </div>
 <p>Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:phi-plot">4.3</a> shows the histogram of the <span class="math inline">\(1,000\)</span> draws of <span class="math inline">\(\phi\)</span> generated from the Monte Carlo simulation, representing the empirical distribution approximation to the gamma posterior distribution. The orange line represents the actual gamma posterior density, while the black line represents a <em>smoothed</em> version of the histogram.</p>
 <p>We can estimate the posterior mean or a 95% equal tail area credible region using the Monte Carlo samples using <code>R</code></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(phi)</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">mean</span>(phi)</a></code></pre></div>
 <pre><code>## [1] 0.002165663</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(phi, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">quantile</span>(phi, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</a></code></pre></div>
 <pre><code>##        2.5%       97.5% 
 ## 0.001394921 0.003056304</code></pre>
 <p>The mean of a gamma random variable is the shape/rate, so we can compare the Monte Carlo estimates to the theoretical values</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># mean  (v_n/2)/(v_n*s2_n/2)</span>
-<span class="dv">1</span><span class="op">/</span>s2_n</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># mean  (v_n/2)/(v_n*s2_n/2)</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="dv">1</span><span class="op">/</span>s2_n</a></code></pre></div>
 <pre><code>## [1] 0.002174492</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qgamma</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="dt">shape=</span>v_n<span class="op">/</span><span class="dv">2</span>, <span class="dt">rate=</span>s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">qgamma</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="dt">shape=</span>v_n<span class="op">/</span><span class="dv">2</span>, <span class="dt">rate=</span>s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 0.001420450 0.003086519</code></pre>
 <p>where the <code>qgamma</code> function in <code>R</code> returns the desired quantiles provided as the first argument.
 We can see that we can estimate the mean accurately to three significant digits, while the quantiles are accurate to two. It increase our accuracy, we would need to increase <span class="math inline">\(S\)</span>.</p>
@@ -801,11 +803,11 @@ Try increasing the number of simulations <span class="math inline">\(S\)</span> 
 <div id="monte-carlo-inference-for-functions-of-parameters" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> Monte Carlo Inference for Functions of Parameters</h3>
 <p>Let’s see how to use Monte Carlo simulations to approximate the distribution of <span class="math inline">\(\sigma\)</span>. Since <span class="math inline">\(\sigma = 1/\sqrt{\phi}\)</span>, we simply apply the transformation to the <span class="math inline">\(1,000\)</span> draws of <span class="math inline">\(\phi\)</span> to obtain a random sample of <span class="math inline">\(\sigma\)</span> from its posterior distribution. We can then estimate the posterior mean of <span class="math inline">\(\sigma\)</span> by calculating the sample mean of the 1,000 draws.</p>
-<pre class="sourceCode r"><code class="sourceCode r">sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
-<span class="kw">mean</span>(sigma) <span class="co"># posterior mean of sigma</span></code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">mean</span>(sigma) <span class="co"># posterior mean of sigma</span></a></code></pre></div>
 <pre><code>## [1] 21.80516</code></pre>
 <p>Similarly, we can obtain a 95% credible interval for <span class="math inline">\(\sigma\)</span> by finding the sample quantiles of the distribution.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(sigma, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">quantile</span>(sigma, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</a></code></pre></div>
 <pre><code>##     2.5%    97.5% 
 ## 18.08847 26.77474</code></pre>
 <p>and finally approximate the posterior distribution using a smoothed density estimate</p>
@@ -862,28 +864,28 @@ To complete the specification, we also need to choose the prior sample size <spa
 <div id="sampling-from-the-prior-predictive-in-r" class="section level3">
 <h3><span class="header-section-number">4.3.3</span> Sampling from the Prior Predictive in <code>R</code></h3>
 <p>The following <code>R</code> code shows a simulation from the predictive distribution with the prior sample size <span class="math inline">\(n_0 = 2\)</span>. Please be careful to not confuse the prior sample size, <span class="math inline">\(n_0\)</span>, that represents the precision of our prior information with the number of Monte Carlo simulations, <span class="math inline">\(S = 10000\)</span>, that are drawn from the distributions. These Monte Carlo samples are used to estimate quantiles of the prior predictive distribution and a large value of <span class="math inline">\(S\)</span> reduces error in the Monte Carlo approximation.</p>
-<pre class="sourceCode r"><code class="sourceCode r">m_<span class="dv">0</span> =<span class="st"> </span>(<span class="dv">60</span><span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span>; s2_<span class="dv">0</span> =<span class="st"> </span>((<span class="dv">60-10</span>)<span class="op">/</span><span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>;
-n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">2</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
-<span class="kw">set.seed</span>(<span class="dv">1234</span>)
-S =<span class="st"> </span><span class="dv">10000</span>
-phi =<span class="st"> </span><span class="kw">rgamma</span>(S, v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>, s2_<span class="dv">0</span><span class="op">*</span>v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>)
-sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
-mu =<span class="st"> </span><span class="kw">rnorm</span>(S, <span class="dt">mean=</span>m_<span class="dv">0</span>, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_<span class="dv">0</span>)))
-Y =<span class="st"> </span><span class="kw">rnorm</span>(S, mu, sigma)
-<span class="kw">quantile</span>(Y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">m_<span class="dv">0</span> =<span class="st"> </span>(<span class="dv">60</span><span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span>; s2_<span class="dv">0</span> =<span class="st"> </span>((<span class="dv">60-10</span>)<span class="op">/</span><span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>;</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">2</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4">S =<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">phi =<span class="st"> </span><span class="kw">rgamma</span>(S, v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>, s2_<span class="dv">0</span><span class="op">*</span>v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb29-6" data-line-number="6">sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)</a>
+<a class="sourceLine" id="cb29-7" data-line-number="7">mu =<span class="st"> </span><span class="kw">rnorm</span>(S, <span class="dt">mean=</span>m_<span class="dv">0</span>, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_<span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb29-8" data-line-number="8">Y =<span class="st"> </span><span class="kw">rnorm</span>(S, mu, sigma)</a>
+<a class="sourceLine" id="cb29-9" data-line-number="9"><span class="kw">quantile</span>(Y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</a></code></pre></div>
 <pre><code>##      2.5%     97.5% 
 ## -140.1391  217.7050</code></pre>
 <p>Let’s try to understand the code. After setting the prior hyper-parameters and random seed, we begin by simulating <span class="math inline">\(\phi\)</span> from its gamma prior distribution. We then transform <span class="math inline">\(\phi\)</span> to calculate <span class="math inline">\(\sigma\)</span>. Using the draws of <span class="math inline">\(\sigma\)</span>, we feed that into the <code>rnorm</code> function to simulate <span class="math inline">\(S\)</span> values of <span class="math inline">\(\mu\)</span> for each value of <span class="math inline">\(\sigma\)</span>. The Monte Carlo draws of <span class="math inline">\(\mu,\sigma\)</span> are used to generate <span class="math inline">\(S\)</span> possible values of TTHM denoted by <span class="math inline">\(Y\)</span>. In the above code we are exploiting that all of the functions for simulating from distributions can be vectorized, i.e. we can provide all <span class="math inline">\(S\)</span> draws of <span class="math inline">\(\phi\)</span> to the functions and get a vector result back without having to write a loop. Finally, we obtain the empirical quantiles from our Monte Carlo sample using the <code>quantile</code> function to approximate the actual quantiles from the prior predictive distriubtion.</p>
 <p>This forward simulation propagates uncertainty in <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> to the prior predictive distribution of the data. Calculating the sample quantiles from the samples of the prior predictive for <span class="math inline">\(Y\)</span>, we see that the 95% predictive interval for TTHM includes negative values. Since TTHM cannot be negative, we can adjust <span class="math inline">\(n_0\)</span> and repeat. Since we need a narrower interval in order to exclude zero, we can increase <span class="math inline">\(n_0\)</span> until we achieve the desired quantiles.</p>
 <p>After some trial and error, we find that the prior sample size of 25, the empirical quantiles from the prior predictive distribution are close to the range of 10 to 60 that we were given as prior information.</p>
-<pre class="sourceCode r"><code class="sourceCode r">m_<span class="dv">0</span> =<span class="st"> </span>(<span class="dv">60</span><span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span>; s2_<span class="dv">0</span> =<span class="st"> </span>((<span class="dv">60-10</span>)<span class="op">/</span><span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>;
-n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
-<span class="kw">set.seed</span>(<span class="dv">1234</span>)
-phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>, s2_<span class="dv">0</span><span class="op">*</span>v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>)
-sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
-mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_<span class="dv">0</span>, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_<span class="dv">0</span>)))
-y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, mu, sigma)
-<span class="kw">quantile</span>(y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">m_<span class="dv">0</span> =<span class="st"> </span>(<span class="dv">60</span><span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span>; s2_<span class="dv">0</span> =<span class="st"> </span>((<span class="dv">60-10</span>)<span class="op">/</span><span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>;</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>, s2_<span class="dv">0</span><span class="op">*</span>v_<span class="dv">0</span><span class="op">/</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)</a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_<span class="dv">0</span>, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_<span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb31-7" data-line-number="7">y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, mu, sigma)</a>
+<a class="sourceLine" id="cb31-8" data-line-number="8"><span class="kw">quantile</span>(y, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</a></code></pre></div>
 <pre><code>##      2.5%     97.5% 
 ##  8.802515 61.857350</code></pre>
 <p>Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:hist-prior">4.5</a> shows an estimate of the prior distribution of <span class="math inline">\(\mu\)</span> in gray and the more dispersed prior predictive distribution in TTHM in orange, obtained from the Monte Carlo samples.</p>
@@ -894,7 +896,7 @@ Figure 4.5: Prior density
 </p>
 </div>
 <p>Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(y)  <span class="co"># P(Y &lt; 0) a priori</span></code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">sum</span>(y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(y)  <span class="co"># P(Y &lt; 0) a priori</span></a></code></pre></div>
 <pre><code>## [1] 0.0049</code></pre>
 <p>With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we may use the conjugate normal-gamma model for analysis.</p>
 </div>
@@ -903,12 +905,12 @@ Figure 4.5: Prior density
 <p>We can use the same strategy to generate samples from the predictive distribution of a new measurement <span class="math inline">\(Y_{n+1}\)</span> given the observed data. In mathematical terms, the posterior predictive distribution is written as</p>
 <p><span class="math display">\[Y_{n+1} \mid Y_1, \ldots, Y_n \sim \textsf{t}(v_n, m_n, s^2_n (1 + 1/n_n))\]</span></p>
 <p>In the code, we replace the prior hyper parameters with the posterior hyper parameters from last time.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1234</span>)
-phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_n<span class="op">/</span><span class="dv">2</span>, s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)
-sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
-post_mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_n, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_n)))
-pred_y =<span class="st">  </span><span class="kw">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)
-<span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, <span class="fl">.975</span>))</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, v_n<span class="op">/</span><span class="dv">2</span>, s2_n<span class="op">*</span>v_n<span class="op">/</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb35-3" data-line-number="3">sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)</a>
+<a class="sourceLine" id="cb35-4" data-line-number="4">post_mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>m_n, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n_n)))</a>
+<a class="sourceLine" id="cb35-5" data-line-number="5">pred_y =<span class="st">  </span><span class="kw">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)</a>
+<a class="sourceLine" id="cb35-6" data-line-number="6"><span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, <span class="fl">.975</span>))</a></code></pre></div>
 <pre><code>##      2.5%     97.5% 
 ##  3.280216 89.830212</code></pre>
 <p>Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:hist-pred">4.6</a> shows the Monte Carlo approximation to the prior distribution of <span class="math inline">\(\mu\)</span>, and the posterior distribution of <span class="math inline">\(\mu\)</span> which is shifted to the right. The prior and posterior predictive distributions are also depicted, showing how the data have updated the prior information.</p>
@@ -919,7 +921,7 @@ Figure 4.6: Posterior densities
 </p>
 </div>
 <p>Using the Monte Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(pred_y <span class="op">&gt;</span><span class="st"> </span><span class="dv">80</span>)<span class="op">/</span><span class="kw">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">sum</span>(pred_y <span class="op">&gt;</span><span class="st"> </span><span class="dv">80</span>)<span class="op">/</span><span class="kw">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></a></code></pre></div>
 <pre><code>## [1] 0.0619</code></pre>
 </div>
 <div id="summary-1" class="section level3">
@@ -988,11 +990,11 @@ p(\mu, \sigma^2) &amp; \propto  1/\sigma^2
 <p><span class="math display">\[P(\bar{Y} - t_{1 - \alpha/2}\times s/\sqrt{n} &lt; \mu &lt;  \bar{Y} + t_{1 - \alpha/2}\times s/\sqrt{n}) = 1 - \alpha\]</span></p>
 <p>We can use either analytic expressions based on the t-distribution, or Monte Carlo samples from the posterior predictive distribution, to make predictions about a new sample.</p>
 <p>Here is some code to generate the Monte Carlo samples from the tap water example:</p>
-<pre class="sourceCode r"><code class="sourceCode r">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, (n<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span>, s2<span class="op">*</span>(n<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span>)
-sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)
-post_mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>ybar, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n)))
-pred_y =<span class="st">  </span><span class="kw">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)
-<span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, <span class="fl">.975</span>))</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">phi =<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">10000</span>, (n<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span>, s2<span class="op">*</span>(n<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">sigma =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(phi)</a>
+<a class="sourceLine" id="cb39-3" data-line-number="3">post_mu =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span>ybar, <span class="dt">sd=</span>sigma<span class="op">/</span>(<span class="kw">sqrt</span>(n)))</a>
+<a class="sourceLine" id="cb39-4" data-line-number="4">pred_y =<span class="st">  </span><span class="kw">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)</a>
+<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="kw">quantile</span>(pred_y, <span class="kw">c</span>(.<span class="dv">025</span>, <span class="fl">.975</span>))</a></code></pre></div>
 <pre><code>##       2.5%      97.5% 
 ##   6.692877 104.225954</code></pre>
 <p>Using the Monte Carlo samples, Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:plot-post-pred">4.7</a> shows the posterior distribution based on the informative Normal-Gamma prior and the reference prior. Both the posterior distribution for <span class="math inline">\(\mu\)</span> and the posterior predictive distribution for a new sample are shifted to the right, and are centered at the sample mean. The posterior for <span class="math inline">\(\mu\)</span> under the reference prior is less concentrated around its mean than the posterior under the informative prior, which leads to an increased posterior sample size and hence increased precision.</p>
@@ -1003,7 +1005,7 @@ Figure 4.7: Comparison of posterior densities
 </p>
 </div>
 <p>The posterior probability that a new sample will exceed the legal limit of 80 ppb under the reference prior is roughly 0.15, which is more than double the probability of 0.06 from the posterior under the informative prior.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(pred_y <span class="op">&gt;</span><span class="st"> </span><span class="dv">80</span>)<span class="op">/</span><span class="kw">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">sum</span>(pred_y <span class="op">&gt;</span><span class="st"> </span><span class="dv">80</span>)<span class="op">/</span><span class="kw">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></a></code></pre></div>
 <pre><code>## [1] 0.1534</code></pre>
 <p>In constructing the informative prior from the reported interval, there are two critical assumptions. First, the prior data are exchangeable with the observed data. Second, the conjugate normal gamma distribution is suitable for representing the prior information. These assumptions may or may not be verifiable, but they should be considered carefully when using informative conjugate priors.</p>
 <p>In the case of the tap water example, there are several concerns: One, it is unclear that the prior data are exchangeable with the observed data. For example, water treatment conditions may have changed. Two, the prior sample size was not based on a real prior sample, but instead selected so that the prior predictive intervals under the normal gamma model agreed with the prior data. As we do not have access to the prior data, we cannot check assumptions about normality that would help justify the prior. Other skewed distributions may be consistent with the prior interval, but lead to different conclusions.</p>
@@ -1050,22 +1052,22 @@ Figure 4.8: Cauchy distribution
 <p>The Cauchy prior described in Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-Cauchy">4.5</a> is not a conjugate prior, and therefore, the posterior distribution from <span class="math inline">\((\mu \mid \sigma^2)\)</span>, is not a Cauchy or any well-known distribution. Fortunately, the conditional distribution of <span class="math inline">\((\mu, \sigma^2 \mid n_0, \text{data})\)</span>, is normal-gamma and easy to simulate from, as we learned in the previous sections. The conditional distribution of <span class="math inline">\((n_0 \mid \mu, \sigma^2, \text{data}\)</span>) is a gamma distribution, also easy to simulate from the given <span class="math inline">\(\mu, \sigma^2\)</span>.</p>
 <p>It turns out that if we alternate generating Monte Carlo samples from these conditional distributions, the sequence of samples converges to samples from the joint distribution of <span class="math inline">\((\mu, \sigma^2, n_0)\)</span>, as the number of simulated values increases. The Monte Carlo algorithm we have just described is a special case of Markov chain Monte Carlo (MCMC), known as the Gibbs sampler.</p>
 <p>Let’s look at the pseudo code for the algorithm.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initialize MCMC</span>
-sigma2[<span class="dv">1</span>] =<span class="st"> </span><span class="dv">1</span>; n_<span class="dv">0</span>[<span class="dv">1</span>]=<span class="dv">1</span>; mu[<span class="dv">1</span>]=m_<span class="dv">0</span>
-
-<span class="co">#draw from full conditional distributions</span>
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>S) {
-  mu[i]     =<span class="st"> </span><span class="kw">p_mu</span>(sigma2[i<span class="dv">-1</span>], n_<span class="dv">0</span>[i<span class="dv">-1</span>],  m_<span class="dv">0</span>, r, data)
-  sigma2[i] =<span class="st"> </span><span class="kw">p_sigma2</span>(mu[i], n_<span class="dv">0</span>[i<span class="dv">-1</span>],    m_<span class="dv">0</span>, r, data)
-  n_<span class="dv">0</span>[i]    =<span class="st"> </span><span class="kw">p_n_0</span>(mu[i], sigma2[i],      m_<span class="dv">0</span>, r, data)
-}</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># initialize MCMC</span></a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">sigma2[<span class="dv">1</span>] =<span class="st"> </span><span class="dv">1</span>; n_<span class="dv">0</span>[<span class="dv">1</span>]=<span class="dv">1</span>; mu[<span class="dv">1</span>]=m_<span class="dv">0</span></a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="co">#draw from full conditional distributions</span></a>
+<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>S) {</a>
+<a class="sourceLine" id="cb43-6" data-line-number="6">  mu[i]     =<span class="st"> </span><span class="kw">p_mu</span>(sigma2[i<span class="dv">-1</span>], n_<span class="dv">0</span>[i<span class="dv">-1</span>],  m_<span class="dv">0</span>, r, data)</a>
+<a class="sourceLine" id="cb43-7" data-line-number="7">  sigma2[i] =<span class="st"> </span><span class="kw">p_sigma2</span>(mu[i], n_<span class="dv">0</span>[i<span class="dv">-1</span>],    m_<span class="dv">0</span>, r, data)</a>
+<a class="sourceLine" id="cb43-8" data-line-number="8">  n_<span class="dv">0</span>[i]    =<span class="st"> </span><span class="kw">p_n_0</span>(mu[i], sigma2[i],      m_<span class="dv">0</span>, r, data)</a>
+<a class="sourceLine" id="cb43-9" data-line-number="9">}</a></code></pre></div>
 <p>We start with the initial values of each of the parameters for <span class="math inline">\(i=1\)</span>. In theory, these can be completely arbitrary, as long as they are allowed values for the parameters.</p>
 <p>For each iteration <span class="math inline">\(i\)</span>, the algorithm will cycle through generating each parameter, given the <strong>current</strong> value of the other parameters. The functions , , and  return a simulated value from the respective distribution conditional on the inputs.</p>
 <p>Whenever we update a parameter, we use the <strong>new value</strong> in the subsequent steps as the <span class="math inline">\(n\)</span> draws for <span class="math inline">\(\sigma, n_0\)</span>. We will repeat this until we reach iteration <span class="math inline">\(S\)</span>, leading to a dependent sequence of s draws from the joint posterior distribution.</p>
 <p>Incorporating the tap water example in Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma">4.1</a>, we will use MCMC to generate samples under the Cauchy prior. We set 35 as the location parameter and <span class="math inline">\(r=1\)</span>. To complete our prior specification, we use the Jeffrey’s reference prior on <span class="math inline">\(\sigma^2\)</span>. This combination is referred to as the Jeffrey’s Zellner-Siow Cauchy prior or “JZS” in the R  package.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bayes_inference</span>(<span class="dt">y=</span>tthm, <span class="dt">data=</span>tapwater, <span class="dt">statistic=</span><span class="st">&quot;mean&quot;</span>,
-                <span class="dt">mu_0 =</span> <span class="dv">35</span>, <span class="dt">rscale=</span><span class="dv">1</span>, <span class="dt">prior=</span><span class="st">&quot;JZS&quot;</span>,
-                <span class="dt">type=</span><span class="st">&quot;ci&quot;</span>, <span class="dt">method=</span><span class="st">&quot;sim&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">bayes_inference</span>(<span class="dt">y=</span>tthm, <span class="dt">data=</span>tapwater, <span class="dt">statistic=</span><span class="st">&quot;mean&quot;</span>,</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">                <span class="dt">mu_0 =</span> <span class="dv">35</span>, <span class="dt">rscale=</span><span class="dv">1</span>, <span class="dt">prior=</span><span class="st">&quot;JZS&quot;</span>,</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">                <span class="dt">type=</span><span class="st">&quot;ci&quot;</span>, <span class="dt">method=</span><span class="st">&quot;sim&quot;</span>)</a></code></pre></div>
 <pre><code>## Single numerical variable
 ## n = 28, y-bar = 55.5239, s = 23.254
 ## (Assuming Zellner-Siow Cauchy prior:  mu | sigma^2 ~ C(35, 1*sigma)
@@ -1105,11 +1107,13 @@ Figure 4.9: Comparison of posterior densities
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1117,12 +1121,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1134,6 +1137,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -1152,8 +1159,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

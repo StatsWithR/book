@@ -56,11 +56,11 @@ The posterior probabilities of whether $H_1$ or $H_2$ is correct are close to ea
 
 Table \@ref(tab:freq-vs-bayes) summarizes what the results would look like if we had chosen larger sample sizes. Under each of these scenarios, the frequentist method yields a higher p-value than our significance level, so we would fail to reject the null hypothesis with any of these samples. On the other hand, the Bayesian method always yields a higher posterior for the second model where $p$ is equal to 0.20. So the decisions that we would make are contradictory to each other.
 
-\begin{table}[t]
+\begin{table}
 
 \caption{(\#tab:freq-vs-bayes)Frequentist and Bayesian probabilities for larger sample sizes}
 \centering
-\begin{tabular}{llll}
+\begin{tabular}[t]{llll}
 \toprule
  & Frequentist & Bayesian H\_1 & Bayesian H\_2\\
 \midrule

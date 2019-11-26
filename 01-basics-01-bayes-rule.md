@@ -7,11 +7,11 @@ This section introduces how the Bayes' rule is applied to calculating conditiona
 Consider Table \@ref(tab:2015gallupDating).
 It shows the results of a poll among 1,738 adult Americans. This table allows us to calculate probabilities.
 
-\begin{table}[t]
+\begin{table}
 
 \caption{(\#tab:2015gallupDating)Results from a 2015 Gallup poll on the use of online dating sites by age group}
 \centering
-\begin{tabular}{lrrrrr}
+\begin{tabular}[t]{lrrrrr}
 \toprule
   & 18-29 & 30-49 & 50-64 & 65+ & Total\\
 \midrule

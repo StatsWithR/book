@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>An Introduction to Bayesian Thinking</title>
   <meta name="description" content="An Introduction to Bayesian Thinking" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
@@ -36,7 +36,7 @@
   
   
 
-<link rel="next" href="the-basics-of-bayesian-statistics.html">
+<link rel="next" href="the-basics-of-bayesian-statistics.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -44,6 +44,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -59,7 +62,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -301,7 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="author"><em>David Banks</em></p>
 <p class="author"><em>Christine Chai</em></p>
 <p class="author"><em>Lizzy Huang</em></p>
-<p class="date"><em>Last built on 2019-07-02</em></p>
+<p class="date"><em>Last built on 2019-11-26</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -309,23 +311,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This book was written as a companion for the Course <em>Bayesian Statistics</em> from the Statistics with <code>R</code> specialization available on Coursera. Our goal in developing the course was to provide an introduction to Bayesian inference in decision making without requiring calculus, with the book providing more details and background on Bayesian Inference. In writing this, we hope that it may be used on its own as an open-access introduction to Bayesian inference using <code>R</code> for anyone interested in learning about Bayesian statistics. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided. While learners are not expected to have any background in calculus or linear algebra, for those who do have this background and are interested in diving deeper, we have included optional sub-sections in each Chapter to provide additional mathematical details and some derivations of key results.</p>
 <p>This book is written using the <code>R</code> package <code>bookdown</code>; any interested learners are welcome to download the source code from <a href="github">http://github.com/StatsWithR/book</a> to see the code that was used to create all of the examples and figures within the book. Learners should have a current version of <code>R</code> (3.5.0 at the time of this version of the book) and will need to install <code>Rstudio</code> in order to use any of the <code>shiny</code> apps.</p>
 <p>Those that are interested in running all of the code in the book or building the book locally, should download all of the following packages from <code>CRAN</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># R packages used to create the book</span>
-
-<span class="kw">library</span>(statsr)
-<span class="kw">library</span>(BAS)
-<span class="kw">library</span>(ggplot2)
-<span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(BayesFactor)
-<span class="kw">library</span>(knitr)
-<span class="kw">library</span>(rjags)
-<span class="kw">library</span>(coda) 
-<span class="kw">library</span>(latex2exp)
-<span class="kw">library</span>(foreign)
-<span class="kw">library</span>(BHH2)
-<span class="kw">library</span>(scales)
-<span class="kw">library</span>(logspline)
-<span class="kw">library</span>(cowplot)
-<span class="kw">library</span>(ggthemes)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># R packages used to create the book</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(statsr)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(BAS)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(BayesFactor)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(knitr)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">library</span>(rjags)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw">library</span>(coda) </a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="kw">library</span>(latex2exp)</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="kw">library</span>(foreign)</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw">library</span>(BHH2)</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="kw">library</span>(scales)</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="kw">library</span>(logspline)</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="kw">library</span>(cowplot)</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="kw">library</span>(ggthemes)</a></code></pre></div>
 <p>We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contributions to lab exercises and quizzes in earlier versions of the course.</p>
 
 </div>
@@ -340,11 +342,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -352,12 +356,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -369,6 +372,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -387,8 +394,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
