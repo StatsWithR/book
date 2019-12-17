@@ -554,7 +554,7 @@ $$ \pi^*(\beta~|~\phi,\text{data}) \times \pi^*(\phi~|~\text{data}) \propto \lef
 The first term in the product is exactly the Normal distribution with mean $\hat{\beta}$ and standard deviation $\displaystyle \frac{\sigma^2}{\sum_i(x_i-\bar{x})^2} = \frac{\sigma^2}{\text{S}_{xx}}$
 
 $$ \beta ~|~\sigma^2,\ \text{data}~ \sim ~ \No\left(\hat{\beta},\ \frac{\sigma^2}{\text{S}_{xx}}\right). $$
-The second term, is the Gamma distribution of the precision $\phi$, or the inverse Gamma distribution of the variance $\sigma^2$
+The second term is the Gamma distribution of the precision $\phi$, or the inverse Gamma distribution of the variance $\sigma^2$
 $$ 1/\sigma^2~|~\text{data}~\sim~\Ga\left(\frac{n-2}{2},\frac{\text{SSE}}{2}\right).$$
 
 This means, the joint posterior distribution of $\beta$ and $\sigma^2$, under the reference prior, is a Normal-Gamma distribution. Similarly, the joint posterior distribution of $\alpha$ and $\sigma^2$ is also a Normal-Gamma distribution.
