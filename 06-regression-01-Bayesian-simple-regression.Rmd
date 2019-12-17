@@ -304,7 +304,7 @@ colnames(out) = c("abdomen", "prediction", "lower", "upper")
 out
 ```
 
-Based on the data, a Bayesian would expect that a man with waist circumference of `r round(out[1], 1)` centermeters should have bodyfat of `r round(out[2], 3)`% with 95% chance thta it is between `r round(out[3], 3)`% and `r round(out[4], 3)`%.
+Based on the data, a Bayesian would expect that a man with waist circumference of `r round(out[1], 1)` centimeters should have bodyfat of `r round(out[2], 3)`% with 95% chance thta it is between `r round(out[3], 3)`% and `r round(out[4], 3)`%.
 
 While we expect the majority of the data will be within the prediction intervals (the short dashed grey lines), Case 39 seems to be well below the interval. We next use Bayesian methods in Section \@ref(sec:Checking-outliers) to calculate the probability that this case is abnormal or is an outlier by falling more than $k$ standard deviations from either side of the mean.
 
