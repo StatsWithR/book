@@ -31,7 +31,7 @@ Using this information, we can obtain the posterior distribution of any residual
 
 Since $\hat{\alpha}+\hat{\beta}x_j$ is exactly the fitted value $\hat{y}_j$, the mean of this Normal distribution is $y_j-\hat{y}_j=\hat{\epsilon}_j$, which is the residual under the OLS estimates of the $j$th observation.  
 
-Using this posterior distribution and the property of conditional probability, we can calculate the probability that the error $\epsilon_j$ lies outside of $k$ standard deviation of the mean, defined in equation \@ref(eq:outlier-prob)
+Using this posterior distribution and the property of conditional probability, we can calculate the probability that the error $\epsilon_j$ lies outside of $k$ standard deviations of the mean, defined in equation \@ref(eq:outlier-prob)
 
 \begin{equation} 
 P(|\epsilon_j|>k\sigma~|~\text{data}) = \int_0^\infty P(|\epsilon_j|>k\sigma~|~\sigma^2,\text{data})p(\sigma^2~|~\text{data})\, d\sigma^2.
