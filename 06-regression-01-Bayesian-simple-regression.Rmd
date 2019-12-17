@@ -1,6 +1,6 @@
 ## Bayesian Simple Linear Regression {#sec:simple-linear}
 
-In this section, we will turn to Bayesian inference in simple linear regressions. We will use the reference prior distribution on coefficients, which will provide a connection between the frequentist solutions and Bayesian answers. This provides a baseline analysis for comparions with more informative prior distributions. To illustrate the ideas, we will use an example of predicting body fat. 
+In this section, we will turn to Bayesian inference in simple linear regressions. We will use the reference prior distribution on coefficients, which will provide a connection between the frequentist solutions and Bayesian answers. This provides a baseline analysis for comparisons with more informative prior distributions. To illustrate the ideas, we will use an example of predicting body fat. 
 
 ### Frequentist Ordinary Least Square (OLS) Simple Linear Regression
 
