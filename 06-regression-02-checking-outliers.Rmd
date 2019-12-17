@@ -48,7 +48,7 @@ The first integral $\displaystyle \int_{k\sigma}^\infty p(\epsilon_j~|~\sigma^2,
 $$ P\left(z^* > \frac{k\sigma - \hat{\epsilon}_j}{s}\right) = P\left(z^*> \frac{k\sigma-\hat{\epsilon}_j}{\sigma\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right) = P \left(z^* > \frac{k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right). $$
 That is the upper tail of the area under the standard Normal distribution when $z^*$ is larger than the critical value $\displaystyle \frac{k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
 
-The second integral, $\displaystyle \int_{-\infty}^{-k\sigma} p(\epsilon_j~|~\sigma^2, \text{data}\, d\epsilon_j$, is the same as the probability
+The second integral, $\displaystyle \int_{-\infty}^{-k\sigma} p(\epsilon_j~|~\sigma^2, \text{data})\, d\epsilon_j$, is the same as the probability
 $$ P\left(z^* < \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right), $$
 which is the lower tail of the area under the standard Normal distribution when $z^*$ is smaller than the critical value $\displaystyle \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
 
