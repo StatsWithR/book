@@ -198,7 +198,7 @@ $$ \alpha~|~\sigma^2, \text{data}~\sim ~\No\left(\hat{\alpha}, \sigma^2\left(\fr
 
 The Bayesian posterior distribution results of $\alpha$ and $\beta$ show that under the reference prior, the posterior credible intervals are in fact **numerically equivalent** to the confidence intervals from the classical frequentist OLS analysis. This provides a baseline analysis for other Bayesian analyses with other informative prior distributions or perhaps other "objective" prior distributions, such as the Cauchy distribution. (Cauchy distribution is the Student's $t$ prior with 1 degree of freedom.)
 
-Since the credible intervals are numerically the same as the confidence intervals, We can use the `lm` function to obtain the OLS estimates and construct the credible intervals of $\alpha$ and $\beta$
+Since the credible intervals are numerically the same as the confidence intervals, we can use the `lm` function to obtain the OLS estimates and construct the credible intervals of $\alpha$ and $\beta$
 
 ```{r summary-mean-std}
 output = summary(bodyfat.lm)$coef[, 1:2]
