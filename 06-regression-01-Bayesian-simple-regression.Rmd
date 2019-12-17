@@ -323,7 +323,7 @@ $$
 with covariance
 $$ \text{Cov}(\alpha, \beta ~|~\sigma^2) =\sigma^2 \text{S}_{\alpha\beta}. $$
 
-Here, $\sigma^2$, $S_\alpha$, $S_\beta$, and $S_{\alpha\beta}$ are hyperparameters. This is equivalent to setting the coefficient vector $\bv = (\alpha, \beta)^T$^[$(\alpha, \beta)^T$ means we transpose the row vector $(\alpha, \beta)$ into a column vector $\left(\begin{array}{c} \alpha \\ \beta \end{array}\right)$.] to have a bivariate normal distribution with convariance matrix $\Sigma_0$
+Here, $\sigma^2$, $S_\alpha$, $S_\beta$, and $S_{\alpha\beta}$ are hyperparameters. This is equivalent to setting the coefficient vector $\bv = (\alpha, \beta)^T$^[$(\alpha, \beta)^T$ means we transpose the row vector $(\alpha, \beta)$ into a column vector $\left(\begin{array}{c} \alpha \\ \beta \end{array}\right)$.] to have a bivariate normal distribution with covariance matrix $\Sigma_0$
 $$ \Sigma_0 = \sigma^2\left(\begin{array}{cc} S_\alpha & S_{\alpha\beta} \\
 S_{\alpha\beta} & S_\beta \end{array} \right). $$
 That is,
