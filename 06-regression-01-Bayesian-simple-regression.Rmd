@@ -43,7 +43,7 @@ ggplot(data = bodyfat, aes(x = Abdomen, y = Bodyfat)) +
 
 From the summary, we see that this model has an estimated slope, $\hat{\beta}$, of `r round(beta[2], 2)` and an estimated $y$-intercept, $\hat{\alpha}$, of about `r round(beta[1], 2)`%. This gives us the prediction formula 
 $$ \widehat{\text{Bodyfat}} = -39.28 + 0.63\times\text{Abdomen}. $$
-For every additional centimeter, we expect body fat to increase by `r round(beta[2], 2)`%. The negative $y$-intercept of course does not make sense as a physical model, but neither does predicting a male with a waist of zero centimeters. Nevertheless, this linear regression may be an accurate approximation for prediction purpose for measurements that are in the observed range for this population. 
+For every additional centimeter, we expect body fat to increase by `r round(beta[2], 2)`%. The negative $y$-intercept of course does not make sense as a physical model, but neither does predicting a male with a waist of zero centimeters. Nevertheless, this linear regression may be an accurate approximation for prediction purposes for measurements that are in the observed range for this population. 
 
 Each of the residuals, which provide an estimate of the fitting error, is equal to $\hat{\epsilon}_i = y_i - \hat{y}_i$, the difference between the observed value $y_i$ and the fited value $\hat{y}_i = \hat{\alpha} + \hat{\beta}x_i$, where $x_i$ is the abdominal circumference for the $i$th male. $\hat{\epsilon}_i$ is used for diagnostics as well as estimating the constant variance in the assumption of the model $\sigma^2$ via the mean squared error (MSE):
 $$ \hat{\sigma}^2 = \frac{1}{n-2}\sum_i^n (y_i-\hat{y}_i)^2 = \frac{1}{n-2}\sum_i^n \hat{\epsilon}_i^2. $$
