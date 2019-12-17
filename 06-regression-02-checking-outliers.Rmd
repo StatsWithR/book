@@ -15,7 +15,7 @@ $$ P(|y_j-\alpha-\beta x_j| > k\sigma~|~\text{data}).$$
 
 ### Posterior Distribution of $\epsilon_j$ Conditioning On $\sigma^2$
 
-At the end of Section \@ref(sec:simple-linear), we have discussed the posterior distributions of $\alpha$ and $\beta$. It turns out that under the reference prior, both posterior distrubtions of $\alpha$ and $\beta$, conditioning on $\sigma^2$, are both normal
+At the end of Section \@ref(sec:simple-linear), we have discussed the posterior distributions of $\alpha$ and $\beta$. It turns out that under the reference prior, both posterior distributions of $\alpha$ and $\beta$, conditioning on $\sigma^2$, are both normal
 $$ 
 \begin{aligned}
 \alpha ~|~\sigma^2, \text{data}~ & \sim ~ \No\left(\hat{\alpha}, \sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)\right), \\
