@@ -215,7 +215,7 @@ colnames(out) = c("posterior mean", "posterior std", "2.5", "97.5")
 round(out, 2)
 ```
 
-These intervals coincide with the confidence intervals from the frequentist approach. The primary difference is the interpretation. For example, based on the data, we believe that there is 95% chance that body fat will increase by `r round(out[2, 3] * 10, 2)`% up to `r round(out[2, 4] * 10, 2)`% for every additional 10 centimeter increase in the waist circumference.
+These intervals coincide with the confidence intervals from the frequentist approach. The primary difference is the interpretation. For example, based on the data, we believe that there is a 95% chance that body fat will increase by `r round(out[2, 3] * 10, 2)`% up to `r round(out[2, 4] * 10, 2)`% for every additional 10 centimeter increase in the waist circumference.
 
 
 **Credible Intervals for the Mean $\mu_Y$ and the Prediction $y_{n+1}$**
