@@ -79,7 +79,7 @@ ggplot(data = result, aes(x = fitted_values, y = residuals)) +
 # Readers may also use `plot` function
 ```
 
-With the exception of one observation for the individual with the largest fitted value, the residual plot suggests that this linear regression is a reasonable approximation. The case number of the observation with the largest fitted value can be obtained using the `which` function in R. Further examination of the data frame shows that this case also has the largest waist measurement `Abdomen`. This may be our potential outlier and we will have more discussion on outlier in Section \@ref(sec:Checking-outliers).
+With the exception of one observation for the individual with the largest fitted value, the residual plot suggests that this linear regression is a reasonable approximation. The case number of the observation with the largest fitted value can be obtained using the `which` function in R. Further examination of the data frame shows that this case also has the largest waist measurement `Abdomen`. This may be our potential outlier and we will have more discussion on outliers in Section \@ref(sec:Checking-outliers).
 
 ```{r outlier}
 # Find the observation with the largest fitted value
