@@ -253,7 +253,7 @@ same as the posterior formula in Equation \@ref(eq:beta-binomial).
 
 We can recognize the posterior distribution from the numerator $p^{\alpha+x-1}$ and $(1-p)^{\beta+n-x-1}$. Everything else are just constants, and they must take the unique value, which is needed to ensure that the area under the curve between 0 and 1 equals 1. So they have to take the values of the beta, which has parameters $\alpha+x$ and $\beta+n-x$.
 
-This is a cute trick. We can find the answer without doing the integral simply by looking at form of the numerator. 
+This is a cute trick. We can find the answer without doing the integral simply by looking at the form of the numerator. 
 
 Without conjugacy, one has to do the integral. Often, the integral is impossible to evaluate. That obstacle is the primary reason that most statistical theory in the 20th century was not Bayesian. The situation did not change until modern computing allowed researchers to compute integrals numerically. 
 
