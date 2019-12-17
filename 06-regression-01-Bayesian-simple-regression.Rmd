@@ -185,7 +185,7 @@ Similarly, we can integrate out $\beta$ and $\sigma^2$ from the joint posterior 
 $$ \alpha~|~y_1,\cdots,y_n~\sim~  \St\left(n-2,\ \hat{\alpha},\ \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)\right) = \St\left(n-2,\ \hat{\alpha},\ (\text{se}_{\alpha})^2\right).$$
 
 
-Finally, we can show that the marginal posterior distribution of $\sigma^2$ is the inverse Gamma distribution, or equivalently, the reciprocal of $\sigma^2$, which is the precision $\phi$, follows the Gamme distribution
+Finally, we can show that the marginal posterior distribution of $\sigma^2$ is the inverse Gamma distribution, or equivalently, the reciprocal of $\sigma^2$, which is the precision $\phi$, follows the Gamma distribution
 $$ \phi = \frac{1}{\sigma^2}~|~y_1,\cdots,y_n \sim \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
 
 Moreover, similar to the Normal-Gamma conjugacy under the reference prior introduced in the previous chapters, the joint posterior distribution of $\beta, \sigma^2$, and the joint posterior distribution of $\alpha, \sigma^2$ are both Normal-Gamma. In particular, the posterior distribution of $\beta$ conditioning on $\sigma^2$ is
