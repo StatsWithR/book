@@ -198,14 +198,7 @@ cog.bestBIC = bas.lm(kid_score ~ ., data = cognitive,
                      prior = "BIC", n.models = 1,  # We only fit 1 model
                      bestmodel = bestgamma,  # We use bestgamma to indicate variables 
                      modelprior = uniform())
-```
 
-```
-## Warning in model.matrix.default(mt, mf, contrasts): non-list contrasts argument
-## ignored
-```
-
-```r
 # Retreat coefficients information
 cog.coef = coef(cog.bestBIC)
 
