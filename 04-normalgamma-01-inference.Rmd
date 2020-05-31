@@ -202,39 +202,40 @@ lower endpoint L and upper endpoint U where  the heights of the density at L and
 ```{r tapwater-post-mu, echo=F, warning=FALSE, message=FALSE, echo=FALSE, fig.width=4, fig.height=4, fig.align="center", fig.cap="Highest Posterior Density region."}
 require(ggplot2)
 data(tapwater)
-  m_0 = 35; 
-  n_0 = 25; 
-  s2_0 = 156.25;
-  v_0 = n_0 - 1
+m_0 = 35; 
+n_0 = 25; 
+s2_0 = 156.25;
+v_0 = n_0 - 1
 
-out =bayes_inference(tthm, data=tapwater,prior="NG",
-                mu_0 = m_0, n_0=n_0, s_0 = sqrt(s2_0), v_0 = v_0,
-                method="theoretical", stat="mean", type="ci",show_res=F, show_summ=F, show_plot=T )
- den = out$post_den
+out = bayes_inference(tthm, data=tapwater, prior="NG",
+                      mu_0 = m_0, n_0 = n_0, s_0 = sqrt(s2_0), v_0 = v_0,
+                      method="theoretical", stat="mean", type="ci", 
+                      show_res=FALSE, show_summ=FALSE, show_plot=TRUE)
+den = out$post_den
 
- ci = out$ci
- d = data.frame(mu = den$x, dens = den$y)
+ci = out$ci
+d = data.frame(mu = den$x, dens = den$y)
 
-    d = d[d$dens > 1e-4,]
+d = d[d$dens > 1e-4,]
 
-    li = min(which(d$mu >= ci[1]))
-    ui = max(which(d$mu <  ci[2]))
+li = min(which(d$mu >= ci[1]))
+ui = max(which(d$mu <  ci[2]))
 
-    ci_poly = data.frame(mu = c(d$mu[c(li,li:ui,ui)]),
-                         dens = c(0, d$dens[li:ui], 0))
+ci_poly = data.frame(mu = c(d$mu[c(li,li:ui,ui)]),
+                     dens = c(0, d$dens[li:ui], 0))
 
 
-    ci_interval = data.frame(mu = ci, dens = 0)
-    pos_plot = ggplot(d, aes_string(x="mu", y="dens")) +
-               geom_line() +
-               ylab("Density") +
-               xlab(expression(mu)) +
-               geom_line(data  = ci_interval, size=1.5, colour="orange") +
-               geom_point(data = ci_interval, size=2) +
-               geom_polygon(data = ci_poly, alpha=0.5) +
-               theme(panel.background = element_rect(fill = "transparent", colour = NA),
-                     plot.background = element_rect(fill = "transparent", colour = NA)) +
-               theme(text = element_text(size=12))
+ci_interval = data.frame(mu = ci, dens = 0)
+pos_plot = ggplot(d, aes_string(x="mu", y="dens")) +
+  geom_line() +
+  ylab("Density") +
+  xlab(expression(mu)) +
+  geom_line(data  = ci_interval, size=1.5, colour="orange") +
+  geom_point(data = ci_interval, size=2) +
+  geom_polygon(data = ci_poly, alpha=0.5) +
+  theme(panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background = element_rect(fill = "transparent", colour = NA)) +
+  theme(text = element_text(size=12))
 ```
 
 
@@ -252,26 +253,25 @@ or the posterior mean (our point estimate) plus quantiles of the standard $t$ di
 A municipality in North Carolina is interested in estimating the levels of TTHM in their drinking water.   The data can be loaded from the `statsr` package in `R`, where the variable of interest, `tthm` is measured in parts per billion.
 
 
-  ```{r load-data,  warning=FALSE, message=FALSE}
-  library(statsr)
-  data(tapwater)
-  glimpse(tapwater)
-  ```
+```{r load-data,  warning=FALSE, message=FALSE}
+library(statsr)
+data(tapwater)
+glimpse(tapwater)
+```
   
 
-  ```{r tapwater, warning=FALSE, message=FALSE, echo=FALSE}
-
-  Y = tapwater$tthm
-  ybar = mean(Y)
-  s2 = var(Y)
-  n = length(Y)
-  n_n = n_0 + n
-  m_n = (n*ybar + n_0*m_0)/n_n
-  v_n = v_0 + n
-  s2_n = round( ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n, 1)
-  L = qt(.025, v_n)*sqrt(s2_n/n_n) + m_n
-  U = qt(.975, v_n)*sqrt(s2_n/n_n) + m_n
-  ```
+```{r tapwater, warning=FALSE, message=FALSE, echo=FALSE}
+Y = tapwater$tthm
+ybar = mean(Y)
+s2 = var(Y)
+n = length(Y)
+n_n = n_0 + n
+m_n = (n*ybar + n_0*m_0)/n_n
+v_n = v_0 + n
+s2_n = round( ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n, 1)
+L = qt(.025, v_n)*sqrt(s2_n/n_n) + m_n
+U = qt(.975, v_n)*sqrt(s2_n/n_n) + m_n
+```
 
 
 
@@ -300,21 +300,20 @@ posterior distribution that now summarizes our
 uncertainty about $\mu$ and $\phi$ ($\sigma^2$)  after seeing the data.
 
 We can obtain the updated hyper-parameters in `R` using the following code in `R`
-  ```{r post-NG-TTHM}
-  # prior hyperparameters
-  m_0 = 35; n_0 = 25;  s2_0 = 156.25; v_0 = n_0 - 1
-  # sample summaries
-  Y = tapwater$tthm
-  ybar = mean(Y)
-  s2 = var(Y)
-  n = length(Y)
-  # posterior hyperparamters
-  n_n = n_0 + n
-  m_n = (n*ybar + n_0*m_0)/n_n
-  v_n = v_0 + n
-  s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
-
-  ```
+```{r post-NG-TTHM}
+# prior hyperparameters
+m_0 = 35; n_0 = 25;  s2_0 = 156.25; v_0 = n_0 - 1
+# sample summaries
+Y = tapwater$tthm
+ybar = mean(Y)
+s2 = var(Y)
+n = length(Y)
+# posterior hyperparamters
+n_n = n_0 + n
+m_n = (n*ybar + n_0*m_0)/n_n
+v_n = v_0 + n
+s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
+```
 
 
 
@@ -323,22 +322,17 @@ Using the following code in `R` the  95\%
 credible interval for the tap water data may be obtained using the Student $t$ quantile function `qt`.
 
 ```{r CI-tapwater}
-  m_n + qt(c(0.025, 0.975), v_n)*sqrt(s2_n/n_n)
+m_n + qt(c(0.025, 0.975), v_n)*sqrt(s2_n/n_n)
 ```
 The `qt` function takes two arguments:  the first is the desired quantiles, while the second is the degrees of freedom. Both arguments may be vectors, in which case, the result will be a vector.   
 
 While we can calculate the interval directly as above, we have provided the `bayes_inference` function in the `statsr` package to calculate the posterior hyperparameters, credible intervals and plot  the posterior density and the HPD interval given the raw data:
 
 ```{r statsr-CI-tapwate}
-bayes_inference(tthm, data=tapwater,
-                prior="NG",
-                mu_0 = m_0, n_0=n_0, 
-                s_0 = sqrt(s2_0), v_0 = v_0,
-                stat="mean", type="ci",
-                method="theoretical", 
-                show_res=T, 
-                show_summ=T,
-                show_plot=F)
+bayes_inference(tthm, data=tapwater, prior="NG",
+                mu_0 = m_0, n_0=n_0, s_0 = sqrt(s2_0), v_0 = v_0,
+                stat="mean", type="ci", method="theoretical", 
+                show_res=TRUE, show_summ=TRUE, show_plot=FALSE)
 ```
   
 Let's try to understand the arguments to the function. The first argument of the function is the variable of interest, `tthm`, while the second argument is a dataframe with the variable.  The argument `prior="NG"` indicates that we are using a normal-gamma prior; later we will present alternative priors.  The next two lines provide our prior hyperparameters.  The line with  `stat="mean", type="ci"` indicate that we are interested in inference about the population mean $\mu$ and to calculate a credible interval for $\mu$. The argument `method = theoretical` indicates that we will use the exact quantiles of the Student $t$ distribution to obtain our posterior credible intervals.  Looking at the output the credible interval agrees with the interval we calculated from the summaries using the t quantiles.  The other arguments are logical variables to toggle on/off the various output.  In this case we have supressed producing the plot of the posterior distribution using the option `show_plot=FALSE`, however, setting this to `TRUE` produces the density and credible interval shown in Figure \@ref{fig:tapwater-post-mu}.
