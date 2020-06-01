@@ -208,26 +208,26 @@ or the posterior mean (our point estimate) plus quantiles of the standard $t$ di
 A municipality in North Carolina is interested in estimating the levels of TTHM in their drinking water.   The data can be loaded from the `statsr` package in `R`, where the variable of interest, `tthm` is measured in parts per billion.
 
 
-  
-  ```r
-  library(statsr)
-  data(tapwater)
-  glimpse(tapwater)
-  ```
-  
-  ```
-  ## Observations: 28
-  ## Variables: 6
-  ## $ date       <fct> 2009-02-25, 2008-12-22, 2008-09-25, 2008-05-14, 2008-04-...
-  ## $ tthm       <dbl> 34.38, 39.33, 108.63, 88.00, 81.00, 49.25, 75.00, 82.86,...
-  ## $ samples    <int> 8, 9, 8, 8, 2, 8, 6, 7, 8, 4, 4, 4, 4, 6, 4, 8, 10, 10, ...
-  ## $ nondetects <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
-  ## $ min        <dbl> 32.00, 31.00, 85.00, 75.00, 81.00, 26.00, 70.00, 70.00, ...
-  ## $ max        <dbl> 39.00, 46.00, 120.00, 94.00, 81.00, 68.00, 80.00, 90.00,...
-  ```
+
+```r
+library(statsr)
+data(tapwater)
+glimpse(tapwater)
+```
+
+```
+## Rows: 28
+## Columns: 6
+## $ date       <fct> 2009-02-25, 2008-12-22, 2008-09-25, 2008-05-14, 2008-04-...
+## $ tthm       <dbl> 34.38, 39.33, 108.63, 88.00, 81.00, 49.25, 75.00, 82.86,...
+## $ samples    <int> 8, 9, 8, 8, 2, 8, 6, 7, 8, 4, 4, 4, 4, 6, 4, 8, 10, 10, ...
+## $ nondetects <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+## $ min        <dbl> 32.00, 31.00, 85.00, 75.00, 81.00, 26.00, 70.00, 70.00, ...
+## $ max        <dbl> 39.00, 46.00, 120.00, 94.00, 81.00, 68.00, 80.00, 90.00,...
+```
   
 
-  
+
 
 
 
@@ -256,21 +256,21 @@ posterior distribution that now summarizes our
 uncertainty about $\mu$ and $\phi$ ($\sigma^2$)  after seeing the data.
 
 We can obtain the updated hyper-parameters in `R` using the following code in `R`
-  
-  ```r
-  # prior hyperparameters
-  m_0 = 35; n_0 = 25;  s2_0 = 156.25; v_0 = n_0 - 1
-  # sample summaries
-  Y = tapwater$tthm
-  ybar = mean(Y)
-  s2 = var(Y)
-  n = length(Y)
-  # posterior hyperparamters
-  n_n = n_0 + n
-  m_n = (n*ybar + n_0*m_0)/n_n
-  v_n = v_0 + n
-  s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
-  ```
+
+```r
+# prior hyperparameters
+m_0 = 35; n_0 = 25;  s2_0 = 156.25; v_0 = n_0 - 1
+# sample summaries
+Y = tapwater$tthm
+ybar = mean(Y)
+s2 = var(Y)
+n = length(Y)
+# posterior hyperparamters
+n_n = n_0 + n
+m_n = (n*ybar + n_0*m_0)/n_n
+v_n = v_0 + n
+s2_n = ((n-1)*s2 + v_0*s2_0 + n_0*n*(m_0 - ybar)^2/n_n)/v_n
+```
 
 
 
@@ -280,7 +280,7 @@ credible interval for the tap water data may be obtained using the Student $t$ q
 
 
 ```r
-  m_n + qt(c(0.025, 0.975), v_n)*sqrt(s2_n/n_n)
+m_n + qt(c(0.025, 0.975), v_n)*sqrt(s2_n/n_n)
 ```
 
 ```
@@ -292,15 +292,10 @@ While we can calculate the interval directly as above, we have provided the `bay
 
 
 ```r
-bayes_inference(tthm, data=tapwater,
-                prior="NG",
-                mu_0 = m_0, n_0=n_0, 
-                s_0 = sqrt(s2_0), v_0 = v_0,
-                stat="mean", type="ci",
-                method="theoretical", 
-                show_res=T, 
-                show_summ=T,
-                show_plot=F)
+bayes_inference(tthm, data=tapwater, prior="NG",
+                mu_0 = m_0, n_0=n_0, s_0 = sqrt(s2_0), v_0 = v_0,
+                stat="mean", type="ci", method="theoretical", 
+                show_res=TRUE, show_summ=TRUE, show_plot=FALSE)
 ```
 
 ```
