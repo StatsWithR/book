@@ -195,8 +195,10 @@ Let's use this result to find credible intervals for $\mu$.
 
 ### Credible Intervals for $\mu$
 
-To find a credible interval for the mean $\mu$, we will use the marginal posterior distribution for $\mu$ as illustrated in  Figure \@ref(fig:tapwater-post-mu). Since the Student $t$ distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short, is the  interval given by the dots at the lower endpoint L and upper endpoint U where  the heights of the density at L and U are equal and all other values for $\mu$ have higher posterior density. The probability that $\mu$ is in the interval (L, U) (the shaded area) equals the desired probability, e.g. 0.95 for a 95% credible interval.
-
+To find a credible interval for the mean $\mu$, we will use the marginal posterior distribution for $\mu$ as illustrated in  Figure \@ref(fig:tapwater-post-mu).
+Since the Student $t$ distribution of $\mu$ is unimodal and symmetric, the shortest 95 percent credible interval or the **Highest Posterior Density** interval, HPD for short,
+is the  interval given by the dots at the
+lower endpoint L and upper endpoint U where  the heights of the density at L and U are equal and all other values for $\mu$ have higher posterior density. The probability that $\mu$ is in the interval (L, U) (the shaded area) equals the desired probability, e.g. 0.95 for a 95% credible interval.
 ```{r tapwater-post-mu, echo=F, warning=FALSE, message=FALSE, echo=FALSE, fig.width=4, fig.height=4, fig.align="center", fig.cap="Highest Posterior Density region."}
 require(ggplot2)
 data(tapwater)
@@ -205,7 +207,9 @@ n_0 = 25;
 s2_0 = 156.25;
 v_0 = n_0 - 1
 
-out = bayes_inference(tthm, data=tapwater, statistic="mean", type="ci", 
+out = bayes_inference(tthm, data=tapwater, prior="NG",
+                      mu_0 = m_0, n_0 = n_0, s_0 = sqrt(s2_0), v_0 = v_0,
+                      method="theoretical", stat="mean", type="ci", 
                       show_res=FALSE, show_summ=FALSE, show_plot=TRUE)
 den = out$post_den
 
@@ -269,6 +273,9 @@ L = qt(.025, v_n)*sqrt(s2_n/n_n) + m_n
 U = qt(.975, v_n)*sqrt(s2_n/n_n) + m_n
 ```
 
+
+
+
 Using historical prior information about TTHM from the municipality, we will adopt a normal-gamma prior distribution,
 $\textsf{NormalGamma}(`r m_0`, `r n_0`, `r s2_0`, `r v_0`)$ with
 a prior mean of `r m_0` parts per billion, a prior sample
@@ -319,16 +326,16 @@ m_n + qt(c(0.025, 0.975), v_n)*sqrt(s2_n/n_n)
 ```
 The `qt` function takes two arguments:  the first is the desired quantiles, while the second is the degrees of freedom. Both arguments may be vectors, in which case, the result will be a vector.   
 
-<!--
-While we can calculate the interval directly as above, we have provided the `bayes_inference` function in the `statsr` package to calculate the posterior hyperparameters, credible intervals and plot the posterior density and the HPD interval given the raw data:
+While we can calculate the interval directly as above, we have provided the `bayes_inference` function in the `statsr` package to calculate the posterior hyperparameters, credible intervals and plot  the posterior density and the HPD interval given the raw data:
 
 ```{r statsr-CI-tapwate}
-#bayes_inference(tthm, data=tapwater, stat="mean", type="ci",
-#                show_res=TRUE, show_summ=TRUE, show_plot=FALSE)
+bayes_inference(tthm, data=tapwater, prior="NG",
+                mu_0 = m_0, n_0=n_0, s_0 = sqrt(s2_0), v_0 = v_0,
+                stat="mean", type="ci", method="theoretical", 
+                show_res=TRUE, show_summ=TRUE, show_plot=FALSE)
 ```
   
 Let's try to understand the arguments to the function. The first argument of the function is the variable of interest, `tthm`, while the second argument is a dataframe with the variable.  The argument `prior="NG"` indicates that we are using a normal-gamma prior; later we will present alternative priors.  The next two lines provide our prior hyperparameters.  The line with  `stat="mean", type="ci"` indicate that we are interested in inference about the population mean $\mu$ and to calculate a credible interval for $\mu$. The argument `method = theoretical` indicates that we will use the exact quantiles of the Student $t$ distribution to obtain our posterior credible intervals.  Looking at the output the credible interval agrees with the interval we calculated from the summaries using the t quantiles.  The other arguments are logical variables to toggle on/off the various output.  In this case we have supressed producing the plot of the posterior distribution using the option `show_plot=FALSE`, however, setting this to `TRUE` produces the density and credible interval shown in Figure \@ref{fig:tapwater-post-mu}.
--->
 
 How do we interprte these results? Based on the updated posterior, we find that there is a 95% chance that
 the mean TTHM concentration is between `r round(L, 1)`
