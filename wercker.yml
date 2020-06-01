@@ -12,7 +12,7 @@ build:
           apt-get update -q
           apt-get install -y jags
           install2.r -d TRUE -e BAS
-          installGithub.r StatsWithR/statsr
+          installGithub.r StatsWithR/statsr@BayesFactor
           install2.r packrat
           install2.r `Rscript -e "cat(paste( setdiff( packrat:::dirDependencies('.'), row.names(installed.packages()) ), collapse=' '))"`      
     - script:
