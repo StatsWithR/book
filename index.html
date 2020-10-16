@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>An Introduction to Bayesian Thinking</title>
   <meta name="description" content="An Introduction to Bayesian Thinking" />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
@@ -54,12 +54,13 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -68,14 +69,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -84,9 +87,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -141,15 +144,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
 <li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
 <li class="chapter" data-level="1.1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
-<li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
+<li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.-frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-frequentist-approach"><i class="fa fa-check"></i><b>1.2.1</b> Inference for a Proportion: Frequentist Approach</a></li>
 <li class="chapter" data-level="1.2.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
 <li class="chapter" data-level="1.2.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
-<li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
+<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.-bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.-bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#exercises"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
 </ul></li>
@@ -303,7 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="author"><em>David Banks</em></p>
 <p class="author"><em>Christine Chai</em></p>
 <p class="author"><em>Lizzy Huang</em></p>
-<p class="date"><em>Last built on 2020-06-01</em></p>
+<p class="date"><em>Last built on 2020-10-16</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -311,23 +314,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This book was written as a companion for the Course <em>Bayesian Statistics</em> from the Statistics with <code>R</code> specialization available on Coursera. Our goal in developing the course was to provide an introduction to Bayesian inference in decision making without requiring calculus, with the book providing more details and background on Bayesian Inference. In writing this, we hope that it may be used on its own as an open-access introduction to Bayesian inference using <code>R</code> for anyone interested in learning about Bayesian statistics. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided. While learners are not expected to have any background in calculus or linear algebra, for those who do have this background and are interested in diving deeper, we have included optional sub-sections in each Chapter to provide additional mathematical details and some derivations of key results.</p>
 <p>This book is written using the <code>R</code> package <code>bookdown</code>; any interested learners are welcome to download the source code from <a href="github">http://github.com/StatsWithR/book</a> to see the code that was used to create all of the examples and figures within the book. Learners should have a current version of <code>R</code> (3.5.0 at the time of this version of the book) and will need to install <code>Rstudio</code> in order to use any of the <code>shiny</code> apps.</p>
 <p>Those that are interested in running all of the code in the book or building the book locally, should download all of the following packages from <code>CRAN</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># R packages used to create the book</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(statsr)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(BAS)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(BayesFactor)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(knitr)</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">library</span>(rjags)</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw">library</span>(coda) </a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="kw">library</span>(latex2exp)</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="kw">library</span>(foreign)</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw">library</span>(BHH2)</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="kw">library</span>(scales)</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="kw">library</span>(logspline)</a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="kw">library</span>(cowplot)</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="kw">library</span>(ggthemes)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="co"># R packages used to create the book</span></span>
+<span id="cb1-2"><a href="index.html#cb1-2"></a></span>
+<span id="cb1-3"><a href="index.html#cb1-3"></a><span class="kw">library</span>(statsr)</span>
+<span id="cb1-4"><a href="index.html#cb1-4"></a><span class="kw">library</span>(BAS)</span>
+<span id="cb1-5"><a href="index.html#cb1-5"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="index.html#cb1-6"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb1-7"><a href="index.html#cb1-7"></a><span class="kw">library</span>(BayesFactor)</span>
+<span id="cb1-8"><a href="index.html#cb1-8"></a><span class="kw">library</span>(knitr)</span>
+<span id="cb1-9"><a href="index.html#cb1-9"></a><span class="kw">library</span>(rjags)</span>
+<span id="cb1-10"><a href="index.html#cb1-10"></a><span class="kw">library</span>(coda) </span>
+<span id="cb1-11"><a href="index.html#cb1-11"></a><span class="kw">library</span>(latex2exp)</span>
+<span id="cb1-12"><a href="index.html#cb1-12"></a><span class="kw">library</span>(foreign)</span>
+<span id="cb1-13"><a href="index.html#cb1-13"></a><span class="kw">library</span>(BHH2)</span>
+<span id="cb1-14"><a href="index.html#cb1-14"></a><span class="kw">library</span>(scales)</span>
+<span id="cb1-15"><a href="index.html#cb1-15"></a><span class="kw">library</span>(logspline)</span>
+<span id="cb1-16"><a href="index.html#cb1-16"></a><span class="kw">library</span>(cowplot)</span>
+<span id="cb1-17"><a href="index.html#cb1-17"></a><span class="kw">library</span>(ggthemes)</span></code></pre></div>
 <p>We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contributions to lab exercises and quizzes in earlier versions of the course.</p>
 
 </div>

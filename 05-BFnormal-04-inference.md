@@ -8,8 +8,10 @@ output:
 In this section, we will work through another example for comparing two means using both hypothesis tests and interval estimates, with an informative prior.
 We will also illustrate how to adjust the credible interval after testing.
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:smoking"><strong>(\#exm:smoking) </strong></span>We will use the North Carolina survey data to examine the relationship
-between infant birth weight and whether the mother smoked during pregnancy. The response variable, \texttt{weight}, is the birth weight of the baby in pounds. The categorical variable \texttt{habit} provides the status of the mother as a smoker or non-smoker.</div>\EndKnitrBlock{example}
+\BeginKnitrBlock{example}
+<span class="example" id="exm:smoking"><strong>(\#exm:smoking) </strong></span>We will use the North Carolina survey data to examine the relationship
+between infant birth weight and whether the mother smoked during pregnancy. The response variable, \texttt{weight}, is the birth weight of the baby in pounds. The categorical variable \texttt{habit} provides the status of the mother as a smoker or non-smoker.
+\EndKnitrBlock{example}
 
 We would like to answer two questions:
   
@@ -69,7 +71,7 @@ out =bayes_inference(y=weight, x=habit, data=nc,type='ht', null=0,
 ## P(H2|data) = 0.5902 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (0.0212 , 0.5722)
+## 95% Cred. Int.: (0.0216 , 0.5718)
 ```
 
 
@@ -91,12 +93,12 @@ print(out.ci$summary, digits=2)
 ```
 
 ```
-##                             2.5%     25%     50%     75%   97.5%
-## overall mean               6.858    6.95    6.99    7.04 7.1e+00
-## mu_nonsmoker - mu_smoker   0.034    0.20    0.29    0.39 5.6e-01
-## sigma^2                    2.073    2.19    2.26    2.33 2.5e+00
-## effect size                0.022    0.13    0.20    0.26 3.7e-01
-## n_0                      180.108 1868.04 4663.31 9480.83 2.6e+04
+##                             2.5%     25%    50%     75%   97.5%
+## overall mean               6.854    6.94    7.0    7.04 7.1e+00
+## mu_nonsmoker - mu_smoker   0.020    0.21    0.3    0.40 5.7e-01
+## sigma^2                    2.070    2.19    2.3    2.33 2.5e+00
+## effect size                0.013    0.14    0.2    0.27 3.8e-01
+## n_0                      159.130 1863.93 4625.6 9239.34 2.5e+04
 ```
 
 The 2.5 and 97.5 percentiles for the difference in the means provide a 95% credible interval of 0.023 to 0.57 pounds for the difference in average birth weight. The MCMC output shows not only summaries about the difference in the mean $\alpha$, but the other parameters in the model.

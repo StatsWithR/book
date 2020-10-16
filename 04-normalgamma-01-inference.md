@@ -161,13 +161,15 @@ $$ \frac{X - m}{s} \equiv t \sim \St(v, 0 , 1)  $$
 we can obtain the distribution of the standardized Student $t$ distribution with degrees of freedom $v$, location  $0$ and scale $1$. This latter representation allows us to use standard statistical functions for posterior inference such as finding credible intervals.
 
 We are now ready for our main result for the marginal distribution for $\mu$. 
-\BeginKnitrBlock{definition}<div class="definition"><span class="definition" id="def:unnamed-chunk-1"><strong>(\#def:unnamed-chunk-1) </strong></span>If $\mu$ and $1/\sigma^2$ have a $\textsf{NormalGamma}(m_n, n_n, v_n, s^2_n)$ posterior distribution, then 
+\BeginKnitrBlock{definition}
+<span class="definition" id="def:unnamed-chunk-1"><strong>(\#def:unnamed-chunk-1) </strong></span>If $\mu$ and $1/\sigma^2$ have a $\textsf{NormalGamma}(m_n, n_n, v_n, s^2_n)$ posterior distribution, then 
 $\mu$ given the data has a \index{Student t distribution} distribution, $\St(v_n, m_n, s^2_n/n_n)$, expressed as
 $$ \mu \mid \data \sim \St(v_n, m_n, s^2_n/n_n)  $$ 
 with degrees of freedom $v_n$, 
 location parameter, $m_n$, and squared scale parameter, $s^2_n/n_n$, that is the
 posterior variance parameter divided by the posterior sample size.  
-</div>\EndKnitrBlock{definition}
+
+\EndKnitrBlock{definition}
 
 The parameters $m_n$ and $s^2_n$ play similar roles in determining the center and spread of the distribution, as in the normal distribution, however,  as Student $t$ distributions with degrees of freedom less than 3 do not have a mean or variance, the parameter $m_n$ is called the location or center of the distribution and the $s_n/\sqrt{n}$ is the scale.
 

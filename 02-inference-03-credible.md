@@ -104,11 +104,13 @@ $$P(X \leq x) = \int^{\infty}_{-\infty} P(X \leq x | \theta)\, p(\theta)d\theta 
 
 The equation gives us the weighted average of the probabilities for $X$, where the weights correspond to the personal probability on $\theta$. Here we will not perform the integral case; instead, we will illustrate the thinking with a discrete example. 
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:unnamed-chunk-1"><strong>(\#exm:unnamed-chunk-1) </strong></span>Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 
+\BeginKnitrBlock{example}
+<span class="example" id="exm:unnamed-chunk-1"><strong>(\#exm:unnamed-chunk-1) </strong></span>Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 
 
 Before you start the game, your prior belief is that the probability of choosing the 0.7 coin is 0.5. This is reasonable, because both coins were equally likely to be drawn. In this game, you win if the coin comes up heads. 
 
-Suppose the game starts, you have tossed twice, and have obtained two heads. Then what is your new belief about $p$, the probability that you are using the 0.7 coin? </div>\EndKnitrBlock{example}
+Suppose the game starts, you have tossed twice, and have obtained two heads. Then what is your new belief about $p$, the probability that you are using the 0.7 coin? 
+\EndKnitrBlock{example}
 
 This is just a simple application of the discrete form of Bayes' rule. 
 

@@ -7,11 +7,13 @@ output:
 
 In the previous section, we described Bayes factors for testing whether the mean difference of **paired** samples was zero. In this section, we will consider a slightly different problem -- we have two **independent** samples, and we would like to test the hypothesis that the means are different or equal.
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:birth-records"><strong>(\#exm:birth-records) </strong></span>We illustrate the testing of independent groups with data from a 2004 survey of birth records from North Carolina, which are available in the \texttt{statsr} package.
+\BeginKnitrBlock{example}
+<span class="example" id="exm:birth-records"><strong>(\#exm:birth-records) </strong></span>We illustrate the testing of independent groups with data from a 2004 survey of birth records from North Carolina, which are available in the \texttt{statsr} package.
 
 The variable of interest is \texttt{gained} -- the weight gain of mothers during pregnancy. We have two groups defined by the categorical variable, \texttt{mature}, with levels, younger mom and older mom.
 
-**Question of interest**: Do the data provide convincing evidence of a difference between the average weight gain of older moms and the average weight gain of younger moms?</div>\EndKnitrBlock{example}
+**Question of interest**: Do the data provide convincing evidence of a difference between the average weight gain of older moms and the average weight gain of younger moms?
+\EndKnitrBlock{example}
 
 We will view the data as a random sample from two populations, older and younger moms. The two groups are modeled as:
 
@@ -84,7 +86,7 @@ bayes_inference(y=gained, x=mature, data=nc,type='ht',
 ## P(H2|data) = 0.1489 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (-4.3393 , 0.837)
+## 95% Cred. Int.: (-4.314 , 0.8464)
 ```
 
 

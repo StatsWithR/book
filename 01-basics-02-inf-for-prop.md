@@ -2,11 +2,13 @@
 
 ### Inference for a Proportion: Frequentist Approach
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:RU-486"><strong>(\#exm:RU-486) </strong></span>RU-486 is claimed to be an effective "morning after" contraceptive pill, but is it really effective?
+\BeginKnitrBlock{example}
+<span class="example" id="exm:RU-486"><strong>(\#exm:RU-486) </strong></span>RU-486 is claimed to be an effective "morning after" contraceptive pill, but is it really effective?
 
 Data: A total of 40 women came to a health clinic asking for emergency contraception (usually to prevent pregnancy after unprotected sex). They were randomly assigned to RU-486 (treatment) or standard therapy (control), 20 in each group. In the treatment group, 4 out of 20 became pregnant. In the control group, the pregnancy rate is 16 out of 20.
 
-Question: How strongly do these data indicate that the treatment is more effective than the control?</div>\EndKnitrBlock{example}
+Question: How strongly do these data indicate that the treatment is more effective than the control?
+\EndKnitrBlock{example}
 
 To simplify the framework, let's make it a one proportion problem and just consider the 20 total pregnancies because the two groups have the same sample size. If the treatment and control are equally effective, then the probability that a pregnancy comes from the treatment group ($p$) should be 0.5. If RU-486 is more effective, then the probability that a pregnancy comes from the treatment group ($p$) should be less than 0.5.
 

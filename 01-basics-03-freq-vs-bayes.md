@@ -4,13 +4,15 @@
 
 In this section, we will solve a simple inference problem using both frequentist and Bayesian approaches. Then we will compare our results based on decisions based on the two methods, to see whether we get the same answer or not. If we do not, we will discuss why that happens.
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:MM"><strong>(\#exm:MM) </strong></span>We have a population of M&M's, and in this population the percentage of yellow M&M's is either 10% or 20%. You have been hired as a statistical consultant to decide whether the true percentage of yellow M&M's is 10% or 20%. 
+\BeginKnitrBlock{example}
+<span class="example" id="exm:MM"><strong>(\#exm:MM) </strong></span>We have a population of M&M's, and in this population the percentage of yellow M&M's is either 10% or 20%. You have been hired as a statistical consultant to decide whether the true percentage of yellow M&M's is 10% or 20%. 
 
 Payoffs/losses: You are being asked to make a decision, and there are associated payoff/losses that you should consider. If you make the correct decision, your boss gives you a bonus. On the other hand, if you make the wrong decision, you lose your job.
 
 Data: You can "buy" a random sample from the population -- You pay $200 for each M&M, and you must buy in $1,000 increments (5 M&Ms at a time). You have a total of $4,000 to spend, i.e., you may buy 5, 10, 15, or 20 M&Ms.
 
-Remark: Remember that the cost of making a wrong decision is high, so you want to be fairly confident of your decision. At the same time, though, data collection is also costly, so you don't want to pay for a sample larger than you need. If you believe that you could actually make a correct decision using a smaller sample size, you might choose to do so and save money and resources.</div>\EndKnitrBlock{example}
+Remark: Remember that the cost of making a wrong decision is high, so you want to be fairly confident of your decision. At the same time, though, data collection is also costly, so you don't want to pay for a sample larger than you need. If you believe that you could actually make a correct decision using a smaller sample size, you might choose to do so and save money and resources.
+\EndKnitrBlock{example}
 
 Let's start with the frequentist inference.
 

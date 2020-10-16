@@ -7,9 +7,11 @@ output:
 
 We previously learned that we can use a paired t-test to compare means from two paired samples. In this section, we will show how Bayes factors can be expressed as a function of the t-statistic for comparing the means and provide posterior probabilities of the hypothesis that whether the means are equal or different.
 
-\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:zinc"><strong>(\#exm:zinc) </strong></span>Trace metals in drinking water affect the flavor, and unusually high concentrations can pose a health hazard. Ten pairs of data were taken measuring the zinc concentration in bottom and surface water at ten randomly sampled locations, as listed in Table \@ref(tab:zinc-table).
+\BeginKnitrBlock{example}
+<span class="example" id="exm:zinc"><strong>(\#exm:zinc) </strong></span>Trace metals in drinking water affect the flavor, and unusually high concentrations can pose a health hazard. Ten pairs of data were taken measuring the zinc concentration in bottom and surface water at ten randomly sampled locations, as listed in Table \@ref(tab:zinc-table).
 
-Water samples collected at the the same location, on the surface and the bottom, cannot be assumed to be independent of each other. However, it may be reasonable to assume that the differences in the concentration at the bottom and the surface in randomly sampled locations are independent of each other.</div>\EndKnitrBlock{example}
+Water samples collected at the the same location, on the surface and the bottom, cannot be assumed to be independent of each other. However, it may be reasonable to assume that the differences in the concentration at the bottom and the surface in randomly sampled locations are independent of each other.
+\EndKnitrBlock{example}
 
 \begin{table}
 
@@ -129,10 +131,10 @@ bayes_inference(difference, data=zinc, statistic="mean", type="ht",
 ## (Assuming improper Jeffreys prior: p(sigma^2) = 1/sigma^2
 ## 
 ## Posterior Summaries
-##             2.5%        25%        50%         75%      97.5%
-## mu    0.03646927 0.06326453 0.07534788  0.08713891  0.1122709
-## sigma 0.03671924 0.04739945 0.05532286  0.06556095  0.0956499
-## n_0   0.16281880 1.89996945 4.75383119 10.11540557 32.4802661
+##             2.5%        25%        50%         75%       97.5%
+## mu    0.03652051 0.06333991 0.07539746  0.08719880  0.11234365
+## sigma 0.03667019 0.04739824 0.05531372  0.06559309  0.09542437
+## n_0   0.16332495 1.89246444 4.72892053 10.09345713 32.20205561
 ## 
 ## 95% CI for mu: (0.0365, 0.1123)
 ```

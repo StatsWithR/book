@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 The Basics of Bayesian Statistics | An Introduction to Bayesian Thinking</title>
   <meta name="description" content="Chapter 1 The Basics of Bayesian Statistics | An Introduction to Bayesian Thinking" />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 The Basics of Bayesian Statistics | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
@@ -54,12 +54,13 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -68,14 +69,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -84,9 +87,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -141,15 +144,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
 <li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
 <li class="chapter" data-level="1.1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
-<li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
+<li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.-frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-frequentist-approach"><i class="fa fa-check"></i><b>1.2.1</b> Inference for a Proportion: Frequentist Approach</a></li>
 <li class="chapter" data-level="1.2.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
 <li class="chapter" data-level="1.2.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
-<li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
+<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.-bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.-bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#exercises"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
 </ul></li>
@@ -310,7 +313,7 @@ It shows the results of a poll among 1,738 adult Americans. This table allows us
 <caption><span id="tab:2015gallupDating">Table 1.1: </span>Results from a 2015 Gallup poll on the use of online dating sites by age group</caption>
 <thead>
 <tr class="header">
-<th></th>
+<th align="left"></th>
 <th align="right">18-29</th>
 <th align="right">30-49</th>
 <th align="right">50-64</th>
@@ -320,7 +323,7 @@ It shows the results of a poll among 1,738 adult Americans. This table allows us
 </thead>
 <tbody>
 <tr class="odd">
-<td>Used online dating site</td>
+<td align="left">Used online dating site</td>
 <td align="right">60</td>
 <td align="right">86</td>
 <td align="right">58</td>
@@ -328,7 +331,7 @@ It shows the results of a poll among 1,738 adult Americans. This table allows us
 <td align="right">225</td>
 </tr>
 <tr class="even">
-<td>Did not use online dating site</td>
+<td align="left">Did not use online dating site</td>
 <td align="right">255</td>
 <td align="right">426</td>
 <td align="right">450</td>
@@ -336,7 +339,7 @@ It shows the results of a poll among 1,738 adult Americans. This table allows us
 <td align="right">1513</td>
 </tr>
 <tr class="odd">
-<td>Total</td>
+<td align="left">Total</td>
 <td align="right">315</td>
 <td align="right">512</td>
 <td align="right">508</td>
@@ -518,7 +521,7 @@ We see that two positive tests makes it much more probable for someone to have H
   \end{split}
 \end{multline}\]</span></p>
 </div>
-<div id="bayesian-vs.frequentist-definitions-of-probability" class="section level3">
+<div id="bayesian-vs.-frequentist-definitions-of-probability" class="section level3">
 <h3><span class="header-section-number">1.1.4</span> Bayesian vs. Frequentist Definitions of Probability</h3>
 <p>The frequentist definition of probability is based on observation of a large number of trials. The probability for an event <span class="math inline">\(E\)</span> to occur is <span class="math inline">\(P(E)\)</span>, and assume we get <span class="math inline">\(n_E\)</span> successes out of <span class="math inline">\(n\)</span> trials. Then we have
 <span class="math display">\[\begin{equation}
@@ -528,7 +531,7 @@ P(E) = \lim_{n \rightarrow \infty} \dfrac{n_E}{n}.
 <p>The two definitions result in different methods of inference. Using the frequentist approach, we describe the confidence level as the proportion of random samples from the same population that produced confidence intervals which contain the true population parameter. For example, if we generated 100 random samples from the population, and 95 of the samples contain the true parameter, then the confidence level is 95%. Note that each sample either contains the true parameter or does not, so the confidence level is NOT the probability that a given interval includes the true population parameter.</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-7" class="example"><strong>Example 1.6  </strong></span>Based on a 2015 Pew Research poll on 1,500 adults: &quot;We are 95% confident that 60% to 64% of Americans think the federal government does not do enough for middle class people.
+<span id="exm:unnamed-chunk-7" class="example"><strong>Example 1.6  </strong></span>Based on a 2015 Pew Research poll on 1,500 adults: "We are 95% confident that 60% to 64% of Americans think the federal government does not do enough for middle class people.
 </div>
 
 <p>The correct interpretation is: 95% of random samples of 1,500 adults will produce
@@ -572,7 +575,7 @@ Question: How strongly do these data indicate that the treatment is more effecti
 <p>Since <span class="math inline">\(H_0\)</span> states that the probability of success (pregnancy) is 0.5, we can calculate the p-value from 20 independent Bernoulli trials where the probability of success is 0.5. The outcome of this experiment is 4 successes in 20 trials, so the goal is to obtain 4 or fewer successes in the 20 Bernoulli trials.</p>
 <p>This probability can be calculated exactly from a binomial distribution with <span class="math inline">\(n=20\)</span> trials and success probability <span class="math inline">\(p=0.5\)</span>. Assume <span class="math inline">\(k\)</span> is the actual number of successes observed, the p-value is</p>
 <p><span class="math display">\[P(k \leq 4) = P(k = 0) + P(k = 1) + P(k = 2) + P(k = 3) + P(k = 4)\]</span>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">sum</span>(<span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">p =</span> <span class="fl">0.5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="the-basics-of-bayesian-statistics.html#cb2-1"></a><span class="kw">sum</span>(<span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">p =</span> <span class="fl">0.5</span>))</span></code></pre></div>
 <pre><code>## [1] 0.005908966</code></pre>
 <p>According to <span class="math inline">\(\mathsf{R}\)</span>, the probability of getting 4 or fewer successes in 20 trials is 0.0059. Therefore, given that pregnancy is equally likely in the two groups, we get the chance of observing 4 or fewer preganancy in the treatment group is 0.0059. With such a small probability, we reject the null hypothesis and conclude that the data provide convincing evidence for the treatment being more effective than the control.</p>
 </div>
@@ -581,6 +584,8 @@ Question: How strongly do these data indicate that the treatment is more effecti
 <p>This section uses the same example, but this time we make the inference for the proportion from a Bayesian approach. Recall that we still consider only the 20 total pregnancies, 4 of which come from the treatment group. The question we would like to answer is that how likely is for 4 pregnancies to occur in the treatment group. Also remember that if the treatment and control are equally effective, and the sample sizes for the two groups are the same, then the probability (<span class="math inline">\(p\)</span>) that the pregnancy comes from the treatment group is 0.5.</p>
 <p>Within the Bayesian framework, we need to make some assumptions on the models which generated the data. First, <span class="math inline">\(p\)</span> is a probability, so it can take on any value between 0 and 1. However, let’s simplify by using discrete cases – assume <span class="math inline">\(p\)</span>, the chance of a pregnancy comes from the treatment group, can take on nine values, from 10%, 20%, 30%, up to 90%. For example, <span class="math inline">\(p = 20\%\)</span> means that among 10 pregnancies, it is expected that 2 of them will occur in the treatment group. Note that we consider all nine models, compared with the frequentist paradigm that whe consider only one model.</p>
 <p>Table <a href="the-basics-of-bayesian-statistics.html#tab:RU-486prior">1.2</a> specifies the prior probabilities that we want to assign to our assumption. There is no unique correct prior, but any prior probability should reflect our beliefs prior to the experiement. The prior probabilities should incorporate the information from all relevant research before we perform the current experiement.</p>
+<pre><code>## Warning in kable_pipe(x = structure(c(&quot;Model (p)&quot;, &quot;Prior P(model)&quot;, &quot;Likelihood
+## P(data|model)&quot;, : The table should have a header (column names)</code></pre>
 <table>
 <caption><span id="tab:RU-486prior">Table 1.2: </span>Prior, likelihood, and posterior probabilities for each of the 9 models</caption>
 <tbody>
@@ -684,9 +689,9 @@ Figure 1.3: More data: sample size <span class="math inline">\(n=200\)</span> an
 
 </div>
 </div>
-<div id="frequentist-vs.bayesian-inference" class="section level2">
+<div id="frequentist-vs.-bayesian-inference" class="section level2">
 <h2><span class="header-section-number">1.3</span> Frequentist vs. Bayesian Inference</h2>
-<div id="frequentist-vs.bayesian-inference-1" class="section level3">
+<div id="frequentist-vs.-bayesian-inference-1" class="section level3">
 <h3><span class="header-section-number">1.3.1</span> Frequentist vs. Bayesian Inference</h3>
 <p>In this section, we will solve a simple inference problem using both frequentist and Bayesian approaches. Then we will compare our results based on decisions based on the two methods, to see whether we get the same answer or not. If we do not, we will discuss why that happens.</p>
 
@@ -730,9 +735,15 @@ P(H_2 | k=1) &amp;= 1 - 0.45 = 0.55
 <p>Table <a href="the-basics-of-bayesian-statistics.html#tab:freq-vs-bayes">1.3</a> summarizes what the results would look like if we had chosen larger sample sizes. Under each of these scenarios, the frequentist method yields a higher p-value than our significance level, so we would fail to reject the null hypothesis with any of these samples. On the other hand, the Bayesian method always yields a higher posterior for the second model where <span class="math inline">\(p\)</span> is equal to 0.20. So the decisions that we would make are contradictory to each other.</p>
 <table>
 <caption><span id="tab:freq-vs-bayes">Table 1.3: </span>Frequentist and Bayesian probabilities for larger sample sizes</caption>
+<colgroup>
+<col width="14%" />
+<col width="31%" />
+<col width="26%" />
+<col width="26%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th></th>
+<th align="left"></th>
 <th align="left">Frequentist</th>
 <th align="left">Bayesian H_1</th>
 <th align="left">Bayesian H_2</th>
@@ -740,31 +751,31 @@ P(H_2 | k=1) &amp;= 1 - 0.45 = 0.55
 </thead>
 <tbody>
 <tr class="odd">
-<td>Observed Data</td>
+<td align="left">Observed Data</td>
 <td align="left">P(k or more | 10% yellow)</td>
 <td align="left">P(10% yellow | n, k)</td>
 <td align="left">P(20% yellow | n, k)</td>
 </tr>
 <tr class="even">
-<td>n = 5, k = 1</td>
+<td align="left">n = 5, k = 1</td>
 <td align="left">0.41</td>
 <td align="left">0.45</td>
 <td align="left">0.55</td>
 </tr>
 <tr class="odd">
-<td>n = 10, k = 2</td>
+<td align="left">n = 10, k = 2</td>
 <td align="left">0.26</td>
 <td align="left">0.39</td>
 <td align="left">0.61</td>
 </tr>
 <tr class="even">
-<td>n = 15, k = 3</td>
+<td align="left">n = 15, k = 3</td>
 <td align="left">0.18</td>
 <td align="left">0.34</td>
 <td align="left">0.66</td>
 </tr>
 <tr class="odd">
-<td>n = 20, k = 4</td>
+<td align="left">n = 20, k = 4</td>
 <td align="left">0.13</td>
 <td align="left">0.29</td>
 <td align="left">0.71</td>
