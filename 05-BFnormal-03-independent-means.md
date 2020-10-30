@@ -18,10 +18,10 @@ The variable of interest is \texttt{gained} -- the weight gain of mothers during
 We will view the data as a random sample from two populations, older and younger moms. The two groups are modeled as:
 
 \begin{equation}
-\begin{split}
-Y_{O,i} &\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu + \alpha/2, \sigma^2) \\
-Y_{Y,i} &\mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2, \sigma^2)
-\end{split}
+\begin{aligned}
+Y_{O,i} & \mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu + \alpha/2, \sigma^2) \\
+Y_{Y,i} & \mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2, \sigma^2)
+\end{aligned}
 (\#eq:half-alpha)
 \end{equation}
 
@@ -86,7 +86,7 @@ bayes_inference(y=gained, x=mature, data=nc,type='ht',
 ## P(H2|data) = 0.1489 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (-4.3183 , 0.8732)
+## 95% Cred. Int.: (-4.4281 , 0.8908)
 ```
 
 

@@ -55,6 +55,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -192,13 +194,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MC"><i class="fa fa-check"></i><b>4.2</b> Monte Carlo Inference</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-sampling"><i class="fa fa-check"></i><b>4.2.1</b> Monte Carlo Sampling</a></li>
-<li class="chapter" data-level="4.2.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#tap-water-example-continued"><i class="fa fa-check"></i><b>4.2.2</b> Tap Water Example (continued)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-inference-tap-water-example"><i class="fa fa-check"></i><b>4.2.2</b> Monte Carlo Inference: Tap Water Example</a></li>
 <li class="chapter" data-level="4.2.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-inference-for-functions-of-parameters"><i class="fa fa-check"></i><b>4.2.3</b> Monte Carlo Inference for Functions of Parameters</a></li>
 <li class="chapter" data-level="4.2.4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#summary"><i class="fa fa-check"></i><b>4.2.4</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive"><i class="fa fa-check"></i><b>4.3</b> Predictive Distributions</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#prior-predictive-distribution"><i class="fa fa-check"></i><b>4.3.1</b> Prior Predictive Distribution</a></li>
-<li class="chapter" data-level="4.3.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#tap-water-example-continued-1"><i class="fa fa-check"></i><b>4.3.2</b> Tap Water Example (continued)</a></li>
+<li class="chapter" data-level="4.3.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#tap-water-example-continued"><i class="fa fa-check"></i><b>4.3.2</b> Tap Water Example (continued)</a></li>
 <li class="chapter" data-level="4.3.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sampling-from-the-prior-predictive-in-r"><i class="fa fa-check"></i><b>4.3.3</b> Sampling from the Prior Predictive in <code>R</code></a></li>
 <li class="chapter" data-level="4.3.4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#posterior-predictive"><i class="fa fa-check"></i><b>4.3.4</b> Posterior Predictive</a></li>
 <li class="chapter" data-level="4.3.5" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#summary-1"><i class="fa fa-check"></i><b>4.3.5</b> Summary</a></li>
@@ -746,8 +748,8 @@ Likewise, we can calculate probabilities, quantiles and other functions using th
 <p><span class="math display">\[\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)}) \rightarrow E[g(\phi \mid \text{data})]\]</span>
 as the number of draws <span class="math inline">\(S\)</span> in the Monte Carlo simulation increases.</p>
 </div>
-<div id="tap-water-example-continued" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Tap Water Example (continued)</h3>
+<div id="monte-carlo-inference-tap-water-example" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Monte Carlo Inference: Tap Water Example</h3>
 <p>We will apply this to the tap water example from <a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma">4.1</a>. First, reload the data and calculate the posterior hyper-parameters if needed.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb15-1"></a><span class="co"># Prior</span></span>
 <span id="cb15-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb15-2"></a>m_<span class="dv">0</span> =<span class="st"> </span><span class="dv">35</span>;  n_<span class="dv">0</span> =<span class="st"> </span><span class="dv">25</span>;  s2_<span class="dv">0</span> =<span class="st"> </span><span class="fl">156.25</span>; v_<span class="dv">0</span> =<span class="st"> </span>n_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
@@ -850,7 +852,7 @@ Y &amp;\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
 <p>By <em>averaging</em> over the possible values of the parameters from the prior distribution in the joint distribution, technically done by a double integral, we obtain the Student t as our prior predictive distribution. For those interested, details of this derivation are provided later in an optional section.
 This distribution of the observables depends only on our four hyper-parameters from the normal-gamma family. We can use Monte Carlo simulation to sample from the prior predictive distribution to help elicit prior hyper-parameters as we now illustrate with the tap water example from earlier.</p>
 </div>
-<div id="tap-water-example-continued-1" class="section level3">
+<div id="tap-water-example-continued" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Tap Water Example (continued)</h3>
 <p>A report from the city water department suggests that levels of TTHM are expected to be between 10-60 parts per billion (ppb). Let’s see how we can use this information to create an informative conjugate prior.</p>
 <p><strong>Prior Mean</strong>

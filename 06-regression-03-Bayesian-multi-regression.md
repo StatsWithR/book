@@ -25,7 +25,7 @@ y_{\text{score}, i} = \beta_0 + \beta_1 (x_{\text{hs},i}-\bar{x}_{\text{hs}}) + 
 (\#eq:multi-model2)
 \end{equation}
 
-Under this tranformation, the coefficients, $\beta_1,\ \beta_2,\ \beta_3$, $\beta_4$, that are in front of the variables, are unchanged compared to the ones in \@ref(eq:multi-model1). However, the constant coefficient $\beta_0$ is no longer the constant coefficient $\alpha$ in \@ref(eq:multi-model1). Instead, under the assumption that $\epsilon_i$ is independently, identiacally normal, $\beta_0$ is the sample mean of the response variable $Y_{\text{score}}$.^[Under the normal assumption, the mean of the error is 0. Taking mean on both sides of equation \@ref(eq:multi-model2) immediately gives $\beta_0=\bar{y}_{\text{score}}$.] This provides more meaning to $\beta_0$. Moreover, it is more convenient to use this "centered" model to derive analyses. The R codes in the `BAS` package are based on the form \@ref(eq:multi-model2).
+Under this tranformation, the coefficients, $\beta_1,\ \beta_2,\ \beta_3$, $\beta_4$, that are in front of the variables, are unchanged compared to the ones in \@ref(eq:multi-model1). However, the constant coefficient $\beta_0$ is no longer the constant coefficient $\alpha$ in \@ref(eq:multi-model1).  Instead, under the assumption that $\epsilon_i$ is independently, identically normal, $\hat{\beta}_0$ is the sample mean of the response variable $Y_{\text{score}}$.^[Under the normal assumption, the mean of the error is 0. Taking mean on both sides of equation \@ref(eq:multi-model2) immediately gives $\beta_0=\bar{y}_{\text{score}}$.] This provides more meaning to $\beta_0$ as this is the mean of $Y$ when each of the predictors is equal to their respective means.  Moreover, it is more convenient to use this "centered" model to derive analyses. The R codes in the `BAS` package are based on the form \@ref(eq:multi-model2).  
 
 
 ### Data Pre-processing
@@ -106,10 +106,12 @@ library(BAS)
 
 # Use `bas.lm` to run regression model
 cog.bas = bas.lm(kid_score ~ ., data = cognitive, prior = "BIC", 
-                 modelprior = Bernoulli(1), bestmodel = rep(1, 5), n.models = 1)
+                 modelprior = Bernoulli(1), 
+                 include.always = ~ ., 
+                 n.models = 1)
 ```
 
-The above `bas.lm` function uses the model formula the same as in the `lm`. It first specifies the response and predictor variables, a data argument to provide the data frame. The addition arguments further include the prior on the coefficients. We use `"BIC"` here to indicate that the model is based on the non-informative reference prior. (We will explain in the later section why we use the name `"BIC"`.) Since we will only provide one model, which is the one that includes all variables, we place all model prior probability to this exact model. This is specified in the `modelprior = Bernoulli(1)` argument. Because we want to fit using all variables, we use `bestmodel = rep(1,5)` to indicate that the intercept and all 4 predictors are included. The argument `n.models = 1` fits just this one model.
+The above `bas.lm` function uses the same model formula  as in the `lm`. It first specifies the response and predictor variables, a data argument to provide the data frame. The additional arguments further include the prior on the coefficients. We use `"BIC"` here to indicate that the model is based on the non-informative reference prior. (We will explain in the later section why we use the name `"BIC"`.) Since we will only provide one model, which is the one that includes all variables, we place all model prior probability to this exact model. This is specified in the `modelprior = Bernoulli(1)` argument. Because we want to fit using all variables, we use `include.always = ~ .` to indicate that the intercept and all 4 predictors are included. The argument `n.models = 1` fits just this one model.
 
 
 ### Posterior Means and Posterior Standard Deviations
@@ -137,7 +139,7 @@ cog.coef
 ## age         0.21802    0.33074   1.00000
 ```
 
-From the last column in this summary, we see that the probability of the coefficients to be non-zero is always 1. This is because we specify the argument `bestmodel = rep(1, 5)` to force the model to include all variables. Notice on the first row we have the statistics of the `Intercept` $\beta_0$. The posterior mean of $\beta_0$ is 86.8, which is completely different from the original $y$-intercept of this model under the frequentist OLS regression. As we have stated previously, we consider the "centered" model under the Bayesian framework. Under this "centered" model and the reference prior, the posterior mean of the `Intercept` $\beta_0$ is now the sample mean of the response variable $Y_{\text{score}}$.
+From the last column in this summary, we see that the probability of the coefficients to be non-zero is always 1. This is because we specify the argument `include.always = ~ .` to force the model to include all variables. Notice on the first row we have the statistics of the `Intercept` $\beta_0$. The posterior mean of $\beta_0$ is 86.8, which is completely different from the original $y$-intercept of this model under the frequentist OLS regression. As we have stated previously, we consider the "centered" model under the Bayesian framework. Under this "centered" model and the reference prior, the posterior mean of the `Intercept` $\beta_0$ is now the sample mean of the response variable $Y_{\text{score}}$.
 
 We can visualize the coefficients $\beta_1,\ \beta_2,\ \beta_3,\ \beta_4$ using the `plot` function. We use the `subset` argument to plot only the coefficients of the predictors.
 
@@ -149,7 +151,7 @@ plot(cog.coef, subset = 2:5, ask = F)
 
 ![](06-regression-03-Bayesian-multi-regression_files/figure-latex/plot-coef-1.pdf)<!-- --> 
 
-These distributions all center at their respetive OLS estimates $\hat{\beta}_j$, with the spread of the distribution related to the standard errors $\text{se}_{\beta_j}$. 
+These distributions all center the posterior distributions at their respective OLS estimates $\hat{\beta}_j$, with the spread of the distribution related to the standard errors $\text{se}_{\beta_j}$.  Recall, that `bas.lm` uses centered predictors so that the intercept is always the sample mean.
 
 ### Credible Intervals Summary
 
