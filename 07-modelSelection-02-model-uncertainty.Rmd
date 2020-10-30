@@ -98,7 +98,7 @@ one can see the outputs and analyses that we can extract from a `bas` object.
 
 The `bas` object takes the `summary` method
 
-```{r summary}
+```{r summary-bas}
 round(summary(cog_bas), 3)
 ```
 

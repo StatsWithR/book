@@ -38,7 +38,7 @@ The approximation to the expectation of the function, $E[g(\phi \mid \data)]$ im
 $$\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)}) \rightarrow E[g(\phi \mid \data)]$$
 as the number of draws $S$ in the Monte Carlo simulation increases.
 
-### Tap Water Example (continued)
+### Monte Carlo Inference: Tap Water Example 
 
 We will apply this to the tap water example from  \@ref(sec:normal-gamma).   First, reload the data and calculate the posterior hyper-parameters if needed.
 

@@ -7,8 +7,7 @@ In this section, we will talk about different methods for selecting models and d
 We first prepare the data as in the last section and run `bas.lm` on the full model
 
 ```{r prep, warning = F, message = F}
-library(MASS)
-data(UScrime)
+data(UScrime, package="MASS")
 
 # take the natural log transform on the variables except the 2nd column `So`
 UScrime[, -2] = log(UScrime[, -2])
@@ -42,7 +41,7 @@ mu_hat = fitted(crime.ZS, estimator = "BMA")
 
 `crime.BMA`, the object obtained by the `predict` function, has additional slots storing results from the BMA model.
 
-```{r}
+```{r crime-BMA}
 names(crime.BMA)
 ```
 
@@ -70,31 +69,26 @@ crime.HPM = predict(crime.ZS, estimator = "HPM")
 ```
 
 
-The variables selected from this model can be obtained using the `bestmodel` attribute from the `crime.HPM` object. We can print out their names combining `bestmodel` in `crime.HPM` and `namesx` in `crime.ZS`
+The variables selected from this model can be obtained using the `bestmodel` attribute from the `crime.HPM` object. We extract the variable names from the `crime.HPM`
 
 ```{r select-var}
-crime.ZS$namesx[crime.HPM$bestmodel +1]
+crime.HPM$best.vars
 ```
 
 We see that, except the intercept, which is always in any models, the highest probability model also includes `M`, percentage of males aged 14-24; `Ed`, mean years of schooling; `Po1`, police expenditures in 1960; `NW`, number of non-whites per 1000 people; `U2`, unemployment rate of urban males aged 35-39; `Ineq`, income inequlity; `Prob`, probability of imprisonment, and `Time`, average time in state prison.
 
-To obtain the coefficients and their posterior means and posterior standard deviations, we can extract the model by using the `best` attribute of `crime.HPM` object. 
+To obtain the coefficients and their posterior means and posterior standard deviations, we tell give an optional argument to `coef` to indicate that we want to extract coefficients under the HPM. 
 
-```{r coef}
-# Obtain coefficients of all models
-coef.crime.ZS = coef(crime.ZS)
-
+```{r coef-crime}
 # Select coefficients of HPM
 
 # Posterior means of coefficients
-coef.crime.ZS$conditionalmeans[crime.HPM$best, ]
-
-# Posterior standard deviation of coefficients
-coef.crime.ZS$conditionalsd[crime.HPM$best, ]
+coef.crime.ZS = coef(crime.ZS, estimator="HPM")
+coef.crime.ZS
 ```
 
 We can also obtain the posterior probability of this model using
-```{r postprob}
+```{r postprob-crime}
 postprob.HPM = crime.ZS$postprobs[crime.HPM$best]
 postprob.HPM
 ```
@@ -109,24 +103,20 @@ However, since in the US crime example, `Po1` and `Po2` are highly correlated, w
 
 ```{r MPM-var, warning = F}
 crime.MPM = predict(crime.ZS, estimator = "MPM")
-crime.ZS$namesx[crime.MPM$bestmodel +1]
+crime.MPM$best.vars
 ```
 
 As we see, this model only includes 7 variables, `M`, `Ed`, `Po1`, `NW`, `U2`, `Ineq`, and `Prob`. It does not include `Time` variable as in HPM. 
 
-When there are correlated predictors in non-nexted models, MPM in general does well. However, if the correlations among variables increase, MPM may miss important variables as the correlations tend to dilute the posterior inclusing probabilities of related variables.  
+When there are correlated predictors in non-nested models, MPM in general does well. However, if the correlations among variables increase, MPM may miss important variables as the correlations tend to dilute the posterior inclusing probabilities of related variables.  
 
-To obtain the coefficients in the median probability model, we need to redo `bas.lm` to specify in `bestmodel` argument that we would like to keep only the variables with posterior inclusion probabilities greater than 0.5, and we would only want to have 1 model by setting `n.models = 1`. In this way, we will force other low probability variables not to show up in the model, and we will re-calculate the posterior means and standard deviations for the variables that are included in MPM.
+To obtain the coefficients in the median probability model, we specify that the estimator is now "MPM":
 
-```{r MPM-bas.lm, warning = F, message = F}
-# Re-run regression and specify `bestmodel` and `n.models`
-crime.ZS.MPM = bas.lm(y ~ ., data = UScrime,
-                      prior = "ZS-null", modelprior = uniform(),
-                      bestmodel = crime.ZS$probne0 > 0.5, n.models = 1)
-
-# Obtain coefficients of MPM
-coef(crime.ZS.MPM)
+```{r coef-MPM}
+# Obtain coefficients of the  Median Probabilty Model
+coef(crime.ZS, estimator = "MPM")
 ```
+
 
 
 **Best Predictive Model**
@@ -135,16 +125,16 @@ If our objective is prediction from a single model, the best choice is to find t
 
 Using the squared error loss, we find that the best predictive model is the one whose predictions are closest to BMA. 
 
-```{r BPM}
+```{r predict-BPM}
 crime.BPM = predict(crime.ZS, estimator = "BPM")
-crime.ZS$namesx[crime.BPM$bestmodel + 1]
+crime.BPM$best.vars
 ```
 
 The best predictive model includes not only the 7 variables that MPM includes, but also `M.F`, number of males per 1000 females, and `Po2`, the police expenditures in 1959. 
 
 Using the `se.fit = TRUE` option with `predict` we can calculate standard deviations for the predictions or for the mean. Then we can use this as input for the `confint` function for the prediction object. Here we only show the results of the first 20 data points.
 
-```{r, echo = F, warning = F, message = F}
+```{r hook, echo = F, warning = F, message = F}
 # This code chunk is for function which provides options to show partial results
 library(knitr)
 # the default output hook
@@ -172,15 +162,36 @@ crime.BPM.conf.pred = confint(crime.BPM, parm = "pred")
 cbind(crime.BPM$fit, crime.BPM.conf.fit, crime.BPM.conf.pred)
 ```
 
-We can use similar method as in HPM to find the coefficients of BPM
-```{r BPM-coef}
-# Posterior mean
-coef.crime.ZS$conditionalmeans[crime.BPM$best,]
-
-# Posterior standard deviation
-coef.crime.ZS$conditionalsd[crime.BPM$best,]
+The option `estimator = "BPM` is not yet available in `coef()`, so we will need to work a little harder to get the coefficients by refitting the BPM.
+First we need to extract  a vector of zeros and ones representing which variables are included in the BPM model.
+```{r BPM-model,  warning = F, message = F} 
+# Extract a binary vector of zeros and ones for the variables included 
+# in the BPM
+BPM = as.vector(which.matrix(crime.ZS$which[crime.BPM$best],
+                             crime.ZS$n.vars))
+BPM
 ```
 
+Next, we will refit the model with `bas.lm` using the optional argument `bestmodel = BPM`.  In general, this is the starting model for the stochastic search, which is helpful for starting the MCMC.
+ We will also specify that want to have 1 model by setting `n.models = 1`. In this way, `bas.lm` starts with the BPM and fits only that model. 
+
+```{r BPM-bas.lm, warning = F, message = F}
+# Re-run regression and specify `bestmodel` and `n.models`
+crime.ZS.BPM = bas.lm(y ~ ., data = UScrime,
+                      prior = "ZS-null",
+                      modelprior = uniform(),
+                      bestmodel = BPM, n.models = 1)
+```
+Now since we have only one model in our new object representing the BPM, we can use the `coef` function to obtain the summaries.
+
+```{r coef-BPM}
+# Obtain coefficients of MPM
+coef(crime.ZS.BPM)
+```
+
+Note the posterior probabilities that coefficients are zero is either zero or one since we have selected a model.  
+
+**Comparison of Models**
 
 After discussing all 4 different models, let us compare their prediction results. 
 
@@ -216,10 +227,10 @@ cbind(crime.BPM$fit, crime.conf.fit.new, crime.conf.pred.new)
 
 ## Summary
 
-In this chapter, we have introduced one of the common stochastic exploration methods, Markov Chain Monte Carlo, to explore the model space to obtain approximation of posterior probability of each model when the model space is too large for theoretical enumeration. We see that model selection is very sensitive to the prior distributions of coefficients. Therefore, besides the reference prior, we have also introduced the Zellner's $g$-prior. To solve the paradoc problems, we have improved this Zellner's $g$-prior by imposing relationship between the scalar $g$ and the sample size $n$, which leads to other priors, such as the unit information $g$-prior, the Zellner-Siow cauchy prior, and the hyper-$g/n$ prior. 
+In this chapter, we have introduced one of the common stochastic exploration methods, Markov Chain Monte Carlo, to explore the model space to obtain approximation of posterior probability of each model when the model space is too large for theoretical enumeration. We see that model selection can be sensitive to the prior distributions of coefficients, and introduced Zellner's $g$-prior so that we have to elicit only one hyper-parameter to specify the prior.  Still model selection can be sensitive to the choice of $g$ where values that are too large may unintentially lead to the null model receiving high probability in Bartlett's paradox. To resolve this and other paradoxes related to the choice of $g$, we recommend default choices that have improved robustness to prior misspecification such as the unit information $g$-prior, the Zellner-Siow Cauchy prior, and the hyper-$g/n$ prior. 
 
-We later have demonstrated a multiple linear regression process using `BAS` package and the US crime data `UScrime`. We have diagnosed the results using the Zellner-Siow cauchy prior, and have tried to understand the importance of variables. 
-Finally, we have compared the prediction results from different models, such as the ones from Bayesian model average (BMA), the highest probability model (HPM), the median probability model (MPM), and the best predictive model (BPM). For the comparison, we have used the Zellner-Siow cauchy prior. But of course there is not one single best prior that is the best overall. If you do have prior information about a variable, you should include it. If you expect that there should be many predictors related to the response variable $Y$, but that each has a small effect, an alternate prior may be better. Also, think critically about whether model selection is important. If you believe that all the variables should be relevant but are worried about over fitting, there are alternative priors that will avoid putting probabilities on coefficients that are exactly zero and will still prevent over fitting by shrinkage of coefficients to prior means. Examples include the Bayesian lasso or Bayesian horseshoe.
+We then demonstrated a multiple linear regression process using the `BAS` package and the US crime data `UScrime` using the Zellner-Siow cauchy prior, and have tried to understand the importance of variables. 
+Finally, we have compared the prediction results from different models, such as the ones from Bayesian model average (BMA), the highest probability model (HPM), the median probability model (MPM), and the best predictive model (BPM). For the comparison, we have used the Zellner-Siow Cauchy prior. But of course there is not one single best prior that is the best overall. If you do have prior information about a variable, you should include it. If you expect that there should be many predictors related to the response variable $Y$, but that each has a small effect, an alternate prior may be better. Also, think critically about whether model selection is important. If you believe that all the variables should be relevant but are worried about over fitting, there are alternative priors that will avoid putting probabilities on coefficients that are exactly zero and will still prevent over fitting by shrinkage of coefficients to prior means. Examples include the Bayesian lasso or Bayesian horseshoe.
 
 There are other forms of model uncertainty that you may want to consider, such as linearity in the relationship between the predictors and the response, uncertainty about the presence of outliers, and uncertainty about the distribution of the response. These forms of uncertainty can be incorporated by expanding the models and priors similar to what we have covered here. 
 
