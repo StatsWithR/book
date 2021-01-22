@@ -37,6 +37,7 @@
   
 <link rel="prev" href="inference-and-decision-making-with-multiple-parameters.html"/>
 <link rel="next" href="introduction-to-bayesian-regression.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,24 +55,20 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -91,7 +88,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -141,49 +138,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
-<li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
+<li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
 <li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
 <li class="chapter" data-level="1.1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
 <li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.-frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a><ul>
+<li class="chapter" data-level="1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a>
+<ul>
 <li class="chapter" data-level="1.2.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-frequentist-approach"><i class="fa fa-check"></i><b>1.2.1</b> Inference for a Proportion: Frequentist Approach</a></li>
 <li class="chapter" data-level="1.2.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
 <li class="chapter" data-level="1.2.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.-bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.-bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.-bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#exercises"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a><ul>
-<li class="chapter" data-level="2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#continuous-variables-and-eliciting-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a><ul>
+<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#continuous-variables-and-eliciting-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#from-the-discrete-to-the-continuous"><i class="fa fa-check"></i><b>2.1.1</b> From the Discrete to the Continuous</a></li>
 <li class="chapter" data-level="2.1.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#elicitation"><i class="fa fa-check"></i><b>2.1.2</b> Elicitation</a></li>
 <li class="chapter" data-level="2.1.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#conjugacy"><i class="fa fa-check"></i><b>2.1.3</b> Conjugacy</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#three-conjugate-families"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a><ul>
+<li class="chapter" data-level="2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#three-conjugate-families"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#inference-on-a-binomial-proportion"><i class="fa fa-check"></i><b>2.2.1</b> Inference on a Binomial Proportion</a></li>
 <li class="chapter" data-level="2.2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#the-gamma-poisson-conjugate-families"><i class="fa fa-check"></i><b>2.2.2</b> The Gamma-Poisson Conjugate Families</a></li>
 <li class="chapter" data-level="2.2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#sec:normal-normal"><i class="fa fa-check"></i><b>2.2.3</b> The Normal-Normal Conjugate Families</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals-and-predictive-inference"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a><ul>
+<li class="chapter" data-level="2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals-and-predictive-inference"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#non-conjugate-priors"><i class="fa fa-check"></i><b>2.3.1</b> Non-Conjugate Priors</a></li>
 <li class="chapter" data-level="2.3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals"><i class="fa fa-check"></i><b>2.3.2</b> Credible Intervals</a></li>
 <li class="chapter" data-level="2.3.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#predictive-inference"><i class="fa fa-check"></i><b>2.3.3</b> Predictive Inference</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html"><i class="fa fa-check"></i><b>3</b> Losses and Decision Making</a><ul>
+<li class="chapter" data-level="3" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html"><i class="fa fa-check"></i><b>3</b> Losses and Decision Making</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#bayesian-decision-making"><i class="fa fa-check"></i><b>3.1</b> Bayesian Decision Making</a></li>
 <li class="chapter" data-level="3.2" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#loss-functions"><i class="fa fa-check"></i><b>3.2</b> Loss Functions</a></li>
 <li class="chapter" data-level="3.3" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#working-with-loss-functions"><i class="fa fa-check"></i><b>3.3</b> Working with Loss Functions</a></li>
 <li class="chapter" data-level="3.4" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#minimizing-expected-loss-for-hypothesis-testing"><i class="fa fa-check"></i><b>3.4</b> Minimizing Expected Loss for Hypothesis Testing</a></li>
 <li class="chapter" data-level="3.5" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#sec:bayes-factors"><i class="fa fa-check"></i><b>3.5</b> Posterior Probabilities of Hypotheses and Bayes Factors</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html"><i class="fa fa-check"></i><b>4</b> Inference and Decision-Making with Multiple Parameters</a><ul>
-<li class="chapter" data-level="4.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma"><i class="fa fa-check"></i><b>4.1</b> The Normal-Gamma Conjugate Family</a><ul>
+<li class="chapter" data-level="4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html"><i class="fa fa-check"></i><b>4</b> Inference and Decision-Making with Multiple Parameters</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma"><i class="fa fa-check"></i><b>4.1</b> The Normal-Gamma Conjugate Family</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#conjugate-prior-for-mu-and-sigma2"><i class="fa fa-check"></i><b>4.1.1</b> Conjugate Prior for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span></a></li>
 <li class="chapter" data-level="4.1.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#conjugate-posterior-distribution"><i class="fa fa-check"></i><b>4.1.2</b> Conjugate Posterior Distribution</a></li>
 <li class="chapter" data-level="4.1.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#marginal-distribution-for-mu-student-t"><i class="fa fa-check"></i><b>4.1.3</b> Marginal Distribution for <span class="math inline">\(\mu\)</span>: Student <span class="math inline">\(t\)</span></a></li>
@@ -192,13 +200,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1.6" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#section-summary"><i class="fa fa-check"></i><b>4.1.6</b> Section Summary</a></li>
 <li class="chapter" data-level="4.1.7" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#optional-derivations"><i class="fa fa-check"></i><b>4.1.7</b> (Optional) Derivations</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MC"><i class="fa fa-check"></i><b>4.2</b> Monte Carlo Inference</a><ul>
+<li class="chapter" data-level="4.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MC"><i class="fa fa-check"></i><b>4.2</b> Monte Carlo Inference</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-sampling"><i class="fa fa-check"></i><b>4.2.1</b> Monte Carlo Sampling</a></li>
 <li class="chapter" data-level="4.2.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-inference-tap-water-example"><i class="fa fa-check"></i><b>4.2.2</b> Monte Carlo Inference: Tap Water Example</a></li>
 <li class="chapter" data-level="4.2.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-inference-for-functions-of-parameters"><i class="fa fa-check"></i><b>4.2.3</b> Monte Carlo Inference for Functions of Parameters</a></li>
 <li class="chapter" data-level="4.2.4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#summary"><i class="fa fa-check"></i><b>4.2.4</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive"><i class="fa fa-check"></i><b>4.3</b> Predictive Distributions</a><ul>
+<li class="chapter" data-level="4.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive"><i class="fa fa-check"></i><b>4.3</b> Predictive Distributions</a>
+<ul>
 <li class="chapter" data-level="4.3.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#prior-predictive-distribution"><i class="fa fa-check"></i><b>4.3.1</b> Prior Predictive Distribution</a></li>
 <li class="chapter" data-level="4.3.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#tap-water-example-continued"><i class="fa fa-check"></i><b>4.3.2</b> Tap Water Example (continued)</a></li>
 <li class="chapter" data-level="4.3.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sampling-from-the-prior-predictive-in-r"><i class="fa fa-check"></i><b>4.3.3</b> Sampling from the Prior Predictive in <code>R</code></a></li>
@@ -209,14 +219,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-Cauchy"><i class="fa fa-check"></i><b>4.5</b> Mixtures of Conjugate Priors</a></li>
 <li class="chapter" data-level="4.6" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MCMC"><i class="fa fa-check"></i><b>4.6</b> Markov Chain Monte Carlo (MCMC)</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Testing with Normal Populations</a><ul>
+<li class="chapter" data-level="5" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Testing with Normal Populations</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#sec:known-var"><i class="fa fa-check"></i><b>5.1</b> Bayes Factors for Testing a Normal Mean: variance known</a></li>
 <li class="chapter" data-level="5.2" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#comparing-two-paired-means-using-bayes-factors"><i class="fa fa-check"></i><b>5.2</b> Comparing Two Paired Means using Bayes Factors</a></li>
 <li class="chapter" data-level="5.3" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#sec:indep-means"><i class="fa fa-check"></i><b>5.3</b> Comparing Independent Means: Hypothesis Testing</a></li>
 <li class="chapter" data-level="5.4" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#inference-after-testing"><i class="fa fa-check"></i><b>5.4</b> Inference after Testing</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Regression</a><ul>
-<li class="chapter" data-level="6.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:simple-linear"><i class="fa fa-check"></i><b>6.1</b> Bayesian Simple Linear Regression</a><ul>
+<li class="chapter" data-level="6" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:simple-linear"><i class="fa fa-check"></i><b>6.1</b> Bayesian Simple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#frequentist-ordinary-least-square-ols-simple-linear-regression"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist Ordinary Least Square (OLS) Simple Linear Regression</a></li>
 <li class="chapter" data-level="6.1.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-simple-linear-regression-using-the-reference-prior"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Simple Linear Regression Using the Reference Prior</a></li>
 <li class="chapter" data-level="6.1.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:informative-prior"><i class="fa fa-check"></i><b>6.1.3</b> Informative Priors</a></li>
@@ -226,11 +239,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.7" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#marginal-posterior-distribution-of-sigma2"><i class="fa fa-check"></i><b>6.1.7</b> Marginal Posterior Distribution of <span class="math inline">\(\sigma^2\)</span></a></li>
 <li class="chapter" data-level="6.1.8" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#joint-normal-gamma-posterior-distributions"><i class="fa fa-check"></i><b>6.1.8</b> Joint Normal-Gamma Posterior Distributions</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Checking-outliers"><i class="fa fa-check"></i><b>6.2</b> Checking Outliers</a><ul>
+<li class="chapter" data-level="6.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Checking-outliers"><i class="fa fa-check"></i><b>6.2</b> Checking Outliers</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#posterior-distribution-of-epsilon_j-conditioning-on-sigma2"><i class="fa fa-check"></i><b>6.2.1</b> Posterior Distribution of <span class="math inline">\(\epsilon_j\)</span> Conditioning On <span class="math inline">\(\sigma^2\)</span></a></li>
 <li class="chapter" data-level="6.2.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#implementation-using-bas-package"><i class="fa fa-check"></i><b>6.2.2</b> Implementation Using <code>BAS</code> Package</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression"><i class="fa fa-check"></i><b>6.3</b> Bayesian Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="6.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression"><i class="fa fa-check"></i><b>6.3</b> Bayesian Multiple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#the-model"><i class="fa fa-check"></i><b>6.3.1</b> The Model</a></li>
 <li class="chapter" data-level="6.3.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#data-pre-processing"><i class="fa fa-check"></i><b>6.3.2</b> Data Pre-processing</a></li>
 <li class="chapter" data-level="6.3.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#specify-bayesian-prior-distributions"><i class="fa fa-check"></i><b>6.3.3</b> Specify Bayesian Prior Distributions</a></li>
@@ -240,40 +255,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#summary-2"><i class="fa fa-check"></i><b>6.4</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html"><i class="fa fa-check"></i><b>7</b> Bayesian Model Choice</a><ul>
-<li class="chapter" data-level="7.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#sec:BIC"><i class="fa fa-check"></i><b>7.1</b> Bayesian Information Criterion (BIC)</a><ul>
+<li class="chapter" data-level="7" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html"><i class="fa fa-check"></i><b>7</b> Bayesian Model Choice</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#sec:BIC"><i class="fa fa-check"></i><b>7.1</b> Bayesian Information Criterion (BIC)</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#definition-of-bic"><i class="fa fa-check"></i><b>7.1.1</b> Definition of BIC</a></li>
 <li class="chapter" data-level="7.1.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#backward-elimination-with-bic"><i class="fa fa-check"></i><b>7.1.2</b> Backward Elimination with BIC</a></li>
 <li class="chapter" data-level="7.1.3" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#coefficient-estimates-under-reference-prior-for-best-bic-model"><i class="fa fa-check"></i><b>7.1.3</b> Coefficient Estimates Under Reference Prior for Best BIC Model</a></li>
 <li class="chapter" data-level="7.1.4" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#other-criteria"><i class="fa fa-check"></i><b>7.1.4</b> Other Criteria</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#sec:BMU"><i class="fa fa-check"></i><b>7.2</b> Bayesian Model Uncertainty</a><ul>
+<li class="chapter" data-level="7.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#sec:BMU"><i class="fa fa-check"></i><b>7.2</b> Bayesian Model Uncertainty</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#model-uncertainty"><i class="fa fa-check"></i><b>7.2.1</b> Model Uncertainty</a></li>
 <li class="chapter" data-level="7.2.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#calculating-posterior-probability-in-r"><i class="fa fa-check"></i><b>7.2.2</b> Calculating Posterior Probability in R</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#bayesian-model-averaging"><i class="fa fa-check"></i><b>7.3</b> Bayesian Model Averaging</a><ul>
+<li class="chapter" data-level="7.3" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#bayesian-model-averaging"><i class="fa fa-check"></i><b>7.3</b> Bayesian Model Averaging</a>
+<ul>
 <li class="chapter" data-level="7.3.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#visualizing-model-uncertainty"><i class="fa fa-check"></i><b>7.3.1</b> Visualizing Model Uncertainty</a></li>
 <li class="chapter" data-level="7.3.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#bayesian-model-averaging-using-posterior-probability"><i class="fa fa-check"></i><b>7.3.2</b> Bayesian Model Averaging Using Posterior Probability</a></li>
 <li class="chapter" data-level="7.3.3" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#coefficient-summary-under-bma"><i class="fa fa-check"></i><b>7.3.3</b> Coefficient Summary under BMA</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#summary-3"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html"><i class="fa fa-check"></i><b>8</b> Stochastic Explorations Using MCMC</a><ul>
-<li class="chapter" data-level="8.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#stochastic-exploration"><i class="fa fa-check"></i><b>8.1</b> Stochastic Exploration</a><ul>
+<li class="chapter" data-level="8" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html"><i class="fa fa-check"></i><b>8</b> Stochastic Explorations Using MCMC</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#stochastic-exploration"><i class="fa fa-check"></i><b>8.1</b> Stochastic Exploration</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#markov-chain-monte-carlo-exploration"><i class="fa fa-check"></i><b>8.1.1</b> Markov Chain Monte Carlo Exploration</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#other-priors-for-bayesian-model-uncertainty"><i class="fa fa-check"></i><b>8.2</b> Other Priors for Bayesian Model Uncertainty</a><ul>
+<li class="chapter" data-level="8.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#other-priors-for-bayesian-model-uncertainty"><i class="fa fa-check"></i><b>8.2</b> Other Priors for Bayesian Model Uncertainty</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#zellners-g-prior"><i class="fa fa-check"></i><b>8.2.1</b> Zellner’s <span class="math inline">\(g\)</span>-Prior</a></li>
 <li class="chapter" data-level="8.2.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#bayes-factor-of-zellners-g-prior"><i class="fa fa-check"></i><b>8.2.2</b> Bayes Factor of Zellner’s <span class="math inline">\(g\)</span>-Prior</a></li>
 <li class="chapter" data-level="8.2.3" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#kids-cognitive-score-example"><i class="fa fa-check"></i><b>8.2.3</b> Kid’s Cognitive Score Example</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#r-demo-on-bas-package"><i class="fa fa-check"></i><b>8.3</b> R Demo on <code>BAS</code> Package</a><ul>
+<li class="chapter" data-level="8.3" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#r-demo-on-bas-package"><i class="fa fa-check"></i><b>8.3</b> R Demo on <code>BAS</code> Package</a>
+<ul>
 <li class="chapter" data-level="8.3.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#the-uscrime-data-set-and-data-processing"><i class="fa fa-check"></i><b>8.3.1</b> The <code>UScrime</code> Data Set and Data Processing</a></li>
 <li class="chapter" data-level="8.3.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#bayesian-models-and-diagnostics"><i class="fa fa-check"></i><b>8.3.2</b> Bayesian Models and Diagnostics</a></li>
 <li class="chapter" data-level="8.3.3" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#posterior-uncertainty-in-coefficients"><i class="fa fa-check"></i><b>8.3.3</b> Posterior Uncertainty in Coefficients</a></li>
 <li class="chapter" data-level="8.3.4" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#prediction"><i class="fa fa-check"></i><b>8.3.4</b> Prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#decision-making-under-model-uncertainty"><i class="fa fa-check"></i><b>8.4</b> Decision Making Under Model Uncertainty</a><ul>
+<li class="chapter" data-level="8.4" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#decision-making-under-model-uncertainty"><i class="fa fa-check"></i><b>8.4</b> Decision Making Under Model Uncertainty</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#model-choice"><i class="fa fa-check"></i><b>8.4.1</b> Model Choice</a></li>
 <li class="chapter" data-level="8.4.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#prediction-with-new-data"><i class="fa fa-check"></i><b>8.4.2</b> Prediction with New Data</a></li>
 </ul></li>
@@ -299,14 +323,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="hypothesis-testing-with-normal-populations" class="section level1">
+<div id="hypothesis-testing-with-normal-populations" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Hypothesis Testing with Normal Populations</h1>
-<p>In Section <a href="losses-and-decision-making.html#sec:bayes-factors">3.5</a>, we described how the Bayes factors can be used for hypothesis testing. Now we will use the Bayes factors to compare normal means, i.e., test whether the mean of a population is zero or compare two groups of normally-distributed populations. We divide this mission into three cases: known variance for a single population, unknown variance for a single population using paired data, and unknown variance using two independent groups.</p>
-<p>Also note that some of the examples in this section use an experimental update to the <code>bayes_inference</code> function that are not provided in the CRAN released version of the package. To get the experimental version you can install the <code>BayesFactor</code> branch from GitHub using the following command in R,</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="hypothesis-testing-with-normal-populations.html#cb48-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;statswithr/statsr@BayesFactor&quot;</span>)</span></code></pre></div>
-<p>If your local output differents from what is seen in this chapter, or the provided code fails to run for you this is the most likely cause.</p>
+<p>In Section <a href="losses-and-decision-making.html#sec:bayes-factors">3.5</a>, we described how the Bayes factors can be used for hypothesis testing. Now we will use the Bayes factors to compare normal means, i.e., test whether the mean of a population is zero or compare the means of two groups of normally-distributed populations. We divide this mission into three cases: known variance for a single population, unknown variance for a single population using paired data, and unknown variance using two independent groups.</p>
+<p>Also note that some of the examples in this section use an updated version of the <code>bayes_inference</code> function.
+If your local output is different from what is seen in this chapter, or the provided code fails to run for you please make sure that you have the most recent version of the package.</p>
 
-<div id="sec:known-var" class="section level2">
+<div id="sec:known-var" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Bayes Factors for Testing a Normal Mean: variance known</h2>
 <p>Now we show how to obtain Bayes factors for testing hypothesis about a normal mean, where <strong>the variance is known</strong>. To start, let’s consider a random sample of observations from a normal population with mean <span class="math inline">\(\mu\)</span> and pre-specified variance <span class="math inline">\(\sigma^2\)</span>. We consider testing whether the population mean <span class="math inline">\(\mu\)</span> is equal to <span class="math inline">\(m_0\)</span> or not.</p>
 <p>Therefore, we can formulate the data and hypotheses as below:</p>
@@ -367,7 +390,6 @@ Figure 5.2: Prior on standard effect size
 <span id="exm:unnamed-chunk-2" class="example"><strong>Example 1.1  </strong></span>To illustrate, we give an example from parapsychological research. The case involved the test of the subject’s claim to affect a series of randomly generated 0’s and 1’s by means of extra sensory perception (ESP). The random sequence of 0’s and 1’s are generated by a machine with
 probability of generating 1 being 0.5. The subject claims that his ESP would make the sample mean differ significantly from 0.5.
 </div>
-
 <p>Therefore, we are testing <span class="math inline">\(H_1: \mu = 0.5\)</span> versus <span class="math inline">\(H_2: \mu \neq 0.5\)</span>. Let’s use a prior that suggests we do not expect a large effect which leads
 the following solution for <span class="math inline">\(n_0\)</span>. Assume we want a standard effect of 0.03, there is a 95% chance that it is between <span class="math inline">\((-0.03/\sigma, 0.03/\sigma)\)</span>, with <span class="math inline">\(n_0 = (1.96\sigma/0.03)^2 = 32.7^2\)</span>.</p>
 <p>Figure <a href="hypothesis-testing-with-normal-populations.html#fig:prior-effect">5.3</a> shows our informative prior in blue, while the unit information prior is in orange. On this scale, the unit information
@@ -390,7 +412,7 @@ Figure 5.3: Prior effect in the extra sensory perception test
 <li><span class="math inline">\(\textit{BF}[H_2:H_1] = 1/\textit{BF}[H_1:H_2] = 2.19\)</span></li>
 </ul>
 <p>Now, this can be inverted to provide the evidence in favor of <span class="math inline">\(H_2\)</span>. The evidence suggests that the hypothesis that the machine operates with a probability that is not 0.5, is 2.19 times more likely than the hypothesis
-the probability is 0.5. Based on the interpretation of Bayes factors from Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “not worth the bare mention”.</p>
+the probability is 0.5. Based on the interpretation of Bayes factors from Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “not worth the bare mention.”</p>
 <p>To recap, we present expressions for calculating Bayes factors for a normal model with a specified variance. We show that the improper reference priors for <span class="math inline">\(\mu\)</span> when <span class="math inline">\(n_0 = 0\)</span>, or vague priors where <span class="math inline">\(n_0\)</span> is arbitrarily small,
 lead to Bayes factors that favor the null hypothesis regardless of the data, and thus should not be used for hypothesis testing.</p>
 <p>Bayes factors with normal priors can be sensitive to the choice of the <span class="math inline">\(n_0\)</span>. While the default value of <span class="math inline">\(n_0 = 1\)</span> is reasonable in many cases, this may be too non-informative if one expects more effects. Wherever possible, think about how large an effect you expect and use that information to help select the <span class="math inline">\(n_0\)</span>.</p>
@@ -398,7 +420,7 @@ lead to Bayes factors that favor the null hypothesis regardless of the data, and
 <p>Next, we will look at Bayes factors in normal models with unknown variances using the Cauchy prior so that results are less sensitive to the choice of <span class="math inline">\(n_0\)</span>.</p>
 
 </div>
-<div id="comparing-two-paired-means-using-bayes-factors" class="section level2">
+<div id="comparing-two-paired-means-using-bayes-factors" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Comparing Two Paired Means using Bayes Factors</h2>
 <p>We previously learned that we can use a paired t-test to compare means from two paired samples. In this section, we will show how Bayes factors can be expressed as a function of the t-statistic for comparing the means and provide posterior probabilities of the hypothesis that whether the means are equal or different.</p>
 
@@ -406,7 +428,6 @@ lead to Bayes factors that favor the null hypothesis regardless of the data, and
 <p><span id="exm:zinc" class="example"><strong>Example 5.1  </strong></span>Trace metals in drinking water affect the flavor, and unusually high concentrations can pose a health hazard. Ten pairs of data were taken measuring the zinc concentration in bottom and surface water at ten randomly sampled locations, as listed in Table <a href="hypothesis-testing-with-normal-populations.html#tab:zinc-table">5.1</a>.</p>
 Water samples collected at the the same location, on the surface and the bottom, cannot be assumed to be independent of each other. However, it may be reasonable to assume that the differences in the concentration at the bottom and the surface in randomly sampled locations are independent of each other.
 </div>
-
 <table>
 <caption><span id="tab:zinc-table">Table 5.1: </span>Zinc in drinking water</caption>
 <thead>
@@ -523,9 +544,9 @@ under each hypothesis, which does not depend on any unknown parameters.</p>
 <p>However, there is no closed form expressions for the Bayes factor under the Cauchy distribution. To obtain the Bayes factor, we must use the
 numerical integration or simulation methods.</p>
 <p>We will use the  function from the  package to test whether the mean difference is zero in Example <a href="hypothesis-testing-with-normal-populations.html#exm:zinc">5.1</a> (zinc), using the JZS (Jeffreys-Zellener-Siow) prior.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="hypothesis-testing-with-normal-populations.html#cb49-1"></a><span class="kw">library</span>(statsr)</span>
-<span id="cb49-2"><a href="hypothesis-testing-with-normal-populations.html#cb49-2"></a><span class="kw">bayes_inference</span>(difference, <span class="dt">data=</span>zinc, <span class="dt">statistic=</span><span class="st">&quot;mean&quot;</span>, <span class="dt">type=</span><span class="st">&quot;ht&quot;</span>,</span>
-<span id="cb49-3"><a href="hypothesis-testing-with-normal-populations.html#cb49-3"></a>                <span class="dt">prior=</span><span class="st">&quot;JZS&quot;</span>, <span class="dt">mu_0=</span><span class="dv">0</span>, <span class="dt">method=</span><span class="st">&quot;theo&quot;</span>, <span class="dt">alt=</span><span class="st">&quot;twosided&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="hypothesis-testing-with-normal-populations.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statsr)</span>
+<span id="cb47-2"><a href="hypothesis-testing-with-normal-populations.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_inference</span>(difference, <span class="at">data=</span>zinc, <span class="at">statistic=</span><span class="st">&quot;mean&quot;</span>, <span class="at">type=</span><span class="st">&quot;ht&quot;</span>,</span>
+<span id="cb47-3"><a href="hypothesis-testing-with-normal-populations.html#cb47-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">prior=</span><span class="st">&quot;JZS&quot;</span>, <span class="at">mu_0=</span><span class="dv">0</span>, <span class="at">method=</span><span class="st">&quot;theo&quot;</span>, <span class="at">alt=</span><span class="st">&quot;twosided&quot;</span>)</span></code></pre></div>
 <pre><code>## Single numerical variable
 ## n = 10, y-bar = 0.0804, s = 0.0523
 ## (Using Zellner-Siow Cauchy prior:  mu ~ C(0, 1*sigma)
@@ -547,18 +568,18 @@ numerical integration or simulation methods.</p>
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03645413 0.06329294 0.07537414  0.08715852  0.11211251
-## sigma 0.03668393 0.04739420 0.05533219  0.06556457  0.09558245
-## n_0   0.15974328 1.88952105 4.73158638 10.11632329 32.41639992
+## mu    0.03650273 0.06330462 0.07534946  0.08713982  0.11237437
+## sigma 0.03663867 0.04739737 0.05532241  0.06556947  0.09555978
+## n_0   0.16197509 1.89250351 4.74022972 10.09590287 32.37420574
 ## 
-## 95% CI for mu: (0.0365, 0.1121)</code></pre>
+## 95% CI for mu: (0.0365, 0.1124)</code></pre>
 <p><img src="05-BFnormal-02-paired-means_files/figure-html/bayes-inference-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>With equal prior probabilities on the two hypothesis, the Bayes factor is the posterior odds. From the output, we see this indicates that the hypothesis <span class="math inline">\(H_2\)</span>, the mean difference is different from 0, is almost 51 times more likely than the hypothesis <span class="math inline">\(H_1\)</span> that the average concentration is the same at the surface and the bottom.</p>
 <p>To sum up, we have used the <strong>Cauchy prior</strong> as a default prior testing hypothesis about a normal mean when variances are unknown. This does require numerical integration, but it is available in the  function from the  package. If you expect that the effect sizes will be small, smaller values of <span class="math inline">\(r\)</span> are recommended.</p>
 <p>It is often important to quantify the magnitude of the difference in addition to testing. The Cauchy Prior provides a default prior for both testing and inference; it avoids problems that arise with choosing a value of <span class="math inline">\(n_0\)</span> (prior sample size) in both cases. In the next section, we will illustrate using the Cauchy prior for comparing two means from independent normal samples.</p>
 
 </div>
-<div id="sec:indep-means" class="section level2">
+<div id="sec:indep-means" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Comparing Independent Means: Hypothesis Testing</h2>
 <p>In the previous section, we described Bayes factors for testing whether the mean difference of <strong>paired</strong> samples was zero. In this section, we will consider a slightly different problem – we have two <strong>independent</strong> samples, and we would like to test the hypothesis that the means are different or equal.</p>
 
@@ -567,7 +588,6 @@ numerical integration or simulation methods.</p>
 <p>The variable of interest is  – the weight gain of mothers during pregnancy. We have two groups defined by the categorical variable, , with levels, younger mom and older mom.</p>
 <strong>Question of interest</strong>: Do the data provide convincing evidence of a difference between the average weight gain of older moms and the average weight gain of younger moms?
 </div>
-
 <p>We will view the data as a random sample from two populations, older and younger moms. The two groups are modeled as:</p>
 <p><span class="math display" id="eq:half-alpha">\[\begin{equation}
 \begin{aligned}
@@ -600,11 +620,11 @@ Y_{Y,i} &amp; \mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2
 <p><span class="math display">\[p(\mu, \sigma^2) \propto 1/\sigma^2\]</span></p>
 <p>While this is an improper prior on <span class="math inline">\(\mu\)</span>, this does not suffer from the Bartlett’s-Lindley’s-Jeffreys’ paradox as <span class="math inline">\(\mu\)</span> is a common parameter in the model in <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>. This is another example of the Jeffreys-Zellner-Siow prior.</p>
 <p>As in the single mean case, we will need numerical algorithms to obtain the Bayes factor. Now the following output illustrates testing of Bayes factors, using the Bayes inference function from the  package.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="hypothesis-testing-with-normal-populations.html#cb51-1"></a><span class="kw">library</span>(statsr)</span>
-<span id="cb51-2"><a href="hypothesis-testing-with-normal-populations.html#cb51-2"></a><span class="kw">data</span>(nc)</span>
-<span id="cb51-3"><a href="hypothesis-testing-with-normal-populations.html#cb51-3"></a><span class="kw">bayes_inference</span>(<span class="dt">y=</span>gained, <span class="dt">x=</span>mature, <span class="dt">data=</span>nc,<span class="dt">type=</span><span class="st">&#39;ht&#39;</span>, </span>
-<span id="cb51-4"><a href="hypothesis-testing-with-normal-populations.html#cb51-4"></a>                <span class="dt">statistic=</span><span class="st">&#39;mean&#39;</span>,  <span class="dt">alternative=</span><span class="st">&#39;twosided&#39;</span>, <span class="dt">null=</span><span class="dv">0</span>,</span>
-<span id="cb51-5"><a href="hypothesis-testing-with-normal-populations.html#cb51-5"></a>                <span class="dt">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="dt">r=</span><span class="dv">1</span>, <span class="dt">method=</span><span class="st">&#39;theo&#39;</span>, <span class="dt">show_summ=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="hypothesis-testing-with-normal-populations.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statsr)</span>
+<span id="cb49-2"><a href="hypothesis-testing-with-normal-populations.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(nc)</span>
+<span id="cb49-3"><a href="hypothesis-testing-with-normal-populations.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_inference</span>(<span class="at">y=</span>gained, <span class="at">x=</span>mature, <span class="at">data=</span>nc,<span class="at">type=</span><span class="st">&#39;ht&#39;</span>, </span>
+<span id="cb49-4"><a href="hypothesis-testing-with-normal-populations.html#cb49-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">statistic=</span><span class="st">&#39;mean&#39;</span>,  <span class="at">alternative=</span><span class="st">&#39;twosided&#39;</span>, <span class="at">null=</span><span class="dv">0</span>,</span>
+<span id="cb49-5"><a href="hypothesis-testing-with-normal-populations.html#cb49-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="at">r=</span><span class="dv">1</span>, <span class="at">method=</span><span class="st">&#39;theo&#39;</span>, <span class="at">show_summ=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## Hypotheses:
 ## H1: mu_mature mom  = mu_younger mom
 ## H2: mu_mature mom != mu_younger mom
@@ -617,13 +637,13 @@ Y_{Y,i} &amp; \mathrel{\mathop{\sim}\limits^{\rm iid}} \textsf{N}(\mu - \alpha/2
 ## P(H2|data) = 0.1489 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (-4.3225 , 0.9042)</code></pre>
+## 95% Cred. Int.: (-4.3955 , 0.9506)</code></pre>
 <p><img src="05-BFnormal-03-independent-means_files/figure-html/bf-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>We see that the Bayes factor for <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> is about 5.7, with positive support for <span class="math inline">\(H_1\)</span> that there is no difference in average weight gain between younger and older women. Using equal prior probabilities, the probability that there is a difference in average weight gain between the two groups is about 0.15 given the data. Based on the interpretation of Bayes factors from Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>, this is in the range of “positive” (between 3 and 20).</p>
 <p>To recap, we have illustrated testing hypotheses about population means with two independent samples, using a Cauchy prior on the difference in the means. One assumption that we have made is that <strong>the variances are equal in both groups</strong>. The case where the variances are unequal is referred to as the Behren-Fisher problem, and this is beyond the scope for this course. In the next section, we will look at another example to put everything together with testing and discuss summarizing results.</p>
 
 </div>
-<div id="inference-after-testing" class="section level2">
+<div id="inference-after-testing" class="section level2" number="5.4">
 <h2><span class="header-section-number">5.4</span> Inference after Testing</h2>
 <p>In this section, we will work through another example for comparing two means using both hypothesis tests and interval estimates, with an informative prior.
 We will also illustrate how to adjust the credible interval after testing.</p>
@@ -632,7 +652,6 @@ We will also illustrate how to adjust the credible interval after testing.</p>
 <span id="exm:smoking" class="example"><strong>Example 5.3  </strong></span>We will use the North Carolina survey data to examine the relationship
 between infant birth weight and whether the mother smoked during pregnancy. The response variable, , is the birth weight of the baby in pounds. The categorical variable  provides the status of the mother as a smoker or non-smoker.
 </div>
-
 <p>We would like to answer two questions:</p>
 <ol style="list-style-type: decimal">
 <li><p>Is there a difference in average birth weight between the two groups?</p></li>
@@ -655,11 +674,11 @@ p(\mu) &amp;\propto 1 \\
 p(\sigma^2) &amp;\propto 1/\sigma^2
 \end{aligned}\]</span></p>
 <p>The input to the base inference function is similar, but now we will specify that <span class="math inline">\(r = 0.5\)</span>.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="hypothesis-testing-with-normal-populations.html#cb53-1"></a><span class="kw">library</span>(statsr)</span>
-<span id="cb53-2"><a href="hypothesis-testing-with-normal-populations.html#cb53-2"></a><span class="kw">data</span>(nc)</span>
-<span id="cb53-3"><a href="hypothesis-testing-with-normal-populations.html#cb53-3"></a>out =<span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <span class="dt">x=</span>habit, <span class="dt">data=</span>nc,<span class="dt">type=</span><span class="st">&#39;ht&#39;</span>, <span class="dt">null=</span><span class="dv">0</span>,</span>
-<span id="cb53-4"><a href="hypothesis-testing-with-normal-populations.html#cb53-4"></a>                     <span class="dt">statistic=</span><span class="st">&#39;mean&#39;</span>,  <span class="dt">alternative=</span><span class="st">&#39;twosided&#39;</span>,</span>
-<span id="cb53-5"><a href="hypothesis-testing-with-normal-populations.html#cb53-5"></a>                     <span class="dt">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="dt">r=</span>.<span class="dv">5</span>, <span class="dt">method=</span><span class="st">&#39;sim&#39;</span>, <span class="dt">show_summ=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="hypothesis-testing-with-normal-populations.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statsr)</span>
+<span id="cb51-2"><a href="hypothesis-testing-with-normal-populations.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(nc)</span>
+<span id="cb51-3"><a href="hypothesis-testing-with-normal-populations.html#cb51-3" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span><span class="fu">bayes_inference</span>(<span class="at">y=</span>weight, <span class="at">x=</span>habit, <span class="at">data=</span>nc,<span class="at">type=</span><span class="st">&#39;ht&#39;</span>, <span class="at">null=</span><span class="dv">0</span>,</span>
+<span id="cb51-4"><a href="hypothesis-testing-with-normal-populations.html#cb51-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">statistic=</span><span class="st">&#39;mean&#39;</span>,  <span class="at">alternative=</span><span class="st">&#39;twosided&#39;</span>,</span>
+<span id="cb51-5"><a href="hypothesis-testing-with-normal-populations.html#cb51-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="at">r=</span>.<span class="dv">5</span>, <span class="at">method=</span><span class="st">&#39;sim&#39;</span>, <span class="at">show_summ=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## Hypotheses:
 ## H1: mu_nonsmoker  = mu_smoker
 ## H2: mu_nonsmoker != mu_smoker
@@ -672,29 +691,29 @@ p(\sigma^2) &amp;\propto 1/\sigma^2
 ## P(H2|data) = 0.5902 
 ## 
 ## Posterior summaries for under H2:
-## 95% Cred. Int.: (0.024 , 0.5741)</code></pre>
+## 95% Cred. Int.: (0.0203 , 0.5707)</code></pre>
 <p><img src="05-BFnormal-04-inference_files/figure-html/BF-NC-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>We see that the Bayes factor is 1.44, which weakly favors there being a difference in average birth weights for babies whose mothers are smokers versus mothers who did not smoke. Converting this to a probability, we find that there is about a 60% chance of the average birth weights are different.</p>
 <p>While looking at evidence of there being a difference is useful, Bayes factors and posterior probabilities do <strong>not</strong> convey any information about the magnitude of the effect. Reporting a credible interval or the complete posterior distribution is more relevant for quantifying the magnitude of the effect.</p>
 <p>Using the  function, we can generate samples from the posterior distribution under <span class="math inline">\(H_2\)</span> using the  option.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="hypothesis-testing-with-normal-populations.html#cb55-1"></a>out.ci =<span class="st"> </span><span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <span class="dt">x=</span>habit, <span class="dt">data=</span>nc, <span class="dt">type=</span><span class="st">&#39;ci&#39;</span>,</span>
-<span id="cb55-2"><a href="hypothesis-testing-with-normal-populations.html#cb55-2"></a>                         <span class="dt">statistic=</span><span class="st">&#39;mean&#39;</span>, <span class="dt">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="dt">mu_0=</span><span class="dv">0</span>,</span>
-<span id="cb55-3"><a href="hypothesis-testing-with-normal-populations.html#cb55-3"></a>                         <span class="dt">r=</span>.<span class="dv">5</span>, <span class="dt">method=</span><span class="st">&#39;sim&#39;</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
-<span id="cb55-4"><a href="hypothesis-testing-with-normal-populations.html#cb55-4"></a><span class="kw">print</span>(out.ci<span class="op">$</span>summary, <span class="dt">digits=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="hypothesis-testing-with-normal-populations.html#cb53-1" aria-hidden="true" tabindex="-1"></a>out.ci <span class="ot">=</span> <span class="fu">bayes_inference</span>(<span class="at">y=</span>weight, <span class="at">x=</span>habit, <span class="at">data=</span>nc, <span class="at">type=</span><span class="st">&#39;ci&#39;</span>,</span>
+<span id="cb53-2"><a href="hypothesis-testing-with-normal-populations.html#cb53-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">statistic=</span><span class="st">&#39;mean&#39;</span>, <span class="at">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="at">mu_0=</span><span class="dv">0</span>,</span>
+<span id="cb53-3"><a href="hypothesis-testing-with-normal-populations.html#cb53-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">r=</span>.<span class="dv">5</span>, <span class="at">method=</span><span class="st">&#39;sim&#39;</span>, <span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
+<span id="cb53-4"><a href="hypothesis-testing-with-normal-populations.html#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(out.ci<span class="sc">$</span>summary, <span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##                             2.5%     25%    50%     75%   97.5%
-## overall mean               6.849    6.94    7.0    7.04 7.1e+00
-## mu_nonsmoker - mu_smoker   0.028    0.21    0.3    0.40 5.8e-01
-## sigma^2                    2.071    2.19    2.3    2.33 2.5e+00
-## effect size                0.019    0.14    0.2    0.26 3.9e-01
-## n_0                      177.209 1933.28 4747.6 9466.05 2.6e+04</code></pre>
+## overall mean               6.852    6.95    7.0    7.04 7.1e+00
+## mu_nonsmoker - mu_smoker   0.027    0.20    0.3    0.39 5.7e-01
+## sigma^2                    2.070    2.19    2.3    2.33 2.5e+00
+## effect size                0.018    0.14    0.2    0.26 3.8e-01
+## n_0                      157.017 1984.41 4744.4 9292.78 2.5e+04</code></pre>
 <p>The 2.5 and 97.5 percentiles for the difference in the means provide a 95% credible interval of 0.023 to 0.57 pounds for the difference in average birth weight. The MCMC output shows not only summaries about the difference in the mean <span class="math inline">\(\alpha\)</span>, but the other parameters in the model.</p>
 <p>In particular, the Cauchy prior arises by placing a gamma prior on <span class="math inline">\(n_0\)</span> and the conjugate normal prior. This provides quantiles about <span class="math inline">\(n_0\)</span> after updating with the current data.</p>
 <p>The row labeled effect size is the standardized effect size <span class="math inline">\(\delta\)</span>, indicating that the effects are indeed small relative to the noise in the data.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="hypothesis-testing-with-normal-populations.html#cb57-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb57-2"><a href="hypothesis-testing-with-normal-populations.html#cb57-2"></a>out =<span class="st"> </span><span class="kw">bayes_inference</span>(<span class="dt">y=</span>weight, <span class="dt">x=</span>habit, <span class="dt">data=</span>nc,<span class="dt">type=</span><span class="st">&#39;ht&#39;</span>,</span>
-<span id="cb57-3"><a href="hypothesis-testing-with-normal-populations.html#cb57-3"></a>                <span class="dt">statistic=</span><span class="st">&#39;mean&#39;</span>,  <span class="dt">alternative=</span><span class="st">&#39;twosided&#39;</span>,</span>
-<span id="cb57-4"><a href="hypothesis-testing-with-normal-populations.html#cb57-4"></a>                <span class="dt">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="dt">null=</span><span class="dv">0</span>, <span class="dt">r=</span>.<span class="dv">5</span>, <span class="dt">method=</span><span class="st">&#39;theo&#39;</span>,</span>
-<span id="cb57-5"><a href="hypothesis-testing-with-normal-populations.html#cb57-5"></a>                <span class="dt">show_summ=</span><span class="ot">FALSE</span>, <span class="dt">show_res=</span><span class="ot">FALSE</span>, <span class="dt">show_plot=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="hypothesis-testing-with-normal-populations.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb55-2"><a href="hypothesis-testing-with-normal-populations.html#cb55-2" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">bayes_inference</span>(<span class="at">y=</span>weight, <span class="at">x=</span>habit, <span class="at">data=</span>nc,<span class="at">type=</span><span class="st">&#39;ht&#39;</span>,</span>
+<span id="cb55-3"><a href="hypothesis-testing-with-normal-populations.html#cb55-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">statistic=</span><span class="st">&#39;mean&#39;</span>,  <span class="at">alternative=</span><span class="st">&#39;twosided&#39;</span>,</span>
+<span id="cb55-4"><a href="hypothesis-testing-with-normal-populations.html#cb55-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">prior=</span><span class="st">&#39;JZS&#39;</span>, <span class="at">null=</span><span class="dv">0</span>, <span class="at">r=</span>.<span class="dv">5</span>, <span class="at">method=</span><span class="st">&#39;theo&#39;</span>,</span>
+<span id="cb55-5"><a href="hypothesis-testing-with-normal-populations.html#cb55-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">show_summ=</span><span class="cn">FALSE</span>, <span class="at">show_res=</span><span class="cn">FALSE</span>, <span class="at">show_plot=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:BF-NC-plot"></span>
 <img src="05-BFnormal-04-inference_files/figure-html/BF-NC-plot-1.png" alt="Estimates of effect under H2" width="384" />
 <p class="caption">

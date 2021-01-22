@@ -37,6 +37,7 @@
   
 <link rel="prev" href="bayesian-inference.html"/>
 <link rel="next" href="inference-and-decision-making-with-multiple-parameters.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,24 +55,20 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -91,7 +88,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -141,49 +138,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a><ul>
-<li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a><ul>
+<li class="chapter" data-level="1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html"><i class="fa fa-check"></i><b>1</b> The Basics of Bayesian Statistics</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-rule"><i class="fa fa-check"></i><b>1.1</b> Bayes’ Rule</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:bayes-rule"><i class="fa fa-check"></i><b>1.1.1</b> Conditional Probabilities &amp; Bayes’ Rule</a></li>
 <li class="chapter" data-level="1.1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#sec:diagnostic-testing"><i class="fa fa-check"></i><b>1.1.2</b> Bayes’ Rule and Diagnostic Testing</a></li>
 <li class="chapter" data-level="1.1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayes-updating"><i class="fa fa-check"></i><b>1.1.3</b> Bayes Updating</a></li>
 <li class="chapter" data-level="1.1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#bayesian-vs.-frequentist-definitions-of-probability"><i class="fa fa-check"></i><b>1.1.4</b> Bayesian vs. Frequentist Definitions of Probability</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a><ul>
+<li class="chapter" data-level="1.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion"><i class="fa fa-check"></i><b>1.2</b> Inference for a Proportion</a>
+<ul>
 <li class="chapter" data-level="1.2.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-frequentist-approach"><i class="fa fa-check"></i><b>1.2.1</b> Inference for a Proportion: Frequentist Approach</a></li>
 <li class="chapter" data-level="1.2.2" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#inference-for-a-proportion-bayesian-approach"><i class="fa fa-check"></i><b>1.2.2</b> Inference for a Proportion: Bayesian Approach</a></li>
 <li class="chapter" data-level="1.2.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#effect-of-sample-size-on-the-posterior"><i class="fa fa-check"></i><b>1.2.3</b> Effect of Sample Size on the Posterior</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.-bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a><ul>
+<li class="chapter" data-level="1.3" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.-bayesian-inference"><i class="fa fa-check"></i><b>1.3</b> Frequentist vs. Bayesian Inference</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#frequentist-vs.-bayesian-inference-1"><i class="fa fa-check"></i><b>1.3.1</b> Frequentist vs. Bayesian Inference</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="the-basics-of-bayesian-statistics.html"><a href="the-basics-of-bayesian-statistics.html#exercises"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a><ul>
-<li class="chapter" data-level="2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#continuous-variables-and-eliciting-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a><ul>
+<li class="chapter" data-level="2" data-path="bayesian-inference.html"><a href="bayesian-inference.html"><i class="fa fa-check"></i><b>2</b> Bayesian Inference</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#continuous-variables-and-eliciting-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Continuous Variables and Eliciting Probability Distributions</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#from-the-discrete-to-the-continuous"><i class="fa fa-check"></i><b>2.1.1</b> From the Discrete to the Continuous</a></li>
 <li class="chapter" data-level="2.1.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#elicitation"><i class="fa fa-check"></i><b>2.1.2</b> Elicitation</a></li>
 <li class="chapter" data-level="2.1.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#conjugacy"><i class="fa fa-check"></i><b>2.1.3</b> Conjugacy</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#three-conjugate-families"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a><ul>
+<li class="chapter" data-level="2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#three-conjugate-families"><i class="fa fa-check"></i><b>2.2</b> Three Conjugate Families</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#inference-on-a-binomial-proportion"><i class="fa fa-check"></i><b>2.2.1</b> Inference on a Binomial Proportion</a></li>
 <li class="chapter" data-level="2.2.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#the-gamma-poisson-conjugate-families"><i class="fa fa-check"></i><b>2.2.2</b> The Gamma-Poisson Conjugate Families</a></li>
 <li class="chapter" data-level="2.2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#sec:normal-normal"><i class="fa fa-check"></i><b>2.2.3</b> The Normal-Normal Conjugate Families</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals-and-predictive-inference"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a><ul>
+<li class="chapter" data-level="2.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals-and-predictive-inference"><i class="fa fa-check"></i><b>2.3</b> Credible Intervals and Predictive Inference</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="bayesian-inference.html"><a href="bayesian-inference.html#non-conjugate-priors"><i class="fa fa-check"></i><b>2.3.1</b> Non-Conjugate Priors</a></li>
 <li class="chapter" data-level="2.3.2" data-path="bayesian-inference.html"><a href="bayesian-inference.html#credible-intervals"><i class="fa fa-check"></i><b>2.3.2</b> Credible Intervals</a></li>
 <li class="chapter" data-level="2.3.3" data-path="bayesian-inference.html"><a href="bayesian-inference.html#predictive-inference"><i class="fa fa-check"></i><b>2.3.3</b> Predictive Inference</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html"><i class="fa fa-check"></i><b>3</b> Losses and Decision Making</a><ul>
+<li class="chapter" data-level="3" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html"><i class="fa fa-check"></i><b>3</b> Losses and Decision Making</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#bayesian-decision-making"><i class="fa fa-check"></i><b>3.1</b> Bayesian Decision Making</a></li>
 <li class="chapter" data-level="3.2" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#loss-functions"><i class="fa fa-check"></i><b>3.2</b> Loss Functions</a></li>
 <li class="chapter" data-level="3.3" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#working-with-loss-functions"><i class="fa fa-check"></i><b>3.3</b> Working with Loss Functions</a></li>
 <li class="chapter" data-level="3.4" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#minimizing-expected-loss-for-hypothesis-testing"><i class="fa fa-check"></i><b>3.4</b> Minimizing Expected Loss for Hypothesis Testing</a></li>
 <li class="chapter" data-level="3.5" data-path="losses-and-decision-making.html"><a href="losses-and-decision-making.html#sec:bayes-factors"><i class="fa fa-check"></i><b>3.5</b> Posterior Probabilities of Hypotheses and Bayes Factors</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html"><i class="fa fa-check"></i><b>4</b> Inference and Decision-Making with Multiple Parameters</a><ul>
-<li class="chapter" data-level="4.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma"><i class="fa fa-check"></i><b>4.1</b> The Normal-Gamma Conjugate Family</a><ul>
+<li class="chapter" data-level="4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html"><i class="fa fa-check"></i><b>4</b> Inference and Decision-Making with Multiple Parameters</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma"><i class="fa fa-check"></i><b>4.1</b> The Normal-Gamma Conjugate Family</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#conjugate-prior-for-mu-and-sigma2"><i class="fa fa-check"></i><b>4.1.1</b> Conjugate Prior for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span></a></li>
 <li class="chapter" data-level="4.1.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#conjugate-posterior-distribution"><i class="fa fa-check"></i><b>4.1.2</b> Conjugate Posterior Distribution</a></li>
 <li class="chapter" data-level="4.1.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#marginal-distribution-for-mu-student-t"><i class="fa fa-check"></i><b>4.1.3</b> Marginal Distribution for <span class="math inline">\(\mu\)</span>: Student <span class="math inline">\(t\)</span></a></li>
@@ -192,13 +200,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1.6" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#section-summary"><i class="fa fa-check"></i><b>4.1.6</b> Section Summary</a></li>
 <li class="chapter" data-level="4.1.7" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#optional-derivations"><i class="fa fa-check"></i><b>4.1.7</b> (Optional) Derivations</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MC"><i class="fa fa-check"></i><b>4.2</b> Monte Carlo Inference</a><ul>
+<li class="chapter" data-level="4.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MC"><i class="fa fa-check"></i><b>4.2</b> Monte Carlo Inference</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-sampling"><i class="fa fa-check"></i><b>4.2.1</b> Monte Carlo Sampling</a></li>
 <li class="chapter" data-level="4.2.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-inference-tap-water-example"><i class="fa fa-check"></i><b>4.2.2</b> Monte Carlo Inference: Tap Water Example</a></li>
 <li class="chapter" data-level="4.2.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-inference-for-functions-of-parameters"><i class="fa fa-check"></i><b>4.2.3</b> Monte Carlo Inference for Functions of Parameters</a></li>
 <li class="chapter" data-level="4.2.4" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#summary"><i class="fa fa-check"></i><b>4.2.4</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive"><i class="fa fa-check"></i><b>4.3</b> Predictive Distributions</a><ul>
+<li class="chapter" data-level="4.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive"><i class="fa fa-check"></i><b>4.3</b> Predictive Distributions</a>
+<ul>
 <li class="chapter" data-level="4.3.1" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#prior-predictive-distribution"><i class="fa fa-check"></i><b>4.3.1</b> Prior Predictive Distribution</a></li>
 <li class="chapter" data-level="4.3.2" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#tap-water-example-continued"><i class="fa fa-check"></i><b>4.3.2</b> Tap Water Example (continued)</a></li>
 <li class="chapter" data-level="4.3.3" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sampling-from-the-prior-predictive-in-r"><i class="fa fa-check"></i><b>4.3.3</b> Sampling from the Prior Predictive in <code>R</code></a></li>
@@ -209,14 +219,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-Cauchy"><i class="fa fa-check"></i><b>4.5</b> Mixtures of Conjugate Priors</a></li>
 <li class="chapter" data-level="4.6" data-path="inference-and-decision-making-with-multiple-parameters.html"><a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MCMC"><i class="fa fa-check"></i><b>4.6</b> Markov Chain Monte Carlo (MCMC)</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Testing with Normal Populations</a><ul>
+<li class="chapter" data-level="5" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Testing with Normal Populations</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#sec:known-var"><i class="fa fa-check"></i><b>5.1</b> Bayes Factors for Testing a Normal Mean: variance known</a></li>
 <li class="chapter" data-level="5.2" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#comparing-two-paired-means-using-bayes-factors"><i class="fa fa-check"></i><b>5.2</b> Comparing Two Paired Means using Bayes Factors</a></li>
 <li class="chapter" data-level="5.3" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#sec:indep-means"><i class="fa fa-check"></i><b>5.3</b> Comparing Independent Means: Hypothesis Testing</a></li>
 <li class="chapter" data-level="5.4" data-path="hypothesis-testing-with-normal-populations.html"><a href="hypothesis-testing-with-normal-populations.html#inference-after-testing"><i class="fa fa-check"></i><b>5.4</b> Inference after Testing</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Regression</a><ul>
-<li class="chapter" data-level="6.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:simple-linear"><i class="fa fa-check"></i><b>6.1</b> Bayesian Simple Linear Regression</a><ul>
+<li class="chapter" data-level="6" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bayesian Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:simple-linear"><i class="fa fa-check"></i><b>6.1</b> Bayesian Simple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#frequentist-ordinary-least-square-ols-simple-linear-regression"><i class="fa fa-check"></i><b>6.1.1</b> Frequentist Ordinary Least Square (OLS) Simple Linear Regression</a></li>
 <li class="chapter" data-level="6.1.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#bayesian-simple-linear-regression-using-the-reference-prior"><i class="fa fa-check"></i><b>6.1.2</b> Bayesian Simple Linear Regression Using the Reference Prior</a></li>
 <li class="chapter" data-level="6.1.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:informative-prior"><i class="fa fa-check"></i><b>6.1.3</b> Informative Priors</a></li>
@@ -226,11 +239,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.7" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#marginal-posterior-distribution-of-sigma2"><i class="fa fa-check"></i><b>6.1.7</b> Marginal Posterior Distribution of <span class="math inline">\(\sigma^2\)</span></a></li>
 <li class="chapter" data-level="6.1.8" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#joint-normal-gamma-posterior-distributions"><i class="fa fa-check"></i><b>6.1.8</b> Joint Normal-Gamma Posterior Distributions</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Checking-outliers"><i class="fa fa-check"></i><b>6.2</b> Checking Outliers</a><ul>
+<li class="chapter" data-level="6.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Checking-outliers"><i class="fa fa-check"></i><b>6.2</b> Checking Outliers</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#posterior-distribution-of-epsilon_j-conditioning-on-sigma2"><i class="fa fa-check"></i><b>6.2.1</b> Posterior Distribution of <span class="math inline">\(\epsilon_j\)</span> Conditioning On <span class="math inline">\(\sigma^2\)</span></a></li>
 <li class="chapter" data-level="6.2.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#implementation-using-bas-package"><i class="fa fa-check"></i><b>6.2.2</b> Implementation Using <code>BAS</code> Package</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression"><i class="fa fa-check"></i><b>6.3</b> Bayesian Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="6.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression"><i class="fa fa-check"></i><b>6.3</b> Bayesian Multiple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#the-model"><i class="fa fa-check"></i><b>6.3.1</b> The Model</a></li>
 <li class="chapter" data-level="6.3.2" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#data-pre-processing"><i class="fa fa-check"></i><b>6.3.2</b> Data Pre-processing</a></li>
 <li class="chapter" data-level="6.3.3" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#specify-bayesian-prior-distributions"><i class="fa fa-check"></i><b>6.3.3</b> Specify Bayesian Prior Distributions</a></li>
@@ -240,40 +255,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="introduction-to-bayesian-regression.html"><a href="introduction-to-bayesian-regression.html#summary-2"><i class="fa fa-check"></i><b>6.4</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html"><i class="fa fa-check"></i><b>7</b> Bayesian Model Choice</a><ul>
-<li class="chapter" data-level="7.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#sec:BIC"><i class="fa fa-check"></i><b>7.1</b> Bayesian Information Criterion (BIC)</a><ul>
+<li class="chapter" data-level="7" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html"><i class="fa fa-check"></i><b>7</b> Bayesian Model Choice</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#sec:BIC"><i class="fa fa-check"></i><b>7.1</b> Bayesian Information Criterion (BIC)</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#definition-of-bic"><i class="fa fa-check"></i><b>7.1.1</b> Definition of BIC</a></li>
 <li class="chapter" data-level="7.1.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#backward-elimination-with-bic"><i class="fa fa-check"></i><b>7.1.2</b> Backward Elimination with BIC</a></li>
 <li class="chapter" data-level="7.1.3" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#coefficient-estimates-under-reference-prior-for-best-bic-model"><i class="fa fa-check"></i><b>7.1.3</b> Coefficient Estimates Under Reference Prior for Best BIC Model</a></li>
 <li class="chapter" data-level="7.1.4" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#other-criteria"><i class="fa fa-check"></i><b>7.1.4</b> Other Criteria</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#sec:BMU"><i class="fa fa-check"></i><b>7.2</b> Bayesian Model Uncertainty</a><ul>
+<li class="chapter" data-level="7.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#sec:BMU"><i class="fa fa-check"></i><b>7.2</b> Bayesian Model Uncertainty</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#model-uncertainty"><i class="fa fa-check"></i><b>7.2.1</b> Model Uncertainty</a></li>
 <li class="chapter" data-level="7.2.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#calculating-posterior-probability-in-r"><i class="fa fa-check"></i><b>7.2.2</b> Calculating Posterior Probability in R</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#bayesian-model-averaging"><i class="fa fa-check"></i><b>7.3</b> Bayesian Model Averaging</a><ul>
+<li class="chapter" data-level="7.3" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#bayesian-model-averaging"><i class="fa fa-check"></i><b>7.3</b> Bayesian Model Averaging</a>
+<ul>
 <li class="chapter" data-level="7.3.1" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#visualizing-model-uncertainty"><i class="fa fa-check"></i><b>7.3.1</b> Visualizing Model Uncertainty</a></li>
 <li class="chapter" data-level="7.3.2" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#bayesian-model-averaging-using-posterior-probability"><i class="fa fa-check"></i><b>7.3.2</b> Bayesian Model Averaging Using Posterior Probability</a></li>
 <li class="chapter" data-level="7.3.3" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#coefficient-summary-under-bma"><i class="fa fa-check"></i><b>7.3.3</b> Coefficient Summary under BMA</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="bayesian-model-choice.html"><a href="bayesian-model-choice.html#summary-3"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html"><i class="fa fa-check"></i><b>8</b> Stochastic Explorations Using MCMC</a><ul>
-<li class="chapter" data-level="8.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#stochastic-exploration"><i class="fa fa-check"></i><b>8.1</b> Stochastic Exploration</a><ul>
+<li class="chapter" data-level="8" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html"><i class="fa fa-check"></i><b>8</b> Stochastic Explorations Using MCMC</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#stochastic-exploration"><i class="fa fa-check"></i><b>8.1</b> Stochastic Exploration</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#markov-chain-monte-carlo-exploration"><i class="fa fa-check"></i><b>8.1.1</b> Markov Chain Monte Carlo Exploration</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#other-priors-for-bayesian-model-uncertainty"><i class="fa fa-check"></i><b>8.2</b> Other Priors for Bayesian Model Uncertainty</a><ul>
+<li class="chapter" data-level="8.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#other-priors-for-bayesian-model-uncertainty"><i class="fa fa-check"></i><b>8.2</b> Other Priors for Bayesian Model Uncertainty</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#zellners-g-prior"><i class="fa fa-check"></i><b>8.2.1</b> Zellner’s <span class="math inline">\(g\)</span>-Prior</a></li>
 <li class="chapter" data-level="8.2.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#bayes-factor-of-zellners-g-prior"><i class="fa fa-check"></i><b>8.2.2</b> Bayes Factor of Zellner’s <span class="math inline">\(g\)</span>-Prior</a></li>
 <li class="chapter" data-level="8.2.3" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#kids-cognitive-score-example"><i class="fa fa-check"></i><b>8.2.3</b> Kid’s Cognitive Score Example</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#r-demo-on-bas-package"><i class="fa fa-check"></i><b>8.3</b> R Demo on <code>BAS</code> Package</a><ul>
+<li class="chapter" data-level="8.3" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#r-demo-on-bas-package"><i class="fa fa-check"></i><b>8.3</b> R Demo on <code>BAS</code> Package</a>
+<ul>
 <li class="chapter" data-level="8.3.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#the-uscrime-data-set-and-data-processing"><i class="fa fa-check"></i><b>8.3.1</b> The <code>UScrime</code> Data Set and Data Processing</a></li>
 <li class="chapter" data-level="8.3.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#bayesian-models-and-diagnostics"><i class="fa fa-check"></i><b>8.3.2</b> Bayesian Models and Diagnostics</a></li>
 <li class="chapter" data-level="8.3.3" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#posterior-uncertainty-in-coefficients"><i class="fa fa-check"></i><b>8.3.3</b> Posterior Uncertainty in Coefficients</a></li>
 <li class="chapter" data-level="8.3.4" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#prediction"><i class="fa fa-check"></i><b>8.3.4</b> Prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#decision-making-under-model-uncertainty"><i class="fa fa-check"></i><b>8.4</b> Decision Making Under Model Uncertainty</a><ul>
+<li class="chapter" data-level="8.4" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#decision-making-under-model-uncertainty"><i class="fa fa-check"></i><b>8.4</b> Decision Making Under Model Uncertainty</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#model-choice"><i class="fa fa-check"></i><b>8.4.1</b> Model Choice</a></li>
 <li class="chapter" data-level="8.4.2" data-path="stochastic-explorations-using-mcmc.html"><a href="stochastic-explorations-using-mcmc.html#prediction-with-new-data"><i class="fa fa-check"></i><b>8.4.2</b> Prediction with New Data</a></li>
 </ul></li>
@@ -299,19 +323,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="losses-and-decision-making" class="section level1">
+<div id="losses-and-decision-making" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Losses and Decision Making</h1>
 <p>In the previous chapter, we learned about continuous random variables. That enabled us to study conjugate families, such as the beta binomial, the Poisson gamma, and the normal normal. We also considered the difficulties of eliciting a personal prior, and of handling inference in nonconjugate cases. Finally, we introduced the credible interval and studied predictive inference.</p>
 <p>In this new chapter, we will introduce loss functions and Bayesian decision making, minimizing expected loss for hypothesis testing, and define posterior probabilities of hypothesis and Bayes factors. We will then outline Bayesian testing for two proportions and two means, discuss how findings from credible intervals compare to those from our hypothesis test, and finally discuss when to reject, accept, or wait.</p>
 
-<div id="bayesian-decision-making" class="section level2">
+<div id="bayesian-decision-making" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Bayesian Decision Making</h2>
 <p>To a Bayesian, the posterior distribution is the basis of any inference, since it integrates both his/her prior opinions and knowledge and the new information provided by the data. It also contains everything she believes about the distribution of the unknown parameter of interest.</p>
 <p>However, the posterior distribution on its own is not always sufficient. Sometimes the inference we want to express is a <strong>credible interval</strong>, because it indicates a range of likely values for the parameter. That would be helpful if you wanted to say that you are <strong>95% certain</strong> the probability of an RU-486 pregnancy lies between some number <span class="math inline">\(L\)</span> and some number <span class="math inline">\(U\)</span>. And on other occasions, one needs to make a single number guess about the value of the parameter. For example, you might want to declare the average payoff for an insurance claim or tell a patient how much longer he/she has to live.</p>
 <p>Therefore, the Bayesian perspective leads directly to <strong>decision theory</strong>. And in decision theory, one seeks to minimize one’s expected loss.</p>
 
 </div>
-<div id="loss-functions" class="section level2">
+<div id="loss-functions" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Loss Functions</h2>
 <p>Quantifying the loss can be tricky, and Table <a href="losses-and-decision-making.html#tab:loss-functions">3.1</a> summarizes three different examples with three different loss functions.</p>
 <p>If you’re declaring the average payoff for an insurance claim, and if you are <strong>linear</strong> in how you value money, that is, twice as much money is exactly twice as good, then one can prove that the optimal one-number estimate is the <strong>median</strong> of the posterior distribution. But in different situations, other measures of loss may apply.</p>
@@ -344,14 +368,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>When making point estimates of unknown parameters, we should make the choices that minimize the loss. Nevertheless, the best estimate depends on the kind of loss function we are using, and we will discuss in more depth how these best estimates are determined in the next section.</p>
 
 </div>
-<div id="working-with-loss-functions" class="section level2">
+<div id="working-with-loss-functions" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Working with Loss Functions</h2>
 <p>Now we illustrate why certain estimates minimize certain loss functions.</p>
 
 <div class="example">
 <span id="exm:car" class="example"><strong>Example 3.1  </strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure <a href="losses-and-decision-making.html#fig:posterior-decision">3.1</a>. The mean, median and the mode of the distribution are also marked on the plot. Your boss does not know any Bayesian statistics though, so he/she wants you to report <strong>a single number</strong> for the number of cars the dealership will sell per month.
 </div>
-
 <div class="figure" style="text-align: center"><span id="fig:posterior-decision"></span>
 <img src="03-decision-03-working_files/figure-html/posterior-decision-1.png" alt="Posterior" width="960" />
 <p class="caption">
@@ -579,7 +602,7 @@ Figure 3.4: L2 is minimized at the mean of the posterior
 </ul>
 
 </div>
-<div id="minimizing-expected-loss-for-hypothesis-testing" class="section level2">
+<div id="minimizing-expected-loss-for-hypothesis-testing" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Minimizing Expected Loss for Hypothesis Testing</h2>
 <p>In Bayesian statistics, the inference about a parameter is made based on the posterior distribution, and let’s include this in the hypothesis test setting.</p>
 <p>Suppose we have two competing hypothesis, <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>. Then we get</p>
@@ -663,7 +686,7 @@ Figure 3.4: L2 is minimized at the mean of the posterior
 <p>To recap, Bayesian methodologies allow for the integration of losses into the decision making framework easily. And in Bayesian testing, we minimize the posterior expected loss.</p>
 
 </div>
-<div id="sec:bayes-factors" class="section level2">
+<div id="sec:bayes-factors" class="section level2" number="3.5">
 <h2><span class="header-section-number">3.5</span> Posterior Probabilities of Hypotheses and Bayes Factors</h2>
 <p>In this section, we will continue with the HIV testing example to introduce the concept of Bayes factors. Earlier, we introduced the concept of priors and posteriors. The <strong>prior odds</strong> is defined as <strong>the ratio of the prior probabilities of hypotheses</strong>.</p>
 <p>Therefore, if there are two competing hypotheses being considered, then the prior odds of <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> can be defined as <span class="math inline">\(O[H_1:H_2]\)</span>, which is equal to <span class="math inline">\(P(H_1)\)</span> over probability of <span class="math inline">\(P(H_2)\)</span>. In mathematical terms,</p>
@@ -713,7 +736,7 @@ BF[H_1:H_2] &amp;= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \ap
 &amp;= \frac{P(+|H_1)}{P(+|H_2)} = \frac{0.01}{0.93} \approx 0.0108
 \end{aligned}\]</span></p>
 <p>Alternatively, remember that the true positive rate of the test was 0.93 and the false positive rate was 0.01. Using these two values, the Bayes factor also comes out to approximately 0.0108.</p>
-<p>So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by <span class="citation">Jeffreys (<a href="#ref-jeffreys1961theory" role="doc-biblioref">1961</a>)</span>, as in Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>. If the Bayes factor is between 1 and 3, the evidence against <span class="math inline">\(H_2\)</span> is not worth a bare mention. If it is 3 to 20, the evidence is positive. If it is 20 to 150, the evidence is strong. If it is greater than 150, the evidence is very strong.</p>
+<p>So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by <span class="citation"><a href="stochastic-explorations-using-mcmc.html#ref-jeffreys1961theory" role="doc-biblioref">Jeffreys</a> (<a href="stochastic-explorations-using-mcmc.html#ref-jeffreys1961theory" role="doc-biblioref">1961</a>)</span>, as in Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>. If the Bayes factor is between 1 and 3, the evidence against <span class="math inline">\(H_2\)</span> is not worth a bare mention. If it is 3 to 20, the evidence is positive. If it is 20 to 150, the evidence is strong. If it is greater than 150, the evidence is very strong.</p>
 <table>
 <caption><span id="tab:jeffreys1961">Table 3.5: </span>Interpreting the Bayes factor</caption>
 <thead>
@@ -746,7 +769,7 @@ BF[H_1:H_2] &amp;= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \ap
 <p><span class="math display">\[BF[H_2:H_1] = \frac{1}{BF[H_1:H_2]} = \frac{1}{0.0108} = 92.59259\]</span></p>
 <p>For our data, this comes out to approximately 93. Hence the evidence against <span class="math inline">\(H_1\)</span> (the patient does not have HIV) is strong. Therefore, even though the posterior for having HIV given a positive result, i.e. <span class="math inline">\(P(H_2|+)\)</span>, was low, we would still decide that the patient has HIV, according to the scale based on a positive ELISA result.</p>
 <p>An intuitive way of thinking about this is to consider not only the posteriors, but also the priors assigned to these hypotheses. Bayes factor is the ratio of the posterior odds to prior odds. While 12% is a low posterior probability for having HIV given a positive ELISA result, this value is still much higher than the overall prevalence of HIV in the population (in other words, the prior probability for that hypothesis).</p>
-<p>Another commonly used scale for interpreting Bayes factors is proposed by <span class="citation">Kass and Raftery (<a href="#ref-kass1995bayes" role="doc-biblioref">1995</a>)</span>, and it deals with the natural logarithm of the calculated Bayes factor. The values can be interpreted in Table <a href="losses-and-decision-making.html#tab:kass1995">3.6</a>.</p>
+<p>Another commonly used scale for interpreting Bayes factors is proposed by <span class="citation"><a href="stochastic-explorations-using-mcmc.html#ref-kass1995bayes" role="doc-biblioref">Kass and Raftery</a> (<a href="stochastic-explorations-using-mcmc.html#ref-kass1995bayes" role="doc-biblioref">1995</a>)</span>, and it deals with the natural logarithm of the calculated Bayes factor. The values can be interpreted in Table <a href="losses-and-decision-making.html#tab:kass1995">3.6</a>.</p>
 <table>
 <caption><span id="tab:kass1995">Table 3.6: </span>Interpreting the Bayes factor</caption>
 <thead>
@@ -778,15 +801,6 @@ BF[H_1:H_2] &amp;= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \ap
 <p><span class="math display">\[2 \times \log(92.59259) = 9.056418\]</span></p>
 <p>To recap, we defined prior odds, posterior odds, and the Bayes factor. We learned about scales by which we can interpret these values for model selection. We also re-emphasize that in Bayesian testing, the order in which we evaluate the models of hypotheses does <strong>not</strong> matter. The Bayes factor of <span class="math inline">\(H_2\)</span> versus <span class="math inline">\(H_1\)</span>, <span class="math inline">\(BF[H_2:H_1]\)</span>, is simply the reciprocal of the Bayes factor for <span class="math inline">\(H_1\)</span> versus <span class="math inline">\(H_2\)</span>, that is, <span class="math inline">\(BF[H_1:H_2]\)</span>.</p>
 
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-jeffreys1961theory">
-<p>Jeffreys, Sir Harold. 1961. <em>Theory of Probability: 3rd Edition</em>. Clarendon Press.</p>
-</div>
-<div id="ref-kass1995bayes">
-<p>Kass, Robert E, and Adrian E Raftery. 1995. “Bayes Factors.” <em>Journal of the American Statistical Association</em> 90 (430): 773–95.</p>
 </div>
 </div>
             </section>
