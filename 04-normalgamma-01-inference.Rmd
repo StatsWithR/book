@@ -65,7 +65,7 @@ In Section \@ref(sec:normal-normal), we found that for normal data, the conjugat
 \mu \mid \sigma^2   \sim  \textsf{N}(m_0, \sigma^2/n_0)
 (\#eq:04-conjugate-normal)
 \end{equation}
-with hyper-parameters $m_0$, the prior mean for $\mu$, and $\sigma^2/n_0$ the prior variance.  While previously we represented the prior variance as a fixed constant, $\tau^2$, in this case we will replace $\tau^2$ with a multiple of $\sigma^2$.    Because $\sigma$ has the same units as the data, the presence of $\sigma$ in the prior variance automatically scales the prior for $\mu$ based on the same units.  This is important, for example, if we were to change the measurement units from inches to centimeters or seconds to hours, as the prior will be re-scaled automatically. The hyper-parameter $n_0$ is unitless, but is used to express our prior precision about $\mu$ relative to the level of "noise", captured by $\sigma^2$, in the data.  Larger values of $n_0$ indicate that we know the mean with more precision (relative to the variabiltiy in observations) with smaller values indicating less precision or more uncertainty.  We will see later how the hyper-parameter $n_0$ may be interpreted as a prior sample size.  Finally, while we could use a fixed value $\tau^2$ as the prior variance in a conditional conjugate prior for $\mu$ given $\sigma^2$,  that does not lead to a joint conjugate prior for $\mu$ and $\sigma^2$.
+with hyper-parameters $m_0$, the prior mean for $\mu$, and $\sigma^2/n_0$ the prior variance.  While previously we represented the prior variance as a fixed constant, $\tau^2$, in this case we will replace $\tau^2$ with a multiple of $\sigma^2$.    Because $\sigma$ has the same units as the data, the presence of $\sigma$ in the prior variance automatically scales the prior for $\mu$ based on the same units.  This is important, for example, if we were to change the measurement units from inches to centimeters or seconds to hours, as the prior will be re-scaled automatically. The hyper-parameter $n_0$ is unitless, but is used to express our prior precision about $\mu$ relative to the level of "noise", captured by $\sigma^2$, in the data.  Larger values of $n_0$ indicate that we know the mean with more precision (relative to the variability in observations) with smaller values indicating less precision or more uncertainty.  We will see later how the hyper-parameter $n_0$ may be interpreted as a prior sample size.  Finally, while we could use a fixed value $\tau^2$ as the prior variance in a conditional conjugate prior for $\mu$ given $\sigma^2$,  that does not lead to a joint conjugate prior for $\mu$ and $\sigma^2$.
 
 As $\sigma^2$ is unknown, a Bayesian would use a
 prior distribution to describe the uncertainty about the variance before seeing data.  Since the variance is non-negative, continuous, and with no upper limit,  based on the distributions that we have seen so far a gamma distribution might appear to be a candidate  prior for the variance,. However, that choice does not lead to a posterior distribution in the same family or that is recognizable as any common distribution. It turns out that the the inverse of the variance, which is known as the precision, has a conjugate gamma prior distribution.
@@ -75,7 +75,7 @@ For simplification let's express the precision (inverse variance) as a new param
 \phi \sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right)
 (\#eq:04-conjugate-gamma)
 \end{equation}
-is a gamma distribution with  shape parameter $v_0/2$ and  **rate** parameter of ${v_0 s^2_0}/{2}$. Given the connections between the gamma distribution and the Chi-Squared distribution,  the hyper-parameter $v_0$ may be interpreted as the prior degrees of freedom.  The hyperparameter $s^2_0$ may be interpreted as a prior variance or initial prior estimate for $\sigma^2$. Equivalently, we may say that the inverse of the variance has a 
+is a gamma distribution with  shape parameter $v_0/2$ and  **rate** parameter of ${v_0 s^2_0}/{2}$. Given the connections between the gamma distribution and the Chi-Squared distribution,  the hyper-parameter $v_0$ may be interpreted as the prior degrees of freedom.  The hyper-parameter $s^2_0$ may be interpreted as a prior variance or initial prior estimate for $\sigma^2$. Equivalently, we may say that the inverse of the variance has a 
 $$1/\sigma^2 \sim \textsf{Gamma}(v_0/2, s^2_0 v_0/2)$$
 
 gamma distribution to avoid using a new symbol \footnote{In some other references, you will see that $\sigma^2$ will have an inverse gamma distribution.  Rather than introduce an additional distribution for the inverse-gamma, we will restrict our attention to the gamma distribution since the inverse-gamma is equivalent to saying that the inverse of $\sigma^2$ has a gamma distribution and `R` has support for generating random variables from the gamma that we will need in later sections.}. Together the conditional normal distribution for $\mu$ given $\sigma^2$ in \@ref(eq:04-conjugate-normal)  and the marginal gamma distribution for $\phi$ in \@ref(eq:04-conjugate-gamma) lead to a joint distribution for the pair $(\mu, \phi)$ that we will call the normal-gamma family of distributions:
@@ -91,7 +91,7 @@ p(\mu, \phi) = \frac{(n_0 \phi)^{1/2}} {\sqrt{2\pi}} e^{- \frac{\phi n_0}{2} (\m
 \end{equation}
 
 
-The joint conjugate prior has simple rules for updating the prior hyperparameters given new data to obtain the posterior hyperparmeters due to conjugacy.
+The joint conjugate prior has simple rules for updating the prior hyper-parameters given new data to obtain the posterior hyper-parameters due to conjugacy.
 
 ### Conjugate Posterior Distribution
 
@@ -301,14 +301,14 @@ uncertainty about $\mu$ and $\phi$ ($\sigma^2$)  after seeing the data.
 
 We can obtain the updated hyper-parameters in `R` using the following code in `R`
 ```{r post-NG-TTHM}
-# prior hyperparameters
+# prior hyper-parameters
 m_0 = 35; n_0 = 25;  s2_0 = 156.25; v_0 = n_0 - 1
 # sample summaries
 Y = tapwater$tthm
 ybar = mean(Y)
 s2 = var(Y)
 n = length(Y)
-# posterior hyperparamters
+# posterior hyperparameters
 n_n = n_0 + n
 m_n = (n*ybar + n_0*m_0)/n_n
 v_n = v_0 + n
@@ -326,7 +326,7 @@ m_n + qt(c(0.025, 0.975), v_n)*sqrt(s2_n/n_n)
 ```
 The `qt` function takes two arguments:  the first is the desired quantiles, while the second is the degrees of freedom. Both arguments may be vectors, in which case, the result will be a vector.   
 
-While we can calculate the interval directly as above, we have provided the `bayes_inference` function in the `statsr` package to calculate the posterior hyperparameters, credible intervals and plot  the posterior density and the HPD interval given the raw data:
+While we can calculate the interval directly as above, we have provided the `bayes_inference` function in the `statsr` package to calculate the posterior hyper-parameters, credible intervals and plot  the posterior density and the HPD interval given the raw data:
 
 ```{r statsr-CI-tapwate}
 bayes_inference(tthm, data=tapwater, prior="NG",
@@ -335,9 +335,9 @@ bayes_inference(tthm, data=tapwater, prior="NG",
                 show_res=TRUE, show_summ=TRUE, show_plot=FALSE)
 ```
   
-Let's try to understand the arguments to the function. The first argument of the function is the variable of interest, `tthm`, while the second argument is a dataframe with the variable.  The argument `prior="NG"` indicates that we are using a normal-gamma prior; later we will present alternative priors.  The next two lines provide our prior hyperparameters.  The line with  `stat="mean", type="ci"` indicate that we are interested in inference about the population mean $\mu$ and to calculate a credible interval for $\mu$. The argument `method = theoretical` indicates that we will use the exact quantiles of the Student $t$ distribution to obtain our posterior credible intervals.  Looking at the output the credible interval agrees with the interval we calculated from the summaries using the t quantiles.  The other arguments are logical variables to toggle on/off the various output.  In this case we have supressed producing the plot of the posterior distribution using the option `show_plot=FALSE`, however, setting this to `TRUE` produces the density and credible interval shown in Figure \@ref{fig:tapwater-post-mu}.
+Let's try to understand the arguments to the function. The first argument of the function is the variable of interest, `tthm`, while the second argument is a dataframe with the variable.  The argument `prior="NG"` indicates that we are using a normal-gamma prior; later we will present alternative priors.  The next two lines provide our prior hyper-parameters.  The line with  `stat="mean", type="ci"` indicate that we are interested in inference about the population mean $\mu$ and to calculate a credible interval for $\mu$. The argument `method = theoretical` indicates that we will use the exact quantiles of the Student $t$ distribution to obtain our posterior credible intervals.  Looking at the output the credible interval agrees with the interval we calculated from the summaries using the t quantiles.  The other arguments are logical variables to toggle on/off the various output.  In this case we have suppressed producing the plot of the posterior distribution using the option `show_plot=FALSE`, however, setting this to `TRUE` produces the density and credible interval shown in Figure \@ref{fig:tapwater-post-mu}.
 
-How do we interprte these results? Based on the updated posterior, we find that there is a 95% chance that
+How do we interpret these results? Based on the updated posterior, we find that there is a 95% chance that
 the mean TTHM concentration is between `r round(L, 1)`
 parts per billion and `r round(U, 1)` parts per billion, suggesting that for this period that the municipality is in compliance with the limits.
   
