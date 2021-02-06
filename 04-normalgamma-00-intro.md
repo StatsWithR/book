@@ -6,5 +6,9 @@ We will present Monte Carlo simulation for inference about functions of the para
 
 It is assumed that the readers have mastered the concepts of one-parameter normal-normal conjugate priors. Calculus is not required for this section; however, for those who are comfortable with calculus and would like to go deeper, we shall present optional sections with more details on the derivations.
 
-Also note that some of the examples in this section use an updated version of the `bayes_inference` function. 
-If your local output  is different from what is seen in this chapter, or the provided code fails to run for you please update to the most recent version of the `statsr` package.
+Also note that some of the examples in this section use an experimental update to the `bayes_inference` function that are not provided in the CRAN released version of the package. To get the experimental version you can install the `BayesFactor` branch from GitHub using the following command in R,
+
+```r
+remotes::install_github("statswithr/statsr@BayesFactor")
+```
+If your local output differents from what is seen in this chapter, or the provided code fails to run for you this is the most likely cause.

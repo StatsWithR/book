@@ -20,7 +20,7 @@ Let's start with the frequentist inference.
 
 * Significance level: $\alpha = 0.05$.
 
-* Sample: red, green, **yellow**, blue, orange
+* One sample: red, green, **yellow**, blue, orange
 
 * Observed data: $k=1, n=5$
 

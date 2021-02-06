@@ -483,7 +483,6 @@ Note that the above numbers are estimates. For our purposes, however, we will tr
 \end{equation}\]</span>
 So even when the ELISA returns positive, the probability of having HIV is only 12%. An important reason why this number is so low is due to the prevalence of HIV. Before testing, one’s probability of HIV was 0.148%, so the positive test changes that probability dramatically, but it is still below 50%. That is, it is more likely that one is HIV negative rather than positive after one positive ELISA test.</p>
 <p>Questions like the one we just answered (What is the probability of a disease if a test returns positive?) are crucial to make medical diagnoses. As we saw, just the true positive and true negative rates of a test do not tell the full story, but also a disease’s prevalence plays a role. Bayes’ rule is a tool to synthesize such numbers into a more useful probability of having a disease after a test result.</p>
-<p>If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?</p>
 
 <div class="example">
 <span id="exm:unnamed-chunk-3" class="example"><strong>Example 1.2  </strong></span>What is the probability that someone who tests positive does not actually have HIV?
@@ -491,7 +490,7 @@ So even when the ELISA returns positive, the probability of having HIV is only 1
 <p>We found in <a href="the-basics-of-bayesian-statistics.html#eq:HIVresult">(1.4)</a> that someone who tests positive has a <span class="math inline">\(0.12\)</span> probability of having HIV. That implies that the same person has a <span class="math inline">\(1-0.12=0.88\)</span> probability of not having HIV, despite testing positive.</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-4" class="example"><strong>Example 1.3  </strong></span>If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?
+<span id="exm:unnamed-chunk-4" class="example"><strong>Example 1.3  </strong></span>If an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive})\)</span> to change?
 </div>
 <p>If the person has a priori a higher risk for HIV and tests positive, then the probability of having HIV must be higher than for someone not at increased risk who also tests positive. Therefore, <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &gt; 0.12\)</span> where <span class="math inline">\(0.12\)</span> comes from <a href="the-basics-of-bayesian-statistics.html#eq:HIVresult">(1.4)</a>.</p>
 <p>One can derive this mathematically by plugging in a larger number in <a href="the-basics-of-bayesian-statistics.html#eq:HIVpositive">(1.1)</a> than 0.00148, as that number represents the prior risk of HIV. Changing the calculations accordingly shows <span class="math inline">\(P(\text{Person tested has HIV} \mid \text{ELISA is positive}) &gt; 0.12\)</span>.</p>
@@ -722,7 +721,7 @@ Remark: Remember that the cost of making a wrong decision is high, so you want t
 <ul>
 <li><p>Hypothesis: <span class="math inline">\(H_0\)</span> is 10% yellow M&amp;Ms, and <span class="math inline">\(H_A\)</span> is &gt;10% yellow M&amp;Ms.</p></li>
 <li><p>Significance level: <span class="math inline">\(\alpha = 0.05\)</span>.</p></li>
-<li><p>Sample: red, green, <strong>yellow</strong>, blue, orange</p></li>
+<li><p>One sample: red, green, <strong>yellow</strong>, blue, orange</p></li>
 <li><p>Observed data: <span class="math inline">\(k=1, n=5\)</span></p></li>
 <li><p>P-value: <span class="math inline">\(P(k \geq 1 | n=5, p=0.10) = 1 - P(k=0 | n=5, p=0.10) = 1 - 0.90^5 \approx 0.41\)</span></p></li>
 </ul>
