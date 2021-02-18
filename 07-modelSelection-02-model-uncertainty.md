@@ -13,7 +13,7 @@ $$ y_i = \beta_0+\beta_1(x_{1,i} - \bar{x}_1)+\beta_2(x_{2,i} - \bar{x}_2)+\cdot
 with $p$ predictor variables $x_1,\cdots, x_p$. There are in total $2^p$ different models, corresponding to $2^p$ combinations of variable selections. there are 2 possibilities for each variable: either getting selected or not, and we have in total $p$ variables. We denote each model as $M_m,\ m=1,\cdots,2^p$. To obtian the posterior probability of each model $p(M_m~|~\text{data})$, Bayes' rule tells that that we need to assign the prior probability $p(M_m)$ to each model, and to then obtain the marginal likelihood of each model $p(\text{data}~|~M_m)$. By Bayes' rule, we update the posterior probability of each model $M_m$ after seeing the date, via marginal likelihood of model $M_m$:
 
 \begin{equation} 
-p(M_m~|~\text{data}) = \frac{\text{marginal likelihood of }M_m\times p(M_m)}{\sum_{j=1}^{2^p}\text{marginal likelihood of }M_j\times p(M_j)} = \frac{p(\text{data}~|~M_m)p(M_m)}{\sum_{j=1}^{2^p}p(\text{data}~|~M_m)p(M_m)}. 
+p(M_m~|~\text{data}) = \frac{\text{marginal likelihood of }M_m\times p(M_m)}{\sum_{j=1}^{2^p}\text{marginal likelihood of }M_j\times p(M_j)} = \frac{p(\text{data}~|~M_m)p(M_m)}{\sum_{j=1}^{2^p}p(\text{data}~|~M_j)p(M_j)}. 
 (\#eq:model-post-prob) 
 \end{equation}
 
