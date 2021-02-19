@@ -69,7 +69,8 @@ knitr::kable(
   x = temp,
   booktabs = TRUE,
   caption = 'Prior, likelihood, and posterior probabilities for each of the 9 models',
-  digits = 4
+  digits = 4,
+  format.args = list(scientific = FALSE)
 )
 ```
 

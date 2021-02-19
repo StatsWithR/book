@@ -27,7 +27,7 @@ $$\mu \mid \sigma^2  \sim  \Ca(m_0, \sigma^2 r^2)$$
 
   The Cauchy distribution does not have a mean or standard deviation, but the center (location) and the scale play a similar role to the mean and standard deviation of the normal distribution. The Cauchy distribution is a special case of a student $t$ distribution with one degree of freedom.
 
-As Figure \@ref(fig:cauchy-plot) shows, the standard Cauchy distribution with $r=1$ and the standard normal distribution $\No(0,1)$ are centered at the same location. But the Cauchy distribution has heavier tails -- more probability on extreme values than the normal distribution with the same scale parameter $\sigma$. Cauchy priors were recommended by Sir Harold Jeffreys as a default objective prior for both estimation and testing.
+As Figure \@ref(fig:cauchy-plot) shows, the standard Cauchy distribution with $r=1$ and the standard normal distribution $\No(0,1)$ are centered at the same location. But the Cauchy distribution has heavier tails -- more probability on extreme values than the normal distribution with the same scale parameter $\sigma$. Cauchy priors were recommended by Sir Harold Jeffreys as a default objective prior for testing.
 
 
 ```{r cauchy-plot, echo=FALSE, message=FALSE, warning=FALSE, fig.align="center", fig.cap="Cauchy distribution", fig.height=4, fig.width=5}

@@ -150,8 +150,6 @@ So even when the ELISA returns positive, the probability of having HIV is only 1
 
 Questions like the one we just answered (What is the probability of a disease if a test returns positive?) are crucial to make medical diagnoses. As we saw, just the true positive and true negative rates of a test do not tell the full story, but also a disease's prevalence plays a role. Bayes' rule is a tool to synthesize such numbers into a more useful probability of having a disease after a test result.
 
-If an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?
-
 ```{example}
 What is the probability that someone who tests positive does not actually have HIV?
 ```
@@ -159,7 +157,7 @@ What is the probability that someone who tests positive does not actually have H
 We found in \@ref(eq:HIVresult) that someone who tests positive has a $0.12$ probability of having HIV. That implies that the same person has a $1-0.12=0.88$ probability of not having HIV, despite testing positive.
 
 ```{example}
-If the an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?
+If the individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?
 ```
 
 If the person has a priori a higher risk for HIV and tests positive, then the probability of having HIV must be higher than for someone not at increased risk who also tests positive. Therefore, $P(\text{Person tested has HIV} \mid \text{ELISA is positive}) > 0.12$ where $0.12$ comes from \@ref(eq:HIVresult).
@@ -175,7 +173,7 @@ If the false positive rate increases, the probability of a wrong positive result
 
 ### Bayes Updating
 
-In the previous section, we saw that one positive ELISA test yields a probability of having HIV of 12%. To obtain a more convincing probability, one might want to do a second ELISA test after a first one comes up positive. What is the probability of being HIV positive of also the second ELISA test comes back positive?
+In the previous section, we saw that one positive ELISA test yields a probability of having HIV of 12%. To obtain a more convincing probability, one might want to do a second ELISA test after a first one comes up positive. What is the probability of being HIV positive if also the second ELISA test comes back positive?
 
 To solve this problem, we will assume that the correctness of this second test is not influenced by the first ELISA, that is, the tests are independent from each other. This assumption probably does not hold true as it is plausible that if the first test was a false positive, it is more likely that the second one will be one as well. Nonetheless, we stick with the independence assumption for simplicity.
 
