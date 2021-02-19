@@ -440,21 +440,21 @@ where the last term constant only depends on the sample size <span class="math i
 <p>Here we set the <code>modelprior</code> argument as <code>uniform()</code> to assign equal prior probability for each possible model.</p>
 <p>The <code>logmarg</code> information inside the <code>cog.BIC</code> summary list records the log of marginal likelihood of each model after seeing the data <span class="math inline">\(\ln(p(\text{data}~|~M))\)</span>. Recall that this is approximately proportional to negative BIC when the sample size <span class="math inline">\(n\)</span> is large
 <span class="math display">\[ \text{BIC}\approx -2 \ln(p(\text{data}~|~M)).\]</span></p>
-<p>We can use this information to retreat the model with the largest log of marginal likelihood, which corresponds to the model with the smallest BIC.</p>
+<p>We can use this information to retrieve the model with the largest log of marginal likelihood, which corresponds to the model with the smallest BIC.</p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="bayesian-model-choice.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the index of the model with the largest logmarg</span></span>
 <span id="cb105-2"><a href="bayesian-model-choice.html#cb105-2" aria-hidden="true" tabindex="-1"></a>best <span class="ot">=</span> <span class="fu">which.max</span>(cog.BIC<span class="sc">$</span>logmarg)</span>
 <span id="cb105-3"><a href="bayesian-model-choice.html#cb105-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb105-4"><a href="bayesian-model-choice.html#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Retreat the index of variables in the best model, with 0 as the index of the intercept</span></span>
+<span id="cb105-4"><a href="bayesian-model-choice.html#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the index of variables in the best model, with 0 as the index of the intercept</span></span>
 <span id="cb105-5"><a href="bayesian-model-choice.html#cb105-5" aria-hidden="true" tabindex="-1"></a>bestmodel <span class="ot">=</span> cog.BIC<span class="sc">$</span>which[[best]]</span>
 <span id="cb105-6"><a href="bayesian-model-choice.html#cb105-6" aria-hidden="true" tabindex="-1"></a>bestmodel</span></code></pre></div>
 <pre><code>## [1] 0 1 2</code></pre>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="bayesian-model-choice.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an indicator vector indicating which variables are used in the best model</span></span>
-<span id="cb107-2"><a href="bayesian-model-choice.html#cb107-2" aria-hidden="true" tabindex="-1"></a>bestgamma <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, cog.BIC<span class="sc">$</span>n.vars) </span>
-<span id="cb107-3"><a href="bayesian-model-choice.html#cb107-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb107-4"><a href="bayesian-model-choice.html#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 0 vector with the same dimension of the number of variables in the full model</span></span>
-<span id="cb107-5"><a href="bayesian-model-choice.html#cb107-5" aria-hidden="true" tabindex="-1"></a>bestgamma[bestmodel <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span>  </span>
-<span id="cb107-6"><a href="bayesian-model-choice.html#cb107-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb107-7"><a href="bayesian-model-choice.html#cb107-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the indicator to 1 where variables are used</span></span>
+<span id="cb107-2"><a href="bayesian-model-choice.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="co"># First, create a 0 vector with the same dimension of the number of variables in the full model</span></span>
+<span id="cb107-3"><a href="bayesian-model-choice.html#cb107-3" aria-hidden="true" tabindex="-1"></a>bestgamma <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, cog.BIC<span class="sc">$</span>n.vars) </span>
+<span id="cb107-4"><a href="bayesian-model-choice.html#cb107-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-5"><a href="bayesian-model-choice.html#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the indicator to 1 where variables are used</span></span>
+<span id="cb107-6"><a href="bayesian-model-choice.html#cb107-6" aria-hidden="true" tabindex="-1"></a>bestgamma[bestmodel <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span>  </span>
+<span id="cb107-7"><a href="bayesian-model-choice.html#cb107-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb107-8"><a href="bayesian-model-choice.html#cb107-8" aria-hidden="true" tabindex="-1"></a>bestgamma</span></code></pre></div>
 <pre><code>## [1] 1 1 1 0 0</code></pre>
 <p>From the indicator vector <code>bestgamma</code> we see that only the intercept (indexed as 0), mother’s high school status variable <code>hs</code> (indexed as 1), and mother’s IQ score <code>IQ</code> (indexed as 2) are used in the best model, with 1’s in the corresponding slots of the 5-dimensional vector <span class="math inline">\((1, 1, 1, 0, 0)\)</span>.</p>
@@ -470,10 +470,10 @@ where the last term constant only depends on the sample size <span class="math i
 <span id="cb109-4"><a href="bayesian-model-choice.html#cb109-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">bestmodel =</span> bestgamma,  <span class="co"># We use bestgamma to indicate variables </span></span>
 <span id="cb109-5"><a href="bayesian-model-choice.html#cb109-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">modelprior =</span> <span class="fu">uniform</span>())</span>
 <span id="cb109-6"><a href="bayesian-model-choice.html#cb109-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-7"><a href="bayesian-model-choice.html#cb109-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Retreat coefficients information</span></span>
+<span id="cb109-7"><a href="bayesian-model-choice.html#cb109-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve coefficients information</span></span>
 <span id="cb109-8"><a href="bayesian-model-choice.html#cb109-8" aria-hidden="true" tabindex="-1"></a>cog.coef <span class="ot">=</span> <span class="fu">coef</span>(cog.bestBIC)</span>
 <span id="cb109-9"><a href="bayesian-model-choice.html#cb109-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-10"><a href="bayesian-model-choice.html#cb109-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Retreat bounds of credible intervals</span></span>
+<span id="cb109-10"><a href="bayesian-model-choice.html#cb109-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve bounds of credible intervals</span></span>
 <span id="cb109-11"><a href="bayesian-model-choice.html#cb109-11" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">confint</span>(cog.coef)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
 <span id="cb109-12"><a href="bayesian-model-choice.html#cb109-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb109-13"><a href="bayesian-model-choice.html#cb109-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine results and construct summary table</span></span>
