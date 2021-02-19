@@ -117,7 +117,7 @@ If you were tossing a coin, most people believed that the probability of heads i
 In real life, here are two ways to elicit a probability that you cousin will get married. A frequentist might go to the U.S. Census records and determine what proportion of people get married (or, better, what proportion of people of your cousin's ethnicity, education level, religion, and age cohort are married). In contrast, a Bayesian might think "My cousin is brilliant, attractive, and fun. The probability that my cousin gets married is really high -- probably around 0.97."
 ```
 
-So a bayesian will seek to express their belief about the value of $p$ through a probability distribution, and a very flexible family of distributions for this purpose is the **beta family**. A member of the beta family is specified by two parameters, $\alpha$ and $\beta$; we denote this as $p \sim \text{beta}(\alpha, \beta)$. The probability density function is 
+So a Bayesian will seek to express their belief about the value of $p$ through a probability distribution, and a very flexible family of distributions for this purpose is the **beta family**. A member of the beta family is specified by two parameters, $\alpha$ and $\beta$; we denote this as $p \sim \text{beta}(\alpha, \beta)$. The probability density function is 
 
 \begin{equation}
 f(p) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{\alpha-1} (1-p)^{\beta-1},
@@ -253,7 +253,7 @@ same as the posterior formula in Equation \@ref(eq:beta-binomial).
 
 We can recognize the posterior distribution from the numerator $p^{\alpha+x-1}$ and $(1-p)^{\beta+n-x-1}$. Everything else are just constants, and they must take the unique value, which is needed to ensure that the area under the curve between 0 and 1 equals 1. So they have to take the values of the beta, which has parameters $\alpha+x$ and $\beta+n-x$.
 
-This is a cute trick. We can find the answer without doing the integral simply by looking at form of the numerator. 
+This is a cute trick. We can find the answer without doing the integral simply by looking at the form of the numerator. 
 
 Without conjugacy, one has to do the integral. Often, the integral is impossible to evaluate. That obstacle is the primary reason that most statistical theory in the 20th century was not Bayesian. The situation did not change until modern computing allowed researchers to compute integrals numerically. 
 
