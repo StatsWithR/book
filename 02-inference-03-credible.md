@@ -120,7 +120,7 @@ $$p^* = \frac{P(\text{2 heads}|0.7) \times 0.5}{P(\text{2 heads}|0.7) \times 0.5
 
 However, this does not answer the important question -- What is the predictive probability that the next toss will come up heads? This is of interest because you are gambling on getting heads.
 
-Fortunately, the predictive probablity of getting heads is not difficult to calculate:
+Fortunately, the predictive probability of getting heads is not difficult to calculate:
 
 * $p^* \text{ of 0.7 coin } = 0.754$
 * $p^* \text{ of 0.4 coin } = 1 − 0.754 = 0.246$

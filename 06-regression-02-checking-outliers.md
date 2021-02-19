@@ -15,7 +15,7 @@ $$ P(|y_j-\alpha-\beta x_j| > k\sigma~|~\text{data}).$$
 
 ### Posterior Distribution of $\epsilon_j$ Conditioning On $\sigma^2$
 
-At the end of Section \@ref(sec:simple-linear), we have discussed the posterior distributions of $\alpha$ and $\beta$. It turns out that under the reference prior, both posterior distrubtions of $\alpha$ and $\beta$, conditioning on $\sigma^2$, are both normal
+At the end of Section \@ref(sec:simple-linear), we have discussed the posterior distributions of $\alpha$ and $\beta$. It turns out that under the reference prior, both posterior distributions of $\alpha$ and $\beta$, conditioning on $\sigma^2$, are both normal
 $$ 
 \begin{aligned}
 \alpha ~|~\sigma^2, \text{data}~ & \sim ~ \No\left(\hat{\alpha}, \sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)\right), \\
@@ -31,7 +31,7 @@ Using this information, we can obtain the posterior distribution of any residual
 
 Since $\hat{\alpha}+\hat{\beta}x_j$ is exactly the fitted value $\hat{y}_j$, the mean of this Normal distribution is $y_j-\hat{y}_j=\hat{\epsilon}_j$, which is the residual under the OLS estimates of the $j$th observation.  
 
-Using this posterior distribution and the property of conditional probability, we can calculate the probability that the error $\epsilon_j$ lies outside of $k$ standard deviation of the mean, defined in equation \@ref(eq:outlier-prob)
+Using this posterior distribution and the property of conditional probability, we can calculate the probability that the error $\epsilon_j$ lies outside of $k$ standard deviations of the mean, defined in equation \@ref(eq:outlier-prob)
 
 \begin{equation} 
 P(|\epsilon_j|>k\sigma~|~\text{data}) = \int_0^\infty P(|\epsilon_j|>k\sigma~|~\sigma^2,\text{data})p(\sigma^2~|~\text{data})\, d\sigma^2.
@@ -48,7 +48,7 @@ The first integral $\displaystyle \int_{k\sigma}^\infty p(\epsilon_j~|~\sigma^2,
 $$ P\left(z^* > \frac{k\sigma - \hat{\epsilon}_j}{s}\right) = P\left(z^*> \frac{k\sigma-\hat{\epsilon}_j}{\sigma\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right) = P \left(z^* > \frac{k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right). $$
 That is the upper tail of the area under the standard Normal distribution when $z^*$ is larger than the critical value $\displaystyle \frac{k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
 
-The second integral, $\displaystyle \int_{-\infty}^{-k\sigma} p(\epsilon_j~|~\sigma^2, \text{data}\, d\epsilon_j$, is the same as the probability
+The second integral, $\displaystyle \int_{-\infty}^{-k\sigma} p(\epsilon_j~|~\sigma^2, \text{data})\, d\epsilon_j$, is the same as the probability
 $$ P\left(z^* < \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}\right), $$
 which is the lower tail of the area under the standard Normal distribution when $z^*$ is smaller than the critical value $\displaystyle \frac{-k-\hat{\epsilon}_j/\sigma}{\sqrt{\sum_i(x_i-x_j)^2/\text{S}_{xx}}}.$
 

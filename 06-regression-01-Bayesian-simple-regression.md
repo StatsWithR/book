@@ -1,6 +1,6 @@
 ## Bayesian Simple Linear Regression {#sec:simple-linear}
 
-In this section, we will turn to Bayesian inference in simple linear regressions. We will use the reference prior distribution on coefficients, which will provide a connection between the frequentist solutions and Bayesian answers. This provides a baseline analysis for comparions with more informative prior distributions. To illustrate the ideas, we will use an example of predicting body fat. 
+In this section, we will turn to Bayesian inference in simple linear regressions. We will use the reference prior distribution on coefficients, which will provide a connection between the frequentist solutions and Bayesian answers. This provides a baseline analysis for comparisons with more informative prior distributions. To illustrate the ideas, we will use an example of predicting body fat. 
 
 ### Frequentist Ordinary Least Square (OLS) Simple Linear Regression
 
@@ -103,7 +103,7 @@ ggplot(data = bodyfat, aes(x = Abdomen, y = Bodyfat)) +
 
 From the summary, we see that this model has an estimated slope, $\hat{\beta}$, of 0.63 and an estimated $y$-intercept, $\hat{\alpha}$, of about -39.28%. This gives us the prediction formula 
 $$ \widehat{\text{Bodyfat}} = -39.28 + 0.63\times\text{Abdomen}. $$
-For every additional centimeter, we expect body fat to increase by 0.63%. The negative $y$-intercept of course does not make sense as a physical model, but neither does predicting a male with a waist of zero centimeter. Nevertheless, this linear regression may be an accurate approximation for prediction purpose for measurements that are in the observed range for this population. 
+For every additional centimeter, we expect body fat to increase by 0.63%. The negative $y$-intercept of course does not make sense as a physical model, but neither does predicting a male with a waist of zero centimeters. Nevertheless, this linear regression may be an accurate approximation for prediction purposes for measurements that are in the observed range for this population. 
 
 Each of the residuals, which provide an estimate of the fitting error, is equal to $\hat{\epsilon}_i = y_i - \hat{y}_i$, the difference between the observed value $y_i$ and the fitted value $\hat{y}_i = \hat{\alpha} + \hat{\beta}x_i$, where $x_i$ is the abdominal circumference for the $i$th male. $\hat{\epsilon}_i$ is used for diagnostics as well as estimating the constant variance in the assumption of the model $\sigma^2$ via the mean squared error (MSE):
 $$ \hat{\sigma}^2 = \frac{1}{n-2}\sum_i^n (y_i-\hat{y}_i)^2 = \frac{1}{n-2}\sum_i^n \hat{\epsilon}_i^2. $$
@@ -151,7 +151,7 @@ ggplot(data = result, aes(x = fitted_values, y = residuals)) +
 # Readers may also use `plot` function
 ```
 
-With the exception of one observation for the individual with the largest fitted value, the residual plot suggests that this linear regression is a reasonable approximation. The case number of the observation with the largest fitted value can be obtained using the `which` function in R. Further examination of the data frame shows that this case also has the largest waist measurement `Abdomen`. This may be our potential outlier and we will have more discussion on outlier in Section \@ref(sec:Checking-outliers).
+With the exception of one observation for the individual with the largest fitted value, the residual plot suggests that this linear regression is a reasonable approximation. The case number of the observation with the largest fitted value can be obtained using the `which` function in R. Further examination of the data frame shows that this case also has the largest waist measurement `Abdomen`. This may be our potential outlier and we will have more discussion on outliers in Section \@ref(sec:Checking-outliers).
 
 
 ```r
@@ -190,7 +190,7 @@ The confidence interval of $\alpha$ and $\beta$ can be constructed using the sta
 $$
 \begin{aligned}
 \text{S}_{xx} = & \sum_i^n (x_i-\bar{x})^2\\
-\text{S}_{yy} = & \sum_i^n (y_i-\bar{x})^2 \\
+\text{S}_{yy} = & \sum_i^n (y_i-\bar{y})^2 \\
 \text{S}_{xy} = & \sum_i^n (x_i-\bar{x})(y_i-\bar{y}) \\
 \text{SSE}    = & \sum_i^n (y_i-\hat{y}_i)^2 = \sum_i^n \hat{\epsilon}_i^2. 
 \end{aligned}
@@ -273,7 +273,7 @@ Similarly, we can integrate out $\beta$ and $\sigma^2$ from the joint posterior 
 $$ \alpha~|~y_1,\cdots,y_n~\sim~  \St\left(n-2,\ \hat{\alpha},\ \hat{\sigma}^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)\right) = \St\left(n-2,\ \hat{\alpha},\ (\text{se}_{\alpha})^2\right).$$
 
 
-Finally, we can show that the marginal posterior distribution of $\sigma^2$ is the inverse Gamma distribution, or equivalently, the reciprocal of $\sigma^2$, which is the precision $\phi$, follows the Gamme distribution
+Finally, we can show that the marginal posterior distribution of $\sigma^2$ is the inverse Gamma distribution, or equivalently, the reciprocal of $\sigma^2$, which is the precision $\phi$, follows the Gamma distribution
 $$ \phi = \frac{1}{\sigma^2}~|~y_1,\cdots,y_n \sim \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
 
 Moreover, similar to the Normal-Gamma conjugacy under the reference prior introduced in the previous chapters, the joint posterior distribution of $\beta, \sigma^2$, and the joint posterior distribution of $\alpha, \sigma^2$ are both Normal-Gamma. In particular, the posterior distribution of $\beta$ conditioning on $\sigma^2$ is
@@ -286,7 +286,7 @@ $$ \alpha~|~\sigma^2, \text{data}~\sim ~\No\left(\hat{\alpha}, \sigma^2\left(\fr
 
 The Bayesian posterior distribution results of $\alpha$ and $\beta$ show that under the reference prior, the posterior credible intervals are in fact **numerically equivalent** to the confidence intervals from the classical frequentist OLS analysis. This provides a baseline analysis for other Bayesian analyses with other informative prior distributions or perhaps other "objective" prior distributions, such as the Cauchy distribution. (Cauchy distribution is the Student's $t$ prior with 1 degree of freedom.)
 
-Since the credible intervals are numerically the same as the confidence intervals, We can use the `lm` function to obtain the OLS estimates and construct the credible intervals of $\alpha$ and $\beta$
+Since the credible intervals are numerically the same as the confidence intervals, we can use the `lm` function to obtain the OLS estimates and construct the credible intervals of $\alpha$ and $\beta$
 
 
 ```r
@@ -317,7 +317,7 @@ round(out, 2)
 ## Abdomen               0.63          0.03   0.58   0.69
 ```
 
-These intervals coincide with the confidence intervals from the frequentist approach. The primary difference is the interpretation. For example, based on the data, we believe that there is 95% chance that body fat will increase by 5.75% up to 6.88% for every additional 10 centimeter increase in the waist circumference.
+These intervals coincide with the confidence intervals from the frequentist approach. The primary difference is the interpretation. For example, based on the data, we believe that there is a 95% chance that body fat will increase by 5.75% up to 6.88% for every additional 10 centimeter increase in the waist circumference.
 
 
 **Credible Intervals for the Mean $\mu_Y$ and the Prediction $y_{n+1}$**
@@ -417,7 +417,7 @@ out
 ## 39   148.1   54.21599 44.0967 64.33528
 ```
 
-Based on the data, a Bayesian would expect that a man with waist circumference of 148.1 centermeters should have bodyfat of 54.216% with 95% chance thta it is between 44.097% and 64.335%.
+Based on the data, a Bayesian would expect that a man with waist circumference of 148.1 centimeters should have bodyfat of 54.216% with a 95% chance that it is between 44.097% and 64.335%.
 
 While we expect the majority of the data will be within the prediction intervals (the short dashed grey lines), Case 39 seems to be well below the interval. We next use Bayesian methods in Section \@ref(sec:Checking-outliers) to calculate the probability that this case is abnormal or is an outlier by falling more than $k$ standard deviations from either side of the mean.
 
@@ -436,7 +436,7 @@ $$
 with covariance
 $$ \text{Cov}(\alpha, \beta ~|~\sigma^2) =\sigma^2 \text{S}_{\alpha\beta}. $$
 
-Here, $\sigma^2$, $S_\alpha$, $S_\beta$, and $S_{\alpha\beta}$ are hyperparameters. This is equivalent to setting the coefficient vector $\bv = (\alpha, \beta)^T$^[$(\alpha, \beta)^T$ means we transpose the row vector $(\alpha, \beta)$ into a column vector $\left(\begin{array}{c} \alpha \\ \beta \end{array}\right)$.] to have a bivariate normal distribution with convariance matrix $\Sigma_0$
+Here, $\sigma^2$, $S_\alpha$, $S_\beta$, and $S_{\alpha\beta}$ are hyperparameters. This is equivalent to setting the coefficient vector $\bv = (\alpha, \beta)^T$^[$(\alpha, \beta)^T$ means we transpose the row vector $(\alpha, \beta)$ into a column vector $\left(\begin{array}{c} \alpha \\ \beta \end{array}\right)$.] to have a bivariate normal distribution with covariance matrix $\Sigma_0$
 $$ \Sigma_0 = \sigma^2\left(\begin{array}{cc} S_\alpha & S_{\alpha\beta} \\
 S_{\alpha\beta} & S_\beta \end{array} \right). $$
 That is,
@@ -445,7 +445,7 @@ $$ \bv = (\alpha, \beta)^T ~|~\sigma^2 \sim \textsf{BivariateNormal}(\mathbf{b} 
 Then for $\sigma^2$, we will impose an inverse Gamma distribution as its prior distribution
 $$ 1/\sigma^2 \sim \Ga\left(\frac{\nu_0}{2}, \frac{\nu_0\sigma_0}{2}\right). $$
 
-Now the join prior distribution of $\alpha, \beta$, and $\sigma^2$ form a distribution that is analogous to the Normal-Gamma distribution. Prior information about $\alpha$, $\beta$, and $\sigma^2$ are encoded in the hyperparameters $a_0$, $b_0$, $\text{S}_\alpha$, $\text{S}_\beta$, $\text{S}_{\alpha\beta}$, $\nu_0$, and $\sigma_0$. 
+Now the joint prior distribution of $\alpha, \beta$, and $\sigma^2$ form a distribution that is analogous to the Normal-Gamma distribution. Prior information about $\alpha$, $\beta$, and $\sigma^2$ are encoded in the hyperparameters $a_0$, $b_0$, $\text{S}_\alpha$, $\text{S}_\beta$, $\text{S}_{\alpha\beta}$, $\nu_0$, and $\sigma_0$. 
 
 The marginal posterior distribution of the coefficient vector $\bv = (\alpha, \beta)$ will be bivariate normal, and the marginal posterior distribution of $\sigma^2$ is again an inverse Gamma distribution
 $$ 1/\sigma^2~|~y_1,\cdots,y_n \sim \Ga\left(\frac{\nu_0+n}{2}, \frac{\nu_0\sigma_0^2+\text{SSE}}{2}\right). $$
@@ -667,10 +667,10 @@ $$ \pi^*(\beta~|~\phi,\text{data}) \times \pi^*(\phi~|~\text{data}) \propto \lef
 The first term in the product is exactly the Normal distribution with mean $\hat{\beta}$ and standard deviation $\displaystyle \frac{\sigma^2}{\sum_i(x_i-\bar{x})^2} = \frac{\sigma^2}{\text{S}_{xx}}$
 
 $$ \beta ~|~\sigma^2,\ \text{data}~ \sim ~ \No\left(\hat{\beta},\ \frac{\sigma^2}{\text{S}_{xx}}\right). $$
-The second term, is the Gamma distribution of the precision $\phi$, or the inverse Gamma distribution of the variance $\sigma^2$
+The second term is the Gamma distribution of the precision $\phi$, or the inverse Gamma distribution of the variance $\sigma^2$
 $$ 1/\sigma^2~|~\text{data}~\sim~\Ga\left(\frac{n-2}{2},\frac{\text{SSE}}{2}\right).$$
 
-This means, the join posterior distribution of $\beta$ and $\sigma^2$, under the reference prior, is a Normal-Gamma distribution. Similarly, the joint posterior distribution of $\alpha$ and $\sigma^2$ is also a Normal-Gamma distribution.
+This means, the joint posterior distribution of $\beta$ and $\sigma^2$, under the reference prior, is a Normal-Gamma distribution. Similarly, the joint posterior distribution of $\alpha$ and $\sigma^2$ is also a Normal-Gamma distribution.
 $$ \alpha~|~\sigma^2, \text{data} ~\sim~\No\left(\hat{\alpha}, \sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{\text{S}_{xx}}\right)\right),\qquad \qquad 1/\sigma^2~|~\text{data}~\sim~ \Ga\left(\frac{n-2}{2}, \frac{\text{SSE}}{2}\right). $$
 
-In fact, when we impose the bivariate normal distribution on $\bv = (\alpha, \beta)^T$, and inverse Gamma distribution on $\sigma^2$,  as we have discussed in Section \@ref(sec:informative-prior), the joint posterior distribution of $\bv$ and $\sigma^2$ is a Normal-Gamma distribution. Since the reference prior is just the limiting case of this informative prior, it is not surprising that we will also get the limiting case Normal-Gamma distribution for $\alpha$, $\beta$, and $\sigma^2$.
+In fact, when we impose the bivariate normal distribution on $\bv = (\alpha, \beta)^T$, and the inverse Gamma distribution on $\sigma^2$,  as we have discussed in Section \@ref(sec:informative-prior), the joint posterior distribution of $\bv$ and $\sigma^2$ is a Normal-Gamma distribution. Since the reference prior is just the limiting case of this informative prior, it is not surprising that we will also get the limiting case Normal-Gamma distribution for $\alpha$, $\beta$, and $\sigma^2$.
