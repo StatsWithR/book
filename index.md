@@ -2,7 +2,7 @@
 title: "An Introduction to Bayesian Thinking"
 subtitle: "A Companion to the Statistics with R Course"
 author: ["Merlise Clyde", "Mine Cetinkaya-Rundel", "Colin Rundel", "David Banks", "Christine Chai","Lizzy Huang"]
-date: "Last built on 2021-02-18"
+date: "Last built on 2021-02-19"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib, references.bib]
