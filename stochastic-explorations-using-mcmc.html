@@ -714,22 +714,22 @@ Here <span class="math inline">\(J\)</span> is the total number of models that w
 <p>We can read the credible intervals of each variable using the <code>confint</code> function on the coefficient object <code>coef.ZS</code> of the model. Here we round the results in 4 decimal places.</p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="stochastic-explorations-using-mcmc.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">confint</span>(coef.ZS), <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##              2.5%  97.5%    beta
-## Intercept  6.6649 6.7805  6.7249
-## M          0.0000 2.1846  1.1413
-## So        -0.0436 0.3194  0.0351
-## Ed         0.6233 3.2285  1.8567
-## Po1        0.0000 1.4219  0.6036
-## Po2       -0.1447 1.4493  0.3166
-## LF        -0.5526 0.9826  0.0595
-## M.F       -2.0737 1.9679 -0.0271
-## Pop       -0.1271 0.0091 -0.0226
-## NW         0.0000 0.1681  0.0667
-## U1        -0.5411 0.3636 -0.0243
-## U2        -0.0166 0.6470  0.2061
-## GDP       -0.0371 1.1917  0.2043
-## Ineq       0.6506 2.0953  1.3898
-## Prob      -0.4115 0.0000 -0.2151
-## Time      -0.5088 0.0702 -0.0845
+## Intercept  6.6683 6.7814  6.7249
+## M          0.0000 2.1959  1.1404
+## So        -0.0390 0.3356  0.0353
+## Ed         0.6827 3.1972  1.8560
+## Po1        0.0000 1.4436  0.6054
+## Po2       -0.1823 1.4674  0.3137
+## LF        -0.4734 0.9877  0.0584
+## M.F       -2.0881 2.0088 -0.0239
+## Pop       -0.1291 0.0019 -0.0224
+## NW         0.0000 0.1643  0.0669
+## U1        -0.5417 0.3298 -0.0241
+## U2         0.0000 0.6591  0.2055
+## GDP       -0.0510 1.1446  0.2051
+## Ineq       0.6809 2.1294  1.3889
+## Prob      -0.4108 0.0000 -0.2156
+## Time      -0.5176 0.0499 -0.0848
 ## attr(,&quot;Probability&quot;)
 ## [1] 0.95
 ## attr(,&quot;class&quot;)
@@ -742,12 +742,12 @@ Here <span class="math inline">\(J\)</span> is the total number of models that w
 <p>The fitted values can be obtained using the <code>fit</code> attribute of <code>crime.BMA</code>. We have transposed the fitted values into a vector to better present all the values.</p>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="stochastic-explorations-using-mcmc.html#cb147-1" aria-hidden="true" tabindex="-1"></a>fitted <span class="ot">=</span> crime.BMA<span class="sc">$</span>fit</span>
 <span id="cb147-2"><a href="stochastic-explorations-using-mcmc.html#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.vector</span>(fitted)</span></code></pre></div>
-<pre><code>##  [1] 6.661659 7.298779 6.179738 7.610069 7.054738 6.514383 6.784428 7.266521
-##  [9] 6.629533 6.601419 7.054784 6.570349 6.472533 6.582211 6.556658 6.905085
-## [17] 6.229169 6.809852 6.943089 6.961745 6.608770 6.429504 6.899112 6.777137
-## [25] 6.406327 7.401472 6.019674 7.156505 7.090078 6.500288 6.209036 6.605803
-## [33] 6.797841 6.820021 6.625340 7.028648 6.793797 6.364253 6.603190 7.044456
-## [41] 6.547958 6.046139 6.929364 7.005424 6.235397 6.609316 6.830404</code></pre>
+<pre><code>##  [1] 6.661446 7.298639 6.179678 7.610399 7.054610 6.514643 6.784563 7.266408
+##  [9] 6.629491 6.601275 7.055182 6.570656 6.472360 6.582180 6.556534 6.904995
+## [17] 6.228617 6.809636 6.943063 6.961866 6.609007 6.429258 6.899138 6.777130
+## [25] 6.406199 7.400907 6.019402 7.156401 7.090252 6.500496 6.209034 6.606146
+## [33] 6.797772 6.819728 6.625985 7.028924 6.793661 6.364398 6.603495 7.044860
+## [41] 6.548357 6.045390 6.929570 7.005357 6.235687 6.609480 6.829725</code></pre>
 <p>We may use these fitted values for further error calculations. We will talk about decision making on models and how to obtain predictions under different models in the next section.</p>
 
 </div>
@@ -973,26 +973,26 @@ We will also specify that want to have 1 model by setting <code>n.models = 1</co
 <span id="cb174-6"><a href="stochastic-explorations-using-mcmc.html#cb174-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the combined results compared to the fitted values in BPM</span></span>
 <span id="cb174-7"><a href="stochastic-explorations-using-mcmc.html#cb174-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(crime.BPM<span class="sc">$</span>fit, crime.conf.fit.new, crime.conf.pred.new)</span>
 <span id="cb174-8"><a href="stochastic-explorations-using-mcmc.html#cb174-8" aria-hidden="true" tabindex="-1"></a><span class="do">##                    2.5%    97.5%     mean     2.5%    97.5%     pred</span></span>
-<span id="cb174-9"><a href="stochastic-explorations-using-mcmc.html#cb174-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1,] 6.668988 6.512250 6.818059 6.661770 6.240380 7.074144 6.661770</span></span>
-<span id="cb174-10"><a href="stochastic-explorations-using-mcmc.html#cb174-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [2,] 7.290854 7.139610 7.459933 7.298827 6.880882 7.706999 7.298827</span></span>
-<span id="cb174-11"><a href="stochastic-explorations-using-mcmc.html#cb174-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  [3,] 6.202166 5.963322 6.403704 6.179308 5.736895 6.625931 6.179308</span></span>
-<span id="cb174-12"><a href="stochastic-explorations-using-mcmc.html#cb174-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4,] 7.661307 7.381517 7.827935 7.610585 7.149908 8.049810 7.610585</span></span>
-<span id="cb174-13"><a href="stochastic-explorations-using-mcmc.html#cb174-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5,] 7.015570 6.845804 7.253700 7.054238 6.597475 7.468475 7.054238</span></span>
-<span id="cb174-14"><a href="stochastic-explorations-using-mcmc.html#cb174-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6,] 6.469547 6.278793 6.729233 6.514064 6.059307 6.955202 6.514064</span></span>
-<span id="cb174-15"><a href="stochastic-explorations-using-mcmc.html#cb174-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7,] 6.776133 6.512492 7.076914 6.784846 6.302449 7.281511 6.784846</span></span>
-<span id="cb174-16"><a href="stochastic-explorations-using-mcmc.html#cb174-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  [8,] 7.299560 7.042378 7.479962 7.266344 6.837114 7.720513 7.266344</span></span>
-<span id="cb174-17"><a href="stochastic-explorations-using-mcmc.html#cb174-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9,] 6.614927 6.482147 6.782137 6.629448 6.208311 7.034409 6.629448</span></span>
-<span id="cb174-18"><a href="stochastic-explorations-using-mcmc.html#cb174-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [10,] 6.596912 6.459577 6.734058 6.601246 6.201012 7.016744 6.601246</span></span>
-<span id="cb174-19"><a href="stochastic-explorations-using-mcmc.html#cb174-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [11,] 7.032834 6.868727 7.239121 7.055003 6.626777 7.459623 7.055003</span></span>
-<span id="cb174-20"><a href="stochastic-explorations-using-mcmc.html#cb174-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [12,] 6.581822 6.420713 6.719940 6.570625 6.139906 6.965887 6.570625</span></span>
-<span id="cb174-21"><a href="stochastic-explorations-using-mcmc.html#cb174-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [13,] 6.467921 6.229063 6.739008 6.472327 6.009009 6.948761 6.472327</span></span>
-<span id="cb174-22"><a href="stochastic-explorations-using-mcmc.html#cb174-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [14,] 6.566239 6.393710 6.770177 6.582374 6.166821 7.013416 6.582374</span></span>
-<span id="cb174-23"><a href="stochastic-explorations-using-mcmc.html#cb174-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [15,] 6.550129 6.361567 6.755058 6.556880 6.109326 6.987741 6.556880</span></span>
-<span id="cb174-24"><a href="stochastic-explorations-using-mcmc.html#cb174-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [16,] 6.888592 6.745218 7.069320 6.905017 6.494140 7.337272 6.905017</span></span>
-<span id="cb174-25"><a href="stochastic-explorations-using-mcmc.html#cb174-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [17,] 6.252735 5.987452 6.467091 6.229073 5.774221 6.691607 6.229073</span></span>
-<span id="cb174-26"><a href="stochastic-explorations-using-mcmc.html#cb174-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [18,] 6.795764 6.551089 7.099508 6.809572 6.360757 7.294914 6.809572</span></span>
-<span id="cb174-27"><a href="stochastic-explorations-using-mcmc.html#cb174-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [19,] 6.945687 6.753454 7.140257 6.943294 6.513932 7.391989 6.943294</span></span>
-<span id="cb174-28"><a href="stochastic-explorations-using-mcmc.html#cb174-28" aria-hidden="true" tabindex="-1"></a><span class="do">## [20,] 7.000331 6.786287 7.149137 6.961980 6.522401 7.370204 6.961980</span></span>
+<span id="cb174-9"><a href="stochastic-explorations-using-mcmc.html#cb174-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1,] 6.668988 6.513418 6.819106 6.661770 6.258922 7.085790 6.661770</span></span>
+<span id="cb174-10"><a href="stochastic-explorations-using-mcmc.html#cb174-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [2,] 7.290854 7.138555 7.459166 7.298827 6.880267 7.721052 7.298827</span></span>
+<span id="cb174-11"><a href="stochastic-explorations-using-mcmc.html#cb174-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  [3,] 6.202166 5.955537 6.397847 6.179308 5.713221 6.609568 6.179308</span></span>
+<span id="cb174-12"><a href="stochastic-explorations-using-mcmc.html#cb174-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4,] 7.661307 7.380371 7.832071 7.610585 7.152684 8.039366 7.610585</span></span>
+<span id="cb174-13"><a href="stochastic-explorations-using-mcmc.html#cb174-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5,] 7.015570 6.849496 7.252743 7.054238 6.627226 7.494509 7.054238</span></span>
+<span id="cb174-14"><a href="stochastic-explorations-using-mcmc.html#cb174-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6,] 6.469547 6.280671 6.732782 6.514064 6.063135 6.957863 6.514064</span></span>
+<span id="cb174-15"><a href="stochastic-explorations-using-mcmc.html#cb174-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7,] 6.776133 6.495307 7.065267 6.784846 6.315478 7.259460 6.784846</span></span>
+<span id="cb174-16"><a href="stochastic-explorations-using-mcmc.html#cb174-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  [8,] 7.299560 7.038868 7.481923 7.266344 6.826987 7.698506 7.266344</span></span>
+<span id="cb174-17"><a href="stochastic-explorations-using-mcmc.html#cb174-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9,] 6.614927 6.487080 6.782934 6.629448 6.225080 7.065165 6.629448</span></span>
+<span id="cb174-18"><a href="stochastic-explorations-using-mcmc.html#cb174-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [10,] 6.596912 6.456940 6.735952 6.601246 6.207704 7.016178 6.601246</span></span>
+<span id="cb174-19"><a href="stochastic-explorations-using-mcmc.html#cb174-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [11,] 7.032834 6.864208 7.239024 7.055003 6.603713 7.472642 7.055003</span></span>
+<span id="cb174-20"><a href="stochastic-explorations-using-mcmc.html#cb174-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [12,] 6.581822 6.418035 6.715926 6.570625 6.149726 6.988351 6.570625</span></span>
+<span id="cb174-21"><a href="stochastic-explorations-using-mcmc.html#cb174-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [13,] 6.467921 6.206173 6.717902 6.472327 5.986727 6.921851 6.472327</span></span>
+<span id="cb174-22"><a href="stochastic-explorations-using-mcmc.html#cb174-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [14,] 6.566239 6.398660 6.771872 6.582374 6.156008 7.014541 6.582374</span></span>
+<span id="cb174-23"><a href="stochastic-explorations-using-mcmc.html#cb174-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [15,] 6.550129 6.363815 6.758492 6.556880 6.082500 6.957080 6.556880</span></span>
+<span id="cb174-24"><a href="stochastic-explorations-using-mcmc.html#cb174-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [16,] 6.888592 6.739252 7.058955 6.905017 6.478363 7.314433 6.905017</span></span>
+<span id="cb174-25"><a href="stochastic-explorations-using-mcmc.html#cb174-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [17,] 6.252735 5.985498 6.468125 6.229073 5.775948 6.704734 6.229073</span></span>
+<span id="cb174-26"><a href="stochastic-explorations-using-mcmc.html#cb174-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [18,] 6.795764 6.552647 7.107234 6.809572 6.314208 7.264534 6.809572</span></span>
+<span id="cb174-27"><a href="stochastic-explorations-using-mcmc.html#cb174-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [19,] 6.945687 6.749401 7.128351 6.943294 6.540079 7.398204 6.943294</span></span>
+<span id="cb174-28"><a href="stochastic-explorations-using-mcmc.html#cb174-28" aria-hidden="true" tabindex="-1"></a><span class="do">## [20,] 7.000331 6.777115 7.146202 6.961980 6.520846 7.376862 6.961980</span></span>
 <span id="cb174-29"><a href="stochastic-explorations-using-mcmc.html#cb174-29" aria-hidden="true" tabindex="-1"></a><span class="do">## [...]</span></span></code></pre></div>
 </div>
 </div>
