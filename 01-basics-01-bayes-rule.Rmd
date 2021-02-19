@@ -157,7 +157,7 @@ What is the probability that someone who tests positive does not actually have H
 We found in \@ref(eq:HIVresult) that someone who tests positive has a $0.12$ probability of having HIV. That implies that the same person has a $1-0.12=0.88$ probability of not having HIV, despite testing positive.
 
 ```{example}
-If an individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?
+If the individual is at a higher risk for having HIV than a randomly sampled person from the population considered, how, if at all, would you expect $P(\text{Person tested has HIV} \mid \text{ELISA is positive})$ to change?
 ```
 
 If the person has a priori a higher risk for HIV and tests positive, then the probability of having HIV must be higher than for someone not at increased risk who also tests positive. Therefore, $P(\text{Person tested has HIV} \mid \text{ELISA is positive}) > 0.12$ where $0.12$ comes from \@ref(eq:HIVresult).
