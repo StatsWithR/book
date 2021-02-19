@@ -42,7 +42,7 @@ For each iteration $i$, the algorithm will cycle through generating each paramet
 
 Whenever we update a parameter, we use the **new value** in the subsequent steps as the $n$ draws for $\sigma, n_0$. We will repeat this until we reach iteration $S$, leading to a dependent sequence of s draws from the joint posterior distribution.
 
-Incorporating the tap water example in Section \@ref(sec:normal-gamma), we will use MCMC to generate samples under the Cauchy prior. We set 35 as the location parameter and $r=1$. To complete our prior specification, we use the Jeffrey's reference prior on $\sigma^2$. This combination is referred to as the Jeffrey's Zellner-Siow Cauchy prior or "JZS" in the R \texttt{statsr} package.
+Incorporating the tap water example in Section \@ref(sec:normal-gamma), we will use MCMC to generate samples under the Cauchy prior. We set 35 as the location parameter and $r=1$. To complete our prior specification, we use the Jeffrey's reference prior on $\sigma^2$. This combination is referred to as the Jeffrey's Zellner-Siow Cauchy prior or "JZS" in the BayesFactor branch of the R \texttt{statsr} package.
 
 
 ```{r demo-tapwater, include=FALSE, echo=FALSE, message=FALSE, warning=FALSE}

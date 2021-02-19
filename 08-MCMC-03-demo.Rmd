@@ -38,7 +38,7 @@ Variable | Description
 <br/>
 
 We may use the `summary` function to describe each variable in the data set. 
-```{r summary}
+```{r summary-UScrime}
 summary(UScrime)
 ```
 
