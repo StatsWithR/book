@@ -2,7 +2,7 @@
 title: "An Introduction to Bayesian Thinking"
 subtitle: "A Companion to the Statistics with R Course"
 author: ["Merlise Clyde", "Mine Çetinkaya-Rundel", "Colin Rundel", "David Banks", "Christine Chai","Lizzy Huang"]
-date: "Last built on 2021-02-19"
+date: "Last built on 2022-06-15"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib, references.bib]
@@ -27,7 +27,7 @@ github-repo: StatsWithR/book
 
 This book was written as a companion for the Course *Bayesian Statistics* from the Statistics with `R` specialization available on Coursera. Our goal in developing the course was to provide an introduction to Bayesian inference in decision making without requiring calculus, with the book providing more details and background on Bayesian Inference. In writing this, we hope that it may be used on its own as an open-access introduction to Bayesian inference using `R` for anyone interested in learning about Bayesian statistics. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided. While learners are not expected to have any background in calculus or linear algebra, for those who do have this background and are interested in diving deeper, we have included optional sub-sections  in each Chapter to provide additional mathematical details and some derivations of key results.
 
-This book is written using the `R` package `bookdown`; any interested learners are welcome to download the source code from [http://github.com/StatsWithR/book ](github) to see the code that was used to create all of the examples and figures within the book.   Learners should have a current version of `R` (3.5.0 at the time of this version of the book) and will need to install `Rstudio` in order to use any of the `shiny` apps.  
+This book is written using the `R` package `bookdown`; any interested learners are welcome to download the source code from [github](http://github.com/StatsWithR/book) to see the code that was used to create all of the examples and figures within the book.   Learners should have a current version of `R` (3.5.0 at the time of this version of the book) and will need to install `Rstudio` in order to use any of the `shiny` apps.  
 
 Those that are interested in running all of the code in the book or building the book locally, should download all of the following packages from  `CRAN`:
 

@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Bayesian Model Choice | An Introduction to Bayesian Thinking</title>
   <meta name="description" content="Chapter 7 Bayesian Model Choice | An Introduction to Bayesian Thinking" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Bayesian Model Choice | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
-  
   
   
   <meta name="github-repo" content="StatsWithR/book" />
@@ -37,8 +36,8 @@
   
 <link rel="prev" href="introduction-to-bayesian-regression.html"/>
 <link rel="next" href="stochastic-explorations-using-mcmc.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -54,13 +53,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -119,6 +121,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -323,16 +348,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bayesian-model-choice" class="section level1" number="7">
-<h1><span class="header-section-number">Chapter 7</span> Bayesian Model Choice</h1>
+<div id="bayesian-model-choice" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Bayesian Model Choice<a href="bayesian-model-choice.html#bayesian-model-choice" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.3</a> of Chapter 6, we provided a Bayesian inference analysis for kid’s cognitive scores using multiple linear regression. We found that several credible intervals of the coefficients contain zero, suggesting that we could potentially simplify the model.
 In this chapter, we will discuss model selection, model uncertainty, and model averaging. Bayesian model selection is to pick variables for multiple linear regression based on Bayesian information criterion, or BIC. Later, we will also discuss other model selection methods, such as using Bayes factors.</p>
 
-<div id="sec:BIC" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Bayesian Information Criterion (BIC)</h2>
+<div id="sec:BIC" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Bayesian Information Criterion (BIC)<a href="bayesian-model-choice.html#sec:BIC" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In inferential statistics, we compare model selections using <span class="math inline">\(p\)</span>-values or adjusted <span class="math inline">\(R^2\)</span>. Here we will take the Bayesian propectives. We are going to discuss the Bayesian model selections using the Bayesian information criterion, or BIC. BIC is one of the Bayesian criteria used for Bayesian model selection, and tends to be one of the most popular criteria.</p>
-<div id="definition-of-bic" class="section level3" number="7.1.1">
-<h3><span class="header-section-number">7.1.1</span> Definition of BIC</h3>
+<div id="definition-of-bic" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Definition of BIC<a href="bayesian-model-choice.html#definition-of-bic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The Bayesian information criterion, BIC, is defined to be</p>
 <p><span class="math display" id="eq:BIC-def">\[\begin{equation}
 \text{BIC} = -2\ln(\widehat{\text{likelihood}}) + (p+1)\ln(n).
@@ -364,28 +389,28 @@ where the last term constant only depends on the sample size <span class="math i
 \end{equation*}\]</span></p>
 <p>From this expression, we see that adding more predictors, that is, increasing <span class="math inline">\(p\)</span>, will result in larger <span class="math inline">\(R^2\)</span>, which leads to a smaller <span class="math inline">\(\ln(1-R^2)\)</span> in the first term of BIC. While larger <span class="math inline">\(R^2\)</span> means better goodness of fit of the data, too many predictors may result in overfitting the data. Therefore, the second term <span class="math inline">\((p+1)\ln(n)\)</span> is added in the BIC expression to penalize models with too many predictors. When <span class="math inline">\(p\)</span> increases, the second term increases as well. This provides a trade-off between the goodness of fit given by the first term and the model complexity represented by the second term.</p>
 </div>
-<div id="backward-elimination-with-bic" class="section level3" number="7.1.2">
-<h3><span class="header-section-number">7.1.2</span> Backward Elimination with BIC</h3>
+<div id="backward-elimination-with-bic" class="section level3 hasAnchor" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> Backward Elimination with BIC<a href="bayesian-model-choice.html#backward-elimination-with-bic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We will use the kid’s cognitive score data set <code>cognitive</code> as an example. We first read in the data set from Gelman’s website and transform the data types of the two variables <code>mom_work</code> and <code>mom_hs</code>, like what we did in Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.3</a>.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="bayesian-model-choice.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the library in order to read in data from website</span></span>
-<span id="cb100-2"><a href="bayesian-model-choice.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)    </span>
-<span id="cb100-3"><a href="bayesian-model-choice.html#cb100-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb100-4"><a href="bayesian-model-choice.html#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in cognitive score data set and process data tranformations</span></span>
-<span id="cb100-5"><a href="bayesian-model-choice.html#cb100-5" aria-hidden="true" tabindex="-1"></a>cognitive <span class="ot">=</span> <span class="fu">read.dta</span>(<span class="st">&quot;http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta&quot;</span>)</span>
-<span id="cb100-6"><a href="bayesian-model-choice.html#cb100-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb100-7"><a href="bayesian-model-choice.html#cb100-7" aria-hidden="true" tabindex="-1"></a>cognitive<span class="sc">$</span>mom_work <span class="ot">=</span> <span class="fu">as.numeric</span>(cognitive<span class="sc">$</span>mom_work <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
-<span id="cb100-8"><a href="bayesian-model-choice.html#cb100-8" aria-hidden="true" tabindex="-1"></a>cognitive<span class="sc">$</span>mom_hs <span class="ot">=</span>  <span class="fu">as.numeric</span>(cognitive<span class="sc">$</span>mom_hs <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb100-9"><a href="bayesian-model-choice.html#cb100-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cognitive) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;kid_score&quot;</span>, <span class="st">&quot;hs&quot;</span>,<span class="st">&quot;IQ&quot;</span>, <span class="st">&quot;work&quot;</span>, <span class="st">&quot;age&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="bayesian-model-choice.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the library in order to read in data from website</span></span>
+<span id="cb99-2"><a href="bayesian-model-choice.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)    </span>
+<span id="cb99-3"><a href="bayesian-model-choice.html#cb99-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-4"><a href="bayesian-model-choice.html#cb99-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in cognitive score data set and process data tranformations</span></span>
+<span id="cb99-5"><a href="bayesian-model-choice.html#cb99-5" aria-hidden="true" tabindex="-1"></a>cognitive <span class="ot">=</span> <span class="fu">read.dta</span>(<span class="st">&quot;http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta&quot;</span>)</span>
+<span id="cb99-6"><a href="bayesian-model-choice.html#cb99-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-7"><a href="bayesian-model-choice.html#cb99-7" aria-hidden="true" tabindex="-1"></a>cognitive<span class="sc">$</span>mom_work <span class="ot">=</span> <span class="fu">as.numeric</span>(cognitive<span class="sc">$</span>mom_work <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb99-8"><a href="bayesian-model-choice.html#cb99-8" aria-hidden="true" tabindex="-1"></a>cognitive<span class="sc">$</span>mom_hs <span class="ot">=</span>  <span class="fu">as.numeric</span>(cognitive<span class="sc">$</span>mom_hs <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb99-9"><a href="bayesian-model-choice.html#cb99-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cognitive) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;kid_score&quot;</span>, <span class="st">&quot;hs&quot;</span>,<span class="st">&quot;IQ&quot;</span>, <span class="st">&quot;work&quot;</span>, <span class="st">&quot;age&quot;</span>)</span></code></pre></div>
 <p>We start with the full model, with all possible predictors: <code>hs</code>, <code>IQ</code>, <code>work</code>, and <code>age</code>. We will drop one variable at a time and record all BICs. Then we will choose the model with the smallest BIC. We will repeat this process until none of the models yields a decrease in BIC. We use the <code>step</code> function in R to perform the BIC model selection. Notice the default value of the <code>k</code> argument in the <code>step</code> function is <code>k=2</code>, which is for the AIC score. For BIC, <code>k</code> should be <code>log(n)</code> correspondingly.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="bayesian-model-choice.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the total number of observations</span></span>
-<span id="cb101-2"><a href="bayesian-model-choice.html#cb101-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">nrow</span>(cognitive)</span>
-<span id="cb101-3"><a href="bayesian-model-choice.html#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-4"><a href="bayesian-model-choice.html#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Full model using all predictors</span></span>
-<span id="cb101-5"><a href="bayesian-model-choice.html#cb101-5" aria-hidden="true" tabindex="-1"></a>cog.lm <span class="ot">=</span> <span class="fu">lm</span>(kid_score <span class="sc">~</span> ., <span class="at">data=</span>cognitive)</span>
-<span id="cb101-6"><a href="bayesian-model-choice.html#cb101-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-7"><a href="bayesian-model-choice.html#cb101-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform BIC elimination from full model</span></span>
-<span id="cb101-8"><a href="bayesian-model-choice.html#cb101-8" aria-hidden="true" tabindex="-1"></a><span class="co"># k = log(n): penalty for BIC rather than AIC</span></span>
-<span id="cb101-9"><a href="bayesian-model-choice.html#cb101-9" aria-hidden="true" tabindex="-1"></a>cog.step <span class="ot">=</span> <span class="fu">step</span>(cog.lm, <span class="at">k=</span><span class="fu">log</span>(n))   </span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="bayesian-model-choice.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the total number of observations</span></span>
+<span id="cb100-2"><a href="bayesian-model-choice.html#cb100-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">nrow</span>(cognitive)</span>
+<span id="cb100-3"><a href="bayesian-model-choice.html#cb100-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-4"><a href="bayesian-model-choice.html#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Full model using all predictors</span></span>
+<span id="cb100-5"><a href="bayesian-model-choice.html#cb100-5" aria-hidden="true" tabindex="-1"></a>cog.lm <span class="ot">=</span> <span class="fu">lm</span>(kid_score <span class="sc">~</span> ., <span class="at">data=</span>cognitive)</span>
+<span id="cb100-6"><a href="bayesian-model-choice.html#cb100-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-7"><a href="bayesian-model-choice.html#cb100-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform BIC elimination from full model</span></span>
+<span id="cb100-8"><a href="bayesian-model-choice.html#cb100-8" aria-hidden="true" tabindex="-1"></a><span class="co"># k = log(n): penalty for BIC rather than AIC</span></span>
+<span id="cb100-9"><a href="bayesian-model-choice.html#cb100-9" aria-hidden="true" tabindex="-1"></a>cog.step <span class="ot">=</span> <span class="fu">step</span>(cog.lm, <span class="at">k=</span><span class="fu">log</span>(n))   </span></code></pre></div>
 <pre><code>## Start:  AIC=2541.07
 ## kid_score ~ hs + IQ + work + age
 ## 
@@ -420,14 +445,14 @@ where the last term constant only depends on the sample size <span class="math i
 <p>Finally, when we try dropping either <code>hs</code> or <code>IQ</code>, it will result in higher BIC than 2530.6. This suggests that we have reached the best model. This model predicts kid’s cognitive score using mother’s high school status and mother’s IQ score.</p>
 <p>However, using the adjusted <span class="math inline">\(R^2\)</span>, the best model would be the one including not only <code>hs</code> and <code>IQ</code> variables, but also mother’s work status, <code>work</code>. In general, using BIC leads to fewer variables for the best model compared to using adjusted <span class="math inline">\(R^2\)</span> or AIC.</p>
 <p>We can also use the <code>BAS</code> package to find the best BIC model without taking the stepwise backward process.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="bayesian-model-choice.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import library</span></span>
-<span id="cb103-2"><a href="bayesian-model-choice.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BAS)</span>
-<span id="cb103-3"><a href="bayesian-model-choice.html#cb103-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-4"><a href="bayesian-model-choice.html#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `bas.lm` to run regression model</span></span>
-<span id="cb103-5"><a href="bayesian-model-choice.html#cb103-5" aria-hidden="true" tabindex="-1"></a>cog.BIC <span class="ot">=</span> <span class="fu">bas.lm</span>(kid_score <span class="sc">~</span> ., <span class="at">data =</span> cognitive,</span>
-<span id="cb103-6"><a href="bayesian-model-choice.html#cb103-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">prior =</span> <span class="st">&quot;BIC&quot;</span>, <span class="at">modelprior =</span> <span class="fu">uniform</span>())</span>
-<span id="cb103-7"><a href="bayesian-model-choice.html#cb103-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-8"><a href="bayesian-model-choice.html#cb103-8" aria-hidden="true" tabindex="-1"></a>cog.BIC</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="bayesian-model-choice.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import library</span></span>
+<span id="cb102-2"><a href="bayesian-model-choice.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BAS)</span>
+<span id="cb102-3"><a href="bayesian-model-choice.html#cb102-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-4"><a href="bayesian-model-choice.html#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `bas.lm` to run regression model</span></span>
+<span id="cb102-5"><a href="bayesian-model-choice.html#cb102-5" aria-hidden="true" tabindex="-1"></a>cog.BIC <span class="ot">=</span> <span class="fu">bas.lm</span>(kid_score <span class="sc">~</span> ., <span class="at">data =</span> cognitive,</span>
+<span id="cb102-6"><a href="bayesian-model-choice.html#cb102-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">prior =</span> <span class="st">&quot;BIC&quot;</span>, <span class="at">modelprior =</span> <span class="fu">uniform</span>())</span>
+<span id="cb102-7"><a href="bayesian-model-choice.html#cb102-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-8"><a href="bayesian-model-choice.html#cb102-8" aria-hidden="true" tabindex="-1"></a>cog.BIC</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## bas.lm(formula = kid_score ~ ., data = cognitive, prior = &quot;BIC&quot;, 
@@ -441,46 +466,46 @@ where the last term constant only depends on the sample size <span class="math i
 <p>The <code>logmarg</code> information inside the <code>cog.BIC</code> summary list records the log of marginal likelihood of each model after seeing the data <span class="math inline">\(\ln(p(\text{data}~|~M))\)</span>. Recall that this is approximately proportional to negative BIC when the sample size <span class="math inline">\(n\)</span> is large
 <span class="math display">\[ \text{BIC}\approx -2 \ln(p(\text{data}~|~M)).\]</span></p>
 <p>We can use this information to retrieve the model with the largest log of marginal likelihood, which corresponds to the model with the smallest BIC.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="bayesian-model-choice.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the index of the model with the largest logmarg</span></span>
-<span id="cb105-2"><a href="bayesian-model-choice.html#cb105-2" aria-hidden="true" tabindex="-1"></a>best <span class="ot">=</span> <span class="fu">which.max</span>(cog.BIC<span class="sc">$</span>logmarg)</span>
-<span id="cb105-3"><a href="bayesian-model-choice.html#cb105-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb105-4"><a href="bayesian-model-choice.html#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the index of variables in the best model, with 0 as the index of the intercept</span></span>
-<span id="cb105-5"><a href="bayesian-model-choice.html#cb105-5" aria-hidden="true" tabindex="-1"></a>bestmodel <span class="ot">=</span> cog.BIC<span class="sc">$</span>which[[best]]</span>
-<span id="cb105-6"><a href="bayesian-model-choice.html#cb105-6" aria-hidden="true" tabindex="-1"></a>bestmodel</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="bayesian-model-choice.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the index of the model with the largest logmarg</span></span>
+<span id="cb104-2"><a href="bayesian-model-choice.html#cb104-2" aria-hidden="true" tabindex="-1"></a>best <span class="ot">=</span> <span class="fu">which.max</span>(cog.BIC<span class="sc">$</span>logmarg)</span>
+<span id="cb104-3"><a href="bayesian-model-choice.html#cb104-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-4"><a href="bayesian-model-choice.html#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the index of variables in the best model, with 0 as the index of the intercept</span></span>
+<span id="cb104-5"><a href="bayesian-model-choice.html#cb104-5" aria-hidden="true" tabindex="-1"></a>bestmodel <span class="ot">=</span> cog.BIC<span class="sc">$</span>which[[best]]</span>
+<span id="cb104-6"><a href="bayesian-model-choice.html#cb104-6" aria-hidden="true" tabindex="-1"></a>bestmodel</span></code></pre></div>
 <pre><code>## [1] 0 1 2</code></pre>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="bayesian-model-choice.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an indicator vector indicating which variables are used in the best model</span></span>
-<span id="cb107-2"><a href="bayesian-model-choice.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="co"># First, create a 0 vector with the same dimension of the number of variables in the full model</span></span>
-<span id="cb107-3"><a href="bayesian-model-choice.html#cb107-3" aria-hidden="true" tabindex="-1"></a>bestgamma <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, cog.BIC<span class="sc">$</span>n.vars) </span>
-<span id="cb107-4"><a href="bayesian-model-choice.html#cb107-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb107-5"><a href="bayesian-model-choice.html#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the indicator to 1 where variables are used</span></span>
-<span id="cb107-6"><a href="bayesian-model-choice.html#cb107-6" aria-hidden="true" tabindex="-1"></a>bestgamma[bestmodel <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span>  </span>
-<span id="cb107-7"><a href="bayesian-model-choice.html#cb107-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb107-8"><a href="bayesian-model-choice.html#cb107-8" aria-hidden="true" tabindex="-1"></a>bestgamma</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="bayesian-model-choice.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an indicator vector indicating which variables are used in the best model</span></span>
+<span id="cb106-2"><a href="bayesian-model-choice.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="co"># First, create a 0 vector with the same dimension of the number of variables in the full model</span></span>
+<span id="cb106-3"><a href="bayesian-model-choice.html#cb106-3" aria-hidden="true" tabindex="-1"></a>bestgamma <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, cog.BIC<span class="sc">$</span>n.vars) </span>
+<span id="cb106-4"><a href="bayesian-model-choice.html#cb106-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-5"><a href="bayesian-model-choice.html#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the indicator to 1 where variables are used</span></span>
+<span id="cb106-6"><a href="bayesian-model-choice.html#cb106-6" aria-hidden="true" tabindex="-1"></a>bestgamma[bestmodel <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span>  </span>
+<span id="cb106-7"><a href="bayesian-model-choice.html#cb106-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-8"><a href="bayesian-model-choice.html#cb106-8" aria-hidden="true" tabindex="-1"></a>bestgamma</span></code></pre></div>
 <pre><code>## [1] 1 1 1 0 0</code></pre>
 <p>From the indicator vector <code>bestgamma</code> we see that only the intercept (indexed as 0), mother’s high school status variable <code>hs</code> (indexed as 1), and mother’s IQ score <code>IQ</code> (indexed as 2) are used in the best model, with 1’s in the corresponding slots of the 5-dimensional vector <span class="math inline">\((1, 1, 1, 0, 0)\)</span>.</p>
 </div>
-<div id="coefficient-estimates-under-reference-prior-for-best-bic-model" class="section level3" number="7.1.3">
-<h3><span class="header-section-number">7.1.3</span> Coefficient Estimates Under Reference Prior for Best BIC Model</h3>
+<div id="coefficient-estimates-under-reference-prior-for-best-bic-model" class="section level3 hasAnchor" number="7.1.3">
+<h3><span class="header-section-number">7.1.3</span> Coefficient Estimates Under Reference Prior for Best BIC Model<a href="bayesian-model-choice.html#coefficient-estimates-under-reference-prior-for-best-bic-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The best BIC model <span class="math inline">\(M\)</span> can be set up as follows and we have adopted the “centered” model convention for convenient analyses
 <span class="math display">\[ y_{\text{score},i} = \beta_0 + \beta_1(x_{\text{hs},i} - \bar{x}_{\text{hs}, i})+\beta_2(x_{\text{IQ},i}-\bar{x}_{\text{IQ}})+\epsilon_i,\qquad \quad i = 1,\cdots, n \]</span></p>
 <p>We would like to get the posterior distributions of the coefficients <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\beta_2\)</span> under this model. Recall that the reference prior imposes a uniformly flat prior distribution on coefficients <span class="math inline">\(p(\beta_0, \beta_1, \beta_2~|~M)\propto 1\)</span> and that <span class="math inline">\(p(\sigma^2~|~M) \propto 1/\sigma^2\)</span>, so together the joint prior distribution <span class="math inline">\(p(\beta_0, \beta_1, \beta_2, \sigma^2~|~M)\)</span> is proportional to <span class="math inline">\(1/\sigma^2\)</span>. When the sample size <span class="math inline">\(n\)</span> is large, any proper prior distribution <span class="math inline">\(p(\beta_0, \beta_1, \beta_2, \sigma^2~|~M)\)</span> is getting flatter and flatter, which can be approximated by the reference prior. At the same time, the log of marginal likelihood <span class="math inline">\(\ln(p(\text{data}~|~M))\)</span> can be approximated by the BIC. Therefore, we use <code>prior = "BIC"</code> in the <code>bas.lm</code> function when we use the BIC as an approximation of the log of marginal likelihood under the reference prior. The posterior mean of <span class="math inline">\(\beta_0\)</span> in the result is the sample mean of the kids’ cognitive scores, or <span class="math inline">\(\bar{Y}_{\text{score}}\)</span>, since we have centered the model.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="bayesian-model-choice.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the best BIC model by imposing which variables to be used using the indicators</span></span>
-<span id="cb109-2"><a href="bayesian-model-choice.html#cb109-2" aria-hidden="true" tabindex="-1"></a>cog.bestBIC <span class="ot">=</span> <span class="fu">bas.lm</span>(kid_score <span class="sc">~</span> ., <span class="at">data =</span> cognitive,</span>
-<span id="cb109-3"><a href="bayesian-model-choice.html#cb109-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">prior =</span> <span class="st">&quot;BIC&quot;</span>, <span class="at">n.models =</span> <span class="dv">1</span>,  <span class="co"># We only fit 1 model</span></span>
-<span id="cb109-4"><a href="bayesian-model-choice.html#cb109-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">bestmodel =</span> bestgamma,  <span class="co"># We use bestgamma to indicate variables </span></span>
-<span id="cb109-5"><a href="bayesian-model-choice.html#cb109-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">modelprior =</span> <span class="fu">uniform</span>())</span>
-<span id="cb109-6"><a href="bayesian-model-choice.html#cb109-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-7"><a href="bayesian-model-choice.html#cb109-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve coefficients information</span></span>
-<span id="cb109-8"><a href="bayesian-model-choice.html#cb109-8" aria-hidden="true" tabindex="-1"></a>cog.coef <span class="ot">=</span> <span class="fu">coef</span>(cog.bestBIC)</span>
-<span id="cb109-9"><a href="bayesian-model-choice.html#cb109-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-10"><a href="bayesian-model-choice.html#cb109-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve bounds of credible intervals</span></span>
-<span id="cb109-11"><a href="bayesian-model-choice.html#cb109-11" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">confint</span>(cog.coef)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
-<span id="cb109-12"><a href="bayesian-model-choice.html#cb109-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-13"><a href="bayesian-model-choice.html#cb109-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine results and construct summary table</span></span>
-<span id="cb109-14"><a href="bayesian-model-choice.html#cb109-14" aria-hidden="true" tabindex="-1"></a>coef.BIC <span class="ot">=</span> <span class="fu">cbind</span>(cog.coef<span class="sc">$</span>postmean, cog.coef<span class="sc">$</span>postsd, out)</span>
-<span id="cb109-15"><a href="bayesian-model-choice.html#cb109-15" aria-hidden="true" tabindex="-1"></a>names <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;post mean&quot;</span>, <span class="st">&quot;post sd&quot;</span>, <span class="fu">colnames</span>(out))</span>
-<span id="cb109-16"><a href="bayesian-model-choice.html#cb109-16" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(coef.BIC) <span class="ot">=</span> names</span>
-<span id="cb109-17"><a href="bayesian-model-choice.html#cb109-17" aria-hidden="true" tabindex="-1"></a>coef.BIC</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="bayesian-model-choice.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the best BIC model by imposing which variables to be used using the indicators</span></span>
+<span id="cb108-2"><a href="bayesian-model-choice.html#cb108-2" aria-hidden="true" tabindex="-1"></a>cog.bestBIC <span class="ot">=</span> <span class="fu">bas.lm</span>(kid_score <span class="sc">~</span> ., <span class="at">data =</span> cognitive,</span>
+<span id="cb108-3"><a href="bayesian-model-choice.html#cb108-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">prior =</span> <span class="st">&quot;BIC&quot;</span>, <span class="at">n.models =</span> <span class="dv">1</span>,  <span class="co"># We only fit 1 model</span></span>
+<span id="cb108-4"><a href="bayesian-model-choice.html#cb108-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">bestmodel =</span> bestgamma,  <span class="co"># We use bestgamma to indicate variables </span></span>
+<span id="cb108-5"><a href="bayesian-model-choice.html#cb108-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">modelprior =</span> <span class="fu">uniform</span>())</span>
+<span id="cb108-6"><a href="bayesian-model-choice.html#cb108-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-7"><a href="bayesian-model-choice.html#cb108-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve coefficients information</span></span>
+<span id="cb108-8"><a href="bayesian-model-choice.html#cb108-8" aria-hidden="true" tabindex="-1"></a>cog.coef <span class="ot">=</span> <span class="fu">coef</span>(cog.bestBIC)</span>
+<span id="cb108-9"><a href="bayesian-model-choice.html#cb108-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-10"><a href="bayesian-model-choice.html#cb108-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve bounds of credible intervals</span></span>
+<span id="cb108-11"><a href="bayesian-model-choice.html#cb108-11" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">confint</span>(cog.coef)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb108-12"><a href="bayesian-model-choice.html#cb108-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-13"><a href="bayesian-model-choice.html#cb108-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine results and construct summary table</span></span>
+<span id="cb108-14"><a href="bayesian-model-choice.html#cb108-14" aria-hidden="true" tabindex="-1"></a>coef.BIC <span class="ot">=</span> <span class="fu">cbind</span>(cog.coef<span class="sc">$</span>postmean, cog.coef<span class="sc">$</span>postsd, out)</span>
+<span id="cb108-15"><a href="bayesian-model-choice.html#cb108-15" aria-hidden="true" tabindex="-1"></a>names <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;post mean&quot;</span>, <span class="st">&quot;post sd&quot;</span>, <span class="fu">colnames</span>(out))</span>
+<span id="cb108-16"><a href="bayesian-model-choice.html#cb108-16" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(coef.BIC) <span class="ot">=</span> names</span>
+<span id="cb108-17"><a href="bayesian-model-choice.html#cb108-17" aria-hidden="true" tabindex="-1"></a>coef.BIC</span></code></pre></div>
 <pre><code>##           post mean    post sd       2.5%      97.5%
 ## Intercept 86.797235 0.87054033 85.0862025 88.5082675
 ## hs         5.950117 2.21181218  1.6028370 10.2973969
@@ -489,8 +514,8 @@ where the last term constant only depends on the sample size <span class="math i
 ## age        0.000000 0.00000000  0.0000000  0.0000000</code></pre>
 <p>Comparing the coefficients in the best model with the ones in the full model (which can be found in Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.3</a>), we see that the 95% credible interval for <code>IQ</code> variable is the same. However, the credible interval for high school status <code>hs</code> has shifted slightly to the right, and it is also slighly narrower, meaning a smaller posterior standard deviation. All credible intervals of coefficients exclude 0, suggesting that we have found a parsimonious model.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
 </div>
-<div id="other-criteria" class="section level3" number="7.1.4">
-<h3><span class="header-section-number">7.1.4</span> Other Criteria</h3>
+<div id="other-criteria" class="section level3 hasAnchor" number="7.1.4">
+<h3><span class="header-section-number">7.1.4</span> Other Criteria<a href="bayesian-model-choice.html#other-criteria" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>BIC is one of the criteria based on penalized likelihoods. Other examples such as AIC (Akaike information criterion) or adjusted <span class="math inline">\(R^2\)</span>, employ the form of
 <span class="math display">\[ -2\ln(\widehat{\text{likelihood}}) + (p+1)\times\text{some constant},\]</span>
 where <span class="math inline">\(p\)</span> is the number of predictor variables and “some constant” is a constant value depending on different criteria. BIC tends to select parsimonious models (with fewer predictor variables) while AIC and adjusted <span class="math inline">\(R^2\)</span> may include variables that are not statistically significant, but may do better for predictions.</p>
@@ -498,19 +523,19 @@ where <span class="math inline">\(p\)</span> is the number of predictor variable
 
 </div>
 </div>
-<div id="sec:BMU" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Bayesian Model Uncertainty</h2>
+<div id="sec:BMU" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Bayesian Model Uncertainty<a href="bayesian-model-choice.html#sec:BMU" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the last section, we discussed how to use Bayesian Information Criterion (BIC) to pick the best model, and we demonstrated the method on the kid’s cognitive score data set. However, we may often have several models with similar BIC. If we only pick the one with the lowest BIC, we may ignore the presence of other models that are equally good or can provide useful information. The credible intervals of coefficients may be narrower since the uncertainty is being ignored when we consider only one model. Narrower intervals are not always better if they miss the true values of the parameters. To account for the uncertainty, getting the posterior probability of all possible models is necessary. In this section, we will talk about how to convert BIC into Bayes factor to find the posterior probability of all possible models. We will again use the <code>BAS</code> package in R to achieve this goal.</p>
-<div id="model-uncertainty" class="section level3" number="7.2.1">
-<h3><span class="header-section-number">7.2.1</span> Model Uncertainty</h3>
+<div id="model-uncertainty" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Model Uncertainty<a href="bayesian-model-choice.html#model-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>When forecasting the path of a hurricane, having an accurate prediction and measurement of uncertainty is important for early warning. In this case, we would consider the probability of several potential paths that the hurricane may make landfall. Similar to hurricane forecasting, we would also like to obtain the posterior probability of all possible models for uncertainty measurement.</p>
 <p>To represent model uncertainty, we need to construct a probability distribution over all possible models where the each probability provides measure of how likely the model is to happen.</p>
 <p>Suppose we have a multiple linear regression
 <span class="math display">\[ y_i = \beta_0+\beta_1(x_{1,i} - \bar{x}_1)+\beta_2(x_{2,i} - \bar{x}_2)+\cdots+\beta_p(x_{p,i}-\bar{x}_p)+\epsilon_i, \quad 1\leq i \leq n,\]</span>
 with <span class="math inline">\(p\)</span> predictor variables <span class="math inline">\(x_1,\cdots, x_p\)</span>. There are in total <span class="math inline">\(2^p\)</span> different models, corresponding to <span class="math inline">\(2^p\)</span> combinations of variable selections. there are 2 possibilities for each variable: either getting selected or not, and we have in total <span class="math inline">\(p\)</span> variables. We denote each model as <span class="math inline">\(M_m,\ m=1,\cdots,2^p\)</span>. To obtian the posterior probability of each model <span class="math inline">\(p(M_m~|~\text{data})\)</span>, Bayes’ rule tells that that we need to assign the prior probability <span class="math inline">\(p(M_m)\)</span> to each model, and to then obtain the marginal likelihood of each model <span class="math inline">\(p(\text{data}~|~M_m)\)</span>. By Bayes’ rule, we update the posterior probability of each model <span class="math inline">\(M_m\)</span> after seeing the date, via marginal likelihood of model <span class="math inline">\(M_m\)</span>:</p>
-<p><span class="math display" id="eq:model-post-prob">\[\begin{equation} 
-p(M_m~|~\text{data}) = \frac{\text{marginal likelihood of }M_m\times p(M_m)}{\sum_{j=1}^{2^p}\text{marginal likelihood of }M_j\times p(M_j)} = \frac{p(\text{data}~|~M_m)p(M_m)}{\sum_{j=1}^{2^p}p(\text{data}~|~M_j)p(M_j)}. 
-\tag{7.4} 
+<p><span class="math display" id="eq:model-post-prob">\[\begin{equation}
+p(M_m~|~\text{data}) = \frac{\text{marginal likelihood of }M_m\times p(M_m)}{\sum_{j=1}^{2^p}\text{marginal likelihood of }M_j\times p(M_j)} = \frac{p(\text{data}~|~M_m)p(M_m)}{\sum_{j=1}^{2^p}p(\text{data}~|~M_j)p(M_j)}.
+\tag{7.4}
 \end{equation}\]</span></p>
 <p>The marginal likelihood <span class="math inline">\(p(\text{data}~|~M_m)\)</span> of each model <span class="math inline">\(M_m\)</span> serves to reweight the prior probability <span class="math inline">\(p(M_m)\)</span>, so that models with higher likelihoods have larger weights, and models with lower likelihoods receive smaller weights. We renormalize this weighted prior probability by dividing it by the sum <span class="math inline">\(\displaystyle \sum_{j=1}^{2^p}p(\text{data}~|~M_j)p(M_j)\)</span> to get the posterior probability of each model.</p>
 <p>Recall that the prior odd between two models <span class="math inline">\(M_1\)</span> and <span class="math inline">\(M_2\)</span> is defined to be</p>
@@ -523,7 +548,7 @@ and the Bayes factor is defined to be the ratio of the likelihoods of two models
 <p><span class="math display">\[
 \begin{aligned}
 p(M_m~|~\text{data}) = &amp; \frac{p(\text{data}~|~M_m)\times p(M_m)/(p(\text{data}~|~M_b)\times p(M_b))}{\sum_{j=1}^{2^p}(p(\text{data}~|~M_j)\times p(M_j))/(p(\text{data}~|~M_b)\times p(M_b))} \\
- &amp; \\
+&amp; \\
 = &amp; \frac{[p(\text{data}~|~M_m)/p(\text{data}~|~M_b)]\times[p(M_m)/p(M_b)]}{\sum_{j=1}^{2^p}[p(\text{data}~|~M_j)/p(\text{data}~|~M_b)]\times[p(M_j)/p(M_b)]}\\
   &amp; \\
 = &amp; \frac{\textit{BF}[M_m:M_b]\times \textit{O}[M_m:M_b]}{\sum_{j=1}^{2^p}\textit{BF}[M_j:M_b]\times \textit{O}[M_j:M_b]}.
@@ -545,19 +570,19 @@ Any model can be used as the base model <span class="math inline">\(M_b\)</span>
 <p>As for the null model <span class="math inline">\(M_0:\ y_i = \beta_0+\epsilon_i\)</span>, <span class="math inline">\(R_0^2 = 0\)</span> and <span class="math inline">\(p_0=0\)</span>. Equation <a href="bayesian-model-choice.html#eq:BF-Rsquared">(7.5)</a> can be further simplified as
 <span class="math display">\[ \textit{BF}[M_m:M_0] = (1-R_m^2)^{\frac{n}{2}}\times n^{\frac{p_m}{2}}. \]</span></p>
 </div>
-<div id="calculating-posterior-probability-in-r" class="section level3" number="7.2.2">
-<h3><span class="header-section-number">7.2.2</span> Calculating Posterior Probability in R</h3>
+<div id="calculating-posterior-probability-in-r" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Calculating Posterior Probability in R<a href="bayesian-model-choice.html#calculating-posterior-probability-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Back to the kid’s cognitive score example, we will see how the summary of results using <code>bas.lm</code> tells us about the posterior probability of all possible models.</p>
 <p>Suppose we have already loaded the data and pre-processed the columns <code>mom_work</code> and <code>mom_hs</code> using <code>as.numeric</code> function, as what we did in the last section. To represent model certainty, we construct the probability distribution overall possible 16 (=<span class="math inline">\(2^4\)</span>) models where each probability <span class="math inline">\(p(M_m)\)</span> provides a measure of how likely the model <span class="math inline">\(M_m\)</span> is. Inside the <code>bas.lm</code> function, we first specify the full model, which in this case is the <code>kid_score</code>, being regressed by all predictors: mother’s high school status <code>hs</code>, mother’s IQ <code>IQ</code>, mother’s work status <code>work</code> and mother’s age <code>age</code>. We take the <code>data = cognitive</code> in the next argument. For the prior distribution of the coefficients for calculating marginal likelihoods, we use <code>prior = "BIC"</code> to approximate the marginal likelihood <span class="math inline">\(p(\text{data}~|~M_m)\)</span>. We then use <code>modelprior = uniform()</code> in the argument to assign equal prior probability <span class="math inline">\(p(M_m),\ m=1,\cdots, 16\)</span> to all 16 models. That is, <span class="math inline">\(\displaystyle p(M_m) = \frac{1}{16}\)</span>.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="bayesian-model-choice.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libary</span></span>
-<span id="cb111-2"><a href="bayesian-model-choice.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BAS)</span>
-<span id="cb111-3"><a href="bayesian-model-choice.html#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-4"><a href="bayesian-model-choice.html#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `bas.lm` for regression</span></span>
-<span id="cb111-5"><a href="bayesian-model-choice.html#cb111-5" aria-hidden="true" tabindex="-1"></a>cog_bas <span class="ot">=</span> <span class="fu">bas.lm</span>(kid_score <span class="sc">~</span> hs <span class="sc">+</span> IQ <span class="sc">+</span> work <span class="sc">+</span> age, </span>
-<span id="cb111-6"><a href="bayesian-model-choice.html#cb111-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> cognitive, <span class="at">prior =</span> <span class="st">&quot;BIC&quot;</span>,</span>
-<span id="cb111-7"><a href="bayesian-model-choice.html#cb111-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">modelprior =</span> <span class="fu">uniform</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="bayesian-model-choice.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libary</span></span>
+<span id="cb110-2"><a href="bayesian-model-choice.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BAS)</span>
+<span id="cb110-3"><a href="bayesian-model-choice.html#cb110-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-4"><a href="bayesian-model-choice.html#cb110-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `bas.lm` for regression</span></span>
+<span id="cb110-5"><a href="bayesian-model-choice.html#cb110-5" aria-hidden="true" tabindex="-1"></a>cog_bas <span class="ot">=</span> <span class="fu">bas.lm</span>(kid_score <span class="sc">~</span> hs <span class="sc">+</span> IQ <span class="sc">+</span> work <span class="sc">+</span> age, </span>
+<span id="cb110-6"><a href="bayesian-model-choice.html#cb110-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> cognitive, <span class="at">prior =</span> <span class="st">&quot;BIC&quot;</span>,</span>
+<span id="cb110-7"><a href="bayesian-model-choice.html#cb110-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">modelprior =</span> <span class="fu">uniform</span>())</span></code></pre></div>
 <p><code>cog_bas</code> is a <code>bas</code> object. The usual <code>print</code>, <code>summary</code>, <code>plot</code>, <code>coef</code>, <code>fitted</code>, <code>predict</code> functions are available and can be used on <code>bas</code> objects similar to <code>lm</code> objects created by the usual <code>lm</code> function. From calling</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="bayesian-model-choice.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cog_bas)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="bayesian-model-choice.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cog_bas)</span></code></pre></div>
 <pre><code>##  [1] &quot;probne0&quot;        &quot;which&quot;          &quot;logmarg&quot;        &quot;postprobs&quot;     
 ##  [5] &quot;priorprobs&quot;     &quot;sampleprobs&quot;    &quot;mse&quot;            &quot;mle&quot;           
 ##  [9] &quot;mle.se&quot;         &quot;shrinkage&quot;      &quot;size&quot;           &quot;R2&quot;            
@@ -568,7 +593,7 @@ Any model can be used as the base model <span class="math inline">\(M_b\)</span>
 ## [29] &quot;call&quot;           &quot;xlevels&quot;        &quot;terms&quot;          &quot;model&quot;</code></pre>
 <p>one can see the outputs and analyses that we can extract from a <code>bas</code> object.</p>
 <p>The <code>bas</code> object takes the <code>summary</code> method</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="bayesian-model-choice.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(cog_bas), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="bayesian-model-choice.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(cog_bas), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##           P(B != 0 | Y)   model 1   model 2   model 3   model 4   model 5
 ## Intercept         1.000     1.000     1.000     1.000     1.000     1.000
 ## hs                0.611     1.000     0.000     0.000     1.000     1.000
@@ -629,7 +654,7 @@ Any model can be used as the base model <span class="math inline">\(M_b\)</span>
 <!--
 
 -->
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="bayesian-model-choice.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cog_bas)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="bayesian-model-choice.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cog_bas)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## bas.lm(formula = kid_score ~ hs + IQ + work + age, data = cognitive, 
@@ -642,11 +667,11 @@ Any model can be used as the base model <span class="math inline">\(M_b\)</span>
 
 </div>
 </div>
-<div id="bayesian-model-averaging" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> Bayesian Model Averaging</h2>
+<div id="bayesian-model-averaging" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Bayesian Model Averaging<a href="bayesian-model-choice.html#bayesian-model-averaging" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the last section, we explored model uncertainty using posterior probability of models based on BIC. In this section, we will continue the kid’s cognitive score example to see how to obtain an Bayesian model averaging results using model posterior probability.</p>
-<div id="visualizing-model-uncertainty" class="section level3" number="7.3.1">
-<h3><span class="header-section-number">7.3.1</span> Visualizing Model Uncertainty</h3>
+<div id="visualizing-model-uncertainty" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Visualizing Model Uncertainty<a href="bayesian-model-choice.html#visualizing-model-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Recall that in the last section, we used the <code>bas.lm</code> function in the <code>BAS</code> package to obtain posterior probability of all models in the kid’s cognitive score example.
 <span class="math display">\[ \text{score} ~\sim~ \text{hq} + \text{IQ} + \text{work} + \text{age} \]</span></p>
 <p>We have found the posterior distribution under model uncertainty using all possible combinations of the predictors, the mother’s high school status <code>hs</code>, mother’s IQ score <code>IQ</code>, whether the mother worked during the first three years of the kid’s life <code>work</code>, and mother’s age <code>age</code>. With 4 predictors, there are <span class="math inline">\(2^4 = 16\)</span> possible models. In general, for linear regression model with <span class="math inline">\(p\)</span> predictor variables
@@ -654,26 +679,27 @@ Any model can be used as the base model <span class="math inline">\(M_b\)</span>
 there will be in total <span class="math inline">\(2^p\)</span> possible models.</p>
 <p>We can also visualize model uncertainty from the <code>bas</code> object <code>cog_bas</code> that we generated in the previous section.</p>
 <p>In R, the image function may be used to create an image of the model space that looks like a crossword puzzle.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="bayesian-model-choice.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(cog_bas, <span class="at">rotate =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="bayesian-model-choice.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(cog_bas, <span class="at">rotate =</span> F)</span></code></pre></div>
+<pre><code>## Warning in par(par.old): argument 1 does not name a graphical parameter</code></pre>
 <p><img src="07-modelSelection-03-model-averaging_files/figure-html/visualize-1.png" width="672" /></p>
 <p>To obtain a clearer view for model comparison, we did not rotate the image. Here, the predictors, including the intercept, are on the <span class="math inline">\(y\)</span>-axis, while the <span class="math inline">\(x\)</span>-axis corresponds to each different model. Each vertical column corresponds to one model. For variables that are not included in one model, they will be represented by black blocks. For example, model 1 includes the intercept, <code>hs</code>, and <code>IQ</code>, but not <code>work</code> or <code>age</code>. These models are ordered according to the log of posterior odd over the null model (model with only the intercept). The log of posterior odd is calculated as
 <span class="math display">\[\ln(\textit{PO}[M_m:M_0]) = \ln (\textit{BF}[M_m:M_0]\times \textit{O}[M_m:M_0]).\]</span>
 Since we assing same prior probability for all models, <span class="math inline">\(\text{O}[M_m:M_0] = 1\)</span> and therefore, the log of posterior odd is the same as the log of the Bayes factor. The color of each column is proportional to the log of the posterior probability. Models with same colors have similar posterior probabilities. This allows us to view models that are clustered together, when the difference within a cluster is not worth a bare mention.</p>
 <p>If we view the image by rows, we can see whether one variable is included in a particular model. For each variable, there are only 8 models in which it will appear. For example, we see that <code>IQ</code> appears in all the top 8 models with larger posterior probabilities, but not the last 8 models. The <code>image</code> function shows up to 20 models by default.</p>
 </div>
-<div id="bayesian-model-averaging-using-posterior-probability" class="section level3" number="7.3.2">
-<h3><span class="header-section-number">7.3.2</span> Bayesian Model Averaging Using Posterior Probability</h3>
+<div id="bayesian-model-averaging-using-posterior-probability" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Bayesian Model Averaging Using Posterior Probability<a href="bayesian-model-choice.html#bayesian-model-averaging-using-posterior-probability" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Once we have obtained the posterior probability of each model, we can make inference and obtain weighted averages of quantities of interest using these probabilities as weights. Models with higher posterior probabilities receive higher weights, while models with lower posterior probabilities receive lower weights. This gives the name “Bayesian Model Averaging” (BMA). For example, the probability of the next prediction <span class="math inline">\(\hat{Y}^*\)</span> after seeing the data can be calculated as a “weighted average” of the prediction of next observation <span class="math inline">\(\hat{Y}^*_j\)</span> under each model <span class="math inline">\(M_j\)</span>, with the posterior probability of <span class="math inline">\(M_j\)</span> being the “weight”
 <span class="math display">\[ \hat{Y}^* = \sum_{j=1}^{2^p}\hat{Y}^*_j\ p(M_j~|~\text{data}). \]</span></p>
 <p>In general, we can use this weighted average formula to obtain the value of a quantity of interest <span class="math inline">\(\Delta\)</span>. <span class="math inline">\(\Delta\)</span> can <span class="math inline">\(Y^*\)</span>, the next observation; <span class="math inline">\(\beta_j\)</span>, the coefficient of variable <span class="math inline">\(X_j\)</span>; <span class="math inline">\(p(\beta_j~|~\text{data})\)</span>, the posterior probability of <span class="math inline">\(\beta_j\)</span> after seeing the data. The posterior probability of <span class="math inline">\(\Delta\)</span> seeing the data can be calculated using the formula</p>
-<p><span class="math display" id="eq:general">\[\begin{equation} 
+<p><span class="math display" id="eq:general">\[\begin{equation}
 p(\Delta~|~\text{data}) = \sum_{j=1}^{2^p}p(\Delta~|~ M_j,\ \text{data})p(M_j~|~\text{data}).
 \tag{7.6}
 \end{equation}\]</span></p>
 <p>This formula is similar to the one we have seen in Week 2 lecture <strong>Predictive Inference</strong> when we used posterior probability of two different success rates of getting the head in a coin flip to calculate the predictive probability of getting heads in <strong>future</strong> coin flips. Recall in that example, we have two competing hypothese, that the success rate (also known as the probability) of getting heads in coin flips, are
 <span class="math display">\[ H_1: p = 0.7,\qquad \text{vs}\qquad H_2: p=0.4.\]</span></p>
 <p>We calcualted the posterior probability of each success rate. They are
-<span class="math display">\[ 
+<span class="math display">\[
 \begin{aligned}
 P(p=0.7~|~\text{data})= &amp; P(H_1~|~\text{data})= p^* = 0.754,\\
 P(p=0.4~|~\text{data}) = &amp; P(H_2~|~\text{data}) = 1-p^* = 0.246.
@@ -689,8 +715,8 @@ P(\text{head}~|~\text{data}) = P(\text{head}~|~H_1,\text{data})P(H_1~|~\text{dat
 <p><span class="math display">\[ E[\Delta~|~\text{data}] = \sum_{j=1}^{2^p}E[\Delta~|~M_j,\ \text{data}]p(M_j~|~\text{data}).\]</span></p>
 <p>Since the weights <span class="math inline">\(p(M_j~|~\text{data})\)</span> are probabilities and have to sum to one, if the best model had posterior probability one, all of the weights would be placed on that single best model. In this case, using BMA would be equivalent to selecting the best model with the highest posterior probability. However, if there are several models that receive substantial probability, they would all be included in the inference and account for the uncertainty about the true model.</p>
 </div>
-<div id="coefficient-summary-under-bma" class="section level3" number="7.3.3">
-<h3><span class="header-section-number">7.3.3</span> Coefficient Summary under BMA</h3>
+<div id="coefficient-summary-under-bma" class="section level3 hasAnchor" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> Coefficient Summary under BMA<a href="bayesian-model-choice.html#coefficient-summary-under-bma" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can obtain the coefficients by the <code>coef</code> function.</p>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="bayesian-model-choice.html#cb119-1" aria-hidden="true" tabindex="-1"></a>cog_coef <span class="ot">=</span> <span class="fu">coef</span>(cog_bas)</span>
 <span id="cb119-2"><a href="bayesian-model-choice.html#cb119-2" aria-hidden="true" tabindex="-1"></a>cog_coef</span></code></pre></div>
@@ -718,8 +744,8 @@ P(\text{head}~|~\text{data}) = P(\text{head}~|~H_1,\text{data})P(H_1~|~\text{dat
 <p>This plot agrees with the summary table we obtained above, which shows that the posterior probability distributions of <code>work</code> and <code>age</code> have a very large point mass at 0, while the distribution of <code>hs</code> has a relatively small mass at 0. There is a slighly little tip at 0 for the variable <code>IQ</code>, indicating that the posterior inclusion probability of <code>IQ</code> is not exactly 1. However, since the probability mass for <code>IQ</code> to be 0 is so small, that we are almost certain that <code>IQ</code> should be included under Bayesian model averaging.</p>
 </div>
 </div>
-<div id="summary-3" class="section level2" number="7.4">
-<h2><span class="header-section-number">7.4</span> Summary</h2>
+<div id="summary-3" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Summary<a href="bayesian-model-choice.html#summary-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this chapter, we have discussed Bayesian model uncertainty and Bayesian model averaging. We have shown how Bayesian model averaging can be used to address model uncertainty using the ensemble of models for inference, rather than selecting a single model. We applied this to the kid’s cognitive score data set using <code>BAS</code> package in R. Here we illustrated the concepts using BIC and reference prior on the coefficients. In the next chapter, we will explore alternative priors for coefficients, taking into account the sensitivity of model selection to prior choices. We will also explore Markov Chain Monte Carlo algorithm for model sampling when the model space is too large for theoretical calculations.</p>
 
 </div>
@@ -741,7 +767,6 @@ P(\text{head}~|~\text{data}) = P(\text{head}~|~H_1,\text{data})P(H_1~|~\text{dat
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -760,6 +785,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -780,6 +806,10 @@ gitbook.start({
 "text": null
 },
 "download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

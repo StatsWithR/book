@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking</title>
   <meta name="description" content="Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Inference and Decision-Making with Multiple Parameters | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
-  
   
   
   <meta name="github-repo" content="StatsWithR/book" />
@@ -37,8 +36,8 @@
   
 <link rel="prev" href="losses-and-decision-making.html"/>
 <link rel="next" href="hypothesis-testing-with-normal-populations.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -54,13 +53,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -119,6 +121,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -323,24 +348,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="inference-and-decision-making-with-multiple-parameters" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Inference and Decision-Making with Multiple Parameters</h1>
+<div id="inference-and-decision-making-with-multiple-parameters" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Inference and Decision-Making with Multiple Parameters<a href="inference-and-decision-making-with-multiple-parameters.html#inference-and-decision-making-with-multiple-parameters" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>We saw in <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a> that if the data followed a normal distribution and that the variance was known, that the normal distribution was the conjugate prior distribution for the unknown mean. In this chapter, we will focus on the situation when the data follow a normal distribution with an unknown mean, but now consider the case where the variance is also unknown. When the variance <span class="math inline">\(\sigma^2\)</span> of the data is also unknown, we need to specify a joint prior distribution <span class="math inline">\(p(\mu, \sigma^2)\)</span> for both the mean <span class="math inline">\(\mu\)</span> and the variance <span class="math inline">\(\sigma^2\)</span>. We will introduce the conjugate normal-gamma family of distributions where the posterior distribution is in the same family as the prior distribution and leads to a marginal Student t distribution for posterior inference for the mean of the population.</p>
 <p>We will present Monte Carlo simulation for inference about functions of the parameters as well as sampling from predictive distributions, which can also be used to assist with prior elicitation. For situations when limited prior information is available, we discuss a limiting case of the normal-gamma conjugate family, the reference prior, leading to a prior that can be used for a default or reference analysis. Finally, we will show how to create a more flexible and robust prior distribution by using mixtures of the normal-gamma conjugate prior, the Jeffreys-Zellner-Siow prior. For inference in this case we will introduce Markov Chain Monte Carlo, a powerful simulation method for Bayesian inference.</p>
 <p>It is assumed that the readers have mastered the concepts of one-parameter normal-normal conjugate priors. Calculus is not required for this section; however, for those who are comfortable with calculus and would like to go deeper, we shall present optional sections with more details on the derivations.</p>
 <p>Also note that some of the examples in this section use an updated version of the <code>bayes_inference</code> function.
 If your local output is different from what is seen in this chapter, or the provided code fails to run for you please update to the most recent version of the <code>statsr</code> package.</p>
 
-<div id="sec:normal-gamma" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> The Normal-Gamma Conjugate Family</h2>
+<div id="sec:normal-gamma" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> The Normal-Gamma Conjugate Family<a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You may take the safety of your drinking water for granted, however, residents of Flint, Michigan were outraged over reports that the levels of a contaminant known as <strong>TTHM</strong> exceeded federal allowance levels in 2014. TTHM stands for total trihalomethanes, a group of chemical compounds first identified in drinking water in the 1970’s. Trihalomethanes are formed as a by-product from the reaction of chlorine or bromine with organic matter present in the water being disinfected for drinking. THMs have been associated through epidemiological studies with some adverse health effects and many are considered carcinogenic. In the United States, the EPA limits the total concentration of the four chief constituents (chloroform, bromoform, bromodichloromethane, and dibromochloromethane), referred to as total trihalomethanes (TTHM), to 80 parts per billion in treated water.</p>
 <p>Since violations are based on annual running averages, we are interested in inference about the mean TTHM level based on measurements taken from samples.</p>
 <p>In Section <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a> we described the normal-normal conjugate family for inference about an unknown mean <span class="math inline">\(\mu\)</span> when the data <span class="math inline">\(Y_1, Y_2, \ldots, Y_n\)</span> were assumed to be a random sample of size <span class="math inline">\(n\)</span> from a normal population with a known standard deviation <span class="math inline">\(\sigma\)</span>, however, it is more common in practice to have data where the variability of observations is unknown, as in the example with TTHM. Conceptually, Bayesian inference for two (or more) parameters is not any different from the case with one parameter. As both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> unknown, we will need to specify a <strong>joint</strong> prior distribution, <span class="math inline">\(p(\mu, \sigma^2)\)</span> to describe our prior uncertainty about them. As before, Bayes Theorem leads to the posterior distribution for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> given the observed data to take the form</p>
 <p><span class="math display">\[\begin{equation}
-p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  = 
+p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  =
 \frac{p(y_1, \ldots, y_n \mid \mu, \sigma^2) \times
 p(\mu, \sigma^2)}
-{\text{normalizing constant}}. 
+{\text{normalizing constant}}.
 \end{equation}\]</span>
 The <strong>likelihood function</strong> for <span class="math inline">\(\mu, \sigma^2\)</span> is proportional to the sampling distribution of the data, <span class="math inline">\({\cal L}(\mu, \sigma^2) \propto p(y_1, \ldots, y_n \mid \mu, \sigma^2)\)</span> so that the posterior distribution can be re-expressed in proportional form
 <span class="math display">\[\begin{equation}
@@ -349,7 +374,7 @@ p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  \propto {\cal L}(\mu, \sigma^2) p(\mu, \
 <p>As in the earlier chapters, conjugate priors are appealing as there are nice expressions for updating the prior to obtain the posterior distribution using summaries of the data. In the case of two parameters or more parameters a conjugate pair is a sampling model for the data and a joint prior distribution for the unknown parameters such that the joint posterior distribution is in the same family of distributions as the prior distribution. In this case our sampling model is built on the assumption that the data are a random sample of size <span class="math inline">\(n\)</span> from a normal population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, expressed in shorthand as</p>
 <p><span class="math display">\[\begin{aligned}
 Y_1, \ldots Y_n  \mathrel{\mathop{\sim}\limits^{\rm iid}}
-\textsf{Normal}(\mu, \sigma^2) 
+\textsf{Normal}(\mu, \sigma^2)
 \end{aligned}\]</span>
 where the ‘iid’ above the distribution symbol ‘<span class="math inline">\(\sim\)</span>’ indicates that each of the observations are <strong>i</strong>ndependent of the others (given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>) and are <strong>i</strong>dentically <strong>d</strong>istributed. Under this assumption, the sampling distribution of the data is the product of independent normal distributions with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>,
 <span class="math display">\[\begin{equation}
@@ -361,10 +386,10 @@ which, after some algebraic manipulation and simplification, leads to a
 likelihood function for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> that is proportional to
 <span class="math display">\[
 \begin{aligned}
-{\cal L}(\mu, \sigma^2) \propto 
+{\cal L}(\mu, \sigma^2) \propto
 (\sigma^2)^{-n/2}  \times \exp{ \left\{   
 -\frac{1}{2} \frac{\sum_{i = 1}^n(y_i - \bar{y})^2 }{\sigma^2}
-\right\}}  &amp; \times 
+\right\}}  &amp; \times
 \exp{ \left\{   
 -\frac{1}{2} \frac{n (\bar{y} - \mu)^2 }{\sigma^2} \right\}} \\
   \text{function of $\sigma^2$ and data} &amp; \times
@@ -378,14 +403,14 @@ From the expression for the likelihood, we can see that the likelihood factors i
 p(\mu, \sigma^2) = p(\mu \mid \sigma^2) \times p(\sigma^2)
 \]</span>
 as the product of a <strong>conditional distribution</strong> for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> and a <strong>marginal distribution</strong> for <span class="math inline">\(\sigma^2\)</span>, this suggests that the posterior distribution should factor as the product of two conjugate distributions. Perhaps not surprisingly, this is indeed the case.</p>
-<div id="conjugate-prior-for-mu-and-sigma2" class="section level3" number="4.1.1">
-<h3><span class="header-section-number">4.1.1</span> Conjugate Prior for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span></h3>
+<div id="conjugate-prior-for-mu-and-sigma2" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Conjugate Prior for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span><a href="inference-and-decision-making-with-multiple-parameters.html#conjugate-prior-for-mu-and-sigma2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In Section <a href="bayesian-inference.html#sec:normal-normal">2.2.3</a>, we found that for normal data, the conjugate prior distribution for <span class="math inline">\(\mu\)</span> when the standard deviation <span class="math inline">\(\sigma\)</span> was known was a normal distribution. We will build on this to specify a conditional prior distribution for <span class="math inline">\(\mu\)</span> as a normal distribution
 <span class="math display" id="eq:04-conjugate-normal">\[\begin{equation}
 \mu \mid \sigma^2   \sim  \textsf{N}(m_0, \sigma^2/n_0)
 \tag{4.1}
 \end{equation}\]</span>
-with hyper-parameters <span class="math inline">\(m_0\)</span>, the prior mean for <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(\sigma^2/n_0\)</span> the prior variance. While previously we represented the prior variance as a fixed constant, <span class="math inline">\(\tau^2\)</span>, in this case we will replace <span class="math inline">\(\tau^2\)</span> with a multiple of <span class="math inline">\(\sigma^2\)</span>. Because <span class="math inline">\(\sigma\)</span> has the same units as the data, the presence of <span class="math inline">\(\sigma\)</span> in the prior variance automatically scales the prior for <span class="math inline">\(\mu\)</span> based on the same units. This is important, for example, if we were to change the measurement units from inches to centimeters or seconds to hours, as the prior will be re-scaled automatically. The hyper-parameter <span class="math inline">\(n_0\)</span> is unitless, but is used to express our prior precision about <span class="math inline">\(\mu\)</span> relative to the level of “noise,” captured by <span class="math inline">\(\sigma^2\)</span>, in the data. Larger values of <span class="math inline">\(n_0\)</span> indicate that we know the mean with more precision (relative to the variability in observations) with smaller values indicating less precision or more uncertainty. We will see later how the hyper-parameter <span class="math inline">\(n_0\)</span> may be interpreted as a prior sample size. Finally, while we could use a fixed value <span class="math inline">\(\tau^2\)</span> as the prior variance in a conditional conjugate prior for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span>, that does not lead to a joint conjugate prior for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>.</p>
+with hyper-parameters <span class="math inline">\(m_0\)</span>, the prior mean for <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(\sigma^2/n_0\)</span> the prior variance. While previously we represented the prior variance as a fixed constant, <span class="math inline">\(\tau^2\)</span>, in this case we will replace <span class="math inline">\(\tau^2\)</span> with a multiple of <span class="math inline">\(\sigma^2\)</span>. Because <span class="math inline">\(\sigma\)</span> has the same units as the data, the presence of <span class="math inline">\(\sigma\)</span> in the prior variance automatically scales the prior for <span class="math inline">\(\mu\)</span> based on the same units. This is important, for example, if we were to change the measurement units from inches to centimeters or seconds to hours, as the prior will be re-scaled automatically. The hyper-parameter <span class="math inline">\(n_0\)</span> is unitless, but is used to express our prior precision about <span class="math inline">\(\mu\)</span> relative to the level of “noise”, captured by <span class="math inline">\(\sigma^2\)</span>, in the data. Larger values of <span class="math inline">\(n_0\)</span> indicate that we know the mean with more precision (relative to the variability in observations) with smaller values indicating less precision or more uncertainty. We will see later how the hyper-parameter <span class="math inline">\(n_0\)</span> may be interpreted as a prior sample size. Finally, while we could use a fixed value <span class="math inline">\(\tau^2\)</span> as the prior variance in a conditional conjugate prior for <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span>, that does not lead to a joint conjugate prior for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>.</p>
 <p>As <span class="math inline">\(\sigma^2\)</span> is unknown, a Bayesian would use a
 prior distribution to describe the uncertainty about the variance before seeing data. Since the variance is non-negative, continuous, and with no upper limit, based on the distributions that we have seen so far a gamma distribution might appear to be a candidate prior for the variance,. However, that choice does not lead to a posterior distribution in the same family or that is recognizable as any common distribution. It turns out that the the inverse of the variance, which is known as the precision, has a conjugate gamma prior distribution.</p>
 <p>For simplification let’s express the precision (inverse variance) as a new parameter, <span class="math inline">\(\phi = 1/\sigma^2\)</span>. Then the conjugate prior for <span class="math inline">\(\phi\)</span>,
@@ -407,8 +432,8 @@ p(\mu, \phi) = \frac{(n_0 \phi)^{1/2}} {\sqrt{2\pi}} e^{- \frac{\phi n_0}{2} (\m
 \end{equation}\]</span></p>
 <p>The joint conjugate prior has simple rules for updating the prior hyper-parameters given new data to obtain the posterior hyper-parameters due to conjugacy.</p>
 </div>
-<div id="conjugate-posterior-distribution" class="section level3" number="4.1.2">
-<h3><span class="header-section-number">4.1.2</span> Conjugate Posterior Distribution</h3>
+<div id="conjugate-posterior-distribution" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Conjugate Posterior Distribution<a href="inference-and-decision-making-with-multiple-parameters.html#conjugate-posterior-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As a conjugate family, the posterior
 distribution of the pair of parameters (<span class="math inline">\(\mu, \phi\)</span>) is in the same family as the prior distribution when the sample data arise from a normal distribution, that is the posterior is also normal-gamma
 <span class="math display">\[\begin{equation}
@@ -421,7 +446,7 @@ m_n &amp; = &amp; \frac{n \bar{Y} + n_0 m_0} {n + n_0}  \\
 &amp; \\
 n_n &amp; = &amp; n_0 + n  \\
 v_n &amp; = &amp; v_0 + n  \\
-s^2_n &amp; =  &amp; \frac{1}{v_n}\left[ s^2 (n-1) + s^2_0 v_0 + \frac{n_0 n}{n_n} (\bar{y} - m_0)^2 \right]. 
+s^2_n &amp; =  &amp; \frac{1}{v_n}\left[ s^2 (n-1) + s^2_0 v_0 + \frac{n_0 n}{n_n} (\bar{y} - m_0)^2 \right].
 \end{eqnarray*}\]</span>
 Let’s look more closely to try to understand the updating rules.
 The updated hyper-parameter <span class="math inline">\(m_n\)</span> is the posterior mean for <span class="math inline">\(\mu\)</span>; it is also the mode and median. The posterior mean <span class="math inline">\(m_n\)</span> is a weighted average of the sample mean <span class="math inline">\(\bar{y}\)</span> and prior mean <span class="math inline">\(m_0\)</span> with weights <span class="math inline">\(n/(n + n_0\)</span> and <span class="math inline">\(n_0/(n + n_0)\)</span> that are proportional to the precision in the data, <span class="math inline">\(n\)</span>, and the prior precision, <span class="math inline">\(n_0\)</span>, respectively.</p>
@@ -438,21 +463,21 @@ posterior degrees of freedom we obtain the new hyper-parameter <span class="math
 is in the normal-gamma family, and is equivalent to a <strong>hierarchical model</strong> specified in two stages: in the
 first stage of the hierarchy the inverse variance or precision marginally has a gamma distribution,
 <span class="math display">\[
-1/\sigma^2 \mid \text{data}\sim   \textsf{Gamma}(v_n/2, s^2_n v_n/2) 
+1/\sigma^2 \mid \text{data}\sim   \textsf{Gamma}(v_n/2, s^2_n v_n/2)
 \]</span>
 and in the second stage, <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma\)</span></p>
 <p><span class="math display">\[\mu \mid \text{data}, \sigma^2  \sim  \textsf{Normal}(m_n, \sigma^2/n_n)\]</span>
 has a conditional normal distribution. We will see in the next chapter how this representation is convenient for generating samples from the posterior distribution.</p>
 </div>
-<div id="marginal-distribution-for-mu-student-t" class="section level3" number="4.1.3">
-<h3><span class="header-section-number">4.1.3</span> Marginal Distribution for <span class="math inline">\(\mu\)</span>: Student <span class="math inline">\(t\)</span></h3>
+<div id="marginal-distribution-for-mu-student-t" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> Marginal Distribution for <span class="math inline">\(\mu\)</span>: Student <span class="math inline">\(t\)</span><a href="inference-and-decision-making-with-multiple-parameters.html#marginal-distribution-for-mu-student-t" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The joint normal-gamma posterior summarizes our current knowledge about <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>, however, we are generally interested in inference about <span class="math inline">\(\mu\)</span> unconditionally
 as <span class="math inline">\(\sigma^2\)</span> is unknown. This marginal inference requires the unconditional or marginal distribution of <span class="math inline">\(\mu\)</span> that `averages’ over the uncertainty in <span class="math inline">\(\sigma\)</span>. For continuous variables like <span class="math inline">\(\sigma\)</span>, this averaging is performed by integration leading to a Student <span class="math inline">\(t\)</span> distribution.</p>
 <p>The <em>standardized Student <span class="math inline">\(t\)</span>-distribution</em> <span class="math inline">\(\textsf{t}_\nu\)</span> with <span class="math inline">\(\nu\)</span> degrees of freedom is defined to be
 <span class="math display">\[ p(t) = \frac{1}{\sqrt{\pi\nu}}\frac{\Gamma(\frac{\nu+1}{2})}{\Gamma(\frac{\nu}{2})}\left(1 + \frac{t^2}{\nu}\right)^{-\frac{\nu+1}{2}} \]</span>
 where the <span class="math inline">\(\Gamma(\cdot)\)</span> is the Gamma function defined earlier in Equation <a href="bayesian-inference.html#eq:gamma-function">(2.4)</a>. The standard Student’s <span class="math inline">\(t\)</span>-distribution is centered at 0 (the location parameter), with a scale parameter equal to 1, like in a standard normal, however, there is an additional parameter, <span class="math inline">\(\nu\)</span>, the degrees of freedom parameter.</p>
 <p>The Student <span class="math inline">\(t\)</span> distribution is similar to the normal distribution as it is symmetric about the center and bell shaped, however, the <strong>tails</strong> of the distribution are fatter or heavier than the normal distribution and therefore, it is a little “shorter” in the middle as illustrated in Figure <a href="#fig:density"><strong>??</strong></a></p>
-<div class="figure"><span id="fig:t-density"></span>
+<div class="figure"><span style="display:block;" id="fig:t-density"></span>
 <img src="04-normalgamma-01-inference_files/figure-html/t-density-1.png" alt="Standard normal and Student t densities." width="672" />
 <p class="caption">
 Figure 4.1: Standard normal and Student t densities.
@@ -463,33 +488,32 @@ Figure 4.1: Standard normal and Student t densities.
 <span class="math display" id="eq:Student-t-density">\[\begin{equation}
 p(x) =\frac{\Gamma\left(\frac{v + 1}{2} \right)}
 {\sqrt{\pi v} s \,\Gamma\left(\frac{v}{2} \right)}
-\left(1 + \frac{1}{v}\left(\frac{x - m} {s} \right)^2 \right)^{-\frac{v+1}{2}} 
+\left(1 + \frac{1}{v}\left(\frac{x - m} {s} \right)^2 \right)^{-\frac{v+1}{2}}
 \tag{4.4}
 \end{equation}\]</span>
 and by subtracting the location <span class="math inline">\(m\)</span> and dividing by the scale
 <span class="math inline">\(s\)</span>:
 <span class="math display">\[ \frac{X - m}{s} \equiv t \sim \textsf{t}(v, 0 , 1)  \]</span>
 we can obtain the distribution of the standardized Student <span class="math inline">\(t\)</span> distribution with degrees of freedom <span class="math inline">\(v\)</span>, location <span class="math inline">\(0\)</span> and scale <span class="math inline">\(1\)</span>. This latter representation allows us to use standard statistical functions for posterior inference such as finding credible intervals.</p>
-We are now ready for our main result for the marginal distribution for <span class="math inline">\(\mu\)</span>.
-
-<div class="definition">
-<p><span id="def:unnamed-chunk-1" class="definition"><strong>Definition 1.1  </strong></span>If <span class="math inline">\(\mu\)</span> and <span class="math inline">\(1/\sigma^2\)</span> have a <span class="math inline">\(\textsf{NormalGamma}(m_n, n_n, v_n, s^2_n)\)</span> posterior distribution, then
-<span class="math inline">\(\mu\)</span> given the data has a  distribution, <span class="math inline">\(\textsf{t}(v_n, m_n, s^2_n/n_n)\)</span>, expressed as
+<p>We are now ready for our main result for the marginal distribution for <span class="math inline">\(\mu\)</span>.
+::: {.definition #unnamed-chunk-1}
+If <span class="math inline">\(\mu\)</span> and <span class="math inline">\(1/\sigma^2\)</span> have a <span class="math inline">\(\textsf{NormalGamma}(m_n, n_n, v_n, s^2_n)\)</span> posterior distribution, then
+<span class="math inline">\(\mu\)</span> given the data has a distribution, <span class="math inline">\(\textsf{t}(v_n, m_n, s^2_n/n_n)\)</span>, expressed as
 <span class="math display">\[ \mu \mid \text{data}\sim \textsf{t}(v_n, m_n, s^2_n/n_n)  \]</span>
 with degrees of freedom <span class="math inline">\(v_n\)</span>,
 location parameter, <span class="math inline">\(m_n\)</span>, and squared scale parameter, <span class="math inline">\(s^2_n/n_n\)</span>, that is the
 posterior variance parameter divided by the posterior sample size.</p>
-</div>
+<p>:::</p>
 <p>The parameters <span class="math inline">\(m_n\)</span> and <span class="math inline">\(s^2_n\)</span> play similar roles in determining the center and spread of the distribution, as in the normal distribution, however, as Student <span class="math inline">\(t\)</span> distributions with degrees of freedom less than 3 do not have a mean or variance, the parameter <span class="math inline">\(m_n\)</span> is called the location or center of the distribution and the <span class="math inline">\(s_n/\sqrt{n}\)</span> is the scale.</p>
 <p>Let’s use this result to find credible intervals for <span class="math inline">\(\mu\)</span>.</p>
 </div>
-<div id="credible-intervals-for-mu" class="section level3" number="4.1.4">
-<h3><span class="header-section-number">4.1.4</span> Credible Intervals for <span class="math inline">\(\mu\)</span></h3>
+<div id="credible-intervals-for-mu" class="section level3 hasAnchor" number="4.1.4">
+<h3><span class="header-section-number">4.1.4</span> Credible Intervals for <span class="math inline">\(\mu\)</span><a href="inference-and-decision-making-with-multiple-parameters.html#credible-intervals-for-mu" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 To find a credible interval for the mean <span class="math inline">\(\mu\)</span>, we will use the marginal posterior distribution for <span class="math inline">\(\mu\)</span> as illustrated in Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:tapwater-post-mu">4.2</a>.
 Since the Student <span class="math inline">\(t\)</span> distribution of <span class="math inline">\(\mu\)</span> is unimodal and symmetric, the shortest 95 percent credible interval or the <strong>Highest Posterior Density</strong> interval, HPD for short,
 is the interval given by the dots at the
 lower endpoint L and upper endpoint U where the heights of the density at L and U are equal and all other values for <span class="math inline">\(\mu\)</span> have higher posterior density. The probability that <span class="math inline">\(\mu\)</span> is in the interval (L, U) (the shaded area) equals the desired probability, e.g. 0.95 for a 95% credible interval.
-<div class="figure" style="text-align: center"><span id="fig:tapwater-post-mu"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tapwater-post-mu"></span>
 <img src="04-normalgamma-01-inference_files/figure-html/tapwater-post-mu-1.png" alt="Highest Posterior Density region." width="384" />
 <p class="caption">
 Figure 4.2: Highest Posterior Density region.
@@ -504,20 +528,20 @@ Figure 4.2: Highest Posterior Density region.
 \]</span>
 or the posterior mean (our point estimate) plus quantiles of the standard <span class="math inline">\(t\)</span> distribution times the scale. Because of the symmetry in the Student <span class="math inline">\(t\)</span> distribution, the credible interval for <span class="math inline">\(\mu\)</span> is <span class="math inline">\(m_n \pm t_{0.975}\sqrt{s^2_n/n_n}\)</span>, which is similar to the expressions for confidence intervals for the mean.</p>
 </div>
-<div id="sec:tapwater" class="section level3" number="4.1.5">
-<h3><span class="header-section-number">4.1.5</span> Example: TTHM in Tapwater</h3>
+<div id="sec:tapwater" class="section level3 hasAnchor" number="4.1.5">
+<h3><span class="header-section-number">4.1.5</span> Example: TTHM in Tapwater<a href="inference-and-decision-making-with-multiple-parameters.html#sec:tapwater" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A municipality in North Carolina is interested in estimating the levels of TTHM in their drinking water. The data can be loaded from the <code>statsr</code> package in <code>R</code>, where the variable of interest, <code>tthm</code> is measured in parts per billion.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statsr)</span>
-<span id="cb5-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(tapwater)</span>
-<span id="cb5-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(tapwater)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statsr)</span>
+<span id="cb4-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(tapwater)</span>
+<span id="cb4-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(tapwater)</span></code></pre></div>
 <pre><code>## Rows: 28
 ## Columns: 6
-## $ date       &lt;fct&gt; 2009-02-25, 2008-12-22, 2008-09-25, 2008-05-14, 2008-04-14…
-## $ tthm       &lt;dbl&gt; 34.38, 39.33, 108.63, 88.00, 81.00, 49.25, 75.00, 82.86, 8…
-## $ samples    &lt;int&gt; 8, 9, 8, 8, 2, 8, 6, 7, 8, 4, 4, 4, 4, 6, 4, 8, 10, 10, 10…
-## $ nondetects &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-## $ min        &lt;dbl&gt; 32.00, 31.00, 85.00, 75.00, 81.00, 26.00, 70.00, 70.00, 80…
-## $ max        &lt;dbl&gt; 39.00, 46.00, 120.00, 94.00, 81.00, 68.00, 80.00, 90.00, 9…</code></pre>
+## $ date       &lt;fct&gt; 2009-02-25, 2008-12-22, 2008-09-25, 2008-05-14, 2008-04-14,…
+## $ tthm       &lt;dbl&gt; 34.38, 39.33, 108.63, 88.00, 81.00, 49.25, 75.00, 82.86, 85…
+## $ samples    &lt;int&gt; 8, 9, 8, 8, 2, 8, 6, 7, 8, 4, 4, 4, 4, 6, 4, 8, 10, 10, 10,…
+## $ nondetects &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ min        &lt;dbl&gt; 32.00, 31.00, 85.00, 75.00, 81.00, 26.00, 70.00, 70.00, 80.…
+## $ max        &lt;dbl&gt; 39.00, 46.00, 120.00, 94.00, 81.00, 68.00, 80.00, 90.00, 90…</code></pre>
 <p>Using historical prior information about TTHM from the municipality, we will adopt a normal-gamma prior distribution,
 <span class="math inline">\(\textsf{NormalGamma}(35, 25, 156.25, 24)\)</span> with
 a prior mean of 35 parts per billion, a prior sample
@@ -540,28 +564,28 @@ in the conjugate <span class="math inline">\(\textsf{NormalGamma}(45.8, 53, 459.
 posterior distribution that now summarizes our
 uncertainty about <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(\sigma^2\)</span>) after seeing the data.</p>
 <p>We can obtain the updated hyper-parameters in <code>R</code> using the following code in <code>R</code></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prior hyper-parameters</span></span>
-<span id="cb7-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-2" aria-hidden="true" tabindex="-1"></a>m_0 <span class="ot">=</span> <span class="dv">35</span>; n_0 <span class="ot">=</span> <span class="dv">25</span>;  s2_0 <span class="ot">=</span> <span class="fl">156.25</span>; v_0 <span class="ot">=</span> n_0 <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb7-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sample summaries</span></span>
-<span id="cb7-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-4" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">=</span> tapwater<span class="sc">$</span>tthm</span>
-<span id="cb7-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-5" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">=</span> <span class="fu">mean</span>(Y)</span>
-<span id="cb7-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-6" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">=</span> <span class="fu">var</span>(Y)</span>
-<span id="cb7-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(Y)</span>
-<span id="cb7-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># posterior hyperparameters</span></span>
-<span id="cb7-9"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-9" aria-hidden="true" tabindex="-1"></a>n_n <span class="ot">=</span> n_0 <span class="sc">+</span> n</span>
-<span id="cb7-10"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-10" aria-hidden="true" tabindex="-1"></a>m_n <span class="ot">=</span> (n<span class="sc">*</span>ybar <span class="sc">+</span> n_0<span class="sc">*</span>m_0)<span class="sc">/</span>n_n</span>
-<span id="cb7-11"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-11" aria-hidden="true" tabindex="-1"></a>v_n <span class="ot">=</span> v_0 <span class="sc">+</span> n</span>
-<span id="cb7-12"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-12" aria-hidden="true" tabindex="-1"></a>s2_n <span class="ot">=</span> ((n<span class="dv">-1</span>)<span class="sc">*</span>s2 <span class="sc">+</span> v_0<span class="sc">*</span>s2_0 <span class="sc">+</span> n_0<span class="sc">*</span>n<span class="sc">*</span>(m_0 <span class="sc">-</span> ybar)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n_n)<span class="sc">/</span>v_n</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prior hyper-parameters</span></span>
+<span id="cb6-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-2" aria-hidden="true" tabindex="-1"></a>m_0 <span class="ot">=</span> <span class="dv">35</span>; n_0 <span class="ot">=</span> <span class="dv">25</span>;  s2_0 <span class="ot">=</span> <span class="fl">156.25</span>; v_0 <span class="ot">=</span> n_0 <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb6-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sample summaries</span></span>
+<span id="cb6-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-4" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">=</span> tapwater<span class="sc">$</span>tthm</span>
+<span id="cb6-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-5" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">=</span> <span class="fu">mean</span>(Y)</span>
+<span id="cb6-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-6" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">=</span> <span class="fu">var</span>(Y)</span>
+<span id="cb6-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(Y)</span>
+<span id="cb6-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># posterior hyperparameters</span></span>
+<span id="cb6-9"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-9" aria-hidden="true" tabindex="-1"></a>n_n <span class="ot">=</span> n_0 <span class="sc">+</span> n</span>
+<span id="cb6-10"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-10" aria-hidden="true" tabindex="-1"></a>m_n <span class="ot">=</span> (n<span class="sc">*</span>ybar <span class="sc">+</span> n_0<span class="sc">*</span>m_0)<span class="sc">/</span>n_n</span>
+<span id="cb6-11"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-11" aria-hidden="true" tabindex="-1"></a>v_n <span class="ot">=</span> v_0 <span class="sc">+</span> n</span>
+<span id="cb6-12"><a href="inference-and-decision-making-with-multiple-parameters.html#cb6-12" aria-hidden="true" tabindex="-1"></a>s2_n <span class="ot">=</span> ((n<span class="dv">-1</span>)<span class="sc">*</span>s2 <span class="sc">+</span> v_0<span class="sc">*</span>s2_0 <span class="sc">+</span> n_0<span class="sc">*</span>n<span class="sc">*</span>(m_0 <span class="sc">-</span> ybar)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n_n)<span class="sc">/</span>v_n</span></code></pre></div>
 <p>Using the following code in <code>R</code> the 95%
 credible interval for the tap water data may be obtained using the Student <span class="math inline">\(t\)</span> quantile function <code>qt</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb8-1" aria-hidden="true" tabindex="-1"></a>m_n <span class="sc">+</span> <span class="fu">qt</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), v_n)<span class="sc">*</span><span class="fu">sqrt</span>(s2_n<span class="sc">/</span>n_n)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb7-1" aria-hidden="true" tabindex="-1"></a>m_n <span class="sc">+</span> <span class="fu">qt</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), v_n)<span class="sc">*</span><span class="fu">sqrt</span>(s2_n<span class="sc">/</span>n_n)</span></code></pre></div>
 <pre><code>## [1] 39.93192 51.75374</code></pre>
 <p>The <code>qt</code> function takes two arguments: the first is the desired quantiles, while the second is the degrees of freedom. Both arguments may be vectors, in which case, the result will be a vector.</p>
 <p>While we can calculate the interval directly as above, we have provided the <code>bayes_inference</code> function in the <code>statsr</code> package to calculate the posterior hyper-parameters, credible intervals and plot the posterior density and the HPD interval given the raw data:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_inference</span>(tthm, <span class="at">data=</span>tapwater, <span class="at">prior=</span><span class="st">&quot;NG&quot;</span>,</span>
-<span id="cb10-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb10-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mu_0 =</span> m_0, <span class="at">n_0=</span>n_0, <span class="at">s_0 =</span> <span class="fu">sqrt</span>(s2_0), <span class="at">v_0 =</span> v_0,</span>
-<span id="cb10-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb10-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">stat=</span><span class="st">&quot;mean&quot;</span>, <span class="at">type=</span><span class="st">&quot;ci&quot;</span>, <span class="at">method=</span><span class="st">&quot;theoretical&quot;</span>, </span>
-<span id="cb10-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb10-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">show_res=</span><span class="cn">TRUE</span>, <span class="at">show_summ=</span><span class="cn">TRUE</span>, <span class="at">show_plot=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_inference</span>(tthm, <span class="at">data=</span>tapwater, <span class="at">prior=</span><span class="st">&quot;NG&quot;</span>,</span>
+<span id="cb9-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb9-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mu_0 =</span> m_0, <span class="at">n_0=</span>n_0, <span class="at">s_0 =</span> <span class="fu">sqrt</span>(s2_0), <span class="at">v_0 =</span> v_0,</span>
+<span id="cb9-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb9-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">stat=</span><span class="st">&quot;mean&quot;</span>, <span class="at">type=</span><span class="st">&quot;ci&quot;</span>, <span class="at">method=</span><span class="st">&quot;theoretical&quot;</span>, </span>
+<span id="cb9-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb9-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">show_res=</span><span class="cn">TRUE</span>, <span class="at">show_summ=</span><span class="cn">TRUE</span>, <span class="at">show_plot=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## Single numerical variable
 ## n = 28, y-bar = 55.5239, s = 23.254
 ## (Assuming proper prior:  mu | sigma^2 ~ N(35, *sigma^2/25)
@@ -578,12 +602,12 @@ credible interval for the tap water data may be obtained using the Student <span
 <p>How do we interpret these results? Based on the updated posterior, we find that there is a 95% chance that
 the mean TTHM concentration is between 39.9
 parts per billion and 51.8 parts per billion, suggesting that for this period that the municipality is in compliance with the limits.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>tapwater, <span class="fu">aes</span>(<span class="at">x=</span>tthm)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>tapwater, <span class="fu">aes</span>(<span class="at">x=</span>tthm)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="04-normalgamma-01-inference_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
-<div id="section-summary" class="section level3" number="4.1.6">
-<h3><span class="header-section-number">4.1.6</span> Section Summary</h3>
+<div id="section-summary" class="section level3 hasAnchor" number="4.1.6">
+<h3><span class="header-section-number">4.1.6</span> Section Summary<a href="inference-and-decision-making-with-multiple-parameters.html#section-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The normal-gamma conjugate prior for
 inference about an unknown mean and variance for samples from a normal
 distribution allows simple expressions for updating prior beliefs given the data. The joint normal-gamma distribution leads to the
@@ -592,8 +616,8 @@ credible intervals for <span class="math inline">\(\mu\)</span> using <code>R</c
 <p>For the energetic learner who is comfortable with calculus, the optional material at the end of this section provides more details on how the posterior distributions were obtained and other results in this section.</p>
 <p>For those that are ready to move on, we will introduce Monte Carlo sampling in the next section; Monte Carlo sampling is a simulation method that will allow us to approximate distributions of transformations of the parameters without using calculus or change of variables, as well as assist exploratory data analysis of the prior or posterior distributions.</p>
 </div>
-<div id="optional-derivations" class="section level3" number="4.1.7">
-<h3><span class="header-section-number">4.1.7</span> (Optional) Derivations</h3>
+<div id="optional-derivations" class="section level3 hasAnchor" number="4.1.7">
+<h3><span class="header-section-number">4.1.7</span> (Optional) Derivations<a href="inference-and-decision-making-with-multiple-parameters.html#optional-derivations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>From Bayes Theorem we have that the joint posterior distribution is proportional to the likelihood of the parameters times the joint prior distribution
 <span class="math display">\[\begin{equation}
 p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  \propto {\cal L}(\mu, \sigma^2) p(\mu, \sigma^2).
@@ -601,10 +625,10 @@ p(\mu, \sigma^2 \mid y_1, \ldots, y_n)  \propto {\cal L}(\mu, \sigma^2) p(\mu, \
 likelihood function for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> is proportional to
 <span class="math display">\[
 \begin{aligned}
-{\cal L}(\mu, \sigma^2) \propto 
+{\cal L}(\mu, \sigma^2) \propto
 (\sigma^2)^{-n/2}  \times \exp{ \left\{   
 -\frac{1}{2} \frac{\sum_{i = 1}^n(y_i - \bar{y})^2 }{\sigma^2}
-\right\}}  &amp; \times 
+\right\}}  &amp; \times
 \exp{ \left\{   
 -\frac{1}{2} \frac{n (\bar{y} - \mu)^2 }{\sigma^2} \right\}} \\
   \text{function of $\sigma^2$ and data} &amp; \times
@@ -614,75 +638,75 @@ likelihood function for <span class="math inline">\(\mu\)</span> and <span class
 which depends on the data only through the sum of squares <span class="math inline">\(\sum_{i = 1}^n(y_i - \bar{y})^2\)</span> (or equivalently the sample variance <span class="math inline">\(s^2 = \sum_{i = 1}^n(y_i - \bar{y})^2/(n-1)\)</span>) and the sample mean <span class="math inline">\(\bar{y}\)</span>.
 Since the likelihood function for <span class="math inline">\((\mu, \phi)\)</span> is obtained by just substituting <span class="math inline">\(1/\phi\)</span> for <span class="math inline">\(\sigma^2\)</span>, the likelihood may be re-expressed as
 <span class="math display">\[\begin{equation}
-{\cal L}(\mu, \phi) \propto 
+{\cal L}(\mu, \phi) \propto
 \phi^{n/2}  \times \exp{ \left\{   
 -\frac{1}{2} \phi (n-1) s^2
-\right\}}   \times 
+\right\}}   \times
 \exp{ \left\{   
 -\frac{1}{2} \phi n (\bar{y} - \mu)^2  \right\}}.
 \end{equation}\]</span></p>
 <p>This likelihood may be obtained also be obtained by using the sampling distribution for the summary statistics, where
 <span class="math display">\[\bar{Y}  \mid \mu, \phi \sim \textsf{Normal}(\mu, 1/(\phi n))\]</span>
 and is independent of the sample variance (conditional on <span class="math inline">\(\phi\)</span>) and has a gamma distribution
-<span class="math display">\[ 
+<span class="math display">\[
 s^2 \mid \phi \sim  \textsf{Gamma}\left(\frac{n - 1}{2},  \frac{(n-1) \phi}{2}\right)
 \]</span>
 with degrees of freedom <span class="math inline">\(n-1\)</span> and rate <span class="math inline">\((n-1) \phi/2\)</span>; the likelihood is the product of the two sampling distributions: <span class="math inline">\({\cal{L}}(\mu, \phi) \propto p(s^2 \mid \phi) p(\bar{Y} \mid \phi)\)</span>.</p>
 <p>Bayes theorem in proportional form leads to the joint posterior distribution
 <span class="math display">\[\begin{aligned}
 p(\mu, \phi \mid \text{data})  \propto &amp; {\cal{L}}(\mu, \phi) p(\phi) p(\mu \mid \phi)  \\
- =  &amp; \phi^{(n-1)/2)} 
- \exp\left\{ - \frac{ \phi (n-1) s^2 }{2}\right\} 
- \text{  (sampling distribution for  $\phi$) }\\
+=  &amp; \phi^{(n-1)/2)}
+\exp\left\{ - \frac{ \phi (n-1) s^2 }{2}\right\}
+\text{  (sampling distribution for  $\phi$) }\\
 &amp; \times  (n\phi)^{1/2}   \exp\left\{- \frac 1 2  n \phi (\bar{y} - \mu)^2 \right\} \text{  ( sampling distribution for $\mu$)}
 \\
 &amp; \times \phi^{\nu_0/2 -1} \exp\{- \frac{ \phi \nu_0 s^2_0}{2}\} \text{ (prior for  $\phi$)}
 \\
-&amp; \times 
+&amp; \times
 (n_0\phi)^{1/2} \frac{1}{\sqrt{(2 \pi)}} \exp\left\{- \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\} \text{ (prior for $\mu$)}
 \end{aligned}
 \]</span>
 where we have ignored constants that do not involve <span class="math inline">\(\phi\)</span> or <span class="math inline">\(\mu\)</span>.
 Focusing on all the terms that involve <span class="math inline">\(\mu\)</span>, we can group the lines corresponding to the sampling distribution and prior for <span class="math inline">\(\mu\)</span> together and using the factorization of likelihood and prior distributions, we may identify that
-<span class="math display">\[p(\mu \mid \phi, \text{data})  \propto  \exp\left\{- \frac 1 2  n \phi (\bar{y} - \mu)^2  - \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\} 
+<span class="math display">\[p(\mu \mid \phi, \text{data})  \propto  \exp\left\{- \frac 1 2  n \phi (\bar{y} - \mu)^2  - \frac 1 2  n_0 \phi (\mu - m_0)^2 \right\}
 \]</span>
-where the above expression includes the sum of two quadratic expressions in the exponential. This almost looks like a normal. Can these be combined to form one quadratic expression that looks like a normal density? Yes! This is known as “completing the square.”
+where the above expression includes the sum of two quadratic expressions in the exponential. This almost looks like a normal. Can these be combined to form one quadratic expression that looks like a normal density? Yes! This is known as “completing the square”.
 Taking a normal distribution for a parameter <span class="math inline">\(\mu\)</span> with mean <span class="math inline">\(m\)</span> and precision <span class="math inline">\(\rho\)</span>, the quadratic term in the exponential may be expanded as
 <span class="math display">\[\rho \times (\mu - m)^2 = \rho  \mu^2 - 2 \rho  \mu m + \rho  m^2.\]</span>
 From this we can read off that the precision is the term that multiplies the quadratic in <span class="math inline">\(\mu\)</span> and the term that multiplies the linear term in <span class="math inline">\(\mu\)</span> is the product of two times the mean and precision; this means that if we know the precision, we can identify the mean. The last term is the precision times the mean squared, which we will need to fill in once we identify the precision and mean.</p>
 <p>For our posterior, we need to expand the quadratics and recombine
 terms to identify the new precision (the coefficient multiplying the quadratic in <span class="math inline">\(\mu\)</span>) and the new mean (the linear term) and complete the square so that it may be factored. Any left over terms will be independent of <span class="math inline">\(\mu\)</span> but may depend on <span class="math inline">\(\phi\)</span>. For our case, after some algebra to group terms we have
 <span class="math display">\[\begin{align*}
-- \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right) &amp; = 
+- \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right) &amp; =
 -\frac 1 2 \left(\phi( n + n_0) \mu^2 - 2 \phi \mu (n \bar{y} + n_0 m_0) + \phi (n \bar{y}^2 + n_0 m_0^2) \right)  
 \end{align*}\]</span>
 where we can read off that the posterior precision is <span class="math inline">\(\phi(n + n_0) \equiv \phi n_n\)</span>. The linear term is not yet of the form of the posterior precision times the posterior mean (times 2), but if we multiply and divide by <span class="math inline">\(n_n = n + n_0\)</span> it is in the appropriate form
 <span class="math display">\[\begin{equation}-\frac 1 2 \left(\phi( n + n_0) \mu^2 - 2 \phi ( n + n_0) \mu \frac{(n \bar{y} + n_0 m_0) } {n + n_0} + \phi (n \bar{y}^2 + n_0 m_0^2) \right) \label{eq:quad}
- \end{equation}\]</span>
+\end{equation}\]</span>
 so that we may identify that the posterior mean is <span class="math inline">\(m_n = (n \bar{y} + n_0 m_0) /(n + n_0)\)</span> which combined with the precision (or inverse variance) is enough to identity the conditional posterior distribution for <span class="math inline">\(\mu\)</span>.
 We next add the precision times the square of the posterior mean (the completing the square part), but to keep equality, we will need to subtract the term as well:
 <span class="math display">\[
-- \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right)  = 
+- \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right)  =
 -\frac 1 2 \left(\phi n_n \mu^2 - 2 \phi n_n \mu m_n + \phi n_n m_n^2  - \phi n_n m_n^2  + \phi (n \bar{y}^2 + n_0 m_0^2) \right)  
 \]</span>
 which after factoring the quadratic leads to
 <span class="math display">\[\begin{align}
- - \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right) = &amp; -\frac 1 2 \left(\phi n_n (\mu - m_n)^2 \right) \\
- &amp; -\frac 1 2 \left(\phi (-n_n m_n^2 + n \bar{y}^2 + n_0 m_0^2) \right) 
+- \frac 1 2 \left( n \phi (\bar{y} - \mu)^2  +  n_0 \phi (\mu - m_0)^2 \right) = &amp; -\frac 1 2 \left(\phi n_n (\mu - m_n)^2 \right) \\
+&amp; -\frac 1 2 \left(\phi (-n_n m_n^2 + n \bar{y}^2 + n_0 m_0^2) \right)
 \end{align}\]</span>
 where the first line is the quadratic for the posterior of <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\phi\)</span> while the second line includes terms that involve <span class="math inline">\(\phi\)</span> but that are independent of <span class="math inline">\(\mu\)</span>.</p>
 <p>Substituting the expressions, we can continue to simplify the expressions further
 <span class="math display">\[
 \begin{aligned}
 p(\mu, \phi \mid \text{data})  \propto &amp; {\cal{L}}(\mu, \phi) p(\phi) p(\mu \mid \phi)  \\
- =  &amp; \phi^{(n + \nu_0 + 1  )/2 - 1} 
- \exp\left\{ - \frac{ \phi (n-1) s^2 }{2}\right\} 
+=  &amp; \phi^{(n + \nu_0 + 1  )/2 - 1}
+\exp\left\{ - \frac{ \phi (n-1) s^2 }{2}\right\}
 \times \exp\left\{- \frac{ \phi \nu_0 s^2_0}{2}\right\} \times
-\exp\left\{  -\frac 1 2 \left(\phi (-n_n m_n^2 + n \bar{y}^2 + n_0 m_0^2) \right)   \right\} 
+\exp\left\{  -\frac 1 2 \left(\phi (-n_n m_n^2 + n \bar{y}^2 + n_0 m_0^2) \right)   \right\}
 \\
 &amp; \times \exp \left\{ -\frac 1 2 \left(\phi n_n (\mu - m_n)^2 \right) \right\} \\
-=   &amp; \phi^{(n + \nu_0)/2 - 1} 
- \exp\left\{ -  \frac{\phi}{2}  \left( (n-1) s^2  + \nu_0 s^2_0 +
+=   &amp; \phi^{(n + \nu_0)/2 - 1}
+\exp\left\{ -  \frac{\phi}{2}  \left( (n-1) s^2  + \nu_0 s^2_0 +
 \frac{ n_0 n }{n_n} ( m_0 - \bar{y})^2 \right)   \right\}   \qquad \qquad
 \text{ (gamma kernel)} \\
 &amp; \times (n_n \phi)^{1/2} \exp \left\{ -\frac 1 2 \left(\phi n_n (\mu - m_n)^2 \right) \right\} \qquad \qquad \text{ (normal kernel})
@@ -698,13 +722,13 @@ and the kernel of a normal for <span class="math inline">\(\mu\)</span>
 \]</span>
 where <span class="math inline">\(m_m = (n \bar{y} + n_0 m_0) /(n + n_0)\)</span> a weighted average of the sample mean and the prior mean, and
 <span class="math inline">\(n_n = n + n_0\)</span> is the sample and prior combined sample size.</p>
-<div id="derivation-of-marginal-distribution-for-mu" class="section level4" number="4.1.7.1">
-<h4><span class="header-section-number">4.1.7.1</span> Derivation of Marginal Distribution for <span class="math inline">\(\mu\)</span></h4>
+<div id="derivation-of-marginal-distribution-for-mu" class="section level4 hasAnchor" number="4.1.7.1">
+<h4><span class="header-section-number">4.1.7.1</span> Derivation of Marginal Distribution for <span class="math inline">\(\mu\)</span><a href="inference-and-decision-making-with-multiple-parameters.html#derivation-of-marginal-distribution-for-mu" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>If <span class="math inline">\(\mu\)</span> given <span class="math inline">\(\sigma^2\)</span> (and the data) has a normal distribution with mean <span class="math inline">\(m_m\)</span> and variance <span class="math inline">\(\sigma^2/n_n\)</span> and <span class="math inline">\(1/\sigma^2 \equiv \phi\)</span> (given the data) has a gamma distribution with shape parameter
 <span class="math inline">\(\nu_n/2\)</span> and rate parameter <span class="math inline">\(\nu_n s^2_n/2\)</span></p>
 <p><span class="math display">\[\begin{aligned}
-\mu \mid \sigma^2, \text{data}&amp; \sim \textsf{Normal}(m_m, \sigma^2/n_n) \\ 
-1/\sigma^2 \mid \text{data}&amp; \sim \textsf{Gamma}(\nu_n/2, \nu_n s^2_n/2) 
+\mu \mid \sigma^2, \text{data}&amp; \sim \textsf{Normal}(m_m, \sigma^2/n_n) \\
+1/\sigma^2 \mid \text{data}&amp; \sim \textsf{Gamma}(\nu_n/2, \nu_n s^2_n/2)
 \end{aligned}\]</span>
 then
 <span class="math display">\[\mu \mid  \text{data}\sim \textsf{t}(\nu_n, m_m, s^2_n/n_n)\]</span>
@@ -713,33 +737,33 @@ a Student <span class="math inline">\(t\)</span> distribution with mean <span cl
 <p>To simplify notation, we’ll substitute <span class="math inline">\(\phi = 1/\sigma^2\)</span>. The marginal distribution for <span class="math inline">\(\mu\)</span> is obtained by averaging over the values of <span class="math inline">\(\sigma^2\)</span>. Since <span class="math inline">\(\sigma^2\)</span> takes on continuous values rather than discrete, this averaging is represented as an integral
 <span class="math display">\[\begin{align*}
 p(\mu \mid \text{data}) &amp; = \int_0^\infty p(\mu \mid \phi, \text{data}) p(\phi \mid \text{data}) d\phi \\
- &amp; = \int_0^\infty 
-\frac{1}{\sqrt{2 \pi}} (n_n \phi)^{1/2} 
+&amp; = \int_0^\infty
+\frac{1}{\sqrt{2 \pi}} (n_n \phi)^{1/2}
 e^{\left\{ - \frac{n_n \phi}{2} (\mu - m_n)^2 \right\}}
 \frac{1}{\Gamma(\nu_n/2)} \left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2}
 \phi^{\nu_n/2 - 1} e^{\left\{- \phi \nu_n s^2_n/2\right\}} \, d\phi \\
- &amp; =  
+&amp; =  
 \left(\frac{n_n}{2 \pi}\right)^{1/2}\frac{1}{\Gamma\left(\frac{\nu_n}{2}\right)} \left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2} \int_0^\infty  \phi^{(\nu_n +1)/2 - 1}
 e^{\left\{ - \phi \left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)\right\}} \, d\phi
 \intertext{where the terms inside the integral are the &quot;kernel&quot; of a Gamma density.  We can multiply and divide by the normalizing constant of the Gamma density}
 p(\mu \mid \text{data}) &amp; =  
-\left(\frac{n_n}{2 \pi}\right)^{1/2}\frac{1}{\Gamma\left(\frac{\nu_n}{2}\right)} 
-\left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2} 
-\Gamma\left(\frac{\nu_n + 1}{2}\right) 
+\left(\frac{n_n}{2 \pi}\right)^{1/2}\frac{1}{\Gamma\left(\frac{\nu_n}{2}\right)}
+\left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2}
+\Gamma\left(\frac{\nu_n + 1}{2}\right)
 \left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)^{- \frac{\nu_n + 1}{2}}  \times\\
 &amp; \qquad \int_0^\infty  \frac{1}{\Gamma\left(\frac{\nu_n + 1}{2}\right)}
 \left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)^{ \frac{\nu_n + 1}{2}} \phi^{(\nu_n +1)/2 - 1}
 e^{\left\{ - \phi \left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)\right\}} \, d\phi
 \intertext{so that the term in the integral now integrates to one and the resulting distribution is}
 p(\mu \mid \text{data}) &amp; =  
-\left(\frac{n_n}{2 \pi}\right)^{1/2}\frac{\Gamma\left(\frac{\nu_n + 1}{2}\right) }{\Gamma\left(\frac{\nu_n}{2}\right)} 
-\left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2} 
+\left(\frac{n_n}{2 \pi}\right)^{1/2}\frac{\Gamma\left(\frac{\nu_n + 1}{2}\right) }{\Gamma\left(\frac{\nu_n}{2}\right)}
+\left(\frac{\nu_n s^2_n}{2}\right)^{\nu_n/2}
 \left( \frac{n_n  (\mu - m_n)^2 + \nu_n s^2_n}{2} \right)^{- \frac{\nu_n + 1}{2}}.
 \intertext{After some algebra this simplifies to}
 p(\mu \mid \text{data}) &amp; =  
 \frac{1}{\sqrt{\pi \nu_n s^2_n/n_n}}
 \frac{\Gamma\left(\frac{\nu_n + 1}{2}\right) }
-     {\Gamma\left(\frac{\nu_n}{2}\right)} 
+     {\Gamma\left(\frac{\nu_n}{2}\right)}
 \left( 1 +  \frac{1}{\nu_n}\frac{(\mu - m_n)^2}{s^2_n/n_n} \right)^{- \frac{\nu_n + 1}{2}}
 \intertext{and is a more standard representation for a Student $t$ distribution and the  kernel of the density is the right most term.}
 \end{align*}\]</span></p>
@@ -747,12 +771,12 @@ p(\mu \mid \text{data}) &amp; =
 </div>
 </div>
 </div>
-<div id="sec:NG-MC" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Monte Carlo Inference</h2>
+<div id="sec:NG-MC" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Monte Carlo Inference<a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MC" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma">4.1</a>, we showed how to obtain the conditional posterior distribution for the mean of a normal population given the variance and the marginal posterior distribution of the precision (inverse variance). The marginal distribution of the mean, which “averaged over uncertainty” about the unknown variance could be obtained via integration, leading to the Student t distribution that was used for inference about the population mean. However, what if we are interested in the distribution of the standard deviation <span class="math inline">\(\sigma\)</span> itself, or other transformations of the parameters? There may not be a closed-form expression for the distributions or they may be difficult to obtain.</p>
 <p>It turns out that <strong>Monte Carlo sampling</strong>, however, is an easy way to make an inference about parameters, when we cannot analytically calculate distributions of parameters, expectations, or probabilities. Monte Carlo methods are computational algorithms that rely on repeated random sampling from distributions for making inferences. The name refers to the famous Monte Carlo Casino in Monaco, home to games of chance such as roulette.</p>
-<div id="monte-carlo-sampling" class="section level3" number="4.2.1">
-<h3><span class="header-section-number">4.2.1</span> Monte Carlo Sampling</h3>
+<div id="monte-carlo-sampling" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Monte Carlo Sampling<a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s start with a case where we know the posterior distribution. As a quick recap, recall that the joint posterior distribution for the mean <span class="math inline">\(\mu\)</span> and the precision <span class="math inline">\(\phi = 1/\sigma^2\)</span> under the conjugate prior for the Gaussian distribution is:</p>
 <ul>
 <li>Conditional posterior distribution for the mean
@@ -770,38 +794,38 @@ Likewise, we can calculate probabilities, quantiles and other functions using th
 <p><span class="math display">\[\frac{1}{S}\sum^S_{i=1}g(\phi^{(i)}) \rightarrow E[g(\phi \mid \text{data})]\]</span>
 as the number of draws <span class="math inline">\(S\)</span> in the Monte Carlo simulation increases.</p>
 </div>
-<div id="monte-carlo-inference-tap-water-example" class="section level3" number="4.2.2">
-<h3><span class="header-section-number">4.2.2</span> Monte Carlo Inference: Tap Water Example</h3>
+<div id="monte-carlo-inference-tap-water-example" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Monte Carlo Inference: Tap Water Example<a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-inference-tap-water-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We will apply this to the tap water example from <a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma">4.1</a>. First, reload the data and calculate the posterior hyper-parameters if needed.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prior</span></span>
-<span id="cb14-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb14-2" aria-hidden="true" tabindex="-1"></a>m_0 <span class="ot">=</span> <span class="dv">35</span>;  n_0 <span class="ot">=</span> <span class="dv">25</span>;  s2_0 <span class="ot">=</span> <span class="fl">156.25</span>; v_0 <span class="ot">=</span> n_0 <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb14-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
-<span id="cb14-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(tapwater); Y <span class="ot">=</span> tapwater<span class="sc">$</span>tthm</span>
-<span id="cb14-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb14-5" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">=</span> <span class="fu">mean</span>(Y); s2 <span class="ot">=</span> <span class="fu">var</span>(Y); n <span class="ot">=</span> <span class="fu">length</span>(Y)</span>
-<span id="cb14-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Posterior Hyper-paramters</span></span>
-<span id="cb14-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb14-7" aria-hidden="true" tabindex="-1"></a>n_n <span class="ot">=</span> n_0 <span class="sc">+</span> n</span>
-<span id="cb14-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb14-8" aria-hidden="true" tabindex="-1"></a>m_n <span class="ot">=</span> (n<span class="sc">*</span>ybar <span class="sc">+</span> n_0<span class="sc">*</span>m_0)<span class="sc">/</span>n_n</span>
-<span id="cb14-9"><a href="inference-and-decision-making-with-multiple-parameters.html#cb14-9" aria-hidden="true" tabindex="-1"></a>v_n <span class="ot">=</span> v_0 <span class="sc">+</span> n</span>
-<span id="cb14-10"><a href="inference-and-decision-making-with-multiple-parameters.html#cb14-10" aria-hidden="true" tabindex="-1"></a>s2_n <span class="ot">=</span> ((n<span class="dv">-1</span>)<span class="sc">*</span>s2 <span class="sc">+</span> v_0<span class="sc">*</span>s2_0 <span class="sc">+</span> n_0<span class="sc">*</span>n<span class="sc">*</span>(m_0 <span class="sc">-</span> ybar)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n_n)<span class="sc">/</span>v_n</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prior</span></span>
+<span id="cb13-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb13-2" aria-hidden="true" tabindex="-1"></a>m_0 <span class="ot">=</span> <span class="dv">35</span>;  n_0 <span class="ot">=</span> <span class="dv">25</span>;  s2_0 <span class="ot">=</span> <span class="fl">156.25</span>; v_0 <span class="ot">=</span> n_0 <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb13-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
+<span id="cb13-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(tapwater); Y <span class="ot">=</span> tapwater<span class="sc">$</span>tthm</span>
+<span id="cb13-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb13-5" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">=</span> <span class="fu">mean</span>(Y); s2 <span class="ot">=</span> <span class="fu">var</span>(Y); n <span class="ot">=</span> <span class="fu">length</span>(Y)</span>
+<span id="cb13-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Posterior Hyper-paramters</span></span>
+<span id="cb13-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb13-7" aria-hidden="true" tabindex="-1"></a>n_n <span class="ot">=</span> n_0 <span class="sc">+</span> n</span>
+<span id="cb13-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb13-8" aria-hidden="true" tabindex="-1"></a>m_n <span class="ot">=</span> (n<span class="sc">*</span>ybar <span class="sc">+</span> n_0<span class="sc">*</span>m_0)<span class="sc">/</span>n_n</span>
+<span id="cb13-9"><a href="inference-and-decision-making-with-multiple-parameters.html#cb13-9" aria-hidden="true" tabindex="-1"></a>v_n <span class="ot">=</span> v_0 <span class="sc">+</span> n</span>
+<span id="cb13-10"><a href="inference-and-decision-making-with-multiple-parameters.html#cb13-10" aria-hidden="true" tabindex="-1"></a>s2_n <span class="ot">=</span> ((n<span class="dv">-1</span>)<span class="sc">*</span>s2 <span class="sc">+</span> v_0<span class="sc">*</span>s2_0 <span class="sc">+</span> n_0<span class="sc">*</span>n<span class="sc">*</span>(m_0 <span class="sc">-</span> ybar)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n_n)<span class="sc">/</span>v_n</span></code></pre></div>
 <p>Before generating our Monte Carlo samples, we will set a random seed using the <code>set.seed</code> function in <code>R</code>, which takes a small integer argument.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code></pre></div>
 <p>This allows the results to be replicated if you re-run the simulation at a later time.</p>
 <p>To generate <span class="math inline">\(1,000\)</span> draws from the gamma posterior distribution using the hyper-parameters above, we use the <code>rgamma</code> function <code>R</code></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-1" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> v_n<span class="sc">/</span><span class="dv">2</span>, <span class="at">rate=</span>s2_n<span class="sc">*</span>v_n<span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb15-1" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> v_n<span class="sc">/</span><span class="dv">2</span>, <span class="at">rate=</span>s2_n<span class="sc">*</span>v_n<span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div>
 <p>The first argument to the <code>rgamma</code> function is the number of samples, the second is the shape parameter and, by default, the third argument is the rate parameter.</p>
 <p>The following code will produce a histogram of the Monte Carlo samples of <span class="math inline">\(\phi\)</span> and overlay the actual Gamma posterior density evaluated at the draws using the <code>dgamma</code> function in <code>R</code>.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">phi =</span> <span class="fu">sort</span>(phi))</span>
-<span id="cb17-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">mutate</span>(df, </span>
-<span id="cb17-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">density =</span> <span class="fu">dgamma</span>(phi, </span>
-<span id="cb17-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">shape =</span> v_n<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb17-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">rate=</span>s2_n<span class="sc">*</span>v_n<span class="sc">/</span><span class="dv">2</span>))</span>
-<span id="cb17-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>df, <span class="fu">aes</span>(<span class="at">x=</span>phi)) <span class="sc">+</span> </span>
-<span id="cb17-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>phi, <span class="at">y=</span>..density..), <span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
-<span id="cb17-9"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_density</span>(<span class="fu">aes</span>(phi, ..density..), <span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb17-10"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>phi, <span class="at">y=</span>density), <span class="at">color=</span><span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
-<span id="cb17-11"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="fu">expression</span>(phi)) <span class="sc">+</span> <span class="fu">theme_tufte</span>()</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:phi-plot"></span>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">phi =</span> <span class="fu">sort</span>(phi))</span>
+<span id="cb16-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">mutate</span>(df, </span>
+<span id="cb16-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">density =</span> <span class="fu">dgamma</span>(phi, </span>
+<span id="cb16-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">shape =</span> v_n<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb16-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">rate=</span>s2_n<span class="sc">*</span>v_n<span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb16-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>df, <span class="fu">aes</span>(<span class="at">x=</span>phi)) <span class="sc">+</span> </span>
+<span id="cb16-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>phi, <span class="at">y=</span>..density..), <span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_density</span>(<span class="fu">aes</span>(phi, ..density..), <span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>phi, <span class="at">y=</span>density), <span class="at">color=</span><span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="inference-and-decision-making-with-multiple-parameters.html#cb16-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="fu">expression</span>(phi)) <span class="sc">+</span> <span class="fu">theme_tufte</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:phi-plot"></span>
 <img src="04-normalgamma-02-monte-carlo_files/figure-html/phi-plot-1.png" alt="Monte Carlo approximation of the posterior distribution of the precision from the tap water example" width="384" />
 <p class="caption">
 Figure 4.3: Monte Carlo approximation of the posterior distribution of the precision from the tap water example
@@ -809,34 +833,34 @@ Figure 4.3: Monte Carlo approximation of the posterior distribution of the preci
 </div>
 <p>Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:phi-plot">4.3</a> shows the histogram of the <span class="math inline">\(1,000\)</span> draws of <span class="math inline">\(\phi\)</span> generated from the Monte Carlo simulation, representing the empirical distribution approximation to the gamma posterior distribution. The orange line represents the actual gamma posterior density, while the black line represents a <em>smoothed</em> version of the histogram.</p>
 <p>We can estimate the posterior mean or a 95% equal tail area credible region using the Monte Carlo samples using <code>R</code></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(phi)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(phi)</span></code></pre></div>
 <pre><code>## [1] 0.002165663</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(phi, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(phi, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
 <pre><code>##        2.5%       97.5% 
 ## 0.001394921 0.003056304</code></pre>
 <p>The mean of a gamma random variable is the shape/rate, so we can compare the Monte Carlo estimates to the theoretical values</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean  (v_n/2)/(v_n*s2_n/2)</span></span>
-<span id="cb22-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span>s2_n</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean  (v_n/2)/(v_n*s2_n/2)</span></span>
+<span id="cb21-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span>s2_n</span></code></pre></div>
 <pre><code>## [1] 0.002174492</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qgamma</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="at">shape=</span>v_n<span class="sc">/</span><span class="dv">2</span>, <span class="at">rate=</span>s2_n<span class="sc">*</span>v_n<span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qgamma</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="at">shape=</span>v_n<span class="sc">/</span><span class="dv">2</span>, <span class="at">rate=</span>s2_n<span class="sc">*</span>v_n<span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.001420450 0.003086519</code></pre>
 <p>where the <code>qgamma</code> function in <code>R</code> returns the desired quantiles provided as the first argument.
 We can see that we can estimate the mean accurately to three significant digits, while the quantiles are accurate to two. It increase our accuracy, we would need to increase <span class="math inline">\(S\)</span>.</p>
 <p><strong>Exercise</strong>
 Try increasing the number of simulations <span class="math inline">\(S\)</span> in the Monte Carlo simulation to <span class="math inline">\(10,000\)</span>, and see how the approximation changes.</p>
 </div>
-<div id="monte-carlo-inference-for-functions-of-parameters" class="section level3" number="4.2.3">
-<h3><span class="header-section-number">4.2.3</span> Monte Carlo Inference for Functions of Parameters</h3>
+<div id="monte-carlo-inference-for-functions-of-parameters" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Monte Carlo Inference for Functions of Parameters<a href="inference-and-decision-making-with-multiple-parameters.html#monte-carlo-inference-for-functions-of-parameters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s see how to use Monte Carlo simulations to approximate the distribution of <span class="math inline">\(\sigma\)</span>. Since <span class="math inline">\(\sigma = 1/\sqrt{\phi}\)</span>, we simply apply the transformation to the <span class="math inline">\(1,000\)</span> draws of <span class="math inline">\(\phi\)</span> to obtain a random sample of <span class="math inline">\(\sigma\)</span> from its posterior distribution. We can then estimate the posterior mean of <span class="math inline">\(\sigma\)</span> by calculating the sample mean of the 1,000 draws.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb26-1" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(phi)</span>
-<span id="cb26-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sigma) <span class="co"># posterior mean of sigma</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb25-1" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(phi)</span>
+<span id="cb25-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sigma) <span class="co"># posterior mean of sigma</span></span></code></pre></div>
 <pre><code>## [1] 21.80516</code></pre>
 <p>Similarly, we can obtain a 95% credible interval for <span class="math inline">\(\sigma\)</span> by finding the sample quantiles of the distribution.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(sigma, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(sigma, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
 <pre><code>##     2.5%    97.5% 
 ## 18.08847 26.77474</code></pre>
 <p>and finally approximate the posterior distribution using a smoothed density estimate</p>
-<div class="figure" style="text-align: center"><span id="fig:sigma-plot"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:sigma-plot"></span>
 <img src="04-normalgamma-02-monte-carlo_files/figure-html/sigma-plot-1.png" alt="Monte Carlo approximation of the posterior distribution of the standard deviation from the tap water example" width="384" />
 <p class="caption">
 Figure 4.4: Monte Carlo approximation of the posterior distribution of the standard deviation from the tap water example
@@ -845,23 +869,23 @@ Figure 4.4: Monte Carlo approximation of the posterior distribution of the stand
 <p><strong>Exercise</strong></p>
 <p>Using the <span class="math inline">\(10,000\)</span> draws of <span class="math inline">\(\phi\)</span> for the tap water example, create a histogram for <span class="math inline">\(\sigma\)</span> with a smoothed density overlay for the tap water example.</p>
 </div>
-<div id="summary" class="section level3" number="4.2.4">
-<h3><span class="header-section-number">4.2.4</span> Summary</h3>
+<div id="summary" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Summary<a href="inference-and-decision-making-with-multiple-parameters.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To recap, we have introduced the powerful method of Monte Carlo simulation for posterior inference. Monte Carlo methods provide estimates of expectations, probabilities, and quantiles of distributions from the simulated values. Monte Carlo simulation also allows us to approximate distributions of functions of the parameters, or the transformations of the parameters where it may be difficult to get exact theoretical values.</p>
 <p>Next, we will discuss predictive distributions and show how Monte Carlo simulation may be used to help choose prior hyperparameters, using the prior predictive distribution of data and draw samples from the posterior predictive distribution for predicting future observations.</p>
 
 </div>
 </div>
-<div id="sec:NG-predictive" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Predictive Distributions</h2>
+<div id="sec:NG-predictive" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Predictive Distributions<a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this section, we will discuss prior and posterior <strong>predictive</strong> distributions of the data and show how Monte Carlo sampling from the prior predictive distribution can help select hyper-parameters, while sampling from the posterior predictive distribution can be used for predicting future events or model checking.</p>
-<div id="prior-predictive-distribution" class="section level3" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Prior Predictive Distribution</h3>
+<div id="prior-predictive-distribution" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Prior Predictive Distribution<a href="inference-and-decision-making-with-multiple-parameters.html#prior-predictive-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can obtain the prior predictive distribution of the data from the joint distribution of the data and the parameters <span class="math inline">\((\mu, \sigma^2)\)</span> or equivalently <span class="math inline">\((\mu, \phi)\)</span>, where <span class="math inline">\(\phi = 1/\sigma^2\)</span> is the precision:</p>
 <p><strong>Prior:</strong></p>
 <p><span class="math display">\[ \begin{aligned}
- \phi &amp;\sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right) \\
- \sigma^2 &amp; = 1/\phi \\
+\phi &amp;\sim \textsf{Gamma}\left(\frac{v_0}{2}, \frac{v_0 s^2_0}{2} \right) \\
+\sigma^2 &amp; = 1/\phi \\
 \mu \mid \sigma^2  &amp;\sim  \textsf{N}(m_0, \sigma^2/n_0)
 \end{aligned} \]</span></p>
 <p><strong>Sampling model:</strong></p>
@@ -874,8 +898,8 @@ Y &amp;\sim t(v_0, m_0, s_0^2+s_0^2/n_0)
 <p>By <em>averaging</em> over the possible values of the parameters from the prior distribution in the joint distribution, technically done by a double integral, we obtain the Student t as our prior predictive distribution. For those interested, details of this derivation are provided later in an optional section.
 This distribution of the observables depends only on our four hyper-parameters from the normal-gamma family. We can use Monte Carlo simulation to sample from the prior predictive distribution to help elicit prior hyper-parameters as we now illustrate with the tap water example from earlier.</p>
 </div>
-<div id="tap-water-example-continued" class="section level3" number="4.3.2">
-<h3><span class="header-section-number">4.3.2</span> Tap Water Example (continued)</h3>
+<div id="tap-water-example-continued" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Tap Water Example (continued)<a href="inference-and-decision-making-with-multiple-parameters.html#tap-water-example-continued" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A report from the city water department suggests that levels of TTHM are expected to be between 10-60 parts per billion (ppb). Let’s see how we can use this information to create an informative conjugate prior.</p>
 <p><strong>Prior Mean</strong>
 First, the normal distribution and Student t distributions are symmetric around the mean or center parameter, so we will set the prior mean <span class="math inline">\(\mu\)</span> to be at the midpoint of the interval 10-60, which would lead to <span class="math display">\[m_0 = (60+10)/2 = 35\]</span>
@@ -886,71 +910,71 @@ Based on the empirical rule for bell-shaped distributions, we would expect that 
 <p><strong>Prior Sample Size and Degrees of Freedom</strong>
 To complete the specification, we also need to choose the prior sample size <span class="math inline">\(n_0\)</span> and degrees of freedom <span class="math inline">\(v_0\)</span>. For a sample of size <span class="math inline">\(n\)</span>, the sample variance has <span class="math inline">\(n-1\)</span> degrees of freedom. Thinking about a possible historic set of data of size <span class="math inline">\(n_0\)</span> that led to the reported interval, we will adopt that rule to obtain the prior degrees of freedom <span class="math inline">\(v_0 = n_0 - 1\)</span>, leaving only the prior sample size to be determined. We will draw samples from the prior predictive distribution and modify <span class="math inline">\(n_0\)</span> so that the simulated data agree with our prior assumptions.</p>
 </div>
-<div id="sampling-from-the-prior-predictive-in-r" class="section level3" number="4.3.3">
-<h3><span class="header-section-number">4.3.3</span> Sampling from the Prior Predictive in <code>R</code></h3>
+<div id="sampling-from-the-prior-predictive-in-r" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Sampling from the Prior Predictive in <code>R</code><a href="inference-and-decision-making-with-multiple-parameters.html#sampling-from-the-prior-predictive-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following <code>R</code> code shows a simulation from the predictive distribution with the prior sample size <span class="math inline">\(n_0 = 2\)</span>. Please be careful to not confuse the prior sample size, <span class="math inline">\(n_0\)</span>, that represents the precision of our prior information with the number of Monte Carlo simulations, <span class="math inline">\(S = 10000\)</span>, that are drawn from the distributions. These Monte Carlo samples are used to estimate quantiles of the prior predictive distribution and a large value of <span class="math inline">\(S\)</span> reduces error in the Monte Carlo approximation.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb30-1" aria-hidden="true" tabindex="-1"></a>m_0 <span class="ot">=</span> (<span class="dv">60</span><span class="sc">+</span><span class="dv">10</span>)<span class="sc">/</span><span class="dv">2</span>; s2_0 <span class="ot">=</span> ((<span class="dv">60-10</span>)<span class="sc">/</span><span class="dv">4</span>)<span class="sc">^</span><span class="dv">2</span>;</span>
-<span id="cb30-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb30-2" aria-hidden="true" tabindex="-1"></a>n_0 <span class="ot">=</span> <span class="dv">2</span>; v_0 <span class="ot">=</span> n_0 <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb30-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb30-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb30-4" aria-hidden="true" tabindex="-1"></a>S <span class="ot">=</span> <span class="dv">10000</span></span>
-<span id="cb30-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb30-5" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">=</span> <span class="fu">rgamma</span>(S, v_0<span class="sc">/</span><span class="dv">2</span>, s2_0<span class="sc">*</span>v_0<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb30-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb30-6" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(phi)</span>
-<span id="cb30-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb30-7" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">=</span> <span class="fu">rnorm</span>(S, <span class="at">mean=</span>m_0, <span class="at">sd=</span>sigma<span class="sc">/</span>(<span class="fu">sqrt</span>(n_0)))</span>
-<span id="cb30-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb30-8" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">=</span> <span class="fu">rnorm</span>(S, mu, sigma)</span>
-<span id="cb30-9"><a href="inference-and-decision-making-with-multiple-parameters.html#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(Y, <span class="fu">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb29-1" aria-hidden="true" tabindex="-1"></a>m_0 <span class="ot">=</span> (<span class="dv">60</span><span class="sc">+</span><span class="dv">10</span>)<span class="sc">/</span><span class="dv">2</span>; s2_0 <span class="ot">=</span> ((<span class="dv">60-10</span>)<span class="sc">/</span><span class="dv">4</span>)<span class="sc">^</span><span class="dv">2</span>;</span>
+<span id="cb29-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb29-2" aria-hidden="true" tabindex="-1"></a>n_0 <span class="ot">=</span> <span class="dv">2</span>; v_0 <span class="ot">=</span> n_0 <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb29-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb29-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb29-4" aria-hidden="true" tabindex="-1"></a>S <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb29-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb29-5" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">=</span> <span class="fu">rgamma</span>(S, v_0<span class="sc">/</span><span class="dv">2</span>, s2_0<span class="sc">*</span>v_0<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb29-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb29-6" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(phi)</span>
+<span id="cb29-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb29-7" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">=</span> <span class="fu">rnorm</span>(S, <span class="at">mean=</span>m_0, <span class="at">sd=</span>sigma<span class="sc">/</span>(<span class="fu">sqrt</span>(n_0)))</span>
+<span id="cb29-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb29-8" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">=</span> <span class="fu">rnorm</span>(S, mu, sigma)</span>
+<span id="cb29-9"><a href="inference-and-decision-making-with-multiple-parameters.html#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(Y, <span class="fu">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</span></code></pre></div>
 <pre><code>##      2.5%     97.5% 
 ## -140.1391  217.7050</code></pre>
 <p>Let’s try to understand the code. After setting the prior hyper-parameters and random seed, we begin by simulating <span class="math inline">\(\phi\)</span> from its gamma prior distribution. We then transform <span class="math inline">\(\phi\)</span> to calculate <span class="math inline">\(\sigma\)</span>. Using the draws of <span class="math inline">\(\sigma\)</span>, we feed that into the <code>rnorm</code> function to simulate <span class="math inline">\(S\)</span> values of <span class="math inline">\(\mu\)</span> for each value of <span class="math inline">\(\sigma\)</span>. The Monte Carlo draws of <span class="math inline">\(\mu,\sigma\)</span> are used to generate <span class="math inline">\(S\)</span> possible values of TTHM denoted by <span class="math inline">\(Y\)</span>. In the above code we are exploiting that all of the functions for simulating from distributions can be vectorized, i.e. we can provide all <span class="math inline">\(S\)</span> draws of <span class="math inline">\(\phi\)</span> to the functions and get a vector result back without having to write a loop. Finally, we obtain the empirical quantiles from our Monte Carlo sample using the <code>quantile</code> function to approximate the actual quantiles from the prior predictive distriubtion.</p>
 <p>This forward simulation propagates uncertainty in <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> to the prior predictive distribution of the data. Calculating the sample quantiles from the samples of the prior predictive for <span class="math inline">\(Y\)</span>, we see that the 95% predictive interval for TTHM includes negative values. Since TTHM cannot be negative, we can adjust <span class="math inline">\(n_0\)</span> and repeat. Since we need a narrower interval in order to exclude zero, we can increase <span class="math inline">\(n_0\)</span> until we achieve the desired quantiles.</p>
 <p>After some trial and error, we find that the prior sample size of 25, the empirical quantiles from the prior predictive distribution are close to the range of 10 to 60 that we were given as prior information.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb32-1" aria-hidden="true" tabindex="-1"></a>m_0 <span class="ot">=</span> (<span class="dv">60</span><span class="sc">+</span><span class="dv">10</span>)<span class="sc">/</span><span class="dv">2</span>; s2_0 <span class="ot">=</span> ((<span class="dv">60-10</span>)<span class="sc">/</span><span class="dv">4</span>)<span class="sc">^</span><span class="dv">2</span>;</span>
-<span id="cb32-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb32-2" aria-hidden="true" tabindex="-1"></a>n_0 <span class="ot">=</span> <span class="dv">25</span>; v_0 <span class="ot">=</span> n_0 <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb32-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb32-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb32-4" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">10000</span>, v_0<span class="sc">/</span><span class="dv">2</span>, s2_0<span class="sc">*</span>v_0<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb32-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb32-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(phi)</span>
-<span id="cb32-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb32-6" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean=</span>m_0, <span class="at">sd=</span>sigma<span class="sc">/</span>(<span class="fu">sqrt</span>(n_0)))</span>
-<span id="cb32-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb32-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, mu, sigma)</span>
-<span id="cb32-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(y, <span class="fu">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb31-1" aria-hidden="true" tabindex="-1"></a>m_0 <span class="ot">=</span> (<span class="dv">60</span><span class="sc">+</span><span class="dv">10</span>)<span class="sc">/</span><span class="dv">2</span>; s2_0 <span class="ot">=</span> ((<span class="dv">60-10</span>)<span class="sc">/</span><span class="dv">4</span>)<span class="sc">^</span><span class="dv">2</span>;</span>
+<span id="cb31-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb31-2" aria-hidden="true" tabindex="-1"></a>n_0 <span class="ot">=</span> <span class="dv">25</span>; v_0 <span class="ot">=</span> n_0 <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb31-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb31-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb31-4" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">10000</span>, v_0<span class="sc">/</span><span class="dv">2</span>, s2_0<span class="sc">*</span>v_0<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb31-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb31-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(phi)</span>
+<span id="cb31-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb31-6" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean=</span>m_0, <span class="at">sd=</span>sigma<span class="sc">/</span>(<span class="fu">sqrt</span>(n_0)))</span>
+<span id="cb31-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb31-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, mu, sigma)</span>
+<span id="cb31-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(y, <span class="fu">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</span></code></pre></div>
 <pre><code>##      2.5%     97.5% 
 ##  8.802515 61.857350</code></pre>
 <p>Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:hist-prior">4.5</a> shows an estimate of the prior distribution of <span class="math inline">\(\mu\)</span> in gray and the more dispersed prior predictive distribution in TTHM in orange, obtained from the Monte Carlo samples.</p>
-<div class="figure" style="text-align: center"><span id="fig:hist-prior"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hist-prior"></span>
 <img src="04-normalgamma-03-predictive_files/figure-html/hist-prior-1.png" alt="Prior density" width="480" />
 <p class="caption">
 Figure 4.5: Prior density
 </p>
 </div>
 <p>Using the Monte Carlo samples, we can also estimate the prior probability of negative values of TTHM by counting the number of times the simulated values are less than zero out of the total number of simulations.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(y <span class="sc">&lt;</span> <span class="dv">0</span>)<span class="sc">/</span><span class="fu">length</span>(y)  <span class="co"># P(Y &lt; 0) a priori</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(y <span class="sc">&lt;</span> <span class="dv">0</span>)<span class="sc">/</span><span class="fu">length</span>(y)  <span class="co"># P(Y &lt; 0) a priori</span></span></code></pre></div>
 <pre><code>## [1] 0.0049</code></pre>
 <p>With the normal prior distribution, this probability will never be zero, but may be acceptably small, so we may use the conjugate normal-gamma model for analysis.</p>
 </div>
-<div id="posterior-predictive" class="section level3" number="4.3.4">
-<h3><span class="header-section-number">4.3.4</span> Posterior Predictive</h3>
+<div id="posterior-predictive" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Posterior Predictive<a href="inference-and-decision-making-with-multiple-parameters.html#posterior-predictive" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can use the same strategy to generate samples from the predictive distribution of a new measurement <span class="math inline">\(Y_{n+1}\)</span> given the observed data. In mathematical terms, the posterior predictive distribution is written as</p>
 <p><span class="math display">\[Y_{n+1} \mid Y_1, \ldots, Y_n \sim \textsf{t}(v_n, m_n, s^2_n (1 + 1/n_n))\]</span></p>
 <p>In the code, we replace the prior hyper parameters with the posterior hyper parameters from last time.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb36-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb36-2" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">10000</span>, v_n<span class="sc">/</span><span class="dv">2</span>, s2_n<span class="sc">*</span>v_n<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb36-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb36-3" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(phi)</span>
-<span id="cb36-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb36-4" aria-hidden="true" tabindex="-1"></a>post_mu <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean=</span>m_n, <span class="at">sd=</span>sigma<span class="sc">/</span>(<span class="fu">sqrt</span>(n_n)))</span>
-<span id="cb36-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb36-5" aria-hidden="true" tabindex="-1"></a>pred_y <span class="ot">=</span>  <span class="fu">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)</span>
-<span id="cb36-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(pred_y, <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb35-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb35-2" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">10000</span>, v_n<span class="sc">/</span><span class="dv">2</span>, s2_n<span class="sc">*</span>v_n<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb35-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb35-3" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(phi)</span>
+<span id="cb35-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb35-4" aria-hidden="true" tabindex="-1"></a>post_mu <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean=</span>m_n, <span class="at">sd=</span>sigma<span class="sc">/</span>(<span class="fu">sqrt</span>(n_n)))</span>
+<span id="cb35-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb35-5" aria-hidden="true" tabindex="-1"></a>pred_y <span class="ot">=</span>  <span class="fu">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)</span>
+<span id="cb35-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(pred_y, <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span></code></pre></div>
 <pre><code>##      2.5%     97.5% 
 ##  3.280216 89.830212</code></pre>
 <p>Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:hist-pred">4.6</a> shows the Monte Carlo approximation to the prior distribution of <span class="math inline">\(\mu\)</span>, and the posterior distribution of <span class="math inline">\(\mu\)</span> which is shifted to the right. The prior and posterior predictive distributions are also depicted, showing how the data have updated the prior information.</p>
-<div class="figure" style="text-align: center"><span id="fig:hist-pred"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hist-pred"></span>
 <img src="04-normalgamma-03-predictive_files/figure-html/hist-pred-1.png" alt="Posterior densities" width="480" />
 <p class="caption">
 Figure 4.6: Posterior densities
 </p>
 </div>
 <p>Using the Monte Carlo samples from the posterior predictive distribution, we can estimate the probability that a new TTHM sample will exceed the legal limit of 80 parts per billion, which is approximately 0.06.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pred_y <span class="sc">&gt;</span> <span class="dv">80</span>)<span class="sc">/</span><span class="fu">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pred_y <span class="sc">&gt;</span> <span class="dv">80</span>)<span class="sc">/</span><span class="fu">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></span></code></pre></div>
 <pre><code>## [1] 0.0619</code></pre>
 </div>
-<div id="summary-1" class="section level3" number="4.3.5">
-<h3><span class="header-section-number">4.3.5</span> Summary</h3>
+<div id="summary-1" class="section level3 hasAnchor" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Summary<a href="inference-and-decision-making-with-multiple-parameters.html#summary-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>By using Monte Carlo methods, we can obtain prior and posterior predictive distributions of the data.</p>
 <ul>
 <li><p>Sampling from the prior predictive distribution can help with the selection of prior hyper parameters and verify that these choices reflect the prior information that is available.</p></li>
@@ -960,8 +984,8 @@ Figure 4.6: Posterior densities
 
 </div>
 </div>
-<div id="sec:NG-reference" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Reference Priors</h2>
+<div id="sec:NG-reference" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Reference Priors<a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-reference" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-predictive">4.3</a>, we demonstrated how to specify an informative prior distribution for inference about TTHM in tapwater using additional prior information. The resulting informative Normal-Gamma prior distribution had an effective prior sample size that was comparable to the observed sample size to be compatible with the reported prior interval.</p>
 <p>There are, however, situations where you may wish to provide an analysis that does not depend on prior information. There may be cases where prior information is simply not available. Or, you may wish to present an <strong>objective</strong> analysis where minimal prior information is used to provide a baseline or reference analysis to contrast with other analyses based on informative prior distributions. Or perhaps, you want to use the Bayesian paradigm to make probability statements about parameters, but not use any prior information. In this section, we will examine the qustion of <strong>Can you actually perform a Bayesian analysis without using prior information?</strong>
 We will present reference priors for normal data, which can be viewed as a limiting form of the Normal-Gamma conjugate prior distribution.</p>
@@ -1015,22 +1039,22 @@ p(\mu, \sigma^2) &amp; \propto  1/\sigma^2
 <p><span class="math display">\[P(\bar{Y} - t_{1 - \alpha/2}\times s/\sqrt{n} &lt; \mu &lt;  \bar{Y} + t_{1 - \alpha/2}\times s/\sqrt{n}) = 1 - \alpha\]</span></p>
 <p>We can use either analytic expressions based on the t-distribution, or Monte Carlo samples from the posterior predictive distribution, to make predictions about a new sample.</p>
 <p>Here is some code to generate the Monte Carlo samples from the tap water example:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb40-1" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">10000</span>, (n<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">2</span>, s2<span class="sc">*</span>(n<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb40-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb40-2" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(phi)</span>
-<span id="cb40-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb40-3" aria-hidden="true" tabindex="-1"></a>post_mu <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean=</span>ybar, <span class="at">sd=</span>sigma<span class="sc">/</span>(<span class="fu">sqrt</span>(n)))</span>
-<span id="cb40-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb40-4" aria-hidden="true" tabindex="-1"></a>pred_y <span class="ot">=</span>  <span class="fu">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)</span>
-<span id="cb40-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(pred_y, <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb39-1" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">10000</span>, (n<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">2</span>, s2<span class="sc">*</span>(n<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb39-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb39-2" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(phi)</span>
+<span id="cb39-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb39-3" aria-hidden="true" tabindex="-1"></a>post_mu <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean=</span>ybar, <span class="at">sd=</span>sigma<span class="sc">/</span>(<span class="fu">sqrt</span>(n)))</span>
+<span id="cb39-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb39-4" aria-hidden="true" tabindex="-1"></a>pred_y <span class="ot">=</span>  <span class="fu">rnorm</span>(<span class="dv">10000</span>,post_mu, sigma)</span>
+<span id="cb39-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(pred_y, <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span></code></pre></div>
 <pre><code>##       2.5%      97.5% 
 ##   6.692877 104.225954</code></pre>
 <p>Using the Monte Carlo samples, Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:plot-post-pred">4.7</a> shows the posterior distribution based on the informative Normal-Gamma prior and the reference prior. Both the posterior distribution for <span class="math inline">\(\mu\)</span> and the posterior predictive distribution for a new sample are shifted to the right, and are centered at the sample mean. The posterior for <span class="math inline">\(\mu\)</span> under the reference prior is less concentrated around its mean than the posterior under the informative prior, which leads to an increased posterior sample size and hence increased precision.</p>
-<div class="figure" style="text-align: center"><span id="fig:plot-post-pred"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-post-pred"></span>
 <img src="04-normalgamma-04-reference_files/figure-html/plot-post-pred-1.png" alt="Comparison of posterior densities" width="480" />
 <p class="caption">
 Figure 4.7: Comparison of posterior densities
 </p>
 </div>
 <p>The posterior probability that a new sample will exceed the legal limit of 80 ppb under the reference prior is roughly 0.15, which is more than double the probability of 0.06 from the posterior under the informative prior.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pred_y <span class="sc">&gt;</span> <span class="dv">80</span>)<span class="sc">/</span><span class="fu">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pred_y <span class="sc">&gt;</span> <span class="dv">80</span>)<span class="sc">/</span><span class="fu">length</span>(pred_y)  <span class="co"># P(Y &gt; 80 | data)</span></span></code></pre></div>
 <pre><code>## [1] 0.1534</code></pre>
 <p>In constructing the informative prior from the reported interval, there are two critical assumptions. First, the prior data are exchangeable with the observed data. Second, the conjugate normal gamma distribution is suitable for representing the prior information. These assumptions may or may not be verifiable, but they should be considered carefully when using informative conjugate priors.</p>
 <p>In the case of the tap water example, there are several concerns: One, it is unclear that the prior data are exchangeable with the observed data. For example, water treatment conditions may have changed. Two, the prior sample size was not based on a real prior sample, but instead selected so that the prior predictive intervals under the normal gamma model agreed with the prior data. As we do not have access to the prior data, we cannot check assumptions about normality that would help justify the prior. Other skewed distributions may be consistent with the prior interval, but lead to different conclusions.</p>
@@ -1048,8 +1072,8 @@ conjugate priors, so the new prior distribution provides robustness to prior mis
 called Markov chain Monte Carlo (MCMC).</p>
 
 </div>
-<div id="sec:NG-Cauchy" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> Mixtures of Conjugate Priors</h2>
+<div id="sec:NG-Cauchy" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Mixtures of Conjugate Priors<a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-Cauchy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this section, we will describe priors that are constructed as a mixture of conjugate priors – in particular, the Cauchy distribution. As these are no longer conjugate priors, nice analytic expressions for the posterior distribution are not available. However, we can use a Monte Carlo algorithm called Markov chain Monte Carlo (MCMC) for posterior inference.</p>
 <p>In many situations, we may have reasonable prior information about the mean <span class="math inline">\(\mu\)</span>, but we are less confident in how many observations our prior beliefs are equivalent to. We can address this uncertainty in the prior sample size, through an additional prior distribution on a <span class="math inline">\(n_0\)</span> via a hierarchical prior.</p>
 <p>The hierarchical prior for the normal gamma distribution is written as
@@ -1064,7 +1088,7 @@ n_0 \mid \sigma^2 &amp;  \sim \textsf{Gamma}(1/2, r^2/2)
 <p><span class="math display">\[p(\mu \mid \sigma) = \frac{1}{\pi \sigma r} \left( 1 +  \frac{(\mu - m_0)^2} {\sigma^2 r^2}  \right)^{-1}\]</span></p>
 <p>The Cauchy distribution does not have a mean or standard deviation, but the center (location) and the scale play a similar role to the mean and standard deviation of the normal distribution. The Cauchy distribution is a special case of a student <span class="math inline">\(t\)</span> distribution with one degree of freedom.</p>
 <p>As Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:cauchy-plot">4.8</a> shows, the standard Cauchy distribution with <span class="math inline">\(r=1\)</span> and the standard normal distribution <span class="math inline">\(\textsf{Normal}(0,1)\)</span> are centered at the same location. But the Cauchy distribution has heavier tails – more probability on extreme values than the normal distribution with the same scale parameter <span class="math inline">\(\sigma\)</span>. Cauchy priors were recommended by Sir Harold Jeffreys as a default objective prior for testing.</p>
-<div class="figure" style="text-align: center"><span id="fig:cauchy-plot"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:cauchy-plot"></span>
 <img src="04-normalgamma-05-mixtures_files/figure-html/cauchy-plot-1.png" alt="Cauchy distribution" width="480" />
 <p class="caption">
 Figure 4.8: Cauchy distribution
@@ -1072,27 +1096,27 @@ Figure 4.8: Cauchy distribution
 </div>
 
 </div>
-<div id="sec:NG-MCMC" class="section level2" number="4.6">
-<h2><span class="header-section-number">4.6</span> Markov Chain Monte Carlo (MCMC)</h2>
+<div id="sec:NG-MCMC" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Markov Chain Monte Carlo (MCMC)<a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-MCMC" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The Cauchy prior described in Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:NG-Cauchy">4.5</a> is not a conjugate prior, and therefore, the posterior distribution from <span class="math inline">\((\mu \mid \sigma^2)\)</span>, is not a Cauchy or any well-known distribution. Fortunately, the conditional distribution of <span class="math inline">\((\mu, \sigma^2 \mid n_0, \text{data})\)</span>, is normal-gamma and easy to simulate from, as we learned in the previous sections. The conditional distribution of <span class="math inline">\((n_0 \mid \mu, \sigma^2, \text{data}\)</span>) is a gamma distribution, also easy to simulate from the given <span class="math inline">\(\mu, \sigma^2\)</span>.</p>
 <p>It turns out that if we alternate generating Monte Carlo samples from these conditional distributions, the sequence of samples converges to samples from the joint distribution of <span class="math inline">\((\mu, \sigma^2, n_0)\)</span>, as the number of simulated values increases. The Monte Carlo algorithm we have just described is a special case of Markov chain Monte Carlo (MCMC), known as the Gibbs sampler.</p>
 <p>Let’s look at the pseudo code for the algorithm.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize MCMC</span></span>
-<span id="cb44-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-2" aria-hidden="true" tabindex="-1"></a>sigma2[<span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span>; n_0[<span class="dv">1</span>]<span class="ot">=</span><span class="dv">1</span>; mu[<span class="dv">1</span>]<span class="ot">=</span>m_0</span>
-<span id="cb44-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co">#draw from full conditional distributions</span></span>
-<span id="cb44-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>S) {</span>
-<span id="cb44-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-6" aria-hidden="true" tabindex="-1"></a>  mu[i]     <span class="ot">=</span> <span class="fu">p_mu</span>(sigma2[i<span class="dv">-1</span>], n_0[i<span class="dv">-1</span>],  m_0, r, data)</span>
-<span id="cb44-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-7" aria-hidden="true" tabindex="-1"></a>  sigma2[i] <span class="ot">=</span> <span class="fu">p_sigma2</span>(mu[i], n_0[i<span class="dv">-1</span>],    m_0, r, data)</span>
-<span id="cb44-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-8" aria-hidden="true" tabindex="-1"></a>  n_0[i]    <span class="ot">=</span> <span class="fu">p_n_0</span>(mu[i], sigma2[i],      m_0, r, data)</span>
-<span id="cb44-9"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize MCMC</span></span>
+<span id="cb43-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb43-2" aria-hidden="true" tabindex="-1"></a>sigma2[<span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span>; n_0[<span class="dv">1</span>]<span class="ot">=</span><span class="dv">1</span>; mu[<span class="dv">1</span>]<span class="ot">=</span>m_0</span>
+<span id="cb43-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="inference-and-decision-making-with-multiple-parameters.html#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co">#draw from full conditional distributions</span></span>
+<span id="cb43-5"><a href="inference-and-decision-making-with-multiple-parameters.html#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>S) {</span>
+<span id="cb43-6"><a href="inference-and-decision-making-with-multiple-parameters.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  mu[i]     <span class="ot">=</span> <span class="fu">p_mu</span>(sigma2[i<span class="dv">-1</span>], n_0[i<span class="dv">-1</span>],  m_0, r, data)</span>
+<span id="cb43-7"><a href="inference-and-decision-making-with-multiple-parameters.html#cb43-7" aria-hidden="true" tabindex="-1"></a>  sigma2[i] <span class="ot">=</span> <span class="fu">p_sigma2</span>(mu[i], n_0[i<span class="dv">-1</span>],    m_0, r, data)</span>
+<span id="cb43-8"><a href="inference-and-decision-making-with-multiple-parameters.html#cb43-8" aria-hidden="true" tabindex="-1"></a>  n_0[i]    <span class="ot">=</span> <span class="fu">p_n_0</span>(mu[i], sigma2[i],      m_0, r, data)</span>
+<span id="cb43-9"><a href="inference-and-decision-making-with-multiple-parameters.html#cb43-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>We start with the initial values of each of the parameters for <span class="math inline">\(i=1\)</span>. In theory, these can be completely arbitrary, as long as they are allowed values for the parameters.</p>
-<p>For each iteration <span class="math inline">\(i\)</span>, the algorithm will cycle through generating each parameter, given the <strong>current</strong> value of the other parameters. The functions , , and  return a simulated value from the respective distribution conditional on the inputs.</p>
+<p>For each iteration <span class="math inline">\(i\)</span>, the algorithm will cycle through generating each parameter, given the <strong>current</strong> value of the other parameters. The functions , , and return a simulated value from the respective distribution conditional on the inputs.</p>
 <p>Whenever we update a parameter, we use the <strong>new value</strong> in the subsequent steps as the <span class="math inline">\(n\)</span> draws for <span class="math inline">\(\sigma, n_0\)</span>. We will repeat this until we reach iteration <span class="math inline">\(S\)</span>, leading to a dependent sequence of s draws from the joint posterior distribution.</p>
-<p>Incorporating the tap water example in Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma">4.1</a>, we will use MCMC to generate samples under the Cauchy prior. We set 35 as the location parameter and <span class="math inline">\(r=1\)</span>. To complete our prior specification, we use the Jeffrey’s reference prior on <span class="math inline">\(\sigma^2\)</span>. This combination is referred to as the Jeffrey’s Zellner-Siow Cauchy prior or “JZS” in the BayesFactor branch of the R  package.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_inference</span>(<span class="at">y=</span>tthm, <span class="at">data=</span>tapwater, <span class="at">statistic=</span><span class="st">&quot;mean&quot;</span>,</span>
-<span id="cb45-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb45-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mu_0 =</span> <span class="dv">35</span>, <span class="at">rscale=</span><span class="dv">1</span>, <span class="at">prior=</span><span class="st">&quot;JZS&quot;</span>,</span>
-<span id="cb45-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb45-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">type=</span><span class="st">&quot;ci&quot;</span>, <span class="at">method=</span><span class="st">&quot;sim&quot;</span>)</span></code></pre></div>
+<p>Incorporating the tap water example in Section <a href="inference-and-decision-making-with-multiple-parameters.html#sec:normal-gamma">4.1</a>, we will use MCMC to generate samples under the Cauchy prior. We set 35 as the location parameter and <span class="math inline">\(r=1\)</span>. To complete our prior specification, we use the Jeffrey’s reference prior on <span class="math inline">\(\sigma^2\)</span>. This combination is referred to as the Jeffrey’s Zellner-Siow Cauchy prior or “JZS” in the BayesFactor branch of the R package.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_inference</span>(<span class="at">y=</span>tthm, <span class="at">data=</span>tapwater, <span class="at">statistic=</span><span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb44-2"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">mu_0 =</span> <span class="dv">35</span>, <span class="at">rscale=</span><span class="dv">1</span>, <span class="at">prior=</span><span class="st">&quot;JZS&quot;</span>,</span>
+<span id="cb44-3"><a href="inference-and-decision-making-with-multiple-parameters.html#cb44-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">type=</span><span class="st">&quot;ci&quot;</span>, <span class="at">method=</span><span class="st">&quot;sim&quot;</span>)</span></code></pre></div>
 <pre><code>## Single numerical variable
 ## n = 28, y-bar = 55.5239, s = 23.254
 ## (Assuming Zellner-Siow Cauchy prior:  mu | sigma^2 ~ C(35, 1*sigma)
@@ -1106,11 +1130,11 @@ Figure 4.8: Cauchy distribution
 ## 
 ## 95% CI for mu: (45.5714, 64.2048)</code></pre>
 <p><img src="04-normalgamma-06-MCMC_files/figure-html/tapwater-inference-1.png" width="384" style="display: block; margin: auto;" /></p>
-<p>Using the  function from the  package, we can obtain summary statistics and a plot from the MCMC output – not only <span class="math inline">\(\mu\)</span>, but also inference about <span class="math inline">\(\sigma^2\)</span> and the prior sample size.</p>
+<p>Using the function from the package, we can obtain summary statistics and a plot from the MCMC output – not only <span class="math inline">\(\mu\)</span>, but also inference about <span class="math inline">\(\sigma^2\)</span> and the prior sample size.</p>
 <p>The posterior mean under the JZS model is much closer to the sample mean than what the normal gamma prior used previously. Under the informative normal gamma prior, the sample made a 55.5, about eight standard deviations above the mean – a surprising value under the normal prior. Under the Cauchy prior, the informative prior location has much less influence.</p>
 <p>This is <strong>the robustness property of the Cauchy prior</strong>, leading the posterior to put more weight on the sample mean than the prior mean, especially when the prior location is not close to the sample mean. We can see that the central 50% interval for <span class="math inline">\(n_0\)</span> is well below the value 25 used in the normal prior, which placed almost equal weight on the prior in sample mean.</p>
 <p>Using the MCMC draws of <span class="math inline">\(\mu, \sigma\)</span>, we can obtain Monte Carlo samples from the predictive distribution of <span class="math inline">\(y\)</span>, by plugging <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> into the corresponding functions. Figure <a href="inference-and-decision-making-with-multiple-parameters.html#fig:hist-ref-pred">4.9</a> compares the posterior densities estimated from the simulative values of <span class="math inline">\(\mu\)</span> and the predicted draws of TTHM under the Jeffrey Zellner-Siow prior, and the informative normal prior from <span class="math inline">\(\mu\)</span> with <span class="math inline">\(n_0 = 25\)</span> and the reference prior on <span class="math inline">\(\sigma^2\)</span>.</p>
-<div class="figure" style="text-align: center"><span id="fig:hist-ref-pred"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hist-ref-pred"></span>
 <img src="04-normalgamma-06-MCMC_files/figure-html/hist-ref-pred-1.png" alt="Comparison of posterior densities" width="576" />
 <p class="caption">
 Figure 4.9: Comparison of posterior densities
@@ -1131,7 +1155,6 @@ Figure 4.9: Comparison of posterior densities
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -1150,6 +1173,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -1170,6 +1194,10 @@ gitbook.start({
 "text": null
 },
 "download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

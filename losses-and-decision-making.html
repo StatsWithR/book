@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Losses and Decision Making | An Introduction to Bayesian Thinking</title>
   <meta name="description" content="Chapter 3 Losses and Decision Making | An Introduction to Bayesian Thinking" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Losses and Decision Making | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
-  
   
   
   <meta name="github-repo" content="StatsWithR/book" />
@@ -37,8 +36,8 @@
   
 <link rel="prev" href="bayesian-inference.html"/>
 <link rel="next" href="inference-and-decision-making-with-multiple-parameters.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -54,13 +53,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -119,6 +121,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -323,20 +348,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="losses-and-decision-making" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Losses and Decision Making</h1>
+<div id="losses-and-decision-making" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Losses and Decision Making<a href="losses-and-decision-making.html#losses-and-decision-making" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In the previous chapter, we learned about continuous random variables. That enabled us to study conjugate families, such as the beta binomial, the Poisson gamma, and the normal normal. We also considered the difficulties of eliciting a personal prior, and of handling inference in nonconjugate cases. Finally, we introduced the credible interval and studied predictive inference.</p>
 <p>In this new chapter, we will introduce loss functions and Bayesian decision making, minimizing expected loss for hypothesis testing, and define posterior probabilities of hypothesis and Bayes factors. We will then outline Bayesian testing for two proportions and two means, discuss how findings from credible intervals compare to those from our hypothesis test, and finally discuss when to reject, accept, or wait.</p>
 
-<div id="bayesian-decision-making" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Bayesian Decision Making</h2>
+<div id="bayesian-decision-making" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Bayesian Decision Making<a href="losses-and-decision-making.html#bayesian-decision-making" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To a Bayesian, the posterior distribution is the basis of any inference, since it integrates both his/her prior opinions and knowledge and the new information provided by the data. It also contains everything she believes about the distribution of the unknown parameter of interest.</p>
 <p>However, the posterior distribution on its own is not always sufficient. Sometimes the inference we want to express is a <strong>credible interval</strong>, because it indicates a range of likely values for the parameter. That would be helpful if you wanted to say that you are <strong>95% certain</strong> the probability of an RU-486 pregnancy lies between some number <span class="math inline">\(L\)</span> and some number <span class="math inline">\(U\)</span>. And on other occasions, one needs to make a single number guess about the value of the parameter. For example, you might want to declare the average payoff for an insurance claim or tell a patient how much longer he/she has to live.</p>
 <p>Therefore, the Bayesian perspective leads directly to <strong>decision theory</strong>. And in decision theory, one seeks to minimize one’s expected loss.</p>
 
 </div>
-<div id="loss-functions" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Loss Functions</h2>
+<div id="loss-functions" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Loss Functions<a href="losses-and-decision-making.html#loss-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Quantifying the loss can be tricky, and Table <a href="losses-and-decision-making.html#tab:loss-functions">3.1</a> summarizes three different examples with three different loss functions.</p>
 <p>If you’re declaring the average payoff for an insurance claim, and if you are <strong>linear</strong> in how you value money, that is, twice as much money is exactly twice as good, then one can prove that the optimal one-number estimate is the <strong>median</strong> of the posterior distribution. But in different situations, other measures of loss may apply.</p>
 <p>If you are advising a patient on his/her life expectancy, it is easy to imagine that large errors are far more problematic than small ones. And perhaps the loss increases as the <strong>square</strong> of how far off your single number estimate is from the truth. For example, if she is told that her average life expectancy is two years, and it is actually ten, then her estate planning will be catastrophically bad, and she will die in poverty. In the case when the loss is proportional to the <strong>quadratic</strong> error, one can show that the optimal one-number estimate is the <strong>mean</strong> of the posterior distribution.</p>
@@ -368,14 +393,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>When making point estimates of unknown parameters, we should make the choices that minimize the loss. Nevertheless, the best estimate depends on the kind of loss function we are using, and we will discuss in more depth how these best estimates are determined in the next section.</p>
 
 </div>
-<div id="working-with-loss-functions" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> Working with Loss Functions</h2>
+<div id="working-with-loss-functions" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Working with Loss Functions<a href="losses-and-decision-making.html#working-with-loss-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now we illustrate why certain estimates minimize certain loss functions.</p>
-
 <div class="example">
-<span id="exm:car" class="example"><strong>Example 3.1  </strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure <a href="losses-and-decision-making.html#fig:posterior-decision">3.1</a>. The mean, median and the mode of the distribution are also marked on the plot. Your boss does not know any Bayesian statistics though, so he/she wants you to report <strong>a single number</strong> for the number of cars the dealership will sell per month.
+<p><span id="exm:car" class="example"><strong>Example 3.1  </strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure <a href="losses-and-decision-making.html#fig:posterior-decision">3.1</a>. The mean, median and the mode of the distribution are also marked on the plot. Your boss does not know any Bayesian statistics though, so he/she wants you to report <strong>a single number</strong> for the number of cars the dealership will sell per month.</p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:posterior-decision"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:posterior-decision"></span>
 <img src="03-decision-03-working_files/figure-html/posterior-decision-1.png" alt="Posterior" width="960" />
 <p class="caption">
 Figure 3.1: Posterior
@@ -449,7 +473,7 @@ Figure 3.1: Posterior
 </tr>
 </tbody>
 </table>
-<div class="figure" style="text-align: center"><span id="fig:L0-mode"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:L0-mode"></span>
 <img src="03-decision-03-working_files/figure-html/L0-mode-1.png" alt="L0 is minimized at the mode of the posterior" width="960" />
 <p class="caption">
 Figure 3.2: L0 is minimized at the mode of the posterior
@@ -519,7 +543,7 @@ Figure 3.2: L0 is minimized at the mode of the posterior
 </tr>
 </tbody>
 </table>
-<div class="figure" style="text-align: center"><span id="fig:L1-median"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:L1-median"></span>
 <img src="03-decision-03-working_files/figure-html/L1-median-1.png" alt="L1 is minimized at the median of the posterior" width="960" />
 <p class="caption">
 Figure 3.3: L1 is minimized at the median of the posterior
@@ -588,7 +612,7 @@ Figure 3.3: L1 is minimized at the median of the posterior
 </tr>
 </tbody>
 </table>
-<div class="figure" style="text-align: center"><span id="fig:L2-mean"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:L2-mean"></span>
 <img src="03-decision-03-working_files/figure-html/L2-mean-1.png" alt="L2 is minimized at the mean of the posterior" width="960" />
 <p class="caption">
 Figure 3.4: L2 is minimized at the mean of the posterior
@@ -602,8 +626,8 @@ Figure 3.4: L2 is minimized at the mean of the posterior
 </ul>
 
 </div>
-<div id="minimizing-expected-loss-for-hypothesis-testing" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Minimizing Expected Loss for Hypothesis Testing</h2>
+<div id="minimizing-expected-loss-for-hypothesis-testing" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Minimizing Expected Loss for Hypothesis Testing<a href="losses-and-decision-making.html#minimizing-expected-loss-for-hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In Bayesian statistics, the inference about a parameter is made based on the posterior distribution, and let’s include this in the hypothesis test setting.</p>
 <p>Suppose we have two competing hypothesis, <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>. Then we get</p>
 <ul>
@@ -686,8 +710,8 @@ Figure 3.4: L2 is minimized at the mean of the posterior
 <p>To recap, Bayesian methodologies allow for the integration of losses into the decision making framework easily. And in Bayesian testing, we minimize the posterior expected loss.</p>
 
 </div>
-<div id="sec:bayes-factors" class="section level2" number="3.5">
-<h2><span class="header-section-number">3.5</span> Posterior Probabilities of Hypotheses and Bayes Factors</h2>
+<div id="sec:bayes-factors" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Posterior Probabilities of Hypotheses and Bayes Factors<a href="losses-and-decision-making.html#sec:bayes-factors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this section, we will continue with the HIV testing example to introduce the concept of Bayes factors. Earlier, we introduced the concept of priors and posteriors. The <strong>prior odds</strong> is defined as <strong>the ratio of the prior probabilities of hypotheses</strong>.</p>
 <p>Therefore, if there are two competing hypotheses being considered, then the prior odds of <span class="math inline">\(H_1\)</span> to <span class="math inline">\(H_2\)</span> can be defined as <span class="math inline">\(O[H_1:H_2]\)</span>, which is equal to <span class="math inline">\(P(H_1)\)</span> over probability of <span class="math inline">\(P(H_2)\)</span>. In mathematical terms,</p>
 <p><span class="math display">\[O[H_1:H_2] = \frac{P(H_1)}{P(H_2)}\]</span></p>
@@ -736,7 +760,7 @@ BF[H_1:H_2] &amp;= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \ap
 &amp;= \frac{P(+|H_1)}{P(+|H_2)} = \frac{0.01}{0.93} \approx 0.0108
 \end{aligned}\]</span></p>
 <p>Alternatively, remember that the true positive rate of the test was 0.93 and the false positive rate was 0.01. Using these two values, the Bayes factor also comes out to approximately 0.0108.</p>
-<p>So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by <span class="citation"><a href="stochastic-explorations-using-mcmc.html#ref-jeffreys1961theory" role="doc-biblioref">Jeffreys</a> (<a href="stochastic-explorations-using-mcmc.html#ref-jeffreys1961theory" role="doc-biblioref">1961</a>)</span>, as in Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>. If the Bayes factor is between 1 and 3, the evidence against <span class="math inline">\(H_2\)</span> is not worth a bare mention. If it is 3 to 20, the evidence is positive. If it is 20 to 150, the evidence is strong. If it is greater than 150, the evidence is very strong.</p>
+<p>So now that we calculated the Bayes factor, the next natural question is, what does this number mean? A commonly used scale for interpreting Bayes factors is proposed by <span class="citation">Jeffreys (<a href="#ref-jeffreys1961theory" role="doc-biblioref">1961</a>)</span>, as in Table <a href="losses-and-decision-making.html#tab:jeffreys1961">3.5</a>. If the Bayes factor is between 1 and 3, the evidence against <span class="math inline">\(H_2\)</span> is not worth a bare mention. If it is 3 to 20, the evidence is positive. If it is 20 to 150, the evidence is strong. If it is greater than 150, the evidence is very strong.</p>
 <table>
 <caption><span id="tab:jeffreys1961">Table 3.5: </span>Interpreting the Bayes factor</caption>
 <thead>
@@ -769,7 +793,7 @@ BF[H_1:H_2] &amp;= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \ap
 <p><span class="math display">\[BF[H_2:H_1] = \frac{1}{BF[H_1:H_2]} = \frac{1}{0.0108} = 92.59259\]</span></p>
 <p>For our data, this comes out to approximately 93. Hence the evidence against <span class="math inline">\(H_1\)</span> (the patient does not have HIV) is strong. Therefore, even though the posterior for having HIV given a positive result, i.e. <span class="math inline">\(P(H_2|+)\)</span>, was low, we would still decide that the patient has HIV, according to the scale based on a positive ELISA result.</p>
 <p>An intuitive way of thinking about this is to consider not only the posteriors, but also the priors assigned to these hypotheses. Bayes factor is the ratio of the posterior odds to prior odds. While 12% is a low posterior probability for having HIV given a positive ELISA result, this value is still much higher than the overall prevalence of HIV in the population (in other words, the prior probability for that hypothesis).</p>
-<p>Another commonly used scale for interpreting Bayes factors is proposed by <span class="citation"><a href="stochastic-explorations-using-mcmc.html#ref-kass1995bayes" role="doc-biblioref">Kass and Raftery</a> (<a href="stochastic-explorations-using-mcmc.html#ref-kass1995bayes" role="doc-biblioref">1995</a>)</span>, and it deals with the natural logarithm of the calculated Bayes factor. The values can be interpreted in Table <a href="losses-and-decision-making.html#tab:kass1995">3.6</a>.</p>
+<p>Another commonly used scale for interpreting Bayes factors is proposed by <span class="citation">Kass and Raftery (<a href="#ref-kass1995bayes" role="doc-biblioref">1995</a>)</span>, and it deals with the natural logarithm of the calculated Bayes factor. The values can be interpreted in Table <a href="losses-and-decision-making.html#tab:kass1995">3.6</a>.</p>
 <table>
 <caption><span id="tab:kass1995">Table 3.6: </span>Interpreting the Bayes factor</caption>
 <thead>
@@ -803,6 +827,15 @@ BF[H_1:H_2] &amp;= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \ap
 
 </div>
 </div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-jeffreys1961theory" class="csl-entry">
+Jeffreys, Sir Harold. 1961. <em>Theory of Probability: 3rd Edition</em>. Clarendon Press.
+</div>
+<div id="ref-kass1995bayes" class="csl-entry">
+Kass, Robert E, and Adrian E Raftery. 1995. <span>“Bayes Factors.”</span> <em>Journal of the American Statistical Association</em> 90 (430): 773–95.
+</div>
+</div>
             </section>
 
           </div>
@@ -813,7 +846,6 @@ BF[H_1:H_2] &amp;= \frac{PO[H_1:H_2]}{O[H_1:H_2]} = \frac{7.25457}{674.6757} \ap
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -832,6 +864,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -852,6 +885,10 @@ gitbook.start({
 "text": null
 },
 "download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Stochastic Explorations Using MCMC | An Introduction to Bayesian Thinking</title>
   <meta name="description" content="Chapter 8 Stochastic Explorations Using MCMC | An Introduction to Bayesian Thinking" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Stochastic Explorations Using MCMC | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
-  
   
   
   <meta name="github-repo" content="StatsWithR/book" />
@@ -37,8 +36,8 @@
   
 <link rel="prev" href="bayesian-model-choice.html"/>
 
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -54,13 +53,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -119,6 +121,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -323,15 +348,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="stochastic-explorations-using-mcmc" class="section level1" number="8">
-<h1><span class="header-section-number">Chapter 8</span> Stochastic Explorations Using MCMC</h1>
+<div id="stochastic-explorations-using-mcmc" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Stochastic Explorations Using MCMC<a href="stochastic-explorations-using-mcmc.html#stochastic-explorations-using-mcmc" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter, we will discuss stochastic explorations of the model space using Markov Chain Monte Carlo method. This is particularly usefull when the number of models in the model space is relatively large. We will introduce the idea and the algorithm that we apply on the kid’s cognitive score example. Then We will introduce some alternative priors for the coefficients other than the reference priors that we have been focused on. We will demonstrate using Markov Chain Monte Carlo on the crime data set to see how to use this stochastic method to explore the model space and how different priors may lead to different posterior inclusion probability of coefficients. Finally, we will summarize decision making strategies under Bayesian model uncertainty.</p>
 
-<div id="stochastic-exploration" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> Stochastic Exploration</h2>
+<div id="stochastic-exploration" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Stochastic Exploration<a href="stochastic-explorations-using-mcmc.html#stochastic-exploration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the last chapter, we explored model uncertainty using posterior probability of each model and Bayesian model averaging based on BIC. We applied the idea on the kid’s cognitive score data set. With 4 predictors, we had <span class="math inline">\(2^4 = 16\)</span> possible models. Since the total number of models is relatively small, it is easy to enumerate all possible models to obtain Bayesian model averaging results. However, in general we often have data sets with large number of variables, which may lead to long computating time via enumeration. In this section, we will present one of the common stochastic methods, Markov Chain Monte Carlo (MCMC), to explore model spaces and implement Bayesian model averaging to estimate quantities of interest.</p>
-<div id="markov-chain-monte-carlo-exploration" class="section level3" number="8.1.1">
-<h3><span class="header-section-number">8.1.1</span> Markov Chain Monte Carlo Exploration</h3>
+<div id="markov-chain-monte-carlo-exploration" class="section level3 hasAnchor" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Markov Chain Monte Carlo Exploration<a href="stochastic-explorations-using-mcmc.html#markov-chain-monte-carlo-exploration" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let us assume that we have a pseudo population of possible models that we obtained from all the possible combinations of regression models from the kid’s cognitive score example. We prepare the data set as in Section <a href="introduction-to-bayesian-regression.html#sec:Bayes-multiple-regression">6.3</a> and run <code>bas.lm</code> to obtain posterior probability of each model as we did in Section <a href="bayesian-model-choice.html#sec:BMU">7.2</a>.</p>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="stochastic-explorations-using-mcmc.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data processing</span></span>
 <span id="cb122-2"><a href="stochastic-explorations-using-mcmc.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
@@ -360,7 +385,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We could then take a sample from this population of models with replacement (therefore, some models may be selected more than once in this sample). This process could be done using the <code>sample</code> function in R. We hope that the frequency of appearance of a model would be a good approximation of the posterior probability of this model. We use <span class="math inline">\(I(M_j = M_m)\)</span> as the indicator function to indicate that the current model <span class="math inline">\(M_j\)</span> we sample is the model of interest <span class="math inline">\(M_m\)</span>, that is
 <span class="math display">\[ I(M_j=M_m) = \left\{\begin{array}{ll} 1, &amp; \text{if $M_j = M_m$} \\ 0, &amp; \text{if $M_j\neq M_m$}\end{array}\right. \]</span></p>
 <p>Suppose we are going to sample <span class="math inline">\(J\)</span> models in total, we hope that
-<span class="math display" id="eq:MCMC-formula">\[\begin{equation} 
+<span class="math display" id="eq:MCMC-formula">\[\begin{equation}
 p(M_m~|~\text{data}) \approx \frac{\sum_{j=1}^J I(M_j=M_m)}{J} = \sum_{j=1}^J \frac{I(M_j=M_m)}{J}.
 \tag{8.1}
 \end{equation}\]</span></p>
@@ -380,11 +405,11 @@ If <span class="math inline">\(R\geq 1\)</span>, we unconditionally accept <span
 
 </div>
 </div>
-<div id="other-priors-for-bayesian-model-uncertainty" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> Other Priors for Bayesian Model Uncertainty</h2>
+<div id="other-priors-for-bayesian-model-uncertainty" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Other Priors for Bayesian Model Uncertainty<a href="stochastic-explorations-using-mcmc.html#other-priors-for-bayesian-model-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>So far, we have discussed Bayesian model selection and Bayesian model averaging using BIC. BIC is an asymptotic approximation of the log of marginal likelihood of models when the number of data points is large. Under BIC, prior distribution of <span class="math inline">\(\boldsymbol{\beta}= (\beta_0, \beta_1,\cdots, \beta_p)^T\)</span> is uniformaly flat, which is the same as applying the reference prior on <span class="math inline">\(\boldsymbol{\beta}\)</span> conditioning on <span class="math inline">\(\sigma^2\)</span>. In this section, we will introduce a new conjugate prior distribution, called the Zellner’s <span class="math inline">\(g\)</span>-prior. We will see that this prior leads to simple expressions for the Bayes factor, in terms of summary statistics from ordinary least square (OLS). We will talk about choosing the parameter <span class="math inline">\(g\)</span> in the prior and conduct a sensitivity analysis, using the kid’s cognitive score data that we used in earlier sections.</p>
-<div id="zellners-g-prior" class="section level3" number="8.2.1">
-<h3><span class="header-section-number">8.2.1</span> Zellner’s <span class="math inline">\(g\)</span>-Prior</h3>
+<div id="zellners-g-prior" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Zellner’s <span class="math inline">\(g\)</span>-Prior<a href="stochastic-explorations-using-mcmc.html#zellners-g-prior" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To analyze the model more conveniently, we still stick with the “centered” regression model. Let <span class="math inline">\(y_1,\cdots,y_n\)</span> to be the observations of the response variable <span class="math inline">\(Y\)</span>. The multiple regression model is</p>
 <p><span class="math display">\[ y_i = \beta_0 + \beta_1(x_{1,i}-\bar{x}_1) + \beta_2(x_{2, i}-\bar{x}_2)+\cdots +\beta_p(x_{p, i}-\bar{x}_p)+\epsilon_i, \quad 1\leq i\leq n.\]</span></p>
 <p>As before, <span class="math inline">\(\bar{x}_1, \cdots,\bar{x}_p\)</span>, are the sample means of the variables <span class="math inline">\(X_1,\cdots,X_p\)</span>. Since we have centered all the variables, <span class="math inline">\(\beta_0\)</span> is no longer the <span class="math inline">\(y\)</span>-intercept. Instead, it is the sample mean of <span class="math inline">\(Y\)</span> when taking <span class="math inline">\(X_1=\bar{x}_1,\cdots, X_p=\bar{x}_p\)</span>. <span class="math inline">\(\beta_1,\cdots,\beta_p\)</span> are the coefficients for the <span class="math inline">\(p\)</span> variables. <span class="math inline">\(\boldsymbol{\beta}=(\beta_0,\beta_1,\cdots,\beta_p)^T\)</span> is the vector notation representing all coefficients, including <span class="math inline">\(\beta_0\)</span>.</p>
@@ -400,7 +425,7 @@ which is equivalent to
 <span class="math display">\[ \mathbf{X}-\bar{\mathbf X} = \left(\begin{array}{cccc}
 |  &amp; |  &amp; \cdots &amp; | \\
 X_1-\bar{X}_1 &amp; X_2 - \bar{X}_2 &amp; \cdots &amp; X_p-\bar{X}_p \\
-|  &amp; |  &amp; \cdots &amp; | 
+|  &amp; |  &amp; \cdots &amp; |
 \end{array}\right) = \left(\begin{array}{cccc}
 x_{1, 1} - \bar{x}_1 &amp; x_{2, 1} - \bar{x}_2 &amp; \cdots &amp; x_{p, 1} - \bar{x}_p \\
 \vdots &amp; \vdots &amp;  &amp; \vdots \\
@@ -418,8 +443,8 @@ where <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> is the frequ
 <p>Similarly, the posterior variancc is a shrunken version of the OLS variance, by a factor of <span class="math inline">\(\displaystyle \frac{g}{1+g}\)</span>. The posterior distribution of <span class="math inline">\(\boldsymbol{\beta}\)</span> conditioning on <span class="math inline">\(\sigma^2\)</span> is a normal distribution
 <span class="math display">\[ \boldsymbol{\beta}~|~\sigma^2, \text{data}~\sim~ \textsf{Normal}(\frac{g}{1+g}\hat{\boldsymbol{\beta}} + \frac{1}{1+g}\boldsymbol{b}_0,\ \frac{g}{1+g}\sigma^2\text{S}_{\bf{xx}}^{-1}). \]</span></p>
 </div>
-<div id="bayes-factor-of-zellners-g-prior" class="section level3" number="8.2.2">
-<h3><span class="header-section-number">8.2.2</span> Bayes Factor of Zellner’s <span class="math inline">\(g\)</span>-Prior</h3>
+<div id="bayes-factor-of-zellners-g-prior" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Bayes Factor of Zellner’s <span class="math inline">\(g\)</span>-Prior<a href="stochastic-explorations-using-mcmc.html#bayes-factor-of-zellners-g-prior" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Because of this simplicity, Zellner’s <span class="math inline">\(g\)</span>-prior has been widely used in Bayesian model selection and Bayesian model averaging. One of the most popular versions uses the <span class="math inline">\(g\)</span>-prior for all coefficients except the intercept, and takes the prior mean to be the zero vector <span class="math inline">\(\boldsymbol{b}_0 = \bf{0}\)</span>. If we are not testing any hypotheses about the intercept <span class="math inline">\(\beta_0\)</span>, we may combine this <span class="math inline">\(g\)</span>-prior with the reference prior for the intercept <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\sigma^2\)</span>, that is, we set
 <span class="math display">\[ p(\beta_0, \sigma^2) \propto \frac{1}{\sigma^2}, \]</span>
 and use the <span class="math inline">\(g\)</span>-prior for the rest of the coefficients <span class="math inline">\((\beta_1, \cdots, \beta_p)^T\)</span>.</p>
@@ -441,8 +466,8 @@ and use the <span class="math inline">\(g\)</span>-prior for the rest of the coe
 <span class="math display">\[ \frac{1}{1+n/g}~\sim~ \textsf{Beta}(\frac{a}{2}, \frac{b}{2}), \]</span>
 with hyperparameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. Since the Bayes factor under this prior distribution can be expressed in terms of hypergeometric functions, this is called the hyper-<span class="math inline">\(g/n\)</span> prior.</p>
 </div>
-<div id="kids-cognitive-score-example" class="section level3" number="8.2.3">
-<h3><span class="header-section-number">8.2.3</span> Kid’s Cognitive Score Example</h3>
+<div id="kids-cognitive-score-example" class="section level3 hasAnchor" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> Kid’s Cognitive Score Example<a href="stochastic-explorations-using-mcmc.html#kids-cognitive-score-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We apply these priors on the kid’s cognitive score example and compare the posterior probability that each coefficient <span class="math inline">\(\beta_i,\ i = 1,2,3,4\)</span> to be non-zero. We first read in data and store the size of the data into <span class="math inline">\(n\)</span>. We will use this <span class="math inline">\(n\)</span> later, when setting priors for <span class="math inline">\(n/g\)</span>.</p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="stochastic-explorations-using-mcmc.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
 <span id="cb124-2"><a href="stochastic-explorations-using-mcmc.html#cb124-2" aria-hidden="true" tabindex="-1"></a>cognitive <span class="ot">=</span> <span class="fu">read.dta</span>(<span class="st">&quot;http://www.stat.columbia.edu/~gelman/arm/examples/child.iq/kidiq.dta&quot;</span>)</span>
@@ -509,11 +534,11 @@ In the plots above, the <span class="math inline">\(x\)</span>-axis lists all th
 
 </div>
 </div>
-<div id="r-demo-on-bas-package" class="section level2" number="8.3">
-<h2><span class="header-section-number">8.3</span> R Demo on <code>BAS</code> Package</h2>
+<div id="r-demo-on-bas-package" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> R Demo on <code>BAS</code> Package<a href="stochastic-explorations-using-mcmc.html#r-demo-on-bas-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this section, we will apply Bayesian model selection and model averaging on the US crime data set <code>UScrime</code> using the <code>BAS</code> package. We will introduce some additional diagnostic plots, and talk about the effect of multicollinearity in model uncertainty.</p>
-<div id="the-uscrime-data-set-and-data-processing" class="section level3" number="8.3.1">
-<h3><span class="header-section-number">8.3.1</span> The <code>UScrime</code> Data Set and Data Processing</h3>
+<div id="the-uscrime-data-set-and-data-processing" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> The <code>UScrime</code> Data Set and Data Processing<a href="stochastic-explorations-using-mcmc.html#the-uscrime-data-set-and-data-processing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We will demo the <code>BAS</code> commands using the US crime data set in the R libarry <code>MASS</code>.</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="stochastic-explorations-using-mcmc.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library and data set</span></span>
 <span id="cb128-2"><a href="stochastic-explorations-using-mcmc.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
@@ -624,8 +649,8 @@ In the plots above, the <span class="math inline">\(x\)</span>-axis lists all th
 <p>We transform the variables using the natural log function, except the indicator variable <code>So</code> (2nd column of the data set). We perform this transformation based on the analysis of this data set.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> Notice that <code>So</code> is already a numeric variable (<code>1</code> indicating Southern state and <code>0</code> otherwise), not as a categorical variable. Hence we do not need any data processing of this variable, unlike mother’s high school status <code>hs</code> and mother’s work status <code>work</code> in the kid’s cognitive score data set.</p>
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="stochastic-explorations-using-mcmc.html#cb131-1" aria-hidden="true" tabindex="-1"></a>UScrime[,<span class="sc">-</span><span class="dv">2</span>] <span class="ot">=</span> <span class="fu">log</span>(UScrime[,<span class="sc">-</span><span class="dv">2</span>])</span></code></pre></div>
 </div>
-<div id="bayesian-models-and-diagnostics" class="section level3" number="8.3.2">
-<h3><span class="header-section-number">8.3.2</span> Bayesian Models and Diagnostics</h3>
+<div id="bayesian-models-and-diagnostics" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Bayesian Models and Diagnostics<a href="stochastic-explorations-using-mcmc.html#bayesian-models-and-diagnostics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We run <code>bas.lm</code> function from the <code>BAS</code> package. We first run the full model and use this information for later decision on what variables to include. Here we have 15 potential predictors. The total number of models is<span class="math inline">\(\ 2^{15} = 32768\)</span>. This is not a very large number and <code>BAS</code> can enumerate all the models pretty quickly. However, we want to illustrate how to explore models using stochastic methods. Hence we set argument <code>method = MCMC</code> inside the <code>bas.lm</code> function. We also use the Zellner-Siow cauchy prior for the prior distributions of the coefficients in this regression.</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="stochastic-explorations-using-mcmc.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BAS)</span>
 <span id="cb132-2"><a href="stochastic-explorations-using-mcmc.html#cb132-2" aria-hidden="true" tabindex="-1"></a>crime.ZS <span class="ot">=</span>  <span class="fu">bas.lm</span>(y <span class="sc">~</span> ., <span class="at">data=</span>UScrime,</span>
@@ -636,13 +661,13 @@ In the plots above, the <span class="math inline">\(x\)</span>-axis lists all th
 <div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="stochastic-explorations-using-mcmc.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diagnostics</span>(crime.ZS, <span class="at">type=</span><span class="st">&quot;pip&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
 <p><img src="08-MCMC-03-demo_files/figure-html/diagnostics-1.png" width="80%" style="display: block; margin: auto;" /></p>
 <p>In this plot, the <span class="math inline">\(x\)</span>-axis is the renormalized posterior inclusion probability (pip) of each coefficient <span class="math inline">\(\beta_i,\ i=1,\cdots, 15\)</span> in this model. This can be calculated as
-<span class="math display" id="eq:pip">\[\begin{equation} 
+<span class="math display" id="eq:pip">\[\begin{equation}
 p(\beta_i\neq 0~|~\text{data}) = \sum_{M_m\in\text{ model space}}I(X_i\in M_m)\left(\frac{\textit{BF}[M_m:M_0]\textit{O}[M_m:M_0]}{\displaystyle \sum_{M_j}\textit{BF}[M_j:M_0]\textit{O}[M_j:M_0]}\right).
 \tag{8.2}
 \end{equation}\]</span></p>
 <p>Here, <span class="math inline">\(X_i\)</span> is the <span class="math inline">\(i\)</span>th predictor variable, and <span class="math inline">\(I(X_i\in M_m)\)</span> is the indicator function which is 1 if <span class="math inline">\(X_i\)</span> is included in model <span class="math inline">\(M_m\)</span> and 0 if <span class="math inline">\(X_i\)</span> is not included. The first <span class="math inline">\(\Sigma\)</span> notation indicates that we sum over all models <span class="math inline">\(M_m\)</span> in the model space. And we use
-<span class="math display" id="eq:weights">\[\begin{equation} 
-\frac{\textit{BF}[M_m:M_0]\textit{O}[M_m:M_0]}{\displaystyle \sum_{M_j}\textit{BF}[M_j:M_0]\textit{O}[M_j:M_0]} 
+<span class="math display" id="eq:weights">\[\begin{equation}
+\frac{\textit{BF}[M_m:M_0]\textit{O}[M_m:M_0]}{\displaystyle \sum_{M_j}\textit{BF}[M_j:M_0]\textit{O}[M_j:M_0]}
 \tag{8.3}
 \end{equation}\]</span>
 as the weights. You may recognize that the numerator of <a href="stochastic-explorations-using-mcmc.html#eq:weights">(8.3)</a> is exactly the ratio of the posterior probability of model <span class="math inline">\(M_m\)</span> over the posterior probability of the null model <span class="math inline">\(M_0\)</span>, i.e., the posterier odd <span class="math inline">\(\textit{PO}[M_m:M_0]\)</span>. We devide the posterior odd by the total sum of posterior odds of all models in the model space, to make sure these weights are between 0 and 1. The weight in Equation <a href="stochastic-explorations-using-mcmc.html#eq:weights">(8.3)</a> represents the posterior probability of the model <span class="math inline">\(M_m\)</span> after seeing the data <span class="math inline">\(p(M_m~|~\text{data})\)</span>, the one we used in Section <a href="bayesian-model-choice.html#sec:BMU">7.2</a>. So Equation <a href="stochastic-explorations-using-mcmc.html#eq:pip">(8.2)</a> is the theoretical calculation of pip, which can be rewrited as
@@ -692,82 +717,83 @@ Here <span class="math inline">\(J\)</span> is the total number of models that w
 <p><strong>Model Space Visualization</strong></p>
 <p>To focus on the high posterior probability models, we can look at the image of the model space.</p>
 <div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="stochastic-explorations-using-mcmc.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(crime.ZS, <span class="at">rotate =</span> F)</span></code></pre></div>
+<pre><code>## Warning in par(par.old): argument 1 does not name a graphical parameter</code></pre>
 <p><img src="08-MCMC-03-demo_files/figure-html/model-space-1.png" width="672" /></p>
 <p>By default, we only include the top 20 models. An interesting feature of this plot is, that whenever <code>Po1</code>, the police expenditures in 1960, is included, <code>Po2</code>, the police expenditures in 1959, will be excluded from the model, and vice versa.</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="stochastic-explorations-using-mcmc.html#cb141-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">cor</span>(UScrime<span class="sc">$</span>Po1, UScrime<span class="sc">$</span>Po2)</span>
-<span id="cb141-2"><a href="stochastic-explorations-using-mcmc.html#cb141-2" aria-hidden="true" tabindex="-1"></a>out </span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="stochastic-explorations-using-mcmc.html#cb142-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">cor</span>(UScrime<span class="sc">$</span>Po1, UScrime<span class="sc">$</span>Po2)</span>
+<span id="cb142-2"><a href="stochastic-explorations-using-mcmc.html#cb142-2" aria-hidden="true" tabindex="-1"></a>out </span></code></pre></div>
 <pre><code>## [1] 0.9933688</code></pre>
 <p>Calculating the correlation between the two variables, we see that that <code>Po1</code> and <code>Po2</code> are highly correlated with positive correlation 0.993.</p>
 </div>
-<div id="posterior-uncertainty-in-coefficients" class="section level3" number="8.3.3">
-<h3><span class="header-section-number">8.3.3</span> Posterior Uncertainty in Coefficients</h3>
+<div id="posterior-uncertainty-in-coefficients" class="section level3 hasAnchor" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> Posterior Uncertainty in Coefficients<a href="stochastic-explorations-using-mcmc.html#posterior-uncertainty-in-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Due to the interesting inclusion relationship between <code>Po1</code> and <code>Po2</code> in the top 20 models, we extract the two coefficients under Bayesian model averaging and take a look at the plots for the coefficients for <code>Po1</code> and <code>Po2</code>.</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="stochastic-explorations-using-mcmc.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract coefficients</span></span>
-<span id="cb143-2"><a href="stochastic-explorations-using-mcmc.html#cb143-2" aria-hidden="true" tabindex="-1"></a>coef.ZS<span class="ot">=</span><span class="fu">coef</span>(crime.ZS)</span>
-<span id="cb143-3"><a href="stochastic-explorations-using-mcmc.html#cb143-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb143-4"><a href="stochastic-explorations-using-mcmc.html#cb143-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Po1 and Po2 are in the 5th and 6th columns in UScrime</span></span>
-<span id="cb143-5"><a href="stochastic-explorations-using-mcmc.html#cb143-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb143-6"><a href="stochastic-explorations-using-mcmc.html#cb143-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coef.ZS, <span class="at">subset =</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>), </span>
-<span id="cb143-7"><a href="stochastic-explorations-using-mcmc.html#cb143-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">col.lab =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">col.axis =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">ask =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="stochastic-explorations-using-mcmc.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract coefficients</span></span>
+<span id="cb144-2"><a href="stochastic-explorations-using-mcmc.html#cb144-2" aria-hidden="true" tabindex="-1"></a>coef.ZS<span class="ot">=</span><span class="fu">coef</span>(crime.ZS)</span>
+<span id="cb144-3"><a href="stochastic-explorations-using-mcmc.html#cb144-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-4"><a href="stochastic-explorations-using-mcmc.html#cb144-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Po1 and Po2 are in the 5th and 6th columns in UScrime</span></span>
+<span id="cb144-5"><a href="stochastic-explorations-using-mcmc.html#cb144-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb144-6"><a href="stochastic-explorations-using-mcmc.html#cb144-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coef.ZS, <span class="at">subset =</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>), </span>
+<span id="cb144-7"><a href="stochastic-explorations-using-mcmc.html#cb144-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">col.lab =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">col.axis =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">ask =</span> F)</span></code></pre></div>
 <p><img src="08-MCMC-03-demo_files/figure-html/Po1-Po2-plots-1.png" width="672" /></p>
 <p>Under Bayesian model averaging, there is more mass at 0 for <code>Po2</code> than <code>Po1</code>, giving more posterior inclusion probability for <code>Po1</code>. This is also the reason why in the marginal posterior plot of variable importance, <code>Po1</code> has a blue line while <code>Po2</code> has a grey line. When <code>Po1</code> is excluded, the distributions of other coefficients in the model, except the one for <code>Po2</code>, will have similar distributions as when both <code>Po1</code> and <code>Po2</code> are in the model. However, when both predictors are included, the adjusted coefficient for <code>Po2</code> has more support on negative values, since we are over compensating for having both variables included in the model. In extreme cases of correlations, one may find that the coefficient plot is multimodal. If this is the case, the posterior mean may not be in the highest probability density credible interval, and this mean is not necessarily an informative summary. We will discuss more in the next section about making decisions on highly correlated variables.</p>
 <p>We can read the credible intervals of each variable using the <code>confint</code> function on the coefficient object <code>coef.ZS</code> of the model. Here we round the results in 4 decimal places.</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="stochastic-explorations-using-mcmc.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">confint</span>(coef.ZS), <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="stochastic-explorations-using-mcmc.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">confint</span>(coef.ZS), <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##              2.5%  97.5%    beta
-## Intercept  6.6688 6.7834  6.7249
-## M          0.0000 2.1641  1.1409
-## So        -0.0378 0.3328  0.0358
-## Ed         0.5888 3.1957  1.8548
-## Po1       -0.0006 1.4347  0.5963
-## Po2       -0.2428 1.4058  0.3221
-## LF        -0.5652 0.9936  0.0603
-## M.F       -2.3696 1.7872 -0.0255
-## Pop       -0.1280 0.0057 -0.0224
-## NW         0.0000 0.1655  0.0667
-## U1        -0.5315 0.3436 -0.0245
-## U2        -0.0044 0.6585  0.2065
-## GDP       -0.0861 1.1450  0.2068
-## Ineq       0.6927 2.1278  1.3893
-## Prob      -0.4148 0.0000 -0.2158
-## Time      -0.5195 0.0542 -0.0852
+## Intercept  6.6637 6.7779  6.7249
+## M          0.0000 2.1646  1.1429
+## So        -0.0609 0.3032  0.0354
+## Ed         0.6589 3.1973  1.8595
+## Po1        0.0000 1.4578  0.6049
+## Po2       -0.3144 1.3778  0.3151
+## LF        -0.5144 1.0117  0.0583
+## M.F       -2.3180 1.9704 -0.0231
+## Pop       -0.1268 0.0065 -0.0222
+## NW         0.0000 0.1663  0.0664
+## U1        -0.5294 0.3467 -0.0244
+## U2        -0.0019 0.6492  0.2067
+## GDP       -0.0611 1.1522  0.2042
+## Ineq       0.7028 2.1345  1.3903
+## Prob      -0.4115 0.0000 -0.2150
+## Time      -0.5194 0.0504 -0.0837
 ## attr(,&quot;Probability&quot;)
 ## [1] 0.95
 ## attr(,&quot;class&quot;)
 ## [1] &quot;confint.bas&quot;</code></pre>
 </div>
-<div id="prediction" class="section level3" number="8.3.4">
-<h3><span class="header-section-number">8.3.4</span> Prediction</h3>
+<div id="prediction" class="section level3 hasAnchor" number="8.3.4">
+<h3><span class="header-section-number">8.3.4</span> Prediction<a href="stochastic-explorations-using-mcmc.html#prediction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can use the usual <code>predict</code> function that we used for <code>lm</code> objects to obtain prediction from the <code>BAS</code> object <code>crime.ZS</code>. However, since we have different models to choose from under the Bayesian framework, we need to first specify which particular model we use to obtain the prediction. For example, if we would like to use the Bayesian model averaging results for coefficients to obtain predictions, we would specify the <code>estimator</code> argument in the <code>predict</code> function like the following</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="stochastic-explorations-using-mcmc.html#cb146-1" aria-hidden="true" tabindex="-1"></a>crime.BMA <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;BMA&quot;</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="stochastic-explorations-using-mcmc.html#cb147-1" aria-hidden="true" tabindex="-1"></a>crime.BMA <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;BMA&quot;</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>The fitted values can be obtained using the <code>fit</code> attribute of <code>crime.BMA</code>. We have transposed the fitted values into a vector to better present all the values.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="stochastic-explorations-using-mcmc.html#cb147-1" aria-hidden="true" tabindex="-1"></a>fitted <span class="ot">=</span> crime.BMA<span class="sc">$</span>fit</span>
-<span id="cb147-2"><a href="stochastic-explorations-using-mcmc.html#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.vector</span>(fitted)</span></code></pre></div>
-<pre><code>##  [1] 6.661675 7.298287 6.179761 7.610380 7.053822 6.514764 6.785171 7.266289
-##  [9] 6.629515 6.601260 7.055382 6.570744 6.471854 6.582460 6.557037 6.905168
-## [17] 6.228696 6.809556 6.943578 6.961962 6.608951 6.428516 6.899250 6.777073
-## [25] 6.405537 7.400253 6.020041 7.155884 7.089757 6.500181 6.209501 6.605858
-## [33] 6.798483 6.820083 6.625595 7.028805 6.794150 6.364052 6.603163 7.044631
-## [41] 6.547859 6.046058 6.929390 7.005888 6.235984 6.609199 6.830497</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="stochastic-explorations-using-mcmc.html#cb148-1" aria-hidden="true" tabindex="-1"></a>fitted <span class="ot">=</span> crime.BMA<span class="sc">$</span>fit</span>
+<span id="cb148-2"><a href="stochastic-explorations-using-mcmc.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.vector</span>(fitted)</span></code></pre></div>
+<pre><code>##  [1] 6.661523 7.298633 6.179181 7.610918 7.054620 6.513706 6.783577 7.266631
+##  [9] 6.629256 6.601253 7.054966 6.570552 6.473296 6.582135 6.556940 6.904770
+## [17] 6.229518 6.809451 6.943239 6.962062 6.609524 6.429458 6.898664 6.776913
+## [25] 6.406129 7.400904 6.019591 7.156416 7.090363 6.500313 6.208760 6.606196
+## [33] 6.797755 6.820131 6.625819 7.028788 6.793341 6.363582 6.603191 7.045172
+## [41] 6.548082 6.046189 6.929764 7.005957 6.235977 6.608952 6.829845</code></pre>
 <p>We may use these fitted values for further error calculations. We will talk about decision making on models and how to obtain predictions under different models in the next section.</p>
 
 </div>
 </div>
-<div id="decision-making-under-model-uncertainty" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> Decision Making Under Model Uncertainty</h2>
+<div id="decision-making-under-model-uncertainty" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Decision Making Under Model Uncertainty<a href="stochastic-explorations-using-mcmc.html#decision-making-under-model-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We are closing this chapter by presenting the last topic, decision making under model uncertainty. We have seen that under the Bayesian framework, we can use different prior distributions for coefficients, different model priors for models, and we can even use stochastic exploration methods for complex model selections. After selecting these coefficient priors and model priors, we can obtain the marginal posterior inclusion probability for each variable in the full model, which may provide some information about whether or not to include a particular variable in the model for further model analysis and predictions. With all the information presented in the results, which model would be the most appropriate model?</p>
 <p>In this section, we will talk about different methods for selecting models and decision making for posterior distributions and predictions. We will illustrate this process using the US crime data <code>UScrime</code> as an example and process it using the <code>BAS</code> package.</p>
 <p>We first prepare the data as in the last section and run <code>bas.lm</code> on the full model</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="stochastic-explorations-using-mcmc.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(UScrime, <span class="at">package=</span><span class="st">&quot;MASS&quot;</span>)</span>
-<span id="cb149-2"><a href="stochastic-explorations-using-mcmc.html#cb149-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb149-3"><a href="stochastic-explorations-using-mcmc.html#cb149-3" aria-hidden="true" tabindex="-1"></a><span class="co"># take the natural log transform on the variables except the 2nd column `So`</span></span>
-<span id="cb149-4"><a href="stochastic-explorations-using-mcmc.html#cb149-4" aria-hidden="true" tabindex="-1"></a>UScrime[, <span class="sc">-</span><span class="dv">2</span>] <span class="ot">=</span> <span class="fu">log</span>(UScrime[, <span class="sc">-</span><span class="dv">2</span>])</span>
-<span id="cb149-5"><a href="stochastic-explorations-using-mcmc.html#cb149-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb149-6"><a href="stochastic-explorations-using-mcmc.html#cb149-6" aria-hidden="true" tabindex="-1"></a><span class="co"># run Bayesian linear regression</span></span>
-<span id="cb149-7"><a href="stochastic-explorations-using-mcmc.html#cb149-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BAS)</span>
-<span id="cb149-8"><a href="stochastic-explorations-using-mcmc.html#cb149-8" aria-hidden="true" tabindex="-1"></a>crime.ZS <span class="ot">=</span>  <span class="fu">bas.lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> UScrime,</span>
-<span id="cb149-9"><a href="stochastic-explorations-using-mcmc.html#cb149-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">prior =</span> <span class="st">&quot;ZS-null&quot;</span>, <span class="at">modelprior =</span> <span class="fu">uniform</span>()) </span></code></pre></div>
-<div id="model-choice" class="section level3" number="8.4.1">
-<h3><span class="header-section-number">8.4.1</span> Model Choice</h3>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="stochastic-explorations-using-mcmc.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(UScrime, <span class="at">package=</span><span class="st">&quot;MASS&quot;</span>)</span>
+<span id="cb150-2"><a href="stochastic-explorations-using-mcmc.html#cb150-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-3"><a href="stochastic-explorations-using-mcmc.html#cb150-3" aria-hidden="true" tabindex="-1"></a><span class="co"># take the natural log transform on the variables except the 2nd column `So`</span></span>
+<span id="cb150-4"><a href="stochastic-explorations-using-mcmc.html#cb150-4" aria-hidden="true" tabindex="-1"></a>UScrime[, <span class="sc">-</span><span class="dv">2</span>] <span class="ot">=</span> <span class="fu">log</span>(UScrime[, <span class="sc">-</span><span class="dv">2</span>])</span>
+<span id="cb150-5"><a href="stochastic-explorations-using-mcmc.html#cb150-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-6"><a href="stochastic-explorations-using-mcmc.html#cb150-6" aria-hidden="true" tabindex="-1"></a><span class="co"># run Bayesian linear regression</span></span>
+<span id="cb150-7"><a href="stochastic-explorations-using-mcmc.html#cb150-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BAS)</span>
+<span id="cb150-8"><a href="stochastic-explorations-using-mcmc.html#cb150-8" aria-hidden="true" tabindex="-1"></a>crime.ZS <span class="ot">=</span>  <span class="fu">bas.lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> UScrime,</span>
+<span id="cb150-9"><a href="stochastic-explorations-using-mcmc.html#cb150-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">prior =</span> <span class="st">&quot;ZS-null&quot;</span>, <span class="at">modelprior =</span> <span class="fu">uniform</span>()) </span></code></pre></div>
+<div id="model-choice" class="section level3 hasAnchor" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Model Choice<a href="stochastic-explorations-using-mcmc.html#model-choice" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For Bayesian model choice, we start with the full model, which includes all the predictors. The uncertainty of selecting variables, or model uncertainty that we have been discussing, arises when we believe that some of the explanatory variables may be unrelated to the response variable. This corresponds to setting a regression coefficient <span class="math inline">\(\beta_j\)</span> to be exactly zero. We specify prior distributions that reflect our uncertainty about the importance of variables. We then update the model based on the data we obtained, resulting in posterior distributions over all models and the coefficients and variances within each model.</p>
 <p>Now the question has become, how to select a single model from the posterior distribution and use it for furture inference? What are the objectives from inference?</p>
 <p><strong>BMA Model</strong></p>
@@ -775,38 +801,38 @@ Here <span class="math inline">\(J\)</span> is the total number of models that w
 <p>We can obtain the posterior predictive mean by using the weighted average of all of the predictions from each sub model</p>
 <p><span class="math display">\[\hat{\mu} = E[\hat{Y}~|~\text{data}] = \sum_{M_m \in \text{ model space}}\hat{Y}\times p(M_m~|~\text{data}).\]</span>
 This prediction is the best under the squared error loss <span class="math inline">\(L_2\)</span>. From <code>BAS</code>, we can obtain predictions and fitted values using the usual <code>predict</code> and <code>fitted</code> functions. To specify which model we use for these results, we need to include argument <code>estimator</code>.</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="stochastic-explorations-using-mcmc.html#cb150-1" aria-hidden="true" tabindex="-1"></a>crime.BMA <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;BMA&quot;</span>)</span>
-<span id="cb150-2"><a href="stochastic-explorations-using-mcmc.html#cb150-2" aria-hidden="true" tabindex="-1"></a>mu_hat <span class="ot">=</span> <span class="fu">fitted</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;BMA&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="stochastic-explorations-using-mcmc.html#cb151-1" aria-hidden="true" tabindex="-1"></a>crime.BMA <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;BMA&quot;</span>)</span>
+<span id="cb151-2"><a href="stochastic-explorations-using-mcmc.html#cb151-2" aria-hidden="true" tabindex="-1"></a>mu_hat <span class="ot">=</span> <span class="fu">fitted</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;BMA&quot;</span>)</span></code></pre></div>
 <p><code>crime.BMA</code>, the object obtained by the <code>predict</code> function, has additional slots storing results from the BMA model.</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="stochastic-explorations-using-mcmc.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(crime.BMA)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="stochastic-explorations-using-mcmc.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(crime.BMA)</span></code></pre></div>
 <pre><code>##  [1] &quot;fit&quot;         &quot;Ybma&quot;        &quot;Ypred&quot;       &quot;postprobs&quot;   &quot;se.fit&quot;     
 ##  [6] &quot;se.pred&quot;     &quot;se.bma.fit&quot;  &quot;se.bma.pred&quot; &quot;df&quot;          &quot;best&quot;       
 ## [11] &quot;bestmodel&quot;   &quot;best.vars&quot;   &quot;estimator&quot;</code></pre>
 <p>Plotting the two sets of fitted values, one obtained from the <code>fitted</code> function, another obtained from the <code>fit</code> attribute of the <code>predict</code> object <code>crime.BMA</code>, we see that they are in perfect agreement.</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="stochastic-explorations-using-mcmc.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library and prepare data frame</span></span>
-<span id="cb153-2"><a href="stochastic-explorations-using-mcmc.html#cb153-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb153-3"><a href="stochastic-explorations-using-mcmc.html#cb153-3" aria-hidden="true" tabindex="-1"></a>output <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">mu_hat =</span> mu_hat, <span class="at">fitted =</span> crime.BMA<span class="sc">$</span>fit)</span>
-<span id="cb153-4"><a href="stochastic-explorations-using-mcmc.html#cb153-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb153-5"><a href="stochastic-explorations-using-mcmc.html#cb153-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot result from `fitted` function and result from `fit` attribute</span></span>
-<span id="cb153-6"><a href="stochastic-explorations-using-mcmc.html#cb153-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> output, <span class="fu">aes</span>(<span class="at">x =</span> mu_hat, <span class="at">y =</span> fitted)) <span class="sc">+</span> </span>
-<span id="cb153-7"><a href="stochastic-explorations-using-mcmc.html#cb153-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">16</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
-<span id="cb153-8"><a href="stochastic-explorations-using-mcmc.html#cb153-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb153-9"><a href="stochastic-explorations-using-mcmc.html#cb153-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="fu">expression</span>(<span class="fu">hat</span>(mu[i]))) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="fu">expression</span>(<span class="fu">hat</span>(Y[i])))</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="stochastic-explorations-using-mcmc.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library and prepare data frame</span></span>
+<span id="cb154-2"><a href="stochastic-explorations-using-mcmc.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb154-3"><a href="stochastic-explorations-using-mcmc.html#cb154-3" aria-hidden="true" tabindex="-1"></a>output <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">mu_hat =</span> mu_hat, <span class="at">fitted =</span> crime.BMA<span class="sc">$</span>fit)</span>
+<span id="cb154-4"><a href="stochastic-explorations-using-mcmc.html#cb154-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb154-5"><a href="stochastic-explorations-using-mcmc.html#cb154-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot result from `fitted` function and result from `fit` attribute</span></span>
+<span id="cb154-6"><a href="stochastic-explorations-using-mcmc.html#cb154-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> output, <span class="fu">aes</span>(<span class="at">x =</span> mu_hat, <span class="at">y =</span> fitted)) <span class="sc">+</span> </span>
+<span id="cb154-7"><a href="stochastic-explorations-using-mcmc.html#cb154-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">16</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb154-8"><a href="stochastic-explorations-using-mcmc.html#cb154-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb154-9"><a href="stochastic-explorations-using-mcmc.html#cb154-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="fu">expression</span>(<span class="fu">hat</span>(mu[i]))) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="fu">expression</span>(<span class="fu">hat</span>(Y[i])))</span></code></pre></div>
 <p><img src="08-MCMC-04-decisions_files/figure-html/BMA-fit-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Highest Probability Model</strong></p>
 <p>If our objective is to learn what is the most likely model to have generated the data using a 0-1 loss <span class="math inline">\(L_0\)</span>, then the highest probability model (HPM) is optimal.</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="stochastic-explorations-using-mcmc.html#cb154-1" aria-hidden="true" tabindex="-1"></a>crime.HPM <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;HPM&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="stochastic-explorations-using-mcmc.html#cb155-1" aria-hidden="true" tabindex="-1"></a>crime.HPM <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;HPM&quot;</span>)</span></code></pre></div>
 <p>The variables selected from this model can be obtained using the <code>bestmodel</code> attribute from the <code>crime.HPM</code> object. We extract the variable names from the <code>crime.HPM</code></p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="stochastic-explorations-using-mcmc.html#cb155-1" aria-hidden="true" tabindex="-1"></a>crime.HPM<span class="sc">$</span>best.vars</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="stochastic-explorations-using-mcmc.html#cb156-1" aria-hidden="true" tabindex="-1"></a>crime.HPM<span class="sc">$</span>best.vars</span></code></pre></div>
 <pre><code>## [1] &quot;Intercept&quot; &quot;M&quot;         &quot;Ed&quot;        &quot;Po1&quot;       &quot;NW&quot;        &quot;U2&quot;       
 ## [7] &quot;Ineq&quot;      &quot;Prob&quot;      &quot;Time&quot;</code></pre>
 <p>We see that, except the intercept, which is always in any models, the highest probability model also includes <code>M</code>, percentage of males aged 14-24; <code>Ed</code>, mean years of schooling; <code>Po1</code>, police expenditures in 1960; <code>NW</code>, number of non-whites per 1000 people; <code>U2</code>, unemployment rate of urban males aged 35-39; <code>Ineq</code>, income inequlity; <code>Prob</code>, probability of imprisonment, and <code>Time</code>, average time in state prison.</p>
 <p>To obtain the coefficients and their posterior means and posterior standard deviations, we tell give an optional argument to <code>coef</code> to indicate that we want to extract coefficients under the HPM.</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="stochastic-explorations-using-mcmc.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select coefficients of HPM</span></span>
-<span id="cb157-2"><a href="stochastic-explorations-using-mcmc.html#cb157-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb157-3"><a href="stochastic-explorations-using-mcmc.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Posterior means of coefficients</span></span>
-<span id="cb157-4"><a href="stochastic-explorations-using-mcmc.html#cb157-4" aria-hidden="true" tabindex="-1"></a>coef.crime.ZS <span class="ot">=</span> <span class="fu">coef</span>(crime.ZS, <span class="at">estimator=</span><span class="st">&quot;HPM&quot;</span>)</span>
-<span id="cb157-5"><a href="stochastic-explorations-using-mcmc.html#cb157-5" aria-hidden="true" tabindex="-1"></a>coef.crime.ZS</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="stochastic-explorations-using-mcmc.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select coefficients of HPM</span></span>
+<span id="cb158-2"><a href="stochastic-explorations-using-mcmc.html#cb158-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-3"><a href="stochastic-explorations-using-mcmc.html#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Posterior means of coefficients</span></span>
+<span id="cb158-4"><a href="stochastic-explorations-using-mcmc.html#cb158-4" aria-hidden="true" tabindex="-1"></a>coef.crime.ZS <span class="ot">=</span> <span class="fu">coef</span>(crime.ZS, <span class="at">estimator=</span><span class="st">&quot;HPM&quot;</span>)</span>
+<span id="cb158-5"><a href="stochastic-explorations-using-mcmc.html#cb158-5" aria-hidden="true" tabindex="-1"></a>coef.crime.ZS</span></code></pre></div>
 <pre><code>## 
 ##  Marginal Posterior Summaries of Coefficients: 
 ## 
@@ -831,22 +857,22 @@ This prediction is the best under the squared error loss <span class="math inlin
 ## Prob       -0.29910    0.08724   0.89918      
 ## Time       -0.27616    0.14574   0.37180</code></pre>
 <p>We can also obtain the posterior probability of this model using</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="stochastic-explorations-using-mcmc.html#cb159-1" aria-hidden="true" tabindex="-1"></a>postprob.HPM <span class="ot">=</span> crime.ZS<span class="sc">$</span>postprobs[crime.HPM<span class="sc">$</span>best]</span>
-<span id="cb159-2"><a href="stochastic-explorations-using-mcmc.html#cb159-2" aria-hidden="true" tabindex="-1"></a>postprob.HPM</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="stochastic-explorations-using-mcmc.html#cb160-1" aria-hidden="true" tabindex="-1"></a>postprob.HPM <span class="ot">=</span> crime.ZS<span class="sc">$</span>postprobs[crime.HPM<span class="sc">$</span>best]</span>
+<span id="cb160-2"><a href="stochastic-explorations-using-mcmc.html#cb160-2" aria-hidden="true" tabindex="-1"></a>postprob.HPM</span></code></pre></div>
 <pre><code>## [1] 0.01824728</code></pre>
 <p>we see that this highest probability model has posterior probability of only 0.018. There are many models that have comparable posterior probabilities. So even this model has the highest posterior probability, we are still pretty unsure about whether it is the best model.</p>
 <p><strong>Median Probability Model</strong></p>
 <p>Another model that is frequently reported, is the median probability model (MPM). This model includes all predictors whose marginal posterior inclusion probabilities are greater than 0.5. If the variables are all uncorrelated, this will be the same as the highest posterior probability model. For a sequence of nested models such as polynomial regression with increasing powers, the median probability model is the best single model for prediction.</p>
 <p>However, since in the US crime example, <code>Po1</code> and <code>Po2</code> are highly correlated, we see that the variables included in MPM are slightly different than the variables included in HPM.</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="stochastic-explorations-using-mcmc.html#cb161-1" aria-hidden="true" tabindex="-1"></a>crime.MPM <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;MPM&quot;</span>)</span>
-<span id="cb161-2"><a href="stochastic-explorations-using-mcmc.html#cb161-2" aria-hidden="true" tabindex="-1"></a>crime.MPM<span class="sc">$</span>best.vars</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="stochastic-explorations-using-mcmc.html#cb162-1" aria-hidden="true" tabindex="-1"></a>crime.MPM <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;MPM&quot;</span>)</span>
+<span id="cb162-2"><a href="stochastic-explorations-using-mcmc.html#cb162-2" aria-hidden="true" tabindex="-1"></a>crime.MPM<span class="sc">$</span>best.vars</span></code></pre></div>
 <pre><code>## [1] &quot;Intercept&quot; &quot;M&quot;         &quot;Ed&quot;        &quot;Po1&quot;       &quot;NW&quot;        &quot;U2&quot;       
 ## [7] &quot;Ineq&quot;      &quot;Prob&quot;</code></pre>
 <p>As we see, this model only includes 7 variables, <code>M</code>, <code>Ed</code>, <code>Po1</code>, <code>NW</code>, <code>U2</code>, <code>Ineq</code>, and <code>Prob</code>. It does not include <code>Time</code> variable as in HPM.</p>
 <p>When there are correlated predictors in non-nested models, MPM in general does well. However, if the correlations among variables increase, MPM may miss important variables as the correlations tend to dilute the posterior inclusing probabilities of related variables.</p>
 <p>To obtain the coefficients in the median probability model, we specify that the estimator is now “MPM”:</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="stochastic-explorations-using-mcmc.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain coefficients of the  Median Probabilty Model</span></span>
-<span id="cb163-2"><a href="stochastic-explorations-using-mcmc.html#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;MPM&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="stochastic-explorations-using-mcmc.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain coefficients of the  Median Probabilty Model</span></span>
+<span id="cb164-2"><a href="stochastic-explorations-using-mcmc.html#cb164-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;MPM&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Marginal Posterior Summaries of Coefficients: 
 ## 
@@ -873,56 +899,56 @@ This prediction is the best under the squared error loss <span class="math inlin
 <p><strong>Best Predictive Model</strong></p>
 <p>If our objective is prediction from a single model, the best choice is to find the model whose predictions are closest to those given by BMA. “Closest” could be based on squared error loss for predictions, or be based on any other loss functions. Unfortunately, there is no nice expression for this model. However, we can still calculate the loss for each of our sampled models to try to identify this best predictive model, or BPM.</p>
 <p>Using the squared error loss, we find that the best predictive model is the one whose predictions are closest to BMA.</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="stochastic-explorations-using-mcmc.html#cb165-1" aria-hidden="true" tabindex="-1"></a>crime.BPM <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;BPM&quot;</span>)</span>
-<span id="cb165-2"><a href="stochastic-explorations-using-mcmc.html#cb165-2" aria-hidden="true" tabindex="-1"></a>crime.BPM<span class="sc">$</span>best.vars</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="stochastic-explorations-using-mcmc.html#cb166-1" aria-hidden="true" tabindex="-1"></a>crime.BPM <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;BPM&quot;</span>)</span>
+<span id="cb166-2"><a href="stochastic-explorations-using-mcmc.html#cb166-2" aria-hidden="true" tabindex="-1"></a>crime.BPM<span class="sc">$</span>best.vars</span></code></pre></div>
 <pre><code>##  [1] &quot;Intercept&quot; &quot;M&quot;         &quot;So&quot;        &quot;Ed&quot;        &quot;Po1&quot;       &quot;Po2&quot;      
 ##  [7] &quot;M.F&quot;       &quot;NW&quot;        &quot;U2&quot;        &quot;Ineq&quot;      &quot;Prob&quot;</code></pre>
 <p>The best predictive model includes not only the 7 variables that MPM includes, but also <code>M.F</code>, number of males per 1000 females, and <code>Po2</code>, the police expenditures in 1959.</p>
 <p>Using the <code>se.fit = TRUE</code> option with <code>predict</code> we can calculate standard deviations for the predictions or for the mean. Then we can use this as input for the <code>confint</code> function for the prediction object. Here we only show the results of the first 20 data points.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="stochastic-explorations-using-mcmc.html#cb167-1" aria-hidden="true" tabindex="-1"></a>crime.BPM <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;BPM&quot;</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb167-2"><a href="stochastic-explorations-using-mcmc.html#cb167-2" aria-hidden="true" tabindex="-1"></a>crime.BPM.conf.fit <span class="ot">=</span> <span class="fu">confint</span>(crime.BPM, <span class="at">parm =</span> <span class="st">&quot;mean&quot;</span>)</span>
-<span id="cb167-3"><a href="stochastic-explorations-using-mcmc.html#cb167-3" aria-hidden="true" tabindex="-1"></a>crime.BPM.conf.pred <span class="ot">=</span> <span class="fu">confint</span>(crime.BPM, <span class="at">parm =</span> <span class="st">&quot;pred&quot;</span>)</span>
-<span id="cb167-4"><a href="stochastic-explorations-using-mcmc.html#cb167-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(crime.BPM<span class="sc">$</span>fit, crime.BPM.conf.fit, crime.BPM.conf.pred)</span>
-<span id="cb167-5"><a href="stochastic-explorations-using-mcmc.html#cb167-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                    2.5%    97.5%     mean     2.5%    97.5%     pred</span></span>
-<span id="cb167-6"><a href="stochastic-explorations-using-mcmc.html#cb167-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1,] 6.668988 6.513238 6.824738 6.668988 6.258715 7.079261 6.668988</span></span>
-<span id="cb167-7"><a href="stochastic-explorations-using-mcmc.html#cb167-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  [2,] 7.290854 7.151787 7.429921 7.290854 6.886619 7.695089 7.290854</span></span>
-<span id="cb167-8"><a href="stochastic-explorations-using-mcmc.html#cb167-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  [3,] 6.202166 6.039978 6.364354 6.202166 5.789406 6.614926 6.202166</span></span>
-<span id="cb167-9"><a href="stochastic-explorations-using-mcmc.html#cb167-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4,] 7.661307 7.490608 7.832006 7.661307 7.245129 8.077484 7.661307</span></span>
-<span id="cb167-10"><a href="stochastic-explorations-using-mcmc.html#cb167-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5,] 7.015570 6.847647 7.183493 7.015570 6.600523 7.430617 7.015570</span></span>
-<span id="cb167-11"><a href="stochastic-explorations-using-mcmc.html#cb167-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6,] 6.469547 6.279276 6.659818 6.469547 6.044966 6.894128 6.469547</span></span>
-<span id="cb167-12"><a href="stochastic-explorations-using-mcmc.html#cb167-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7,] 6.776133 6.555130 6.997135 6.776133 6.336920 7.215346 6.776133</span></span>
-<span id="cb167-13"><a href="stochastic-explorations-using-mcmc.html#cb167-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [8,] 7.299560 7.117166 7.481955 7.299560 6.878450 7.720670 7.299560</span></span>
-<span id="cb167-14"><a href="stochastic-explorations-using-mcmc.html#cb167-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9,] 6.614927 6.482384 6.747470 6.614927 6.212890 7.016964 6.614927</span></span>
-<span id="cb167-15"><a href="stochastic-explorations-using-mcmc.html#cb167-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [10,] 6.596912 6.468988 6.724836 6.596912 6.196374 6.997449 6.596912</span></span>
-<span id="cb167-16"><a href="stochastic-explorations-using-mcmc.html#cb167-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [11,] 7.032834 6.877582 7.188087 7.032834 6.622750 7.442918 7.032834</span></span>
-<span id="cb167-17"><a href="stochastic-explorations-using-mcmc.html#cb167-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [12,] 6.581822 6.462326 6.701317 6.581822 6.183896 6.979748 6.581822</span></span>
-<span id="cb167-18"><a href="stochastic-explorations-using-mcmc.html#cb167-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [13,] 6.467921 6.281998 6.653843 6.467921 6.045271 6.890571 6.467921</span></span>
-<span id="cb167-19"><a href="stochastic-explorations-using-mcmc.html#cb167-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [14,] 6.566239 6.403813 6.728664 6.566239 6.153385 6.979092 6.566239</span></span>
-<span id="cb167-20"><a href="stochastic-explorations-using-mcmc.html#cb167-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [15,] 6.550129 6.388987 6.711270 6.550129 6.137779 6.962479 6.550129</span></span>
-<span id="cb167-21"><a href="stochastic-explorations-using-mcmc.html#cb167-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [16,] 6.888592 6.746097 7.031087 6.888592 6.483166 7.294019 6.888592</span></span>
-<span id="cb167-22"><a href="stochastic-explorations-using-mcmc.html#cb167-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [17,] 6.252735 6.063944 6.441526 6.252735 5.828815 6.676654 6.252735</span></span>
-<span id="cb167-23"><a href="stochastic-explorations-using-mcmc.html#cb167-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [18,] 6.795764 6.564634 7.026895 6.795764 6.351369 7.240160 6.795764</span></span>
-<span id="cb167-24"><a href="stochastic-explorations-using-mcmc.html#cb167-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [19,] 6.945687 6.766289 7.125086 6.945687 6.525866 7.365508 6.945687</span></span>
-<span id="cb167-25"><a href="stochastic-explorations-using-mcmc.html#cb167-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [20,] 7.000331 6.840374 7.160289 7.000331 6.588442 7.412220 7.000331</span></span>
-<span id="cb167-26"><a href="stochastic-explorations-using-mcmc.html#cb167-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [...]</span></span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="stochastic-explorations-using-mcmc.html#cb168-1" aria-hidden="true" tabindex="-1"></a>crime.BPM <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">estimator =</span> <span class="st">&quot;BPM&quot;</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb168-2"><a href="stochastic-explorations-using-mcmc.html#cb168-2" aria-hidden="true" tabindex="-1"></a>crime.BPM.conf.fit <span class="ot">=</span> <span class="fu">confint</span>(crime.BPM, <span class="at">parm =</span> <span class="st">&quot;mean&quot;</span>)</span>
+<span id="cb168-3"><a href="stochastic-explorations-using-mcmc.html#cb168-3" aria-hidden="true" tabindex="-1"></a>crime.BPM.conf.pred <span class="ot">=</span> <span class="fu">confint</span>(crime.BPM, <span class="at">parm =</span> <span class="st">&quot;pred&quot;</span>)</span>
+<span id="cb168-4"><a href="stochastic-explorations-using-mcmc.html#cb168-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(crime.BPM<span class="sc">$</span>fit, crime.BPM.conf.fit, crime.BPM.conf.pred)</span>
+<span id="cb168-5"><a href="stochastic-explorations-using-mcmc.html#cb168-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                    2.5%    97.5%     mean     2.5%    97.5%     pred</span></span>
+<span id="cb168-6"><a href="stochastic-explorations-using-mcmc.html#cb168-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1,] 6.668988 6.513238 6.824738 6.668988 6.258715 7.079261 6.668988</span></span>
+<span id="cb168-7"><a href="stochastic-explorations-using-mcmc.html#cb168-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  [2,] 7.290854 7.151787 7.429921 7.290854 6.886619 7.695089 7.290854</span></span>
+<span id="cb168-8"><a href="stochastic-explorations-using-mcmc.html#cb168-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  [3,] 6.202166 6.039978 6.364354 6.202166 5.789406 6.614926 6.202166</span></span>
+<span id="cb168-9"><a href="stochastic-explorations-using-mcmc.html#cb168-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4,] 7.661307 7.490608 7.832006 7.661307 7.245129 8.077484 7.661307</span></span>
+<span id="cb168-10"><a href="stochastic-explorations-using-mcmc.html#cb168-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5,] 7.015570 6.847647 7.183493 7.015570 6.600523 7.430617 7.015570</span></span>
+<span id="cb168-11"><a href="stochastic-explorations-using-mcmc.html#cb168-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6,] 6.469547 6.279276 6.659818 6.469547 6.044966 6.894128 6.469547</span></span>
+<span id="cb168-12"><a href="stochastic-explorations-using-mcmc.html#cb168-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7,] 6.776133 6.555130 6.997135 6.776133 6.336920 7.215346 6.776133</span></span>
+<span id="cb168-13"><a href="stochastic-explorations-using-mcmc.html#cb168-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [8,] 7.299560 7.117166 7.481955 7.299560 6.878450 7.720670 7.299560</span></span>
+<span id="cb168-14"><a href="stochastic-explorations-using-mcmc.html#cb168-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9,] 6.614927 6.482384 6.747470 6.614927 6.212890 7.016964 6.614927</span></span>
+<span id="cb168-15"><a href="stochastic-explorations-using-mcmc.html#cb168-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [10,] 6.596912 6.468988 6.724836 6.596912 6.196374 6.997449 6.596912</span></span>
+<span id="cb168-16"><a href="stochastic-explorations-using-mcmc.html#cb168-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [11,] 7.032834 6.877582 7.188087 7.032834 6.622750 7.442918 7.032834</span></span>
+<span id="cb168-17"><a href="stochastic-explorations-using-mcmc.html#cb168-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [12,] 6.581822 6.462326 6.701317 6.581822 6.183896 6.979748 6.581822</span></span>
+<span id="cb168-18"><a href="stochastic-explorations-using-mcmc.html#cb168-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [13,] 6.467921 6.281998 6.653843 6.467921 6.045271 6.890571 6.467921</span></span>
+<span id="cb168-19"><a href="stochastic-explorations-using-mcmc.html#cb168-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [14,] 6.566239 6.403813 6.728664 6.566239 6.153385 6.979092 6.566239</span></span>
+<span id="cb168-20"><a href="stochastic-explorations-using-mcmc.html#cb168-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [15,] 6.550129 6.388987 6.711270 6.550129 6.137779 6.962479 6.550129</span></span>
+<span id="cb168-21"><a href="stochastic-explorations-using-mcmc.html#cb168-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [16,] 6.888592 6.746097 7.031087 6.888592 6.483166 7.294019 6.888592</span></span>
+<span id="cb168-22"><a href="stochastic-explorations-using-mcmc.html#cb168-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [17,] 6.252735 6.063944 6.441526 6.252735 5.828815 6.676654 6.252735</span></span>
+<span id="cb168-23"><a href="stochastic-explorations-using-mcmc.html#cb168-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [18,] 6.795764 6.564634 7.026895 6.795764 6.351369 7.240160 6.795764</span></span>
+<span id="cb168-24"><a href="stochastic-explorations-using-mcmc.html#cb168-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [19,] 6.945687 6.766289 7.125086 6.945687 6.525866 7.365508 6.945687</span></span>
+<span id="cb168-25"><a href="stochastic-explorations-using-mcmc.html#cb168-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [20,] 7.000331 6.840374 7.160289 7.000331 6.588442 7.412220 7.000331</span></span>
+<span id="cb168-26"><a href="stochastic-explorations-using-mcmc.html#cb168-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [...]</span></span></code></pre></div>
 <p>The option <code>estimator = "BPM</code> is not yet available in <code>coef()</code>, so we will need to work a little harder to get the coefficients by refitting the BPM.
 First we need to extract a vector of zeros and ones representing which variables are included in the BPM model.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="stochastic-explorations-using-mcmc.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract a binary vector of zeros and ones for the variables included </span></span>
-<span id="cb168-2"><a href="stochastic-explorations-using-mcmc.html#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="co"># in the BPM</span></span>
-<span id="cb168-3"><a href="stochastic-explorations-using-mcmc.html#cb168-3" aria-hidden="true" tabindex="-1"></a>BPM <span class="ot">=</span> <span class="fu">as.vector</span>(<span class="fu">which.matrix</span>(crime.ZS<span class="sc">$</span>which[crime.BPM<span class="sc">$</span>best],</span>
-<span id="cb168-4"><a href="stochastic-explorations-using-mcmc.html#cb168-4" aria-hidden="true" tabindex="-1"></a>                             crime.ZS<span class="sc">$</span>n.vars))</span>
-<span id="cb168-5"><a href="stochastic-explorations-using-mcmc.html#cb168-5" aria-hidden="true" tabindex="-1"></a>BPM</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="stochastic-explorations-using-mcmc.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract a binary vector of zeros and ones for the variables included </span></span>
+<span id="cb169-2"><a href="stochastic-explorations-using-mcmc.html#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="co"># in the BPM</span></span>
+<span id="cb169-3"><a href="stochastic-explorations-using-mcmc.html#cb169-3" aria-hidden="true" tabindex="-1"></a>BPM <span class="ot">=</span> <span class="fu">as.vector</span>(<span class="fu">which.matrix</span>(crime.ZS<span class="sc">$</span>which[crime.BPM<span class="sc">$</span>best],</span>
+<span id="cb169-4"><a href="stochastic-explorations-using-mcmc.html#cb169-4" aria-hidden="true" tabindex="-1"></a>                             crime.ZS<span class="sc">$</span>n.vars))</span>
+<span id="cb169-5"><a href="stochastic-explorations-using-mcmc.html#cb169-5" aria-hidden="true" tabindex="-1"></a>BPM</span></code></pre></div>
 <pre><code>##  [1] 1 1 1 1 1 1 0 1 0 1 0 1 0 1 1 0</code></pre>
 <p>Next, we will refit the model with <code>bas.lm</code> using the optional argument <code>bestmodel = BPM</code>. In general, this is the starting model for the stochastic search, which is helpful for starting the MCMC.
 We will also specify that want to have 1 model by setting <code>n.models = 1</code>. In this way, <code>bas.lm</code> starts with the BPM and fits only that model.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="stochastic-explorations-using-mcmc.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-run regression and specify `bestmodel` and `n.models`</span></span>
-<span id="cb170-2"><a href="stochastic-explorations-using-mcmc.html#cb170-2" aria-hidden="true" tabindex="-1"></a>crime.ZS.BPM <span class="ot">=</span> <span class="fu">bas.lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> UScrime,</span>
-<span id="cb170-3"><a href="stochastic-explorations-using-mcmc.html#cb170-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">prior =</span> <span class="st">&quot;ZS-null&quot;</span>,</span>
-<span id="cb170-4"><a href="stochastic-explorations-using-mcmc.html#cb170-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">modelprior =</span> <span class="fu">uniform</span>(),</span>
-<span id="cb170-5"><a href="stochastic-explorations-using-mcmc.html#cb170-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">bestmodel =</span> BPM, <span class="at">n.models =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="stochastic-explorations-using-mcmc.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-run regression and specify `bestmodel` and `n.models`</span></span>
+<span id="cb171-2"><a href="stochastic-explorations-using-mcmc.html#cb171-2" aria-hidden="true" tabindex="-1"></a>crime.ZS.BPM <span class="ot">=</span> <span class="fu">bas.lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> UScrime,</span>
+<span id="cb171-3"><a href="stochastic-explorations-using-mcmc.html#cb171-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">prior =</span> <span class="st">&quot;ZS-null&quot;</span>,</span>
+<span id="cb171-4"><a href="stochastic-explorations-using-mcmc.html#cb171-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">modelprior =</span> <span class="fu">uniform</span>(),</span>
+<span id="cb171-5"><a href="stochastic-explorations-using-mcmc.html#cb171-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">bestmodel =</span> BPM, <span class="at">n.models =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>Now since we have only one model in our new object representing the BPM, we can use the <code>coef</code> function to obtain the summaries.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="stochastic-explorations-using-mcmc.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain coefficients of MPM</span></span>
-<span id="cb171-2"><a href="stochastic-explorations-using-mcmc.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(crime.ZS.BPM)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="stochastic-explorations-using-mcmc.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain coefficients of MPM</span></span>
+<span id="cb172-2"><a href="stochastic-explorations-using-mcmc.html#cb172-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(crime.ZS.BPM)</span></code></pre></div>
 <pre><code>## 
 ##  Marginal Posterior Summaries of Coefficients: 
 ## 
@@ -949,55 +975,55 @@ We will also specify that want to have 1 model by setting <code>n.models = 1</co
 <p>Note the posterior probabilities that coefficients are zero is either zero or one since we have selected a model.</p>
 <p><strong>Comparison of Models</strong></p>
 <p>After discussing all 4 different models, let us compare their prediction results.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="stochastic-explorations-using-mcmc.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set plot settings</span></span>
-<span id="cb173-2"><a href="stochastic-explorations-using-mcmc.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">cex =</span> <span class="fl">1.8</span>, <span class="at">cex.axis =</span> <span class="fl">1.8</span>, <span class="at">cex.lab =</span> <span class="dv">2</span>, <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">3</span>),</span>
-<span id="cb173-3"><a href="stochastic-explorations-using-mcmc.html#cb173-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.lab =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">col.axis =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkgrey&quot;</span>)</span>
-<span id="cb173-4"><a href="stochastic-explorations-using-mcmc.html#cb173-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb173-5"><a href="stochastic-explorations-using-mcmc.html#cb173-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library and plot paired-correlations</span></span>
-<span id="cb173-6"><a href="stochastic-explorations-using-mcmc.html#cb173-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb173-7"><a href="stochastic-explorations-using-mcmc.html#cb173-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(<span class="fu">data.frame</span>(<span class="at">HPM =</span> <span class="fu">as.vector</span>(crime.HPM<span class="sc">$</span>fit),  </span>
-<span id="cb173-8"><a href="stochastic-explorations-using-mcmc.html#cb173-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">MPM =</span> <span class="fu">as.vector</span>(crime.MPM<span class="sc">$</span>fit),  </span>
-<span id="cb173-9"><a href="stochastic-explorations-using-mcmc.html#cb173-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">BPM =</span> <span class="fu">as.vector</span>(crime.BPM<span class="sc">$</span>fit),  </span>
-<span id="cb173-10"><a href="stochastic-explorations-using-mcmc.html#cb173-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">BMA =</span> <span class="fu">as.vector</span>(crime.BMA<span class="sc">$</span>fit))) </span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="stochastic-explorations-using-mcmc.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set plot settings</span></span>
+<span id="cb174-2"><a href="stochastic-explorations-using-mcmc.html#cb174-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">cex =</span> <span class="fl">1.8</span>, <span class="at">cex.axis =</span> <span class="fl">1.8</span>, <span class="at">cex.lab =</span> <span class="dv">2</span>, <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">3</span>),</span>
+<span id="cb174-3"><a href="stochastic-explorations-using-mcmc.html#cb174-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.lab =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">col.axis =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkgrey&quot;</span>)</span>
+<span id="cb174-4"><a href="stochastic-explorations-using-mcmc.html#cb174-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb174-5"><a href="stochastic-explorations-using-mcmc.html#cb174-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library and plot paired-correlations</span></span>
+<span id="cb174-6"><a href="stochastic-explorations-using-mcmc.html#cb174-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb174-7"><a href="stochastic-explorations-using-mcmc.html#cb174-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(<span class="fu">data.frame</span>(<span class="at">HPM =</span> <span class="fu">as.vector</span>(crime.HPM<span class="sc">$</span>fit),  </span>
+<span id="cb174-8"><a href="stochastic-explorations-using-mcmc.html#cb174-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">MPM =</span> <span class="fu">as.vector</span>(crime.MPM<span class="sc">$</span>fit),  </span>
+<span id="cb174-9"><a href="stochastic-explorations-using-mcmc.html#cb174-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">BPM =</span> <span class="fu">as.vector</span>(crime.BPM<span class="sc">$</span>fit),  </span>
+<span id="cb174-10"><a href="stochastic-explorations-using-mcmc.html#cb174-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">BMA =</span> <span class="fu">as.vector</span>(crime.BMA<span class="sc">$</span>fit))) </span></code></pre></div>
 <p><img src="08-MCMC-04-decisions_files/figure-html/paired-cor-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>From the above paired correlation plots, we see that the correlations among them are extremely high. As expected, the single best predictive model (BPM) has the highest correlation with MPM, with a correlation of 0.998. However, the highest posterior model (HPM) and the Bayesian model averaging model (BMA) are nearly equally as good.</p>
 </div>
-<div id="prediction-with-new-data" class="section level3" number="8.4.2">
-<h3><span class="header-section-number">8.4.2</span> Prediction with New Data</h3>
+<div id="prediction-with-new-data" class="section level3 hasAnchor" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Prediction with New Data<a href="stochastic-explorations-using-mcmc.html#prediction-with-new-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Using the <code>newdata</code> option in the <code>predict</code> function, we can obtain prediction from a new data set. Here we pretend that <code>UScrime</code> is an another new data set, and we use BMA to obtain the prediction of new observations. Here we only show the results of the first 20 data points.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="stochastic-explorations-using-mcmc.html#cb174-1" aria-hidden="true" tabindex="-1"></a>BMA.new <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">newdata =</span> UScrime, <span class="at">estimator =</span> <span class="st">&quot;BMA&quot;</span>,</span>
-<span id="cb174-2"><a href="stochastic-explorations-using-mcmc.html#cb174-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">se.fit =</span> <span class="cn">TRUE</span>, <span class="at">nsim =</span> <span class="dv">10000</span>)</span>
-<span id="cb174-3"><a href="stochastic-explorations-using-mcmc.html#cb174-3" aria-hidden="true" tabindex="-1"></a>crime.conf.fit.new <span class="ot">=</span> <span class="fu">confint</span>(BMA.new, <span class="at">parm =</span> <span class="st">&quot;mean&quot;</span>)</span>
-<span id="cb174-4"><a href="stochastic-explorations-using-mcmc.html#cb174-4" aria-hidden="true" tabindex="-1"></a>crime.conf.pred.new <span class="ot">=</span> <span class="fu">confint</span>(BMA.new, <span class="at">parm =</span> <span class="st">&quot;pred&quot;</span>)</span>
-<span id="cb174-5"><a href="stochastic-explorations-using-mcmc.html#cb174-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb174-6"><a href="stochastic-explorations-using-mcmc.html#cb174-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the combined results compared to the fitted values in BPM</span></span>
-<span id="cb174-7"><a href="stochastic-explorations-using-mcmc.html#cb174-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(crime.BPM<span class="sc">$</span>fit, crime.conf.fit.new, crime.conf.pred.new)</span>
-<span id="cb174-8"><a href="stochastic-explorations-using-mcmc.html#cb174-8" aria-hidden="true" tabindex="-1"></a><span class="do">##                    2.5%    97.5%     mean     2.5%    97.5%     pred</span></span>
-<span id="cb174-9"><a href="stochastic-explorations-using-mcmc.html#cb174-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1,] 6.668988 6.507004 6.805861 6.661770 6.265060 7.085936 6.661770</span></span>
-<span id="cb174-10"><a href="stochastic-explorations-using-mcmc.html#cb174-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [2,] 7.290854 7.135107 7.455853 7.298827 6.873612 7.718924 7.298827</span></span>
-<span id="cb174-11"><a href="stochastic-explorations-using-mcmc.html#cb174-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  [3,] 6.202166 5.957048 6.398890 6.179308 5.734236 6.641782 6.179308</span></span>
-<span id="cb174-12"><a href="stochastic-explorations-using-mcmc.html#cb174-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4,] 7.661307 7.378105 7.827777 7.610585 7.160737 8.071361 7.610585</span></span>
-<span id="cb174-13"><a href="stochastic-explorations-using-mcmc.html#cb174-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5,] 7.015570 6.850713 7.250942 7.054238 6.621058 7.487435 7.054238</span></span>
-<span id="cb174-14"><a href="stochastic-explorations-using-mcmc.html#cb174-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6,] 6.469547 6.278884 6.735213 6.514064 6.043378 6.944683 6.514064</span></span>
-<span id="cb174-15"><a href="stochastic-explorations-using-mcmc.html#cb174-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7,] 6.776133 6.509515 7.067940 6.784846 6.287685 7.258711 6.784846</span></span>
-<span id="cb174-16"><a href="stochastic-explorations-using-mcmc.html#cb174-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  [8,] 7.299560 7.027849 7.470557 7.266344 6.836132 7.729484 7.266344</span></span>
-<span id="cb174-17"><a href="stochastic-explorations-using-mcmc.html#cb174-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9,] 6.614927 6.478767 6.780692 6.629448 6.211871 7.028061 6.629448</span></span>
-<span id="cb174-18"><a href="stochastic-explorations-using-mcmc.html#cb174-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [10,] 6.596912 6.468824 6.742507 6.601246 6.198175 7.031105 6.601246</span></span>
-<span id="cb174-19"><a href="stochastic-explorations-using-mcmc.html#cb174-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [11,] 7.032834 6.873221 7.243745 7.055003 6.624916 7.483605 7.055003</span></span>
-<span id="cb174-20"><a href="stochastic-explorations-using-mcmc.html#cb174-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [12,] 6.581822 6.424910 6.721049 6.570625 6.147487 6.981317 6.570625</span></span>
-<span id="cb174-21"><a href="stochastic-explorations-using-mcmc.html#cb174-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [13,] 6.467921 6.205828 6.714608 6.472327 6.022044 6.947159 6.472327</span></span>
-<span id="cb174-22"><a href="stochastic-explorations-using-mcmc.html#cb174-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [14,] 6.566239 6.387777 6.756936 6.582374 6.161461 7.028385 6.582374</span></span>
-<span id="cb174-23"><a href="stochastic-explorations-using-mcmc.html#cb174-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [15,] 6.550129 6.351619 6.752549 6.556880 6.135951 7.018397 6.556880</span></span>
-<span id="cb174-24"><a href="stochastic-explorations-using-mcmc.html#cb174-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [16,] 6.888592 6.755950 7.070535 6.905017 6.476432 7.319180 6.905017</span></span>
-<span id="cb174-25"><a href="stochastic-explorations-using-mcmc.html#cb174-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [17,] 6.252735 5.993090 6.477733 6.229073 5.776120 6.688132 6.229073</span></span>
-<span id="cb174-26"><a href="stochastic-explorations-using-mcmc.html#cb174-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [18,] 6.795764 6.542348 7.101304 6.809572 6.356049 7.309413 6.809572</span></span>
-<span id="cb174-27"><a href="stochastic-explorations-using-mcmc.html#cb174-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [19,] 6.945687 6.753499 7.134091 6.943294 6.531347 7.386504 6.943294</span></span>
-<span id="cb174-28"><a href="stochastic-explorations-using-mcmc.html#cb174-28" aria-hidden="true" tabindex="-1"></a><span class="do">## [20,] 7.000331 6.773628 7.138002 6.961980 6.547728 7.404579 6.961980</span></span>
-<span id="cb174-29"><a href="stochastic-explorations-using-mcmc.html#cb174-29" aria-hidden="true" tabindex="-1"></a><span class="do">## [...]</span></span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="stochastic-explorations-using-mcmc.html#cb175-1" aria-hidden="true" tabindex="-1"></a>BMA.new <span class="ot">=</span> <span class="fu">predict</span>(crime.ZS, <span class="at">newdata =</span> UScrime, <span class="at">estimator =</span> <span class="st">&quot;BMA&quot;</span>,</span>
+<span id="cb175-2"><a href="stochastic-explorations-using-mcmc.html#cb175-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">se.fit =</span> <span class="cn">TRUE</span>, <span class="at">nsim =</span> <span class="dv">10000</span>)</span>
+<span id="cb175-3"><a href="stochastic-explorations-using-mcmc.html#cb175-3" aria-hidden="true" tabindex="-1"></a>crime.conf.fit.new <span class="ot">=</span> <span class="fu">confint</span>(BMA.new, <span class="at">parm =</span> <span class="st">&quot;mean&quot;</span>)</span>
+<span id="cb175-4"><a href="stochastic-explorations-using-mcmc.html#cb175-4" aria-hidden="true" tabindex="-1"></a>crime.conf.pred.new <span class="ot">=</span> <span class="fu">confint</span>(BMA.new, <span class="at">parm =</span> <span class="st">&quot;pred&quot;</span>)</span>
+<span id="cb175-5"><a href="stochastic-explorations-using-mcmc.html#cb175-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-6"><a href="stochastic-explorations-using-mcmc.html#cb175-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the combined results compared to the fitted values in BPM</span></span>
+<span id="cb175-7"><a href="stochastic-explorations-using-mcmc.html#cb175-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(crime.BPM<span class="sc">$</span>fit, crime.conf.fit.new, crime.conf.pred.new)</span>
+<span id="cb175-8"><a href="stochastic-explorations-using-mcmc.html#cb175-8" aria-hidden="true" tabindex="-1"></a><span class="do">##                    2.5%    97.5%     mean     2.5%    97.5%     pred</span></span>
+<span id="cb175-9"><a href="stochastic-explorations-using-mcmc.html#cb175-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1,] 6.668988 6.516780 6.821115 6.661770 6.242610 7.067277 6.661770</span></span>
+<span id="cb175-10"><a href="stochastic-explorations-using-mcmc.html#cb175-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [2,] 7.290854 7.135519 7.456165 7.298827 6.860438 7.711159 7.298827</span></span>
+<span id="cb175-11"><a href="stochastic-explorations-using-mcmc.html#cb175-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  [3,] 6.202166 5.957311 6.398369 6.179308 5.719796 6.610824 6.179308</span></span>
+<span id="cb175-12"><a href="stochastic-explorations-using-mcmc.html#cb175-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [4,] 7.661307 7.376774 7.830490 7.610585 7.143189 8.037652 7.610585</span></span>
+<span id="cb175-13"><a href="stochastic-explorations-using-mcmc.html#cb175-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5,] 7.015570 6.849270 7.254401 7.054238 6.622239 7.482155 7.054238</span></span>
+<span id="cb175-14"><a href="stochastic-explorations-using-mcmc.html#cb175-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6,] 6.469547 6.291613 6.753466 6.514064 6.060883 6.954264 6.514064</span></span>
+<span id="cb175-15"><a href="stochastic-explorations-using-mcmc.html#cb175-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7,] 6.776133 6.506525 7.076572 6.784846 6.296845 7.257308 6.784846</span></span>
+<span id="cb175-16"><a href="stochastic-explorations-using-mcmc.html#cb175-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  [8,] 7.299560 7.044601 7.480467 7.266344 6.834868 7.713212 7.266344</span></span>
+<span id="cb175-17"><a href="stochastic-explorations-using-mcmc.html#cb175-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9,] 6.614927 6.489487 6.789850 6.629448 6.227549 7.043140 6.629448</span></span>
+<span id="cb175-18"><a href="stochastic-explorations-using-mcmc.html#cb175-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [10,] 6.596912 6.467658 6.739482 6.601246 6.177264 7.008391 6.601246</span></span>
+<span id="cb175-19"><a href="stochastic-explorations-using-mcmc.html#cb175-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [11,] 7.032834 6.868583 7.234648 7.055003 6.614423 7.471305 7.055003</span></span>
+<span id="cb175-20"><a href="stochastic-explorations-using-mcmc.html#cb175-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [12,] 6.581822 6.423730 6.718106 6.570625 6.154369 6.983410 6.570625</span></span>
+<span id="cb175-21"><a href="stochastic-explorations-using-mcmc.html#cb175-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [13,] 6.467921 6.218146 6.723079 6.472327 6.012763 6.946144 6.472327</span></span>
+<span id="cb175-22"><a href="stochastic-explorations-using-mcmc.html#cb175-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [14,] 6.566239 6.391846 6.762702 6.582374 6.142590 6.996450 6.582374</span></span>
+<span id="cb175-23"><a href="stochastic-explorations-using-mcmc.html#cb175-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [15,] 6.550129 6.349988 6.751031 6.556880 6.114315 6.983550 6.556880</span></span>
+<span id="cb175-24"><a href="stochastic-explorations-using-mcmc.html#cb175-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [16,] 6.888592 6.744616 7.062936 6.905017 6.491021 7.323912 6.905017</span></span>
+<span id="cb175-25"><a href="stochastic-explorations-using-mcmc.html#cb175-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [17,] 6.252735 5.991623 6.467533 6.229073 5.768655 6.680241 6.229073</span></span>
+<span id="cb175-26"><a href="stochastic-explorations-using-mcmc.html#cb175-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [18,] 6.795764 6.554739 7.103414 6.809572 6.348136 7.290984 6.809572</span></span>
+<span id="cb175-27"><a href="stochastic-explorations-using-mcmc.html#cb175-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [19,] 6.945687 6.750989 7.133344 6.943294 6.508221 7.370331 6.943294</span></span>
+<span id="cb175-28"><a href="stochastic-explorations-using-mcmc.html#cb175-28" aria-hidden="true" tabindex="-1"></a><span class="do">## [20,] 7.000331 6.775472 7.138530 6.961980 6.529950 7.388461 6.961980</span></span>
+<span id="cb175-29"><a href="stochastic-explorations-using-mcmc.html#cb175-29" aria-hidden="true" tabindex="-1"></a><span class="do">## [...]</span></span></code></pre></div>
 </div>
 </div>
-<div id="summary-4" class="section level2" number="8.5">
-<h2><span class="header-section-number">8.5</span> Summary</h2>
+<div id="summary-4" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Summary<a href="stochastic-explorations-using-mcmc.html#summary-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this chapter, we have introduced one of the common stochastic exploration methods, Markov Chain Monte Carlo, to explore the model space to obtain approximation of posterior probability of each model when the model space is too large for theoretical enumeration. We see that model selection can be sensitive to the prior distributions of coefficients, and introduced Zellner’s <span class="math inline">\(g\)</span>-prior so that we have to elicit only one hyper-parameter to specify the prior. Still model selection can be sensitive to the choice of <span class="math inline">\(g\)</span> where values that are too large may unintentially lead to the null model receiving high probability in Bartlett’s paradox. To resolve this and other paradoxes related to the choice of <span class="math inline">\(g\)</span>, we recommend default choices that have improved robustness to prior misspecification such as the unit information <span class="math inline">\(g\)</span>-prior, the Zellner-Siow Cauchy prior, and the hyper-<span class="math inline">\(g/n\)</span> prior.</p>
 <p>We then demonstrated a multiple linear regression process using the <code>BAS</code> package and the US crime data <code>UScrime</code> using the Zellner-Siow cauchy prior, and have tried to understand the importance of variables.
 Finally, we have compared the prediction results from different models, such as the ones from Bayesian model average (BMA), the highest probability model (HPM), the median probability model (MPM), and the best predictive model (BPM). For the comparison, we have used the Zellner-Siow Cauchy prior. But of course there is not one single best prior that is the best overall. If you do have prior information about a variable, you should include it. If you expect that there should be many predictors related to the response variable <span class="math inline">\(Y\)</span>, but that each has a small effect, an alternate prior may be better. Also, think critically about whether model selection is important. If you believe that all the variables should be relevant but are worried about over fitting, there are alternative priors that will avoid putting probabilities on coefficients that are exactly zero and will still prevent over fitting by shrinkage of coefficients to prior means. Examples include the Bayesian lasso or Bayesian horseshoe.</p>
@@ -1005,19 +1031,19 @@ Finally, we have compared the prediction results from different models, such as 
 <p>Multiple linear regression is one of the most widely used statistical methods, however, this is just the tip of the iceberg of what you can do with Bayesian methods.</p>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-chaloner1988bayesian" class="csl-entry">
+<div class="csl-entry">
 Chaloner, Kathryn, and Rollin Brant. 1988. <span>“A Bayesian Approach to Outlier Detection and Residual Analysis.”</span> <em>Biometrika</em> 75 (4): 651–59.
 </div>
-<div id="ref-hoff2009first" class="csl-entry">
+<div class="csl-entry">
 Hoff, Peter D. 2009. <em>A First Course in Bayesian Statistical Methods</em>. Springer Science &amp; Business Media.
 </div>
-<div id="ref-jeffreys1961theory" class="csl-entry">
+<div class="csl-entry">
 Jeffreys, Sir Harold. 1961. <em>Theory of Probability: 3rd Edition</em>. Clarendon Press.
 </div>
-<div id="ref-kass1995bayes" class="csl-entry">
+<div class="csl-entry">
 Kass, Robert E, and Adrian E Raftery. 1995. <span>“Bayes Factors.”</span> <em>Journal of the American Statistical Association</em> 90 (430): 773–95.
 </div>
-<div id="ref-venables2013modern" class="csl-entry">
+<div class="csl-entry">
 Venables, William N, and Brian D Ripley. 2013. <em>Modern Applied Statistics with s-PLUS</em>. Springer Science &amp; Business Media.
 </div>
 </div>
@@ -1035,10 +1061,16 @@ Venables, William N, and Brian D Ripley. 2013. <em>Modern Applied Statistics wit
 
 
 
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-venables2013modern" class="csl-entry">
+Venables, William N, and Brian D Ripley. 2013. <em>Modern Applied Statistics with s-PLUS</em>. Springer Science &amp; Business Media.
+</div>
+</div>
 <div class="footnotes">
 <hr />
 <ol start="7">
-<li id="fn7"><p>More details can be found in <span class="citation"><a href="stochastic-explorations-using-mcmc.html#ref-venables2013modern" role="doc-biblioref">Venables and Ripley</a> (<a href="stochastic-explorations-using-mcmc.html#ref-venables2013modern" role="doc-biblioref">2013</a>)</span>.<a href="stochastic-explorations-using-mcmc.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>More details can be found in <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern" role="doc-biblioref">2013</a>)</span>.<a href="stochastic-explorations-using-mcmc.html#fnref7" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -1051,7 +1083,6 @@ Venables, William N, and Brian D Ripley. 2013. <em>Modern Applied Statistics wit
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -1070,6 +1101,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -1090,6 +1122,10 @@ gitbook.start({
 "text": null
 },
 "download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

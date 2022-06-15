@@ -21,6 +21,10 @@ In R, the image function may be used to create an image of the model space that 
 image(cog_bas, rotate = F)
 ```
 
+```
+## Warning in par(par.old): argument 1 does not name a graphical parameter
+```
+
 ![](07-modelSelection-03-model-averaging_files/figure-latex/visualize-1.pdf)<!-- --> 
 
 To obtain a clearer view for model comparison, we did not rotate the image. Here, the predictors, including the intercept, are on the $y$-axis, while the $x$-axis corresponds to each different model. Each vertical column corresponds to one model. For variables that are not included in one model, they will be represented by black blocks. For example, model 1 includes the intercept, `hs`, and `IQ`, but not `work` or `age`. These models are ordered according to the log of posterior odd over the null model (model with only the intercept). The log of posterior odd is calculated as

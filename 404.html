@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>An Introduction to Bayesian Thinking</title>
-  <meta name="description" content="An Introduction to Bayesian Thinking" />
+  <title>Page not found | An Introduction to Bayesian Thinking</title>
+  <meta name="description" content="Page not found | An Introduction to Bayesian Thinking" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="An Introduction to Bayesian Thinking" />
+  <meta property="og:title" content="Page not found | An Introduction to Bayesian Thinking" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="StatsWithR/book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="An Introduction to Bayesian Thinking" />
+  <meta name="twitter:title" content="Page not found | An Introduction to Bayesian Thinking" />
   
   
   
@@ -35,7 +35,7 @@
   
   
 
-<link rel="next" href="the-basics-of-bayesian-statistics.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -348,41 +348,11 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">An Introduction to Bayesian Thinking</h1>
-<h2 class="subtitle"><em>A Companion to the Statistics with R Course</em></h2>
-<p class="author"><em>Merlise Clyde</em></p>
-<p class="author"><em>Mine Çetinkaya-Rundel</em></p>
-<p class="author"><em>Colin Rundel</em></p>
-<p class="author"><em>David Banks</em></p>
-<p class="author"><em>Christine Chai</em></p>
-<p class="author"><em>Lizzy Huang</em></p>
-<p class="date"><em>Last built on 2022-06-15</em></p>
-</div>
-<div id="preface" class="section level1 unnumbered hasAnchor">
-<h1>Preface<a href="index.html#preface" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This book was written as a companion for the Course <em>Bayesian Statistics</em> from the Statistics with <code>R</code> specialization available on Coursera. Our goal in developing the course was to provide an introduction to Bayesian inference in decision making without requiring calculus, with the book providing more details and background on Bayesian Inference. In writing this, we hope that it may be used on its own as an open-access introduction to Bayesian inference using <code>R</code> for anyone interested in learning about Bayesian statistics. Materials and examples from the course are discussed more extensively and extra examples and exercises are provided. While learners are not expected to have any background in calculus or linear algebra, for those who do have this background and are interested in diving deeper, we have included optional sub-sections in each Chapter to provide additional mathematical details and some derivations of key results.</p>
-<p>This book is written using the <code>R</code> package <code>bookdown</code>; any interested learners are welcome to download the source code from <a href="http://github.com/StatsWithR/book">github</a> to see the code that was used to create all of the examples and figures within the book. Learners should have a current version of <code>R</code> (3.5.0 at the time of this version of the book) and will need to install <code>Rstudio</code> in order to use any of the <code>shiny</code> apps.</p>
-<p>Those that are interested in running all of the code in the book or building the book locally, should download all of the following packages from <code>CRAN</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R packages used to create the book</span></span>
-<span id="cb1-2"><a href="index.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="index.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statsr)</span>
-<span id="cb1-4"><a href="index.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BAS)</span>
-<span id="cb1-5"><a href="index.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-6"><a href="index.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-7"><a href="index.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BayesFactor)</span>
-<span id="cb1-8"><a href="index.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-9"><a href="index.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rjags)</span>
-<span id="cb1-10"><a href="index.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coda) </span>
-<span id="cb1-11"><a href="index.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(latex2exp)</span>
-<span id="cb1-12"><a href="index.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
-<span id="cb1-13"><a href="index.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BHH2)</span>
-<span id="cb1-14"><a href="index.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb1-15"><a href="index.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(logspline)</span>
-<span id="cb1-16"><a href="index.html#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
-<span id="cb1-17"><a href="index.html#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span></code></pre></div>
-<p>We thank Amy Kenyon and Kun Li for all of their support in launching the course on Coursera and Kyle Burris for contributions to lab exercises and quizzes in earlier versions of the course.</p>
-
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
 </div>
             </section>
 
@@ -390,7 +360,7 @@ div.csl-indent {
         </div>
       </div>
 
-<a href="the-basics-of-bayesian-statistics.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -421,7 +391,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/statswithr/book/edit/master/index.Rmd",
+"link": "https://github.com/statswithr/book/edit/master/%s",
 "text": "Edit"
 },
 "history": {

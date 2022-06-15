@@ -2,9 +2,9 @@
 
 Now we illustrate why certain estimates minimize certain loss functions.
 
-\BeginKnitrBlock{example}
-<span class="example" id="exm:car"><strong>(\#exm:car) </strong></span>You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure \@ref(fig:posterior-decision). The mean, median and the mode of the distribution are also marked on the plot. Your boss does not know any Bayesian statistics though, so he/she wants you to report **a single number** for the number of cars the dealership will sell per month.
-\EndKnitrBlock{example}
+::: {.example #car}
+You work at a car dealership. Your boss wants to know how many cars the dealership will sell per month. An analyst who has worked with past data from your company provided you a distribution that shows the probability of number of cars the dealership will sell per month. In Bayesian lingo, this is called the posterior distribution. A dot plot of that posterior is shown in Figure \@ref(fig:posterior-decision). The mean, median and the mode of the distribution are also marked on the plot. Your boss does not know any Bayesian statistics though, so he/she wants you to report **a single number** for the number of cars the dealership will sell per month.
+:::
 
 \begin{figure}
 

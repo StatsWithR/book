@@ -30,7 +30,7 @@ Why would this be a reasonable prior for an analyst to self-elicit? One reason i
 
 As previously mentioned, the posterior distribution $\pi^*(p)$ for $p$ has a complex mathematical form. That is why Bayesian inference languished for so many decades until computational power enabled numerical solutions. But now we have simulation tools to help us, and one of them is called **JAGS (Just Another Gibbs Sampler)**.
 
-If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution $\pi^*(p)$, as in Figure \@ref(fig:JAGS-screenshot). At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results. 
+If we apply JAGS to the RU-486 data with this non-conjugate prior, we can find the posterior distribution $\pi^*(p)$, as in Figure \@ref(fig:JAGS-plot). At a high level, this program is defining the binomial probability, that is the likelihood of seeing 0 RU-486 children, which is binomial. And then it defines the prior by using a few tricks to draw from either a uniform on the interval from 0 to one-half, or else draw from the point mass at one-half. Then it calls the JAGS model function, and draws 5,000 times from the posterior and creates a histogram of the results. 
 
 
 
@@ -104,13 +104,13 @@ $$P(X \leq x) = \int^{\infty}_{-\infty} P(X \leq x | \theta)\, p(\theta)d\theta 
 
 The equation gives us the weighted average of the probabilities for $X$, where the weights correspond to the personal probability on $\theta$. Here we will not perform the integral case; instead, we will illustrate the thinking with a discrete example. 
 
-\BeginKnitrBlock{example}
-<span class="example" id="exm:unnamed-chunk-1"><strong>(\#exm:unnamed-chunk-1) </strong></span>Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 
+::: {.example #unnamed-chunk-1}
+Suppose you have two coins. One coin has probability 0.7 of coming up heads, and the other has probability 0.4 of coming up heads. You are playing a gambling game with a friend, and you draw one of those two coins at random from a bag. 
 
 Before you start the game, your prior belief is that the probability of choosing the 0.7 coin is 0.5. This is reasonable, because both coins were equally likely to be drawn. In this game, you win if the coin comes up heads. 
 
 Suppose the game starts, you have tossed twice, and have obtained two heads. Then what is your new belief about $p$, the probability that you are using the 0.7 coin? 
-\EndKnitrBlock{example}
+:::
 
 This is just a simple application of the discrete form of Bayes' rule. 
 

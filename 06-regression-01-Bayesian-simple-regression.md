@@ -450,7 +450,7 @@ Now the joint prior distribution of $\alpha, \beta$, and $\sigma^2$ form a distr
 The marginal posterior distribution of the coefficient vector $\bv = (\alpha, \beta)$ will be bivariate normal, and the marginal posterior distribution of $\sigma^2$ is again an inverse Gamma distribution
 $$ 1/\sigma^2~|~y_1,\cdots,y_n \sim \Ga\left(\frac{\nu_0+n}{2}, \frac{\nu_0\sigma_0^2+\text{SSE}}{2}\right). $$
 
-One can see that the reference prior is the limiting case of this conjugate prior we impose. We usually use Gibbs sampling to approximate the joint posterior distribution instead of using the result directly, especially when we have more regression coefficients in multiple linear regression models. We omit the deviations of the posterior distributions due to the heavy use of advanced linear algebra. One can refer to @hoff2009first for more details.
+One can see that the reference prior is the limiting case of this conjugate prior we impose. We usually use Gibbs sampling to approximate the joint posterior distribution instead of using the result directly, especially when we have more regression coefficients in multiple linear regression models. We omit the derivation of the posterior distributions due to the heavy use of advanced linear algebra. One can refer to @hoff2009first for more details.
 
 Based on any prior information we have for the model, we can also impose other priors and assumptions on $\alpha$, $\beta$, and $\sigma^2$ to get different Bayesian results. Most of these priors will not form any conjugacy and will require us to use simulation methods such as Markov Chain Monte Carlo (MCMC) for approximations. We will introduce the general idea of MCMC in Chapter 8.
 

@@ -7,11 +7,11 @@ output:
 
 We previously learned that we can use a paired t-test to compare means from two paired samples. In this section, we will show how Bayes factors can be expressed as a function of the t-statistic for comparing the means and provide posterior probabilities of the hypothesis that whether the means are equal or different.
 
-\BeginKnitrBlock{example}
-<span class="example" id="exm:zinc"><strong>(\#exm:zinc) </strong></span>Trace metals in drinking water affect the flavor, and unusually high concentrations can pose a health hazard. Ten pairs of data were taken measuring the zinc concentration in bottom and surface water at ten randomly sampled locations, as listed in Table \@ref(tab:zinc-table).
+::: {.example #zinc}
+Trace metals in drinking water affect the flavor, and unusually high concentrations can pose a health hazard. Ten pairs of data were taken measuring the zinc concentration in bottom and surface water at ten randomly sampled locations, as listed in Table \@ref(tab:zinc-table).
 
 Water samples collected at the the same location, on the surface and the bottom, cannot be assumed to be independent of each other. However, it may be reasonable to assume that the differences in the concentration at the bottom and the surface in randomly sampled locations are independent of each other.
-\EndKnitrBlock{example}
+:::
 
 \begin{table}
 
@@ -132,11 +132,11 @@ bayes_inference(difference, data=zinc, statistic="mean", type="ht",
 ## 
 ## Posterior Summaries
 ##             2.5%        25%        50%         75%       97.5%
-## mu    0.03647262 0.06333449 0.07540406  0.08718646  0.11232882
-## sigma 0.03666785 0.04737179 0.05529330  0.06554199  0.09534214
-## n_0   0.16245877 1.89232241 4.73583089 10.07598224 32.43263753
+## mu    0.03644165 0.06330793 0.07537836  0.08717155  0.11219575
+## sigma 0.03667137 0.04739824 0.05528498  0.06554032  0.09551376
+## n_0   0.16110471 1.88398728 4.72113317 10.06572004 32.38149654
 ## 
-## 95% CI for mu: (0.0365, 0.1123)
+## 95% CI for mu: (0.0364, 0.1122)
 ```
 
 

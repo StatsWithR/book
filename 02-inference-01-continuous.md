@@ -77,21 +77,21 @@ Next, we introduce the concept of prior elicitation in Bayesian statistics. Ofte
 
 Bayesians express their belief in terms of personal probabilities. These personal probabilities encapsulate everything a Bayesian knows or believes about the problem. But these beliefs must obey the laws of probability, and be consistent with everything else the Bayesian knows. 
 
-\BeginKnitrBlock{example}
-<span class="example" id="exm:200percent"><strong>(\#exm:200percent) </strong></span>You cannot say that your probability of passing this course is 200%, no matter how confident you are. A probability value must be between zero and one. (If you still think you have a probability of 200% to pass the course, you are definitely not going to pass it.)
-\EndKnitrBlock{example}
+::: {.example #200percent}
+You cannot say that your probability of passing this course is 200%, no matter how confident you are. A probability value must be between zero and one. (If you still think you have a probability of 200% to pass the course, you are definitely not going to pass it.)
+:::
 
-\BeginKnitrBlock{example}
-<span class="example" id="exm:binomial-data"><strong>(\#exm:binomial-data) </strong></span>You may know nothing at all about the value of $p$ that generated some binomial data. In which case any value between zero and one is equally likely, you may want to make an inference on the proportion of people who would buy a new band of toothpaste. If you have industry experience, you may have a strong belief about the value of $p$, but if you are new to the industry you would do nothing about $p$. In any value between zero and one seems equally like a deal. This major personal probability is the uniform distribution whose probably density function is flat, denoted as $\text{Unif}(0,1)$.
-\EndKnitrBlock{example}
+::: {.example #binomial-data}
+You may know nothing at all about the value of $p$ that generated some binomial data. In which case any value between zero and one is equally likely, you may want to make an inference on the proportion of people who would buy a new band of toothpaste. If you have industry experience, you may have a strong belief about the value of $p$, but if you are new to the industry you would do nothing about $p$. In any value between zero and one seems equally like a deal. This major personal probability is the uniform distribution whose probably density function is flat, denoted as $\text{Unif}(0,1)$.
+:::
 
-\BeginKnitrBlock{example}
-<span class="example" id="exm:coin-toss"><strong>(\#exm:coin-toss) </strong></span>If you were tossing a coin, most people believed that the probability of heads is pretty close to half. They know that some coins are biased and that some coins may have two heads or two tails. And they probably also know that coins are not perfectly balanced. Nonetheless, before they start to collect data by tossing the coin and counting the number of heads their belief is that values of $p$ near 0.5 are very likely, whereas values of $p$ near 0 or 1 are very unlikely. 
-\EndKnitrBlock{example}
+::: {.example #coin-toss}
+If you were tossing a coin, most people believed that the probability of heads is pretty close to half. They know that some coins are biased and that some coins may have two heads or two tails. And they probably also know that coins are not perfectly balanced. Nonetheless, before they start to collect data by tossing the coin and counting the number of heads their belief is that values of $p$ near 0.5 are very likely, whereas values of $p$ near 0 or 1 are very unlikely. 
+:::
 
-\BeginKnitrBlock{example}
-<span class="example" id="exm:marriage"><strong>(\#exm:marriage) </strong></span>In real life, here are two ways to elicit a probability that you cousin will get married. A frequentist might go to the U.S. Census records and determine what proportion of people get married (or, better, what proportion of people of your cousin's ethnicity, education level, religion, and age cohort are married). In contrast, a Bayesian might think "My cousin is brilliant, attractive, and fun. The probability that my cousin gets married is really high -- probably around 0.97."
-\EndKnitrBlock{example}
+::: {.example #marriage}
+In real life, here are two ways to elicit a probability that you cousin will get married. A frequentist might go to the U.S. Census records and determine what proportion of people get married (or, better, what proportion of people of your cousin's ethnicity, education level, religion, and age cohort are married). In contrast, a Bayesian might think "My cousin is brilliant, attractive, and fun. The probability that my cousin gets married is really high -- probably around 0.97."
+:::
 
 So a Bayesian will seek to express their belief about the value of $p$ through a probability distribution, and a very flexible family of distributions for this purpose is the **beta family**. A member of the beta family is specified by two parameters, $\alpha$ and $\beta$; we denote this as $p \sim \text{beta}(\alpha, \beta)$. The probability density function is 
 

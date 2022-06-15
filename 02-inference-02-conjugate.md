@@ -4,11 +4,11 @@ In this section, the three conjugate families are beta-binomial, gamma-Poisson, 
 
 ### Inference on a Binomial Proportion
 
-\BeginKnitrBlock{example}
-<span class="example" id="exm:RU-486more"><strong>(\#exm:RU-486more) </strong></span>Recall Example \@ref(exm:RU-486), a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception. 
+::: {.example #RU-486more}
+Recall Example \@ref(exm:RU-486), a simplified version of a real clinical trial taken in Scotland. It concerned RU-486, a morning after pill that was being studied to determine whether it was effective at preventing unwanted pregnancies. It had 800 women, each of whom had intercourse no more than 72 hours before reporting to a family planning clinic to seek contraception. 
 
 Half of these women were randomly assigned to the standard contraceptive, a large dose of estrogen and progesterone. And half of the women were assigned RU-486. Among the RU-486 group, there were no pregnancies. Among those receiving the standard therapy, four became pregnant. 
-\EndKnitrBlock{example}
+:::
 
 Statistically, one can model these data as coming from a binomial distribution. Imagine a coin with two sides. One side is labeled standard therapy and the other is labeled RU-486. The coin was tossed four times, and each time it landed with the standard therapy side face up.
 
@@ -74,13 +74,13 @@ where $k! = k \times (k-1) \times \cdots \times 1$. This gives the probability o
 Note that $\lambda$ is both the mean and the variance of the Poisson random variable. It is obvious that $\lambda$ must be greater than zero, because it represents the mean number of counts, and the variance should be greater than zero (except for constants, which have zero variance).
 
 
-\BeginKnitrBlock{example}
-<span class="example" id="exm:Poisson"><strong>(\#exm:Poisson) </strong></span>Famously, von Bortkiewicz used the Poisson distribution to study the number of Prussian cavalrymen who were kicked to death by a horse each year. This is count data over the course of a year, and the events are probably independent, so the Poisson model makes sense.
+::: {.example #Poisson}
+Famously, von Bortkiewicz used the Poisson distribution to study the number of Prussian cavalrymen who were kicked to death by a horse each year. This is count data over the course of a year, and the events are probably independent, so the Poisson model makes sense.
 
 He had data on 15 cavalry units for the 20 years between 1875 and 1894, inclusive. The total number of cavalrymen who died by horse kick was 200. 
 
 One can imagine that a Prussian general might want to estimate $\lambda$. The average number per year, per unit. Perhaps in order to see whether some educational campaign about best practices for equine safety would make a difference.
-\EndKnitrBlock{example}
+:::
 
 Suppose the Prussian general is a Bayesian. Introspective elicitation leads him to think that $\lambda=0.75$ and standard deviation 1.
 
@@ -169,8 +169,8 @@ x|\mu &\sim N(\mu,\sigma^2) \\
 
 As a practical matter, one often does not know $\sigma^2$, the standard deviation of the normal from which the data come. In that case, you could use a more advanced conjugate family that we will describe in \@ref(sec:normal-gamma). But there are cases in which it is reasonable to treat the $\sigma^2$ as known. 
 
-\BeginKnitrBlock{example}
-<span class="example" id="exm:chemist"><strong>(\#exm:chemist) </strong></span>An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.
+::: {.example #chemist}
+An analytical chemist whose balance produces measurements that are normally distributed with mean equal to the true mass of the sample and standard deviation that has been estimated by the manufacturer balance and confirmed against calibration standards provided by the National Institute of Standards and Technology.
 
 Note that this normal-normal assumption made by the anayltical chemist is technically wrong, but still reasonable.
 
@@ -178,7 +178,7 @@ Note that this normal-normal assumption made by the anayltical chemist is techni
 
 2. Even if the chemist has repeatedly calibrated her balance with standards from the National Institute of Standards and Technology, she still will not know its standard deviation precisely. However, if she has done it often and well, it is probably a sufficiently good approximation to assume that the standard deviation is known.
 
-\EndKnitrBlock{example}
+:::
 
 For the normal-normal conjugate families, assume the prior on the unknown mean follows a normal distribution, i.e. $\mu \sim N(\nu, \tau^2)$. We also assume that the data $x_1,x_2,\cdots,x_n$ are independent and come from a normal with variance $\sigma^2$.
 
