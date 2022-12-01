@@ -186,7 +186,7 @@ In the last section, we used $P(\text{Person tested has HIV}) = 0.00148$, see \@
   &= \frac{0.12 \cdot 0.93}{
   \begin{split}
   &P(\text{Person tested has HIV}) P(\text{Second ELISA is positive} \mid \text{Has HIV}) \\
-  &+ P(\text{Person tested has no HIV}) P(\text{Second ELISA is positive} \mid \text{Has no HIV})
+  &+ P(\text{Person tested has no HIV}) P(\text{Second ELISA is negative} \mid \text{Has no HIV})
   \end{split}
   } \\
   &= \frac{0.1116}{0.12 \cdot 0.93 + (1 - 0.12)\cdot (1 - 0.99)} \approx 0.93.
